@@ -67,9 +67,10 @@ Replace values file-by-file, component-by-component:
 - White text on colored bg to `var(--text-on-accent)`
 - Background whites to `var(--bg-surface)` or `var(--bg-page)`
 - Subtle grays to `var(--bg-subtle)` or `var(--bg-muted)`
-- Blue/primary to `var(--accent-blue)` family
-- Red/error/danger to `var(--accent-red)` family
-- Yellow/warning to `var(--accent-yellow)` family
+- Pink/primary to `var(--accent-primary)` family
+- Red/error/danger to `var(--accent-danger)` family
+- Gold/warning to `var(--accent-gold)` family
+- Cyan to `var(--accent-cyan)` family
 - Green/success to `var(--accent-green)` family
 
 **Spacing to Scale:**

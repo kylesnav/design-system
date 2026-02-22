@@ -80,9 +80,10 @@ When suggesting fixes, use these mappings:
 - Near-black text → `var(--text-primary)`
 - Gray text → `var(--text-secondary)` or `var(--text-muted)`
 - White text on colored bg → `var(--text-on-accent)`
-- Blue actions → `var(--accent-blue)`
-- Red/danger → `var(--accent-red)`
-- Yellow/warning → `var(--accent-yellow)`
+- Pink/primary actions → `var(--accent-primary)`
+- Red/danger → `var(--accent-danger)`
+- Gold/warning → `var(--accent-gold)`
+- Cyan → `var(--accent-cyan)`
 - Green/success → `var(--accent-green)`
 - Background → `var(--bg-page)`, `var(--bg-surface)`, `var(--bg-subtle)`, `var(--bg-muted)`
 

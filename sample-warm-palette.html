@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Delightful — Warm Palette Sample</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"
+    rel="stylesheet" />
+
+  <style>
+    /* ==========================================================================
+       WARM PALETTE — Primitives
+       Inspired by the cream / hot-pink / gold code-editor theme
+       ========================================================================== */
+    :root {
+      /* Warm neutrals */
+      --primitive-neutral-0: oklch(1.00 0.000 0);
+      --primitive-neutral-50: oklch(0.980 0.008 70);
+      --primitive-neutral-100: oklch(0.960 0.010 70);
+      --primitive-neutral-200: oklch(0.920 0.012 70);
+      --primitive-neutral-300: oklch(0.860 0.014 70);
+      --primitive-neutral-400: oklch(0.750 0.014 70);
+      --primitive-neutral-500: oklch(0.600 0.012 70);
+      --primitive-neutral-600: oklch(0.480 0.010 70);
+      --primitive-neutral-700: oklch(0.350 0.010 70);
+      --primitive-neutral-800: oklch(0.250 0.012 60);
+      --primitive-neutral-900: oklch(0.180 0.012 60);
+
+      /* Hot pink / fuchsia */
+      --primitive-pink-100: oklch(0.920 0.060 350);
+      --primitive-pink-200: oklch(0.840 0.140 350);
+      --primitive-pink-300: oklch(0.720 0.220 350);
+      --primitive-pink-400: oklch(0.640 0.270 350);
+      --primitive-pink-500: oklch(0.560 0.280 350);
+
+      /* Warm gold / yellow */
+      --primitive-gold-100: oklch(0.960 0.050 85);
+      --primitive-gold-200: oklch(0.920 0.110 85);
+      --primitive-gold-300: oklch(0.870 0.160 85);
+      --primitive-gold-400: oklch(0.830 0.180 80);
+      --primitive-gold-500: oklch(0.780 0.180 78);
+
+      /* Soft teal (complementary) */
+      --primitive-teal-100: oklch(0.930 0.040 180);
+      --primitive-teal-200: oklch(0.850 0.090 180);
+      --primitive-teal-300: oklch(0.740 0.130 175);
+      --primitive-teal-400: oklch(0.650 0.150 175);
+      --primitive-teal-500: oklch(0.570 0.140 175);
+
+      /* Warm red (danger) */
+      --primitive-red-100: oklch(0.930 0.050 20);
+      --primitive-red-200: oklch(0.850 0.110 20);
+      --primitive-red-300: oklch(0.720 0.180 20);
+      --primitive-red-400: oklch(0.620 0.220 20);
+      --primitive-red-500: oklch(0.540 0.230 20);
+    }
+
+    /* ==========================================================================
+       SEMANTIC TOKENS — Light Mode
+       ========================================================================== */
+    :root {
+      --bg-page: oklch(0.982 0.008 70);
+      --bg-surface: oklch(0.995 0.004 70);
+      --bg-elevated: oklch(1.00 0.00 0);
+      --bg-subtle: oklch(0.965 0.012 70);
+      --bg-muted: oklch(0.948 0.014 70);
+
+      --text-primary: oklch(0.200 0.015 60);
+      --text-secondary: oklch(0.420 0.015 60);
+      --text-muted: oklch(0.560 0.012 60);
+      --text-on-accent: oklch(1.00 0.000 0);
+      --text-on-gold: oklch(0.220 0.020 70);
+
+      --border-default: var(--text-primary);
+      --border-strong: var(--text-primary);
+      --border-subtle: oklch(0.820 0.015 70);
+
+      /* Primary = Hot Pink */
+      --accent-primary: oklch(0.640 0.270 350);
+      --accent-primary-hover: oklch(0.580 0.280 350);
+      --accent-primary-subtle: oklch(0.955 0.040 350);
+      --accent-primary-text: oklch(0.560 0.270 350);
+
+      /* Secondary = Warm Gold */
+      --accent-gold: oklch(0.830 0.180 80);
+      --accent-gold-hover: oklch(0.790 0.175 78);
+      --accent-gold-subtle: oklch(0.965 0.060 85);
+      --accent-gold-text: oklch(0.440 0.130 80);
+
+      /* Tertiary = Teal */
+      --accent-teal: oklch(0.650 0.150 175);
+      --accent-teal-hover: oklch(0.600 0.145 175);
+      --accent-teal-subtle: oklch(0.945 0.040 180);
+      --accent-teal-text: oklch(0.520 0.140 175);
+
+      /* Danger = Warm Red */
+      --accent-danger: oklch(0.620 0.220 20);
+      --accent-danger-hover: oklch(0.570 0.230 20);
+      --accent-danger-subtle: oklch(0.950 0.040 20);
+      --accent-danger-text: oklch(0.550 0.220 20);
+
+      --focus-ring: var(--accent-primary);
+      --overlay-bg: oklch(0.200 0.015 60 / 0.30);
+
+      /* Neo-Brutalist Solid Shadows */
+      --shadow-sm: 2px 2px 0 var(--text-primary);
+      --shadow-md: 4px 4px 0 var(--text-primary);
+      --shadow-lg: 8px 8px 0 var(--text-primary);
+      --shadow-pink: 4px 4px 0 var(--accent-primary);
+      --shadow-gold: 4px 4px 0 var(--accent-gold);
+      --shadow-teal: 4px 4px 0 var(--accent-teal);
+
+      /* Typography */
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Code', monospace;
+
+      --step--2: clamp(0.694rem, 0.650rem + 0.22vi, 0.8rem);
+      --step--1: clamp(0.833rem, 0.775rem + 0.29vi, 1rem);
+      --step-0: clamp(1rem, 0.913rem + 0.43vi, 1.25rem);
+      --step-1: clamp(1.2rem, 1.074rem + 0.63vi, 1.5625rem);
+      --step-2: clamp(1.44rem, 1.261rem + 0.89vi, 1.953rem);
+      --step-3: clamp(1.728rem, 1.480rem + 1.24vi, 2.441rem);
+      --step-4: clamp(2.074rem, 1.734rem + 1.70vi, 3.052rem);
+      --step-5: clamp(2.488rem, 2.028rem + 2.30vi, 3.815rem);
+
+      --tracking-tight: -0.02em;
+      --tracking-tighter: -0.03em;
+
+      --leading-tight: 1.15;
+      --leading-snug: 1.3;
+      --leading-normal: 1.55;
+
+      --space-1: 4px;
+      --space-2: 8px;
+      --space-3: 12px;
+      --space-4: 16px;
+      --space-5: 20px;
+      --space-6: 24px;
+      --space-8: 32px;
+      --space-10: 40px;
+      --space-12: 48px;
+      --space-16: 64px;
+
+      --radius-sm: 10px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --radius-xl: 32px;
+      --radius-full: 9999px;
+
+      --motion-fast: 160ms;
+      --motion-base: 240ms;
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    /* ==========================================================================
+       RESET & BASE
+       ========================================================================== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      font-size: var(--step-0);
+      line-height: var(--leading-normal);
+      color: var(--text-primary);
+      background: var(--bg-page);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--focus-ring);
+      outline-offset: 2px;
+    }
+
+    /* ==========================================================================
+       ANIMATIONS
+       ========================================================================== */
+    @media (prefers-reduced-motion: no-preference) {
+      @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(16px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes float {
+        0%, 100% { transform: translate(0, 0); }
+        25% { transform: translate(5px, -8px); }
+        50% { transform: translate(-3px, -12px); }
+        75% { transform: translate(7px, -5px); }
+      }
+    }
+
+    /* ==========================================================================
+       LAYOUT
+       ========================================================================== */
+    .page-wrapper {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: var(--space-8) var(--space-6);
+    }
+
+    /* ==========================================================================
+       HEADER / HERO
+       ========================================================================== */
+    .hero {
+      text-align: center;
+      padding: var(--space-16) 0 var(--space-12);
+      position: relative;
+    }
+
+    .hero h1 {
+      font-size: var(--step-5);
+      font-weight: 800;
+      letter-spacing: var(--tracking-tighter);
+      line-height: var(--leading-tight);
+      margin-bottom: var(--space-4);
+    }
+
+    .hero h1 .pink { color: var(--accent-primary); }
+    .hero h1 .gold { color: var(--accent-gold-text); }
+
+    .hero p {
+      font-size: var(--step-1);
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .hero-shapes {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .hero-shapes span {
+      position: absolute;
+      border: 2px solid var(--border-default);
+      border-radius: var(--radius-sm);
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .hero-shapes .shape-1 {
+      width: 48px; height: 48px;
+      background: var(--accent-primary-subtle);
+      top: 15%; left: 8%;
+      animation-delay: 0s;
+    }
+
+    .hero-shapes .shape-2 {
+      width: 32px; height: 32px;
+      background: var(--accent-gold-subtle);
+      top: 25%; right: 12%;
+      animation-delay: -2s;
+      border-radius: var(--radius-full);
+    }
+
+    .hero-shapes .shape-3 {
+      width: 56px; height: 24px;
+      background: var(--accent-teal-subtle);
+      bottom: 30%; left: 5%;
+      animation-delay: -4s;
+    }
+
+    .hero-shapes .shape-4 {
+      width: 40px; height: 40px;
+      background: var(--accent-gold);
+      bottom: 20%; right: 8%;
+      animation-delay: -1s;
+      border-radius: var(--radius-full);
+      opacity: 0.6;
+    }
+
+    /* ==========================================================================
+       COLOR SWATCHES
+       ========================================================================== */
+    .section { margin-bottom: var(--space-16); }
+
+    .section-title {
+      font-size: var(--step-3);
+      font-weight: 800;
+      letter-spacing: var(--tracking-tight);
+      margin-bottom: var(--space-6);
+    }
+
+    .section-subtitle {
+      font-size: var(--step-0);
+      color: var(--text-secondary);
+      margin-bottom: var(--space-8);
+    }
+
+    .swatches {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: var(--space-4);
+    }
+
+    .swatch {
+      border: 2px solid var(--border-default);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: transform var(--motion-fast) var(--ease-out),
+                  box-shadow var(--motion-fast) var(--ease-out);
+    }
+
+    .swatch:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .swatch-color {
+      height: 80px;
+    }
+
+    .swatch-label {
+      padding: var(--space-3);
+      background: var(--bg-surface);
+      font-family: var(--font-mono);
+      font-size: var(--step--2);
+    }
+
+    .swatch-label .name {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .swatch-label .value {
+      color: var(--text-muted);
+      font-size: 0.75em;
+    }
+
+    /* ==========================================================================
+       BUTTONS
+       ========================================================================== */
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-4);
+      margin-bottom: var(--space-6);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-family: var(--font-sans);
+      font-size: var(--step--1);
+      font-weight: 700;
+      padding: var(--space-3) var(--space-6);
+      border: 2px solid var(--border-default);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: transform var(--motion-fast) var(--ease-out),
+                  box-shadow var(--motion-fast) var(--ease-out);
+      box-shadow: var(--shadow-md);
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .btn:active {
+      transform: translate(2px, 2px);
+      box-shadow: none;
+    }
+
+    .btn-primary {
+      background: var(--accent-primary);
+      color: var(--text-on-accent);
+    }
+
+    .btn-primary:hover { background: var(--accent-primary-hover); }
+
+    .btn-gold {
+      background: var(--accent-gold);
+      color: var(--text-on-gold);
+    }
+
+    .btn-gold:hover { background: var(--accent-gold-hover); }
+
+    .btn-teal {
+      background: var(--accent-teal);
+      color: var(--text-on-accent);
+    }
+
+    .btn-teal:hover { background: var(--accent-teal-hover); }
+
+    .btn-outline {
+      background: var(--bg-surface);
+      color: var(--text-primary);
+    }
+
+    .btn-outline:hover { background: var(--bg-subtle); }
+
+    .btn-danger {
+      background: var(--accent-danger);
+      color: var(--text-on-accent);
+      box-shadow: 4px 4px 0 var(--accent-danger);
+      border-color: var(--accent-danger);
+    }
+
+    .btn-danger:hover { background: var(--accent-danger-hover); }
+
+    /* ==========================================================================
+       CARDS
+       ========================================================================== */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: var(--space-6);
+    }
+
+    .card {
+      background: var(--bg-surface);
+      border: 2px solid var(--border-default);
+      border-radius: var(--radius-md);
+      padding: var(--space-6);
+      box-shadow: var(--shadow-md);
+      transition: transform var(--motion-fast) var(--ease-out),
+                  box-shadow var(--motion-fast) var(--ease-out);
+    }
+
+    .card:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .card-accent-pink { box-shadow: var(--shadow-pink); }
+    .card-accent-pink:hover { box-shadow: 6px 6px 0 var(--accent-primary); }
+
+    .card-accent-gold { box-shadow: var(--shadow-gold); }
+    .card-accent-gold:hover { box-shadow: 6px 6px 0 var(--accent-gold); }
+
+    .card-accent-teal { box-shadow: var(--shadow-teal); }
+    .card-accent-teal:hover { box-shadow: 6px 6px 0 var(--accent-teal); }
+
+    .card h3 {
+      font-size: var(--step-1);
+      font-weight: 700;
+      margin-bottom: var(--space-2);
+    }
+
+    .card p {
+      color: var(--text-secondary);
+      font-size: var(--step--1);
+      margin-bottom: var(--space-4);
+    }
+
+    /* ==========================================================================
+       BADGES
+       ========================================================================== */
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+      margin-bottom: var(--space-6);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: var(--step--2);
+      font-weight: 600;
+      padding: var(--space-1) var(--space-3);
+      border: 2px solid var(--border-default);
+      border-radius: var(--radius-full);
+    }
+
+    .badge-pink {
+      background: var(--accent-primary-subtle);
+      color: var(--accent-primary-text);
+    }
+
+    .badge-gold {
+      background: var(--accent-gold-subtle);
+      color: var(--accent-gold-text);
+    }
+
+    .badge-teal {
+      background: var(--accent-teal-subtle);
+      color: var(--accent-teal-text);
+    }
+
+    .badge-solid-pink {
+      background: var(--accent-primary);
+      color: var(--text-on-accent);
+    }
+
+    .badge-solid-gold {
+      background: var(--accent-gold);
+      color: var(--text-on-gold);
+    }
+
+    /* ==========================================================================
+       CODE BLOCK (themed like the image)
+       ========================================================================== */
+    .code-block {
+      background: var(--bg-surface);
+      border: 2px solid var(--border-default);
+      border-radius: var(--radius-md);
+      padding: var(--space-6);
+      box-shadow: var(--shadow-md);
+      font-family: var(--font-mono);
+      font-size: var(--step--1);
+      line-height: 1.7;
+      overflow-x: auto;
+      white-space: pre;
+    }
+
+    .code-block .keyword { color: var(--accent-primary); font-weight: 600; }
+    .code-block .string { color: var(--accent-gold-text); }
+    .code-block .string-val { color: oklch(0.680 0.160 80); }
+    .code-block .comment { color: var(--text-muted); font-style: italic; }
+    .code-block .fn-name { color: var(--accent-teal-text); }
+    .code-block .punctuation { color: var(--text-secondary); }
+
+    /* ==========================================================================
+       INPUT / FORM
+       ========================================================================== */
+    .input-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-4);
+      align-items: flex-end;
+      margin-bottom: var(--space-6);
+    }
+
+    .input-field {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+
+    .input-field label {
+      font-weight: 700;
+      font-size: var(--step--1);
+    }
+
+    .input-field input,
+    .input-field select {
+      font-family: var(--font-sans);
+      font-size: var(--step--1);
+      padding: var(--space-3) var(--space-4);
+      border: 2px solid var(--border-default);
+      border-radius: var(--radius-sm);
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      box-shadow: var(--shadow-sm);
+      outline: none;
+      min-width: 220px;
+      transition: box-shadow var(--motion-fast) var(--ease-out);
+    }
+
+    .input-field input:focus,
+    .input-field select:focus {
+      box-shadow: var(--shadow-pink);
+      border-color: var(--accent-primary);
+    }
+
+    .input-field input::placeholder {
+      color: var(--text-muted);
+    }
+
+    /* ==========================================================================
+       TOGGLE
+       ========================================================================== */
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      margin-bottom: var(--space-6);
+    }
+
+    .toggle {
+      position: relative;
+      width: 52px;
+      height: 28px;
+      border: 2px solid var(--border-default);
+      border-radius: var(--radius-full);
+      background: var(--primitive-neutral-300);
+      cursor: pointer;
+      transition: background var(--motion-fast) var(--ease-out);
+    }
+
+    .toggle::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 20px;
+      height: 20px;
+      background: var(--primitive-neutral-0);
+      border: 2px solid var(--border-default);
+      border-radius: var(--radius-full);
+      transition: transform var(--motion-fast) var(--ease-bounce);
+    }
+
+    .toggle.active {
+      background: var(--accent-primary);
+    }
+
+    .toggle.active::after {
+      transform: translateX(24px);
+    }
+
+    .toggle-label {
+      font-weight: 600;
+      font-size: var(--step--1);
+    }
+
+    /* ==========================================================================
+       ALERT / TOAST
+       ========================================================================== */
+    .alert {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-4);
+      padding: var(--space-4) var(--space-5);
+      border: 2px solid var(--border-default);
+      border-radius: var(--radius-md);
+      margin-bottom: var(--space-4);
+      font-size: var(--step--1);
+    }
+
+    .alert-icon {
+      font-size: var(--step-1);
+      flex-shrink: 0;
+    }
+
+    .alert-pink {
+      background: var(--accent-primary-subtle);
+      box-shadow: var(--shadow-pink);
+    }
+
+    .alert-gold {
+      background: var(--accent-gold-subtle);
+      box-shadow: var(--shadow-gold);
+    }
+
+    .alert-teal {
+      background: var(--accent-teal-subtle);
+      box-shadow: var(--shadow-teal);
+    }
+
+    .alert-danger {
+      background: var(--accent-danger-subtle);
+      box-shadow: 4px 4px 0 var(--accent-danger);
+    }
+
+    .alert strong { font-weight: 700; }
+
+    /* ==========================================================================
+       TABLE
+       ========================================================================== */
+    .table-wrapper {
+      border: 2px solid var(--border-default);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: var(--step--1);
+    }
+
+    th {
+      text-align: left;
+      font-weight: 700;
+      padding: var(--space-3) var(--space-4);
+      background: var(--accent-primary);
+      color: var(--text-on-accent);
+      border-bottom: 2px solid var(--border-default);
+    }
+
+    td {
+      padding: var(--space-3) var(--space-4);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    tr:last-child td { border-bottom: none; }
+
+    tr:nth-child(even) { background: var(--bg-subtle); }
+
+    /* ==========================================================================
+       PROGRESS BAR
+       ========================================================================== */
+    .progress-group {
+      margin-bottom: var(--space-6);
+    }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: var(--step--1);
+      font-weight: 600;
+      margin-bottom: var(--space-2);
+    }
+
+    .progress-track {
+      height: 16px;
+      background: var(--bg-muted);
+      border: 2px solid var(--border-default);
+      border-radius: var(--radius-full);
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      border-radius: var(--radius-full);
+      transition: width var(--motion-base) var(--ease-out);
+    }
+
+    .progress-fill-pink { background: var(--accent-primary); }
+    .progress-fill-gold { background: var(--accent-gold); }
+    .progress-fill-teal { background: var(--accent-teal); }
+
+    /* ==========================================================================
+       DIVIDER
+       ========================================================================== */
+    .divider {
+      border: none;
+      border-top: 2px dashed var(--border-subtle);
+      margin: var(--space-12) 0;
+    }
+
+    /* ==========================================================================
+       ANIMATION ENTRANCE
+       ========================================================================== */
+    @media (prefers-reduced-motion: no-preference) {
+      .fade-in {
+        animation: fadeInUp 0.5s var(--ease-out) both;
+      }
+
+      .fade-in:nth-child(2) { animation-delay: 0.08s; }
+      .fade-in:nth-child(3) { animation-delay: 0.16s; }
+      .fade-in:nth-child(4) { animation-delay: 0.24s; }
+      .fade-in:nth-child(5) { animation-delay: 0.32s; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page-wrapper">
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-shapes">
+        <span class="shape-1"></span>
+        <span class="shape-2"></span>
+        <span class="shape-3"></span>
+        <span class="shape-4"></span>
+      </div>
+      <h1>
+        <span class="pink">Delightful</span> in<br/>
+        <span class="gold">Warm</span> Tones
+      </h1>
+      <p>Neo-brutalist design system reimagined with a cream, hot-pink, and gold palette.</p>
+    </section>
+
+    <hr class="divider" />
+
+    <!-- COLOR PALETTE -->
+    <section class="section fade-in">
+      <h2 class="section-title">Color Palette</h2>
+      <p class="section-subtitle">Warm primitives extracted from the code-editor theme.</p>
+      <div class="swatches">
+        <div class="swatch">
+          <div class="swatch-color" style="background: var(--primitive-pink-100)"></div>
+          <div class="swatch-label"><span class="name">Pink 100</span><span class="value">oklch(0.920 0.060 350)</span></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background: var(--primitive-pink-200)"></div>
+          <div class="swatch-label"><span class="name">Pink 200</span><span class="value">oklch(0.840 0.140 350)</span></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background: var(--primitive-pink-300)"></div>
+          <div class="swatch-label"><span class="name">Pink 300</span><span class="value">oklch(0.720 0.220 350)</span></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background: var(--primitive-pink-400)"></div>
+          <div class="swatch-label"><span class="name">Pink 400</span><span class="value">oklch(0.640 0.270 350)</span></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background: var(--primitive-pink-500)"></div>
+          <div class="swatch-label"><span class="name">Pink 500</span><span class="value">oklch(0.560 0.280 350)</span></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background: var(--primitive-gold-100)"></div>
+          <div class="swatch-label"><span class="name">Gold 100</span><span class="value">oklch(0.960 0.050 85)</span></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background: var(--primitive-gold-200)"></div>
+          <div class="swatch-label"><span class="name">Gold 200</span><span class="value">oklch(0.920 0.110 85)</span></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background: var(--primitive-gold-300)"></div>
+          <div class="swatch-label"><span class="name">Gold 300</span><span class="value">oklch(0.870 0.160 85)</span></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background: var(--primitive-gold-400)"></div>
+          <div class="swatch-label"><span class="name">Gold 400</span><span class="value">oklch(0.830 0.180 80)</span></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background: var(--primitive-gold-500)"></div>
+          <div class="swatch-label"><span class="name">Gold 500</span><span class="value">oklch(0.780 0.180 78)</span></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background: var(--primitive-teal-100)"></div>
+          <div class="swatch-label"><span class="name">Teal 100</span><span class="value">oklch(0.930 0.040 180)</span></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background: var(--primitive-teal-300)"></div>
+          <div class="swatch-label"><span class="name">Teal 300</span><span class="value">oklch(0.740 0.130 175)</span></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background: var(--primitive-teal-500)"></div>
+          <div class="swatch-label"><span class="name">Teal 500</span><span class="value">oklch(0.570 0.140 175)</span></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background: var(--bg-page)"></div>
+          <div class="swatch-label"><span class="name">Page BG</span><span class="value">oklch(0.982 0.008 70)</span></div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background: var(--text-primary)"></div>
+          <div class="swatch-label"><span class="name">Text</span><span class="value">oklch(0.200 0.015 60)</span></div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="divider" />
+
+    <!-- BUTTONS -->
+    <section class="section fade-in">
+      <h2 class="section-title">Buttons</h2>
+      <p class="section-subtitle">Solid shadows, 2px borders, bold weights. Hover lifts, click sinks.</p>
+
+      <div class="btn-row">
+        <button class="btn btn-primary">Hot Pink</button>
+        <button class="btn btn-gold">Warm Gold</button>
+        <button class="btn btn-teal">Soft Teal</button>
+        <button class="btn btn-outline">Outline</button>
+        <button class="btn btn-danger">Danger</button>
+      </div>
+    </section>
+
+    <hr class="divider" />
+
+    <!-- BADGES -->
+    <section class="section fade-in">
+      <h2 class="section-title">Badges</h2>
+      <div class="badge-row">
+        <span class="badge badge-pink">Design</span>
+        <span class="badge badge-gold">In Progress</span>
+        <span class="badge badge-teal">Shipped</span>
+        <span class="badge badge-solid-pink">v2.0</span>
+        <span class="badge badge-solid-gold">New</span>
+      </div>
+    </section>
+
+    <hr class="divider" />
+
+    <!-- CARDS -->
+    <section class="section fade-in">
+      <h2 class="section-title">Cards</h2>
+      <p class="section-subtitle">Each card shadow matches its accent color.</p>
+
+      <div class="card-grid">
+        <div class="card card-accent-pink">
+          <h3>Typography</h3>
+          <p>Inter for UI text, JetBrains Mono for code. Fluid type scale with clamp().</p>
+          <button class="btn btn-primary" style="font-size: var(--step--2)">Explore</button>
+        </div>
+        <div class="card card-accent-gold">
+          <h3>Token System</h3>
+          <p>Three-tier architecture: primitives, semantic, component. All values in OKLCH.</p>
+          <button class="btn btn-gold" style="font-size: var(--step--2)">Browse Tokens</button>
+        </div>
+        <div class="card card-accent-teal">
+          <h3>Components</h3>
+          <p>Buttons, inputs, cards, badges, alerts, toggles, tables, and more.</p>
+          <button class="btn btn-teal" style="font-size: var(--step--2)">View All</button>
+        </div>
+      </div>
+    </section>
+
+    <hr class="divider" />
+
+    <!-- CODE BLOCK -->
+    <section class="section fade-in">
+      <h2 class="section-title">Code Block</h2>
+      <p class="section-subtitle">Themed to match the warm code-editor palette from the reference image.</p>
+
+      <div class="code-block"><span class="keyword">function</span> <span class="fn-name">greet</span><span class="punctuation">(</span>name<span class="punctuation">)</span> <span class="punctuation">{</span>
+  <span class="keyword">const</span> message <span class="punctuation">=</span> <span class="string-val">`Hello, </span><span class="punctuation">${</span>name<span class="punctuation">}</span><span class="string-val">!`</span><span class="punctuation">;</span>
+
+  console<span class="punctuation">.</span>log<span class="punctuation">(</span>message<span class="punctuation">);</span>
+
+  <span class="keyword">return</span> message<span class="punctuation">;</span>
+<span class="punctuation">}</span>
+
+<span class="comment">// Warm palette — cream, hot pink, and gold</span>
+<span class="keyword">const</span> palette <span class="punctuation">=</span> <span class="punctuation">{</span>
+  background<span class="punctuation">:</span> <span class="string-val">"oklch(0.982 0.008 70)"</span><span class="punctuation">,</span>
+  keyword<span class="punctuation">:</span>    <span class="string-val">"oklch(0.640 0.270 350)"</span><span class="punctuation">,</span>  <span class="comment">// hot pink</span>
+  string<span class="punctuation">:</span>     <span class="string-val">"oklch(0.680 0.160 80)"</span><span class="punctuation">,</span>   <span class="comment">// warm gold</span>
+  text<span class="punctuation">:</span>       <span class="string-val">"oklch(0.200 0.015 60)"</span><span class="punctuation">,</span>   <span class="comment">// charcoal</span>
+<span class="punctuation">}</span><span class="punctuation">;</span></div>
+    </section>
+
+    <hr class="divider" />
+
+    <!-- FORM / INPUTS -->
+    <section class="section fade-in">
+      <h2 class="section-title">Form Controls</h2>
+
+      <div class="input-group">
+        <div class="input-field">
+          <label>Name</label>
+          <input type="text" placeholder="Enter your name" />
+        </div>
+        <div class="input-field">
+          <label>Email</label>
+          <input type="email" placeholder="hello@example.com" />
+        </div>
+        <div class="input-field">
+          <label>Theme</label>
+          <select>
+            <option>Warm Palette</option>
+            <option>Cool Palette</option>
+            <option>Neutral</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="toggle-row">
+        <div class="toggle active" onclick="this.classList.toggle('active')"></div>
+        <span class="toggle-label">Enable warm mode</span>
+      </div>
+      <div class="toggle-row">
+        <div class="toggle" onclick="this.classList.toggle('active')"></div>
+        <span class="toggle-label">Reduced motion</span>
+      </div>
+    </section>
+
+    <hr class="divider" />
+
+    <!-- ALERTS -->
+    <section class="section fade-in">
+      <h2 class="section-title">Alerts</h2>
+
+      <div class="alert alert-pink">
+        <span class="alert-icon">&#9825;</span>
+        <div><strong>Design update:</strong> The warm palette has been applied across all components.</div>
+      </div>
+      <div class="alert alert-gold">
+        <span class="alert-icon">&#9733;</span>
+        <div><strong>Heads up:</strong> Gold accents work best on the cream background.</div>
+      </div>
+      <div class="alert alert-teal">
+        <span class="alert-icon">&#10003;</span>
+        <div><strong>All clear:</strong> Teal is used sparingly as a complementary accent.</div>
+      </div>
+      <div class="alert alert-danger">
+        <span class="alert-icon">&#9888;</span>
+        <div><strong>Caution:</strong> Danger states use warm red to stay in the palette family.</div>
+      </div>
+    </section>
+
+    <hr class="divider" />
+
+    <!-- PROGRESS BARS -->
+    <section class="section fade-in">
+      <h2 class="section-title">Progress</h2>
+
+      <div class="progress-group">
+        <div class="progress-label"><span>Design Tokens</span><span>85%</span></div>
+        <div class="progress-track">
+          <div class="progress-fill progress-fill-pink" style="width: 85%"></div>
+        </div>
+      </div>
+      <div class="progress-group">
+        <div class="progress-label"><span>Component Library</span><span>62%</span></div>
+        <div class="progress-track">
+          <div class="progress-fill progress-fill-gold" style="width: 62%"></div>
+        </div>
+      </div>
+      <div class="progress-group">
+        <div class="progress-label"><span>Documentation</span><span>40%</span></div>
+        <div class="progress-track">
+          <div class="progress-fill progress-fill-teal" style="width: 40%"></div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="divider" />
+
+    <!-- TABLE -->
+    <section class="section fade-in">
+      <h2 class="section-title">Token Reference</h2>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Token</th>
+              <th>Role</th>
+              <th>OKLCH Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code style="font-family: var(--font-mono)">--accent-primary</code></td>
+              <td>Primary actions, keywords</td>
+              <td>oklch(0.640 0.270 350)</td>
+            </tr>
+            <tr>
+              <td><code style="font-family: var(--font-mono)">--accent-gold</code></td>
+              <td>Highlights, strings</td>
+              <td>oklch(0.830 0.180 80)</td>
+            </tr>
+            <tr>
+              <td><code style="font-family: var(--font-mono)">--accent-teal</code></td>
+              <td>Success, functions</td>
+              <td>oklch(0.650 0.150 175)</td>
+            </tr>
+            <tr>
+              <td><code style="font-family: var(--font-mono)">--bg-page</code></td>
+              <td>Page background (cream)</td>
+              <td>oklch(0.982 0.008 70)</td>
+            </tr>
+            <tr>
+              <td><code style="font-family: var(--font-mono)">--text-primary</code></td>
+              <td>Body text (warm charcoal)</td>
+              <td>oklch(0.200 0.015 60)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <hr class="divider" />
+
+    <footer style="text-align: center; padding: var(--space-8) 0; color: var(--text-muted); font-size: var(--step--1);">
+      Delightful Design System &middot; Warm Palette Sample &middot; All colors in OKLCH
+    </footer>
+
+  </div>
+</body>
+
+</html>
