@@ -58,8 +58,8 @@ Raw oklch values. Named by scale, no semantic meaning. **Never use directly in c
 | `--primitive-gold-100` | `oklch(0.960 0.050 85)` |
 | `--primitive-gold-200` | `oklch(0.920 0.110 85)` |
 | `--primitive-gold-300` | `oklch(0.870 0.160 85)` |
-| `--primitive-gold-400` | `oklch(0.830 0.180 80)` |
-| `--primitive-gold-500` | `oklch(0.780 0.180 78)` |
+| `--primitive-gold-400` | `oklch(0.840 0.175 85)` |
+| `--primitive-gold-500` | `oklch(0.820 0.165 84)` |
 
 ### Cyan
 | Token | Value |
@@ -115,7 +115,7 @@ Raw oklch values. Named by scale, no semantic meaning. **Never use directly in c
 |---|---|---|---|---|
 | Pink | `oklch(0.640 0.270 350)` | `oklch(0.580 0.280 350)` | `oklch(0.955 0.040 350)` | `oklch(0.560 0.270 350)` |
 | Danger | `oklch(0.620 0.220 20)` | `oklch(0.570 0.230 20)` | `oklch(0.950 0.040 20)` | `oklch(0.550 0.220 20)` |
-| Gold | `oklch(0.830 0.180 80)` | `oklch(0.790 0.175 78)` | `oklch(0.965 0.060 85)` | `oklch(0.440 0.130 80)` |
+| Gold | `oklch(0.840 0.175 85)` | `oklch(0.820 0.165 84)` | `oklch(0.965 0.060 85)` | `oklch(0.440 0.130 85)` |
 | Cyan | `oklch(0.650 0.148 210)` | `oklch(0.600 0.150 210)` | `oklch(0.945 0.030 210)` | `oklch(0.520 0.148 210)` |
 | Green | `oklch(0.630 0.170 148)` | `oklch(0.580 0.165 148)` | `oklch(0.945 0.035 148)` | `oklch(0.480 0.165 148)` |
 
@@ -171,7 +171,7 @@ Raw oklch values. Named by scale, no semantic meaning. **Never use directly in c
 |---|---|---|---|---|
 | Pink | `oklch(0.700 0.230 350)` | `oklch(0.740 0.220 350)` | `oklch(0.250 0.065 350)` | `oklch(0.750 0.210 350)` |
 | Danger | `oklch(0.660 0.200 20)` | `oklch(0.700 0.190 20)` | `oklch(0.250 0.055 20)` | `oklch(0.720 0.180 20)` |
-| Gold | `oklch(0.820 0.170 80)` | `oklch(0.860 0.160 78)` | `oklch(0.260 0.065 80)` | `oklch(0.860 0.160 80)` |
+| Gold | `oklch(0.840 0.170 85)` | `oklch(0.870 0.155 84)` | `oklch(0.260 0.065 85)` | `oklch(0.870 0.155 85)` |
 | Cyan | `oklch(0.720 0.140 210)` | `oklch(0.760 0.130 210)` | `oklch(0.250 0.045 210)` | `oklch(0.780 0.130 210)` |
 | Green | `oklch(0.680 0.155 148)` | `oklch(0.720 0.145 148)` | `oklch(0.250 0.048 148)` | `oklch(0.740 0.145 148)` |
 

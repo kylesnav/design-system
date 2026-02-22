@@ -37,7 +37,7 @@ style = "#f600a3"
 
 [git_status]
 format = '([$all_status$ahead_behind]($style) )'
-style = "#ffb700"
+style = "#febf00"
 conflicted = "!"
 ahead = "+"
 behind = "-"
@@ -63,7 +63,7 @@ style = "#22a448"
 [python]
 format = "[$symbol($version)]($style) "
 symbol = " "
-style = "#ffb700"
+style = "#febf00"
 
 [rust]
 format = "[$symbol($version)]($style) "
