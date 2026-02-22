@@ -75,9 +75,9 @@
       --text-on-accent: oklch(1.00 0.000 0);
       --text-on-yellow: oklch(0.200 0.020 90);
 
-      --border-default: oklch(0.900 0.015 80);
-      --border-strong: oklch(0.800 0.020 80);
-      --border-subtle: oklch(0.940 0.015 80);
+      --border-default: var(--text-primary);
+      --border-strong: var(--text-primary);
+      --border-subtle: oklch(0.800 0.020 80);
 
       /* Vibrant Accents */
       --accent-blue: oklch(0.600 0.250 260);
@@ -112,13 +112,13 @@
       --focus-ring: var(--accent-blue);
       --overlay-bg: oklch(0.180 0.010 80 / 0.30);
 
-      /* Diffuse Colored Shadows */
-      --shadow-sm: 0 2px 8px oklch(0.50 0.05 260 / 0.06);
-      --shadow-md: 0 8px 24px oklch(0.50 0.05 260 / 0.08), 0 2px 8px oklch(0.50 0.05 260 / 0.04);
-      --shadow-lg: 0 16px 40px oklch(0.50 0.05 260 / 0.12), 0 4px 12px oklch(0.50 0.05 260 / 0.06);
-      --shadow-blue: 0 8px 24px oklch(0.60 0.25 260 / 0.30);
-      --shadow-red: 0 8px 24px oklch(0.60 0.26 20 / 0.30);
-      --shadow-yellow: 0 8px 24px oklch(0.85 0.20 90 / 0.40);
+      /* Neo-Brutalist Solid Shadows */
+      --shadow-sm: 2px 2px 0 var(--text-primary);
+      --shadow-md: 4px 4px 0 var(--text-primary);
+      --shadow-lg: 8px 8px 0 var(--text-primary);
+      --shadow-blue: 4px 4px 0 var(--accent-blue);
+      --shadow-red: 4px 4px 0 var(--accent-red);
+      --shadow-yellow: 4px 4px 0 var(--accent-yellow);
     }
 
     /* ==========================================================================
@@ -137,9 +137,9 @@
       --text-on-accent: oklch(1.00 0.000 0);
       --text-on-yellow: oklch(0.135 0.010 90);
 
-      --border-default: oklch(0.260 0.012 90);
-      --border-strong: oklch(0.330 0.012 90);
-      --border-subtle: oklch(0.210 0.010 90);
+      --border-default: var(--text-primary);
+      --border-strong: var(--text-primary);
+      --border-subtle: oklch(0.330 0.012 90);
 
       --accent-blue: oklch(0.670 0.200 260);
       --accent-blue-hover: oklch(0.720 0.190 260);
@@ -169,12 +169,13 @@
       --focus-ring: oklch(0.670 0.200 260);
       --overlay-bg: oklch(0 0 0 / 0.60);
 
-      --shadow-sm: 0 1px 2px oklch(0 0 0 / 0.15);
-      --shadow-md: 0 4px 12px oklch(0 0 0 / 0.25);
-      --shadow-lg: 0 8px 24px oklch(0 0 0 / 0.35);
-      --shadow-blue: 0 4px 16px oklch(0.67 0.20 260 / 0.25);
-      --shadow-red: 0 4px 16px oklch(0.62 0.21 25 / 0.25);
-      --shadow-yellow: 0 4px 16px oklch(0.81 0.16 85 / 0.25);
+      /* Neo-Brutalist Solid Shadows (Dark Mode) */
+      --shadow-sm: 2px 2px 0 oklch(0 0 0 / 0.8);
+      --shadow-md: 4px 4px 0 oklch(0 0 0 / 0.8);
+      --shadow-lg: 8px 8px 0 oklch(0 0 0 / 0.8);
+      --shadow-blue: 4px 4px 0 var(--accent-blue);
+      --shadow-red: 4px 4px 0 var(--accent-red);
+      --shadow-yellow: 4px 4px 0 var(--accent-yellow);
     }
 
     /* ==========================================================================
@@ -729,16 +730,14 @@
       gap: var(--space-4);
     }
 
-    /* Reactive Grid Dimming using :has() */
+    /* Reactive Grid Dimming using :has() — only on direct card hover */
     .grid-2:has(.card:hover) .card:not(:hover),
     .grid-3:has(.card:hover) .card:not(:hover),
-    .grid-4:has(.card:hover) .card:not(:hover),
-    .grid-2:has(.btn:hover) .card,
-    .grid-3:has(.btn:hover) .card,
-    .grid-4:has(.btn:hover) .card {
-      opacity: 0.5;
-      transform: scale(0.98);
-      filter: saturate(0.6) blur(2px);
+    .grid-4:has(.card:hover) .card:not(:hover) {
+      opacity: 0.7;
+      transform: translate(2px, 2px);
+      box-shadow: 0 0 0 var(--text-primary);
+      filter: grayscale(0.8);
     }
 
     .flex-wrap-gap {
@@ -1004,9 +1003,10 @@
     }
 
     .tile-grid:has(.tile:hover) .tile:not(:hover) {
-      opacity: 0.5;
-      transform: scale(0.98);
-      filter: saturate(0.6) blur(2px);
+      opacity: 0.7;
+      transform: translate(2px, 2px);
+      box-shadow: 0 0 0 var(--text-primary);
+      filter: grayscale(0.8);
     }
 
     @media (min-width: 769px) and (max-width: 1024px) {
@@ -1017,25 +1017,31 @@
 
     .tile {
       background: var(--bg-surface);
-      border: 1px solid var(--border-default);
+      border: 2px solid var(--text-primary);
       border-radius: var(--radius-lg);
       padding: var(--space-6);
       cursor: pointer;
       text-decoration: none;
       color: inherit;
       display: block;
-      border-top: 3px solid var(--border-default);
+      border-top: 4px solid var(--text-primary);
       position: relative;
       overflow: hidden;
-      transition: transform var(--motion-base) var(--ease-bounce), box-shadow var(--motion-fast) var(--ease-out), border-color var(--motion-fast) var(--ease-out), opacity var(--motion-base) var(--ease-out), filter var(--motion-base) var(--ease-out);
-      will-change: transform, opacity, filter;
+      box-shadow: var(--shadow-sm);
+      transition: transform var(--motion-instant) linear, box-shadow var(--motion-instant) linear, border-color var(--motion-fast) var(--ease-out), opacity var(--motion-fast) var(--ease-out), filter var(--motion-fast) var(--ease-out);
+      will-change: transform, opacity, filter, box-shadow;
     }
 
     .tile:hover {
-      transform: translateY(-6px) scale(1.02);
+      transform: translate(-4px, -4px);
       box-shadow: var(--shadow-lg);
       border-color: var(--border-strong);
       z-index: 10;
+    }
+
+    .tile:active {
+      transform: translate(2px, 2px);
+      box-shadow: 0 0 0 var(--text-primary);
     }
 
     .tile-num {
@@ -1258,22 +1264,24 @@
       justify-content: center;
       gap: 6px;
       font-family: var(--font-sans);
-      font-weight: 600;
-      border: none;
+      font-weight: 700;
+      border: 2px solid var(--text-primary);
       cursor: pointer;
       border-radius: var(--radius-md);
       white-space: nowrap;
-      transition: transform var(--motion-base) var(--ease-bounce), background var(--motion-fast) var(--ease-out), box-shadow var(--motion-fast) var(--ease-out);
+      transition: transform var(--motion-instant) linear, background var(--motion-fast) var(--ease-out), box-shadow var(--motion-instant) linear;
       will-change: transform;
+      box-shadow: var(--shadow-sm);
     }
 
     .btn:hover {
-      transform: scale(1.03) translateY(-2px);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
     }
 
     .btn:active {
-      transform: scale(0.95);
-      transition-duration: var(--motion-instant);
+      transform: translate(2px, 2px);
+      box-shadow: 0 0 0 var(--text-primary);
     }
 
     .btn:disabled {
@@ -1281,7 +1289,7 @@
       cursor: not-allowed;
       pointer-events: none;
       transform: none !important;
-      box-shadow: none !important;
+      box-shadow: var(--shadow-sm) !important;
     }
 
     .btn-sm {
@@ -1303,41 +1311,38 @@
       border-radius: var(--radius-lg);
     }
 
-    /* Glossy primary button */
+    /* Standard Brutalist Buttons */
     .btn-primary {
-      background: linear-gradient(180deg, oklch(1 0 0 / 0.1) 0%, oklch(0 0 0 / 0.1) 100%), var(--accent-blue);
-      background-blend-mode: overlay;
+      background: var(--accent-blue);
       color: var(--text-on-accent);
-      box-shadow: inset 0 1px 1px oklch(1 0 0 / 0.2), var(--shadow-sm);
+      box-shadow: var(--shadow-blue);
     }
 
     .btn-primary:hover {
-      background: linear-gradient(180deg, oklch(1 0 0 / 0.2) 0%, oklch(0 0 0 / 0.05) 100%), var(--accent-blue);
-      box-shadow: inset 0 1px 1px oklch(1 0 0 / 0.3), var(--shadow-blue);
+      background: var(--accent-blue-hover);
+      box-shadow: var(--shadow-blue);
     }
 
     .btn-danger {
-      background: linear-gradient(180deg, oklch(1 0 0 / 0.1) 0%, oklch(0 0 0 / 0.1) 100%), var(--accent-red);
-      background-blend-mode: overlay;
+      background: var(--accent-red);
       color: var(--text-on-accent);
-      box-shadow: inset 0 1px 1px oklch(1 0 0 / 0.2), var(--shadow-sm);
+      box-shadow: var(--shadow-red);
     }
 
     .btn-danger:hover {
-      background: linear-gradient(180deg, oklch(1 0 0 / 0.2) 0%, oklch(0 0 0 / 0.05) 100%), var(--accent-red);
-      box-shadow: inset 0 1px 1px oklch(1 0 0 / 0.3), var(--shadow-red);
+      background: var(--accent-red-hover);
+      box-shadow: var(--shadow-red);
     }
 
     .btn-highlight {
-      background: linear-gradient(180deg, oklch(1 0 0 / 0.2) 0%, oklch(0 0 0 / 0.05) 100%), var(--accent-yellow);
-      background-blend-mode: overlay;
+      background: var(--accent-yellow);
       color: var(--text-on-yellow);
-      box-shadow: inset 0 1px 1px oklch(1 0 0 / 0.4), var(--shadow-sm);
+      box-shadow: var(--shadow-yellow);
     }
 
     .btn-highlight:hover {
-      background: linear-gradient(180deg, oklch(1 0 0 / 0.3) 0%, oklch(0 0 0 / 0) 100%), var(--accent-yellow);
-      box-shadow: inset 0 1px 1px oklch(1 0 0 / 0.5), var(--shadow-yellow);
+      background: var(--accent-yellow-hover);
+      box-shadow: var(--shadow-yellow);
     }
 
     .btn-secondary {
@@ -1439,9 +1444,10 @@
       font-size: 0.875rem;
       color: var(--text-primary);
       background: var(--bg-surface);
-      border: 1px solid var(--border-default);
+      border: 2px solid var(--text-primary);
       border-radius: var(--radius-sm);
-      transition: border-color var(--motion-fast) var(--ease-out), box-shadow var(--motion-base) var(--ease-bounce);
+      transition: border-color var(--motion-fast) var(--ease-out), box-shadow var(--motion-instant) linear;
+      box-shadow: 2px 2px 0 var(--text-primary);
     }
 
     .input::placeholder {
@@ -1451,11 +1457,11 @@
     .input:focus {
       outline: none;
       border-color: var(--accent-blue);
-      box-shadow: 0 0 0 4px oklch(0.55 0.22 260 / 0.16);
+      box-shadow: 4px 4px 0 var(--accent-blue);
     }
 
     [data-theme="dark"] .input:focus {
-      box-shadow: 0 0 0 3px oklch(0.67 0.20 260 / 0.20);
+      box-shadow: 4px 4px 0 var(--accent-blue);
     }
 
     .input-error {
@@ -1464,7 +1470,7 @@
 
     .input-error:focus {
       border-color: var(--accent-red);
-      box-shadow: 0 0 0 3px oklch(0.55 0.22 25 / 0.12);
+      box-shadow: 4px 4px 0 var(--accent-red);
     }
 
     .input:disabled {
@@ -1482,16 +1488,17 @@
       font-size: 0.875rem;
       color: var(--text-primary);
       background: var(--bg-surface);
-      border: 1px solid var(--border-default);
+      border: 2px solid var(--text-primary);
       border-radius: var(--radius-sm);
       line-height: 1.5;
-      transition: border-color var(--motion-fast) var(--ease-out), box-shadow var(--motion-base) var(--ease-bounce);
+      transition: border-color var(--motion-fast) var(--ease-out), box-shadow var(--motion-instant) linear;
+      box-shadow: 2px 2px 0 var(--text-primary);
     }
 
     .textarea:focus {
       outline: none;
       border-color: var(--accent-blue);
-      box-shadow: 0 0 0 4px oklch(0.55 0.22 260 / 0.16);
+      box-shadow: 4px 4px 0 var(--accent-blue);
     }
 
     .select-wrap {
@@ -1507,16 +1514,17 @@
       font-size: 0.875rem;
       color: var(--text-primary);
       background: var(--bg-surface);
-      border: 1px solid var(--border-default);
+      border: 2px solid var(--text-primary);
       border-radius: var(--radius-sm);
       cursor: pointer;
-      transition: border-color var(--motion-fast) var(--ease-out), box-shadow var(--motion-base) var(--ease-bounce);
+      transition: border-color var(--motion-fast) var(--ease-out), box-shadow var(--motion-instant) linear;
+      box-shadow: 2px 2px 0 var(--text-primary);
     }
 
     .select:focus {
       outline: none;
       border-color: var(--accent-blue);
-      box-shadow: 0 0 0 4px oklch(0.55 0.22 260 / 0.16);
+      box-shadow: 4px 4px 0 var(--accent-blue);
     }
 
     .input-icon-wrap {
@@ -1543,15 +1551,16 @@
       min-height: 36px;
       padding: 6px var(--space-3);
       background: var(--bg-surface);
-      border: 1px solid var(--border-default);
+      border: 2px solid var(--text-primary);
       border-radius: var(--radius-sm);
       align-items: center;
-      transition: border-color var(--motion-fast) var(--ease-out), box-shadow var(--motion-base) var(--ease-bounce);
+      transition: border-color var(--motion-fast) var(--ease-out), box-shadow var(--motion-instant) linear;
+      box-shadow: 2px 2px 0 var(--text-primary);
     }
 
     .multi-select:focus-within {
       border-color: var(--accent-blue);
-      box-shadow: 0 0 0 4px oklch(0.55 0.22 260 / 0.16);
+      box-shadow: 4px 4px 0 var(--accent-blue);
     }
 
     .multi-select-tag {
@@ -1691,18 +1700,23 @@
        ========================================================================== */
     .card {
       background: var(--bg-surface);
-      border: 1px solid var(--border-default);
+      border: 2px solid var(--text-primary);
       border-radius: var(--radius-lg);
       padding: var(--space-6);
-      transition: transform var(--motion-base) var(--ease-bounce), box-shadow var(--motion-fast) var(--ease-out), border-color var(--motion-fast) var(--ease-out);
+      transition: transform var(--motion-instant) linear, box-shadow var(--motion-instant) linear, border-color var(--motion-fast) var(--ease-out);
       will-change: transform;
+      box-shadow: var(--shadow-sm);
     }
 
     .card:hover {
-      transform: translateY(-4px) scale(1.01);
-      box-shadow: var(--shadow-md);
-      border-color: var(--border-strong);
+      transform: translate(-4px, -4px);
+      box-shadow: var(--shadow-lg);
       z-index: 10;
+    }
+
+    .card:active {
+      transform: translate(2px, 2px);
+      box-shadow: 0 0 0 var(--text-primary);
     }
 
     .card-title {
@@ -2865,6 +2879,86 @@
     .ds-footer p {
       font-size: var(--step--1);
       color: var(--text-muted);
+    }
+
+    /* ==========================================================================
+       SPLASH ENGINE
+       ========================================================================== */
+    .splash-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: visible;
+      z-index: 100;
+    }
+
+    .splash-dot {
+      position: absolute;
+      border-radius: 50%;
+      background: var(--text-primary);
+      pointer-events: none;
+      animation: pop-anim 0.4s var(--ease-out) forwards;
+      z-index: 101;
+    }
+
+    .splash-ripple {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      margin-left: -10px;
+      margin-top: -10px;
+      border: 3px solid var(--text-primary);
+      border-radius: 50%;
+      pointer-events: none;
+      animation: ripple-anim 0.5s var(--ease-out) forwards;
+      z-index: 100;
+    }
+
+    .btn-primary .splash-dot,
+    .btn-danger .splash-dot,
+    .btn-highlight .splash-dot {
+      background: var(--text-on-accent);
+    }
+
+    .btn-primary .splash-ripple,
+    .btn-danger .splash-ripple,
+    .btn-highlight .splash-ripple {
+      border-color: var(--text-on-accent);
+    }
+
+    .btn-highlight .splash-dot,
+    .btn-highlight .splash-ripple {
+      background: var(--text-on-yellow);
+      border-color: var(--text-on-yellow);
+    }
+
+    @keyframes pop-anim {
+      0% {
+        transform: scale(1) translate(0, 0);
+        opacity: 1;
+      }
+
+      100% {
+        transform: scale(0) translate(var(--tx), var(--ty));
+        opacity: 0;
+      }
+    }
+
+    @keyframes ripple-anim {
+      0% {
+        transform: scale(0.5);
+        opacity: 1;
+        border-width: 6px;
+      }
+
+      100% {
+        transform: scale(4);
+        opacity: 0;
+        border-width: 0px;
+      }
     }
   </style>
 </head>
@@ -6055,6 +6149,56 @@
           heatmap.appendChild(cell);
         });
       }
+
+      // === Splash & Pop Interaction Engine ===
+      document.body.addEventListener('mousedown', function (e) {
+        const target = e.target.closest('.btn, .card');
+        if (!target || target.disabled) return;
+
+        const rect = target.getBoundingClientRect();
+
+        // Make sure parent context can hold absolute elements
+        if (getComputedStyle(target).position === 'static') {
+          target.style.position = 'relative';
+        }
+
+        const splashContainer = document.createElement('div');
+        splashContainer.className = 'splash-container';
+
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        // Generate dots
+        for (let i = 0; i < 6; i++) {
+          const particle = document.createElement('div');
+          particle.className = 'splash-dot';
+          const size = Math.random() * 6 + 4;
+          particle.style.width = `${size}px`;
+          particle.style.height = `${size}px`;
+          particle.style.left = `${x - size / 2}px`;
+          particle.style.top = `${y - size / 2}px`;
+
+          const angle = (Math.PI * 2 / 6) * i + Math.random() * 0.5;
+          const velocity = Math.random() * 24 + 16;
+          const tx = Math.cos(angle) * velocity;
+          const ty = Math.sin(angle) * velocity;
+
+          particle.style.setProperty('--tx', `${tx}px`);
+          particle.style.setProperty('--ty', `${ty}px`);
+
+          splashContainer.appendChild(particle);
+        }
+
+        // Generate ripple
+        const ripple = document.createElement('div');
+        ripple.className = 'splash-ripple';
+        ripple.style.left = `${x}px`;
+        ripple.style.top = `${y}px`;
+        splashContainer.appendChild(ripple);
+
+        target.appendChild(splashContainer);
+        setTimeout(() => splashContainer.remove(), 600);
+      });
 
     })();
   </script>
