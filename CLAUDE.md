@@ -2,9 +2,11 @@
 
 ## Project
 
-This is a personal design system called **Kyle DS** (working name). It serves as the foundation for all of my projects — web apps, marketing sites, dashboards, data visualization, and mobile — and is a core expression of my personal brand.
+This is a personal design system called **Delightful**. It serves as the foundation for all of my projects — web apps, marketing sites, dashboards, data visualization, and mobile — and is a core expression of my personal brand.
 
-The design system is built through an **iterative exploration process**. I provide feedback on visual samples, and you refine until every token, component, and interaction is dialed in. Read `research.md` for the full design landscape analysis before generating anything.
+The design system is built through an **iterative exploration process**. I provide feedback on visual samples, and you refine until every token, component, and interaction is dialed in. Read `archive/research.md` for the full design landscape analysis before generating anything.
+
+**Canonical reference:** `delightful-design-system.html` — the unified, interactive design system file in the project root.
 
 ---
 

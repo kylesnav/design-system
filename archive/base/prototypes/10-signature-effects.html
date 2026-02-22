@@ -1,23 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>10 — Signature Effects | Kyle DS Prototypes</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primitive-neutral-50:  oklch(0.985 0.003 90);
-      --primitive-neutral-100: oklch(0.965 0.005 90);
-      --primitive-neutral-200: oklch(0.920 0.008 90);
-      --primitive-neutral-300: oklch(0.850 0.010 90);
-      --primitive-neutral-400: oklch(0.700 0.012 90);
-      --primitive-neutral-600: oklch(0.440 0.010 90);
-      --primitive-neutral-950: oklch(0.130 0.010 90);
-      --primitive-accent-500: oklch(0.60 0.24 270);
-      --primitive-accent-600: oklch(0.52 0.24 270);
+      --primitive-neutral-50:  oklch(0.978 0.005 90);
+      --primitive-neutral-100: oklch(0.958 0.006 90);
+      --primitive-neutral-200: oklch(0.905 0.007 90);
+      --primitive-neutral-300: oklch(0.855 0.008 90);
+      --primitive-neutral-400: oklch(0.755 0.010 90);
+      --primitive-neutral-600: oklch(0.490 0.010 90);
+      --primitive-neutral-950: oklch(0.135 0.008 90);
+      --primitive-blue-500: oklch(0.550 0.220 260);
+      --primitive-blue-600: oklch(0.480 0.220 260);
       --bg-page: var(--primitive-neutral-50);
       --bg-surface: oklch(0.995 0.002 90);
       --bg-muted: var(--primitive-neutral-100);
@@ -26,34 +26,37 @@
       --text-muted: var(--primitive-neutral-400);
       --border-default: var(--primitive-neutral-200);
       --border-strong: var(--primitive-neutral-300);
-      --accent-solid: var(--primitive-accent-500);
-      --accent-hover: var(--primitive-accent-600);
-      --accent-subtle: oklch(0.95 0.04 270);
-      --accent-foreground: oklch(0.995 0.002 90);
-      --motion-duration-base: 240ms;
-      --motion-duration-slow: 360ms;
-      --space-1: 0.25rem; --space-2: 0.5rem; --space-3: 0.75rem;
-      --space-4: 1rem; --space-6: 1.5rem; --space-8: 2rem;
-      --space-12: 3rem; --space-16: 4rem; --space-20: 5rem;
-      --radius-sm: 4px; --radius-md: 8px; --radius-full: 9999px;
+      --accent-blue: var(--primitive-blue-500);
+      --accent-blue-hover: var(--primitive-blue-600);
+      --accent-blue-subtle: oklch(0.920 0.045 260);
+      --text-on-accent: oklch(0.995 0.002 90);
+      --motion-base: 240ms;
+      --motion-slow: 360ms;
+      --space-1: 4px; --space-2: 8px; --space-3: 12px;
+      --space-4: 16px; --space-6: 24px; --space-8: 32px;
+      --space-12: 48px; --space-16: 64px; --space-20: 80px;
+      --radius-sm: 6px; --radius-md: 10px; --radius-full: 9999px;
+      --radius-lg: 12px;
+      --radius-xl: 16px;
     }
-    .dark {
-      --bg-page: oklch(0.13 0.01 270);
-      --bg-surface: oklch(0.17 0.008 270);
-      --bg-muted: oklch(0.20 0.008 270);
+    [data-theme="dark"] {
+      --bg-page: oklch(0.135 0.010 90);
+      --bg-surface: oklch(0.160 0.012 90);
+      --bg-muted: oklch(0.205 0.012 90);
       --text-primary: oklch(0.95 0.003 90);
       --text-secondary: oklch(0.65 0.008 90);
       --text-muted: oklch(0.45 0.006 90);
-      --border-default: oklch(0.25 0.008 270);
-      --border-strong: oklch(0.35 0.010 270);
-      --accent-solid: oklch(0.70 0.20 270);
-      --accent-hover: oklch(0.75 0.18 270);
-      --accent-subtle: oklch(0.22 0.06 270);
-      --accent-foreground: oklch(0.995 0.002 90);
+      --border-default: oklch(0.260 0.012 90);
+      --border-strong: oklch(0.330 0.012 90);
+      --accent-blue: oklch(0.670 0.200 260);
+      --accent-blue-hover: oklch(0.720 0.190 260);
+      --accent-blue-subtle: oklch(0.250 0.060 260);
+      --text-on-accent: oklch(0.995 0.002 90);
     }
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      font-feature-settings: "cv02", "cv03", "cv04", "cv11";
       background: var(--bg-page); color: var(--text-primary);
       line-height: 1.6; -webkit-font-smoothing: antialiased;
     }
@@ -74,8 +77,8 @@
         opacity: 0.7;
       }
       .blur-card {
-        transition: filter var(--motion-duration-base) ease-out,
-                    opacity var(--motion-duration-base) ease-out,
+        transition: filter var(--motion-base) ease-out,
+                    opacity var(--motion-base) ease-out,
                     border-color 160ms ease-out;
       }
     }
@@ -90,7 +93,7 @@
     .blur-card-desc { font-size: 0.8125rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: var(--space-3); }
     .blur-card-tag {
       display: inline-block; padding: 2px 8px; font-size: 0.6875rem; font-weight: 500;
-      background: var(--accent-subtle); color: var(--accent-solid); border-radius: var(--radius-full);
+      background: var(--accent-blue-subtle); color: var(--accent-blue); border-radius: var(--radius-full);
     }
 
     /* === Section 2: 3D Perspective Tilt === */
@@ -111,8 +114,8 @@
     }
     .tilt-tag {
       display: inline-block; padding: var(--space-1) var(--space-3);
-      font-size: 0.75rem; font-weight: 600; background: var(--accent-solid);
-      color: var(--accent-foreground); border-radius: var(--radius-full);
+      font-size: 0.75rem; font-weight: 600; background: var(--accent-blue);
+      color: var(--text-on-accent); border-radius: var(--radius-full);
       transform: translateZ(60px);
     }
 
@@ -133,19 +136,19 @@
       @media (prefers-reduced-motion: no-preference) {
         .color-pill-1 {
           background: oklch(0.60 0.24 var(--hue-1));
-          transition: --hue-1 var(--motion-duration-slow) ease-out;
+          transition: --hue-1 var(--motion-slow) ease-out;
         }
         .color-pill-1:hover { --hue-1: 200; }
 
         .color-pill-2 {
           background: oklch(0.60 0.24 var(--hue-2));
-          transition: --hue-2 var(--motion-duration-slow) ease-out;
+          transition: --hue-2 var(--motion-slow) ease-out;
         }
         .color-pill-2:hover { --hue-2: 310; }
 
         .color-pill-3 {
           background: oklch(0.60 0.24 var(--hue-3));
-          transition: --hue-3 var(--motion-duration-slow) ease-out;
+          transition: --hue-3 var(--motion-slow) ease-out;
         }
         .color-pill-3:hover { --hue-3: 145; }
       }
@@ -153,8 +156,8 @@
 
     /* Fallback for no @property support */
     @supports not (background: oklch(0.6 0.24 var(--hue-1))) {
-      .color-pill { background: var(--accent-solid); }
-      .color-pill:hover { background: var(--accent-hover); }
+      .color-pill { background: var(--accent-blue); }
+      .color-pill:hover { background: var(--accent-blue-hover); }
     }
 
     .color-note { font-size: 0.8125rem; color: var(--text-muted); margin-top: var(--space-3); }
@@ -162,7 +165,7 @@
     /* === Section 4: Cursor Spotlight === */
     .spotlight-panel {
       position: relative; overflow: hidden;
-      background: oklch(0.13 0.01 270); border-radius: var(--radius-md);
+      background: oklch(0.135 0.010 90); border-radius: var(--radius-md);
       height: 280px; display: flex; align-items: center; justify-content: center;
       cursor: crosshair;
     }
@@ -173,13 +176,13 @@
     }
     .spotlight-dots {
       position: absolute; inset: 0;
-      background-image: radial-gradient(circle, oklch(0.25 0.005 270) 1px, transparent 1px);
+      background-image: radial-gradient(circle, oklch(0.25 0.005 260) 1px, transparent 1px);
       background-size: 24px 24px;
       opacity: 0.5;
     }
     .spotlight-gradient {
       position: absolute; inset: 0;
-      background: radial-gradient(600px circle at 50% 50%, oklch(0.22 0.04 270), oklch(0.13 0.01 270));
+      background: radial-gradient(600px circle at 50% 50%, oklch(0.22 0.04 260), oklch(0.135 0.010 90));
       transition: background 50ms ease-out;
     }
 
@@ -192,8 +195,8 @@
 
     .theme-toggle { position: fixed; top: var(--space-4); right: var(--space-4); z-index: 100; background: var(--bg-surface); border: 1px solid var(--border-default); border-radius: var(--radius-full); width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--text-secondary); }
     .theme-toggle:hover { border-color: var(--border-strong); color: var(--text-primary); }
-    .theme-toggle .icon-sun, .dark .theme-toggle .icon-moon { display: none; }
-    .dark .theme-toggle .icon-sun { display: block; }
+    .theme-toggle .icon-sun, [data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+    [data-theme="dark"] .theme-toggle .icon-sun { display: block; }
     .theme-toggle .icon-moon { display: block; }
   </style>
 </head>
@@ -296,7 +299,7 @@
 
   <script>
     document.getElementById('theme-toggle').addEventListener('click', () => {
-      document.documentElement.classList.toggle('dark');
+      document.documentElement.dataset.theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
     });
 
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -326,10 +329,10 @@
         const rect = spotlightPanel.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
-        spotlightGradient.style.background = `radial-gradient(600px circle at ${x}px ${y}px, oklch(0.22 0.04 270), oklch(0.13 0.01 270))`;
+        spotlightGradient.style.background = `radial-gradient(600px circle at ${x}px ${y}px, oklch(0.22 0.04 260), oklch(0.135 0.010 90))`;
       });
       spotlightPanel.addEventListener('mouseleave', () => {
-        spotlightGradient.style.background = `radial-gradient(600px circle at 50% 50%, oklch(0.22 0.04 270), oklch(0.13 0.01 270))`;
+        spotlightGradient.style.background = `radial-gradient(600px circle at 50% 50%, oklch(0.22 0.04 260), oklch(0.135 0.010 90))`;
       });
     }
   </script>
