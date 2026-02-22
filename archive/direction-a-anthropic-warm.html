@@ -1,0 +1,1621 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kyle DS — Direction A: Anthropic Warm</title>
+
+  <!-- Google Fonts: Inter (sans), Instrument Serif (serif), JetBrains Mono (mono) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* ========================================================================
+       TIER 1 — PRIMITIVE TOKENS
+       Raw oklch values. Named by scale, no semantic meaning.
+       Warm neutrals: hue ~85-95, chroma 0.005-0.020
+       Accent: warm orange/terracotta, chroma >= 0.20
+       ======================================================================== */
+    :root {
+      /* Neutral primitives — warm cream to near-black */
+      --primitive-neutral-0:   oklch(1.00 0.000 90);      /* pure white */
+      --primitive-neutral-25:  oklch(0.985 0.005 90);     /* barely warm */
+      --primitive-neutral-50:  oklch(0.975 0.007 85);     /* cream — the Anthropic warm */
+      --primitive-neutral-75:  oklch(0.960 0.008 85);     /* light cream */
+      --primitive-neutral-100: oklch(0.945 0.010 85);     /* warm gray-100 */
+      --primitive-neutral-150: oklch(0.920 0.010 85);     /* warm gray-150 */
+      --primitive-neutral-200: oklch(0.880 0.010 85);     /* warm gray-200 */
+      --primitive-neutral-300: oklch(0.800 0.010 85);     /* warm gray-300 */
+      --primitive-neutral-400: oklch(0.700 0.010 85);     /* warm gray-400 */
+      --primitive-neutral-500: oklch(0.560 0.010 85);     /* warm gray-500 */
+      --primitive-neutral-600: oklch(0.450 0.010 85);     /* warm gray-600 */
+      --primitive-neutral-700: oklch(0.350 0.010 85);     /* warm gray-700 */
+      --primitive-neutral-800: oklch(0.250 0.010 85);     /* warm gray-800 */
+      --primitive-neutral-900: oklch(0.180 0.010 85);     /* near-black warm */
+      --primitive-neutral-950: oklch(0.130 0.010 90);     /* deepest warm black */
+
+      /* Accent primitives — warm orange/terracotta family */
+      --primitive-accent-300: oklch(0.780 0.140 55);      /* light terracotta */
+      --primitive-accent-400: oklch(0.720 0.165 50);      /* medium terracotta */
+      --primitive-accent-500: oklch(0.660 0.190 45);      /* core terracotta — ~Anthropic's d97757 */
+      --primitive-accent-600: oklch(0.580 0.180 45);      /* deep terracotta */
+      --primitive-accent-700: oklch(0.500 0.160 45);      /* dark terracotta */
+
+      /* Accent candidate B — burnt sienna (warmer, earthier) */
+      --primitive-sienna-400: oklch(0.680 0.155 40);
+      --primitive-sienna-500: oklch(0.610 0.175 38);
+      --primitive-sienna-600: oklch(0.540 0.165 38);
+
+      /* Accent candidate C — clay/rust (deeper, more muted) */
+      --primitive-clay-400:   oklch(0.640 0.130 35);
+      --primitive-clay-500:   oklch(0.560 0.150 32);
+      --primitive-clay-600:   oklch(0.480 0.140 32);
+
+      /* Success/semantic primitives */
+      --primitive-green-400:  oklch(0.720 0.150 155);
+      --primitive-green-500:  oklch(0.640 0.170 155);
+      --primitive-green-600:  oklch(0.550 0.150 155);
+    }
+
+    /* ========================================================================
+       TIER 2 — SEMANTIC TOKENS (Light Mode)
+       Purpose-driven tokens that swap for dark mode.
+       ======================================================================== */
+    [data-mode="light"] {
+      /* Backgrounds */
+      --bg-page:      var(--primitive-neutral-50);
+      --bg-surface:   var(--primitive-neutral-0);
+      --bg-elevated:  var(--primitive-neutral-0);
+      --bg-subtle:    var(--primitive-neutral-75);
+      --bg-muted:     var(--primitive-neutral-100);
+
+      /* Text */
+      --text-primary:   var(--primitive-neutral-950);
+      --text-secondary: var(--primitive-neutral-600);
+      --text-muted:     var(--primitive-neutral-400);
+      --text-inverse:   var(--primitive-neutral-0);
+
+      /* Borders */
+      --border-default: var(--primitive-neutral-150);
+      --border-strong:  var(--primitive-neutral-300);
+      --border-accent:  var(--primitive-accent-500);
+
+      /* Accent */
+      --accent-solid:           var(--primitive-accent-500);
+      --accent-solid-hover:     var(--primitive-accent-600);
+      --accent-solid-foreground: var(--primitive-neutral-0);
+      --accent-subtle:          oklch(0.960 0.030 50);
+      --accent-subtle-foreground: var(--primitive-accent-700);
+
+      /* Interactive */
+      --focus-ring: var(--primitive-accent-400);
+
+      /* Success */
+      --success-bg:         oklch(0.960 0.030 155);
+      --success-border:     var(--primitive-green-400);
+      --success-text:       var(--primitive-green-600);
+      --success-icon:       var(--primitive-green-500);
+    }
+
+    /* ========================================================================
+       TIER 2 — SEMANTIC TOKENS (Dark Mode)
+       Accent lightness increased by ~0.12, chroma reduced slightly.
+       Warm dark backgrounds, not cool/blue.
+       ======================================================================== */
+    [data-mode="dark"] {
+      /* Backgrounds — warm dark, hue 85-90 */
+      --bg-page:      var(--primitive-neutral-950);
+      --bg-surface:   var(--primitive-neutral-900);
+      --bg-elevated:  var(--primitive-neutral-800);
+      --bg-subtle:    var(--primitive-neutral-800);
+      --bg-muted:     var(--primitive-neutral-700);
+
+      /* Text */
+      --text-primary:   var(--primitive-neutral-75);
+      --text-secondary: var(--primitive-neutral-300);
+      --text-muted:     var(--primitive-neutral-500);
+      --text-inverse:   var(--primitive-neutral-950);
+
+      /* Borders — subtle light lines in dark mode */
+      --border-default: oklch(0.280 0.010 85);
+      --border-strong:  oklch(0.380 0.010 85);
+      --border-accent:  var(--primitive-accent-400);
+
+      /* Accent — lightened for dark mode */
+      --accent-solid:           var(--primitive-accent-400);
+      --accent-solid-hover:     var(--primitive-accent-300);
+      --accent-solid-foreground: var(--primitive-neutral-950);
+      --accent-subtle:          oklch(0.220 0.040 50);
+      --accent-subtle-foreground: var(--primitive-accent-300);
+
+      /* Interactive */
+      --focus-ring: var(--primitive-accent-400);
+
+      /* Success */
+      --success-bg:         oklch(0.200 0.040 155);
+      --success-border:     var(--primitive-green-500);
+      --success-text:       var(--primitive-green-400);
+      --success-icon:       var(--primitive-green-400);
+    }
+
+    /* ========================================================================
+       TIER 3 — COMPONENT TOKENS
+       Scoped to specific components, composed from semantic tokens.
+       ======================================================================== */
+    :root {
+      /* Button */
+      --btn-primary-bg:       var(--accent-solid);
+      --btn-primary-bg-hover: var(--accent-solid-hover);
+      --btn-primary-fg:       var(--accent-solid-foreground);
+      --btn-secondary-bg:     transparent;
+      --btn-secondary-bg-hover: var(--bg-subtle);
+      --btn-secondary-fg:     var(--text-primary);
+      --btn-secondary-border: var(--border-default);
+      --btn-disabled-bg:      var(--bg-muted);
+      --btn-disabled-fg:      var(--text-muted);
+
+      /* Card */
+      --card-bg:     var(--bg-surface);
+      --card-border: var(--border-default);
+      --card-radius: 8px;
+
+      /* Input */
+      --input-bg:          var(--bg-surface);
+      --input-border:      var(--border-default);
+      --input-border-focus: var(--accent-solid);
+      --input-radius:      4px;
+
+      /* Table */
+      --table-header-bg:   var(--bg-subtle);
+      --table-row-hover:   var(--bg-subtle);
+      --table-border:      var(--border-default);
+
+      /* Sidebar */
+      --sidebar-bg:        var(--bg-surface);
+      --sidebar-item-hover: var(--bg-subtle);
+      --sidebar-item-active-bg: var(--accent-subtle);
+      --sidebar-item-active-fg: var(--accent-subtle-foreground);
+
+      /* Badge */
+      --badge-default-bg:  var(--bg-muted);
+      --badge-default-fg:  var(--text-secondary);
+      --badge-accent-bg:   var(--accent-subtle);
+      --badge-accent-fg:   var(--accent-subtle-foreground);
+
+      /* Toast */
+      --toast-success-bg:     var(--success-bg);
+      --toast-success-border: var(--success-border);
+      --toast-success-fg:     var(--success-text);
+      --toast-success-icon:   var(--success-icon);
+    }
+
+    /* ========================================================================
+       BASE STYLES
+       ======================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-weight: 400;
+      line-height: 1.6;
+      color: var(--text-primary);
+      background-color: var(--bg-page);
+      transition: background-color 0.24s ease-out, color 0.24s ease-out;
+    }
+
+    /* ========================================================================
+       TYPOGRAPHY — Fluid type scale using clamp()
+       Minor Third (1.2) ratio for UI
+       Instrument Serif for H1/H2 (editorial flavor)
+       Inter for H3/H4/body (systematic, readable)
+       ======================================================================== */
+
+    /* Serif headings — Instrument Serif for editorial warmth */
+    .heading-serif {
+      font-family: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+      font-weight: 400; /* Instrument Serif looks best at regular weight */
+    }
+
+    /* Sans headings — Inter for systematic clarity */
+    .heading-sans {
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-weight: 600;
+    }
+
+    h1 {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-weight: 400;
+      font-size: clamp(2.25rem, 1.8rem + 2.25vw, 3.5rem);  /* 36–56px */
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+    }
+
+    h2 {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-weight: 400;
+      font-size: clamp(1.75rem, 1.5rem + 1.25vw, 2.5rem);  /* 28–40px */
+      line-height: 1.15;
+      letter-spacing: -0.015em;
+      color: var(--text-primary);
+    }
+
+    h3 {
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-weight: 600;
+      font-size: clamp(1.25rem, 1.1rem + 0.75vw, 1.5rem);  /* 20–24px */
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+      color: var(--text-primary);
+    }
+
+    h4 {
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-weight: 600;
+      font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);   /* 16–18px */
+      line-height: 1.3;
+      letter-spacing: -0.005em;
+      color: var(--text-primary);
+    }
+
+    p {
+      font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);   /* 16–18px */
+      line-height: 1.6;
+      color: var(--text-secondary);
+      max-width: 65ch;
+    }
+
+    .text-small {
+      font-size: 0.8125rem; /* 13px */
+      line-height: 1.5;
+      color: var(--text-muted);
+    }
+
+    .text-caption {
+      font-size: 0.75rem; /* 12px */
+      line-height: 1.5;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 500;
+    }
+
+    code, .mono {
+      font-family: 'JetBrains Mono', 'SF Mono', 'Consolas', monospace;
+      font-size: 0.875em;
+    }
+
+    /* ========================================================================
+       LAYOUT
+       ======================================================================== */
+    .page-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 48px 32px 80px;
+    }
+
+    .section {
+      margin-bottom: 80px;
+    }
+
+    .section-header {
+      margin-bottom: 32px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-default);
+    }
+
+    .section-title {
+      margin-bottom: 8px;
+    }
+
+    .section-description {
+      max-width: 60ch;
+    }
+
+    /* ========================================================================
+       TOP BAR
+       ======================================================================== */
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 32px;
+      border-bottom: 1px solid var(--border-default);
+      background: var(--bg-surface);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      transition: background-color 0.24s ease-out, border-color 0.24s ease-out;
+    }
+
+    .top-bar-title {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 0.875rem;
+      letter-spacing: -0.01em;
+      color: var(--text-primary);
+    }
+
+    .top-bar-subtitle {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      margin-left: 12px;
+    }
+
+    .mode-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 9999px;
+      border: 1px solid var(--border-default);
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.16s ease-out, border-color 0.16s ease-out;
+    }
+
+    .mode-toggle:hover {
+      background: var(--bg-subtle);
+      border-color: var(--border-strong);
+    }
+
+    .mode-toggle:focus-visible {
+      outline: 2px solid var(--focus-ring);
+      outline-offset: 2px;
+    }
+
+    /* ========================================================================
+       LEGEND
+       ======================================================================== */
+    .legend {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-default);
+      border-radius: 8px;
+      padding: 24px;
+      margin-bottom: 48px;
+      transition: background-color 0.24s ease-out, border-color 0.24s ease-out;
+    }
+
+    .legend h2 {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 12px;
+    }
+
+    .legend-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 12px;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 0.875rem;
+      line-height: 1.5;
+      color: var(--text-secondary);
+    }
+
+    .legend-item strong {
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    .legend-bullet {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-solid);
+      margin-top: 7px;
+      flex-shrink: 0;
+    }
+
+    /* ========================================================================
+       COLOR PALETTE
+       ======================================================================== */
+    .palette-group {
+      margin-bottom: 32px;
+    }
+
+    .palette-group-title {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 0.8125rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .swatch-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .swatch {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-width: 140px;
+    }
+
+    .swatch-color {
+      width: 100%;
+      height: 64px;
+      border-radius: 8px;
+      border: 1px solid var(--border-default);
+      transition: border-color 0.16s ease-out;
+    }
+
+    .swatch-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      line-height: 1.3;
+    }
+
+    .swatch-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6875rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+      word-break: break-all;
+    }
+
+    /* ========================================================================
+       TYPOGRAPHY SPECIMEN
+       ======================================================================== */
+    .type-specimen {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .type-sample {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 24px;
+      align-items: baseline;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border-default);
+    }
+
+    .type-sample:last-child {
+      border-bottom: none;
+    }
+
+    .type-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .type-meta-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6875rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .code-block {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-default);
+      border-radius: 8px;
+      padding: 24px;
+      overflow-x: auto;
+      transition: background-color 0.24s ease-out, border-color 0.24s ease-out;
+    }
+
+    .code-block code {
+      color: var(--text-primary);
+      font-size: 0.875rem;
+      line-height: 1.7;
+      white-space: pre;
+    }
+
+    /* ========================================================================
+       COMPONENT SAMPLER
+       ======================================================================== */
+
+    /* Buttons */
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 4px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 500;
+      line-height: 1;
+      cursor: pointer;
+      transition: background-color 0.16s ease-out, border-color 0.16s ease-out, color 0.16s ease-out;
+      border: 1px solid transparent;
+      text-decoration: none;
+    }
+
+    .btn:focus-visible {
+      outline: 2px solid var(--focus-ring);
+      outline-offset: 2px;
+    }
+
+    .btn-primary {
+      background: var(--btn-primary-bg);
+      color: var(--btn-primary-fg);
+      border-color: var(--btn-primary-bg);
+    }
+
+    .btn-primary:hover {
+      background: var(--btn-primary-bg-hover);
+      border-color: var(--btn-primary-bg-hover);
+    }
+
+    .btn-primary-hover-preview {
+      background: var(--btn-primary-bg-hover);
+      color: var(--btn-primary-fg);
+      border-color: var(--btn-primary-bg-hover);
+    }
+
+    .btn-secondary {
+      background: var(--btn-secondary-bg);
+      color: var(--btn-secondary-fg);
+      border-color: var(--btn-secondary-border);
+    }
+
+    .btn-secondary:hover {
+      background: var(--btn-secondary-bg-hover);
+    }
+
+    .btn-secondary-hover-preview {
+      background: var(--btn-secondary-bg-hover);
+      color: var(--btn-secondary-fg);
+      border-color: var(--btn-secondary-border);
+    }
+
+    .btn-disabled {
+      background: var(--btn-disabled-bg);
+      color: var(--btn-disabled-fg);
+      border-color: var(--btn-disabled-bg);
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    .btn-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6875rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    /* Input */
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      max-width: 400px;
+    }
+
+    .form-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    .form-input {
+      padding: 10px 12px;
+      border: 1px solid var(--input-border);
+      border-radius: var(--input-radius);
+      background: var(--input-bg);
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.875rem;
+      line-height: 1.5;
+      transition: border-color 0.16s ease-out, box-shadow 0.16s ease-out;
+    }
+
+    .form-input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--input-border-focus);
+      box-shadow: 0 0 0 3px oklch(0.660 0.190 45 / 0.15);
+    }
+
+    .form-input:focus-visible {
+      outline: 2px solid var(--focus-ring);
+      outline-offset: 2px;
+    }
+
+    .form-hint {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+    }
+
+    /* Card */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--card-radius);
+      padding: 24px;
+      transition: background-color 0.24s ease-out, border-color 0.24s ease-out;
+      max-width: 400px;
+    }
+
+    .card-title {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .card-description {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .card-footer {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-default);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .card-footer-text {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+    }
+
+    /* Data Table */
+    .table-wrapper {
+      overflow-x: auto;
+      border: 1px solid var(--table-border);
+      border-radius: 8px;
+      transition: border-color 0.24s ease-out;
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+    }
+
+    .data-table th {
+      text-align: left;
+      padding: 12px 16px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      background: var(--table-header-bg);
+      border-bottom: 1px solid var(--table-border);
+      white-space: nowrap;
+      transition: background-color 0.24s ease-out;
+    }
+
+    .data-table td {
+      padding: 12px 16px;
+      color: var(--text-primary);
+      border-bottom: 1px solid var(--table-border);
+      transition: color 0.24s ease-out;
+    }
+
+    .data-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .data-table tbody tr {
+      transition: background-color 0.1s ease-out;
+    }
+
+    .data-table tbody tr:hover {
+      background: var(--table-row-hover);
+    }
+
+    .table-number {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8125rem;
+    }
+
+    .table-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8125rem;
+    }
+
+    .table-status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+
+    .status-active {
+      background: var(--primitive-green-500);
+      color: var(--primitive-green-600);
+    }
+
+    [data-mode="dark"] .status-active {
+      color: var(--primitive-green-400);
+    }
+
+    .status-draft {
+      background: var(--text-muted);
+      color: var(--text-muted);
+    }
+
+    .status-review {
+      background: var(--primitive-accent-500);
+      color: var(--primitive-accent-500);
+    }
+
+    [data-mode="dark"] .status-review {
+      color: var(--primitive-accent-400);
+    }
+
+    /* Sidebar */
+    .sidebar-demo {
+      width: 240px;
+      background: var(--sidebar-bg);
+      border: 1px solid var(--border-default);
+      border-radius: 8px;
+      padding: 8px;
+      transition: background-color 0.24s ease-out, border-color 0.24s ease-out;
+    }
+
+    .sidebar-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 4px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: background-color 0.1s ease-out, color 0.1s ease-out;
+      text-decoration: none;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+    }
+
+    .sidebar-item:hover {
+      background: var(--sidebar-item-hover);
+      color: var(--text-primary);
+    }
+
+    .sidebar-item:focus-visible {
+      outline: 2px solid var(--focus-ring);
+      outline-offset: -2px;
+    }
+
+    .sidebar-item.active {
+      background: var(--sidebar-item-active-bg);
+      color: var(--sidebar-item-active-fg);
+      font-weight: 500;
+    }
+
+    .sidebar-icon {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      opacity: 0.6;
+    }
+
+    .sidebar-item.active .sidebar-icon {
+      opacity: 1;
+    }
+
+    /* Toast */
+    .toast {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 16px;
+      border-radius: 8px;
+      max-width: 400px;
+      border: 1px solid;
+      transition: background-color 0.24s ease-out, border-color 0.24s ease-out;
+    }
+
+    .toast-success {
+      background: var(--toast-success-bg);
+      border-color: var(--toast-success-border);
+      color: var(--toast-success-fg);
+    }
+
+    .toast-icon {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      color: var(--toast-success-icon);
+    }
+
+    .toast-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .toast-title {
+      font-weight: 500;
+      font-size: 0.875rem;
+    }
+
+    .toast-message {
+      font-size: 0.8125rem;
+      opacity: 0.85;
+    }
+
+    /* Badge */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 9999px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    .badge-default {
+      background: var(--badge-default-bg);
+      color: var(--badge-default-fg);
+    }
+
+    .badge-accent {
+      background: var(--badge-accent-bg);
+      color: var(--badge-accent-fg);
+    }
+
+    .badge-outline {
+      background: transparent;
+      color: var(--text-secondary);
+      border: 1px solid var(--border-strong);
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    /* ========================================================================
+       SPACING DEMONSTRATION
+       ======================================================================== */
+    .spacing-scale {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .spacing-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .spacing-bar {
+      height: 24px;
+      background: var(--accent-subtle);
+      border: 1px solid var(--border-accent);
+      border-radius: 4px;
+      transition: background-color 0.24s ease-out, border-color 0.24s ease-out;
+    }
+
+    .spacing-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8125rem;
+      color: var(--text-secondary);
+      min-width: 80px;
+      text-align: right;
+    }
+
+    .spacing-px {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      min-width: 48px;
+    }
+
+    /* ========================================================================
+       COMPONENT GRID LAYOUT
+       ======================================================================== */
+    .component-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    .component-block {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .component-label {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 0.8125rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+    }
+
+    .component-full-width {
+      grid-column: 1 / -1;
+    }
+
+    /* ========================================================================
+       RESPONSIVE
+       ======================================================================== */
+    @media (max-width: 768px) {
+      .component-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .type-sample {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .page-container {
+        padding: 32px 16px 64px;
+      }
+
+      .legend-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- ====================================================================
+       TOP BAR — Sticky header with mode toggle
+       ==================================================================== -->
+  <header class="top-bar">
+    <div>
+      <span class="top-bar-title">Kyle DS</span>
+      <span class="top-bar-subtitle">Direction A: Anthropic Warm</span>
+    </div>
+    <button class="mode-toggle" onclick="toggleMode()" aria-label="Toggle dark mode">
+      <span id="mode-icon">&#9789;</span>
+      <span id="mode-label">Dark mode</span>
+    </button>
+  </header>
+
+  <main class="page-container">
+
+    <!-- ==================================================================
+         LEGEND — Brief explanation of this design direction
+         ================================================================== -->
+    <div class="legend">
+      <h2>Direction Overview</h2>
+      <div class="legend-grid">
+        <div class="legend-item">
+          <div class="legend-bullet"></div>
+          <div><strong>Base:</strong> Warm cream backgrounds inspired by Anthropic's institutional warmth. Not cool, not sterile.</div>
+        </div>
+        <div class="legend-item">
+          <div class="legend-bullet"></div>
+          <div><strong>Accent:</strong> Warm orange/terracotta used surgically for interactive elements and emphasis only.</div>
+        </div>
+        <div class="legend-item">
+          <div class="legend-bullet"></div>
+          <div><strong>Typography:</strong> Instrument Serif for editorial headings, Inter for systematic body text, JetBrains Mono for code.</div>
+        </div>
+        <div class="legend-item">
+          <div class="legend-bullet"></div>
+          <div><strong>Approach:</strong> Hierarchy through type weight and size. Borders over shadows. Generous whitespace.</div>
+        </div>
+        <div class="legend-item">
+          <div class="legend-bullet"></div>
+          <div><strong>Colors:</strong> All tokens defined in oklch(). Three-tier architecture: primitives, semantic, component.</div>
+        </div>
+        <div class="legend-item">
+          <div class="legend-bullet"></div>
+          <div><strong>Dark mode:</strong> Intentionally designed warm dark — not inverted. Accent lightened, borders softened.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================================================================
+         SECTION 1 — COLOR PALETTE
+         ================================================================== -->
+    <section class="section">
+      <div class="section-header">
+        <h2 class="section-title">Color Palette</h2>
+        <p class="section-description">
+          Every color is defined in oklch. Warm neutrals use hue 85-90 with low chroma. Accent candidates explore the terracotta family with chroma above 0.13.
+        </p>
+      </div>
+
+      <!-- Backgrounds -->
+      <div class="palette-group">
+        <div class="palette-group-title">Backgrounds</div>
+        <div class="swatch-row">
+          <div class="swatch">
+            <div class="swatch-color" style="background: oklch(0.975 0.007 85);"></div>
+            <div class="swatch-label">--bg-page</div>
+            <div class="swatch-value">oklch(0.975 0.007 85)</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-color" style="background: oklch(1.00 0.000 90);"></div>
+            <div class="swatch-label">--bg-surface</div>
+            <div class="swatch-value">oklch(1.00 0.000 90)</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-color" style="background: oklch(0.960 0.008 85);"></div>
+            <div class="swatch-label">--bg-subtle</div>
+            <div class="swatch-value">oklch(0.960 0.008 85)</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-color" style="background: oklch(0.945 0.010 85);"></div>
+            <div class="swatch-label">--bg-muted</div>
+            <div class="swatch-value">oklch(0.945 0.010 85)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Text -->
+      <div class="palette-group">
+        <div class="palette-group-title">Text</div>
+        <div class="swatch-row">
+          <div class="swatch">
+            <div class="swatch-color" style="background: oklch(0.130 0.010 90);"></div>
+            <div class="swatch-label">--text-primary</div>
+            <div class="swatch-value">oklch(0.130 0.010 90)</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-color" style="background: oklch(0.450 0.010 85);"></div>
+            <div class="swatch-label">--text-secondary</div>
+            <div class="swatch-value">oklch(0.450 0.010 85)</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-color" style="background: oklch(0.700 0.010 85);"></div>
+            <div class="swatch-label">--text-muted</div>
+            <div class="swatch-value">oklch(0.700 0.010 85)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Borders -->
+      <div class="palette-group">
+        <div class="palette-group-title">Borders</div>
+        <div class="swatch-row">
+          <div class="swatch">
+            <div class="swatch-color" style="background: oklch(0.920 0.010 85);"></div>
+            <div class="swatch-label">--border-default</div>
+            <div class="swatch-value">oklch(0.920 0.010 85)</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-color" style="background: oklch(0.800 0.010 85);"></div>
+            <div class="swatch-label">--border-strong</div>
+            <div class="swatch-value">oklch(0.800 0.010 85)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Accent Candidates -->
+      <!-- Design note: Three candidates in the warm orange family.
+           Candidate A is closest to Anthropic's signature orange.
+           Candidate B skews earthier/warmer. Candidate C is more muted and rustic. -->
+      <div class="palette-group">
+        <div class="palette-group-title">Accent Candidates</div>
+        <div class="swatch-row">
+          <div class="swatch">
+            <div class="swatch-color" style="background: oklch(0.660 0.190 45);"></div>
+            <div class="swatch-label">A: Terracotta</div>
+            <div class="swatch-value">oklch(0.660 0.190 45)</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-color" style="background: oklch(0.720 0.165 50);"></div>
+            <div class="swatch-label">A: Terracotta (light)</div>
+            <div class="swatch-value">oklch(0.720 0.165 50)</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-color" style="background: oklch(0.580 0.180 45);"></div>
+            <div class="swatch-label">A: Terracotta (deep)</div>
+            <div class="swatch-value">oklch(0.580 0.180 45)</div>
+          </div>
+        </div>
+        <div class="swatch-row" style="margin-top: 12px;">
+          <div class="swatch">
+            <div class="swatch-color" style="background: oklch(0.610 0.175 38);"></div>
+            <div class="swatch-label">B: Burnt Sienna</div>
+            <div class="swatch-value">oklch(0.610 0.175 38)</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-color" style="background: oklch(0.680 0.155 40);"></div>
+            <div class="swatch-label">B: Sienna (light)</div>
+            <div class="swatch-value">oklch(0.680 0.155 40)</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-color" style="background: oklch(0.540 0.165 38);"></div>
+            <div class="swatch-label">B: Sienna (deep)</div>
+            <div class="swatch-value">oklch(0.540 0.165 38)</div>
+          </div>
+        </div>
+        <div class="swatch-row" style="margin-top: 12px;">
+          <div class="swatch">
+            <div class="swatch-color" style="background: oklch(0.560 0.150 32);"></div>
+            <div class="swatch-label">C: Clay/Rust</div>
+            <div class="swatch-value">oklch(0.560 0.150 32)</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-color" style="background: oklch(0.640 0.130 35);"></div>
+            <div class="swatch-label">C: Clay (light)</div>
+            <div class="swatch-value">oklch(0.640 0.130 35)</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-color" style="background: oklch(0.480 0.140 32);"></div>
+            <div class="swatch-label">C: Clay (deep)</div>
+            <div class="swatch-value">oklch(0.480 0.140 32)</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         SECTION 2 — TYPOGRAPHY SPECIMEN
+         ================================================================== -->
+    <section class="section">
+      <div class="section-header">
+        <h2 class="section-title">Typography Specimen</h2>
+        <p class="section-description">
+          Instrument Serif brings editorial warmth to headings. Inter provides systematic clarity for body text and interface elements. JetBrains Mono handles code with precision.
+        </p>
+      </div>
+
+      <div class="type-specimen">
+        <!-- H1 -->
+        <div class="type-sample">
+          <div class="type-meta">
+            <div class="type-meta-label">H1 — Instrument Serif</div>
+            <div class="type-meta-label">clamp(2.25rem, 1.8rem + 2.25vw, 3.5rem)</div>
+            <div class="type-meta-label">weight: 400</div>
+            <div class="type-meta-label">line-height: 1.1</div>
+            <div class="type-meta-label">letter-spacing: -0.02em</div>
+          </div>
+          <h1>Build with intention, ship with confidence</h1>
+        </div>
+
+        <!-- H2 -->
+        <div class="type-sample">
+          <div class="type-meta">
+            <div class="type-meta-label">H2 — Instrument Serif</div>
+            <div class="type-meta-label">clamp(1.75rem, 1.5rem + 1.25vw, 2.5rem)</div>
+            <div class="type-meta-label">weight: 400</div>
+            <div class="type-meta-label">line-height: 1.15</div>
+            <div class="type-meta-label">letter-spacing: -0.015em</div>
+          </div>
+          <h2>A design system is a shared language between design and engineering</h2>
+        </div>
+
+        <!-- H3 -->
+        <div class="type-sample">
+          <div class="type-meta">
+            <div class="type-meta-label">H3 — Inter</div>
+            <div class="type-meta-label">clamp(1.25rem, 1.1rem + 0.75vw, 1.5rem)</div>
+            <div class="type-meta-label">weight: 600</div>
+            <div class="type-meta-label">line-height: 1.25</div>
+            <div class="type-meta-label">letter-spacing: -0.01em</div>
+          </div>
+          <h3>Token architecture ensures consistency at scale</h3>
+        </div>
+
+        <!-- H4 -->
+        <div class="type-sample">
+          <div class="type-meta">
+            <div class="type-meta-label">H4 — Inter</div>
+            <div class="type-meta-label">clamp(1rem, 0.95rem + 0.25vw, 1.125rem)</div>
+            <div class="type-meta-label">weight: 600</div>
+            <div class="type-meta-label">line-height: 1.3</div>
+            <div class="type-meta-label">letter-spacing: -0.005em</div>
+          </div>
+          <h4>Component variants replace one-off custom styles</h4>
+        </div>
+
+        <!-- Body -->
+        <div class="type-sample">
+          <div class="type-meta">
+            <div class="type-meta-label">Body — Inter</div>
+            <div class="type-meta-label">clamp(1rem, 0.95rem + 0.25vw, 1.125rem)</div>
+            <div class="type-meta-label">weight: 400</div>
+            <div class="type-meta-label">line-height: 1.6</div>
+          </div>
+          <p>
+            A well-crafted design system does more than catalog components. It encodes the decisions a team has already made, freeing designers and engineers to focus on the problems that are actually novel. Every token, every spacing value, every type ramp reflects a choice that no longer needs to be remade. The result is not uniformity for its own sake, but coherence that builds trust with the people who use what you build.
+          </p>
+        </div>
+
+        <!-- Small / Caption -->
+        <div class="type-sample">
+          <div class="type-meta">
+            <div class="type-meta-label">Small — Inter</div>
+            <div class="type-meta-label">0.8125rem (13px)</div>
+            <div class="type-meta-label">weight: 400</div>
+            <div class="type-meta-label">line-height: 1.5</div>
+          </div>
+          <div>
+            <span class="text-small">Secondary information appears at 13px. Metadata, timestamps, helper text.</span>
+            <br><br>
+            <span class="text-caption">Caption / Overline &mdash; 12px uppercase, 0.05em tracking</span>
+          </div>
+        </div>
+
+        <!-- Code -->
+        <div class="type-sample">
+          <div class="type-meta">
+            <div class="type-meta-label">Code — JetBrains Mono</div>
+            <div class="type-meta-label">0.875em</div>
+            <div class="type-meta-label">weight: 400</div>
+            <div class="type-meta-label">line-height: 1.7</div>
+          </div>
+          <div class="code-block">
+            <code>:root {
+  --bg-page:      oklch(0.975 0.007 85);
+  --text-primary: oklch(0.130 0.010 90);
+  --accent-solid:  oklch(0.660 0.190 45);
+
+  /* Fluid type — Minor Third (1.2) */
+  --step-0: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  --step-1: clamp(1.25rem, 1.1rem + 0.75vw, 1.5rem);
+}</code>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         SECTION 3 — COMPONENT SAMPLER
+         ================================================================== -->
+    <section class="section">
+      <div class="section-header">
+        <h2 class="section-title">Component Sampler</h2>
+        <p class="section-description">
+          Core components styled with this direction's tokens. Every interactive element has focus-visible states. The accent color is used only for primary actions and selected states.
+        </p>
+      </div>
+
+      <div class="component-grid">
+
+        <!-- Buttons -->
+        <div class="component-block">
+          <div class="component-label">Buttons</div>
+          <div class="button-row">
+            <div class="btn-group">
+              <div class="btn-label">Default</div>
+              <button class="btn btn-primary">Publish changes</button>
+            </div>
+            <div class="btn-group">
+              <div class="btn-label">Hover</div>
+              <button class="btn btn-primary-hover-preview">Publish changes</button>
+            </div>
+            <div class="btn-group">
+              <div class="btn-label">Disabled</div>
+              <button class="btn btn-disabled" disabled>Publish changes</button>
+            </div>
+          </div>
+          <div class="button-row" style="margin-top: 8px;">
+            <div class="btn-group">
+              <div class="btn-label">Secondary</div>
+              <button class="btn btn-secondary">Cancel</button>
+            </div>
+            <div class="btn-group">
+              <div class="btn-label">Hover</div>
+              <button class="btn btn-secondary-hover-preview">Cancel</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Input -->
+        <div class="component-block">
+          <div class="component-label">Text Input</div>
+          <div class="form-group">
+            <label class="form-label" for="project-name">Project name</label>
+            <input class="form-input" type="text" id="project-name" placeholder="e.g., Design System v2">
+            <span class="form-hint">Used as the display name across all surfaces.</span>
+          </div>
+        </div>
+
+        <!-- Card -->
+        <div class="component-block">
+          <div class="component-label">Card</div>
+          <div class="card">
+            <div class="card-title">Token Architecture</div>
+            <div class="card-description">
+              Three-tier token system: primitives define raw values, semantic tokens map to purpose, and component tokens scope decisions to individual elements. This layering enables dark mode, theming, and brand flexibility without touching component code.
+            </div>
+            <div class="card-footer">
+              <span class="card-footer-text">Updated 3 days ago</span>
+              <button class="btn btn-secondary" style="padding: 6px 12px; font-size: 0.8125rem;">View details</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="component-block">
+          <div class="component-label">Sidebar Navigation</div>
+          <nav class="sidebar-demo" aria-label="Example sidebar navigation">
+            <button class="sidebar-item" tabindex="0">
+              <!-- Home icon (simplified inline SVG) -->
+              <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><polyline points="9,21 9,14 15,14 15,21"/></svg>
+              Overview
+            </button>
+            <button class="sidebar-item active" tabindex="0">
+              <!-- Palette icon -->
+              <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r="0.5" fill="currentColor"/><circle cx="17.5" cy="10.5" r="0.5" fill="currentColor"/><circle cx="8.5" cy="7.5" r="0.5" fill="currentColor"/><circle cx="6.5" cy="12" r="0.5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 011.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
+              Tokens
+            </button>
+            <button class="sidebar-item" tabindex="0">
+              <!-- Box icon -->
+              <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+              Components
+            </button>
+            <button class="sidebar-item" tabindex="0">
+              <!-- Type icon -->
+              <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+              Typography
+            </button>
+            <button class="sidebar-item" tabindex="0">
+              <!-- Settings icon -->
+              <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+              Settings
+            </button>
+          </nav>
+        </div>
+
+        <!-- Data Table — full width -->
+        <div class="component-block component-full-width">
+          <div class="component-label">Data Table</div>
+          <div class="table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Component</th>
+                  <th>Variants</th>
+                  <th>Coverage</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Button</td>
+                  <td class="table-number">6</td>
+                  <td class="table-number">94%</td>
+                  <td>
+                    <span class="table-status">
+                      <span class="table-status-dot status-active"></span>
+                      <span style="color: inherit;">Active</span>
+                    </span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Text Input</td>
+                  <td class="table-number">4</td>
+                  <td class="table-number">88%</td>
+                  <td>
+                    <span class="table-status">
+                      <span class="table-status-dot status-active"></span>
+                      <span style="color: inherit;">Active</span>
+                    </span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Modal Dialog</td>
+                  <td class="table-number">3</td>
+                  <td class="table-number">72%</td>
+                  <td>
+                    <span class="table-status">
+                      <span class="table-status-dot status-review"></span>
+                      <span>In review</span>
+                    </span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Data Table</td>
+                  <td class="table-number">5</td>
+                  <td class="table-number">81%</td>
+                  <td>
+                    <span class="table-status">
+                      <span class="table-status-dot status-active"></span>
+                      <span style="color: inherit;">Active</span>
+                    </span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Combobox</td>
+                  <td class="table-number">2</td>
+                  <td class="table-number">45%</td>
+                  <td>
+                    <span class="table-status">
+                      <span class="table-status-dot status-draft"></span>
+                      <span>Draft</span>
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Toast -->
+        <div class="component-block">
+          <div class="component-label">Toast / Notification</div>
+          <div class="toast toast-success" role="status">
+            <svg class="toast-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+              <polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+            <div class="toast-content">
+              <div class="toast-title">Tokens published successfully</div>
+              <div class="toast-message">All 47 design tokens have been synced to the codebase.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Badges -->
+        <div class="component-block">
+          <div class="component-label">Badges / Tags</div>
+          <div class="badge-row">
+            <span class="badge badge-default">Stable</span>
+            <span class="badge badge-accent">New</span>
+            <span class="badge badge-outline">Deprecated</span>
+          </div>
+          <div class="badge-row" style="margin-top: 8px;">
+            <span class="badge badge-default">v2.4.1</span>
+            <span class="badge badge-accent">React 19</span>
+            <span class="badge badge-outline">Accessibility</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         SECTION 4 — SPACING DEMONSTRATION
+         ================================================================== -->
+    <section class="section">
+      <div class="section-header">
+        <h2 class="section-title">Spacing Scale</h2>
+        <p class="section-description">
+          Based on an 8px grid with a 4px sub-grid for fine adjustments. Every spatial decision maps to one of these values.
+        </p>
+      </div>
+
+      <div class="spacing-scale">
+        <div class="spacing-item">
+          <span class="spacing-label">4px</span>
+          <div class="spacing-bar" style="width: 4px;"></div>
+          <span class="spacing-px">0.25rem</span>
+        </div>
+        <div class="spacing-item">
+          <span class="spacing-label">8px</span>
+          <div class="spacing-bar" style="width: 8px;"></div>
+          <span class="spacing-px">0.5rem</span>
+        </div>
+        <div class="spacing-item">
+          <span class="spacing-label">12px</span>
+          <div class="spacing-bar" style="width: 12px;"></div>
+          <span class="spacing-px">0.75rem</span>
+        </div>
+        <div class="spacing-item">
+          <span class="spacing-label">16px</span>
+          <div class="spacing-bar" style="width: 16px;"></div>
+          <span class="spacing-px">1rem</span>
+        </div>
+        <div class="spacing-item">
+          <span class="spacing-label">24px</span>
+          <div class="spacing-bar" style="width: 24px;"></div>
+          <span class="spacing-px">1.5rem</span>
+        </div>
+        <div class="spacing-item">
+          <span class="spacing-label">32px</span>
+          <div class="spacing-bar" style="width: 32px;"></div>
+          <span class="spacing-px">2rem</span>
+        </div>
+        <div class="spacing-item">
+          <span class="spacing-label">48px</span>
+          <div class="spacing-bar" style="width: 48px;"></div>
+          <span class="spacing-px">3rem</span>
+        </div>
+        <div class="spacing-item">
+          <span class="spacing-label">64px</span>
+          <div class="spacing-bar" style="width: 64px;"></div>
+          <span class="spacing-px">4rem</span>
+        </div>
+        <div class="spacing-item">
+          <span class="spacing-label">80px</span>
+          <div class="spacing-bar" style="width: 80px;"></div>
+          <span class="spacing-px">5rem</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         FOOTER — Design direction summary
+         ================================================================== -->
+    <footer style="padding-top: 32px; border-top: 1px solid var(--border-default); margin-top: 48px;">
+      <p class="text-small" style="max-width: 65ch;">
+        Kyle DS Direction A: Anthropic Warm. Instrument Serif + Inter + JetBrains Mono. Three-tier oklch token system. Warm cream backgrounds, terracotta accent, editorial restraint. Built for web apps, marketing sites, dashboards, and data visualization.
+      </p>
+    </footer>
+
+  </main>
+
+  <!-- ====================================================================
+       JAVASCRIPT — Mode toggle, keyboard support
+       ==================================================================== -->
+  <script>
+    function toggleMode() {
+      const html = document.documentElement;
+      const current = html.getAttribute('data-mode');
+      const next = current === 'light' ? 'dark' : 'light';
+      html.setAttribute('data-mode', next);
+
+      const icon = document.getElementById('mode-icon');
+      const label = document.getElementById('mode-label');
+
+      if (next === 'dark') {
+        icon.textContent = '\u2600'; // Sun
+        label.textContent = 'Light mode';
+      } else {
+        icon.textContent = '\u263D'; // Moon
+        label.textContent = 'Dark mode';
+      }
+    }
+
+    // Respect system preference on initial load
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      // Uncomment the line below to auto-detect system dark mode:
+      // toggleMode();
+    }
+  </script>
+</body>
+</html>

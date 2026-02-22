@@ -1,0 +1,3645 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kyle DS — Style Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ==========================================================================
+       TIER 1 — PRIMITIVES
+       Raw oklch values. Named by scale, no semantic meaning.
+       ========================================================================== */
+    :root {
+      --primitive-neutral-0:   oklch(1.00 0.000 0);
+      --primitive-neutral-25:  oklch(0.988 0.004 90);
+      --primitive-neutral-50:  oklch(0.978 0.005 90);
+      --primitive-neutral-100: oklch(0.958 0.006 90);
+      --primitive-neutral-150: oklch(0.938 0.007 90);
+      --primitive-neutral-200: oklch(0.905 0.007 90);
+      --primitive-neutral-300: oklch(0.855 0.008 90);
+      --primitive-neutral-400: oklch(0.755 0.010 90);
+      --primitive-neutral-500: oklch(0.610 0.012 90);
+      --primitive-neutral-600: oklch(0.490 0.010 90);
+      --primitive-neutral-700: oklch(0.360 0.010 90);
+      --primitive-neutral-800: oklch(0.240 0.008 90);
+      --primitive-neutral-900: oklch(0.170 0.007 90);
+      --primitive-neutral-950: oklch(0.135 0.008 90);
+
+      --primitive-blue-100: oklch(0.920 0.045 260);
+      --primitive-blue-200: oklch(0.830 0.100 260);
+      --primitive-blue-300: oklch(0.720 0.160 260);
+      --primitive-blue-400: oklch(0.630 0.200 260);
+      --primitive-blue-500: oklch(0.550 0.220 260);
+
+      --primitive-red-100: oklch(0.920 0.045 25);
+      --primitive-red-200: oklch(0.830 0.100 25);
+      --primitive-red-300: oklch(0.720 0.160 25);
+      --primitive-red-400: oklch(0.630 0.200 25);
+      --primitive-red-500: oklch(0.550 0.220 25);
+
+      --primitive-yellow-100: oklch(0.960 0.050 90);
+      --primitive-yellow-200: oklch(0.930 0.100 90);
+      --primitive-yellow-300: oklch(0.900 0.140 90);
+      --primitive-yellow-400: oklch(0.870 0.160 90);
+      --primitive-yellow-500: oklch(0.850 0.180 90);
+
+      --primitive-green-100: oklch(0.920 0.045 155);
+      --primitive-green-200: oklch(0.830 0.100 155);
+      --primitive-green-300: oklch(0.720 0.150 155);
+      --primitive-green-400: oklch(0.650 0.175 155);
+      --primitive-green-500: oklch(0.580 0.180 155);
+    }
+
+    /* ==========================================================================
+       TIER 2 — SEMANTIC TOKENS (Light)
+       ========================================================================== */
+    :root, [data-theme="light"] {
+      --bg-page:       var(--primitive-neutral-25);
+      --bg-surface:    var(--primitive-neutral-0);
+      --bg-elevated:   var(--primitive-neutral-0);
+      --bg-subtle:     var(--primitive-neutral-100);
+      --bg-muted:      var(--primitive-neutral-150);
+
+      --text-primary:   var(--primitive-neutral-900);
+      --text-secondary: var(--primitive-neutral-600);
+      --text-muted:     var(--primitive-neutral-500);
+      --text-on-accent: oklch(1.00 0.000 0);
+      --text-on-yellow: var(--primitive-neutral-900);
+
+      --border-default: var(--primitive-neutral-300);
+      --border-strong:  var(--primitive-neutral-400);
+      --border-subtle:  var(--primitive-neutral-200);
+
+      --accent-blue:        var(--primitive-blue-500);
+      --accent-blue-hover:  var(--primitive-blue-400);
+      --accent-blue-subtle: var(--primitive-blue-100);
+      --accent-blue-text:   var(--primitive-blue-500);
+
+      --accent-red:        var(--primitive-red-500);
+      --accent-red-hover:  var(--primitive-red-400);
+      --accent-red-subtle: var(--primitive-red-100);
+      --accent-red-text:   var(--primitive-red-500);
+
+      --accent-yellow:        var(--primitive-yellow-500);
+      --accent-yellow-hover:  var(--primitive-yellow-400);
+      --accent-yellow-subtle: var(--primitive-yellow-100);
+      --accent-yellow-text:   oklch(0.450 0.100 90);
+
+      --accent-green:        var(--primitive-green-500);
+      --accent-green-hover:  var(--primitive-green-400);
+      --accent-green-subtle: var(--primitive-green-100);
+      --accent-green-text:   var(--primitive-green-500);
+
+      --status-info:    var(--accent-blue);
+      --status-error:   var(--accent-red);
+      --status-warning: var(--accent-yellow);
+      --status-success: var(--accent-green);
+
+      --focus-ring: var(--primitive-blue-400);
+      --overlay-bg: oklch(0.135 0.008 90 / 0.40);
+
+      --shadow-sm: 0 1px 2px oklch(0 0 0 / 0.04);
+      --shadow-md: 0 4px 12px oklch(0 0 0 / 0.06);
+      --shadow-lg: 0 8px 24px oklch(0 0 0 / 0.08);
+      --shadow-blue:   0 4px 16px oklch(0.55 0.22 260 / 0.18);
+      --shadow-red:    0 4px 16px oklch(0.55 0.22 25 / 0.18);
+      --shadow-yellow: 0 4px 16px oklch(0.85 0.18 90 / 0.22);
+    }
+
+    /* ==========================================================================
+       TIER 2 — SEMANTIC TOKENS (Dark)
+       ========================================================================== */
+    [data-theme="dark"] {
+      --bg-page:       oklch(0.135 0.010 90);
+      --bg-surface:    oklch(0.160 0.012 90);
+      --bg-elevated:   oklch(0.185 0.012 90);
+      --bg-subtle:     oklch(0.205 0.012 90);
+      --bg-muted:      oklch(0.175 0.010 90);
+
+      --text-primary:   oklch(0.935 0.005 90);
+      --text-secondary: oklch(0.690 0.010 90);
+      --text-muted:     oklch(0.540 0.010 90);
+      --text-on-accent: oklch(1.00 0.000 0);
+      --text-on-yellow: oklch(0.135 0.010 90);
+
+      --border-default: oklch(0.260 0.012 90);
+      --border-strong:  oklch(0.330 0.012 90);
+      --border-subtle:  oklch(0.210 0.010 90);
+
+      --accent-blue:        oklch(0.670 0.200 260);
+      --accent-blue-hover:  oklch(0.720 0.190 260);
+      --accent-blue-subtle: oklch(0.250 0.060 260);
+      --accent-blue-text:   oklch(0.730 0.190 260);
+
+      --accent-red:        oklch(0.620 0.210 25);
+      --accent-red-hover:  oklch(0.670 0.200 25);
+      --accent-red-subtle: oklch(0.250 0.060 25);
+      --accent-red-text:   oklch(0.700 0.190 25);
+
+      --accent-yellow:        oklch(0.810 0.160 85);
+      --accent-yellow-hover:  oklch(0.850 0.150 85);
+      --accent-yellow-subtle: oklch(0.260 0.060 85);
+      --accent-yellow-text:   oklch(0.850 0.150 85);
+
+      --accent-green:        oklch(0.680 0.170 155);
+      --accent-green-hover:  oklch(0.720 0.160 155);
+      --accent-green-subtle: oklch(0.250 0.050 155);
+      --accent-green-text:   oklch(0.730 0.160 155);
+
+      --status-info:    var(--accent-blue);
+      --status-error:   var(--accent-red);
+      --status-warning: var(--accent-yellow);
+      --status-success: var(--accent-green);
+
+      --focus-ring: oklch(0.670 0.200 260);
+      --overlay-bg: oklch(0 0 0 / 0.60);
+
+      --shadow-sm: 0 1px 2px oklch(0 0 0 / 0.15);
+      --shadow-md: 0 4px 12px oklch(0 0 0 / 0.25);
+      --shadow-lg: 0 8px 24px oklch(0 0 0 / 0.35);
+      --shadow-blue:   0 4px 16px oklch(0.67 0.20 260 / 0.25);
+      --shadow-red:    0 4px 16px oklch(0.62 0.21 25 / 0.25);
+      --shadow-yellow: 0 4px 16px oklch(0.81 0.16 85 / 0.25);
+    }
+
+    /* ==========================================================================
+       TIER 3 — COMPONENT TOKENS
+       ========================================================================== */
+    :root {
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Code', monospace;
+
+      --step--2: clamp(0.694rem, 0.650rem + 0.22vi, 0.8rem);
+      --step--1: clamp(0.833rem, 0.775rem + 0.29vi, 1rem);
+      --step-0:  clamp(1rem, 0.913rem + 0.43vi, 1.25rem);
+      --step-1:  clamp(1.2rem, 1.074rem + 0.63vi, 1.5625rem);
+      --step-2:  clamp(1.44rem, 1.261rem + 0.89vi, 1.953rem);
+      --step-3:  clamp(1.728rem, 1.480rem + 1.24vi, 2.441rem);
+      --step-4:  clamp(2.074rem, 1.734rem + 1.70vi, 3.052rem);
+      --step-5:  clamp(2.488rem, 2.028rem + 2.30vi, 3.815rem);
+
+      --tracking-tight:    -0.02em;
+      --tracking-tighter:  -0.03em;
+      --tracking-tightest: -0.04em;
+
+      --leading-none:    1.0;
+      --leading-tight:   1.15;
+      --leading-snug:    1.3;
+      --leading-normal:  1.55;
+      --leading-relaxed: 1.65;
+
+      --space-1:  4px;  --space-2:  8px;  --space-3: 12px;
+      --space-4: 16px;  --space-6: 24px;  --space-8: 32px;
+      --space-10: 40px; --space-12: 48px; --space-16: 64px;
+      --space-20: 80px;
+
+      --radius-sm:   6px;
+      --radius-md:   10px;
+      --radius-lg:   12px;
+      --radius-xl:   16px;
+      --radius-full: 9999px;
+
+      --motion-instant: 100ms;
+      --motion-fast:    160ms;
+      --motion-base:    240ms;
+      --motion-slow:    360ms;
+      --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+      --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    /* ==========================================================================
+       RESET & BASE
+       ========================================================================== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 68px;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: var(--leading-normal);
+      color: var(--text-primary);
+      background: var(--bg-page);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--focus-ring);
+      outline-offset: 2px;
+    }
+
+    /* ==========================================================================
+       ANIMATIONS
+       ========================================================================== */
+    @media (prefers-reduced-motion: no-preference) {
+      @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(16px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+      }
+      @keyframes slideInRight {
+        from { opacity: 0; transform: translateX(-10px); }
+        to   { opacity: 1; transform: translateX(0); }
+      }
+      @keyframes pulse {
+        0%, 100% { opacity: 0.5; transform: scale(1); }
+        50%      { opacity: 1; transform: scale(1.1); }
+      }
+      @keyframes float {
+        0%, 100% { transform: translate(0, 0); }
+        25%      { transform: translate(5px, -8px); }
+        50%      { transform: translate(-3px, -12px); }
+        75%      { transform: translate(7px, -5px); }
+      }
+      @keyframes shimmer {
+        0%   { background-position: -200% 0; }
+        100% { background-position: 200% 0; }
+      }
+      @keyframes bounceIn {
+        0%   { transform: scale(0.9); opacity: 0; }
+        60%  { transform: scale(1.03); opacity: 1; }
+        100% { transform: scale(1); }
+      }
+      @keyframes progress {
+        from { width: 0%; }
+        to   { width: var(--progress); }
+      }
+      .anim-in {
+        animation: fadeInUp 0.5s var(--ease-smooth) both;
+      }
+      .anim-d1 { animation-delay: 0.05s; }
+      .anim-d2 { animation-delay: 0.10s; }
+      .anim-d3 { animation-delay: 0.15s; }
+      .anim-d4 { animation-delay: 0.20s; }
+      .anim-d5 { animation-delay: 0.25s; }
+      .anim-d6 { animation-delay: 0.30s; }
+      .anim-d7 { animation-delay: 0.35s; }
+      .anim-d8 { animation-delay: 0.40s; }
+
+      .hover-lift {
+        transition: transform var(--motion-fast) var(--ease-smooth),
+                    box-shadow var(--motion-fast) var(--ease-out);
+      }
+      .hover-lift:hover { transform: translateY(-3px) scale(1.01); }
+      .hover-lift:active { transform: translateY(0) scale(0.99); }
+
+      .btn-bounce {
+        transition: transform var(--motion-fast) var(--ease-bounce),
+                    background-color var(--motion-fast) ease-out,
+                    box-shadow var(--motion-fast) var(--ease-out),
+                    border-color var(--motion-fast) ease-out;
+      }
+      .btn-bounce:hover { transform: scale(1.03); }
+      .btn-bounce:active { transform: scale(0.97); transition-duration: var(--motion-instant); }
+
+      .badge-pop {
+        transition: transform var(--motion-fast) var(--ease-bounce);
+      }
+      .badge-pop:hover { transform: scale(1.08); }
+
+      .color-transition {
+        transition: color var(--motion-fast) ease-out,
+                    background-color var(--motion-fast) ease-out,
+                    border-color var(--motion-fast) ease-out;
+      }
+
+      .toggle-knob-anim {
+        transition: transform var(--motion-fast) var(--ease-bounce);
+      }
+      .toggle-bg-anim {
+        transition: background-color var(--motion-fast) ease-out;
+      }
+
+      .card-interactive {
+        transition: transform var(--motion-fast) var(--ease-smooth),
+                    box-shadow var(--motion-base) var(--ease-out),
+                    border-color var(--motion-fast) ease-out;
+      }
+      .card-interactive:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+        border-color: var(--border-strong);
+      }
+
+      .float-1 { animation: float 9s ease-in-out infinite; }
+      .float-2 { animation: float 11s ease-in-out infinite reverse; animation-delay: -4s; }
+      .float-3 { animation: float 13s ease-in-out infinite; animation-delay: -7s; }
+
+      .toast-slide {
+        animation: slideInRight 0.4s var(--ease-smooth) both;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* ==========================================================================
+       LAYOUT
+       ========================================================================== */
+    .page-wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--space-8);
+    }
+
+    .section {
+      padding: var(--space-20) 0;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .section:last-child { border-bottom: none; }
+
+    .section-header {
+      margin-bottom: var(--space-12);
+    }
+
+    .section-overline {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: var(--space-2);
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .section-overline-blue  { color: var(--accent-blue-text); }
+    .section-overline-red   { color: var(--accent-red-text); }
+    .section-overline-yellow { color: var(--accent-yellow-text); }
+    .section-overline-green { color: var(--accent-green-text); }
+
+    .section-title {
+      font-size: var(--step-3);
+      font-weight: 760;
+      letter-spacing: var(--tracking-tighter);
+      line-height: var(--leading-tight);
+      margin-bottom: var(--space-3);
+    }
+
+    .section-desc {
+      font-size: var(--step-0);
+      color: var(--text-secondary);
+      max-width: 640px;
+      line-height: var(--leading-relaxed);
+    }
+
+    .subsection {
+      margin-bottom: var(--space-12);
+    }
+
+    .subsection-title {
+      font-size: var(--step-1);
+      font-weight: 650;
+      letter-spacing: var(--tracking-tight);
+      margin-bottom: var(--space-6);
+    }
+
+    .subsection-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: var(--space-3);
+    }
+
+    .subsection-desc {
+      font-size: var(--step--1);
+      color: var(--text-secondary);
+      margin-bottom: var(--space-6);
+      max-width: 560px;
+    }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-8); }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6); }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); }
+    .full-span { grid-column: 1 / -1; }
+
+    @media (max-width: 768px) {
+      .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+      .page-wrap { padding: 0 var(--space-4); }
+    }
+
+    /* ==========================================================================
+       STICKY NAV
+       ========================================================================== */
+    .topnav {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      background: oklch(from var(--bg-surface) l c h / 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .topnav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: var(--space-3) var(--space-8);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .topnav-brand {
+      font-weight: 720;
+      font-size: var(--step-0);
+      color: var(--text-primary);
+      letter-spacing: var(--tracking-tight);
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      text-decoration: none;
+    }
+
+    .brand-dots {
+      display: flex;
+      gap: 3px;
+    }
+
+    .brand-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: var(--radius-full);
+    }
+
+    .topnav-links {
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+      list-style: none;
+      overflow: hidden;
+    }
+
+    .topnav-links a {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      padding: var(--space-1) var(--space-3);
+      border-radius: var(--radius-sm);
+      white-space: nowrap;
+    }
+
+    .topnav-links a:hover {
+      color: var(--text-primary);
+      background: var(--bg-subtle);
+    }
+
+    .topnav-right {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .theme-btn {
+      width: 34px;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-sm);
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      cursor: pointer;
+    }
+
+    .theme-btn:hover {
+      background: var(--bg-subtle);
+      border-color: var(--border-strong);
+    }
+
+    .theme-btn svg { width: 16px; height: 16px; }
+
+    /* ==========================================================================
+       HERO
+       ========================================================================== */
+    .hero {
+      padding: var(--space-20) 0 var(--space-16);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-title {
+      font-size: var(--step-5);
+      font-weight: 800;
+      letter-spacing: var(--tracking-tightest);
+      line-height: var(--leading-none);
+      margin-bottom: var(--space-6);
+    }
+
+    .hero-subtitle {
+      font-size: var(--step-1);
+      color: var(--text-secondary);
+      max-width: 560px;
+      margin: 0 auto var(--space-8);
+      line-height: var(--leading-normal);
+    }
+
+    .hero-dots {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-3);
+    }
+
+    .hero-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: var(--radius-full);
+    }
+
+    .floating-decor {
+      position: fixed;
+      pointer-events: none;
+      z-index: -1;
+      border-radius: var(--radius-full);
+      opacity: 0.3;
+    }
+
+    /* ==========================================================================
+       SWATCHES
+       ========================================================================== */
+    .swatch-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: var(--space-3);
+    }
+
+    .swatch-grid-sm {
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
+
+    .swatch {
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: var(--bg-surface);
+    }
+
+    .swatch-color {
+      height: 48px;
+    }
+
+    .swatch-info {
+      padding: var(--space-2) var(--space-3);
+    }
+
+    .swatch-name {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      font-family: var(--font-mono);
+    }
+
+    .swatch-val {
+      font-size: 0.625rem;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+      word-break: break-all;
+      margin-top: 1px;
+    }
+
+    .swatch-row {
+      display: flex;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .swatch-row-cell {
+      flex: 1;
+      height: 48px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding-bottom: 4px;
+      font-size: 0.5625rem;
+      font-family: var(--font-mono);
+      font-weight: 500;
+    }
+
+    /* ==========================================================================
+       COMPONENT STYLES — BUTTONS
+       ========================================================================== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-family: var(--font-sans);
+      font-weight: 550;
+      border: none;
+      cursor: pointer;
+      border-radius: var(--radius-sm);
+      white-space: nowrap;
+    }
+
+    .btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    .btn-sm  { height: 28px; padding: 0 10px; font-size: 0.75rem; }
+    .btn-md  { height: 36px; padding: 0 16px; font-size: 0.8125rem; }
+    .btn-lg  { height: 44px; padding: 0 22px; font-size: 0.9375rem; border-radius: var(--radius-md); }
+
+    .btn-primary {
+      background: var(--accent-blue);
+      color: var(--text-on-accent);
+    }
+    .btn-primary:hover { background: var(--accent-blue-hover); }
+
+    .btn-danger {
+      background: var(--accent-red);
+      color: var(--text-on-accent);
+    }
+    .btn-danger:hover { background: var(--accent-red-hover); }
+
+    .btn-highlight {
+      background: var(--accent-yellow);
+      color: var(--text-on-yellow);
+    }
+    .btn-highlight:hover { background: var(--accent-yellow-hover); }
+
+    .btn-secondary {
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      border: 1px solid var(--border-default);
+    }
+    .btn-secondary:hover {
+      background: var(--bg-subtle);
+      border-color: var(--border-strong);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-secondary);
+    }
+    .btn-ghost:hover {
+      background: var(--bg-subtle);
+      color: var(--text-primary);
+    }
+
+    .btn-icon {
+      width: 36px;
+      padding: 0;
+      justify-content: center;
+    }
+    .btn-icon.btn-sm { width: 28px; }
+    .btn-icon.btn-lg { width: 44px; }
+    .btn-icon svg { width: 16px; height: 16px; }
+
+    .btn-row {
+      display: flex;
+      gap: var(--space-3);
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .state-label {
+      font-size: 0.625rem;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* ==========================================================================
+       FORM ELEMENTS
+       ========================================================================== */
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+    }
+
+    .form-label {
+      font-size: 0.8125rem;
+      font-weight: 550;
+      color: var(--text-primary);
+    }
+
+    .form-hint {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .form-error-text {
+      font-size: 0.75rem;
+      color: var(--accent-red-text);
+    }
+
+    .input {
+      width: 100%;
+      height: 36px;
+      padding: 0 var(--space-3);
+      font-family: var(--font-sans);
+      font-size: 0.875rem;
+      color: var(--text-primary);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-sm);
+    }
+
+    .input::placeholder { color: var(--text-muted); }
+
+    .input:focus {
+      outline: none;
+      border-color: var(--accent-blue);
+      box-shadow: 0 0 0 3px oklch(0.55 0.22 260 / 0.12);
+    }
+
+    [data-theme="dark"] .input:focus {
+      box-shadow: 0 0 0 3px oklch(0.67 0.20 260 / 0.20);
+    }
+
+    .input-error {
+      border-color: var(--accent-red);
+    }
+    .input-error:focus {
+      border-color: var(--accent-red);
+      box-shadow: 0 0 0 3px oklch(0.55 0.22 25 / 0.12);
+    }
+
+    .input:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      background: var(--bg-subtle);
+    }
+
+    .textarea {
+      height: auto;
+      min-height: 80px;
+      padding: var(--space-3);
+      resize: vertical;
+      font-family: var(--font-sans);
+      font-size: 0.875rem;
+      color: var(--text-primary);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-sm);
+      line-height: 1.5;
+    }
+
+    .textarea:focus {
+      outline: none;
+      border-color: var(--accent-blue);
+      box-shadow: 0 0 0 3px oklch(0.55 0.22 260 / 0.12);
+    }
+
+    .select-wrap {
+      position: relative;
+    }
+
+    .select {
+      appearance: none;
+      width: 100%;
+      height: 36px;
+      padding: 0 32px 0 var(--space-3);
+      font-family: var(--font-sans);
+      font-size: 0.875rem;
+      color: var(--text-primary);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+    }
+
+    .select:focus {
+      outline: none;
+      border-color: var(--accent-blue);
+      box-shadow: 0 0 0 3px oklch(0.55 0.22 260 / 0.12);
+    }
+
+    .select-arrow {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+      color: var(--text-muted);
+    }
+
+    /* Checkbox & Radio */
+    .check-group {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      cursor: pointer;
+      font-size: 0.875rem;
+    }
+
+    .check-box, .radio-circle {
+      width: 18px;
+      height: 18px;
+      border: 1.5px solid var(--border-strong);
+      background: var(--bg-surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+
+    .check-box { border-radius: 4px; }
+    .radio-circle { border-radius: 50%; }
+
+    .check-box.checked, .radio-circle.checked {
+      background: var(--accent-blue);
+      border-color: var(--accent-blue);
+    }
+
+    .check-box.checked svg { color: var(--text-on-accent); }
+    .radio-circle.checked::after {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--text-on-accent);
+      border-radius: 50%;
+    }
+
+    /* Toggle */
+    .toggle {
+      width: 40px;
+      height: 22px;
+      border-radius: var(--radius-full);
+      background: var(--primitive-neutral-300);
+      cursor: pointer;
+      position: relative;
+      border: none;
+      padding: 0;
+      flex-shrink: 0;
+    }
+
+    .toggle-knob {
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--primitive-neutral-0);
+      box-shadow: 0 1px 3px oklch(0 0 0 / 0.15);
+    }
+
+    .toggle.on {
+      background: var(--accent-blue);
+    }
+
+    .toggle.on .toggle-knob {
+      transform: translateX(18px);
+    }
+
+    /* Range Slider */
+    .range {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 4px;
+      border-radius: var(--radius-full);
+      background: var(--border-default);
+      outline: none;
+    }
+
+    .range::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--accent-blue);
+      cursor: pointer;
+      border: 2px solid var(--bg-surface);
+      box-shadow: 0 1px 4px oklch(0 0 0 / 0.15);
+    }
+
+    /* ==========================================================================
+       CARDS
+       ========================================================================== */
+    .card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+    }
+
+    .card-title {
+      font-size: 0.9375rem;
+      font-weight: 620;
+      letter-spacing: var(--tracking-tight);
+      margin-bottom: var(--space-2);
+    }
+
+    .card-desc {
+      font-size: 0.8125rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+
+    .card-meta {
+      font-size: 0.75rem;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+      margin-top: var(--space-4);
+      padding-top: var(--space-4);
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .card-featured {
+      border-top: 3px solid var(--accent-blue);
+    }
+
+    .card-featured-red { border-top-color: var(--accent-red); }
+    .card-featured-yellow { border-top-color: var(--accent-yellow); }
+    .card-featured-green { border-top-color: var(--accent-green); }
+
+    .card-compact {
+      padding: var(--space-4);
+    }
+
+    .card-compact .card-title { font-size: 0.8125rem; }
+    .card-compact .card-desc { font-size: 0.75rem; }
+
+    /* ==========================================================================
+       DATA TABLE
+       ========================================================================== */
+    .table-wrap {
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8125rem;
+    }
+
+    .data-table th {
+      text-align: left;
+      padding: var(--space-3) var(--space-4);
+      font-weight: 600;
+      font-size: 0.6875rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      background: var(--bg-subtle);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .data-table td {
+      padding: var(--space-3) var(--space-4);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .data-table tr:last-child td { border-bottom: none; }
+
+    .data-table tbody tr:hover { background: var(--bg-subtle); }
+
+    .data-table .mono {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+    }
+
+    .sort-icon {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      vertical-align: middle;
+      margin-left: 4px;
+      opacity: 0.4;
+    }
+
+    /* Status dot */
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .status-row {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* ==========================================================================
+       BADGES
+       ========================================================================== */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      height: 22px;
+      padding: 0 8px;
+      font-size: 0.6875rem;
+      font-weight: 550;
+      border-radius: var(--radius-full);
+      white-space: nowrap;
+    }
+
+    .badge-blue   { background: var(--accent-blue-subtle);   color: var(--accent-blue-text); }
+    .badge-red    { background: var(--accent-red-subtle);    color: var(--accent-red-text); }
+    .badge-yellow { background: var(--accent-yellow-subtle); color: var(--accent-yellow-text); }
+    .badge-green  { background: var(--accent-green-subtle);  color: var(--accent-green-text); }
+    .badge-neutral { background: var(--bg-subtle); color: var(--text-secondary); border: 1px solid var(--border-subtle); }
+
+    /* ==========================================================================
+       PROGRESS BAR
+       ========================================================================== */
+    .progress-track {
+      width: 100%;
+      height: 6px;
+      background: var(--bg-subtle);
+      border-radius: var(--radius-full);
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      border-radius: var(--radius-full);
+      width: var(--progress, 0%);
+    }
+
+    .progress-blue   { background: var(--accent-blue); }
+    .progress-red    { background: var(--accent-red); }
+    .progress-yellow { background: var(--accent-yellow); }
+    .progress-green  { background: var(--accent-green); }
+
+    /* ==========================================================================
+       NAVIGATION — SIDEBAR
+       ========================================================================== */
+    .sidebar {
+      width: 240px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-lg);
+      padding: var(--space-2);
+    }
+
+    .sidebar-collapsed {
+      width: 56px;
+    }
+
+    .sidebar-section-label {
+      font-size: 0.625rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      padding: var(--space-3) var(--space-3) var(--space-1);
+    }
+
+    .sidebar-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-3);
+      border-radius: var(--radius-sm);
+      font-size: 0.8125rem;
+      font-weight: 450;
+      color: var(--text-secondary);
+      cursor: pointer;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+      font-family: var(--font-sans);
+    }
+
+    .sidebar-item:hover {
+      background: var(--bg-subtle);
+      color: var(--text-primary);
+    }
+
+    .sidebar-item.active {
+      background: var(--accent-blue-subtle);
+      color: var(--accent-blue-text);
+      font-weight: 550;
+    }
+
+    .sidebar-icon {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      opacity: 0.65;
+    }
+
+    .sidebar-item.active .sidebar-icon { opacity: 1; }
+
+    .sidebar-collapsed .sidebar-item {
+      justify-content: center;
+      padding: var(--space-2);
+    }
+    .sidebar-collapsed .sidebar-item span { display: none; }
+    .sidebar-collapsed .sidebar-section-label { display: none; }
+
+    /* ==========================================================================
+       NAVIGATION — TABS, BREADCRUMBS, PAGINATION
+       ========================================================================== */
+    .tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid var(--border-default);
+    }
+
+    .tab {
+      padding: var(--space-3) var(--space-4);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      border: none;
+      background: none;
+      cursor: pointer;
+      position: relative;
+      font-family: var(--font-sans);
+    }
+
+    .tab:hover { color: var(--text-primary); }
+
+    .tab.active {
+      color: var(--accent-blue-text);
+      font-weight: 600;
+    }
+
+    .tab.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--accent-blue);
+      border-radius: 2px 2px 0 0;
+    }
+
+    .breadcrumbs {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: 0.8125rem;
+    }
+
+    .breadcrumb-link {
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+    .breadcrumb-link:hover { color: var(--accent-blue-text); }
+    .breadcrumb-sep { color: var(--text-muted); font-size: 0.75rem; }
+    .breadcrumb-current { color: var(--text-primary); font-weight: 550; }
+
+    .pagination {
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+    }
+
+    .page-btn {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-sm);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      border: 1px solid var(--border-default);
+      background: var(--bg-surface);
+      color: var(--text-secondary);
+      cursor: pointer;
+      font-family: var(--font-sans);
+    }
+
+    .page-btn:hover {
+      background: var(--bg-subtle);
+      color: var(--text-primary);
+    }
+
+    .page-btn.active {
+      background: var(--accent-blue);
+      color: var(--text-on-accent);
+      border-color: var(--accent-blue);
+    }
+
+    /* ==========================================================================
+       FEEDBACK — TOASTS, ALERTS, EMPTY STATES, SKELETONS
+       ========================================================================== */
+    .toast {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-3);
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-lg);
+      padding: var(--space-4);
+      max-width: 360px;
+      box-shadow: var(--shadow-md);
+    }
+
+    .toast-icon {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .toast-body { flex: 1; }
+
+    .toast-title {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .toast-desc {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+    }
+
+    .toast-close {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      background: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-radius: var(--radius-sm);
+      flex-shrink: 0;
+    }
+
+    .toast-close:hover { background: var(--bg-subtle); color: var(--text-primary); }
+
+    .alert {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-3);
+      padding: var(--space-4);
+      border-radius: var(--radius-md);
+      font-size: 0.8125rem;
+      line-height: 1.5;
+    }
+
+    .alert-info    { background: var(--accent-blue-subtle); color: var(--accent-blue-text); }
+    .alert-error   { background: var(--accent-red-subtle); color: var(--accent-red-text); }
+    .alert-warning { background: var(--accent-yellow-subtle); color: var(--accent-yellow-text); }
+    .alert-success { background: var(--accent-green-subtle); color: var(--accent-green-text); }
+
+    .alert svg { flex-shrink: 0; width: 18px; height: 18px; margin-top: 1px; }
+
+    .empty-state {
+      text-align: center;
+      padding: var(--space-16) var(--space-8);
+      color: var(--text-muted);
+    }
+
+    .empty-state-icon {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto var(--space-4);
+      opacity: 0.35;
+    }
+
+    .empty-state-title {
+      font-size: var(--step-0);
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: var(--space-2);
+    }
+
+    .skeleton {
+      background: linear-gradient(90deg, var(--bg-subtle) 25%, var(--bg-muted) 50%, var(--bg-subtle) 75%);
+      background-size: 200% 100%;
+      border-radius: var(--radius-sm);
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .skeleton { animation: shimmer 1.5s ease-in-out infinite; }
+    }
+
+    /* ==========================================================================
+       OVERLAYS — MODAL, DROPDOWN, TOOLTIP, CMD PALETTE
+       ========================================================================== */
+    .modal-backdrop {
+      background: var(--overlay-bg);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      position: relative;
+    }
+
+    .modal {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-lg);
+      max-width: 440px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+
+    .modal-header {
+      padding: var(--space-6) var(--space-6) var(--space-4);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .modal-title {
+      font-size: var(--step-1);
+      font-weight: 650;
+      letter-spacing: var(--tracking-tight);
+    }
+
+    .modal-body {
+      padding: 0 var(--space-6);
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .modal-footer {
+      padding: var(--space-6);
+      display: flex;
+      justify-content: flex-end;
+      gap: var(--space-3);
+    }
+
+    .dropdown-menu {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-lg);
+      padding: var(--space-1);
+      min-width: 180px;
+    }
+
+    .dropdown-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-3);
+      font-size: 0.8125rem;
+      color: var(--text-primary);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+      font-family: var(--font-sans);
+    }
+
+    .dropdown-item:hover { background: var(--bg-subtle); }
+
+    .dropdown-item-danger { color: var(--accent-red-text); }
+    .dropdown-item-danger:hover { background: var(--accent-red-subtle); }
+
+    .dropdown-sep {
+      height: 1px;
+      background: var(--border-subtle);
+      margin: var(--space-1) 0;
+    }
+
+    .dropdown-shortcut {
+      margin-left: auto;
+      font-size: 0.6875rem;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+    }
+
+    .tooltip-demo {
+      position: relative;
+      display: inline-block;
+    }
+
+    .tooltip {
+      position: absolute;
+      bottom: calc(100% + 6px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--primitive-neutral-900);
+      color: oklch(0.95 0 0);
+      padding: 4px 10px;
+      border-radius: var(--radius-sm);
+      font-size: 0.6875rem;
+      font-weight: 500;
+      white-space: nowrap;
+      pointer-events: none;
+      box-shadow: var(--shadow-md);
+    }
+
+    [data-theme="dark"] .tooltip {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-default);
+      color: var(--text-primary);
+    }
+
+    .tooltip::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 4px solid transparent;
+      border-top-color: var(--primitive-neutral-900);
+    }
+
+    [data-theme="dark"] .tooltip::after {
+      border-top-color: var(--bg-elevated);
+    }
+
+    .cmd-palette {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-lg);
+      max-width: 520px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+
+    .cmd-input-wrap {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-4) var(--space-4);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .cmd-input-wrap svg { color: var(--text-muted); flex-shrink: 0; }
+
+    .cmd-input {
+      flex: 1;
+      border: none;
+      background: none;
+      font-size: 0.9375rem;
+      font-family: var(--font-sans);
+      color: var(--text-primary);
+      outline: none;
+    }
+
+    .cmd-input::placeholder { color: var(--text-muted); }
+
+    .cmd-results {
+      padding: var(--space-2);
+      max-height: 260px;
+      overflow-y: auto;
+    }
+
+    .cmd-group-label {
+      font-size: 0.625rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      padding: var(--space-2) var(--space-3);
+    }
+
+    .cmd-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-2) var(--space-3);
+      border-radius: var(--radius-sm);
+      font-size: 0.8125rem;
+      color: var(--text-primary);
+      cursor: pointer;
+    }
+
+    .cmd-item:hover, .cmd-item.selected { background: var(--bg-subtle); }
+
+    .cmd-item svg { width: 16px; height: 16px; color: var(--text-muted); flex-shrink: 0; }
+
+    .cmd-item .cmd-shortcut {
+      margin-left: auto;
+      font-family: var(--font-mono);
+      font-size: 0.625rem;
+      color: var(--text-muted);
+      display: flex;
+      gap: 3px;
+    }
+
+    .cmd-kbd {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-subtle);
+      padding: 1px 5px;
+      border-radius: 3px;
+      font-size: 0.625rem;
+    }
+
+    /* ==========================================================================
+       COMPOSITION PATTERNS
+       ========================================================================== */
+    .comp-frame {
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      background: var(--bg-page);
+    }
+
+    .comp-toolbar {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-3) var(--space-4);
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .comp-sidebar-layout {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      min-height: 400px;
+    }
+
+    .comp-sidebar {
+      background: var(--bg-surface);
+      border-right: 1px solid var(--border-subtle);
+      padding: var(--space-3);
+    }
+
+    .comp-main {
+      padding: var(--space-6);
+    }
+
+    /* Stat card for compositions */
+    .stat-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      margin-bottom: var(--space-1);
+    }
+
+    .stat-value {
+      font-size: var(--step-3);
+      font-weight: 720;
+      letter-spacing: var(--tracking-tighter);
+      line-height: var(--leading-tight);
+    }
+
+    .stat-change {
+      font-size: 0.75rem;
+      font-weight: 550;
+      margin-top: var(--space-2);
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    /* Mini bar chart */
+    .mini-bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 3px;
+      height: 40px;
+    }
+
+    .mini-bar {
+      width: 4px;
+      border-radius: 2px;
+      background: var(--accent-blue);
+    }
+
+    /* ==========================================================================
+       CHART — SVG CONTAINERS & INTERACTIONS
+       ========================================================================== */
+    .chart-svg {
+      width: 100%;
+      height: auto;
+      overflow: visible;
+      display: block;
+    }
+
+    .chart-svg text {
+      font-family: var(--font-mono);
+      fill: var(--text-muted);
+    }
+
+    .chart-svg .chart-gridline {
+      stroke: var(--border-subtle);
+      stroke-dasharray: 4 4;
+    }
+
+    .chart-svg .chart-axis {
+      stroke: var(--border-default);
+    }
+
+    .chart-svg .chart-label {
+      font-size: 9px;
+      fill: var(--text-muted);
+    }
+
+    .chart-hover {
+      transition: opacity 160ms ease-out;
+    }
+
+    .chart-hover:hover {
+      opacity: 0.75;
+    }
+
+    .sparkline-svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    .sparkline-svg polyline {
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* ==========================================================================
+       MOTION SECTION
+       ========================================================================== */
+    .easing-demo {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+
+    .easing-row {
+      display: grid;
+      grid-template-columns: 120px 1fr 200px;
+      gap: var(--space-4);
+      align-items: center;
+    }
+
+    .easing-name {
+      font-size: 0.75rem;
+      font-family: var(--font-mono);
+      font-weight: 550;
+      color: var(--text-primary);
+    }
+
+    .easing-track {
+      height: 4px;
+      background: var(--border-subtle);
+      border-radius: var(--radius-full);
+      position: relative;
+    }
+
+    .easing-dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--accent-blue);
+      position: absolute;
+      top: -6px;
+      left: 0;
+    }
+
+    .easing-value {
+      font-size: 0.6875rem;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+    }
+
+    /* Duration bar */
+    .duration-bar {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+    }
+
+    .duration-fill {
+      height: 8px;
+      border-radius: var(--radius-full);
+      background: var(--accent-blue);
+    }
+
+    .duration-label {
+      font-size: 0.75rem;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+      min-width: 60px;
+    }
+
+    /* ==========================================================================
+       ICON SIZES
+       ========================================================================== */
+    .icon-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-6);
+    }
+
+    .icon-demo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .icon-size-label {
+      font-size: 0.625rem;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+    }
+
+    /* Spacing vis */
+    .spacing-vis {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+
+    .spacing-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+    }
+
+    .spacing-bar-label {
+      width: 56px;
+      font-size: 0.75rem;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    .spacing-bar {
+      height: 20px;
+      border-radius: 3px;
+      background: var(--accent-blue-subtle);
+      border: 1px solid var(--accent-blue);
+    }
+
+    .radius-demo {
+      display: flex;
+      gap: var(--space-6);
+      flex-wrap: wrap;
+    }
+
+    .radius-box {
+      width: 64px;
+      height: 64px;
+      border: 2px solid var(--accent-blue);
+      background: var(--accent-blue-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.625rem;
+      font-family: var(--font-mono);
+      color: var(--accent-blue-text);
+      font-weight: 550;
+    }
+
+    /* Do / Don't callouts */
+    .do-dont {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-4);
+    }
+
+    .do-card, .dont-card {
+      padding: var(--space-4);
+      border-radius: var(--radius-md);
+      font-size: 0.8125rem;
+      line-height: 1.5;
+    }
+
+    .do-card {
+      background: var(--accent-green-subtle);
+      border-left: 3px solid var(--accent-green);
+      color: var(--accent-green-text);
+    }
+
+    .dont-card {
+      background: var(--accent-red-subtle);
+      border-left: 3px solid var(--accent-red);
+      color: var(--accent-red-text);
+    }
+
+    .do-label, .dont-label {
+      font-weight: 650;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: var(--space-2);
+    }
+
+    /* ==========================================================================
+       UTILITY
+       ========================================================================== */
+    .flex { display: flex; }
+    .flex-col { flex-direction: column; }
+    .items-center { align-items: center; }
+    .justify-between { justify-content: space-between; }
+    .gap-1 { gap: var(--space-1); }
+    .gap-2 { gap: var(--space-2); }
+    .gap-3 { gap: var(--space-3); }
+    .gap-4 { gap: var(--space-4); }
+    .gap-6 { gap: var(--space-6); }
+    .gap-8 { gap: var(--space-8); }
+    .mb-2 { margin-bottom: var(--space-2); }
+    .mb-3 { margin-bottom: var(--space-3); }
+    .mb-4 { margin-bottom: var(--space-4); }
+    .mb-6 { margin-bottom: var(--space-6); }
+    .mb-8 { margin-bottom: var(--space-8); }
+    .mt-4 { margin-top: var(--space-4); }
+    .mt-6 { margin-top: var(--space-6); }
+    .text-muted { color: var(--text-muted); }
+    .text-secondary { color: var(--text-secondary); }
+    .font-mono { font-family: var(--font-mono); }
+    .w-full { width: 100%; }
+  </style>
+</head>
+
+<body>
+  <!-- Floating decorative dots -->
+  <div class="floating-decor float-1" style="width:10px;height:10px;background:var(--accent-blue);top:15%;left:5%;"></div>
+  <div class="floating-decor float-2" style="width:8px;height:8px;background:var(--accent-red);top:40%;right:3%;"></div>
+  <div class="floating-decor float-3" style="width:6px;height:6px;background:var(--accent-yellow);top:70%;left:8%;"></div>
+
+  <!-- ===== STICKY NAV ===== -->
+  <nav class="topnav">
+    <div class="topnav-inner">
+      <a href="#" class="topnav-brand">
+        <span class="brand-dots">
+          <span class="brand-dot" style="background:var(--accent-blue);"></span>
+          <span class="brand-dot" style="background:var(--accent-red);"></span>
+          <span class="brand-dot" style="background:var(--accent-yellow);"></span>
+        </span>
+        Kyle DS
+      </a>
+      <ul class="topnav-links">
+        <li><a href="#philosophy" class="color-transition">Philosophy</a></li>
+        <li><a href="#color" class="color-transition">Color</a></li>
+        <li><a href="#typography" class="color-transition">Type</a></li>
+        <li><a href="#spacing" class="color-transition">Spacing</a></li>
+        <li><a href="#components" class="color-transition">Components</a></li>
+        <li><a href="#icons" class="color-transition">Icons</a></li>
+        <li><a href="#patterns" class="color-transition">Patterns</a></li>
+        <li><a href="#motion" class="color-transition">Motion</a></li>
+        <li><a href="#dataviz" class="color-transition">Data Viz</a></li>
+      </ul>
+      <div class="topnav-right">
+        <button class="theme-btn btn-bounce" id="themeToggle" aria-label="Toggle dark mode">
+          <svg id="iconSun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+          <svg id="iconMoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="page-wrap">
+
+    <!-- ===== HERO ===== -->
+    <section class="hero anim-in" id="philosophy">
+      <div class="hero-title">Precision meets joy.</div>
+      <p class="hero-subtitle">A design system built on primary colors, confident typography, and playful motion. Every token earns its place. Every interaction sparks delight.</p>
+      <div class="hero-dots">
+        <div class="hero-dot" style="background:var(--accent-blue);"></div>
+        <div class="hero-dot" style="background:var(--accent-red);"></div>
+        <div class="hero-dot" style="background:var(--accent-yellow);"></div>
+      </div>
+    </section>
+
+    <!-- ===== 1. PHILOSOPHY ===== -->
+    <section class="section anim-in anim-d1">
+      <div class="section-header">
+        <div class="section-overline section-overline-blue">
+          <span style="width:8px;height:8px;border-radius:50%;background:var(--accent-blue);display:inline-block;"></span>
+          01 — Philosophy
+        </div>
+        <h2 class="section-title">Bauhaus clarity, digital warmth</h2>
+        <p class="section-desc">Kyle DS draws from the Bauhaus principle that form follows function, but adds a distinctly digital warmth. Primary colors are used with the confidence of Mondrian, the precision of a Swiss grid, and the playfulness of a well-crafted tool that respects your intelligence.</p>
+      </div>
+
+      <div class="grid-3 mb-8">
+        <div class="card card-featured hover-lift anim-in anim-d2">
+          <div class="card-title" style="color:var(--accent-blue-text);">Blue for action</div>
+          <div class="card-desc">Blue is the workhorse. It signals primary actions, active states, focus rings, and links. When a user needs to know what to do next, blue is the answer.</div>
+        </div>
+        <div class="card card-featured-red hover-lift anim-in anim-d3">
+          <div class="card-title" style="color:var(--accent-red-text);">Red for emphasis</div>
+          <div class="card-desc">Red is reserved for destructive actions and critical alerts. It demands attention without crying wolf. Used sparingly, it carries weight every time.</div>
+        </div>
+        <div class="card card-featured-yellow hover-lift anim-in anim-d4">
+          <div class="card-title" style="color:var(--accent-yellow-text);">Yellow for delight</div>
+          <div class="card-desc">Yellow highlights, celebrates, and draws the eye to moments of joy. Achievements, new features, and warm callouts. It's the smile in the system.</div>
+        </div>
+      </div>
+
+      <div class="do-dont">
+        <div class="do-card">
+          <div class="do-label">Do</div>
+          Use one primary color per component. Let blue lead for actions. Add red or yellow only when their specific meaning applies. White space is a feature.
+        </div>
+        <div class="dont-card">
+          <div class="dont-label">Don't</div>
+          Combine all three primaries in a single component. Use red for non-destructive actions. Apply yellow to large surfaces. Let color substitute for clear hierarchy.
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 2. COLOR ===== -->
+    <section class="section" id="color">
+      <div class="section-header">
+        <div class="section-overline section-overline-red">
+          <span style="width:8px;height:8px;border-radius:50%;background:var(--accent-red);display:inline-block;"></span>
+          02 — Color System
+        </div>
+        <h2 class="section-title">Primary confidence in oklch</h2>
+        <p class="section-desc">Every color defined in oklch for perceptual uniformity. Warm neutrals at hue 90, three primary families, and semantic mappings that swap cleanly between light and dark mode.</p>
+      </div>
+
+      <!-- Neutrals -->
+      <div class="subsection">
+        <div class="subsection-label">Neutral Scale</div>
+        <div class="swatch-row mb-4">
+          <div class="swatch-row-cell" style="background:oklch(1.00 0 0);color:oklch(0.4 0 0);">0</div>
+          <div class="swatch-row-cell" style="background:oklch(0.988 0.004 90);color:oklch(0.4 0 0);">25</div>
+          <div class="swatch-row-cell" style="background:oklch(0.978 0.005 90);color:oklch(0.4 0 0);">50</div>
+          <div class="swatch-row-cell" style="background:oklch(0.958 0.006 90);color:oklch(0.4 0 0);">100</div>
+          <div class="swatch-row-cell" style="background:oklch(0.938 0.007 90);color:oklch(0.4 0 0);">150</div>
+          <div class="swatch-row-cell" style="background:oklch(0.905 0.007 90);color:oklch(0.4 0 0);">200</div>
+          <div class="swatch-row-cell" style="background:oklch(0.855 0.008 90);color:oklch(0.25 0 0);">300</div>
+          <div class="swatch-row-cell" style="background:oklch(0.755 0.010 90);color:oklch(0.15 0 0);">400</div>
+          <div class="swatch-row-cell" style="background:oklch(0.610 0.012 90);color:oklch(1 0 0);">500</div>
+          <div class="swatch-row-cell" style="background:oklch(0.490 0.010 90);color:oklch(1 0 0);">600</div>
+          <div class="swatch-row-cell" style="background:oklch(0.360 0.010 90);color:oklch(1 0 0);">700</div>
+          <div class="swatch-row-cell" style="background:oklch(0.240 0.008 90);color:oklch(1 0 0);">800</div>
+          <div class="swatch-row-cell" style="background:oklch(0.170 0.007 90);color:oklch(0.9 0 0);">900</div>
+          <div class="swatch-row-cell" style="background:oklch(0.135 0.008 90);color:oklch(0.9 0 0);">950</div>
+        </div>
+        <p class="text-secondary" style="font-size:0.8125rem;">Warm hue 90 with chroma 0.004–0.012. Never cool, never sterile.</p>
+      </div>
+
+      <!-- Blue -->
+      <div class="subsection">
+        <div class="subsection-label">Blue — Primary Actions</div>
+        <div class="swatch-grid mb-4">
+          <div class="swatch hover-scale"><div class="swatch-color" style="background:oklch(0.920 0.045 260);"></div><div class="swatch-info"><div class="swatch-name">blue-100</div><div class="swatch-val">oklch(0.920 0.045 260)</div></div></div>
+          <div class="swatch hover-scale"><div class="swatch-color" style="background:oklch(0.830 0.100 260);"></div><div class="swatch-info"><div class="swatch-name">blue-200</div><div class="swatch-val">oklch(0.830 0.100 260)</div></div></div>
+          <div class="swatch hover-scale"><div class="swatch-color" style="background:oklch(0.720 0.160 260);"></div><div class="swatch-info"><div class="swatch-name">blue-300</div><div class="swatch-val">oklch(0.720 0.160 260)</div></div></div>
+          <div class="swatch hover-scale"><div class="swatch-color" style="background:oklch(0.630 0.200 260);"></div><div class="swatch-info"><div class="swatch-name">blue-400</div><div class="swatch-val">oklch(0.630 0.200 260)</div></div></div>
+          <div class="swatch hover-scale"><div class="swatch-color" style="background:oklch(0.550 0.220 260);"></div><div class="swatch-info"><div class="swatch-name">blue-500</div><div class="swatch-val">oklch(0.550 0.220 260)</div></div></div>
+        </div>
+      </div>
+
+      <!-- Red -->
+      <div class="subsection">
+        <div class="subsection-label">Red — Emphasis &amp; Danger</div>
+        <div class="swatch-grid mb-4">
+          <div class="swatch hover-scale"><div class="swatch-color" style="background:oklch(0.920 0.045 25);"></div><div class="swatch-info"><div class="swatch-name">red-100</div><div class="swatch-val">oklch(0.920 0.045 25)</div></div></div>
+          <div class="swatch hover-scale"><div class="swatch-color" style="background:oklch(0.830 0.100 25);"></div><div class="swatch-info"><div class="swatch-name">red-200</div><div class="swatch-val">oklch(0.830 0.100 25)</div></div></div>
+          <div class="swatch hover-scale"><div class="swatch-color" style="background:oklch(0.720 0.160 25);"></div><div class="swatch-info"><div class="swatch-name">red-300</div><div class="swatch-val">oklch(0.720 0.160 25)</div></div></div>
+          <div class="swatch hover-scale"><div class="swatch-color" style="background:oklch(0.630 0.200 25);"></div><div class="swatch-info"><div class="swatch-name">red-400</div><div class="swatch-val">oklch(0.630 0.200 25)</div></div></div>
+          <div class="swatch hover-scale"><div class="swatch-color" style="background:oklch(0.550 0.220 25);"></div><div class="swatch-info"><div class="swatch-name">red-500</div><div class="swatch-val">oklch(0.550 0.220 25)</div></div></div>
+        </div>
+      </div>
+
+      <!-- Yellow -->
+      <div class="subsection">
+        <div class="subsection-label">Yellow — Highlights &amp; Delight</div>
+        <div class="swatch-grid mb-4">
+          <div class="swatch hover-scale"><div class="swatch-color" style="background:oklch(0.960 0.050 90);"></div><div class="swatch-info"><div class="swatch-name">yellow-100</div><div class="swatch-val">oklch(0.960 0.050 90)</div></div></div>
+          <div class="swatch hover-scale"><div class="swatch-color" style="background:oklch(0.930 0.100 90);"></div><div class="swatch-info"><div class="swatch-name">yellow-200</div><div class="swatch-val">oklch(0.930 0.100 90)</div></div></div>
+          <div class="swatch hover-scale"><div class="swatch-color" style="background:oklch(0.900 0.140 90);"></div><div class="swatch-info"><div class="swatch-name">yellow-300</div><div class="swatch-val">oklch(0.900 0.140 90)</div></div></div>
+          <div class="swatch hover-scale"><div class="swatch-color" style="background:oklch(0.870 0.160 90);"></div><div class="swatch-info"><div class="swatch-name">yellow-400</div><div class="swatch-val">oklch(0.870 0.160 90)</div></div></div>
+          <div class="swatch hover-scale"><div class="swatch-color" style="background:oklch(0.850 0.180 90);"></div><div class="swatch-info"><div class="swatch-name">yellow-500</div><div class="swatch-val">oklch(0.850 0.180 90)</div></div></div>
+        </div>
+      </div>
+
+      <!-- Green -->
+      <div class="subsection">
+        <div class="subsection-label">Green — Success</div>
+        <div class="swatch-grid mb-4">
+          <div class="swatch hover-scale"><div class="swatch-color" style="background:oklch(0.920 0.045 155);"></div><div class="swatch-info"><div class="swatch-name">green-100</div><div class="swatch-val">oklch(0.920 0.045 155)</div></div></div>
+          <div class="swatch hover-scale"><div class="swatch-color" style="background:oklch(0.830 0.100 155);"></div><div class="swatch-info"><div class="swatch-name">green-200</div><div class="swatch-val">oklch(0.830 0.100 155)</div></div></div>
+          <div class="swatch hover-scale"><div class="swatch-color" style="background:oklch(0.720 0.150 155);"></div><div class="swatch-info"><div class="swatch-name">green-300</div><div class="swatch-val">oklch(0.720 0.150 155)</div></div></div>
+          <div class="swatch hover-scale"><div class="swatch-color" style="background:oklch(0.650 0.175 155);"></div><div class="swatch-info"><div class="swatch-name">green-400</div><div class="swatch-val">oklch(0.650 0.175 155)</div></div></div>
+          <div class="swatch hover-scale"><div class="swatch-color" style="background:oklch(0.580 0.180 155);"></div><div class="swatch-info"><div class="swatch-name">green-500</div><div class="swatch-val">oklch(0.580 0.180 155)</div></div></div>
+        </div>
+      </div>
+
+      <!-- Semantic Backgrounds & Text -->
+      <div class="subsection">
+        <div class="subsection-label">Semantic Mappings</div>
+        <div class="swatch-grid">
+          <div class="swatch"><div class="swatch-color" style="background:var(--bg-page);border-bottom:1px solid var(--border-subtle);"></div><div class="swatch-info"><div class="swatch-name">--bg-page</div><div class="swatch-val">neutral-25</div></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:var(--bg-surface);border-bottom:1px solid var(--border-subtle);"></div><div class="swatch-info"><div class="swatch-name">--bg-surface</div><div class="swatch-val">neutral-0</div></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:var(--bg-subtle);border-bottom:1px solid var(--border-subtle);"></div><div class="swatch-info"><div class="swatch-name">--bg-subtle</div><div class="swatch-val">neutral-100</div></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:var(--text-primary);"></div><div class="swatch-info"><div class="swatch-name">--text-primary</div><div class="swatch-val">neutral-900</div></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:var(--text-secondary);"></div><div class="swatch-info"><div class="swatch-name">--text-secondary</div><div class="swatch-val">neutral-600</div></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:var(--border-default);"></div><div class="swatch-info"><div class="swatch-name">--border-default</div><div class="swatch-val">neutral-300</div></div></div>
+        </div>
+      </div>
+
+      <!-- Color Do/Don't -->
+      <div class="subsection">
+        <div class="subsection-label">Usage Guidelines</div>
+        <div class="do-dont">
+          <div class="do-card">
+            <div class="do-label">Do</div>
+            Blue for primary buttons, links, focus rings, and active nav states. Red only for delete, disconnect, or error states. Yellow for badges, highlights, and celebratory moments. Green for success confirmation.
+          </div>
+          <div class="dont-card">
+            <div class="dont-label">Don't</div>
+            Red for cancel buttons (use ghost instead). Yellow as a background for large areas. Multiple accent colors competing in the same component. Raw primitive tokens in component code (use semantic tokens).
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 3. TYPOGRAPHY ===== -->
+    <section class="section" id="typography">
+      <div class="section-header">
+        <div class="section-overline section-overline-yellow">
+          <span style="width:8px;height:8px;border-radius:50%;background:var(--accent-yellow);display:inline-block;"></span>
+          03 — Typography
+        </div>
+        <h2 class="section-title">Two fonts. Total confidence.</h2>
+        <p class="section-desc">Inter variable handles all text from massive display headings to tiny captions. JetBrains Mono for code. Hierarchy through size, weight, and tracking — never through decoration.</p>
+      </div>
+
+      <!-- Type Scale -->
+      <div class="subsection">
+        <div class="subsection-label">Type Scale — Minor Third (1.2)</div>
+        <div class="flex flex-col gap-8">
+          <div class="flex justify-between items-center" style="border-bottom:1px solid var(--border-subtle);padding-bottom:var(--space-6);">
+            <div style="font-size:var(--step-5);font-weight:800;letter-spacing:var(--tracking-tightest);line-height:var(--leading-none);">Display heading</div>
+            <div class="font-mono text-muted" style="font-size:0.6875rem;text-align:right;">step-5 / 800 / -0.04em<br>line-height: 1.0</div>
+          </div>
+          <div class="flex justify-between items-center" style="border-bottom:1px solid var(--border-subtle);padding-bottom:var(--space-6);">
+            <h1 style="font-size:var(--step-4);font-weight:760;letter-spacing:var(--tracking-tighter);line-height:var(--leading-tight);">Page heading one</h1>
+            <div class="font-mono text-muted" style="font-size:0.6875rem;text-align:right;">step-4 / 760 / -0.03em<br>line-height: 1.15</div>
+          </div>
+          <div class="flex justify-between items-center" style="border-bottom:1px solid var(--border-subtle);padding-bottom:var(--space-6);">
+            <h2 style="font-size:var(--step-3);font-weight:680;letter-spacing:var(--tracking-tight);line-height:var(--leading-tight);">Section heading two</h2>
+            <div class="font-mono text-muted" style="font-size:0.6875rem;text-align:right;">step-3 / 680 / -0.02em<br>line-height: 1.15</div>
+          </div>
+          <div class="flex justify-between items-center" style="border-bottom:1px solid var(--border-subtle);padding-bottom:var(--space-6);">
+            <h3 style="font-size:var(--step-2);font-weight:620;letter-spacing:var(--tracking-tight);line-height:var(--leading-snug);">Subsection heading three</h3>
+            <div class="font-mono text-muted" style="font-size:0.6875rem;text-align:right;">step-2 / 620 / -0.02em<br>line-height: 1.3</div>
+          </div>
+          <div class="flex justify-between items-center" style="border-bottom:1px solid var(--border-subtle);padding-bottom:var(--space-6);">
+            <h4 style="font-size:var(--step-1);font-weight:600;letter-spacing:-0.01em;line-height:var(--leading-snug);">Component heading four</h4>
+            <div class="font-mono text-muted" style="font-size:0.6875rem;text-align:right;">step-1 / 600 / -0.01em<br>line-height: 1.3</div>
+          </div>
+          <div class="flex justify-between items-center" style="border-bottom:1px solid var(--border-subtle);padding-bottom:var(--space-6);">
+            <h5 style="font-size:var(--step-0);font-weight:600;line-height:var(--leading-snug);">Label heading five</h5>
+            <div class="font-mono text-muted" style="font-size:0.6875rem;text-align:right;">step-0 / 600<br>line-height: 1.3</div>
+          </div>
+          <div class="flex justify-between items-center" style="border-bottom:1px solid var(--border-subtle);padding-bottom:var(--space-6);">
+            <h6 style="font-size:var(--step--1);font-weight:600;text-transform:uppercase;letter-spacing:0.05em;line-height:var(--leading-normal);">Overline heading six</h6>
+            <div class="font-mono text-muted" style="font-size:0.6875rem;text-align:right;">step--1 / 600 / uppercase<br>letter-spacing: 0.05em</div>
+          </div>
+          <div style="border-bottom:1px solid var(--border-subtle);padding-bottom:var(--space-6);">
+            <p style="font-size:var(--step-0);line-height:var(--leading-relaxed);max-width:640px;">A design system is a shared language between designers and engineers, encoded as tokens, components, and patterns that enforce consistency without sacrificing creativity. The best systems feel invisible to end users and unmistakable to the teams building with them.</p>
+            <div class="font-mono text-muted mt-4" style="font-size:0.6875rem;">Body: step-0 / 400 / line-height: 1.65 / max-width: 640px</div>
+          </div>
+          <div class="flex justify-between items-center" style="border-bottom:1px solid var(--border-subtle);padding-bottom:var(--space-6);">
+            <span style="font-size:var(--step--1);color:var(--text-secondary);">Small text for metadata, timestamps, and secondary information that supports the primary content.</span>
+            <div class="font-mono text-muted" style="font-size:0.6875rem;text-align:right;flex-shrink:0;margin-left:var(--space-6);">step--1 / 400</div>
+          </div>
+          <div class="flex justify-between items-center" style="border-bottom:1px solid var(--border-subtle);padding-bottom:var(--space-6);">
+            <span style="font-size:var(--step--2);text-transform:uppercase;letter-spacing:0.06em;font-weight:500;color:var(--text-muted);">Caption / Overline Text</span>
+            <div class="font-mono text-muted" style="font-size:0.6875rem;text-align:right;">step--2 / 500 / uppercase</div>
+          </div>
+          <div>
+            <pre style="font-family:var(--font-mono);font-size:0.8125rem;line-height:1.7;background:var(--bg-subtle);border:1px solid var(--border-subtle);border-radius:var(--radius-md);padding:var(--space-4) var(--space-6);overflow-x:auto;"><code>// Design token pipeline
+const tokens = {
+  color: {
+    blue: { 500: "oklch(0.550 0.220 260)" },
+    red:  { 500: "oklch(0.550 0.220 25)" },
+  },
+  spacing: [4, 8, 12, 16, 24, 32, 48, 64, 80],
+};</code></pre>
+            <div class="font-mono text-muted mt-4" style="font-size:0.6875rem;">JetBrains Mono / 0.8125rem / line-height: 1.7</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hierarchy in context -->
+      <div class="subsection">
+        <div class="subsection-label">Hierarchy in Context</div>
+        <div class="grid-2">
+          <div class="card">
+            <div style="font-size:var(--step--2);text-transform:uppercase;letter-spacing:0.06em;font-weight:600;color:var(--accent-blue-text);margin-bottom:var(--space-2);">Engineering Blog</div>
+            <div style="font-size:var(--step-2);font-weight:680;letter-spacing:var(--tracking-tight);line-height:var(--leading-tight);margin-bottom:var(--space-3);">Why we moved to oklch for our entire color system</div>
+            <p style="font-size:var(--step--1);color:var(--text-secondary);line-height:var(--leading-relaxed);margin-bottom:var(--space-4);">After six months of perceptual uniformity issues with HSL, we rebuilt our 200-token color system in oklch. The result: predictable contrast ratios, beautiful dark mode, and no more "why does that blue look brighter than that green" debates.</p>
+            <div style="font-size:var(--step--2);color:var(--text-muted);">Kyle Snav &middot; Feb 22, 2026 &middot; 8 min read</div>
+          </div>
+          <div class="card">
+            <div style="font-size:var(--step--2);text-transform:uppercase;letter-spacing:0.06em;font-weight:600;color:var(--text-muted);margin-bottom:var(--space-3);">Workspace Settings</div>
+            <div style="font-size:var(--step-1);font-weight:620;letter-spacing:-0.01em;margin-bottom:var(--space-1);">General</div>
+            <p style="font-size:var(--step--1);color:var(--text-secondary);margin-bottom:var(--space-6);">Manage your workspace name, description, and default preferences.</p>
+            <div style="font-size:0.8125rem;font-weight:550;margin-bottom:var(--space-2);">Workspace name</div>
+            <input class="input color-transition" type="text" value="Kyle DS" style="margin-bottom:var(--space-4);max-width:320px;" />
+            <div style="font-size:0.8125rem;font-weight:550;margin-bottom:var(--space-2);">Description</div>
+            <input class="input color-transition" type="text" placeholder="A brief description of this workspace" style="max-width:320px;" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 4. SPACING ===== -->
+    <section class="section" id="spacing">
+      <div class="section-header">
+        <div class="section-overline section-overline-green">
+          <span style="width:8px;height:8px;border-radius:50%;background:var(--accent-green);display:inline-block;"></span>
+          04 — Spacing &amp; Layout
+        </div>
+        <h2 class="section-title">8px grid. No exceptions.</h2>
+        <p class="section-desc">Every measurement derives from an 8px base with a 4px sub-grid for fine adjustments. Generous whitespace is a feature, not wasted space.</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="subsection">
+          <div class="subsection-label">Spacing Scale</div>
+          <div class="spacing-vis">
+            <div class="spacing-row"><div class="spacing-bar-label">4px</div><div class="spacing-bar" style="width:4px;"></div></div>
+            <div class="spacing-row"><div class="spacing-bar-label">8px</div><div class="spacing-bar" style="width:8px;"></div></div>
+            <div class="spacing-row"><div class="spacing-bar-label">12px</div><div class="spacing-bar" style="width:12px;"></div></div>
+            <div class="spacing-row"><div class="spacing-bar-label">16px</div><div class="spacing-bar" style="width:16px;"></div></div>
+            <div class="spacing-row"><div class="spacing-bar-label">24px</div><div class="spacing-bar" style="width:24px;"></div></div>
+            <div class="spacing-row"><div class="spacing-bar-label">32px</div><div class="spacing-bar" style="width:32px;"></div></div>
+            <div class="spacing-row"><div class="spacing-bar-label">48px</div><div class="spacing-bar" style="width:48px;"></div></div>
+            <div class="spacing-row"><div class="spacing-bar-label">64px</div><div class="spacing-bar" style="width:64px;"></div></div>
+            <div class="spacing-row"><div class="spacing-bar-label">80px</div><div class="spacing-bar" style="width:80px;"></div></div>
+          </div>
+        </div>
+
+        <div>
+          <div class="subsection">
+            <div class="subsection-label">Border Radius</div>
+            <div class="radius-demo">
+              <div class="radius-box" style="border-radius:var(--radius-sm);">6px</div>
+              <div class="radius-box" style="border-radius:var(--radius-md);">10px</div>
+              <div class="radius-box" style="border-radius:var(--radius-lg);">12px</div>
+              <div class="radius-box" style="border-radius:var(--radius-xl);">16px</div>
+              <div class="radius-box" style="border-radius:var(--radius-full);width:64px;">pill</div>
+            </div>
+          </div>
+
+          <div class="subsection mt-6">
+            <div class="subsection-label">Radius Usage</div>
+            <p style="font-size:0.8125rem;color:var(--text-secondary);line-height:1.6;">
+              <strong>6px</strong> — Inputs, buttons, small elements<br>
+              <strong>10–12px</strong> — Cards, modals, containers<br>
+              <strong>16px</strong> — Large panels, hero sections<br>
+              <strong>9999px</strong> — Pills, badges, avatars<br><br>
+              Concentric rule: inner radius = outer radius &minus; padding
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 5. COMPONENTS ===== -->
+    <section class="section" id="components">
+      <div class="section-header">
+        <div class="section-overline section-overline-blue">
+          <span style="width:8px;height:8px;border-radius:50%;background:var(--accent-blue);display:inline-block;"></span>
+          05 — Components
+        </div>
+        <h2 class="section-title">Every state. Every variant.</h2>
+        <p class="section-desc">Components built from the token system above. Every interactive element shows all states. Every color variant earns its purpose.</p>
+      </div>
+
+      <!-- BUTTONS -->
+      <div class="subsection">
+        <h3 class="subsection-title">Buttons</h3>
+        <p class="subsection-desc">Six variants across three sizes. Primary blue leads. Red for destruction. Yellow for celebration. All buttons bounce on press.</p>
+
+        <div class="subsection-label">Primary (Blue)</div>
+        <div class="flex gap-3 items-center mb-4 flex-wrap">
+          <button class="btn btn-sm btn-primary btn-bounce">Small</button>
+          <button class="btn btn-md btn-primary btn-bounce">Deploy changes</button>
+          <button class="btn btn-lg btn-primary btn-bounce">Get started free</button>
+          <button class="btn btn-md btn-primary" disabled>Disabled</button>
+        </div>
+
+        <div class="subsection-label">Danger (Red)</div>
+        <div class="flex gap-3 items-center mb-4 flex-wrap">
+          <button class="btn btn-sm btn-danger btn-bounce">Remove</button>
+          <button class="btn btn-md btn-danger btn-bounce">Delete workspace</button>
+          <button class="btn btn-lg btn-danger btn-bounce">Disconnect account</button>
+          <button class="btn btn-md btn-danger" disabled>Disabled</button>
+        </div>
+
+        <div class="subsection-label">Highlight (Yellow)</div>
+        <div class="flex gap-3 items-center mb-4 flex-wrap">
+          <button class="btn btn-sm btn-highlight btn-bounce">New</button>
+          <button class="btn btn-md btn-highlight btn-bounce">Upgrade plan</button>
+          <button class="btn btn-lg btn-highlight btn-bounce">Claim your reward</button>
+          <button class="btn btn-md btn-highlight" disabled>Disabled</button>
+        </div>
+
+        <div class="subsection-label">Secondary &amp; Ghost</div>
+        <div class="flex gap-3 items-center mb-4 flex-wrap">
+          <button class="btn btn-md btn-secondary btn-bounce">Configure</button>
+          <button class="btn btn-md btn-ghost btn-bounce">Cancel</button>
+          <button class="btn btn-md btn-secondary" disabled>Disabled</button>
+          <button class="btn btn-md btn-ghost" disabled>Disabled</button>
+        </div>
+
+        <div class="subsection-label">Icon Buttons</div>
+        <div class="flex gap-3 items-center mb-4">
+          <button class="btn btn-sm btn-icon btn-primary btn-bounce"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+          <button class="btn btn-md btn-icon btn-secondary btn-bounce"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+          <button class="btn btn-md btn-icon btn-ghost btn-bounce"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg></button>
+          <button class="btn btn-lg btn-icon btn-danger btn-bounce"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg></button>
+        </div>
+      </div>
+
+      <!-- FORM ELEMENTS -->
+      <div class="subsection">
+        <h3 class="subsection-title">Form Elements</h3>
+        <div class="grid-2">
+          <div class="flex flex-col gap-6">
+            <div class="form-group">
+              <label class="form-label">Project name</label>
+              <input class="input color-transition" type="text" placeholder="My awesome project" />
+              <span class="form-hint">This will be visible to all team members.</span>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Email address</label>
+              <input class="input input-error color-transition" type="email" value="not-an-email" />
+              <span class="form-error-text">Please enter a valid email address.</span>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Disabled field</label>
+              <input class="input" type="text" value="Cannot edit this" disabled />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Description</label>
+              <textarea class="textarea color-transition" placeholder="Write a brief description of your project..."></textarea>
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-6">
+            <div class="form-group">
+              <label class="form-label">Role</label>
+              <div class="select-wrap">
+                <select class="select color-transition">
+                  <option>Select a role...</option>
+                  <option>Developer</option>
+                  <option>Designer</option>
+                  <option>Manager</option>
+                </select>
+                <svg class="select-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Notifications</label>
+              <div class="flex flex-col gap-3">
+                <label class="check-group"><div class="check-box checked color-transition"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div> Email notifications</label>
+                <label class="check-group"><div class="check-box color-transition"></div> Push notifications</label>
+                <label class="check-group"><div class="check-box checked color-transition"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div> Weekly digest</label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Priority</label>
+              <div class="flex flex-col gap-3">
+                <label class="check-group"><div class="radio-circle checked color-transition"></div> High</label>
+                <label class="check-group"><div class="radio-circle color-transition"></div> Medium</label>
+                <label class="check-group"><div class="radio-circle color-transition"></div> Low</label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Dark mode</label>
+              <div class="flex items-center gap-3">
+                <button class="toggle toggle-bg-anim" id="demoToggle1" onclick="this.classList.toggle('on')">
+                  <div class="toggle-knob toggle-knob-anim"></div>
+                </button>
+                <span style="font-size:0.8125rem;color:var(--text-secondary);">Enable system-wide dark mode</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Volume</label>
+              <input class="range" type="range" min="0" max="100" value="65" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARDS -->
+      <div class="subsection">
+        <h3 class="subsection-title">Cards</h3>
+        <div class="grid-3">
+          <div class="card card-interactive">
+            <div class="card-title">Token Pipeline</div>
+            <div class="card-desc">Design tokens flow from Figma through Style Dictionary into CSS custom properties, consumed by Tailwind and component code.</div>
+            <div class="card-meta">Updated 4 hours ago</div>
+          </div>
+          <div class="card card-featured card-interactive">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:var(--space-3);">
+              <div class="card-title" style="margin-bottom:0;">Component Library</div>
+              <span class="badge badge-blue badge-pop">v2.4</span>
+            </div>
+            <div class="card-desc">48 components, each with documented variants, accessibility notes, and interactive examples.</div>
+            <div class="card-meta">12 contributors</div>
+          </div>
+          <div class="card card-featured-yellow card-interactive">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:var(--space-3);">
+              <div class="card-title" style="margin-bottom:0;">New: Motion Tokens</div>
+              <span class="badge badge-yellow badge-pop">New</span>
+            </div>
+            <div class="card-desc">Spring-based animation tokens for consistent motion across every component and transition.</div>
+            <div class="card-meta">Just shipped</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DATA TABLE -->
+      <div class="subsection">
+        <h3 class="subsection-title">Data Table</h3>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Component <svg class="sort-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7-7 7 7"/></svg></th>
+                <th>Variants</th>
+                <th>Coverage</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="font-weight:550;">Button</td>
+                <td class="mono">6 variants &middot; 3 sizes</td>
+                <td>
+                  <div class="flex items-center gap-3"><div class="progress-track" style="width:80px;"><div class="progress-fill progress-green" style="--progress:100%;"></div></div><span class="mono" style="font-size:0.75rem;">100%</span></div>
+                </td>
+                <td><span class="badge badge-green badge-pop"><span class="status-dot" style="background:var(--accent-green);"></span>Stable</span></td>
+              </tr>
+              <tr>
+                <td style="font-weight:550;">Input</td>
+                <td class="mono">4 types &middot; 5 states</td>
+                <td>
+                  <div class="flex items-center gap-3"><div class="progress-track" style="width:80px;"><div class="progress-fill progress-green" style="--progress:92%;"></div></div><span class="mono" style="font-size:0.75rem;">92%</span></div>
+                </td>
+                <td><span class="badge badge-green badge-pop"><span class="status-dot" style="background:var(--accent-green);"></span>Stable</span></td>
+              </tr>
+              <tr>
+                <td style="font-weight:550;">Modal</td>
+                <td class="mono">3 sizes</td>
+                <td>
+                  <div class="flex items-center gap-3"><div class="progress-track" style="width:80px;"><div class="progress-fill progress-blue" style="--progress:78%;"></div></div><span class="mono" style="font-size:0.75rem;">78%</span></div>
+                </td>
+                <td><span class="badge badge-blue badge-pop"><span class="status-dot" style="background:var(--accent-blue);"></span>Beta</span></td>
+              </tr>
+              <tr>
+                <td style="font-weight:550;">Command Palette</td>
+                <td class="mono">1 variant</td>
+                <td>
+                  <div class="flex items-center gap-3"><div class="progress-track" style="width:80px;"><div class="progress-fill progress-yellow" style="--progress:45%;"></div></div><span class="mono" style="font-size:0.75rem;">45%</span></div>
+                </td>
+                <td><span class="badge badge-yellow badge-pop"><span class="status-dot" style="background:var(--accent-yellow);"></span>Draft</span></td>
+              </tr>
+              <tr>
+                <td style="font-weight:550;">Data Viz</td>
+                <td class="mono">—</td>
+                <td>
+                  <div class="flex items-center gap-3"><div class="progress-track" style="width:80px;"><div class="progress-fill progress-red" style="--progress:12%;"></div></div><span class="mono" style="font-size:0.75rem;">12%</span></div>
+                </td>
+                <td><span class="badge badge-red badge-pop"><span class="status-dot" style="background:var(--accent-red);"></span>Planned</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- BADGES -->
+      <div class="subsection">
+        <h3 class="subsection-title">Badges</h3>
+        <div class="flex gap-3 flex-wrap mb-4">
+          <span class="badge badge-blue badge-pop"><span class="status-dot" style="background:var(--accent-blue);"></span>Info</span>
+          <span class="badge badge-red badge-pop"><span class="status-dot" style="background:var(--accent-red);"></span>Error</span>
+          <span class="badge badge-yellow badge-pop"><span class="status-dot" style="background:var(--accent-yellow);"></span>Warning</span>
+          <span class="badge badge-green badge-pop"><span class="status-dot" style="background:var(--accent-green);"></span>Success</span>
+          <span class="badge badge-neutral badge-pop">v2.4.1</span>
+          <span class="badge badge-blue badge-pop">React 19</span>
+          <span class="badge badge-yellow badge-pop">Featured</span>
+          <span class="badge badge-red badge-pop">Breaking</span>
+        </div>
+
+        <!-- Progress Bars -->
+        <div class="subsection-label mt-6">Progress Bars</div>
+        <div class="flex flex-col gap-3" style="max-width:400px;">
+          <div class="flex items-center gap-3"><span class="font-mono text-muted" style="font-size:0.6875rem;width:48px;">Blue</span><div class="progress-track w-full"><div class="progress-fill progress-blue" style="--progress:72%;"></div></div></div>
+          <div class="flex items-center gap-3"><span class="font-mono text-muted" style="font-size:0.6875rem;width:48px;">Red</span><div class="progress-track w-full"><div class="progress-fill progress-red" style="--progress:35%;"></div></div></div>
+          <div class="flex items-center gap-3"><span class="font-mono text-muted" style="font-size:0.6875rem;width:48px;">Yellow</span><div class="progress-track w-full"><div class="progress-fill progress-yellow" style="--progress:88%;"></div></div></div>
+          <div class="flex items-center gap-3"><span class="font-mono text-muted" style="font-size:0.6875rem;width:48px;">Green</span><div class="progress-track w-full"><div class="progress-fill progress-green" style="--progress:100%;"></div></div></div>
+        </div>
+      </div>
+
+      <!-- NAVIGATION -->
+      <div class="subsection">
+        <h3 class="subsection-title">Navigation</h3>
+        <div class="grid-2">
+          <div>
+            <div class="subsection-label">Sidebar — Expanded</div>
+            <nav class="sidebar">
+              <div class="sidebar-section-label">Workspace</div>
+              <button class="sidebar-item active color-transition">
+                <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                <span>Dashboard</span>
+              </button>
+              <button class="sidebar-item color-transition">
+                <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                <span>Components</span>
+              </button>
+              <button class="sidebar-item color-transition">
+                <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                <span>Activity</span>
+              </button>
+              <div class="sidebar-section-label" style="margin-top:var(--space-3);">Settings</div>
+              <button class="sidebar-item color-transition">
+                <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <span>Team</span>
+              </button>
+              <button class="sidebar-item color-transition">
+                <svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+                <span>Settings</span>
+              </button>
+            </nav>
+          </div>
+          <div>
+            <div class="subsection-label">Sidebar — Collapsed</div>
+            <nav class="sidebar sidebar-collapsed" style="margin-bottom:var(--space-8);">
+              <button class="sidebar-item active color-transition"><svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Dashboard</span></button>
+              <button class="sidebar-item color-transition"><svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg><span>Components</span></button>
+              <button class="sidebar-item color-transition"><svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span>Activity</span></button>
+              <button class="sidebar-item color-transition"><svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Team</span></button>
+              <button class="sidebar-item color-transition"><svg class="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg><span>Settings</span></button>
+            </nav>
+
+            <div class="subsection-label">Tabs</div>
+            <div class="tabs mb-8">
+              <button class="tab active color-transition">Overview</button>
+              <button class="tab color-transition">Components</button>
+              <button class="tab color-transition">Tokens</button>
+              <button class="tab color-transition">Changelog</button>
+            </div>
+
+            <div class="subsection-label">Breadcrumbs</div>
+            <div class="breadcrumbs mb-8">
+              <a href="#" class="breadcrumb-link color-transition">Home</a>
+              <span class="breadcrumb-sep">/</span>
+              <a href="#" class="breadcrumb-link color-transition">Components</a>
+              <span class="breadcrumb-sep">/</span>
+              <span class="breadcrumb-current">Button</span>
+            </div>
+
+            <div class="subsection-label">Pagination</div>
+            <div class="pagination">
+              <button class="page-btn btn-bounce">&lsaquo;</button>
+              <button class="page-btn active btn-bounce">1</button>
+              <button class="page-btn btn-bounce">2</button>
+              <button class="page-btn btn-bounce">3</button>
+              <button class="page-btn btn-bounce">...</button>
+              <button class="page-btn btn-bounce">12</button>
+              <button class="page-btn btn-bounce">&rsaquo;</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FEEDBACK -->
+      <div class="subsection">
+        <h3 class="subsection-title">Feedback</h3>
+        <div class="grid-2">
+          <div>
+            <div class="subsection-label">Toast Notifications</div>
+            <div class="flex flex-col gap-3">
+              <div class="toast toast-slide">
+                <svg class="toast-icon" style="color:var(--accent-green);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                <div class="toast-body"><div class="toast-title">Changes saved</div><div class="toast-desc">Your token updates are live across all apps.</div></div>
+                <button class="toast-close"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+              </div>
+              <div class="toast">
+                <svg class="toast-icon" style="color:var(--accent-red);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+                <div class="toast-body"><div class="toast-title">Build failed</div><div class="toast-desc">Token validation error in dark mode palette.</div></div>
+                <button class="toast-close"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+              </div>
+              <div class="toast">
+                <svg class="toast-icon" style="color:var(--accent-yellow);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                <div class="toast-body"><div class="toast-title">Token deprecated</div><div class="toast-desc">--color-accent will be removed in v3.0.</div></div>
+                <button class="toast-close"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="subsection-label">Alert Banners</div>
+            <div class="flex flex-col gap-3 mb-8">
+              <div class="alert alert-info">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                <span>New: oklch P3 wide gamut support is now available in the latest token build.</span>
+              </div>
+              <div class="alert alert-error">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+                <span>3 tokens failed contrast validation. Check the audit report for details.</span>
+              </div>
+              <div class="alert alert-warning">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                <span>Your Figma sync is 3 days behind. Run the pipeline to catch up.</span>
+              </div>
+              <div class="alert alert-success">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>All 142 tokens pass WCAG AA contrast requirements.</span>
+              </div>
+            </div>
+
+            <div class="subsection-label">Loading Skeleton</div>
+            <div class="card" style="max-width:320px;">
+              <div class="skeleton" style="width:60%;height:14px;margin-bottom:var(--space-3);"></div>
+              <div class="skeleton" style="width:100%;height:10px;margin-bottom:var(--space-2);"></div>
+              <div class="skeleton" style="width:85%;height:10px;margin-bottom:var(--space-6);"></div>
+              <div class="skeleton" style="width:40%;height:10px;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Empty State -->
+        <div class="card mt-6" style="max-width:480px;">
+          <div class="empty-state">
+            <svg class="empty-state-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+            <div class="empty-state-title">No components yet</div>
+            <p style="font-size:0.8125rem;margin-bottom:var(--space-6);">Create your first component to start building your design system library.</p>
+            <button class="btn btn-md btn-primary btn-bounce">Create component</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- OVERLAYS -->
+      <div class="subsection">
+        <h3 class="subsection-title">Overlays</h3>
+        <div class="grid-2">
+          <div>
+            <div class="subsection-label">Modal Dialog</div>
+            <div class="modal-backdrop">
+              <div class="modal">
+                <div class="modal-header">
+                  <div class="modal-title">Delete workspace?</div>
+                  <button class="toast-close"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+                </div>
+                <div class="modal-body">
+                  <p>This action cannot be undone. All tokens, components, and documentation in <strong>Kyle DS</strong> will be permanently deleted.</p>
+                </div>
+                <div class="modal-footer">
+                  <button class="btn btn-md btn-ghost btn-bounce">Cancel</button>
+                  <button class="btn btn-md btn-danger btn-bounce">Delete workspace</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="subsection-label">Dropdown Menu</div>
+            <div class="dropdown-menu mb-6">
+              <button class="dropdown-item color-transition"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Edit <span class="dropdown-shortcut">E</span></button>
+              <button class="dropdown-item color-transition"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Duplicate <span class="dropdown-shortcut">D</span></button>
+              <button class="dropdown-item color-transition"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg> Share <span class="dropdown-shortcut">S</span></button>
+              <div class="dropdown-sep"></div>
+              <button class="dropdown-item dropdown-item-danger color-transition"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg> Delete <span class="dropdown-shortcut">&#x232B;</span></button>
+            </div>
+
+            <div class="subsection-label">Tooltip</div>
+            <div class="flex gap-6 items-center mb-6">
+              <div class="tooltip-demo">
+                <div class="tooltip">Copy to clipboard</div>
+                <button class="btn btn-md btn-secondary btn-bounce">Hover me</button>
+              </div>
+              <div class="tooltip-demo">
+                <div class="tooltip">3 team members online</div>
+                <div style="width:28px;height:28px;border-radius:50%;background:var(--accent-blue);display:flex;align-items:center;justify-content:center;color:var(--text-on-accent);font-size:0.6875rem;font-weight:600;">KS</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Command Palette -->
+        <div class="subsection-label mt-6">Command Palette</div>
+        <div class="modal-backdrop" style="max-width:560px;">
+          <div class="cmd-palette">
+            <div class="cmd-input-wrap">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input class="cmd-input" type="text" placeholder="Search commands, components, tokens..." />
+              <span style="font-size:0.6875rem;color:var(--text-muted);font-family:var(--font-mono);">ESC</span>
+            </div>
+            <div class="cmd-results">
+              <div class="cmd-group-label">Actions</div>
+              <div class="cmd-item selected">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                Create new component
+                <span class="cmd-shortcut"><span class="cmd-kbd">&#8984;</span><span class="cmd-kbd">N</span></span>
+              </div>
+              <div class="cmd-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                Search tokens
+                <span class="cmd-shortcut"><span class="cmd-kbd">&#8984;</span><span class="cmd-kbd">K</span></span>
+              </div>
+              <div class="cmd-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+                Toggle dark mode
+                <span class="cmd-shortcut"><span class="cmd-kbd">&#8984;</span><span class="cmd-kbd">D</span></span>
+              </div>
+              <div class="cmd-group-label">Components</div>
+              <div class="cmd-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+                Button
+              </div>
+              <div class="cmd-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+                Card
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 6. ICONS ===== -->
+    <section class="section" id="icons">
+      <div class="section-header">
+        <div class="section-overline section-overline-red">
+          <span style="width:8px;height:8px;border-radius:50%;background:var(--accent-red);display:inline-block;"></span>
+          06 — Iconography
+        </div>
+        <h2 class="section-title">Lucide. One stroke weight.</h2>
+        <p class="section-desc">Lucide icons at 1.75px stroke. Three sizes: 16px for inline/compact, 20px for standard, 24px for emphasis. Never mix outline and filled.</p>
+      </div>
+
+      <div class="subsection">
+        <div class="subsection-label">Size Comparison</div>
+        <div class="icon-row mb-8">
+          <div class="icon-demo">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <span class="icon-size-label">16px</span>
+          </div>
+          <div class="icon-demo">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <span class="icon-size-label">20px</span>
+          </div>
+          <div class="icon-demo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <span class="icon-size-label">24px</span>
+          </div>
+        </div>
+
+        <div class="subsection-label">Icon Samples</div>
+        <div class="flex gap-6 flex-wrap mb-8" style="color:var(--text-secondary);">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+
+        <div class="subsection-label">Icon + Text Alignment</div>
+        <div class="flex flex-col gap-3 mb-6">
+          <div class="flex items-center gap-2" style="font-size:0.8125rem;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> Search components</div>
+          <div class="flex items-center gap-2" style="font-size:0.9375rem;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> Search components</div>
+          <div class="flex items-center gap-2" style="font-size:1.0625rem;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> Search components</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 7. PATTERNS ===== -->
+    <section class="section" id="patterns">
+      <div class="section-header">
+        <div class="section-overline section-overline-yellow">
+          <span style="width:8px;height:8px;border-radius:50%;background:var(--accent-yellow);display:inline-block;"></span>
+          07 — Patterns &amp; Compositions
+        </div>
+        <h2 class="section-title">Components in context.</h2>
+        <p class="section-desc">Real-world compositions that combine multiple components into coherent interfaces. These patterns demonstrate how the system works as a whole.</p>
+      </div>
+
+      <!-- Task List -->
+      <div class="subsection">
+        <div class="subsection-label">Task List View</div>
+        <div class="comp-frame">
+          <div class="comp-toolbar">
+            <span style="font-weight:620;font-size:0.875rem;">Component Tracker</span>
+            <div style="flex:1;"></div>
+            <div class="flex gap-2">
+              <button class="btn btn-sm btn-ghost btn-bounce">Filter</button>
+              <button class="btn btn-sm btn-primary btn-bounce">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                New task
+              </button>
+            </div>
+          </div>
+          <div class="comp-sidebar-layout">
+            <div class="comp-sidebar">
+              <div class="sidebar-section-label" style="padding:var(--space-2) var(--space-2) var(--space-1);">Views</div>
+              <button class="sidebar-item active color-transition" style="padding:6px 8px;font-size:0.75rem;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                <span>All components</span>
+              </button>
+              <button class="sidebar-item color-transition" style="padding:6px 8px;font-size:0.75rem;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Completed</span>
+              </button>
+              <button class="sidebar-item color-transition" style="padding:6px 8px;font-size:0.75rem;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <span>In progress</span>
+              </button>
+              <button class="sidebar-item color-transition" style="padding:6px 8px;font-size:0.75rem;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                <span>Needs review</span>
+              </button>
+            </div>
+            <div class="comp-main" style="padding:var(--space-4);">
+              <div class="tabs mb-4" style="font-size:0.75rem;">
+                <button class="tab active" style="padding:6px 12px;font-size:0.75rem;">Board</button>
+                <button class="tab" style="padding:6px 12px;font-size:0.75rem;">List</button>
+                <button class="tab" style="padding:6px 12px;font-size:0.75rem;">Timeline</button>
+              </div>
+              <div class="table-wrap">
+                <table class="data-table" style="font-size:0.75rem;">
+                  <thead><tr><th>Task</th><th>Owner</th><th>Status</th></tr></thead>
+                  <tbody>
+                    <tr><td style="font-weight:550;">Finalize button variants</td><td>Kyle</td><td><span class="badge badge-green" style="font-size:0.625rem;height:18px;">Done</span></td></tr>
+                    <tr><td style="font-weight:550;">Build toggle component</td><td>Kyle</td><td><span class="badge badge-blue" style="font-size:0.625rem;height:18px;">In progress</span></td></tr>
+                    <tr><td style="font-weight:550;">Dark mode audit</td><td>Kyle</td><td><span class="badge badge-yellow" style="font-size:0.625rem;height:18px;">Review</span></td></tr>
+                    <tr><td style="font-weight:550;">Publish token package</td><td>Kyle</td><td><span class="badge badge-neutral" style="font-size:0.625rem;height:18px;">Backlog</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Profile Settings -->
+      <div class="subsection">
+        <div class="subsection-label">Profile Settings</div>
+        <div class="comp-frame" style="max-width:600px;">
+          <div class="comp-toolbar">
+            <span style="font-weight:620;font-size:0.875rem;">Profile</span>
+          </div>
+          <div style="padding:var(--space-6);">
+            <div class="flex items-center gap-4 mb-6" style="padding-bottom:var(--space-6);border-bottom:1px solid var(--border-subtle);">
+              <div style="width:56px;height:56px;border-radius:50%;background:var(--accent-blue);display:flex;align-items:center;justify-content:center;color:var(--text-on-accent);font-size:1.25rem;font-weight:700;">KS</div>
+              <div>
+                <div style="font-weight:620;font-size:0.9375rem;">Kyle Snav</div>
+                <div style="font-size:0.8125rem;color:var(--text-secondary);">kyle@kyleds.dev</div>
+              </div>
+              <div style="flex:1;"></div>
+              <button class="btn btn-sm btn-secondary btn-bounce">Edit photo</button>
+            </div>
+            <div class="flex flex-col gap-4 mb-6">
+              <div class="form-group">
+                <label class="form-label" style="font-size:0.8125rem;">Display name</label>
+                <input class="input color-transition" type="text" value="Kyle Snav" />
+              </div>
+              <div class="form-group">
+                <label class="form-label" style="font-size:0.8125rem;">Bio</label>
+                <textarea class="textarea color-transition" rows="2">Design engineer. Building design systems with primary colors and spring physics.</textarea>
+              </div>
+            </div>
+            <div class="flex flex-col gap-4 mb-6" style="padding-bottom:var(--space-6);border-bottom:1px solid var(--border-subtle);">
+              <div class="flex items-center justify-between">
+                <div><div style="font-size:0.8125rem;font-weight:550;">Email notifications</div><div style="font-size:0.75rem;color:var(--text-muted);">Receive updates about your workspace</div></div>
+                <button class="toggle on toggle-bg-anim" onclick="this.classList.toggle('on')"><div class="toggle-knob toggle-knob-anim"></div></button>
+              </div>
+              <div class="flex items-center justify-between">
+                <div><div style="font-size:0.8125rem;font-weight:550;">Marketing emails</div><div style="font-size:0.75rem;color:var(--text-muted);">Product updates and announcements</div></div>
+                <button class="toggle toggle-bg-anim" onclick="this.classList.toggle('on')"><div class="toggle-knob toggle-knob-anim"></div></button>
+              </div>
+            </div>
+            <div class="flex justify-between items-center">
+              <button class="btn btn-md btn-ghost btn-bounce">Cancel</button>
+              <button class="btn btn-md btn-primary btn-bounce">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dashboard Stats -->
+      <div class="subsection">
+        <div class="subsection-label">Dashboard Stats</div>
+        <div class="grid-3">
+          <div class="stat-card card-featured hover-lift">
+            <div class="stat-label">Total Tokens</div>
+            <div class="stat-value" style="color:var(--accent-blue-text);">142</div>
+            <div class="stat-change" style="color:var(--accent-green-text);">+12 this week</div>
+          </div>
+          <div class="stat-card card-featured-red hover-lift">
+            <div class="stat-label">Contrast Failures</div>
+            <div class="stat-value" style="color:var(--accent-red-text);">3</div>
+            <div class="stat-change" style="color:var(--accent-green-text);">-5 from last audit</div>
+          </div>
+          <div class="stat-card card-featured-yellow hover-lift">
+            <div class="stat-label">Components Shipped</div>
+            <div class="stat-value" style="color:var(--accent-yellow-text);">48</div>
+            <div class="flex items-center gap-3 mt-4">
+              <div class="mini-bars">
+                <div class="mini-bar" style="height:15px;"></div>
+                <div class="mini-bar" style="height:22px;"></div>
+                <div class="mini-bar" style="height:18px;"></div>
+                <div class="mini-bar" style="height:30px;"></div>
+                <div class="mini-bar" style="height:25px;"></div>
+                <div class="mini-bar" style="height:35px;"></div>
+                <div class="mini-bar" style="height:40px;"></div>
+              </div>
+              <span class="font-mono text-muted" style="font-size:0.625rem;">7-day trend</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 8. MOTION ===== -->
+    <section class="section" id="motion">
+      <div class="section-header">
+        <div class="section-overline section-overline-green">
+          <span style="width:8px;height:8px;border-radius:50%;background:var(--accent-green);display:inline-block;"></span>
+          08 — Motion &amp; Interaction
+        </div>
+        <h2 class="section-title">Spring physics. Under 240ms.</h2>
+        <p class="section-desc">Motion is opt-in, respecting prefers-reduced-motion. Springs for movement and scale. CSS ease-out for color and opacity. Every animation earns its place by making the interface feel more alive.</p>
+      </div>
+
+      <div class="grid-2">
+        <div>
+          <div class="subsection-label">Duration Tokens</div>
+          <div class="flex flex-col gap-4 mb-8">
+            <div class="duration-bar">
+              <div class="duration-label">instant</div>
+              <div class="duration-fill" style="width:25px;"></div>
+              <span class="font-mono text-muted" style="font-size:0.6875rem;">100ms</span>
+            </div>
+            <div class="duration-bar">
+              <div class="duration-label">fast</div>
+              <div class="duration-fill" style="width:40px;"></div>
+              <span class="font-mono text-muted" style="font-size:0.6875rem;">160ms</span>
+            </div>
+            <div class="duration-bar">
+              <div class="duration-label">base</div>
+              <div class="duration-fill" style="width:60px;"></div>
+              <span class="font-mono text-muted" style="font-size:0.6875rem;">240ms</span>
+            </div>
+            <div class="duration-bar">
+              <div class="duration-label">slow</div>
+              <div class="duration-fill" style="width:90px;"></div>
+              <span class="font-mono text-muted" style="font-size:0.6875rem;">360ms</span>
+            </div>
+          </div>
+
+          <div class="subsection-label">Easing Curves</div>
+          <div class="flex flex-col gap-4">
+            <div>
+              <div style="font-size:0.8125rem;font-weight:550;margin-bottom:2px;">ease-out</div>
+              <div class="font-mono text-muted" style="font-size:0.6875rem;margin-bottom:4px;">cubic-bezier(0.16, 1, 0.3, 1)</div>
+              <p style="font-size:0.75rem;color:var(--text-secondary);">Standard deceleration. Color transitions, opacity fades, border changes.</p>
+            </div>
+            <div>
+              <div style="font-size:0.8125rem;font-weight:550;margin-bottom:2px;">ease-bounce</div>
+              <div class="font-mono text-muted" style="font-size:0.6875rem;margin-bottom:4px;">cubic-bezier(0.34, 1.56, 0.64, 1)</div>
+              <p style="font-size:0.75rem;color:var(--text-secondary);">Overshoot spring. Button press, toggle knob, badge pop. The signature Kyle DS feel.</p>
+            </div>
+            <div>
+              <div style="font-size:0.8125rem;font-weight:550;margin-bottom:2px;">ease-smooth</div>
+              <div class="font-mono text-muted" style="font-size:0.6875rem;margin-bottom:4px;">cubic-bezier(0.22, 1, 0.36, 1)</div>
+              <p style="font-size:0.75rem;color:var(--text-secondary);">Page entrance, card lift, element reveal. Smooth deceleration without overshoot.</p>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="subsection-label">Interactive Demos</div>
+          <p class="subsection-desc" style="margin-bottom:var(--space-4);">Hover and click the elements below to feel the motion tokens in action.</p>
+
+          <div class="flex flex-col gap-4">
+            <div>
+              <div class="font-mono text-muted mb-2" style="font-size:0.625rem;">BUTTON BOUNCE</div>
+              <button class="btn btn-md btn-primary btn-bounce">Press me</button>
+            </div>
+            <div>
+              <div class="font-mono text-muted mb-2" style="font-size:0.625rem;">CARD LIFT</div>
+              <div class="card card-interactive card-compact" style="max-width:280px;">
+                <div class="card-title">Hover this card</div>
+                <div class="card-desc">Lifts 2px with shadow expansion on hover. Smooth ease-out.</div>
+              </div>
+            </div>
+            <div>
+              <div class="font-mono text-muted mb-2" style="font-size:0.625rem;">BADGE POP</div>
+              <div class="flex gap-2">
+                <span class="badge badge-blue badge-pop">Hover me</span>
+                <span class="badge badge-red badge-pop">And me</span>
+                <span class="badge badge-yellow badge-pop">Me too</span>
+              </div>
+            </div>
+            <div>
+              <div class="font-mono text-muted mb-2" style="font-size:0.625rem;">TOGGLE SPRING</div>
+              <button class="toggle toggle-bg-anim" onclick="this.classList.toggle('on')">
+                <div class="toggle-knob toggle-knob-anim"></div>
+              </button>
+            </div>
+          </div>
+
+          <div class="alert alert-info mt-6" style="font-size:0.75rem;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+            All animations are disabled when <code style="font-family:var(--font-mono);font-size:0.6875rem;background:var(--bg-subtle);padding:1px 4px;border-radius:3px;">prefers-reduced-motion: reduce</code> is active.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 9. DATA VISUALIZATION ===== -->
+    <section class="section" id="dataviz">
+      <div class="section-header">
+        <div class="section-overline section-overline-blue">
+          <span style="width:8px;height:8px;border-radius:50%;background:var(--accent-blue);display:inline-block;"></span>
+          09 — Data Visualization
+        </div>
+        <h2 class="section-title">Charts that tell stories.</h2>
+        <p class="section-desc">A complete visual language for dashboards, reports, and BI interfaces. Primary colors anchor the palette, with computed tints for multi-series data. Every chart element is accessible, readable, and on-brand.</p>
+      </div>
+
+      <!-- Color Palette for Data -->
+      <div class="subsection">
+        <h3 class="subsection-title">Chart Color System</h3>
+        <p class="subsection-desc">The data palette extends the three primaries with computed intermediate hues. The first three series always map to blue, red, and yellow. Extended series use green, then blended hues to avoid clashing.</p>
+
+        <div class="subsection-label">Sequential (single-hue ramps for magnitude)</div>
+        <div class="grid-3 mb-6">
+          <div>
+            <div style="font-size:0.75rem;font-weight:550;margin-bottom:var(--space-2);">Blue ramp</div>
+            <div style="display:flex;border-radius:var(--radius-sm);overflow:hidden;height:32px;">
+              <div style="flex:1;background:oklch(0.95 0.03 260);"></div>
+              <div style="flex:1;background:oklch(0.88 0.07 260);"></div>
+              <div style="flex:1;background:oklch(0.78 0.13 260);"></div>
+              <div style="flex:1;background:oklch(0.66 0.18 260);"></div>
+              <div style="flex:1;background:oklch(0.55 0.22 260);"></div>
+              <div style="flex:1;background:oklch(0.44 0.20 260);"></div>
+              <div style="flex:1;background:oklch(0.33 0.16 260);"></div>
+            </div>
+            <div class="font-mono text-muted" style="font-size:0.5625rem;margin-top:4px;">L 0.95 → 0.33 at hue 260</div>
+          </div>
+          <div>
+            <div style="font-size:0.75rem;font-weight:550;margin-bottom:var(--space-2);">Red ramp</div>
+            <div style="display:flex;border-radius:var(--radius-sm);overflow:hidden;height:32px;">
+              <div style="flex:1;background:oklch(0.95 0.03 25);"></div>
+              <div style="flex:1;background:oklch(0.88 0.07 25);"></div>
+              <div style="flex:1;background:oklch(0.78 0.13 25);"></div>
+              <div style="flex:1;background:oklch(0.66 0.18 25);"></div>
+              <div style="flex:1;background:oklch(0.55 0.22 25);"></div>
+              <div style="flex:1;background:oklch(0.44 0.20 25);"></div>
+              <div style="flex:1;background:oklch(0.33 0.16 25);"></div>
+            </div>
+            <div class="font-mono text-muted" style="font-size:0.5625rem;margin-top:4px;">L 0.95 → 0.33 at hue 25</div>
+          </div>
+          <div>
+            <div style="font-size:0.75rem;font-weight:550;margin-bottom:var(--space-2);">Yellow ramp</div>
+            <div style="display:flex;border-radius:var(--radius-sm);overflow:hidden;height:32px;">
+              <div style="flex:1;background:oklch(0.97 0.03 90);"></div>
+              <div style="flex:1;background:oklch(0.94 0.06 90);"></div>
+              <div style="flex:1;background:oklch(0.90 0.10 90);"></div>
+              <div style="flex:1;background:oklch(0.85 0.15 90);"></div>
+              <div style="flex:1;background:oklch(0.78 0.18 90);"></div>
+              <div style="flex:1;background:oklch(0.68 0.16 90);"></div>
+              <div style="flex:1;background:oklch(0.55 0.13 90);"></div>
+            </div>
+            <div class="font-mono text-muted" style="font-size:0.5625rem;margin-top:4px;">L 0.97 → 0.55 at hue 90</div>
+          </div>
+        </div>
+
+        <div class="subsection-label">Categorical (multi-series, max 8)</div>
+        <div style="display:flex;gap:var(--space-3);flex-wrap:wrap;margin-bottom:var(--space-4);">
+          <div style="display:flex;align-items:center;gap:var(--space-2);"><div style="width:16px;height:16px;border-radius:3px;background:oklch(0.550 0.220 260);"></div><span class="font-mono" style="font-size:0.6875rem;">Series 1 — Blue</span></div>
+          <div style="display:flex;align-items:center;gap:var(--space-2);"><div style="width:16px;height:16px;border-radius:3px;background:oklch(0.550 0.220 25);"></div><span class="font-mono" style="font-size:0.6875rem;">Series 2 — Red</span></div>
+          <div style="display:flex;align-items:center;gap:var(--space-2);"><div style="width:16px;height:16px;border-radius:3px;background:oklch(0.850 0.180 90);"></div><span class="font-mono" style="font-size:0.6875rem;">Series 3 — Yellow</span></div>
+          <div style="display:flex;align-items:center;gap:var(--space-2);"><div style="width:16px;height:16px;border-radius:3px;background:oklch(0.580 0.180 155);"></div><span class="font-mono" style="font-size:0.6875rem;">Series 4 — Green</span></div>
+          <div style="display:flex;align-items:center;gap:var(--space-2);"><div style="width:16px;height:16px;border-radius:3px;background:oklch(0.600 0.200 310);"></div><span class="font-mono" style="font-size:0.6875rem;">Series 5 — Violet</span></div>
+          <div style="display:flex;align-items:center;gap:var(--space-2);"><div style="width:16px;height:16px;border-radius:3px;background:oklch(0.650 0.180 195);"></div><span class="font-mono" style="font-size:0.6875rem;">Series 6 — Teal</span></div>
+          <div style="display:flex;align-items:center;gap:var(--space-2);"><div style="width:16px;height:16px;border-radius:3px;background:oklch(0.700 0.160 55);"></div><span class="font-mono" style="font-size:0.6875rem;">Series 7 — Orange</span></div>
+          <div style="display:flex;align-items:center;gap:var(--space-2);"><div style="width:16px;height:16px;border-radius:3px;background:oklch(0.550 0.180 340);"></div><span class="font-mono" style="font-size:0.6875rem;">Series 8 — Rose</span></div>
+        </div>
+
+        <div class="subsection-label">Diverging (positive/negative split)</div>
+        <div style="display:flex;border-radius:var(--radius-sm);overflow:hidden;height:32px;max-width:500px;margin-bottom:var(--space-2);">
+          <div style="flex:1;background:oklch(0.55 0.22 260);"></div>
+          <div style="flex:1;background:oklch(0.66 0.18 260);"></div>
+          <div style="flex:1;background:oklch(0.78 0.12 260);"></div>
+          <div style="flex:1;background:oklch(0.90 0.04 260);"></div>
+          <div style="flex:1;background:oklch(0.96 0.005 90);"></div>
+          <div style="flex:1;background:oklch(0.90 0.04 25);"></div>
+          <div style="flex:1;background:oklch(0.78 0.12 25);"></div>
+          <div style="flex:1;background:oklch(0.66 0.18 25);"></div>
+          <div style="flex:1;background:oklch(0.55 0.22 25);"></div>
+        </div>
+        <div class="font-mono text-muted" style="font-size:0.5625rem;">Blue (positive) ← neutral → Red (negative)</div>
+      </div>
+
+      <!-- Bar Chart -->
+      <div class="subsection">
+        <h3 class="subsection-title">Bar Chart</h3>
+        <div class="card" style="padding:var(--space-6) var(--space-8);">
+          <div class="flex justify-between items-center mb-6">
+            <div>
+              <div style="font-size:var(--step-0);font-weight:620;letter-spacing:var(--tracking-tight);">Revenue by Quarter</div>
+              <div style="font-size:var(--step--1);color:var(--text-secondary);">FY 2025 — All figures in thousands</div>
+            </div>
+            <div class="flex gap-4" style="font-size:0.6875rem;">
+              <div class="flex items-center gap-2"><div style="width:10px;height:10px;border-radius:2px;background:oklch(0.550 0.220 260);"></div>Product</div>
+              <div class="flex items-center gap-2"><div style="width:10px;height:10px;border-radius:2px;background:oklch(0.550 0.220 25);"></div>Services</div>
+              <div class="flex items-center gap-2"><div style="width:10px;height:10px;border-radius:2px;background:oklch(0.850 0.180 90);"></div>Licensing</div>
+            </div>
+          </div>
+          <svg class="chart-svg" viewBox="-48 -10 696 280" role="img" aria-label="Grouped bar chart showing revenue by quarter for FY 2025" preserveAspectRatio="xMidYMid meet">
+            <!-- Grid lines -->
+            <line class="chart-gridline" x1="0" y1="0" x2="600" y2="0" />
+            <line class="chart-gridline" x1="0" y1="60" x2="600" y2="60" />
+            <line class="chart-gridline" x1="0" y1="120" x2="600" y2="120" />
+            <line class="chart-gridline" x1="0" y1="180" x2="600" y2="180" />
+            <line class="chart-axis" x1="0" y1="240" x2="600" y2="240" />
+
+            <!-- Y-axis labels -->
+            <text class="chart-label" x="-8" y="4" text-anchor="end">$400k</text>
+            <text class="chart-label" x="-8" y="64" text-anchor="end">$300k</text>
+            <text class="chart-label" x="-8" y="124" text-anchor="end">$200k</text>
+            <text class="chart-label" x="-8" y="184" text-anchor="end">$100k</text>
+            <text class="chart-label" x="-8" y="244" text-anchor="end">$0</text>
+
+            <!-- Q1: Product $220k, Services $140k, Licensing $80k -->
+            <g>
+              <rect class="chart-hover" x="15" y="108" width="36" height="132" rx="3" fill="oklch(0.550 0.220 260)"><title>Product Q1: $220k</title></rect>
+              <rect class="chart-hover" x="57" y="156" width="36" height="84" rx="3" fill="oklch(0.550 0.220 25)"><title>Services Q1: $140k</title></rect>
+              <rect class="chart-hover" x="99" y="192" width="36" height="48" rx="3" fill="oklch(0.850 0.180 90)"><title>Licensing Q1: $80k</title></rect>
+              <text class="chart-label" x="75" y="258" text-anchor="middle" style="font-weight:550;">Q1</text>
+            </g>
+
+            <!-- Q2: Product $280k, Services $160k, Licensing $100k -->
+            <g>
+              <rect class="chart-hover" x="165" y="72" width="36" height="168" rx="3" fill="oklch(0.550 0.220 260)"><title>Product Q2: $280k</title></rect>
+              <rect class="chart-hover" x="207" y="144" width="36" height="96" rx="3" fill="oklch(0.550 0.220 25)"><title>Services Q2: $160k</title></rect>
+              <rect class="chart-hover" x="249" y="180" width="36" height="60" rx="3" fill="oklch(0.850 0.180 90)"><title>Licensing Q2: $100k</title></rect>
+              <text class="chart-label" x="225" y="258" text-anchor="middle" style="font-weight:550;">Q2</text>
+            </g>
+
+            <!-- Q3: Product $248k, Services $180k, Licensing $120k -->
+            <g>
+              <rect class="chart-hover" x="315" y="91" width="36" height="149" rx="3" fill="oklch(0.550 0.220 260)"><title>Product Q3: $248k</title></rect>
+              <rect class="chart-hover" x="357" y="132" width="36" height="108" rx="3" fill="oklch(0.550 0.220 25)"><title>Services Q3: $180k</title></rect>
+              <rect class="chart-hover" x="399" y="168" width="36" height="72" rx="3" fill="oklch(0.850 0.180 90)"><title>Licensing Q3: $120k</title></rect>
+              <text class="chart-label" x="375" y="258" text-anchor="middle" style="font-weight:550;">Q3</text>
+            </g>
+
+            <!-- Q4: Product $352k, Services $200k, Licensing $152k -->
+            <g>
+              <rect class="chart-hover" x="465" y="29" width="36" height="211" rx="3" fill="oklch(0.550 0.220 260)"><title>Product Q4: $352k</title></rect>
+              <rect class="chart-hover" x="507" y="120" width="36" height="120" rx="3" fill="oklch(0.550 0.220 25)"><title>Services Q4: $200k</title></rect>
+              <rect class="chart-hover" x="549" y="149" width="36" height="91" rx="3" fill="oklch(0.850 0.180 90)"><title>Licensing Q4: $152k</title></rect>
+              <text class="chart-label" x="525" y="258" text-anchor="middle" style="font-weight:550;">Q4</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Line / Area Chart -->
+      <div class="subsection">
+        <h3 class="subsection-title">Line &amp; Area Chart</h3>
+        <div class="card" style="padding:var(--space-6) var(--space-8);">
+          <div class="flex justify-between items-center mb-6">
+            <div>
+              <div style="font-size:var(--step-0);font-weight:620;letter-spacing:var(--tracking-tight);">Weekly Active Users</div>
+              <div style="font-size:var(--step--1);color:var(--text-secondary);">Last 12 weeks — showing growth trajectory</div>
+            </div>
+            <div class="flex gap-3">
+              <span class="badge badge-blue badge-pop">+23% WoW</span>
+            </div>
+          </div>
+          <!-- SVG line chart -->
+          <div style="position:relative;">
+            <svg class="chart-svg" viewBox="-48 -12 680 252" role="img" aria-label="Line chart showing weekly active users over 12 weeks" preserveAspectRatio="xMidYMid meet">
+              <!-- Grid lines -->
+              <line class="chart-gridline" x1="0" y1="0" x2="605" y2="0" />
+              <line class="chart-gridline" x1="0" y1="50" x2="605" y2="50" />
+              <line class="chart-gridline" x1="0" y1="100" x2="605" y2="100" />
+              <line class="chart-gridline" x1="0" y1="150" x2="605" y2="150" />
+              <line class="chart-axis" x1="0" y1="200" x2="605" y2="200" />
+
+              <!-- Y-axis labels -->
+              <text class="chart-label" x="-8" y="4" text-anchor="end">40k</text>
+              <text class="chart-label" x="-8" y="54" text-anchor="end">30k</text>
+              <text class="chart-label" x="-8" y="104" text-anchor="end">20k</text>
+              <text class="chart-label" x="-8" y="154" text-anchor="end">10k</text>
+              <text class="chart-label" x="-8" y="204" text-anchor="end">0</text>
+
+              <!-- Blue area fill (Total users) -->
+              <path d="M0,160 L55,148 L110,140 L165,130 L220,122 L275,108 L330,92 L385,78 L440,66 L495,52 L550,38 L605,20 L605,200 L0,200 Z"
+                    fill="oklch(0.550 0.220 260 / 0.08)" />
+
+              <!-- Blue line (Total users) -->
+              <polyline points="0,160 55,148 110,140 165,130 220,122 275,108 330,92 385,78 440,66 495,52 550,38 605,20"
+                        fill="none" stroke="oklch(0.550 0.220 260)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+
+              <!-- Red area fill (Returning users) -->
+              <path d="M0,182 L55,178 L110,174 L165,170 L220,166 L275,160 L330,154 L385,146 L440,140 L495,133 L550,126 L605,118 L605,200 L0,200 Z"
+                    fill="oklch(0.550 0.220 25 / 0.06)" />
+
+              <!-- Red line (Returning users, dashed) -->
+              <polyline points="0,182 55,178 110,174 165,170 220,166 275,160 330,154 385,146 440,140 495,133 550,126 605,118"
+                        fill="none" stroke="oklch(0.550 0.220 25)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 3" />
+
+              <!-- Blue data point circles (all 12 weeks) -->
+              <circle cx="0" cy="160" r="3.5" fill="var(--bg-surface)" stroke="oklch(0.550 0.220 260)" stroke-width="2" />
+              <circle cx="55" cy="148" r="3.5" fill="var(--bg-surface)" stroke="oklch(0.550 0.220 260)" stroke-width="2" />
+              <circle cx="110" cy="140" r="3.5" fill="var(--bg-surface)" stroke="oklch(0.550 0.220 260)" stroke-width="2" />
+              <circle cx="165" cy="130" r="3.5" fill="var(--bg-surface)" stroke="oklch(0.550 0.220 260)" stroke-width="2" />
+              <circle cx="220" cy="122" r="3.5" fill="var(--bg-surface)" stroke="oklch(0.550 0.220 260)" stroke-width="2" />
+              <circle cx="275" cy="108" r="3.5" fill="var(--bg-surface)" stroke="oklch(0.550 0.220 260)" stroke-width="2" />
+              <circle cx="330" cy="92" r="3.5" fill="var(--bg-surface)" stroke="oklch(0.550 0.220 260)" stroke-width="2" />
+              <circle cx="385" cy="78" r="3.5" fill="var(--bg-surface)" stroke="oklch(0.550 0.220 260)" stroke-width="2" />
+              <circle cx="440" cy="66" r="3.5" fill="var(--bg-surface)" stroke="oklch(0.550 0.220 260)" stroke-width="2" />
+              <circle cx="495" cy="52" r="3.5" fill="var(--bg-surface)" stroke="oklch(0.550 0.220 260)" stroke-width="2" />
+              <circle cx="550" cy="38" r="3.5" fill="var(--bg-surface)" stroke="oklch(0.550 0.220 260)" stroke-width="2" />
+              <circle cx="605" cy="20" r="4" fill="oklch(0.550 0.220 260)" stroke="var(--bg-surface)" stroke-width="2" />
+
+              <!-- X-axis labels (all 12 weeks) -->
+              <text class="chart-label" x="0" y="218" text-anchor="middle">W1</text>
+              <text class="chart-label" x="55" y="218" text-anchor="middle">W2</text>
+              <text class="chart-label" x="110" y="218" text-anchor="middle">W3</text>
+              <text class="chart-label" x="165" y="218" text-anchor="middle">W4</text>
+              <text class="chart-label" x="220" y="218" text-anchor="middle">W5</text>
+              <text class="chart-label" x="275" y="218" text-anchor="middle">W6</text>
+              <text class="chart-label" x="330" y="218" text-anchor="middle">W7</text>
+              <text class="chart-label" x="385" y="218" text-anchor="middle">W8</text>
+              <text class="chart-label" x="440" y="218" text-anchor="middle">W9</text>
+              <text class="chart-label" x="495" y="218" text-anchor="middle">W10</text>
+              <text class="chart-label" x="550" y="218" text-anchor="middle">W11</text>
+              <text class="chart-label" x="605" y="218" text-anchor="middle">W12</text>
+            </svg>
+            <div class="flex gap-4 mt-4" style="font-size:0.6875rem;">
+              <div class="flex items-center gap-2"><div style="width:16px;height:2px;background:oklch(0.550 0.220 260);border-radius:1px;"></div> Total users</div>
+              <div class="flex items-center gap-2"><div style="width:16px;height:2px;border-radius:1px;background:repeating-linear-gradient(90deg,oklch(0.550 0.220 25) 0 6px,transparent 6px 9px);"></div> Returning users</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Donut / Pie + Horizontal Bar -->
+      <div class="subsection">
+        <h3 class="subsection-title">Donut Chart &amp; Horizontal Bars</h3>
+        <div class="grid-2">
+          <!-- Donut -->
+          <div class="card" style="padding:var(--space-6);">
+            <div style="font-size:0.9375rem;font-weight:620;margin-bottom:var(--space-2);">Traffic Sources</div>
+            <div style="font-size:var(--step--1);color:var(--text-secondary);margin-bottom:var(--space-6);">Last 30 days by channel</div>
+            <div style="display:flex;align-items:center;gap:var(--space-8);">
+              <!-- SVG donut — C = 2π × 54 = 339.29. Segments have 1.5px gaps. -->
+              <svg width="140" height="140" viewBox="0 0 140 140" role="img" aria-label="Donut chart showing traffic sources">
+                <circle cx="70" cy="70" r="54" fill="none" stroke="var(--border-subtle)" stroke-width="18" />
+                <!-- Blue: 42% = 142.5 arc, minus 1.5 gap = 141.0 -->
+                <circle cx="70" cy="70" r="54" fill="none" stroke="oklch(0.550 0.220 260)" stroke-width="18"
+                  stroke-dasharray="141.0 198.3" stroke-dashoffset="0" transform="rotate(-90 70 70)" />
+                <!-- Red: 28% = 95.0 arc, minus 1.5 gap = 93.5 -->
+                <circle cx="70" cy="70" r="54" fill="none" stroke="oklch(0.550 0.220 25)" stroke-width="18"
+                  stroke-dasharray="93.5 245.8" stroke-dashoffset="-143.25" transform="rotate(-90 70 70)" />
+                <!-- Yellow: 18% = 61.1 arc, minus 1.5 gap = 59.6 -->
+                <circle cx="70" cy="70" r="54" fill="none" stroke="oklch(0.850 0.180 90)" stroke-width="18"
+                  stroke-dasharray="59.6 279.7" stroke-dashoffset="-238.25" transform="rotate(-90 70 70)" />
+                <!-- Green: 12% = 40.7 arc, minus 1.5 gap = 39.2 -->
+                <circle cx="70" cy="70" r="54" fill="none" stroke="oklch(0.580 0.180 155)" stroke-width="18"
+                  stroke-dasharray="39.2 300.1" stroke-dashoffset="-299.35" transform="rotate(-90 70 70)" />
+                <!-- Center label -->
+                <text x="70" y="66" text-anchor="middle" style="font-size:20px;font-weight:700;fill:var(--text-primary);font-family:var(--font-sans);">28.4k</text>
+                <text x="70" y="82" text-anchor="middle" style="font-size:9px;fill:var(--text-muted);font-family:var(--font-mono);">total visits</text>
+              </svg>
+              <!-- Legend -->
+              <div style="display:flex;flex-direction:column;gap:var(--space-3);font-size:0.8125rem;">
+                <div class="flex items-center gap-2"><div style="width:10px;height:10px;border-radius:2px;background:oklch(0.550 0.220 260);"></div><span>Direct <strong style="margin-left:4px;">42%</strong></span></div>
+                <div class="flex items-center gap-2"><div style="width:10px;height:10px;border-radius:2px;background:oklch(0.550 0.220 25);"></div><span>Search <strong style="margin-left:4px;">28%</strong></span></div>
+                <div class="flex items-center gap-2"><div style="width:10px;height:10px;border-radius:2px;background:oklch(0.850 0.180 90);"></div><span>Social <strong style="margin-left:4px;">18%</strong></span></div>
+                <div class="flex items-center gap-2"><div style="width:10px;height:10px;border-radius:2px;background:oklch(0.580 0.180 155);"></div><span>Referral <strong style="margin-left:4px;">12%</strong></span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Horizontal bar -->
+          <div class="card" style="padding:var(--space-6);">
+            <div style="font-size:0.9375rem;font-weight:620;margin-bottom:var(--space-2);">Top Pages</div>
+            <div style="font-size:var(--step--1);color:var(--text-secondary);margin-bottom:var(--space-6);">Unique pageviews this month</div>
+            <div style="display:flex;flex-direction:column;gap:var(--space-4);">
+              <div>
+                <div class="flex justify-between mb-2" style="font-size:0.8125rem;"><span>/dashboard</span><span class="font-mono text-muted" style="font-size:0.75rem;">8,240</span></div>
+                <div class="progress-track" style="height:8px;"><div class="progress-fill progress-blue" style="--progress:100%;border-radius:var(--radius-full);"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between mb-2" style="font-size:0.8125rem;"><span>/components</span><span class="font-mono text-muted" style="font-size:0.75rem;">6,120</span></div>
+                <div class="progress-track" style="height:8px;"><div class="progress-fill progress-blue" style="--progress:74%;border-radius:var(--radius-full);"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between mb-2" style="font-size:0.8125rem;"><span>/tokens/color</span><span class="font-mono text-muted" style="font-size:0.75rem;">4,890</span></div>
+                <div class="progress-track" style="height:8px;"><div class="progress-fill progress-blue" style="--progress:59%;border-radius:var(--radius-full);"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between mb-2" style="font-size:0.8125rem;"><span>/getting-started</span><span class="font-mono text-muted" style="font-size:0.75rem;">3,210</span></div>
+                <div class="progress-track" style="height:8px;"><div class="progress-fill progress-blue" style="--progress:39%;border-radius:var(--radius-full);"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between mb-2" style="font-size:0.8125rem;"><span>/changelog</span><span class="font-mono text-muted" style="font-size:0.75rem;">1,940</span></div>
+                <div class="progress-track" style="height:8px;"><div class="progress-fill progress-blue" style="--progress:24%;border-radius:var(--radius-full);"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- KPI / Stat Cards -->
+      <div class="subsection">
+        <h3 class="subsection-title">KPI Cards &amp; Sparklines</h3>
+        <p class="subsection-desc">Dashboard-ready metric cards combining a headline number, trend indicator, and contextual sparkline. The colored top border assigns meaning at a glance.</p>
+        <div class="grid-4">
+          <div class="stat-card card-featured">
+            <div class="stat-label">Total Revenue</div>
+            <div class="stat-value" style="font-size:var(--step-2);color:var(--accent-blue-text);">$1.24M</div>
+            <div class="stat-change" style="color:var(--accent-green-text);">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+              +18.2%
+            </div>
+            <div class="mt-4" style="height:40px;">
+              <svg class="sparkline-svg" viewBox="0 0 100 32" preserveAspectRatio="none">
+                <path d="M0,28 L14,24 L28,26 L42,20 L56,18 L70,14 L84,10 L100,4 L100,32 L0,32 Z" fill="oklch(0.550 0.220 260 / 0.10)" />
+                <polyline points="0,28 14,24 28,26 42,20 56,18 70,14 84,10 100,4" stroke="oklch(0.550 0.220 260)" />
+              </svg>
+            </div>
+          </div>
+          <div class="stat-card card-featured-red">
+            <div class="stat-label">Churn Rate</div>
+            <div class="stat-value" style="font-size:var(--step-2);color:var(--accent-red-text);">3.2%</div>
+            <div class="stat-change" style="color:var(--accent-red-text);">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+              +0.4%
+            </div>
+            <div class="mt-4" style="height:40px;">
+              <svg class="sparkline-svg" viewBox="0 0 100 32" preserveAspectRatio="none">
+                <path d="M0,16 L14,18 L28,14 L42,16 L56,14 L70,16 L84,20 L100,24 L100,32 L0,32 Z" fill="oklch(0.550 0.220 25 / 0.10)" />
+                <polyline points="0,16 14,18 28,14 42,16 56,14 70,16 84,20 100,24" stroke="oklch(0.550 0.220 25)" />
+              </svg>
+            </div>
+          </div>
+          <div class="stat-card card-featured-yellow">
+            <div class="stat-label">Avg Session</div>
+            <div class="stat-value" style="font-size:var(--step-2);color:var(--accent-yellow-text);">4m 32s</div>
+            <div class="stat-change" style="color:var(--accent-green-text);">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+              +12.1%
+            </div>
+            <div class="mt-4" style="height:40px;">
+              <svg class="sparkline-svg" viewBox="0 0 100 32" preserveAspectRatio="none">
+                <path d="M0,26 L14,20 L28,24 L42,16 L56,22 L70,12 L84,14 L100,6 L100,32 L0,32 Z" fill="oklch(0.850 0.180 90 / 0.10)" />
+                <polyline points="0,26 14,20 28,24 42,16 56,22 70,12 84,14 100,6" stroke="oklch(0.850 0.180 90)" />
+              </svg>
+            </div>
+          </div>
+          <div class="stat-card card-featured-green">
+            <div class="stat-label">NPS Score</div>
+            <div class="stat-value" style="font-size:var(--step-2);color:var(--accent-green-text);">72</div>
+            <div class="stat-change" style="color:var(--accent-green-text);">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+              +6 pts
+            </div>
+            <div class="mt-4" style="height:40px;">
+              <svg class="sparkline-svg" viewBox="0 0 100 32" preserveAspectRatio="none">
+                <path d="M0,30 L14,26 L28,24 L42,22 L56,18 L70,16 L84,12 L100,8 L100,32 L0,32 Z" fill="oklch(0.580 0.180 155 / 0.10)" />
+                <polyline points="0,30 14,26 28,24 42,22 56,18 70,16 84,12 100,8" stroke="oklch(0.580 0.180 155)" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Heatmap -->
+      <div class="subsection">
+        <h3 class="subsection-title">Heatmap</h3>
+        <p class="subsection-desc">Activity heatmaps use a single-hue sequential ramp. Opacity encodes magnitude so the underlying grid stays visible. Ideal for time-based patterns.</p>
+        <div class="card" style="padding:var(--space-6) var(--space-8);">
+          <div style="font-size:0.9375rem;font-weight:620;margin-bottom:var(--space-2);">Commit Activity</div>
+          <div style="font-size:var(--step--1);color:var(--text-secondary);margin-bottom:var(--space-6);">Contributions over the last 7 weeks</div>
+          <!-- Week labels -->
+          <div style="display:grid;grid-template-columns:repeat(7,24px);gap:3px;margin-left:40px;">
+            <div style="text-align:center;font-size:0.5625rem;font-family:var(--font-mono);color:var(--text-muted);">W1</div>
+            <div style="text-align:center;font-size:0.5625rem;font-family:var(--font-mono);color:var(--text-muted);">W2</div>
+            <div style="text-align:center;font-size:0.5625rem;font-family:var(--font-mono);color:var(--text-muted);">W3</div>
+            <div style="text-align:center;font-size:0.5625rem;font-family:var(--font-mono);color:var(--text-muted);">W4</div>
+            <div style="text-align:center;font-size:0.5625rem;font-family:var(--font-mono);color:var(--text-muted);">W5</div>
+            <div style="text-align:center;font-size:0.5625rem;font-family:var(--font-mono);color:var(--text-muted);">W6</div>
+            <div style="text-align:center;font-size:0.5625rem;font-family:var(--font-mono);color:var(--text-muted);">W7</div>
+          </div>
+          <!-- Heatmap grid -->
+          <div style="display:flex;flex-direction:column;gap:3px;" id="heatmap-grid">
+            <!-- Mon -->
+            <div style="display:grid;grid-template-columns:36px repeat(7,24px);gap:3px;align-items:center;">
+              <span style="font-size:0.5625rem;font-family:var(--font-mono);color:var(--text-muted);text-align:right;">Mon</span>
+              <div style="width:24px;height:24px;border-radius:3px;background:oklch(0.55 0.22 260 / 0.15);"></div>
+              <div style="width:24px;height:24px;border-radius:3px;background:oklch(0.55 0.22 260 / 0.40);"></div>
+              <div style="width:24px;height:24px;border-radius:3px;background:oklch(0.55 0.22 260 / 0.60);"></div>
+              <div style="width:24px;height:24px;border-radius:3px;background:oklch(0.55 0.22 260 / 0.25);"></div>
+              <div style="width:24px;height:24px;border-radius:3px;background:oklch(0.55 0.22 260 / 0.80);"></div>
+              <div style="width:24px;height:24px;border-radius:3px;background:oklch(0.55 0.22 260 / 0.45);"></div>
+              <div style="width:24px;height:24px;border-radius:3px;background:oklch(0.55 0.22 260 / 0.70);"></div>
+            </div>
+            <!-- Tue -->
+            <div style="display:grid;grid-template-columns:36px repeat(7,24px);gap:3px;align-items:center;">
+              <span style="font-size:0.5625rem;font-family:var(--font-mono);color:var(--text-muted);text-align:right;">Tue</span>
+              <div style="width:24px;height:24px;border-radius:3px;background:oklch(0.55 0.22 260 / 0.30);"></div>
+              <div style="width:24px;height:24px;border-radius:3px;background:oklch(0.55 0.22 260 / 0.90);"></div>
+              <div style="width:24px;height:24px;border-radius:3px;background:oklch(0.55 0.22 260 / 0.50);"></div>
+              <div style="width:24px;height:24px;border-radius:3px;background:oklch(0.55 0.22 260 / 0.70);"></div>
+              <div style="width:24px;height:24px;border-radius:3px;background:oklch(0.55 0.22 260 / 0.35);"></div>
+              <div style="width:24px;height:24px;border-radius:3px;background:oklch(0.55 0.22 260 / 1.0);"></div>
+              <div style="width:24px;height:24px;border-radius:3px;background:oklch(0.55 0.22 260 / 0.55);"></div>
+            </div>
+            <!-- Wed -->
+            <div style="display:grid;grid-template-columns:36px repeat(7,24px);gap:3px;align-items:center;">
+              <span style="font-size:0.5625rem;font-family:var(--font-mono);color:var(--text-muted);text-align:right;">Wed</span>
+              <div style="width:24px;height:24px;border-radius:3px;background:oklch(0.55 0.22 260 / 0.60);"></div>
+              <div style="width:24px;height:24px;border-radius:3px;background:oklch(0.55 0.22 260 / 0.75);"></div>
+              <div style="width:24px;height:24px;border-radius:3px;background:oklch(0.55 0.22 260 / 1.0);"></div>
+              <div style="width:24px;height:24px;border-radius:3px;background:oklch(0.55 0.22 260 / 0.50);"></div>
+              <div style="width:24px;height:24px;border-radius:3px;background:oklch(0.55 0.22 260 / 0.85);"></div>
+              <div style="width:24px;height:24px;border-radius:3px;background:oklch(0.55 0.22 260 / 0.40);"></div>
+              <div style="width:24px;height:24px;border-radius:3px;background:oklch(0.55 0.22 260 / 0.90);"></div>
+            </div>
+            <!-- Thu -->
+            <div style="display:grid;grid-template-columns:36px repeat(7,24px);gap:3px;align-items:center;">
+              <span style="font-size:0.5625rem;font-family:var(--font-mono);color:var(--text-muted);text-align:right;">Thu</span>
+              <div style="width:24px;height:24px;border-radius:3px;background:oklch(0.55 0.22 260 / 0.45);"></div>
+              <div style="width:24px;height:24px;border-radius:3px;background:oklch(0.55 0.22 260 / 0.20);"></div>
+              <div style="width:24px;height:24px;border-radius:3px;background:oklch(0.55 0.22 260 / 0.65);"></div>
+              <div style="width:24px;height:24px;border-radius:3px;background:oklch(0.55 0.22 260 / 0.80);"></div>
+              <div style="width:24px;height:24px;border-radius:3px;background:oklch(0.55 0.22 260 / 0.55);"></div>
+              <div style="width:24px;height:24px;border-radius:3px;background:oklch(0.55 0.22 260 / 0.30);"></div>
+              <div style="width:24px;height:24px;border-radius:3px;background:oklch(0.55 0.22 260 / 0.75);"></div>
+            </div>
+            <!-- Fri -->
+            <div style="display:grid;grid-template-columns:36px repeat(7,24px);gap:3px;align-items:center;">
+              <span style="font-size:0.5625rem;font-family:var(--font-mono);color:var(--text-muted);text-align:right;">Fri</span>
+              <div style="width:24px;height:24px;border-radius:3px;background:oklch(0.55 0.22 260 / 0.85);"></div>
+              <div style="width:24px;height:24px;border-radius:3px;background:oklch(0.55 0.22 260 / 0.60);"></div>
+              <div style="width:24px;height:24px;border-radius:3px;background:oklch(0.55 0.22 260 / 0.35);"></div>
+              <div style="width:24px;height:24px;border-radius:3px;background:oklch(0.55 0.22 260 / 0.90);"></div>
+              <div style="width:24px;height:24px;border-radius:3px;background:oklch(0.55 0.22 260 / 0.50);"></div>
+              <div style="width:24px;height:24px;border-radius:3px;background:oklch(0.55 0.22 260 / 0.70);"></div>
+              <div style="width:24px;height:24px;border-radius:3px;background:oklch(0.55 0.22 260 / 0.15);"></div>
+            </div>
+            <!-- Sat -->
+            <div style="display:grid;grid-template-columns:36px repeat(7,24px);gap:3px;align-items:center;">
+              <span style="font-size:0.5625rem;font-family:var(--font-mono);color:var(--text-muted);text-align:right;">Sat</span>
+              <div style="width:24px;height:24px;border-radius:3px;background:oklch(0.55 0.22 260 / 0.10);"></div>
+              <div style="width:24px;height:24px;border-radius:3px;background:oklch(0.55 0.22 260 / 0.08);"></div>
+              <div style="width:24px;height:24px;border-radius:3px;background:oklch(0.55 0.22 260 / 0.20);"></div>
+              <div style="width:24px;height:24px;border-radius:3px;background:oklch(0.55 0.22 260 / 0.10);"></div>
+              <div style="width:24px;height:24px;border-radius:3px;background:oklch(0.55 0.22 260 / 0.15);"></div>
+              <div style="width:24px;height:24px;border-radius:3px;background:oklch(0.55 0.22 260 / 0.25);"></div>
+              <div style="width:24px;height:24px;border-radius:3px;background:oklch(0.55 0.22 260 / 0.08);"></div>
+            </div>
+            <!-- Sun -->
+            <div style="display:grid;grid-template-columns:36px repeat(7,24px);gap:3px;align-items:center;">
+              <span style="font-size:0.5625rem;font-family:var(--font-mono);color:var(--text-muted);text-align:right;">Sun</span>
+              <div style="width:24px;height:24px;border-radius:3px;background:oklch(0.55 0.22 260 / 0.05);"></div>
+              <div style="width:24px;height:24px;border-radius:3px;background:oklch(0.55 0.22 260 / 0.10);"></div>
+              <div style="width:24px;height:24px;border-radius:3px;background:oklch(0.55 0.22 260 / 0.08);"></div>
+              <div style="width:24px;height:24px;border-radius:3px;background:oklch(0.55 0.22 260 / 0.12);"></div>
+              <div style="width:24px;height:24px;border-radius:3px;background:oklch(0.55 0.22 260 / 0.05);"></div>
+              <div style="width:24px;height:24px;border-radius:3px;background:oklch(0.55 0.22 260 / 0.10);"></div>
+              <div style="width:24px;height:24px;border-radius:3px;background:oklch(0.55 0.22 260 / 0.05);"></div>
+            </div>
+          </div>
+          <!-- Heatmap legend -->
+          <div class="flex items-center gap-2 mt-4" style="margin-left:40px;">
+            <span class="font-mono text-muted" style="font-size:0.5625rem;">Less</span>
+            <div style="width:14px;height:14px;border-radius:2px;background:oklch(0.55 0.22 260 / 0.08);"></div>
+            <div style="width:14px;height:14px;border-radius:2px;background:oklch(0.55 0.22 260 / 0.25);"></div>
+            <div style="width:14px;height:14px;border-radius:2px;background:oklch(0.55 0.22 260 / 0.50);"></div>
+            <div style="width:14px;height:14px;border-radius:2px;background:oklch(0.55 0.22 260 / 0.75);"></div>
+            <div style="width:14px;height:14px;border-radius:2px;background:oklch(0.55 0.22 260 / 1.0);"></div>
+            <span class="font-mono text-muted" style="font-size:0.5625rem;">More</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Data Table + Inline Viz -->
+      <div class="subsection">
+        <h3 class="subsection-title">Table with Inline Visualization</h3>
+        <p class="subsection-desc">BI tables often need inline charts. Embed sparklines, progress bars, and trend indicators directly in table cells for scannable data density.</p>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Region</th>
+                <th>Revenue</th>
+                <th>7-Day Trend</th>
+                <th>Conversion</th>
+                <th>vs Target</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="font-weight:550;">North America</td>
+                <td class="mono">$482,100</td>
+                <td>
+                  <svg class="sparkline-svg" viewBox="0 0 70 20" style="width:70px;height:20px;" preserveAspectRatio="none">
+                    <polyline points="0,14 12,10 24,12 36,6 48,8 58,4 70,2" stroke="oklch(0.550 0.220 260)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </td>
+                <td>
+                  <div class="flex items-center gap-2"><div class="progress-track" style="width:60px;height:4px;"><div class="progress-fill progress-blue" style="--progress:84%;"></div></div><span class="mono" style="font-size:0.6875rem;">84%</span></div>
+                </td>
+                <td><span class="badge badge-green" style="font-size:0.625rem;height:18px;">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+                  +12%</span>
+                </td>
+              </tr>
+              <tr>
+                <td style="font-weight:550;">Europe</td>
+                <td class="mono">$318,400</td>
+                <td>
+                  <svg class="sparkline-svg" viewBox="0 0 70 20" style="width:70px;height:20px;" preserveAspectRatio="none">
+                    <polyline points="0,10 12,12 24,8 36,10 48,12 58,8 70,6" stroke="oklch(0.550 0.220 260)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </td>
+                <td>
+                  <div class="flex items-center gap-2"><div class="progress-track" style="width:60px;height:4px;"><div class="progress-fill progress-blue" style="--progress:71%;"></div></div><span class="mono" style="font-size:0.6875rem;">71%</span></div>
+                </td>
+                <td><span class="badge badge-green" style="font-size:0.625rem;height:18px;">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+                  +4%</span>
+                </td>
+              </tr>
+              <tr>
+                <td style="font-weight:550;">Asia Pacific</td>
+                <td class="mono">$245,800</td>
+                <td>
+                  <svg class="sparkline-svg" viewBox="0 0 70 20" style="width:70px;height:20px;" preserveAspectRatio="none">
+                    <polyline points="0,4 12,6 24,8 36,12 48,16 58,14 70,10" stroke="oklch(0.550 0.220 25)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </td>
+                <td>
+                  <div class="flex items-center gap-2"><div class="progress-track" style="width:60px;height:4px;"><div class="progress-fill progress-yellow" style="--progress:58%;"></div></div><span class="mono" style="font-size:0.6875rem;">58%</span></div>
+                </td>
+                <td><span class="badge badge-red" style="font-size:0.625rem;height:18px;">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                  -8%</span>
+                </td>
+              </tr>
+              <tr>
+                <td style="font-weight:550;">Latin America</td>
+                <td class="mono">$124,600</td>
+                <td>
+                  <svg class="sparkline-svg" viewBox="0 0 70 20" style="width:70px;height:20px;" preserveAspectRatio="none">
+                    <polyline points="0,18 12,16 24,14 36,15 48,10 58,6 70,2" stroke="oklch(0.550 0.220 260)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </td>
+                <td>
+                  <div class="flex items-center gap-2"><div class="progress-track" style="width:60px;height:4px;"><div class="progress-fill progress-green" style="--progress:92%;"></div></div><span class="mono" style="font-size:0.6875rem;">92%</span></div>
+                </td>
+                <td><span class="badge badge-green" style="font-size:0.625rem;height:18px;">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+                  +22%</span>
+                </td>
+              </tr>
+              <tr>
+                <td style="font-weight:550;">Middle East &amp; Africa</td>
+                <td class="mono">$68,200</td>
+                <td>
+                  <svg class="sparkline-svg" viewBox="0 0 70 20" style="width:70px;height:20px;" preserveAspectRatio="none">
+                    <polyline points="0,12 12,12 24,10 36,12 48,8 58,10 70,8" stroke="oklch(0.550 0.220 260)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </td>
+                <td>
+                  <div class="flex items-center gap-2"><div class="progress-track" style="width:60px;height:4px;"><div class="progress-fill progress-blue" style="--progress:65%;"></div></div><span class="mono" style="font-size:0.6875rem;">65%</span></div>
+                </td>
+                <td><span class="badge badge-yellow" style="font-size:0.625rem;height:18px;">0%</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Data Viz Guidelines -->
+      <div class="subsection">
+        <h3 class="subsection-title">Visualization Guidelines</h3>
+        <div class="grid-2">
+          <div class="do-card">
+            <div class="do-label">Do</div>
+            <ul style="padding-left:1.2em;display:flex;flex-direction:column;gap:6px;">
+              <li>Use sequential single-hue ramps for ordered data (revenue, time)</li>
+              <li>Keep categorical palettes to 8 or fewer series</li>
+              <li>Use blue as the default/first series in every chart</li>
+              <li>Provide text labels for key data points — don't rely on color alone</li>
+              <li>Use the diverging scale (blue↔red) for positive/negative comparisons</li>
+              <li>Include axis labels, legends, and units on every chart</li>
+              <li>Use opacity (0.08–1.0) for heatmaps instead of discrete color steps</li>
+              <li>Embed sparklines in tables for scannable trend data</li>
+            </ul>
+          </div>
+          <div class="dont-card">
+            <div class="dont-label">Don't</div>
+            <ul style="padding-left:1.2em;display:flex;flex-direction:column;gap:6px;">
+              <li>Use red and green as the only distinction (colorblind-unsafe)</li>
+              <li>Apply 3D effects, gradients, or decorative chart elements</li>
+              <li>Use pie charts with more than 5 slices (switch to horizontal bars)</li>
+              <li>Mix categorical and sequential palettes in the same view</li>
+              <li>Start bar chart Y-axes at non-zero values without clearly marking it</li>
+              <li>Use yellow for large chart areas — it's a highlight, not a fill</li>
+              <li>Animate chart data on load in BI dashboards (respect scan patterns)</li>
+              <li>Use stroke-only chart elements below 2px — they disappear in dark mode</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer style="padding:var(--space-12) 0 var(--space-8);text-align:center;">
+      <div class="flex justify-between items-center gap-3" style="justify-content:center;">
+        <span class="brand-dots">
+          <span class="brand-dot" style="background:var(--accent-blue);"></span>
+          <span class="brand-dot" style="background:var(--accent-red);"></span>
+          <span class="brand-dot" style="background:var(--accent-yellow);"></span>
+        </span>
+      </div>
+      <p style="font-size:0.75rem;color:var(--text-muted);margin-top:var(--space-3);font-family:var(--font-mono);">Kyle DS Style Guide &middot; All colors oklch &middot; Three-tier tokens &middot; Built with joy</p>
+    </footer>
+
+  </div>
+
+  <!-- ===== THEME TOGGLE ===== -->
+  <script>
+    (function() {
+      const html = document.documentElement;
+      const btn = document.getElementById('themeToggle');
+      const sun = document.getElementById('iconSun');
+      const moon = document.getElementById('iconMoon');
+
+      function setTheme(t) {
+        html.setAttribute('data-theme', t);
+        sun.style.display = t === 'light' ? 'block' : 'none';
+        moon.style.display = t === 'dark' ? 'block' : 'none';
+      }
+
+      btn.addEventListener('click', function() {
+        setTheme(html.getAttribute('data-theme') === 'light' ? 'dark' : 'light');
+      });
+
+      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        setTheme('dark');
+      }
+    })();
+  </script>
+</body>
+</html>

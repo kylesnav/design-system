@@ -1,0 +1,1769 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kyle DS — Direction C: Synthesis</title>
+
+  <!-- Google Fonts: Inter variable (sans) + JetBrains Mono (mono) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ========================================================================
+       TIER 1 — PRIMITIVE TOKENS
+       Raw oklch values. Named by scale, no semantic meaning.
+
+       Direction C: Synthesis — warm neutrals with a slightly more neutral/
+       contemporary feel than Direction A. Hue ~88 (between A's 85 and pure
+       yellow 90), lower chroma than A for a calmer warmth.
+
+       Three accent candidate families:
+         Deep Teal   — hue ~195, chroma 0.12–0.15
+         Electric Blue — hue ~255, chroma 0.18–0.22
+         Muted Crimson — hue ~20, chroma 0.14–0.18
+       ======================================================================== */
+    :root {
+      /* --- Neutral Primitives — warm-contemporary, hue ~88 --- */
+      --primitive-neutral-0:   oklch(1.000 0.000 0);       /* pure white */
+      --primitive-neutral-25:  oklch(0.988 0.004 88);      /* barely warm, contemporary */
+      --primitive-neutral-50:  oklch(0.978 0.006 88);      /* warm offwhite — the page base */
+      --primitive-neutral-75:  oklch(0.962 0.007 88);      /* light cream */
+      --primitive-neutral-100: oklch(0.948 0.008 88);      /* warm gray-100 */
+      --primitive-neutral-150: oklch(0.925 0.008 88);      /* warm gray-150 */
+      --primitive-neutral-200: oklch(0.885 0.008 88);      /* warm gray-200 */
+      --primitive-neutral-300: oklch(0.810 0.008 88);      /* warm gray-300 */
+      --primitive-neutral-400: oklch(0.710 0.008 88);      /* warm gray-400 */
+      --primitive-neutral-500: oklch(0.580 0.008 88);      /* warm gray-500 */
+      --primitive-neutral-600: oklch(0.460 0.008 88);      /* warm gray-600 */
+      --primitive-neutral-700: oklch(0.360 0.008 88);      /* warm gray-700 */
+      --primitive-neutral-800: oklch(0.260 0.008 88);      /* warm gray-800 */
+      --primitive-neutral-900: oklch(0.185 0.010 88);      /* near-black warm */
+      --primitive-neutral-950: oklch(0.140 0.012 90);      /* deepest warm black */
+
+      /* --- Deep Teal Accent (ACTIVE) — hue ~195 --- */
+      /* Unexpected yet warm-compatible: teal sits opposite on the
+         color wheel from the warm neutrals, creating natural tension */
+      --primitive-teal-300:  oklch(0.720 0.100 195);       /* light teal */
+      --primitive-teal-400:  oklch(0.640 0.120 195);       /* medium teal */
+      --primitive-teal-500:  oklch(0.550 0.150 195);       /* core deep teal */
+      --primitive-teal-600:  oklch(0.480 0.140 195);       /* deep teal */
+      --primitive-teal-700:  oklch(0.400 0.120 195);       /* darkest teal */
+
+      /* --- Electric Blue Accent Candidate — hue ~255 --- */
+      --primitive-eblue-300: oklch(0.740 0.140 255);       /* light electric blue */
+      --primitive-eblue-500: oklch(0.600 0.220 255);       /* core electric blue */
+      --primitive-eblue-700: oklch(0.440 0.180 255);       /* deep electric blue */
+
+      /* --- Muted Crimson Accent Candidate — hue ~20 --- */
+      --primitive-crimson-300: oklch(0.700 0.110 20);      /* light crimson */
+      --primitive-crimson-500: oklch(0.500 0.180 20);      /* core muted crimson */
+      --primitive-crimson-700: oklch(0.380 0.150 20);      /* deep crimson */
+
+      /* --- Status Primitives --- */
+      --primitive-green-400:  oklch(0.720 0.150 155);
+      --primitive-green-500:  oklch(0.640 0.170 155);
+      --primitive-green-600:  oklch(0.550 0.150 155);
+    }
+
+    /* ========================================================================
+       TIER 2 — SEMANTIC TOKENS (Light Mode)
+       Purpose-driven tokens that swap for dark mode.
+       Active accent: Deep Teal — provides unexpected color tension against
+       the warm neutral base while remaining sophisticated and restrained.
+       ======================================================================== */
+    [data-mode="light"] {
+      /* Backgrounds */
+      --bg-page:      var(--primitive-neutral-50);
+      --bg-surface:   var(--primitive-neutral-0);
+      --bg-elevated:  var(--primitive-neutral-0);
+      --bg-subtle:    var(--primitive-neutral-75);
+      --bg-muted:     var(--primitive-neutral-100);
+
+      /* Text */
+      --text-primary:   var(--primitive-neutral-950);
+      --text-secondary: var(--primitive-neutral-600);
+      --text-muted:     var(--primitive-neutral-400);
+      --text-inverse:   var(--primitive-neutral-0);
+
+      /* Borders */
+      --border-default: var(--primitive-neutral-150);
+      --border-strong:  var(--primitive-neutral-300);
+      --border-accent:  var(--primitive-teal-500);
+
+      /* Accent — Deep Teal */
+      --accent-solid:             var(--primitive-teal-500);
+      --accent-solid-hover:       var(--primitive-teal-600);
+      --accent-solid-foreground:  var(--primitive-neutral-0);
+      --accent-subtle:            oklch(0.960 0.025 195);
+      --accent-subtle-foreground: var(--primitive-teal-700);
+
+      /* Interactive */
+      --focus-ring: var(--primitive-teal-400);
+
+      /* Success */
+      --success-bg:     oklch(0.962 0.028 155);
+      --success-border: var(--primitive-green-400);
+      --success-text:   var(--primitive-green-600);
+      --success-icon:   var(--primitive-green-500);
+    }
+
+    /* ========================================================================
+       TIER 2 — SEMANTIC TOKENS (Dark Mode)
+       Warm dark backgrounds (hue ~90, chroma ~0.012) — not cool/blue.
+       Teal accent lightened by ~0.12 to pop against dark surfaces.
+       ======================================================================== */
+    [data-mode="dark"] {
+      /* Backgrounds — warm dark, never cool */
+      --bg-page:      oklch(0.140 0.012 90);
+      --bg-surface:   oklch(0.170 0.012 88);
+      --bg-elevated:  oklch(0.200 0.010 88);
+      --bg-subtle:    oklch(0.210 0.010 88);
+      --bg-muted:     oklch(0.185 0.010 88);
+
+      /* Text — warm off-white, not cool/blue */
+      --text-primary:   oklch(0.940 0.006 88);
+      --text-secondary: oklch(0.680 0.008 88);
+      --text-muted:     oklch(0.500 0.008 88);
+      --text-inverse:   var(--primitive-neutral-950);
+
+      /* Borders — warm and subtle */
+      --border-default: oklch(0.260 0.010 88);
+      --border-strong:  oklch(0.360 0.010 88);
+      --border-accent:  var(--primitive-teal-400);
+
+      /* Accent — teal lightened for dark backgrounds */
+      --accent-solid:             oklch(0.660 0.140 195);
+      --accent-solid-hover:       oklch(0.720 0.120 195);
+      --accent-solid-foreground:  oklch(0.140 0.012 90);
+      --accent-subtle:            oklch(0.220 0.040 195);
+      --accent-subtle-foreground: oklch(0.720 0.120 195);
+
+      /* Interactive */
+      --focus-ring: oklch(0.660 0.140 195);
+
+      /* Success */
+      --success-bg:     oklch(0.200 0.035 155);
+      --success-border: var(--primitive-green-500);
+      --success-text:   var(--primitive-green-400);
+      --success-icon:   var(--primitive-green-400);
+    }
+
+    /* ========================================================================
+       TIER 3 — COMPONENT TOKENS
+       Scoped to specific components, composed from semantic tokens.
+       ======================================================================== */
+    :root {
+      /* Button */
+      --btn-primary-bg:         var(--accent-solid);
+      --btn-primary-bg-hover:   var(--accent-solid-hover);
+      --btn-primary-fg:         var(--accent-solid-foreground);
+      --btn-secondary-bg:       transparent;
+      --btn-secondary-bg-hover: var(--bg-subtle);
+      --btn-secondary-fg:       var(--text-primary);
+      --btn-secondary-border:   var(--border-default);
+      --btn-disabled-bg:        var(--bg-muted);
+      --btn-disabled-fg:        var(--text-muted);
+
+      /* Card */
+      --card-bg:     var(--bg-surface);
+      --card-border: var(--border-default);
+      --card-radius: 8px;
+
+      /* Input */
+      --input-bg:           var(--bg-surface);
+      --input-border:       var(--border-default);
+      --input-border-focus: var(--accent-solid);
+      --input-radius:       4px;
+
+      /* Table */
+      --table-header-bg:  var(--bg-subtle);
+      --table-row-hover:  var(--bg-subtle);
+      --table-border:     var(--border-default);
+
+      /* Sidebar */
+      --sidebar-bg:              var(--bg-surface);
+      --sidebar-item-hover:      var(--bg-subtle);
+      --sidebar-item-active-bg:  var(--accent-subtle);
+      --sidebar-item-active-fg:  var(--accent-subtle-foreground);
+
+      /* Badge */
+      --badge-default-bg:  var(--bg-muted);
+      --badge-default-fg:  var(--text-secondary);
+      --badge-accent-bg:   var(--accent-subtle);
+      --badge-accent-fg:   var(--accent-subtle-foreground);
+
+      /* Toast */
+      --toast-success-bg:     var(--success-bg);
+      --toast-success-border: var(--success-border);
+      --toast-success-fg:     var(--success-text);
+      --toast-success-icon:   var(--success-icon);
+    }
+
+    /* ========================================================================
+       MOTION TOKENS
+       ======================================================================== */
+    :root {
+      --duration-instant: 100ms;
+      --duration-fast:    160ms;
+      --duration-base:    240ms;
+      --duration-slow:    360ms;
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+    }
+
+    /* ========================================================================
+       SPACING TOKENS — 8px base grid, 4px sub-grid
+       ======================================================================== */
+    :root {
+      --space-1:  4px;
+      --space-2:  8px;
+      --space-3:  12px;
+      --space-4:  16px;
+      --space-6:  24px;
+      --space-8:  32px;
+      --space-12: 48px;
+      --space-16: 64px;
+      --space-20: 80px;
+    }
+
+    /* ========================================================================
+       BASE STYLES
+       ======================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+      /* Inter OpenType features for polish */
+      font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-weight: 400;
+      line-height: 1.6;
+      color: var(--text-primary);
+      background-color: var(--bg-page);
+      transition: background-color var(--duration-base) ease-out,
+                  color var(--duration-base) ease-out;
+    }
+
+    /* Focus-visible for keyboard navigation */
+    :focus-visible {
+      outline: 2px solid var(--focus-ring);
+      outline-offset: 2px;
+    }
+
+    /* Respect reduced motion preference */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+      }
+    }
+
+    /* ========================================================================
+       TYPOGRAPHY — Fluid type scale using clamp()
+
+       Direction C typography is MORE CONFIDENT than A or B:
+       - H1/H2 use weight 800 (ExtraBold) for bold presence
+       - Slightly larger heading sizes for dramatic contrast
+       - Tighter letter-spacing on large headings (-0.035em)
+       - Body remains calm and readable at 400 weight
+       - The contrast between heavy headings and light body IS the brand
+       ======================================================================== */
+
+    h1 {
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-weight: 800;
+      font-size: clamp(2.5rem, 2rem + 2.5vw, 4rem);       /* 40–64px — larger than A/B */
+      line-height: 1.08;
+      letter-spacing: -0.035em;
+      color: var(--text-primary);
+    }
+
+    h2 {
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-weight: 800;
+      font-size: clamp(1.875rem, 1.6rem + 1.375vw, 2.75rem); /* 30–44px */
+      line-height: 1.12;
+      letter-spacing: -0.03em;
+      color: var(--text-primary);
+    }
+
+    h3 {
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-weight: 600;
+      font-size: clamp(1.25rem, 1.1rem + 0.75vw, 1.625rem); /* 20–26px */
+      line-height: 1.25;
+      letter-spacing: -0.015em;
+      color: var(--text-primary);
+    }
+
+    h4 {
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-weight: 600;
+      font-size: clamp(1rem, 0.95rem + 0.25vw, 1.1875rem);  /* 16–19px */
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+      color: var(--text-primary);
+    }
+
+    p {
+      font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);   /* 16–18px */
+      line-height: 1.6;
+      color: var(--text-secondary);
+      max-width: 65ch;
+    }
+
+    .text-small {
+      font-size: 0.8125rem; /* 13px */
+      line-height: 1.5;
+      color: var(--text-muted);
+    }
+
+    .text-caption {
+      font-size: 0.6875rem; /* 11px */
+      line-height: 1.5;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 600;
+    }
+
+    /* Overline — a distinctive typographic device for Direction C */
+    .overline {
+      font-size: 0.6875rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent-solid);
+    }
+
+    code, .mono {
+      font-family: 'JetBrains Mono', 'SF Mono', 'Consolas', monospace;
+      font-size: 0.875em;
+    }
+
+    /* ========================================================================
+       LAYOUT — Most spacious of the three directions
+       ======================================================================== */
+    .page-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 64px 32px 96px;
+    }
+
+    /* Sections get more dramatic spacing than A or B */
+    .section {
+      margin-bottom: 96px;
+    }
+
+    .section-header {
+      margin-bottom: 40px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-default);
+    }
+
+    .section-title {
+      margin-bottom: 8px;
+    }
+
+    .section-description {
+      max-width: 60ch;
+    }
+
+    .section-overline {
+      margin-bottom: 12px;
+    }
+
+    /* ========================================================================
+       TOP BAR
+       ======================================================================== */
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 32px;
+      border-bottom: 1px solid var(--border-default);
+      background: var(--bg-surface);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      transition: background-color var(--duration-base) ease-out,
+                  border-color var(--duration-base) ease-out;
+    }
+
+    .top-bar-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .top-bar-title {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 0.875rem;
+      letter-spacing: -0.01em;
+      color: var(--text-primary);
+    }
+
+    .top-bar-badge {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--accent-solid);
+      background: var(--accent-subtle);
+      padding: 2px 8px;
+      border-radius: 9999px;
+    }
+
+    /* Theme toggle button */
+    .theme-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .theme-toggle-label {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .theme-toggle-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--border-default);
+      border-radius: 8px;
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: background var(--duration-fast) ease-out,
+                  border-color var(--duration-fast) ease-out;
+    }
+
+    .theme-toggle-btn:hover {
+      background: var(--bg-subtle);
+      border-color: var(--border-strong);
+    }
+
+    .theme-toggle-btn svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    /* ========================================================================
+       DIRECTION LEGEND
+       ======================================================================== */
+    .legend {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-default);
+      border-radius: 8px;
+      padding: 32px;
+      margin-bottom: 96px;
+      font-size: 0.875rem;
+      line-height: 1.7;
+      color: var(--text-secondary);
+    }
+
+    .legend strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .legend-title {
+      font-weight: 700;
+      font-size: 0.6875rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-solid);
+      margin-bottom: 12px;
+    }
+
+    .legend p + p {
+      margin-top: 8px;
+    }
+
+    .legend-list {
+      list-style: none;
+      padding: 0;
+      margin-top: 12px;
+    }
+
+    .legend-list li {
+      padding: 4px 0;
+      padding-left: 16px;
+      position: relative;
+    }
+
+    .legend-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 12px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-solid);
+    }
+
+    /* ========================================================================
+       COLOR SWATCHES
+       ======================================================================== */
+    .swatch-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 12px;
+    }
+
+    .swatch {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--border-default);
+      border-radius: 8px;
+      overflow: hidden;
+      background: var(--bg-surface);
+      transition: border-color var(--duration-fast) ease-out;
+    }
+
+    .swatch-color {
+      height: 56px;
+      width: 100%;
+    }
+
+    .swatch-info {
+      padding: 8px 10px;
+    }
+
+    .swatch-name {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .swatch-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.625rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .swatch-row-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+      margin-top: 24px;
+    }
+
+    .swatch-row-label:first-child {
+      margin-top: 0;
+    }
+
+    /* Accent candidate sections */
+    .accent-candidates {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 32px;
+    }
+
+    .accent-candidate {
+      border: 1px solid var(--border-default);
+      border-radius: 8px;
+      overflow: hidden;
+      background: var(--bg-surface);
+    }
+
+    .accent-candidate.active {
+      border-color: var(--accent-solid);
+      border-width: 2px;
+    }
+
+    .accent-candidate-header {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border-default);
+    }
+
+    .accent-candidate-name {
+      font-weight: 700;
+      font-size: 0.8125rem;
+      color: var(--text-primary);
+    }
+
+    .accent-candidate-tag {
+      font-size: 0.625rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-top: 2px;
+    }
+
+    .accent-candidate-swatches {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .accent-candidate-swatch {
+      height: 48px;
+    }
+
+    .accent-candidate-labels {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      padding: 8px 12px;
+      gap: 4px;
+    }
+
+    .accent-candidate-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.5625rem;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    /* ========================================================================
+       TYPOGRAPHY SPECIMEN
+       ======================================================================== */
+    .type-specimen {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .type-row {
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: baseline;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border-default);
+    }
+
+    .type-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .type-sample {
+      min-width: 0;
+    }
+
+    .type-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .type-meta-item {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6875rem;
+      color: var(--text-muted);
+    }
+
+    .type-meta-item span {
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .code-block {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-default);
+      border-radius: 8px;
+      padding: 20px 24px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8125rem;
+      line-height: 1.7;
+      color: var(--text-primary);
+      overflow-x: auto;
+      tab-size: 2;
+    }
+
+    .code-block .comment {
+      color: var(--text-muted);
+    }
+
+    .code-block .keyword {
+      color: var(--accent-solid);
+      font-weight: 600;
+    }
+
+    .code-block .string {
+      color: var(--primitive-green-500);
+    }
+
+    /* ========================================================================
+       BUTTONS
+       ======================================================================== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 600;
+      line-height: 1;
+      cursor: pointer;
+      border: none;
+      transition: background var(--duration-fast) ease-out,
+                  border-color var(--duration-fast) ease-out,
+                  color var(--duration-fast) ease-out;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: var(--btn-primary-bg);
+      color: var(--btn-primary-fg);
+    }
+
+    .btn-primary:hover {
+      background: var(--btn-primary-bg-hover);
+    }
+
+    .btn-secondary {
+      background: var(--btn-secondary-bg);
+      color: var(--btn-secondary-fg);
+      border: 1px solid var(--btn-secondary-border);
+    }
+
+    .btn-secondary:hover {
+      background: var(--btn-secondary-bg-hover);
+    }
+
+    .btn-disabled {
+      background: var(--btn-disabled-bg);
+      color: var(--btn-disabled-fg);
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .btn-state-label {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      min-width: 72px;
+    }
+
+    /* ========================================================================
+       INPUTS
+       ======================================================================== */
+    .input-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      max-width: 400px;
+    }
+
+    .input-label {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .input-field {
+      padding: 10px 14px;
+      border: 1px solid var(--input-border);
+      border-radius: var(--input-radius);
+      background: var(--input-bg);
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.875rem;
+      line-height: 1.5;
+      transition: border-color var(--duration-fast) ease-out;
+    }
+
+    .input-field::placeholder {
+      color: var(--text-muted);
+    }
+
+    .input-field:focus {
+      outline: none;
+      border-color: var(--input-border-focus);
+      box-shadow: 0 0 0 3px var(--accent-subtle);
+    }
+
+    .input-hint {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* ========================================================================
+       CARDS
+       ======================================================================== */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--card-radius);
+      padding: 24px;
+      transition: border-color var(--duration-fast) ease-out;
+    }
+
+    .card:hover {
+      border-color: var(--border-strong);
+    }
+
+    .card-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+
+    .card-description {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .card-footer {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-default);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .card-footer-text {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* ========================================================================
+       DATA TABLE
+       ======================================================================== */
+    .table-wrapper {
+      border: 1px solid var(--table-border);
+      border-radius: 8px;
+      overflow: hidden;
+      background: var(--bg-surface);
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8125rem;
+    }
+
+    .data-table thead {
+      background: var(--table-header-bg);
+    }
+
+    .data-table th {
+      padding: 10px 16px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.6875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--table-border);
+    }
+
+    .data-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--table-border);
+      color: var(--text-primary);
+    }
+
+    .data-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .data-table tbody tr {
+      transition: background var(--duration-fast) ease-out;
+    }
+
+    .data-table tbody tr:hover {
+      background: var(--table-row-hover);
+    }
+
+    .table-mono {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+    }
+
+    .table-muted {
+      color: var(--text-muted);
+    }
+
+    /* ========================================================================
+       SIDEBAR NAVIGATION
+       ======================================================================== */
+    .sidebar {
+      width: 260px;
+      background: var(--sidebar-bg);
+      border: 1px solid var(--border-default);
+      border-radius: 8px;
+      padding: 8px;
+    }
+
+    .sidebar-section-title {
+      font-size: 0.625rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      padding: 12px 12px 6px;
+    }
+
+    .sidebar-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 6px;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: background var(--duration-fast) ease-out,
+                  color var(--duration-fast) ease-out;
+      text-decoration: none;
+    }
+
+    .sidebar-item:hover {
+      background: var(--sidebar-item-hover);
+      color: var(--text-primary);
+    }
+
+    .sidebar-item.active {
+      background: var(--sidebar-item-active-bg);
+      color: var(--sidebar-item-active-fg);
+      font-weight: 600;
+    }
+
+    .sidebar-item svg {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      opacity: 0.7;
+    }
+
+    .sidebar-item.active svg {
+      opacity: 1;
+    }
+
+    /* ========================================================================
+       TOAST / NOTIFICATION
+       ======================================================================== */
+    .toast {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px 16px;
+      border-radius: 8px;
+      max-width: 420px;
+      border: 1px solid;
+    }
+
+    .toast-success {
+      background: var(--toast-success-bg);
+      border-color: var(--toast-success-border);
+      color: var(--toast-success-fg);
+    }
+
+    .toast-icon {
+      flex-shrink: 0;
+      width: 18px;
+      height: 18px;
+      color: var(--toast-success-icon);
+    }
+
+    .toast-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .toast-title {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .toast-message {
+      font-size: 0.75rem;
+      opacity: 0.85;
+      line-height: 1.5;
+    }
+
+    /* ========================================================================
+       BADGES
+       ======================================================================== */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 10px;
+      border-radius: 9999px;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    .badge-default {
+      background: var(--badge-default-bg);
+      color: var(--badge-default-fg);
+    }
+
+    .badge-accent {
+      background: var(--badge-accent-bg);
+      color: var(--badge-accent-fg);
+    }
+
+    .badge-outline {
+      background: transparent;
+      border: 1px solid var(--border-strong);
+      color: var(--text-secondary);
+    }
+
+    /* ========================================================================
+       SPACING DEMO
+       ======================================================================== */
+    .spacing-demo {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .spacing-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .spacing-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      width: 48px;
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    .spacing-bar {
+      height: 24px;
+      border-radius: 4px;
+      background: var(--accent-subtle);
+      border: 1px solid var(--accent-solid);
+      transition: background var(--duration-fast) ease-out,
+                  border-color var(--duration-fast) ease-out;
+      position: relative;
+    }
+
+    .spacing-bar::after {
+      content: attr(data-value);
+      position: absolute;
+      right: -48px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.625rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    /* ========================================================================
+       COMPONENT SAMPLER GRID
+       ======================================================================== */
+    .component-grid {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 32px;
+      align-items: start;
+    }
+
+    .component-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .component-block {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .component-label {
+      font-size: 0.6875rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+    }
+
+    /* Responsive: stack on smaller screens */
+    @media (max-width: 768px) {
+      .component-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .accent-candidates {
+        grid-template-columns: 1fr;
+      }
+
+      .type-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- =====================================================================
+       TOP BAR — Sticky header with direction name and theme toggle.
+       Direction C uses a bolder top-bar treatment with an accent badge.
+       ===================================================================== -->
+  <header class="top-bar">
+    <div class="top-bar-left">
+      <span class="top-bar-title">Kyle DS</span>
+      <span class="top-bar-badge">Direction C</span>
+    </div>
+    <div class="theme-toggle">
+      <span class="theme-toggle-label">Theme</span>
+      <button class="theme-toggle-btn" onclick="toggleMode()" aria-label="Toggle dark mode" title="Toggle light/dark mode">
+        <!-- Sun icon (light mode) -->
+        <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon (dark mode) -->
+        <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="page-container">
+
+    <!-- =====================================================================
+         DIRECTION LEGEND
+         Explains what makes Direction C distinctive.
+         ===================================================================== -->
+    <div class="legend">
+      <div class="legend-title">Direction C: Synthesis</div>
+      <p><strong>The hybrid.</strong> Direction C takes the warmth of Direction A and the technical precision of Direction B, then adds a twist: an unexpected accent color that creates visual tension against the warm neutral base. The result is something that feels personal and distinctive without being quirky.</p>
+      <ul class="legend-list">
+        <li><strong>Warm-contemporary neutrals</strong> — similar warmth to Direction A but slightly more neutral (hue ~88, lower chroma) for a modern, less nostalgic feel</li>
+        <li><strong>Deep teal accent (active)</strong> — the teal sits opposite warm tones on the color wheel, creating sophisticated tension. Two alternates shown: electric blue and muted crimson</li>
+        <li><strong>Confident typography</strong> — Inter at weight 800 for headings creates bold presence; the dramatic contrast between heavy headings and calm body text IS the brand</li>
+        <li><strong>Maximum whitespace</strong> — the most spacious of the three directions, giving every element room to breathe</li>
+      </ul>
+    </div>
+
+
+    <!-- =====================================================================
+         SECTION 1: COLOR PALETTE
+         Shows background, text, border, and three accent candidate families.
+         ===================================================================== -->
+    <section class="section">
+      <div class="section-header">
+        <div class="overline section-overline">Tokens</div>
+        <h2 class="section-title">Color Palette</h2>
+        <p class="section-description">Warm-contemporary neutrals with lower chroma than Direction A, creating a base that's human without being nostalgic. All values in oklch.</p>
+      </div>
+
+      <!-- Backgrounds -->
+      <div class="swatch-row-label">Backgrounds</div>
+      <div class="swatch-grid">
+        <div class="swatch">
+          <div class="swatch-color" style="background: oklch(0.978 0.006 88)"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">bg-page</div>
+            <div class="swatch-value">oklch(0.978 0.006 88)</div>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background: oklch(1.000 0.000 0)"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">bg-surface</div>
+            <div class="swatch-value">oklch(1.000 0.000 0)</div>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background: oklch(0.962 0.007 88)"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">bg-subtle</div>
+            <div class="swatch-value">oklch(0.962 0.007 88)</div>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background: oklch(0.948 0.008 88)"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">bg-muted</div>
+            <div class="swatch-value">oklch(0.948 0.008 88)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Text -->
+      <div class="swatch-row-label">Text</div>
+      <div class="swatch-grid">
+        <div class="swatch">
+          <div class="swatch-color" style="background: oklch(0.140 0.012 90)"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">text-primary</div>
+            <div class="swatch-value">oklch(0.140 0.012 90)</div>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background: oklch(0.460 0.008 88)"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">text-secondary</div>
+            <div class="swatch-value">oklch(0.460 0.008 88)</div>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background: oklch(0.710 0.008 88)"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">text-muted</div>
+            <div class="swatch-value">oklch(0.710 0.008 88)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Borders -->
+      <div class="swatch-row-label">Borders</div>
+      <div class="swatch-grid">
+        <div class="swatch">
+          <div class="swatch-color" style="background: oklch(0.925 0.008 88)"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">border-default</div>
+            <div class="swatch-value">oklch(0.925 0.008 88)</div>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background: oklch(0.810 0.008 88)"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">border-strong</div>
+            <div class="swatch-value">oklch(0.810 0.008 88)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Accent Candidates -->
+      <div class="swatch-row-label" style="margin-top: 40px; font-size: 0.875rem; font-weight: 700; color: var(--text-primary);">Accent Candidates</div>
+      <p style="font-size: 0.8125rem; color: var(--text-secondary); margin-bottom: 20px; max-width: 65ch;">Three distinct accent directions. Deep Teal is the active candidate — its cool hue creates sophisticated tension against the warm neutral base. Each shown with light, core, and deep variants.</p>
+
+      <div class="accent-candidates">
+        <!-- Deep Teal (ACTIVE) -->
+        <div class="accent-candidate active">
+          <div class="accent-candidate-header">
+            <div class="accent-candidate-name">Deep Teal</div>
+            <div class="accent-candidate-tag" style="color: var(--accent-solid);">Active Candidate</div>
+          </div>
+          <div class="accent-candidate-swatches">
+            <div class="accent-candidate-swatch" style="background: oklch(0.720 0.100 195)"></div>
+            <div class="accent-candidate-swatch" style="background: oklch(0.550 0.150 195)"></div>
+            <div class="accent-candidate-swatch" style="background: oklch(0.400 0.120 195)"></div>
+          </div>
+          <div class="accent-candidate-labels">
+            <div class="accent-candidate-label">0.720 0.10 195</div>
+            <div class="accent-candidate-label">0.550 0.15 195</div>
+            <div class="accent-candidate-label">0.400 0.12 195</div>
+          </div>
+        </div>
+
+        <!-- Electric Blue -->
+        <div class="accent-candidate">
+          <div class="accent-candidate-header">
+            <div class="accent-candidate-name">Electric Blue</div>
+            <div class="accent-candidate-tag" style="color: oklch(0.600 0.220 255);">Alternate</div>
+          </div>
+          <div class="accent-candidate-swatches">
+            <div class="accent-candidate-swatch" style="background: oklch(0.740 0.140 255)"></div>
+            <div class="accent-candidate-swatch" style="background: oklch(0.600 0.220 255)"></div>
+            <div class="accent-candidate-swatch" style="background: oklch(0.440 0.180 255)"></div>
+          </div>
+          <div class="accent-candidate-labels">
+            <div class="accent-candidate-label">0.740 0.14 255</div>
+            <div class="accent-candidate-label">0.600 0.22 255</div>
+            <div class="accent-candidate-label">0.440 0.18 255</div>
+          </div>
+        </div>
+
+        <!-- Muted Crimson -->
+        <div class="accent-candidate">
+          <div class="accent-candidate-header">
+            <div class="accent-candidate-name">Muted Crimson</div>
+            <div class="accent-candidate-tag" style="color: oklch(0.500 0.180 20);">Alternate</div>
+          </div>
+          <div class="accent-candidate-swatches">
+            <div class="accent-candidate-swatch" style="background: oklch(0.700 0.110 20)"></div>
+            <div class="accent-candidate-swatch" style="background: oklch(0.500 0.180 20)"></div>
+            <div class="accent-candidate-swatch" style="background: oklch(0.380 0.150 20)"></div>
+          </div>
+          <div class="accent-candidate-labels">
+            <div class="accent-candidate-label">0.700 0.11 20</div>
+            <div class="accent-candidate-label">0.500 0.18 20</div>
+            <div class="accent-candidate-label">0.380 0.15 20</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =====================================================================
+         SECTION 2: TYPOGRAPHY SPECIMEN
+         Direction C's distinctive treatment: heavy heading weights (800),
+         larger sizes, dramatic contrast with light body text.
+         ===================================================================== -->
+    <section class="section">
+      <div class="section-header">
+        <div class="overline section-overline">Typography</div>
+        <h2 class="section-title">Type Specimen</h2>
+        <p class="section-description">Inter variable for everything. The brand lives in the weight contrast: 800-weight headings command the page while 400-weight body text stays calm and readable.</p>
+      </div>
+
+      <div class="type-specimen">
+        <!-- H1 -->
+        <div class="type-row">
+          <div class="type-sample">
+            <h1>Design with conviction</h1>
+          </div>
+          <div class="type-meta">
+            <div class="type-meta-item"><span>Element</span> H1</div>
+            <div class="type-meta-item"><span>Font</span> Inter Variable</div>
+            <div class="type-meta-item"><span>Weight</span> 800 (ExtraBold)</div>
+            <div class="type-meta-item"><span>Size</span> clamp(2.5rem, 2rem + 2.5vw, 4rem)</div>
+            <div class="type-meta-item"><span>Line-height</span> 1.08</div>
+            <div class="type-meta-item"><span>Tracking</span> -0.035em</div>
+          </div>
+        </div>
+
+        <!-- H2 -->
+        <div class="type-row">
+          <div class="type-sample">
+            <h2>Every token tells a story</h2>
+          </div>
+          <div class="type-meta">
+            <div class="type-meta-item"><span>Element</span> H2</div>
+            <div class="type-meta-item"><span>Font</span> Inter Variable</div>
+            <div class="type-meta-item"><span>Weight</span> 800 (ExtraBold)</div>
+            <div class="type-meta-item"><span>Size</span> clamp(1.875rem, 1.6rem + 1.375vw, 2.75rem)</div>
+            <div class="type-meta-item"><span>Line-height</span> 1.12</div>
+            <div class="type-meta-item"><span>Tracking</span> -0.03em</div>
+          </div>
+        </div>
+
+        <!-- H3 -->
+        <div class="type-row">
+          <div class="type-sample">
+            <h3>Systematic restraint, personal expression</h3>
+          </div>
+          <div class="type-meta">
+            <div class="type-meta-item"><span>Element</span> H3</div>
+            <div class="type-meta-item"><span>Font</span> Inter Variable</div>
+            <div class="type-meta-item"><span>Weight</span> 600 (SemiBold)</div>
+            <div class="type-meta-item"><span>Size</span> clamp(1.25rem, 1.1rem + 0.75vw, 1.625rem)</div>
+            <div class="type-meta-item"><span>Line-height</span> 1.25</div>
+            <div class="type-meta-item"><span>Tracking</span> -0.015em</div>
+          </div>
+        </div>
+
+        <!-- H4 -->
+        <div class="type-row">
+          <div class="type-sample">
+            <h4>Component tokens bridge design and engineering</h4>
+          </div>
+          <div class="type-meta">
+            <div class="type-meta-item"><span>Element</span> H4</div>
+            <div class="type-meta-item"><span>Font</span> Inter Variable</div>
+            <div class="type-meta-item"><span>Weight</span> 600 (SemiBold)</div>
+            <div class="type-meta-item"><span>Size</span> clamp(1rem, 0.95rem + 0.25vw, 1.1875rem)</div>
+            <div class="type-meta-item"><span>Line-height</span> 1.3</div>
+            <div class="type-meta-item"><span>Tracking</span> -0.01em</div>
+          </div>
+        </div>
+
+        <!-- Body -->
+        <div class="type-row">
+          <div class="type-sample">
+            <p>A design system is a contract between intent and implementation. When a designer picks a token named <code>--text-secondary</code>, they are making a semantic decision about hierarchy, not choosing a specific gray. That abstraction is what makes the system durable across products, platforms, and themes. The token carries meaning; the value can change.</p>
+          </div>
+          <div class="type-meta">
+            <div class="type-meta-item"><span>Element</span> Body paragraph</div>
+            <div class="type-meta-item"><span>Font</span> Inter Variable</div>
+            <div class="type-meta-item"><span>Weight</span> 400 (Regular)</div>
+            <div class="type-meta-item"><span>Size</span> clamp(1rem, 0.95rem + 0.25vw, 1.125rem)</div>
+            <div class="type-meta-item"><span>Line-height</span> 1.6</div>
+            <div class="type-meta-item"><span>Max-width</span> 65ch</div>
+          </div>
+        </div>
+
+        <!-- Small / Caption -->
+        <div class="type-row">
+          <div class="type-sample">
+            <p class="text-small" style="margin-bottom: 8px;">Small text for metadata, timestamps, and secondary information that supports the primary content without competing for attention.</p>
+            <p class="text-caption">Caption / Overline Treatment</p>
+          </div>
+          <div class="type-meta">
+            <div class="type-meta-item"><span>Small</span> 13px / 400 / 1.5</div>
+            <div class="type-meta-item"><span>Caption</span> 11px / 600 / uppercase</div>
+            <div class="type-meta-item"><span>Tracking</span> 0.08em (caption)</div>
+          </div>
+        </div>
+
+        <!-- Code Block -->
+        <div class="type-row" style="grid-template-columns: 1fr;">
+          <div class="type-sample">
+            <div class="component-label" style="margin-bottom: 8px;">Monospace — JetBrains Mono</div>
+            <div class="code-block"><span class="comment">/* Tier 2 semantic tokens — purpose over palette */</span>
+<span class="keyword">:root</span> {
+  <span class="keyword">--bg-page</span>:      <span class="string">var(--primitive-neutral-50)</span>;
+  <span class="keyword">--bg-surface</span>:   <span class="string">var(--primitive-neutral-0)</span>;
+  <span class="keyword">--text-primary</span>: <span class="string">var(--primitive-neutral-950)</span>;
+  <span class="keyword">--accent-solid</span>: <span class="string">var(--primitive-teal-500)</span>;
+}</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =====================================================================
+         SECTION 3: COMPONENT SAMPLER
+         Buttons, inputs, cards, table, sidebar, toast, badges.
+         Uses Deep Teal as the active accent throughout.
+         ===================================================================== -->
+    <section class="section">
+      <div class="section-header">
+        <div class="overline section-overline">Components</div>
+        <h2 class="section-title">Component Sampler</h2>
+        <p class="section-description">Built on shadcn/ui conventions with Deep Teal as the active accent. Every interactive element supports keyboard navigation and focus-visible states.</p>
+      </div>
+
+      <div class="component-grid">
+        <!-- Left column: Sidebar -->
+        <div>
+          <div class="component-label" style="margin-bottom: 12px;">Sidebar Navigation</div>
+          <nav class="sidebar" aria-label="Main navigation">
+            <div class="sidebar-section-title">Workspace</div>
+            <a href="#" class="sidebar-item active">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              Dashboard
+            </a>
+            <a href="#" class="sidebar-item">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v6m0 6v6m8.66-13.5-5.2 3m-6.92 4-5.2 3M1.34 4.5l5.2 3m6.92 4 5.2 3"/></svg>
+              Design Tokens
+            </a>
+            <a href="#" class="sidebar-item">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+              Components
+            </a>
+            <a href="#" class="sidebar-item">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+              Documentation
+            </a>
+            <a href="#" class="sidebar-item">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+              Settings
+            </a>
+          </nav>
+        </div>
+
+        <!-- Right column: All other components -->
+        <div class="component-stack">
+
+          <!-- Buttons -->
+          <div class="component-block">
+            <div class="component-label">Buttons</div>
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <span class="btn-state-label">Default</span>
+                <div class="btn-group">
+                  <button class="btn btn-primary">Publish changes</button>
+                  <button class="btn btn-secondary">Cancel</button>
+                </div>
+              </div>
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <span class="btn-state-label">Hover</span>
+                <div class="btn-group">
+                  <button class="btn btn-primary" style="background: var(--btn-primary-bg-hover);">Publish changes</button>
+                  <button class="btn btn-secondary" style="background: var(--btn-secondary-bg-hover);">Cancel</button>
+                </div>
+              </div>
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <span class="btn-state-label">Disabled</span>
+                <div class="btn-group">
+                  <button class="btn btn-disabled">Publish changes</button>
+                  <button class="btn btn-disabled" style="border: 1px solid var(--border-default);">Cancel</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Input -->
+          <div class="component-block">
+            <div class="component-label">Text Input</div>
+            <div class="input-wrapper">
+              <label class="input-label" for="token-name">Token name</label>
+              <input class="input-field" type="text" id="token-name" placeholder="e.g. --accent-solid-hover">
+              <span class="input-hint">Use kebab-case. Prefix with the token tier (primitive, semantic, or component).</span>
+            </div>
+          </div>
+
+          <!-- Card -->
+          <div class="component-block">
+            <div class="component-label">Card</div>
+            <div class="card" style="max-width: 480px;">
+              <div class="card-title">Token Architecture</div>
+              <div class="card-description">A three-tier model separates raw values from semantic meaning from component scope. Primitives define the palette, semantic tokens map purpose to value, and component tokens isolate per-element decisions.</div>
+              <div class="card-footer">
+                <span class="card-footer-text">Last updated 2 hours ago</span>
+                <div class="btn-group">
+                  <span class="badge badge-accent">3 tiers</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Badges -->
+          <div class="component-block">
+            <div class="component-label">Badges</div>
+            <div class="btn-group">
+              <span class="badge badge-default">Neutral</span>
+              <span class="badge badge-accent">Accent</span>
+              <span class="badge badge-outline">Outline</span>
+            </div>
+          </div>
+
+          <!-- Toast -->
+          <div class="component-block">
+            <div class="component-label">Toast / Notification</div>
+            <div class="toast toast-success">
+              <svg class="toast-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22 4 12 14.01 9 11.01"/>
+              </svg>
+              <div class="toast-content">
+                <div class="toast-title">Tokens synced successfully</div>
+                <div class="toast-message">24 semantic tokens and 8 component tokens pushed to the design system package.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Data Table -->
+          <div class="component-block">
+            <div class="component-label">Data Table</div>
+            <div class="table-wrapper">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Token Name</th>
+                    <th>Type</th>
+                    <th>Value</th>
+                    <th>Usage Count</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="table-mono">--bg-page</td>
+                    <td>Semantic</td>
+                    <td class="table-mono">oklch(0.978 0.006 88)</td>
+                    <td>47</td>
+                  </tr>
+                  <tr>
+                    <td class="table-mono">--text-primary</td>
+                    <td>Semantic</td>
+                    <td class="table-mono">oklch(0.140 0.012 90)</td>
+                    <td>124</td>
+                  </tr>
+                  <tr>
+                    <td class="table-mono">--accent-solid</td>
+                    <td>Semantic</td>
+                    <td class="table-mono">oklch(0.550 0.150 195)</td>
+                    <td>38</td>
+                  </tr>
+                  <tr>
+                    <td class="table-mono">--btn-primary-bg</td>
+                    <td>Component</td>
+                    <td class="table-mono table-muted">var(--accent-solid)</td>
+                    <td>12</td>
+                  </tr>
+                  <tr>
+                    <td class="table-mono">--card-border</td>
+                    <td>Component</td>
+                    <td class="table-mono table-muted">var(--border-default)</td>
+                    <td>9</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div><!-- /component-stack -->
+      </div><!-- /component-grid -->
+    </section>
+
+
+    <!-- =====================================================================
+         SECTION 4: SPACING DEMONSTRATION
+         Visual bars showing the 8px grid spacing scale.
+         ===================================================================== -->
+    <section class="section">
+      <div class="section-header">
+        <div class="overline section-overline">Layout</div>
+        <h2 class="section-title">Spacing Scale</h2>
+        <p class="section-description">8px base grid with 4px sub-grid for fine adjustments. The scale progresses geometrically, creating natural rhythm across layouts.</p>
+      </div>
+
+      <div class="spacing-demo">
+        <div class="spacing-row">
+          <span class="spacing-label">4px</span>
+          <div class="spacing-bar" style="width: 4px;" data-value="space-1"></div>
+        </div>
+        <div class="spacing-row">
+          <span class="spacing-label">8px</span>
+          <div class="spacing-bar" style="width: 8px;" data-value="space-2"></div>
+        </div>
+        <div class="spacing-row">
+          <span class="spacing-label">12px</span>
+          <div class="spacing-bar" style="width: 12px;" data-value="space-3"></div>
+        </div>
+        <div class="spacing-row">
+          <span class="spacing-label">16px</span>
+          <div class="spacing-bar" style="width: 16px;" data-value="space-4"></div>
+        </div>
+        <div class="spacing-row">
+          <span class="spacing-label">24px</span>
+          <div class="spacing-bar" style="width: 24px;" data-value="space-6"></div>
+        </div>
+        <div class="spacing-row">
+          <span class="spacing-label">32px</span>
+          <div class="spacing-bar" style="width: 32px;" data-value="space-8"></div>
+        </div>
+        <div class="spacing-row">
+          <span class="spacing-label">48px</span>
+          <div class="spacing-bar" style="width: 48px;" data-value="space-12"></div>
+        </div>
+        <div class="spacing-row">
+          <span class="spacing-label">64px</span>
+          <div class="spacing-bar" style="width: 64px;" data-value="space-16"></div>
+        </div>
+        <div class="spacing-row">
+          <span class="spacing-label">80px</span>
+          <div class="spacing-bar" style="width: 80px;" data-value="space-20"></div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =====================================================================
+         SECTION 5: DARK MODE PREVIEW NOTE
+         The toggle at the top switches the entire page.
+         ===================================================================== -->
+    <section class="section" style="margin-bottom: 0;">
+      <div class="section-header" style="border-bottom: none; padding-bottom: 0;">
+        <div class="overline section-overline">Theming</div>
+        <h2 class="section-title">Light and Dark</h2>
+        <p class="section-description">Toggle the theme using the button in the top-right corner. Dark mode uses warm dark backgrounds (hue ~90, chroma ~0.012) so the deep teal accent pops without a cool or clinical feel. Text stays warm off-white, borders remain subtle and warm.</p>
+      </div>
+
+      <!-- Side-by-side preview boxes showing the palette in each mode -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 32px;">
+        <!-- Light preview -->
+        <div style="border: 1px solid var(--border-default); border-radius: 8px; overflow: hidden;">
+          <div style="padding: 12px 16px; border-bottom: 1px solid var(--border-default);">
+            <span class="text-caption">Light Mode</span>
+          </div>
+          <div style="padding: 16px; display: flex; flex-direction: column; gap: 8px;">
+            <div style="display: flex; gap: 8px; align-items: center;">
+              <div style="width: 32px; height: 32px; border-radius: 4px; background: oklch(0.978 0.006 88); border: 1px solid oklch(0.925 0.008 88);"></div>
+              <div style="width: 32px; height: 32px; border-radius: 4px; background: oklch(1.000 0.000 0); border: 1px solid oklch(0.925 0.008 88);"></div>
+              <div style="width: 32px; height: 32px; border-radius: 4px; background: oklch(0.140 0.012 90);"></div>
+              <div style="width: 32px; height: 32px; border-radius: 4px; background: oklch(0.550 0.150 195);"></div>
+            </div>
+            <span class="text-small">Warm offwhite page, white surfaces, near-black text, teal accent</span>
+          </div>
+        </div>
+
+        <!-- Dark preview -->
+        <div style="border: 1px solid var(--border-default); border-radius: 8px; overflow: hidden;">
+          <div style="padding: 12px 16px; border-bottom: 1px solid var(--border-default);">
+            <span class="text-caption">Dark Mode</span>
+          </div>
+          <div style="padding: 16px; display: flex; flex-direction: column; gap: 8px;">
+            <div style="display: flex; gap: 8px; align-items: center;">
+              <div style="width: 32px; height: 32px; border-radius: 4px; background: oklch(0.140 0.012 90); border: 1px solid oklch(0.260 0.010 88);"></div>
+              <div style="width: 32px; height: 32px; border-radius: 4px; background: oklch(0.170 0.012 88); border: 1px solid oklch(0.260 0.010 88);"></div>
+              <div style="width: 32px; height: 32px; border-radius: 4px; background: oklch(0.940 0.006 88);"></div>
+              <div style="width: 32px; height: 32px; border-radius: 4px; background: oklch(0.660 0.140 195);"></div>
+            </div>
+            <span class="text-small">Warm dark page, warm surfaces, warm off-white text, lightened teal</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- =====================================================================
+       JAVASCRIPT — Theme toggle
+       Minimal script: toggles data-mode attribute and swaps icons.
+       ===================================================================== -->
+  <script>
+    function toggleMode() {
+      const html = document.documentElement;
+      const current = html.getAttribute('data-mode');
+      const next = current === 'light' ? 'dark' : 'light';
+      html.setAttribute('data-mode', next);
+
+      // Swap sun/moon icons
+      const sun = document.querySelector('.icon-sun');
+      const moon = document.querySelector('.icon-moon');
+      if (next === 'dark') {
+        sun.style.display = 'none';
+        moon.style.display = 'block';
+      } else {
+        sun.style.display = 'block';
+        moon.style.display = 'none';
+      }
+    }
+  </script>
+
+</body>
+</html>
