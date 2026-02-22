@@ -1,6 +1,6 @@
 # Delightful Design System — Reference
 
-Neo-brutalist, warm minimalism. oklch colors. 3-tier tokens. Solid shadows. Purposeful motion.
+Neo-brutalist, warm boldness. oklch colors. 3-tier tokens. Solid shadows. Purposeful motion.
 
 **Fonts:** Inter (sans), JetBrains Mono (mono)
 **Font links:**
@@ -20,55 +20,64 @@ Raw oklch values. Named by scale, no semantic meaning. **Never use directly in c
 | Token | Value |
 |---|---|
 | `--primitive-neutral-0` | `oklch(1.00 0.000 0)` |
-| `--primitive-neutral-25` | `oklch(0.988 0.004 90)` |
-| `--primitive-neutral-50` | `oklch(0.978 0.005 90)` |
-| `--primitive-neutral-100` | `oklch(0.958 0.006 90)` |
-| `--primitive-neutral-150` | `oklch(0.938 0.007 90)` |
-| `--primitive-neutral-200` | `oklch(0.905 0.007 90)` |
-| `--primitive-neutral-300` | `oklch(0.855 0.008 90)` |
-| `--primitive-neutral-400` | `oklch(0.755 0.010 90)` |
-| `--primitive-neutral-500` | `oklch(0.610 0.012 90)` |
-| `--primitive-neutral-600` | `oklch(0.490 0.010 90)` |
-| `--primitive-neutral-700` | `oklch(0.360 0.010 90)` |
-| `--primitive-neutral-800` | `oklch(0.240 0.008 90)` |
-| `--primitive-neutral-900` | `oklch(0.170 0.007 90)` |
-| `--primitive-neutral-950` | `oklch(0.135 0.008 90)` |
+| `--primitive-neutral-25` | `oklch(0.988 0.006 70)` |
+| `--primitive-neutral-50` | `oklch(0.980 0.008 70)` |
+| `--primitive-neutral-100` | `oklch(0.960 0.010 70)` |
+| `--primitive-neutral-150` | `oklch(0.940 0.012 70)` |
+| `--primitive-neutral-200` | `oklch(0.920 0.012 70)` |
+| `--primitive-neutral-300` | `oklch(0.860 0.014 70)` |
+| `--primitive-neutral-400` | `oklch(0.750 0.014 70)` |
+| `--primitive-neutral-500` | `oklch(0.600 0.012 70)` |
+| `--primitive-neutral-600` | `oklch(0.480 0.010 70)` |
+| `--primitive-neutral-700` | `oklch(0.350 0.010 70)` |
+| `--primitive-neutral-800` | `oklch(0.250 0.012 60)` |
+| `--primitive-neutral-900` | `oklch(0.180 0.012 60)` |
+| `--primitive-neutral-950` | `oklch(0.140 0.012 60)` |
 
-### Blue
+### Pink
 | Token | Value |
 |---|---|
-| `--primitive-blue-100` | `oklch(0.920 0.045 260)` |
-| `--primitive-blue-200` | `oklch(0.830 0.100 260)` |
-| `--primitive-blue-300` | `oklch(0.720 0.160 260)` |
-| `--primitive-blue-400` | `oklch(0.630 0.200 260)` |
-| `--primitive-blue-500` | `oklch(0.550 0.220 260)` |
+| `--primitive-pink-100` | `oklch(0.920 0.060 350)` |
+| `--primitive-pink-200` | `oklch(0.840 0.140 350)` |
+| `--primitive-pink-300` | `oklch(0.720 0.220 350)` |
+| `--primitive-pink-400` | `oklch(0.640 0.270 350)` |
+| `--primitive-pink-500` | `oklch(0.560 0.280 350)` |
 
 ### Red
 | Token | Value |
 |---|---|
-| `--primitive-red-100` | `oklch(0.920 0.045 25)` |
-| `--primitive-red-200` | `oklch(0.830 0.100 25)` |
-| `--primitive-red-300` | `oklch(0.720 0.160 25)` |
-| `--primitive-red-400` | `oklch(0.630 0.200 25)` |
-| `--primitive-red-500` | `oklch(0.550 0.220 25)` |
+| `--primitive-red-100` | `oklch(0.930 0.050 20)` |
+| `--primitive-red-200` | `oklch(0.850 0.110 20)` |
+| `--primitive-red-300` | `oklch(0.720 0.180 20)` |
+| `--primitive-red-400` | `oklch(0.620 0.220 20)` |
+| `--primitive-red-500` | `oklch(0.540 0.230 20)` |
 
-### Yellow
+### Gold
 | Token | Value |
 |---|---|
-| `--primitive-yellow-100` | `oklch(0.960 0.050 90)` |
-| `--primitive-yellow-200` | `oklch(0.930 0.100 90)` |
-| `--primitive-yellow-300` | `oklch(0.900 0.140 90)` |
-| `--primitive-yellow-400` | `oklch(0.870 0.160 90)` |
-| `--primitive-yellow-500` | `oklch(0.850 0.180 90)` |
+| `--primitive-gold-100` | `oklch(0.960 0.050 85)` |
+| `--primitive-gold-200` | `oklch(0.920 0.110 85)` |
+| `--primitive-gold-300` | `oklch(0.870 0.160 85)` |
+| `--primitive-gold-400` | `oklch(0.830 0.180 80)` |
+| `--primitive-gold-500` | `oklch(0.780 0.180 78)` |
+
+### Cyan
+| Token | Value |
+|---|---|
+| `--primitive-cyan-100` | `oklch(0.930 0.038 210)` |
+| `--primitive-cyan-200` | `oklch(0.850 0.085 210)` |
+| `--primitive-cyan-300` | `oklch(0.740 0.125 210)` |
+| `--primitive-cyan-400` | `oklch(0.650 0.148 210)` |
+| `--primitive-cyan-500` | `oklch(0.570 0.155 210)` |
 
 ### Green
 | Token | Value |
 |---|---|
-| `--primitive-green-100` | `oklch(0.920 0.045 155)` |
-| `--primitive-green-200` | `oklch(0.830 0.100 155)` |
-| `--primitive-green-300` | `oklch(0.720 0.150 155)` |
-| `--primitive-green-400` | `oklch(0.650 0.175 155)` |
-| `--primitive-green-500` | `oklch(0.580 0.180 155)` |
+| `--primitive-green-100` | `oklch(0.930 0.042 148)` |
+| `--primitive-green-200` | `oklch(0.840 0.095 148)` |
+| `--primitive-green-300` | `oklch(0.730 0.145 148)` |
+| `--primitive-green-400` | `oklch(0.630 0.170 148)` |
+| `--primitive-green-500` | `oklch(0.540 0.165 148)` |
 
 ---
 
@@ -79,43 +88,44 @@ Raw oklch values. Named by scale, no semantic meaning. **Never use directly in c
 **Backgrounds:**
 | Token | Value |
 |---|---|
-| `--bg-page` | `oklch(0.985 0.005 80)` — warm off-white |
-| `--bg-surface` | `oklch(1.00 0.00 0)` |
+| `--bg-page` | `oklch(0.982 0.008 70)` — warm cream |
+| `--bg-surface` | `oklch(0.995 0.004 70)` |
 | `--bg-elevated` | `oklch(1.00 0.00 0)` |
-| `--bg-subtle` | `oklch(0.965 0.010 80)` |
-| `--bg-muted` | `oklch(0.950 0.012 80)` |
+| `--bg-subtle` | `oklch(0.965 0.012 70)` |
+| `--bg-muted` | `oklch(0.948 0.014 70)` |
 
 **Text:**
 | Token | Value |
 |---|---|
-| `--text-primary` | `oklch(0.180 0.010 80)` |
-| `--text-secondary` | `oklch(0.400 0.015 80)` |
-| `--text-muted` | `oklch(0.550 0.015 80)` |
+| `--text-primary` | `oklch(0.200 0.015 60)` |
+| `--text-secondary` | `oklch(0.420 0.015 60)` |
+| `--text-muted` | `oklch(0.560 0.012 60)` |
 | `--text-on-accent` | `oklch(1.00 0.000 0)` |
-| `--text-on-yellow` | `oklch(0.200 0.020 90)` |
+| `--text-on-gold` | `oklch(0.220 0.020 70)` |
 
 **Borders:**
 | Token | Value |
 |---|---|
 | `--border-default` | `var(--text-primary)` |
 | `--border-strong` | `var(--text-primary)` |
-| `--border-subtle` | `oklch(0.800 0.020 80)` |
+| `--border-subtle` | `oklch(0.820 0.015 70)` |
 
 **Accent Colors:**
 | Family | Base | Hover | Subtle | Text |
 |---|---|---|---|---|
-| Blue | `oklch(0.600 0.250 260)` | `oklch(0.550 0.260 260)` | `oklch(0.940 0.050 260)` | `oklch(0.550 0.250 260)` |
-| Red | `oklch(0.600 0.260 20)` | `oklch(0.550 0.250 20)` | `oklch(0.940 0.050 20)` | `oklch(0.550 0.250 20)` |
-| Yellow | `oklch(0.850 0.200 90)` | `oklch(0.800 0.190 90)` | `oklch(0.960 0.080 90)` | `oklch(0.400 0.150 90)` |
-| Green | `oklch(0.650 0.200 150)` | `oklch(0.600 0.190 150)` | `oklch(0.940 0.060 150)` | `oklch(0.500 0.180 150)` |
+| Pink | `oklch(0.640 0.270 350)` | `oklch(0.580 0.280 350)` | `oklch(0.955 0.040 350)` | `oklch(0.560 0.270 350)` |
+| Danger | `oklch(0.620 0.220 20)` | `oklch(0.570 0.230 20)` | `oklch(0.950 0.040 20)` | `oklch(0.550 0.220 20)` |
+| Gold | `oklch(0.830 0.180 80)` | `oklch(0.790 0.175 78)` | `oklch(0.965 0.060 85)` | `oklch(0.440 0.130 80)` |
+| Cyan | `oklch(0.650 0.148 210)` | `oklch(0.600 0.150 210)` | `oklch(0.945 0.030 210)` | `oklch(0.520 0.148 210)` |
+| Green | `oklch(0.630 0.170 148)` | `oklch(0.580 0.165 148)` | `oklch(0.945 0.035 148)` | `oklch(0.480 0.165 148)` |
 
-**Status:** `--status-info` = blue, `--status-error` = red, `--status-warning` = yellow, `--status-success` = green
+**Status:** `--status-info` = primary, `--status-error` = danger, `--status-warning` = gold, `--status-success` = green
 
 **Utility:**
 | Token | Value |
 |---|---|
-| `--focus-ring` | `var(--accent-blue)` |
-| `--overlay-bg` | `oklch(0.180 0.010 80 / 0.30)` |
+| `--focus-ring` | `var(--accent-primary)` |
+| `--overlay-bg` | `oklch(0.200 0.015 60 / 0.30)` |
 
 **Shadows (solid, no blur — neo-brutalist):**
 | Token | Value |
@@ -123,52 +133,55 @@ Raw oklch values. Named by scale, no semantic meaning. **Never use directly in c
 | `--shadow-sm` | `2px 2px 0 var(--text-primary)` |
 | `--shadow-md` | `4px 4px 0 var(--text-primary)` |
 | `--shadow-lg` | `8px 8px 0 var(--text-primary)` |
-| `--shadow-blue` | `4px 4px 0 var(--accent-blue)` |
-| `--shadow-red` | `4px 4px 0 var(--accent-red)` |
-| `--shadow-yellow` | `4px 4px 0 var(--accent-yellow)` |
+| `--shadow-pink` | `4px 4px 0 var(--accent-primary)` |
+| `--shadow-danger` | `4px 4px 0 var(--accent-danger)` |
+| `--shadow-gold` | `4px 4px 0 var(--accent-gold)` |
+| `--shadow-cyan` | `4px 4px 0 var(--accent-cyan)` |
+| `--shadow-green` | `4px 4px 0 var(--accent-green)` |
 
 ### Dark Mode (`[data-theme="dark"]`)
 
 **Backgrounds:**
 | Token | Value |
 |---|---|
-| `--bg-page` | `oklch(0.135 0.010 90)` |
-| `--bg-surface` | `oklch(0.160 0.012 90)` |
-| `--bg-elevated` | `oklch(0.185 0.012 90)` |
-| `--bg-subtle` | `oklch(0.205 0.012 90)` |
-| `--bg-muted` | `oklch(0.175 0.010 90)` |
+| `--bg-page` | `oklch(0.140 0.014 65)` |
+| `--bg-surface` | `oklch(0.165 0.015 65)` |
+| `--bg-elevated` | `oklch(0.190 0.015 65)` |
+| `--bg-subtle` | `oklch(0.210 0.015 65)` |
+| `--bg-muted` | `oklch(0.180 0.013 65)` |
 
 **Text:**
 | Token | Value |
 |---|---|
-| `--text-primary` | `oklch(0.935 0.005 90)` |
-| `--text-secondary` | `oklch(0.690 0.010 90)` |
-| `--text-muted` | `oklch(0.540 0.010 90)` |
+| `--text-primary` | `oklch(0.935 0.008 70)` |
+| `--text-secondary` | `oklch(0.690 0.012 70)` |
+| `--text-muted` | `oklch(0.540 0.010 70)` |
 | `--text-on-accent` | `oklch(1.00 0.000 0)` |
-| `--text-on-yellow` | `oklch(0.135 0.010 90)` |
+| `--text-on-gold` | `oklch(0.140 0.014 65)` |
 
 **Borders:**
 | Token | Value |
 |---|---|
 | `--border-default` | `var(--text-primary)` |
 | `--border-strong` | `var(--text-primary)` |
-| `--border-subtle` | `oklch(0.330 0.012 90)` |
+| `--border-subtle` | `oklch(0.330 0.015 65)` |
 
 **Accent Colors (Dark):**
 | Family | Base | Hover | Subtle | Text |
 |---|---|---|---|---|
-| Blue | `oklch(0.670 0.200 260)` | `oklch(0.720 0.190 260)` | `oklch(0.250 0.060 260)` | `oklch(0.730 0.190 260)` |
-| Red | `oklch(0.620 0.210 25)` | `oklch(0.670 0.200 25)` | `oklch(0.250 0.060 25)` | `oklch(0.700 0.190 25)` |
-| Yellow | `oklch(0.810 0.160 85)` | `oklch(0.850 0.150 85)` | `oklch(0.260 0.060 85)` | `oklch(0.850 0.150 85)` |
-| Green | `oklch(0.680 0.170 155)` | `oklch(0.720 0.160 155)` | `oklch(0.250 0.050 155)` | `oklch(0.730 0.160 155)` |
+| Pink | `oklch(0.700 0.230 350)` | `oklch(0.740 0.220 350)` | `oklch(0.250 0.065 350)` | `oklch(0.750 0.210 350)` |
+| Danger | `oklch(0.660 0.200 20)` | `oklch(0.700 0.190 20)` | `oklch(0.250 0.055 20)` | `oklch(0.720 0.180 20)` |
+| Gold | `oklch(0.820 0.170 80)` | `oklch(0.860 0.160 78)` | `oklch(0.260 0.065 80)` | `oklch(0.860 0.160 80)` |
+| Cyan | `oklch(0.720 0.140 210)` | `oklch(0.760 0.130 210)` | `oklch(0.250 0.045 210)` | `oklch(0.780 0.130 210)` |
+| Green | `oklch(0.680 0.155 148)` | `oklch(0.720 0.145 148)` | `oklch(0.250 0.048 148)` | `oklch(0.740 0.145 148)` |
 
 **Utility (Dark):**
 | Token | Value |
 |---|---|
-| `--focus-ring` | `oklch(0.670 0.200 260)` |
+| `--focus-ring` | `oklch(0.700 0.230 350)` |
 | `--overlay-bg` | `oklch(0 0 0 / 0.60)` |
 
-**Dark Shadows:** `oklch(0 0 0 / 0.8)` instead of `var(--text-primary)` for sm/md/lg.
+**Dark Shadows:** Cream `oklch(0.92 0.010 65)` instead of `var(--text-primary)` for sm/md/lg — warm inverted shadows for visible 3D on dark backgrounds. Color shadows (pink, danger, gold, cyan, green) still use their respective accent vars.
 
 ---
 
@@ -228,18 +241,22 @@ Raw oklch values. Named by scale, no semantic meaning. **Never use directly in c
 
 ### Button Tokens
 ```css
---btn-primary-bg: var(--accent-blue);
+--btn-primary-bg: var(--accent-primary);
 --btn-primary-text: var(--text-on-accent);
---btn-danger-bg: var(--accent-red);
+--btn-danger-bg: var(--accent-danger);
 --btn-danger-text: var(--text-on-accent);
---btn-highlight-bg: var(--accent-yellow);
---btn-highlight-text: var(--text-on-yellow);
+--btn-gold-bg: var(--accent-gold);
+--btn-gold-text: var(--text-on-gold);
+--btn-cyan-bg: var(--accent-cyan);
+--btn-cyan-text: var(--text-on-accent);
+--btn-green-bg: var(--accent-green);
+--btn-green-text: var(--text-on-accent);
 ```
 
 ### Toggle Tokens
 ```css
 --toggle-off-bg: var(--primitive-neutral-300);
---toggle-on-bg: var(--accent-blue);
+--toggle-on-bg: var(--accent-primary);
 --toggle-knob: var(--primitive-neutral-0);
 ```
 
@@ -403,16 +420,20 @@ All animations MUST be wrapped in `@media (prefers-reduced-motion: no-preference
 **Sizes:** `.btn-sm` (32px, 0.8125rem), `.btn-md` (44px, 0.9375rem), `.btn-lg` (56px, 1.0625rem)
 
 **Variants:**
-- `.btn-primary` — `background: var(--accent-blue); color: var(--text-on-accent); box-shadow: var(--shadow-blue);`
-- `.btn-danger` — `background: var(--accent-red); color: var(--text-on-accent); box-shadow: var(--shadow-red);`
-- `.btn-highlight` — `background: var(--accent-yellow); color: var(--text-on-yellow); box-shadow: var(--shadow-yellow);`
-- `.btn-secondary` — `background: var(--bg-surface); border: 1px solid var(--border-default);`
+- `.btn-primary` — `background: var(--accent-primary); color: var(--text-on-accent); box-shadow: var(--shadow-pink);`
+- `.btn-danger` — `background: var(--accent-danger); color: var(--text-on-accent); box-shadow: var(--shadow-danger);`
+- `.btn-gold` — `background: var(--accent-gold); color: var(--text-on-gold); box-shadow: var(--shadow-gold);`
+- `.btn-cyan` — `background: var(--accent-cyan); color: var(--text-on-accent); box-shadow: var(--shadow-cyan);`
+- `.btn-green` — `background: var(--accent-green); color: var(--text-on-accent); box-shadow: var(--shadow-green);`
+- `.btn-secondary` — `background: var(--bg-surface); border: 2px solid var(--border-default);`
 - `.btn-ghost` — `background: transparent; color: var(--text-secondary);`
 
 ```html
 <button class="btn btn-primary btn-md">Primary</button>
 <button class="btn btn-danger btn-md">Danger</button>
-<button class="btn btn-highlight btn-md">Highlight</button>
+<button class="btn btn-gold btn-md">Highlight</button>
+<button class="btn btn-cyan btn-md">Cyan</button>
+<button class="btn btn-green btn-md">Green</button>
 <button class="btn btn-secondary btn-md">Secondary</button>
 <button class="btn btn-ghost btn-md">Ghost</button>
 ```
@@ -434,9 +455,9 @@ All animations MUST be wrapped in `@media (prefers-reduced-motion: no-preference
   transition: border-color var(--motion-fast) var(--ease-out),
               box-shadow var(--motion-instant) linear;
 }
-.input:focus { outline: none; border-color: var(--accent-blue); box-shadow: 4px 4px 0 var(--accent-blue); }
-.input-error { border-color: var(--accent-red); }
-.input-error:focus { box-shadow: 4px 4px 0 var(--accent-red); }
+.input:focus { outline: none; border-color: var(--accent-primary); box-shadow: 4px 4px 0 var(--accent-primary); }
+.input-error { border-color: var(--accent-danger); }
+.input-error:focus { box-shadow: 4px 4px 0 var(--accent-danger); }
 .input:disabled { opacity: 0.5; cursor: not-allowed; background: var(--bg-subtle); }
 ```
 
@@ -458,7 +479,7 @@ All animations MUST be wrapped in `@media (prefers-reduced-motion: no-preference
   border: 2px solid var(--text-primary); border-radius: var(--radius-sm);
   box-shadow: 2px 2px 0 var(--text-primary);
 }
-.textarea:focus { outline: none; border-color: var(--accent-blue); box-shadow: 4px 4px 0 var(--accent-blue); }
+.textarea:focus { outline: none; border-color: var(--accent-primary); box-shadow: 4px 4px 0 var(--accent-primary); }
 ```
 
 ### Select `.select`
@@ -473,7 +494,7 @@ All animations MUST be wrapped in `@media (prefers-reduced-motion: no-preference
   cursor: pointer;
   box-shadow: 2px 2px 0 var(--text-primary);
 }
-.select:focus { outline: none; border-color: var(--accent-blue); box-shadow: 4px 4px 0 var(--accent-blue); }
+.select:focus { outline: none; border-color: var(--accent-primary); box-shadow: 4px 4px 0 var(--accent-primary); }
 ```
 
 ### Checkbox & Radio
@@ -488,7 +509,7 @@ All animations MUST be wrapped in `@media (prefers-reduced-motion: no-preference
 .check-box { border-radius: 4px; }
 .radio-circle { border-radius: 50%; }
 .check-box.checked, .radio-circle.checked {
-  background: var(--accent-blue); border-color: var(--accent-blue);
+  background: var(--accent-primary); border-color: var(--accent-primary);
 }
 ```
 
@@ -525,7 +546,7 @@ All animations MUST be wrapped in `@media (prefers-reduced-motion: no-preference
 .card:active { transform: translate(2px, 2px); box-shadow: 0 0 0 var(--text-primary); }
 ```
 
-**Variants:** `.card-featured` (blue top border), `.card-featured-red`, `.card-featured-yellow`, `.card-featured-green`, `.card-compact` (smaller padding)
+**Variants:** `.card-featured` (pink top border), `.card-featured-red`, `.card-featured-gold`, `.card-featured-cyan`, `.card-featured-green`, `.card-compact` (smaller padding)
 
 ```html
 <div class="card card-featured">
@@ -546,16 +567,18 @@ All animations MUST be wrapped in `@media (prefers-reduced-motion: no-preference
 ```
 
 **Variants:**
-- `.badge-blue` — `background: var(--accent-blue-subtle); color: var(--accent-blue-text);`
-- `.badge-red` — red subtle/text
-- `.badge-yellow` — yellow subtle/text
+- `.badge-pink` — `background: var(--accent-primary-subtle); color: var(--accent-primary-text);`
+- `.badge-danger` — danger subtle/text
+- `.badge-gold` — gold subtle/text
+- `.badge-cyan` — cyan subtle/text
 - `.badge-green` — green subtle/text
 
 ```html
-<span class="badge badge-blue">Info</span>
+<span class="badge badge-pink">Info</span>
 <span class="badge badge-green">Success</span>
-<span class="badge badge-yellow">Warning</span>
-<span class="badge badge-red">Error</span>
+<span class="badge badge-gold">Warning</span>
+<span class="badge badge-danger">Error</span>
+<span class="badge badge-cyan">Tertiary</span>
 ```
 
 ### Alert `.alert`
@@ -563,20 +586,22 @@ All animations MUST be wrapped in `@media (prefers-reduced-motion: no-preference
 ```css
 .alert {
   display: flex; align-items: flex-start; gap: var(--space-3);
-  padding: var(--space-4); border-radius: var(--radius-md);
+  padding: var(--space-4); border: 2px solid var(--border-default);
+  border-radius: var(--radius-md);
   font-size: 0.875rem; line-height: 1.5;
 }
-.alert-info { background: var(--accent-blue-subtle); color: var(--accent-blue-text); }
-.alert-error { background: var(--accent-red-subtle); color: var(--accent-red-text); }
-.alert-warning { background: var(--accent-yellow-subtle); color: var(--accent-yellow-text); }
-.alert-success { background: var(--accent-green-subtle); color: var(--accent-green-text); }
+.alert-pink { background: var(--accent-primary-subtle); color: var(--accent-primary-text); border-color: var(--accent-primary); box-shadow: var(--shadow-pink); }
+.alert-danger { background: var(--accent-danger-subtle); color: var(--accent-danger-text); border-color: var(--accent-danger); box-shadow: var(--shadow-danger); }
+.alert-gold { background: var(--accent-gold-subtle); color: var(--accent-gold-text); border-color: var(--accent-gold); box-shadow: var(--shadow-gold); }
+.alert-cyan { background: var(--accent-cyan-subtle); color: var(--accent-cyan-text); border-color: var(--accent-cyan); box-shadow: var(--shadow-cyan); }
+.alert-green { background: var(--accent-green-subtle); color: var(--accent-green-text); border-color: var(--accent-green); box-shadow: var(--shadow-green); }
 ```
 
 ### Data Table `.data-table`
 
 ```css
 .table-wrap {
-  border: 1px solid var(--border-subtle);
+  border: 2px solid var(--border-subtle);
   border-radius: var(--radius-lg); overflow: hidden;
 }
 .data-table { width: 100%; border-collapse: collapse; font-size: 0.8125rem; }
@@ -608,7 +633,7 @@ All animations MUST be wrapped in `@media (prefers-reduced-motion: no-preference
   border-bottom: 2px solid transparent; margin-bottom: -1px;
 }
 .tab:hover { color: var(--text-primary); }
-.tab.active { color: var(--accent-blue-text); border-bottom-color: var(--accent-blue); font-weight: 600; }
+.tab.active { color: var(--accent-primary-text); border-bottom-color: var(--accent-primary); font-weight: 600; }
 ```
 
 ### Sidebar `.sidebar-demo`
@@ -616,7 +641,7 @@ All animations MUST be wrapped in `@media (prefers-reduced-motion: no-preference
 ```css
 .sidebar-demo {
   width: 240px; background: var(--bg-surface);
-  border: 1px solid var(--border-default);
+  border: 2px solid var(--border-default);
   border-radius: var(--radius-lg); padding: var(--space-3);
 }
 .sidebar-item {
@@ -625,7 +650,7 @@ All animations MUST be wrapped in `@media (prefers-reduced-motion: no-preference
   font-size: 0.8125rem; color: var(--text-secondary); cursor: pointer;
 }
 .sidebar-item:hover { background: var(--bg-subtle); color: var(--text-primary); }
-.sidebar-item.active { background: var(--accent-blue-subtle); color: var(--accent-blue-text); font-weight: 550; }
+.sidebar-item.active { background: var(--accent-primary-subtle); color: var(--accent-primary-text); font-weight: 550; }
 ```
 
 ### Toast `.toast`
@@ -639,16 +664,16 @@ All animations MUST be wrapped in `@media (prefers-reduced-motion: no-preference
 .toast {
   display: flex; align-items: flex-start; gap: var(--space-3);
   padding: var(--space-4); background: var(--bg-surface);
-  border: 1px solid var(--border-default); border-radius: var(--radius-md);
+  border: 2px solid var(--border-default); border-radius: var(--radius-md);
   box-shadow: var(--shadow-md); position: relative; overflow: hidden;
 }
 .toast-stripe {
   position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
 }
 .toast-stripe.success { background: var(--accent-green); }
-.toast-stripe.error { background: var(--accent-red); }
-.toast-stripe.warning { background: var(--accent-yellow); }
-.toast-stripe.info { background: var(--accent-blue); }
+.toast-stripe.error { background: var(--accent-danger); }
+.toast-stripe.warning { background: var(--accent-gold); }
+.toast-stripe.info { background: var(--accent-primary); }
 ```
 
 ### Modal `.modal-panel`
@@ -656,7 +681,7 @@ All animations MUST be wrapped in `@media (prefers-reduced-motion: no-preference
 ```css
 .modal-panel {
   margin: auto; background: var(--bg-surface);
-  border: 1px solid var(--border-default);
+  border: 2px solid var(--border-default);
   border-radius: var(--radius-lg); padding: var(--space-6);
   max-width: 440px; width: calc(100% - 32px);
   box-shadow: var(--shadow-lg); color: var(--text-primary);
@@ -671,7 +696,7 @@ Use `<dialog>` element with `.showModal()` / `.close()`.
 ```css
 .drawer-panel {
   margin: 0; margin-top: auto; width: 100%;
-  background: var(--bg-surface); border-top: 1px solid var(--border-default);
+  background: var(--bg-surface); border-top: 2px solid var(--border-default);
   border-radius: var(--radius-xl) var(--radius-xl) 0 0;
   padding: var(--space-6); max-height: 80vh; overflow-y: auto;
 }
@@ -723,8 +748,8 @@ document.documentElement.setAttribute('data-theme', saved || (prefersDark ? 'dar
 3. **Hover = lift + bigger shadow** — `transform: translate(-4px, -4px); box-shadow: var(--shadow-lg);`
 4. **Active = press + no shadow** — `transform: translate(2px, 2px); box-shadow: 0 0 0 var(--text-primary);`
 5. **Bold typography** — Headings 650-800 weight, tight tracking
-6. **Color is surgical** — Blue for primary actions, red for danger, yellow for highlight, green for success
-7. **Warm backgrounds** — `--bg-page` is warm off-white, not pure white
+6. **Color is confident** — Pink for primary actions, red for danger, gold for highlight, cyan for tertiary, green for success
+7. **Warm backgrounds** — `--bg-page` is warm cream, not pure white
 8. **All colors via tokens** — No hardcoded hex/rgb/hsl in components
 9. **All spacing via scale** — Only `var(--space-*)` values
 10. **Reduced motion respected** — All animations behind `prefers-reduced-motion: no-preference`

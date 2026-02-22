@@ -8,18 +8,19 @@ A warm, neo-brutalist design system built on OKLCH color science. 3-tier token a
 
 - **[Claude Code Plugin](claude-plugin/)** — Skills and agents for building and refactoring UI with the Delightful design system. Includes exportable CSS tokens, a Tailwind preset, and Figma/Style Dictionary tokens.
 - **[Obsidian Theme](obsidian-theme/)** — A full Obsidian theme translating the design system's tokens and visual language into the Obsidian editor.
+- **[Ghostty Theme](ghostty/)** — A Ghostty terminal theme, Starship prompt config, and zsh snippets derived from the Delightful palette.
 
 ## Design Principles
 
 - **Warm clarity** — Cream backgrounds, near-black text, generous whitespace
-- **Surgical color** — Blue for actions, red for danger, yellow for highlights, green for success
+- **Surgical color** — Pink for actions, red for danger, gold for highlights, cyan for coolness, green for success
 - **Neo-brutalist** — 2px borders, solid shadows (zero blur), bold typography
 - **Systematic** — Every value comes from a token. No magic numbers.
 
 ## Token Architecture
 
 ```
-Primitives    → Raw OKLCH scales (neutral, blue, red, yellow, green)
+Primitives    → Raw OKLCH scales (neutral, pink, red, gold, cyan, green)
 Semantic      → Light/dark mode tokens (bg, text, accent, border, shadow)
 Component     → Typography, spacing, radius, motion, button, toggle
 ```

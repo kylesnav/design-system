@@ -18,43 +18,51 @@
        ========================================================================== */
     :root {
       --primitive-neutral-0: oklch(1.00 0.000 0);
-      --primitive-neutral-25: oklch(0.988 0.004 90);
-      --primitive-neutral-50: oklch(0.978 0.005 90);
-      --primitive-neutral-100: oklch(0.958 0.006 90);
-      --primitive-neutral-150: oklch(0.938 0.007 90);
-      --primitive-neutral-200: oklch(0.905 0.007 90);
-      --primitive-neutral-300: oklch(0.855 0.008 90);
-      --primitive-neutral-400: oklch(0.755 0.010 90);
-      --primitive-neutral-500: oklch(0.610 0.012 90);
-      --primitive-neutral-600: oklch(0.490 0.010 90);
-      --primitive-neutral-700: oklch(0.360 0.010 90);
-      --primitive-neutral-800: oklch(0.240 0.008 90);
-      --primitive-neutral-900: oklch(0.170 0.007 90);
-      --primitive-neutral-950: oklch(0.135 0.008 90);
+      --primitive-neutral-25: oklch(0.988 0.006 70);
+      --primitive-neutral-50: oklch(0.980 0.008 70);
+      --primitive-neutral-100: oklch(0.960 0.010 70);
+      --primitive-neutral-150: oklch(0.940 0.012 70);
+      --primitive-neutral-200: oklch(0.920 0.012 70);
+      --primitive-neutral-300: oklch(0.860 0.014 70);
+      --primitive-neutral-400: oklch(0.750 0.014 70);
+      --primitive-neutral-500: oklch(0.600 0.012 70);
+      --primitive-neutral-600: oklch(0.480 0.010 70);
+      --primitive-neutral-700: oklch(0.350 0.010 70);
+      --primitive-neutral-800: oklch(0.250 0.012 60);
+      --primitive-neutral-900: oklch(0.180 0.012 60);
+      --primitive-neutral-950: oklch(0.140 0.012 60);
 
-      --primitive-blue-100: oklch(0.920 0.045 260);
-      --primitive-blue-200: oklch(0.830 0.100 260);
-      --primitive-blue-300: oklch(0.720 0.160 260);
-      --primitive-blue-400: oklch(0.630 0.200 260);
-      --primitive-blue-500: oklch(0.550 0.220 260);
+      --primitive-pink-100: oklch(0.920 0.060 350);
+      --primitive-pink-200: oklch(0.840 0.140 350);
+      --primitive-pink-300: oklch(0.720 0.220 350);
+      --primitive-pink-400: oklch(0.640 0.270 350);
+      --primitive-pink-500: oklch(0.560 0.280 350);
 
-      --primitive-red-100: oklch(0.920 0.045 25);
-      --primitive-red-200: oklch(0.830 0.100 25);
-      --primitive-red-300: oklch(0.720 0.160 25);
-      --primitive-red-400: oklch(0.630 0.200 25);
-      --primitive-red-500: oklch(0.550 0.220 25);
+      --primitive-red-100: oklch(0.930 0.050 20);
+      --primitive-red-200: oklch(0.850 0.110 20);
+      --primitive-red-300: oklch(0.720 0.180 20);
+      --primitive-red-400: oklch(0.620 0.220 20);
+      --primitive-red-500: oklch(0.540 0.230 20);
 
-      --primitive-yellow-100: oklch(0.960 0.050 90);
-      --primitive-yellow-200: oklch(0.930 0.100 90);
-      --primitive-yellow-300: oklch(0.900 0.140 90);
-      --primitive-yellow-400: oklch(0.870 0.160 90);
-      --primitive-yellow-500: oklch(0.850 0.180 90);
+      --primitive-gold-100: oklch(0.960 0.050 85);
+      --primitive-gold-200: oklch(0.920 0.110 85);
+      --primitive-gold-300: oklch(0.870 0.160 85);
+      --primitive-gold-400: oklch(0.830 0.180 80);
+      --primitive-gold-500: oklch(0.780 0.180 78);
 
-      --primitive-green-100: oklch(0.920 0.045 155);
-      --primitive-green-200: oklch(0.830 0.100 155);
-      --primitive-green-300: oklch(0.720 0.150 155);
-      --primitive-green-400: oklch(0.650 0.175 155);
-      --primitive-green-500: oklch(0.580 0.180 155);
+      /* Cyan-blue (tertiary brand — hue 210) */
+      --primitive-cyan-100: oklch(0.930 0.038 210);
+      --primitive-cyan-200: oklch(0.850 0.085 210);
+      --primitive-cyan-300: oklch(0.740 0.125 210);
+      --primitive-cyan-400: oklch(0.650 0.148 210);
+      --primitive-cyan-500: oklch(0.570 0.155 210);
+
+      /* Green (success/safe semantic — hue 148) */
+      --primitive-green-100: oklch(0.930 0.042 148);
+      --primitive-green-200: oklch(0.840 0.095 148);
+      --primitive-green-300: oklch(0.730 0.145 148);
+      --primitive-green-400: oklch(0.630 0.170 148);
+      --primitive-green-500: oklch(0.540 0.165 148);
     }
 
     /* ==========================================================================
@@ -62,120 +70,136 @@
        ========================================================================== */
     :root,
     [data-theme="light"] {
-      --bg-page: oklch(0.985 0.005 80);
-      /* Warmer, softer off-white */
-      --bg-surface: oklch(1.00 0.00 0);
+      --bg-page: oklch(0.982 0.008 70);
+      /* Warm cream from code-editor palette */
+      --bg-surface: oklch(0.995 0.004 70);
       --bg-elevated: oklch(1.00 0.00 0);
-      --bg-subtle: oklch(0.965 0.010 80);
-      --bg-muted: oklch(0.950 0.012 80);
+      --bg-subtle: oklch(0.965 0.012 70);
+      --bg-muted: oklch(0.948 0.014 70);
 
-      --text-primary: oklch(0.180 0.010 80);
-      --text-secondary: oklch(0.400 0.015 80);
-      --text-muted: oklch(0.550 0.015 80);
+      --text-primary: oklch(0.200 0.015 60);
+      --text-secondary: oklch(0.420 0.015 60);
+      --text-muted: oklch(0.560 0.012 60);
       --text-on-accent: oklch(1.00 0.000 0);
-      --text-on-yellow: oklch(0.200 0.020 90);
+      --text-on-gold: oklch(0.220 0.020 70);
 
       --border-default: var(--text-primary);
       --border-strong: var(--text-primary);
-      --border-subtle: oklch(0.800 0.020 80);
+      --border-subtle: oklch(0.820 0.015 70);
 
-      /* Vibrant Accents */
-      --accent-blue: oklch(0.600 0.250 260);
-      /* Deep electric blue */
-      --accent-blue-hover: oklch(0.550 0.260 260);
-      --accent-blue-subtle: oklch(0.940 0.050 260);
-      --accent-blue-text: oklch(0.550 0.250 260);
+      /* Vibrant Accents — Warm Palette */
+      --accent-primary: oklch(0.640 0.270 350);
+      /* Hot pink / fuchsia */
+      --accent-primary-hover: oklch(0.580 0.280 350);
+      --accent-primary-subtle: oklch(0.955 0.040 350);
+      --accent-primary-text: oklch(0.560 0.270 350);
 
-      --accent-red: oklch(0.600 0.260 20);
-      /* Vibrant magenta-pink */
-      --accent-red-hover: oklch(0.550 0.250 20);
-      --accent-red-subtle: oklch(0.940 0.050 20);
-      --accent-red-text: oklch(0.550 0.250 20);
+      --accent-danger: oklch(0.620 0.220 20);
+      /* Warm red for danger */
+      --accent-danger-hover: oklch(0.570 0.230 20);
+      --accent-danger-subtle: oklch(0.950 0.040 20);
+      --accent-danger-text: oklch(0.550 0.220 20);
 
-      --accent-yellow: oklch(0.850 0.200 90);
-      /* Sunny yellow */
-      --accent-yellow-hover: oklch(0.800 0.190 90);
-      --accent-yellow-subtle: oklch(0.960 0.080 90);
-      --accent-yellow-text: oklch(0.400 0.150 90);
+      --accent-gold: oklch(0.830 0.180 80);
+      /* Warm gold */
+      --accent-gold-hover: oklch(0.790 0.175 78);
+      --accent-gold-subtle: oklch(0.965 0.060 85);
+      --accent-gold-text: oklch(0.440 0.130 80);
 
-      --accent-green: oklch(0.650 0.200 150);
-      /* Vivid Spring Green */
-      --accent-green-hover: oklch(0.600 0.190 150);
-      --accent-green-subtle: oklch(0.940 0.060 150);
-      --accent-green-text: oklch(0.500 0.180 150);
+      --accent-cyan: oklch(0.650 0.148 210);
+      /* Cyan-blue (tertiary brand) */
+      --accent-cyan-hover: oklch(0.600 0.150 210);
+      --accent-cyan-subtle: oklch(0.945 0.030 210);
+      --accent-cyan-text: oklch(0.520 0.148 210);
 
-      --status-info: var(--accent-blue);
-      --status-error: var(--accent-red);
-      --status-warning: var(--accent-yellow);
+      --accent-green: oklch(0.630 0.170 148);
+      /* Green (success/safe) */
+      --accent-green-hover: oklch(0.580 0.165 148);
+      --accent-green-subtle: oklch(0.945 0.035 148);
+      --accent-green-text: oklch(0.480 0.165 148);
+
+      --status-info: var(--accent-primary);
+      --status-error: var(--accent-danger);
+      --status-warning: var(--accent-gold);
       --status-success: var(--accent-green);
 
-      --focus-ring: var(--accent-blue);
-      --overlay-bg: oklch(0.180 0.010 80 / 0.30);
+      --focus-ring: var(--accent-primary);
+      --overlay-bg: oklch(0.200 0.015 60 / 0.30);
 
       /* Neo-Brutalist Solid Shadows */
       --shadow-sm: 2px 2px 0 var(--text-primary);
       --shadow-md: 4px 4px 0 var(--text-primary);
       --shadow-lg: 8px 8px 0 var(--text-primary);
-      --shadow-blue: 4px 4px 0 var(--accent-blue);
-      --shadow-red: 4px 4px 0 var(--accent-red);
-      --shadow-yellow: 4px 4px 0 var(--accent-yellow);
+      --shadow-pink: 4px 4px 0 var(--accent-primary);
+      --shadow-danger: 4px 4px 0 var(--accent-danger);
+      --shadow-gold: 4px 4px 0 var(--accent-gold);
+      --shadow-cyan: 4px 4px 0 var(--accent-cyan);
+      --shadow-green: 4px 4px 0 var(--accent-green);
     }
 
     /* ==========================================================================
        TIER 2 — SEMANTIC TOKENS (Dark)
        ========================================================================== */
     [data-theme="dark"] {
-      --bg-page: oklch(0.135 0.010 90);
-      --bg-surface: oklch(0.160 0.012 90);
-      --bg-elevated: oklch(0.185 0.012 90);
-      --bg-subtle: oklch(0.205 0.012 90);
-      --bg-muted: oklch(0.175 0.010 90);
+      /* Warm dark backgrounds — hue 65 for amber-tinted darkness */
+      --bg-page: oklch(0.140 0.014 65);
+      --bg-surface: oklch(0.165 0.015 65);
+      --bg-elevated: oklch(0.190 0.015 65);
+      --bg-subtle: oklch(0.210 0.015 65);
+      --bg-muted: oklch(0.180 0.013 65);
 
-      --text-primary: oklch(0.935 0.005 90);
-      --text-secondary: oklch(0.690 0.010 90);
-      --text-muted: oklch(0.540 0.010 90);
+      --text-primary: oklch(0.935 0.008 70);
+      --text-secondary: oklch(0.690 0.012 70);
+      --text-muted: oklch(0.540 0.010 70);
       --text-on-accent: oklch(1.00 0.000 0);
-      --text-on-yellow: oklch(0.135 0.010 90);
+      --text-on-gold: oklch(0.140 0.014 65);
 
       --border-default: var(--text-primary);
       --border-strong: var(--text-primary);
-      --border-subtle: oklch(0.330 0.012 90);
+      --border-subtle: oklch(0.330 0.015 65);
 
-      --accent-blue: oklch(0.670 0.200 260);
-      --accent-blue-hover: oklch(0.720 0.190 260);
-      --accent-blue-subtle: oklch(0.250 0.060 260);
-      --accent-blue-text: oklch(0.730 0.190 260);
+      --accent-primary: oklch(0.700 0.230 350);
+      --accent-primary-hover: oklch(0.740 0.220 350);
+      --accent-primary-subtle: oklch(0.250 0.065 350);
+      --accent-primary-text: oklch(0.750 0.210 350);
 
-      --accent-red: oklch(0.620 0.210 25);
-      --accent-red-hover: oklch(0.670 0.200 25);
-      --accent-red-subtle: oklch(0.250 0.060 25);
-      --accent-red-text: oklch(0.700 0.190 25);
+      --accent-danger: oklch(0.660 0.200 20);
+      --accent-danger-hover: oklch(0.700 0.190 20);
+      --accent-danger-subtle: oklch(0.250 0.055 20);
+      --accent-danger-text: oklch(0.720 0.180 20);
 
-      --accent-yellow: oklch(0.810 0.160 85);
-      --accent-yellow-hover: oklch(0.850 0.150 85);
-      --accent-yellow-subtle: oklch(0.260 0.060 85);
-      --accent-yellow-text: oklch(0.850 0.150 85);
+      --accent-gold: oklch(0.820 0.170 80);
+      --accent-gold-hover: oklch(0.860 0.160 78);
+      --accent-gold-subtle: oklch(0.260 0.065 80);
+      --accent-gold-text: oklch(0.860 0.160 80);
 
-      --accent-green: oklch(0.680 0.170 155);
-      --accent-green-hover: oklch(0.720 0.160 155);
-      --accent-green-subtle: oklch(0.250 0.050 155);
-      --accent-green-text: oklch(0.730 0.160 155);
+      --accent-cyan: oklch(0.720 0.140 210);
+      --accent-cyan-hover: oklch(0.760 0.130 210);
+      --accent-cyan-subtle: oklch(0.250 0.045 210);
+      --accent-cyan-text: oklch(0.780 0.130 210);
 
-      --status-info: var(--accent-blue);
-      --status-error: var(--accent-red);
-      --status-warning: var(--accent-yellow);
+      --accent-green: oklch(0.680 0.155 148);
+      --accent-green-hover: oklch(0.720 0.145 148);
+      --accent-green-subtle: oklch(0.250 0.048 148);
+      --accent-green-text: oklch(0.740 0.145 148);
+
+      --status-info: var(--accent-primary);
+      --status-error: var(--accent-danger);
+      --status-warning: var(--accent-gold);
       --status-success: var(--accent-green);
 
-      --focus-ring: oklch(0.670 0.200 260);
+      --focus-ring: oklch(0.700 0.230 350);
       --overlay-bg: oklch(0 0 0 / 0.60);
 
-      /* Neo-Brutalist Solid Shadows (Dark Mode) */
-      --shadow-sm: 2px 2px 0 oklch(0 0 0 / 0.8);
-      --shadow-md: 4px 4px 0 oklch(0 0 0 / 0.8);
-      --shadow-lg: 8px 8px 0 oklch(0 0 0 / 0.8);
-      --shadow-blue: 4px 4px 0 var(--accent-blue);
-      --shadow-red: 4px 4px 0 var(--accent-red);
-      --shadow-yellow: 4px 4px 0 var(--accent-yellow);
+      /* Neo-Brutalist Solid Shadows — Warm Inverted (cream on dark = visible 3D) */
+      --shadow-sm: 2px 2px 0 oklch(0.92 0.010 65);
+      --shadow-md: 4px 4px 0 oklch(0.92 0.010 65);
+      --shadow-lg: 8px 8px 0 oklch(0.92 0.010 65);
+      --shadow-pink: 4px 4px 0 var(--accent-primary);
+      --shadow-danger: 4px 4px 0 var(--accent-danger);
+      --shadow-gold: 4px 4px 0 var(--accent-gold);
+      --shadow-cyan: 4px 4px 0 var(--accent-cyan);
+      --shadow-green: 4px 4px 0 var(--accent-green);
     }
 
     /* ==========================================================================
@@ -230,15 +254,19 @@
       --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
       --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
 
-      --btn-primary-bg: var(--accent-blue);
+      --btn-primary-bg: var(--accent-primary);
       --btn-primary-text: var(--text-on-accent);
-      --btn-danger-bg: var(--accent-red);
+      --btn-danger-bg: var(--accent-danger);
       --btn-danger-text: var(--text-on-accent);
-      --btn-highlight-bg: var(--accent-yellow);
-      --btn-highlight-text: var(--text-on-yellow);
+      --btn-gold-bg: var(--accent-gold);
+      --btn-gold-text: var(--text-on-gold);
+      --btn-cyan-bg: var(--accent-cyan);
+      --btn-cyan-text: var(--text-on-accent);
+      --btn-green-bg: var(--accent-green);
+      --btn-green-text: var(--text-on-accent);
 
       --toggle-off-bg: var(--primitive-neutral-300);
-      --toggle-on-bg: var(--accent-blue);
+      --toggle-on-bg: var(--accent-primary);
       --toggle-knob: var(--primitive-neutral-0);
     }
 
@@ -590,7 +618,7 @@
       left: 0;
       right: 0;
       height: 2px;
-      background: var(--accent-blue);
+      background: var(--accent-primary);
       transform-origin: left;
       transform: scaleX(0);
       z-index: 300;
@@ -632,7 +660,7 @@
 
     .ds-section {
       padding: var(--space-20) 0;
-      border-bottom: 1px solid var(--border-subtle);
+      border-bottom: 2px dashed var(--border-subtle);
     }
 
     .ds-section:last-of-type {
@@ -654,16 +682,20 @@
       gap: var(--space-2);
     }
 
-    .overline-blue {
-      color: var(--accent-blue-text);
+    .overline-pink {
+      color: var(--accent-primary-text);
     }
 
     .overline-red {
-      color: var(--accent-red-text);
+      color: var(--accent-danger-text);
     }
 
-    .overline-yellow {
-      color: var(--accent-yellow-text);
+    .overline-gold {
+      color: var(--accent-gold-text);
+    }
+
+    .overline-cyan {
+      color: var(--accent-cyan-text);
     }
 
     .overline-green {
@@ -672,7 +704,7 @@
 
     .section-title {
       font-size: var(--step-3);
-      font-weight: 760;
+      font-weight: 800;
       letter-spacing: var(--tracking-tighter);
       line-height: var(--leading-tight);
       margin-bottom: var(--space-3);
@@ -781,14 +813,14 @@
       position: sticky;
       top: 0;
       z-index: 200;
-      background: oklch(1.00 0.000 0 / 0.88);
+      background: oklch(0.995 0.004 70 / 0.88);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border-subtle);
+      border-bottom: 2px solid var(--border-subtle);
     }
 
     [data-theme="dark"] .topnav {
-      background: oklch(0.160 0.012 90 / 0.88);
+      background: oklch(0.165 0.015 65 / 0.88);
     }
 
     .topnav-inner {
@@ -866,7 +898,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 1px solid var(--border-default);
+      border: 2px solid var(--border-default);
       border-radius: var(--radius-sm);
       background: var(--bg-surface);
       color: var(--text-primary);
@@ -889,7 +921,7 @@
       height: 34px;
       align-items: center;
       justify-content: center;
-      border: 1px solid var(--border-default);
+      border: 2px solid var(--border-default);
       border-radius: var(--radius-sm);
       background: var(--bg-surface);
       color: var(--text-primary);
@@ -915,7 +947,7 @@
         right: 0;
         flex-direction: column;
         background: var(--bg-surface);
-        border-bottom: 1px solid var(--border-subtle);
+        border-bottom: 2px solid var(--border-subtle);
         padding: var(--space-3) var(--space-6);
         gap: 0;
         z-index: 100;
@@ -1065,20 +1097,20 @@
       line-height: 1.45;
     }
 
-    .tile-blue {
-      border-top-color: var(--accent-blue);
+    .tile-pink {
+      border-top-color: var(--accent-primary);
     }
 
     .tile-red {
-      border-top-color: var(--accent-red);
+      border-top-color: var(--accent-danger);
     }
 
-    .tile-yellow {
-      border-top-color: var(--accent-yellow);
+    .tile-gold {
+      border-top-color: var(--accent-gold);
     }
 
-    .tile-green {
-      border-top-color: var(--accent-green);
+    .tile-cyan {
+      border-top-color: var(--accent-cyan);
     }
 
     .tile-anim {
@@ -1140,7 +1172,7 @@
     }
 
     .swatch {
-      border: 1px solid var(--border-subtle);
+      border: 2px solid var(--border-subtle);
       border-radius: var(--radius-md);
       overflow: hidden;
       background: var(--bg-surface);
@@ -1178,7 +1210,7 @@
       display: flex;
       border-radius: var(--radius-md);
       overflow: hidden;
-      border: 1px solid var(--border-subtle);
+      border: 2px solid var(--border-subtle);
     }
 
     .swatch-row-cell {
@@ -1200,7 +1232,7 @@
       flex-wrap: wrap;
       padding: var(--space-6);
       background: var(--bg-surface);
-      border: 1px solid var(--border-default);
+      border: 2px solid var(--border-default);
       border-radius: var(--radius-lg);
     }
 
@@ -1217,7 +1249,7 @@
       padding: 0 var(--space-3);
       font-family: var(--font-sans);
       font-size: 0.875rem;
-      border: 1px solid var(--border-default);
+      border: 2px solid var(--border-default);
       border-radius: var(--radius-sm);
       background: var(--bg-page);
       color: var(--text-primary);
@@ -1234,20 +1266,20 @@
     }
 
     .contrast-pass {
-      background: var(--accent-green-subtle);
-      color: var(--accent-green-text);
+      background: var(--accent-cyan-subtle);
+      color: var(--accent-cyan-text);
     }
 
     .contrast-fail {
-      background: var(--accent-red-subtle);
-      color: var(--accent-red-text);
+      background: var(--accent-danger-subtle);
+      color: var(--accent-danger-text);
     }
 
     .contrast-preview {
       width: 200px;
       height: 80px;
       border-radius: var(--radius-md);
-      border: 1px solid var(--border-default);
+      border: 2px solid var(--border-default);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1313,42 +1345,64 @@
 
     /* Standard Brutalist Buttons */
     .btn-primary {
-      background: var(--accent-blue);
+      background: var(--accent-primary);
       color: var(--text-on-accent);
-      box-shadow: var(--shadow-blue);
+      box-shadow: var(--shadow-pink);
     }
 
     .btn-primary:hover {
-      background: var(--accent-blue-hover);
-      box-shadow: var(--shadow-blue);
+      background: var(--accent-primary-hover);
+      box-shadow: var(--shadow-pink);
     }
 
     .btn-danger {
-      background: var(--accent-red);
+      background: var(--accent-danger);
       color: var(--text-on-accent);
-      box-shadow: var(--shadow-red);
+      box-shadow: var(--shadow-danger);
     }
 
     .btn-danger:hover {
-      background: var(--accent-red-hover);
-      box-shadow: var(--shadow-red);
+      background: var(--accent-danger-hover);
+      box-shadow: var(--shadow-danger);
     }
 
-    .btn-highlight {
-      background: var(--accent-yellow);
-      color: var(--text-on-yellow);
-      box-shadow: var(--shadow-yellow);
+    .btn-gold {
+      background: var(--accent-gold);
+      color: var(--text-on-gold);
+      box-shadow: var(--shadow-gold);
     }
 
-    .btn-highlight:hover {
-      background: var(--accent-yellow-hover);
-      box-shadow: var(--shadow-yellow);
+    .btn-gold:hover {
+      background: var(--accent-gold-hover);
+      box-shadow: var(--shadow-gold);
+    }
+
+    .btn-cyan {
+      background: var(--accent-cyan);
+      color: var(--text-on-accent);
+      box-shadow: var(--shadow-cyan);
+    }
+
+    .btn-cyan:hover {
+      background: var(--accent-cyan-hover);
+      box-shadow: var(--shadow-cyan);
+    }
+
+    .btn-green {
+      background: var(--accent-green);
+      color: var(--text-on-accent);
+      box-shadow: var(--shadow-green);
+    }
+
+    .btn-green:hover {
+      background: var(--accent-green-hover);
+      box-shadow: var(--shadow-green);
     }
 
     .btn-secondary {
       background: var(--bg-surface);
       color: var(--text-primary);
-      border: 1px solid var(--border-default);
+      border: 2px solid var(--border-default);
       box-shadow: var(--shadow-sm);
     }
 
@@ -1369,7 +1423,7 @@
     }
 
     [data-theme="dark"] .btn-ghost {
-      color: oklch(0.850 0.010 90);
+      color: oklch(0.850 0.010 70);
     }
 
     [data-theme="dark"] .btn-ghost:hover {
@@ -1433,7 +1487,7 @@
 
     .form-error-text {
       font-size: 0.75rem;
-      color: var(--accent-red-text);
+      color: var(--accent-danger-text);
     }
 
     .input {
@@ -1456,21 +1510,21 @@
 
     .input:focus {
       outline: none;
-      border-color: var(--accent-blue);
-      box-shadow: 4px 4px 0 var(--accent-blue);
+      border-color: var(--accent-primary);
+      box-shadow: 4px 4px 0 var(--accent-primary);
     }
 
     [data-theme="dark"] .input:focus {
-      box-shadow: 4px 4px 0 var(--accent-blue);
+      box-shadow: 4px 4px 0 var(--accent-primary);
     }
 
     .input-error {
-      border-color: var(--accent-red);
+      border-color: var(--accent-danger);
     }
 
     .input-error:focus {
-      border-color: var(--accent-red);
-      box-shadow: 4px 4px 0 var(--accent-red);
+      border-color: var(--accent-danger);
+      box-shadow: 4px 4px 0 var(--accent-danger);
     }
 
     .input:disabled {
@@ -1497,8 +1551,8 @@
 
     .textarea:focus {
       outline: none;
-      border-color: var(--accent-blue);
-      box-shadow: 4px 4px 0 var(--accent-blue);
+      border-color: var(--accent-primary);
+      box-shadow: 4px 4px 0 var(--accent-primary);
     }
 
     .select-wrap {
@@ -1523,8 +1577,8 @@
 
     .select:focus {
       outline: none;
-      border-color: var(--accent-blue);
-      box-shadow: 4px 4px 0 var(--accent-blue);
+      border-color: var(--accent-primary);
+      box-shadow: 4px 4px 0 var(--accent-primary);
     }
 
     .input-icon-wrap {
@@ -1559,8 +1613,8 @@
     }
 
     .multi-select:focus-within {
-      border-color: var(--accent-blue);
-      box-shadow: 4px 4px 0 var(--accent-blue);
+      border-color: var(--accent-primary);
+      box-shadow: 4px 4px 0 var(--accent-primary);
     }
 
     .multi-select-tag {
@@ -1627,8 +1681,8 @@
 
     .check-box.checked,
     .radio-circle.checked {
-      background: var(--accent-blue);
-      border-color: var(--accent-blue);
+      background: var(--accent-primary);
+      border-color: var(--accent-primary);
     }
 
     .check-box.checked svg {
@@ -1689,7 +1743,7 @@
       width: 18px;
       height: 18px;
       border-radius: 50%;
-      background: var(--accent-blue);
+      background: var(--accent-primary);
       cursor: pointer;
       border: 2px solid var(--bg-surface);
       box-shadow: 0 1px 4px oklch(0 0 0 / 0.15);
@@ -1738,24 +1792,40 @@
       color: var(--text-muted);
       margin-top: var(--space-4);
       padding-top: var(--space-4);
-      border-top: 1px solid var(--border-subtle);
+      border-top: 2px solid var(--border-subtle);
     }
 
     .card-featured {
-      border-top: 3px solid var(--accent-blue);
+      border-top: 3px solid var(--accent-primary);
     }
 
     .card-featured-red {
-      border-top-color: var(--accent-red);
+      border-top-color: var(--accent-danger);
     }
 
-    .card-featured-yellow {
-      border-top-color: var(--accent-yellow);
+    .card-featured-gold {
+      border-top-color: var(--accent-gold);
+    }
+
+    .card-featured-cyan {
+      border-top-color: var(--accent-cyan);
     }
 
     .card-featured-green {
       border-top-color: var(--accent-green);
     }
+
+    .card-accent-pink { box-shadow: var(--shadow-pink); }
+    .card-accent-pink:hover { box-shadow: 6px 6px 0 var(--accent-primary); }
+
+    .card-accent-gold { box-shadow: var(--shadow-gold); }
+    .card-accent-gold:hover { box-shadow: 6px 6px 0 var(--accent-gold); }
+
+    .card-accent-cyan { box-shadow: var(--shadow-cyan); }
+    .card-accent-cyan:hover { box-shadow: 6px 6px 0 var(--accent-cyan); }
+
+    .card-accent-green { box-shadow: var(--shadow-green); }
+    .card-accent-green:hover { box-shadow: 6px 6px 0 var(--accent-green); }
 
     .card-compact {
       padding: var(--space-4);
@@ -1769,7 +1839,7 @@
        DATA TABLE
        ========================================================================== */
     .table-wrap {
-      border: 1px solid var(--border-subtle);
+      border: 2px solid var(--border-subtle);
       border-radius: var(--radius-lg);
       overflow: hidden;
     }
@@ -1789,7 +1859,7 @@
       text-transform: uppercase;
       color: var(--text-muted);
       background: var(--bg-subtle);
-      border-bottom: 1px solid var(--border-subtle);
+      border-bottom: 2px solid var(--border-subtle);
       user-select: none;
     }
 
@@ -1852,11 +1922,11 @@
     }
 
     .data-table tbody tr.selected {
-      background: var(--accent-blue-subtle);
+      background: var(--accent-primary-subtle);
     }
 
     .data-table tbody tr.selected td {
-      border-bottom-color: var(--accent-blue-subtle);
+      border-bottom-color: var(--accent-primary-subtle);
     }
 
     .data-table .mono {
@@ -1877,6 +1947,25 @@
       gap: 6px;
     }
 
+    /* Table header color variants */
+    .table-header-pink th {
+      background: var(--accent-primary-subtle);
+      color: var(--accent-primary-text);
+      border-bottom-color: var(--accent-primary);
+    }
+
+    .table-header-gold th {
+      background: var(--accent-gold-subtle);
+      color: var(--accent-gold-text);
+      border-bottom-color: var(--accent-gold);
+    }
+
+    .table-header-cyan th {
+      background: var(--accent-cyan-subtle);
+      color: var(--accent-cyan-text);
+      border-bottom-color: var(--accent-cyan);
+    }
+
     /* ==========================================================================
        BADGES
        ========================================================================== */
@@ -1890,19 +1979,24 @@
       border-radius: var(--radius-full);
     }
 
-    .badge-blue {
-      background: var(--accent-blue-subtle);
-      color: var(--accent-blue-text);
+    .badge-pink {
+      background: var(--accent-primary-subtle);
+      color: var(--accent-primary-text);
     }
 
     .badge-red {
-      background: var(--accent-red-subtle);
-      color: var(--accent-red-text);
+      background: var(--accent-danger-subtle);
+      color: var(--accent-danger-text);
     }
 
-    .badge-yellow {
-      background: var(--accent-yellow-subtle);
-      color: var(--accent-yellow-text);
+    .badge-gold {
+      background: var(--accent-gold-subtle);
+      color: var(--accent-gold-text);
+    }
+
+    .badge-cyan {
+      background: var(--accent-cyan-subtle);
+      color: var(--accent-cyan-text);
     }
 
     .badge-green {
@@ -1916,7 +2010,7 @@
     .sidebar-demo {
       width: 240px;
       background: var(--bg-surface);
-      border: 1px solid var(--border-default);
+      border: 2px solid var(--border-default);
       border-radius: var(--radius-lg);
       padding: var(--space-3);
     }
@@ -1948,8 +2042,8 @@
     }
 
     .sidebar-item.active {
-      background: var(--accent-blue-subtle);
-      color: var(--accent-blue-text);
+      background: var(--accent-primary-subtle);
+      color: var(--accent-primary-text);
       font-weight: 550;
     }
 
@@ -1965,7 +2059,7 @@
     .tabs {
       display: flex;
       gap: 0;
-      border-bottom: 1px solid var(--border-subtle);
+      border-bottom: 2px solid var(--border-subtle);
     }
 
     .tab {
@@ -1986,8 +2080,8 @@
     }
 
     .tab.active {
-      color: var(--accent-blue-text);
-      border-bottom-color: var(--accent-blue);
+      color: var(--accent-primary-text);
+      border-bottom-color: var(--accent-primary);
       font-weight: 600;
     }
 
@@ -2029,7 +2123,7 @@
       align-items: center;
       justify-content: center;
       font-size: 0.8125rem;
-      border: 1px solid var(--border-default);
+      border: 2px solid var(--border-default);
       border-radius: var(--radius-sm);
       background: var(--bg-surface);
       color: var(--text-secondary);
@@ -2043,9 +2137,9 @@
     }
 
     .page-btn.active {
-      background: var(--accent-blue);
+      background: var(--accent-primary);
       color: var(--text-on-accent);
-      border-color: var(--accent-blue);
+      border-color: var(--accent-primary);
     }
 
     /* ==========================================================================
@@ -2071,7 +2165,7 @@
       gap: var(--space-3);
       padding: var(--space-4);
       background: var(--bg-surface);
-      border: 1px solid var(--border-default);
+      border: 2px solid var(--border-default);
       border-radius: var(--radius-md);
       box-shadow: var(--shadow-md);
       position: relative;
@@ -2094,15 +2188,15 @@
     }
 
     .toast-stripe.error {
-      background: var(--accent-red);
+      background: var(--accent-danger);
     }
 
     .toast-stripe.warning {
-      background: var(--accent-yellow);
+      background: var(--accent-gold);
     }
 
     .toast-stripe.info {
-      background: var(--accent-blue);
+      background: var(--accent-primary);
     }
 
     .toast-icon {
@@ -2163,7 +2257,7 @@
     .modal-panel {
       margin: auto;
       background: var(--bg-surface);
-      border: 1px solid var(--border-default);
+      border: 2px solid var(--border-default);
       border-radius: var(--radius-lg);
       padding: var(--space-6);
       max-width: 440px;
@@ -2243,7 +2337,7 @@
       max-width: 100%;
       background: var(--bg-surface);
       border: none;
-      border-top: 1px solid var(--border-default);
+      border-top: 2px solid var(--border-default);
       border-radius: var(--radius-xl) var(--radius-xl) 0 0;
       padding: var(--space-6);
       padding-top: var(--space-4);
@@ -2307,29 +2401,45 @@
       align-items: flex-start;
       gap: var(--space-3);
       padding: var(--space-4);
+      border: 2px solid var(--border-default);
       border-radius: var(--radius-md);
       font-size: 0.875rem;
       line-height: 1.5;
     }
 
-    .alert-info {
-      background: var(--accent-blue-subtle);
-      color: var(--accent-blue-text);
+    .alert-pink {
+      background: var(--accent-primary-subtle);
+      color: var(--accent-primary-text);
+      border-color: var(--accent-primary);
+      box-shadow: var(--shadow-pink);
     }
 
-    .alert-error {
-      background: var(--accent-red-subtle);
-      color: var(--accent-red-text);
+    .alert-danger {
+      background: var(--accent-danger-subtle);
+      color: var(--accent-danger-text);
+      border-color: var(--accent-danger);
+      box-shadow: var(--shadow-danger);
     }
 
-    .alert-warning {
-      background: var(--accent-yellow-subtle);
-      color: var(--accent-yellow-text);
+    .alert-gold {
+      background: var(--accent-gold-subtle);
+      color: var(--accent-gold-text);
+      border-color: var(--accent-gold);
+      box-shadow: var(--shadow-gold);
     }
 
-    .alert-success {
+    .alert-cyan {
+      background: var(--accent-cyan-subtle);
+      color: var(--accent-cyan-text);
+      border-color: var(--accent-cyan);
+      box-shadow: var(--shadow-cyan);
+    }
+
+    .alert-green {
       background: var(--accent-green-subtle);
       color: var(--accent-green-text);
+      border-color: var(--accent-green);
+      box-shadow: var(--shadow-green);
     }
 
     .alert svg {
@@ -2352,6 +2462,65 @@
     }
 
     /* ==========================================================================
+       PROGRESS BARS
+       ========================================================================== */
+    .progress-group {
+      margin-bottom: var(--space-4);
+    }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: var(--step--1);
+      font-weight: 600;
+      margin-bottom: var(--space-2);
+    }
+
+    .progress-track {
+      height: 16px;
+      background: var(--bg-muted);
+      border: 2px solid var(--border-default);
+      border-radius: var(--radius-full);
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      border-radius: var(--radius-full);
+      transition: width var(--motion-base) var(--ease-out);
+    }
+
+    .progress-fill-pink { background: var(--accent-primary); }
+    .progress-fill-gold { background: var(--accent-gold); }
+    .progress-fill-cyan { background: var(--accent-cyan); }
+    .progress-fill-green { background: var(--accent-green); }
+
+    /* ==========================================================================
+       CODE BLOCKS — WARM SYNTAX THEME
+       ========================================================================== */
+    .code-block {
+      background: oklch(0.200 0.015 60);
+      border: 2px solid var(--border-default);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-md);
+      padding: var(--space-4) var(--space-5);
+      font-family: var(--font-mono);
+      font-size: 0.8125rem;
+      line-height: 1.7;
+      overflow-x: auto;
+      white-space: pre;
+      color: oklch(0.920 0.010 70);
+    }
+
+    .code-block .keyword { color: oklch(0.750 0.200 350); }
+    .code-block .string { color: oklch(0.870 0.160 85); }
+    .code-block .function { color: oklch(0.750 0.130 210); }
+    .code-block .comment { color: oklch(0.550 0.010 60); font-style: italic; }
+    .code-block .number { color: oklch(0.800 0.140 148); }
+    .code-block .operator { color: oklch(0.700 0.000 0); }
+    .code-block .property { color: oklch(0.780 0.100 350); }
+
+    /* ==========================================================================
        ICON GRID
        ========================================================================== */
     .icon-grid {
@@ -2366,7 +2535,7 @@
       align-items: center;
       gap: var(--space-2);
       padding: var(--space-4);
-      border: 1px solid var(--border-subtle);
+      border: 2px solid var(--border-subtle);
       border-radius: var(--radius-md);
       background: var(--bg-surface);
       font-size: 0.625rem;
@@ -2384,7 +2553,7 @@
        ========================================================================== */
     .chart-wrapper {
       background: var(--bg-surface);
-      border: 1px solid var(--border-default);
+      border: 2px solid var(--border-default);
       border-radius: var(--radius-lg);
       padding: var(--space-6);
     }
@@ -2426,10 +2595,10 @@
 
     .kpi-card {
       background: var(--bg-surface);
-      border: 1px solid var(--border-default);
+      border: 2px solid var(--border-default);
       border-radius: var(--radius-lg);
       padding: var(--space-6);
-      border-top: 3px solid var(--accent-blue);
+      border-top: 3px solid var(--accent-primary);
     }
 
     .kpi-value {
@@ -2456,7 +2625,7 @@
     }
 
     .kpi-down {
-      color: var(--accent-red-text);
+      color: var(--accent-danger-text);
     }
 
     .donut-chart {
@@ -2500,7 +2669,7 @@
       width: 12px;
       height: 12px;
       border-radius: 50%;
-      background: var(--accent-blue);
+      background: var(--accent-primary);
       left: 0;
     }
 
@@ -2513,13 +2682,13 @@
     .duration-bar {
       height: 8px;
       border-radius: var(--radius-full);
-      background: var(--accent-blue);
+      background: var(--accent-primary);
     }
 
     .spring-demo {
       padding: var(--space-6);
       background: var(--bg-surface);
-      border: 1px solid var(--border-default);
+      border: 2px solid var(--border-default);
       border-radius: var(--radius-lg);
       text-align: center;
     }
@@ -2528,7 +2697,7 @@
       width: 48px;
       height: 48px;
       border-radius: var(--radius-md);
-      background: var(--accent-blue);
+      background: var(--accent-primary);
       margin: var(--space-4) auto;
     }
 
@@ -2590,7 +2759,7 @@
     .tilt-card {
       padding: var(--space-8);
       background: var(--bg-surface);
-      border: 1px solid var(--border-default);
+      border: 2px solid var(--border-default);
       border-radius: var(--radius-lg);
       transform-style: preserve-3d;
       will-change: transform;
@@ -2618,7 +2787,7 @@
       padding: var(--space-1) var(--space-3);
       font-size: 0.75rem;
       font-weight: 600;
-      background: var(--accent-blue);
+      background: var(--accent-primary);
       color: var(--text-on-accent);
       border-radius: var(--radius-full);
       transform: translateZ(60px);
@@ -2627,19 +2796,19 @@
     @property --hue-1 {
       syntax: "<number>";
       inherits: false;
-      initial-value: 270;
+      initial-value: 350;
     }
 
     @property --hue-2 {
       syntax: "<number>";
       inherits: false;
-      initial-value: 270;
+      initial-value: 350;
     }
 
     @property --hue-3 {
       syntax: "<number>";
       inherits: false;
-      initial-value: 270;
+      initial-value: 350;
     }
 
     .color-pills {
@@ -2653,7 +2822,7 @@
       font-family: var(--font-sans);
       font-size: 0.9375rem;
       font-weight: 600;
-      color: oklch(0.995 0.002 90);
+      color: oklch(0.995 0.002 70);
       border: none;
       border-radius: var(--radius-full);
       cursor: pointer;
@@ -2667,7 +2836,7 @@
         }
 
         .color-pill-1:hover {
-          --hue-1: 200;
+          --hue-1: 80;
         }
 
         .color-pill-2 {
@@ -2676,7 +2845,7 @@
         }
 
         .color-pill-2:hover {
-          --hue-2: 310;
+          --hue-2: 20;
         }
 
         .color-pill-3 {
@@ -2685,25 +2854,25 @@
         }
 
         .color-pill-3:hover {
-          --hue-3: 145;
+          --hue-3: 210;
         }
       }
     }
 
     @supports not (background: oklch(0.6 0.24 var(--hue-1))) {
       .color-pill {
-        background: var(--accent-blue);
+        background: var(--accent-primary);
       }
 
       .color-pill:hover {
-        background: var(--accent-blue-hover);
+        background: var(--accent-primary-hover);
       }
     }
 
     .spotlight-panel {
       position: relative;
       overflow: hidden;
-      background: oklch(0.135 0.010 90);
+      background: oklch(0.140 0.012 60);
       border-radius: var(--radius-lg);
       height: 280px;
       display: flex;
@@ -2717,14 +2886,14 @@
       z-index: 1;
       font-size: 1.125rem;
       font-weight: 500;
-      color: oklch(0.45 0.006 90);
+      color: oklch(0.45 0.006 60);
       text-align: center;
     }
 
     .spotlight-dots {
       position: absolute;
       inset: 0;
-      background-image: radial-gradient(circle, oklch(0.25 0.005 260) 1px, transparent 1px);
+      background-image: radial-gradient(circle, oklch(0.25 0.005 350) 1px, transparent 1px);
       background-size: 24px 24px;
       opacity: 0.5;
     }
@@ -2732,7 +2901,7 @@
     .spotlight-gradient {
       position: absolute;
       inset: 0;
-      background: radial-gradient(600px circle at 50% 50%, oklch(0.22 0.04 260), oklch(0.135 0.010 90));
+      background: radial-gradient(600px circle at 50% 50%, oklch(0.22 0.04 350), oklch(0.140 0.012 60));
     }
 
     .magnetic-zone {
@@ -2748,7 +2917,7 @@
       font-family: var(--font-sans);
       font-size: 1rem;
       font-weight: 600;
-      background: var(--accent-blue);
+      background: var(--accent-primary);
       color: var(--text-on-accent);
       border: none;
       border-radius: var(--radius-full);
@@ -2760,7 +2929,7 @@
        ========================================================================== */
     .comp-frame {
       background: var(--bg-page);
-      border: 1px solid var(--border-default);
+      border: 2px solid var(--border-default);
       border-radius: var(--radius-lg);
       overflow: hidden;
     }
@@ -2773,7 +2942,7 @@
 
     .comp-sidebar {
       background: var(--bg-surface);
-      border-right: 1px solid var(--border-default);
+      border-right: 2px solid var(--border-default);
       padding: var(--space-3);
     }
 
@@ -2804,7 +2973,7 @@
       border-radius: var(--radius-full);
       background: var(--bg-surface);
       color: var(--text-primary);
-      border: 1px solid var(--border-default);
+      border: 2px solid var(--border-default);
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -2836,7 +3005,7 @@
     .type-tester {
       padding: var(--space-6);
       background: var(--bg-surface);
-      border: 1px solid var(--border-default);
+      border: 2px solid var(--border-default);
       border-radius: var(--radius-lg);
     }
 
@@ -2865,7 +3034,7 @@
       background: transparent;
       color: var(--text-primary);
       padding: var(--space-4) 0;
-      border-bottom: 1px solid var(--border-subtle);
+      border-bottom: 2px solid var(--border-subtle);
     }
 
     /* ==========================================================================
@@ -2919,20 +3088,20 @@
 
     .btn-primary .splash-dot,
     .btn-danger .splash-dot,
-    .btn-highlight .splash-dot {
+    .btn-gold .splash-dot {
       background: var(--text-on-accent);
     }
 
     .btn-primary .splash-ripple,
     .btn-danger .splash-ripple,
-    .btn-highlight .splash-ripple {
+    .btn-gold .splash-ripple {
       border-color: var(--text-on-accent);
     }
 
-    .btn-highlight .splash-dot,
-    .btn-highlight .splash-ripple {
-      background: var(--text-on-yellow);
-      border-color: var(--text-on-yellow);
+    .btn-gold .splash-dot,
+    .btn-gold .splash-ripple {
+      background: var(--text-on-gold);
+      border-color: var(--text-on-gold);
     }
 
     @keyframes pop-anim {
@@ -2969,11 +3138,11 @@
   <div class="scroll-progress" aria-hidden="true"></div>
 
   <!-- Floating decorative dots -->
-  <div class="floating-decor float-1" style="width:8px;height:8px;background:var(--accent-blue);top:20%;left:5%"
+  <div class="floating-decor float-1" style="width:8px;height:8px;background:var(--accent-primary);top:20%;left:5%"
     aria-hidden="true"></div>
-  <div class="floating-decor float-2" style="width:6px;height:6px;background:var(--accent-red);top:40%;right:8%"
+  <div class="floating-decor float-2" style="width:6px;height:6px;background:var(--accent-gold);top:40%;right:8%"
     aria-hidden="true"></div>
-  <div class="floating-decor float-3" style="width:10px;height:10px;background:var(--accent-yellow);top:65%;left:3%"
+  <div class="floating-decor float-3" style="width:10px;height:10px;background:var(--accent-cyan);top:65%;left:3%"
     aria-hidden="true"></div>
 
   <!-- ========================================================================
@@ -2983,9 +3152,9 @@
     <div class="topnav-inner">
       <a href="#landing" class="topnav-brand">
         <span class="brand-dots">
-          <span class="brand-dot" style="background:var(--accent-blue)"></span>
-          <span class="brand-dot" style="background:var(--accent-red)"></span>
-          <span class="brand-dot" style="background:var(--accent-yellow)"></span>
+          <span class="brand-dot" style="background:var(--accent-primary)"></span>
+          <span class="brand-dot" style="background:var(--accent-gold)"></span>
+          <span class="brand-dot" style="background:var(--accent-cyan)"></span>
         </span>
         Delightful
       </a>
@@ -3057,36 +3226,35 @@
      SECTION 0 — LANDING HERO
      ======================================================================== -->
     <section id="landing" class="hero">
-      <h1 class="hero-title-text" id="hero-headline">A design system built with care</h1>
-      <p class="hero-subtitle anim-in anim-d6">Warm minimalism. Surgical color. Purposeful motion. Every token,
-        component, and interaction — unified.</p>
+      <h1 class="hero-title-text" id="hero-headline">A design system that sparks joy</h1>
+      <p class="hero-subtitle anim-in anim-d6">Bold warmth. Confident color. Playful precision. Every token,
+        component, and interaction — built to delight.</p>
       <div class="hero-dots anim-in anim-d8">
-        <span class="hero-dot" style="background:var(--accent-blue)"></span>
-        <span class="hero-dot" style="background:var(--accent-red)"></span>
-        <span class="hero-dot" style="background:var(--accent-yellow)"></span>
+        <span class="hero-dot" style="background:var(--accent-primary)"></span>
+        <span class="hero-dot" style="background:var(--accent-gold)"></span>
+        <span class="hero-dot" style="background:var(--accent-cyan)"></span>
       </div>
 
       <div class="tile-grid">
-        <a href="#philosophy" class="tile tile-blue hover-lift anim-in anim-d1"><span class="tile-num">01</span>
+        <a href="#philosophy" class="tile tile-pink hover-lift anim-in anim-d1"><span class="tile-num">01</span>
           <div class="tile-name">Philosophy</div>
           <div class="tile-desc">Design ethos and guiding principles</div>
           <div class="tile-anim">
-            <div class="tile-anim-bar" style="width:4px;background:var(--accent-blue)"></div>
-            <div class="tile-anim-bar" style="width:4px;background:var(--accent-blue);opacity:0.7"></div>
-            <div class="tile-anim-bar" style="width:4px;background:var(--accent-blue);opacity:0.4"></div>
+            <div class="tile-anim-bar" style="width:4px;background:var(--accent-primary)"></div>
+            <div class="tile-anim-bar" style="width:4px;background:var(--accent-primary);opacity:0.7"></div>
+            <div class="tile-anim-bar" style="width:4px;background:var(--accent-primary);opacity:0.4"></div>
           </div>
         </a>
-        <a href="#color" class="tile tile-red hover-lift anim-in anim-d2"><span class="tile-num">02</span>
+        <a href="#color" class="tile tile-gold hover-lift anim-in anim-d2"><span class="tile-num">02</span>
           <div class="tile-name">Color System</div>
-          <div class="tile-desc">oklch tokens across four accent families</div>
+          <div class="tile-desc">oklch tokens — three brand colors plus system states</div>
           <div class="tile-anim">
-            <div class="tile-anim-bar" style="width:12px;background:var(--accent-blue)"></div>
-            <div class="tile-anim-bar" style="width:12px;background:var(--accent-red)"></div>
-            <div class="tile-anim-bar" style="width:12px;background:var(--accent-yellow)"></div>
-            <div class="tile-anim-bar" style="width:12px;background:var(--accent-green)"></div>
+            <div class="tile-anim-bar" style="width:12px;background:var(--accent-primary)"></div>
+            <div class="tile-anim-bar" style="width:12px;background:var(--accent-gold)"></div>
+            <div class="tile-anim-bar" style="width:12px;background:var(--accent-cyan)"></div>
           </div>
         </a>
-        <a href="#typography" class="tile tile-yellow hover-lift anim-in anim-d3"><span class="tile-num">03</span>
+        <a href="#typography" class="tile tile-cyan hover-lift anim-in anim-d3"><span class="tile-num">03</span>
           <div class="tile-name">Typography</div>
           <div class="tile-desc">Fluid scale, Inter variable, live tester</div>
           <div class="tile-anim" style="gap:0">
@@ -3099,27 +3267,27 @@
               Aa</div>
           </div>
         </a>
-        <a href="#spacing" class="tile tile-green hover-lift anim-in anim-d4"><span class="tile-num">04</span>
+        <a href="#spacing" class="tile tile-pink hover-lift anim-in anim-d4"><span class="tile-num">04</span>
           <div class="tile-name">Spacing & Layout</div>
           <div class="tile-desc">8px grid, radius, responsive systems</div>
           <div class="tile-anim">
-            <div class="tile-anim-bar" style="width:4px;height:4px;background:var(--accent-green)"></div>
-            <div class="tile-anim-bar" style="width:8px;height:8px;background:var(--accent-green);opacity:0.7"></div>
-            <div class="tile-anim-bar" style="width:12px;height:12px;background:var(--accent-green);opacity:0.5"></div>
-            <div class="tile-anim-bar" style="width:16px;height:16px;background:var(--accent-green);opacity:0.3"></div>
+            <div class="tile-anim-bar" style="width:4px;height:4px;background:var(--accent-cyan)"></div>
+            <div class="tile-anim-bar" style="width:8px;height:8px;background:var(--accent-cyan);opacity:0.7"></div>
+            <div class="tile-anim-bar" style="width:12px;height:12px;background:var(--accent-cyan);opacity:0.5"></div>
+            <div class="tile-anim-bar" style="width:16px;height:16px;background:var(--accent-cyan);opacity:0.3"></div>
           </div>
         </a>
-        <a href="#components" class="tile tile-blue hover-lift anim-in anim-d5"><span class="tile-num">05</span>
+        <a href="#components" class="tile tile-gold hover-lift anim-in anim-d5"><span class="tile-num">05</span>
           <div class="tile-name">Components</div>
           <div class="tile-desc">Buttons, forms, cards, tables, nav</div>
           <div class="tile-anim">
-            <div style="width:28px;height:14px;background:var(--accent-blue);border-radius:3px"></div>
+            <div style="width:28px;height:14px;background:var(--accent-primary);border-radius:3px"></div>
             <div
-              style="width:28px;height:14px;background:var(--bg-muted);border:1px solid var(--border-default);border-radius:3px">
+              style="width:28px;height:14px;background:var(--bg-muted);border:2px solid var(--border-default);border-radius:3px">
             </div>
           </div>
         </a>
-        <a href="#icons" class="tile tile-red hover-lift anim-in anim-d6"><span class="tile-num">06</span>
+        <a href="#icons" class="tile tile-cyan hover-lift anim-in anim-d6"><span class="tile-num">06</span>
           <div class="tile-name">Iconography</div>
           <div class="tile-desc">Lucide icons, sizing, alignment</div>
           <div class="tile-anim"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)"
@@ -3134,37 +3302,37 @@
               <polyline points="20 6 9 17 4 12" />
             </svg></div>
         </a>
-        <a href="#dataviz" class="tile tile-yellow hover-lift anim-in anim-d7"><span class="tile-num">07</span>
+        <a href="#dataviz" class="tile tile-pink hover-lift anim-in anim-d7"><span class="tile-num">07</span>
           <div class="tile-name">Data Visualization</div>
           <div class="tile-desc">Charts, KPIs, heatmaps, sparklines</div>
           <div class="tile-anim">
-            <div class="tile-anim-bar" style="width:6px;background:var(--accent-blue);height:60%"></div>
-            <div class="tile-anim-bar" style="width:6px;background:var(--accent-blue);height:80%"></div>
-            <div class="tile-anim-bar" style="width:6px;background:var(--accent-blue);height:45%"></div>
-            <div class="tile-anim-bar" style="width:6px;background:var(--accent-blue);height:90%"></div>
-            <div class="tile-anim-bar" style="width:6px;background:var(--accent-blue);height:70%"></div>
+            <div class="tile-anim-bar" style="width:6px;background:var(--accent-primary);height:60%"></div>
+            <div class="tile-anim-bar" style="width:6px;background:var(--accent-primary);height:80%"></div>
+            <div class="tile-anim-bar" style="width:6px;background:var(--accent-primary);height:45%"></div>
+            <div class="tile-anim-bar" style="width:6px;background:var(--accent-primary);height:90%"></div>
+            <div class="tile-anim-bar" style="width:6px;background:var(--accent-primary);height:70%"></div>
           </div>
         </a>
-        <a href="#motion" class="tile tile-green hover-lift anim-in anim-d8"><span class="tile-num">08</span>
+        <a href="#motion" class="tile tile-gold hover-lift anim-in anim-d8"><span class="tile-num">08</span>
           <div class="tile-name">Motion & Easing</div>
           <div class="tile-desc">Durations, curves, spring physics</div>
           <div class="tile-anim">
             <div
-              style="width:8px;height:8px;border-radius:50%;background:var(--accent-green);animation:easing-loop 2s cubic-bezier(0.22,1,0.36,1) infinite;position:relative">
+              style="width:8px;height:8px;border-radius:50%;background:var(--accent-cyan);animation:easing-loop 2s cubic-bezier(0.22,1,0.36,1) infinite;position:relative">
             </div>
           </div>
         </a>
-        <a href="#micro" class="tile tile-blue hover-lift anim-in anim-d9"><span class="tile-num">09</span>
+        <a href="#micro" class="tile tile-cyan hover-lift anim-in anim-d9"><span class="tile-num">09</span>
           <div class="tile-name">Micro-Interactions</div>
           <div class="tile-desc">Press, toggle, checkbox, shake, success</div>
           <div class="tile-anim">
-            <div style="width:24px;height:12px;border-radius:6px;background:var(--accent-blue);position:relative">
+            <div style="width:24px;height:12px;border-radius:6px;background:var(--accent-primary);position:relative">
               <div style="position:absolute;top:2px;right:2px;width:8px;height:8px;border-radius:50%;background:white">
               </div>
             </div>
           </div>
         </a>
-        <a href="#loading" class="tile tile-red hover-lift anim-in anim-d10"><span class="tile-num">10</span>
+        <a href="#loading" class="tile tile-pink hover-lift anim-in anim-d10"><span class="tile-num">10</span>
           <div class="tile-name">Loading & Transitions</div>
           <div class="tile-desc">Skeletons, page transitions, reveals</div>
           <div class="tile-anim">
@@ -3173,27 +3341,27 @@
             </div>
           </div>
         </a>
-        <a href="#overlays" class="tile tile-yellow hover-lift anim-in anim-d11"><span class="tile-num">11</span>
+        <a href="#overlays" class="tile tile-gold hover-lift anim-in anim-d11"><span class="tile-num">11</span>
           <div class="tile-name">Overlays & Feedback</div>
           <div class="tile-desc">Toasts, modal, drawer, alerts</div>
           <div class="tile-anim">
             <div
-              style="width:48px;height:12px;background:var(--bg-surface);border:1px solid var(--border-default);border-radius:3px;border-left:2px solid var(--accent-green)">
+              style="width:48px;height:12px;background:var(--bg-surface);border:2px solid var(--border-default);border-radius:3px;border-left:2px solid var(--accent-cyan)">
             </div>
           </div>
         </a>
-        <a href="#signature" class="tile tile-green hover-lift anim-in anim-d12"><span class="tile-num">12</span>
+        <a href="#signature" class="tile tile-cyan hover-lift anim-in anim-d12"><span class="tile-num">12</span>
           <div class="tile-name">Signature Effects</div>
           <div class="tile-desc">Magnetic, tilt, spotlight, color shift</div>
           <div class="tile-anim">
             <div
-              style="width:10px;height:10px;border-radius:50%;background:var(--accent-blue);opacity:0.6;filter:blur(2px)">
+              style="width:10px;height:10px;border-radius:50%;background:var(--accent-primary);opacity:0.6;filter:blur(2px)">
             </div>
             <div
-              style="width:10px;height:10px;border-radius:50%;background:var(--accent-red);opacity:0.6;filter:blur(2px)">
+              style="width:10px;height:10px;border-radius:50%;background:var(--accent-gold);opacity:0.6;filter:blur(2px)">
             </div>
             <div
-              style="width:10px;height:10px;border-radius:50%;background:var(--accent-green);opacity:0.6;filter:blur(2px)">
+              style="width:10px;height:10px;border-radius:50%;background:var(--accent-cyan);opacity:0.6;filter:blur(2px)">
             </div>
           </div>
         </a>
@@ -3205,31 +3373,31 @@
      ======================================================================== -->
     <section id="philosophy" class="ds-section scroll-reveal">
       <div class="section-header">
-        <div class="section-overline overline-blue"><span class="status-dot"
-            style="background:var(--accent-blue)"></span> 01 — Philosophy</div>
-        <h2 class="section-title">Warm clarity, surgical color, joyful restraint</h2>
-        <p class="section-desc">Delightful draws from institutional minimalism and developer-tool precision. Every
-          decision serves comprehension. Color is used surgically. Motion earns its place.</p>
+        <div class="section-overline overline-pink"><span class="status-dot"
+            style="background:var(--accent-primary)"></span> 01 — Philosophy</div>
+        <h2 class="section-title">Warm boldness, confident color, joyful expression</h2>
+        <p class="section-desc">Delightful draws from neo-brutalist typography and warm editorial design. Every
+          decision serves both comprehension and delight. Color is used confidently. Motion earns its place and makes you smile.</p>
       </div>
 
       <div class="grid-3 blur-grid" style="margin-bottom:var(--space-12)">
         <div class="blur-card card card-featured">
-          <div class="card-title">Warm Clarity</div>
-          <div class="card-desc">Cream backgrounds, near-black text, generous whitespace. Typography does the heavy
-            lifting — hierarchy through size, weight, and spacing, never through ornament.</div>
-          <div class="card-meta">Anthropic · Editorial restraint</div>
+          <div class="card-title">Warm Boldness</div>
+          <div class="card-desc">Cream backgrounds, near-black text, generous whitespace. Bold 2px borders and solid
+            shadows create depth. Typography drives hierarchy through size, weight, and confidence.</div>
+          <div class="card-meta">Neo-brutalist · Editorial warmth</div>
         </div>
-        <div class="blur-card card card-featured card-featured-red">
-          <div class="card-title">Surgical Color</div>
-          <div class="card-desc">One vivid accent for actions. Red for danger. Yellow for highlights. Green for success.
-            That's it. Color is earned, never decorative.</div>
-          <div class="card-meta">Linear · Maximum restraint</div>
+        <div class="blur-card card card-featured card-featured-gold">
+          <div class="card-title">Confident Color</div>
+          <div class="card-desc">Three brand colors — pink for energy, gold for warmth, cyan for cool balance. Green
+            for success. Red for danger. Color is used with purpose and joy, never timidly.</div>
+          <div class="card-meta">Intentional · Maximum impact</div>
         </div>
-        <div class="blur-card card card-featured card-featured-yellow">
-          <div class="card-title">Joyful Restraint</div>
-          <div class="card-desc">Playful but controlled. Spring-based motion under 240ms. Border separation over
-            shadows. Every interaction should feel inevitable, not performative.</div>
-          <div class="card-meta">Arc · Controlled personality</div>
+        <div class="blur-card card card-featured card-featured-cyan">
+          <div class="card-title">Joyful Expression</div>
+          <div class="card-desc">Playful and confident. Spring-based motion under 240ms. Solid shadows everywhere.
+            Every interaction should feel satisfying, like a physical button press.</div>
+          <div class="card-meta">Tactile · Controlled delight</div>
         </div>
       </div>
 
@@ -3237,19 +3405,19 @@
         <div class="subsection-label">What we do</div>
         <div class="grid-2" style="gap:var(--space-4)">
           <div class="card card-compact">
-            <div class="card-title" style="color:var(--accent-green-text)">Warm offwhite base</div>
-            <div class="card-desc">Not pure white, not cool. Cream-tinted backgrounds like Anthropic's interface.</div>
+            <div class="card-title" style="color:var(--accent-cyan-text)">Warm cream base</div>
+            <div class="card-desc">Not pure white, not cool. OKLCH cream-tinted backgrounds that feel like sunlight on paper.</div>
           </div>
           <div class="card card-compact">
-            <div class="card-title" style="color:var(--accent-green-text)">Typography-driven hierarchy</div>
-            <div class="card-desc">Size, weight, spacing — not color or decoration — create visual order.</div>
+            <div class="card-title" style="color:var(--accent-cyan-text)">Typography-driven hierarchy</div>
+            <div class="card-desc">Size, weight, spacing — Inter at 800 weight for headings. Visual order through confidence.</div>
           </div>
           <div class="card card-compact">
-            <div class="card-title" style="color:var(--accent-green-text)">Borders over shadows</div>
-            <div class="card-desc">Shadows reserved for overlays only. Borders and color differences create depth.</div>
+            <div class="card-title" style="color:var(--accent-cyan-text)">Solid shadows everywhere</div>
+            <div class="card-desc">Zero-blur offset shadows in black or brand colors. Every element has tactile depth.</div>
           </div>
           <div class="card card-compact">
-            <div class="card-title" style="color:var(--accent-green-text)">Motion with purpose</div>
+            <div class="card-title" style="color:var(--accent-cyan-text)">Motion with purpose</div>
             <div class="card-desc">Sub-240ms springs for movement. CSS ease-out for color. prefers-reduced-motion
               respected.</div>
           </div>
@@ -3260,21 +3428,21 @@
         <div class="subsection-label">What we avoid</div>
         <div class="grid-2" style="gap:var(--space-4)">
           <div class="card card-compact">
-            <div class="card-title" style="color:var(--accent-red-text)">Gradients & glassmorphism</div>
+            <div class="card-title" style="color:var(--accent-danger-text)">Gradients & glassmorphism</div>
             <div class="card-desc">No frosted glass aesthetics, no gradient backgrounds, no heavy decoration.</div>
           </div>
           <div class="card card-compact">
-            <div class="card-title" style="color:var(--accent-red-text)">Rainbow palettes</div>
-            <div class="card-desc">No overly colorful systems. Four purposeful accent families, applied surgically.
+            <div class="card-title" style="color:var(--accent-danger-text)">Rainbow palettes</div>
+            <div class="card-desc">Three brand colors — pink, gold, cyan. Green for success, red for danger. That's it.
             </div>
           </div>
           <div class="card card-compact">
-            <div class="card-title" style="color:var(--accent-red-text)">Generic SaaS energy</div>
+            <div class="card-title" style="color:var(--accent-danger-text)">Generic SaaS energy</div>
             <div class="card-desc">No cookie-cutter templates. Every interface should feel crafted for its context.
             </div>
           </div>
           <div class="card card-compact">
-            <div class="card-title" style="color:var(--accent-red-text)">Placeholder text</div>
+            <div class="card-title" style="color:var(--accent-danger-text)">Placeholder text</div>
             <div class="card-desc">Real content always. No lorem ipsum. Words carry meaning and inform design.</div>
           </div>
         </div>
@@ -3286,48 +3454,48 @@
      ======================================================================== -->
     <section id="color" class="ds-section scroll-reveal">
       <div class="section-header">
-        <div class="section-overline overline-red"><span class="status-dot" style="background:var(--accent-red)"></span>
-          02 — Color System</div>
+        <div class="section-overline overline-gold"><span class="status-dot"
+            style="background:var(--accent-gold)"></span> 02 — Color System</div>
         <h2 class="section-title">oklch color tokens</h2>
         <p class="section-desc">Every color defined in oklch — perceptually uniform, wide-gamut ready. Click any swatch
           to copy its value.</p>
       </div>
 
       <div class="subsection">
-        <div class="subsection-label">Neutral Scale — Warm (hue ~90°)</div>
+        <div class="subsection-label">Neutral Scale — Warm (hue ~70°)</div>
         <div class="swatch-row" style="margin-bottom:var(--space-6)">
           <div class="swatch-row-cell" style="background:var(--primitive-neutral-0);color:var(--primitive-neutral-600)"
             data-copy="oklch(1.00 0.000 0)">0</div>
           <div class="swatch-row-cell" style="background:var(--primitive-neutral-25);color:var(--primitive-neutral-600)"
-            data-copy="oklch(0.988 0.004 90)">25</div>
+            data-copy="oklch(0.988 0.006 70)">25</div>
           <div class="swatch-row-cell" style="background:var(--primitive-neutral-50);color:var(--primitive-neutral-600)"
-            data-copy="oklch(0.978 0.005 90)">50</div>
+            data-copy="oklch(0.980 0.008 70)">50</div>
           <div class="swatch-row-cell"
             style="background:var(--primitive-neutral-100);color:var(--primitive-neutral-600)"
-            data-copy="oklch(0.958 0.006 90)">100</div>
+            data-copy="oklch(0.960 0.010 70)">100</div>
           <div class="swatch-row-cell"
             style="background:var(--primitive-neutral-150);color:var(--primitive-neutral-600)"
-            data-copy="oklch(0.938 0.007 90)">150</div>
+            data-copy="oklch(0.940 0.012 70)">150</div>
           <div class="swatch-row-cell"
             style="background:var(--primitive-neutral-200);color:var(--primitive-neutral-600)"
-            data-copy="oklch(0.905 0.007 90)">200</div>
+            data-copy="oklch(0.920 0.012 70)">200</div>
           <div class="swatch-row-cell"
             style="background:var(--primitive-neutral-300);color:var(--primitive-neutral-600)"
-            data-copy="oklch(0.855 0.008 90)">300</div>
+            data-copy="oklch(0.860 0.014 70)">300</div>
           <div class="swatch-row-cell" style="background:var(--primitive-neutral-400);color:var(--primitive-neutral-0)"
-            data-copy="oklch(0.755 0.010 90)">400</div>
+            data-copy="oklch(0.750 0.014 70)">400</div>
           <div class="swatch-row-cell" style="background:var(--primitive-neutral-500);color:var(--primitive-neutral-0)"
-            data-copy="oklch(0.610 0.012 90)">500</div>
+            data-copy="oklch(0.600 0.012 70)">500</div>
           <div class="swatch-row-cell" style="background:var(--primitive-neutral-600);color:var(--primitive-neutral-0)"
-            data-copy="oklch(0.490 0.010 90)">600</div>
+            data-copy="oklch(0.480 0.010 70)">600</div>
           <div class="swatch-row-cell" style="background:var(--primitive-neutral-700);color:var(--primitive-neutral-0)"
-            data-copy="oklch(0.360 0.010 90)">700</div>
+            data-copy="oklch(0.350 0.010 70)">700</div>
           <div class="swatch-row-cell" style="background:var(--primitive-neutral-800);color:var(--primitive-neutral-0)"
-            data-copy="oklch(0.240 0.008 90)">800</div>
+            data-copy="oklch(0.250 0.012 60)">800</div>
           <div class="swatch-row-cell" style="background:var(--primitive-neutral-900);color:var(--primitive-neutral-0)"
-            data-copy="oklch(0.170 0.007 90)">900</div>
+            data-copy="oklch(0.180 0.012 60)">900</div>
           <div class="swatch-row-cell" style="background:var(--primitive-neutral-950);color:var(--primitive-neutral-0)"
-            data-copy="oklch(0.135 0.008 90)">950</div>
+            data-copy="oklch(0.140 0.012 60)">950</div>
         </div>
       </div>
 
@@ -3335,154 +3503,192 @@
         <div class="subsection-label">Accent Families</div>
         <div class="grid-4" style="margin-bottom:var(--space-6)">
           <div>
-            <div class="subsection-label" style="margin-bottom:var(--space-2)">Blue — Actions (260°)</div>
-            <div class="swatch" data-copy="oklch(0.920 0.045 260)">
-              <div class="swatch-color" style="background:var(--primitive-blue-100)"></div>
+            <div class="subsection-label" style="margin-bottom:var(--space-2)">Pink — Actions (350°)</div>
+            <div class="swatch" data-copy="oklch(0.920 0.060 350)">
+              <div class="swatch-color" style="background:var(--primitive-pink-100)"></div>
               <div class="swatch-info">
-                <div class="swatch-name">blue-100</div>
-                <div class="swatch-val">oklch(0.920 0.045 260)</div>
+                <div class="swatch-name">pink-100</div>
+                <div class="swatch-val">oklch(0.920 0.060 350)</div>
               </div>
             </div>
-            <div class="swatch" style="margin-top:var(--space-2)" data-copy="oklch(0.830 0.100 260)">
-              <div class="swatch-color" style="background:var(--primitive-blue-200)"></div>
+            <div class="swatch" style="margin-top:var(--space-2)" data-copy="oklch(0.840 0.140 350)">
+              <div class="swatch-color" style="background:var(--primitive-pink-200)"></div>
               <div class="swatch-info">
-                <div class="swatch-name">blue-200</div>
-                <div class="swatch-val">oklch(0.830 0.100 260)</div>
+                <div class="swatch-name">pink-200</div>
+                <div class="swatch-val">oklch(0.840 0.140 350)</div>
               </div>
             </div>
-            <div class="swatch" style="margin-top:var(--space-2)" data-copy="oklch(0.720 0.160 260)">
-              <div class="swatch-color" style="background:var(--primitive-blue-300)"></div>
+            <div class="swatch" style="margin-top:var(--space-2)" data-copy="oklch(0.720 0.220 350)">
+              <div class="swatch-color" style="background:var(--primitive-pink-300)"></div>
               <div class="swatch-info">
-                <div class="swatch-name">blue-300</div>
-                <div class="swatch-val">oklch(0.720 0.160 260)</div>
+                <div class="swatch-name">pink-300</div>
+                <div class="swatch-val">oklch(0.720 0.220 350)</div>
               </div>
             </div>
-            <div class="swatch" style="margin-top:var(--space-2)" data-copy="oklch(0.630 0.200 260)">
-              <div class="swatch-color" style="background:var(--primitive-blue-400)"></div>
+            <div class="swatch" style="margin-top:var(--space-2)" data-copy="oklch(0.640 0.270 350)">
+              <div class="swatch-color" style="background:var(--primitive-pink-400)"></div>
               <div class="swatch-info">
-                <div class="swatch-name">blue-400</div>
-                <div class="swatch-val">oklch(0.630 0.200 260)</div>
+                <div class="swatch-name">pink-400</div>
+                <div class="swatch-val">oklch(0.640 0.270 350)</div>
               </div>
             </div>
-            <div class="swatch" style="margin-top:var(--space-2)" data-copy="oklch(0.550 0.220 260)">
-              <div class="swatch-color" style="background:var(--primitive-blue-500)"></div>
+            <div class="swatch" style="margin-top:var(--space-2)" data-copy="oklch(0.560 0.280 350)">
+              <div class="swatch-color" style="background:var(--primitive-pink-500)"></div>
               <div class="swatch-info">
-                <div class="swatch-name">blue-500</div>
-                <div class="swatch-val">oklch(0.550 0.220 260)</div>
+                <div class="swatch-name">pink-500</div>
+                <div class="swatch-val">oklch(0.560 0.280 350)</div>
               </div>
             </div>
           </div>
           <div>
-            <div class="subsection-label" style="margin-bottom:var(--space-2)">Red — Emphasis (25°)</div>
-            <div class="swatch" data-copy="oklch(0.920 0.045 25)">
+            <div class="subsection-label" style="margin-bottom:var(--space-2)">Red — Emphasis (20°)</div>
+            <div class="swatch" data-copy="oklch(0.930 0.050 20)">
               <div class="swatch-color" style="background:var(--primitive-red-100)"></div>
               <div class="swatch-info">
                 <div class="swatch-name">red-100</div>
-                <div class="swatch-val">oklch(0.920 0.045 25)</div>
+                <div class="swatch-val">oklch(0.930 0.050 20)</div>
               </div>
             </div>
-            <div class="swatch" style="margin-top:var(--space-2)" data-copy="oklch(0.830 0.100 25)">
+            <div class="swatch" style="margin-top:var(--space-2)" data-copy="oklch(0.850 0.110 20)">
               <div class="swatch-color" style="background:var(--primitive-red-200)"></div>
               <div class="swatch-info">
                 <div class="swatch-name">red-200</div>
-                <div class="swatch-val">oklch(0.830 0.100 25)</div>
+                <div class="swatch-val">oklch(0.850 0.110 20)</div>
               </div>
             </div>
-            <div class="swatch" style="margin-top:var(--space-2)" data-copy="oklch(0.720 0.160 25)">
+            <div class="swatch" style="margin-top:var(--space-2)" data-copy="oklch(0.720 0.180 20)">
               <div class="swatch-color" style="background:var(--primitive-red-300)"></div>
               <div class="swatch-info">
                 <div class="swatch-name">red-300</div>
-                <div class="swatch-val">oklch(0.720 0.160 25)</div>
+                <div class="swatch-val">oklch(0.720 0.180 20)</div>
               </div>
             </div>
-            <div class="swatch" style="margin-top:var(--space-2)" data-copy="oklch(0.630 0.200 25)">
+            <div class="swatch" style="margin-top:var(--space-2)" data-copy="oklch(0.620 0.220 20)">
               <div class="swatch-color" style="background:var(--primitive-red-400)"></div>
               <div class="swatch-info">
                 <div class="swatch-name">red-400</div>
-                <div class="swatch-val">oklch(0.630 0.200 25)</div>
+                <div class="swatch-val">oklch(0.620 0.220 20)</div>
               </div>
             </div>
-            <div class="swatch" style="margin-top:var(--space-2)" data-copy="oklch(0.550 0.220 25)">
+            <div class="swatch" style="margin-top:var(--space-2)" data-copy="oklch(0.540 0.230 20)">
               <div class="swatch-color" style="background:var(--primitive-red-500)"></div>
               <div class="swatch-info">
                 <div class="swatch-name">red-500</div>
-                <div class="swatch-val">oklch(0.550 0.220 25)</div>
+                <div class="swatch-val">oklch(0.540 0.230 20)</div>
               </div>
             </div>
           </div>
           <div>
-            <div class="subsection-label" style="margin-bottom:var(--space-2)">Yellow — Highlight (90°)</div>
-            <div class="swatch" data-copy="oklch(0.960 0.050 90)">
-              <div class="swatch-color" style="background:var(--primitive-yellow-100)"></div>
+            <div class="subsection-label" style="margin-bottom:var(--space-2)">Gold — Highlight (80°)</div>
+            <div class="swatch" data-copy="oklch(0.960 0.050 85)">
+              <div class="swatch-color" style="background:var(--primitive-gold-100)"></div>
               <div class="swatch-info">
-                <div class="swatch-name">yellow-100</div>
-                <div class="swatch-val">oklch(0.960 0.050 90)</div>
+                <div class="swatch-name">gold-100</div>
+                <div class="swatch-val">oklch(0.960 0.050 85)</div>
               </div>
             </div>
-            <div class="swatch" style="margin-top:var(--space-2)" data-copy="oklch(0.930 0.100 90)">
-              <div class="swatch-color" style="background:var(--primitive-yellow-200)"></div>
+            <div class="swatch" style="margin-top:var(--space-2)" data-copy="oklch(0.920 0.110 85)">
+              <div class="swatch-color" style="background:var(--primitive-gold-200)"></div>
               <div class="swatch-info">
-                <div class="swatch-name">yellow-200</div>
-                <div class="swatch-val">oklch(0.930 0.100 90)</div>
+                <div class="swatch-name">gold-200</div>
+                <div class="swatch-val">oklch(0.920 0.110 85)</div>
               </div>
             </div>
-            <div class="swatch" style="margin-top:var(--space-2)" data-copy="oklch(0.900 0.140 90)">
-              <div class="swatch-color" style="background:var(--primitive-yellow-300)"></div>
+            <div class="swatch" style="margin-top:var(--space-2)" data-copy="oklch(0.870 0.160 85)">
+              <div class="swatch-color" style="background:var(--primitive-gold-300)"></div>
               <div class="swatch-info">
-                <div class="swatch-name">yellow-300</div>
-                <div class="swatch-val">oklch(0.900 0.140 90)</div>
+                <div class="swatch-name">gold-300</div>
+                <div class="swatch-val">oklch(0.870 0.160 85)</div>
               </div>
             </div>
-            <div class="swatch" style="margin-top:var(--space-2)" data-copy="oklch(0.870 0.160 90)">
-              <div class="swatch-color" style="background:var(--primitive-yellow-400)"></div>
+            <div class="swatch" style="margin-top:var(--space-2)" data-copy="oklch(0.830 0.180 80)">
+              <div class="swatch-color" style="background:var(--primitive-gold-400)"></div>
               <div class="swatch-info">
-                <div class="swatch-name">yellow-400</div>
-                <div class="swatch-val">oklch(0.870 0.160 90)</div>
+                <div class="swatch-name">gold-400</div>
+                <div class="swatch-val">oklch(0.830 0.180 80)</div>
               </div>
             </div>
-            <div class="swatch" style="margin-top:var(--space-2)" data-copy="oklch(0.850 0.180 90)">
-              <div class="swatch-color" style="background:var(--primitive-yellow-500)"></div>
+            <div class="swatch" style="margin-top:var(--space-2)" data-copy="oklch(0.780 0.180 78)">
+              <div class="swatch-color" style="background:var(--primitive-gold-500)"></div>
               <div class="swatch-info">
-                <div class="swatch-name">yellow-500</div>
-                <div class="swatch-val">oklch(0.850 0.180 90)</div>
+                <div class="swatch-name">gold-500</div>
+                <div class="swatch-val">oklch(0.780 0.180 78)</div>
               </div>
             </div>
           </div>
           <div>
-            <div class="subsection-label" style="margin-bottom:var(--space-2)">Green — Success (155°)</div>
-            <div class="swatch" data-copy="oklch(0.920 0.045 155)">
+            <div class="subsection-label" style="margin-bottom:var(--space-2)">Cyan — Brand Accent (210°)</div>
+            <div class="swatch" data-copy="oklch(0.930 0.038 210)">
+              <div class="swatch-color" style="background:var(--primitive-cyan-100)"></div>
+              <div class="swatch-info">
+                <div class="swatch-name">cyan-100</div>
+                <div class="swatch-val">oklch(0.930 0.038 210)</div>
+              </div>
+            </div>
+            <div class="swatch" style="margin-top:var(--space-2)" data-copy="oklch(0.850 0.085 210)">
+              <div class="swatch-color" style="background:var(--primitive-cyan-200)"></div>
+              <div class="swatch-info">
+                <div class="swatch-name">cyan-200</div>
+                <div class="swatch-val">oklch(0.850 0.085 210)</div>
+              </div>
+            </div>
+            <div class="swatch" style="margin-top:var(--space-2)" data-copy="oklch(0.740 0.125 210)">
+              <div class="swatch-color" style="background:var(--primitive-cyan-300)"></div>
+              <div class="swatch-info">
+                <div class="swatch-name">cyan-300</div>
+                <div class="swatch-val">oklch(0.740 0.125 210)</div>
+              </div>
+            </div>
+            <div class="swatch" style="margin-top:var(--space-2)" data-copy="oklch(0.650 0.148 210)">
+              <div class="swatch-color" style="background:var(--primitive-cyan-400)"></div>
+              <div class="swatch-info">
+                <div class="swatch-name">cyan-400</div>
+                <div class="swatch-val">oklch(0.650 0.148 210)</div>
+              </div>
+            </div>
+            <div class="swatch" style="margin-top:var(--space-2)" data-copy="oklch(0.570 0.155 210)">
+              <div class="swatch-color" style="background:var(--primitive-cyan-500)"></div>
+              <div class="swatch-info">
+                <div class="swatch-name">cyan-500</div>
+                <div class="swatch-val">oklch(0.570 0.155 210)</div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="subsection-label" style="margin-bottom:var(--space-2)">Green — Success (148°)</div>
+            <div class="swatch" data-copy="oklch(0.930 0.042 148)">
               <div class="swatch-color" style="background:var(--primitive-green-100)"></div>
               <div class="swatch-info">
                 <div class="swatch-name">green-100</div>
-                <div class="swatch-val">oklch(0.920 0.045 155)</div>
+                <div class="swatch-val">oklch(0.930 0.042 148)</div>
               </div>
             </div>
-            <div class="swatch" style="margin-top:var(--space-2)" data-copy="oklch(0.830 0.100 155)">
+            <div class="swatch" style="margin-top:var(--space-2)" data-copy="oklch(0.840 0.095 148)">
               <div class="swatch-color" style="background:var(--primitive-green-200)"></div>
               <div class="swatch-info">
                 <div class="swatch-name">green-200</div>
-                <div class="swatch-val">oklch(0.830 0.100 155)</div>
+                <div class="swatch-val">oklch(0.840 0.095 148)</div>
               </div>
             </div>
-            <div class="swatch" style="margin-top:var(--space-2)" data-copy="oklch(0.720 0.150 155)">
+            <div class="swatch" style="margin-top:var(--space-2)" data-copy="oklch(0.730 0.145 148)">
               <div class="swatch-color" style="background:var(--primitive-green-300)"></div>
               <div class="swatch-info">
                 <div class="swatch-name">green-300</div>
-                <div class="swatch-val">oklch(0.720 0.150 155)</div>
+                <div class="swatch-val">oklch(0.730 0.145 148)</div>
               </div>
             </div>
-            <div class="swatch" style="margin-top:var(--space-2)" data-copy="oklch(0.650 0.175 155)">
+            <div class="swatch" style="margin-top:var(--space-2)" data-copy="oklch(0.630 0.170 148)">
               <div class="swatch-color" style="background:var(--primitive-green-400)"></div>
               <div class="swatch-info">
                 <div class="swatch-name">green-400</div>
-                <div class="swatch-val">oklch(0.650 0.175 155)</div>
+                <div class="swatch-val">oklch(0.630 0.170 148)</div>
               </div>
             </div>
-            <div class="swatch" style="margin-top:var(--space-2)" data-copy="oklch(0.580 0.180 155)">
+            <div class="swatch" style="margin-top:var(--space-2)" data-copy="oklch(0.540 0.165 148)">
               <div class="swatch-color" style="background:var(--primitive-green-500)"></div>
               <div class="swatch-info">
                 <div class="swatch-name">green-500</div>
-                <div class="swatch-val">oklch(0.580 0.180 155)</div>
+                <div class="swatch-val">oklch(0.540 0.165 148)</div>
               </div>
             </div>
           </div>
@@ -3526,7 +3732,7 @@
                       </svg></span></label></td>
                 <td class="mono">--bg-page</td>
                 <td class="mono">neutral-25</td>
-                <td class="mono">0.135 0.010 90</td>
+                <td class="mono">0.140 0.012 60</td>
                 <td>Page background</td>
               </tr>
               <tr onclick="toggleRow(this)">
@@ -3536,7 +3742,7 @@
                       </svg></span></label></td>
                 <td class="mono">--bg-surface</td>
                 <td class="mono">neutral-0</td>
-                <td class="mono">0.160 0.012 90</td>
+                <td class="mono">0.165 0.014 60</td>
                 <td>Cards, panels</td>
               </tr>
               <tr onclick="toggleRow(this)">
@@ -3546,7 +3752,7 @@
                       </svg></span></label></td>
                 <td class="mono">--text-primary</td>
                 <td class="mono">neutral-900</td>
-                <td class="mono">0.935 0.005 90</td>
+                <td class="mono">0.940 0.008 70</td>
                 <td>Body text</td>
               </tr>
               <tr onclick="toggleRow(this)">
@@ -3556,7 +3762,7 @@
                       </svg></span></label></td>
                 <td class="mono">--text-secondary</td>
                 <td class="mono">neutral-600</td>
-                <td class="mono">0.690 0.010 90</td>
+                <td class="mono">0.700 0.010 70</td>
                 <td>Reduced emphasis</td>
               </tr>
               <tr onclick="toggleRow(this)">
@@ -3564,9 +3770,9 @@
                         fill="none" stroke="currentColor" stroke-width="3">
                         <polyline points="20 6 9 17 4 12" />
                       </svg></span></label></td>
-                <td class="mono">--accent-blue</td>
-                <td class="mono">blue-500</td>
-                <td class="mono">0.670 0.200 260</td>
+                <td class="mono">--accent-primary</td>
+                <td class="mono">pink-400</td>
+                <td class="mono">0.700 0.220 350</td>
                 <td>Primary actions</td>
               </tr>
               <tr onclick="toggleRow(this)">
@@ -3574,9 +3780,9 @@
                         fill="none" stroke="currentColor" stroke-width="3">
                         <polyline points="20 6 9 17 4 12" />
                       </svg></span></label></td>
-                <td class="mono">--accent-red</td>
-                <td class="mono">red-500</td>
-                <td class="mono">0.620 0.210 25</td>
+                <td class="mono">--accent-danger</td>
+                <td class="mono">red-400</td>
+                <td class="mono">0.680 0.190 20</td>
                 <td>Danger / emphasis</td>
               </tr>
               <tr onclick="toggleRow(this)">
@@ -3584,9 +3790,9 @@
                         fill="none" stroke="currentColor" stroke-width="3">
                         <polyline points="20 6 9 17 4 12" />
                       </svg></span></label></td>
-                <td class="mono">--accent-yellow</td>
-                <td class="mono">yellow-500</td>
-                <td class="mono">0.810 0.160 85</td>
+                <td class="mono">--accent-gold</td>
+                <td class="mono">gold-400</td>
+                <td class="mono">0.810 0.160 80</td>
                 <td>Highlights / warnings</td>
               </tr>
               <tr onclick="toggleRow(this)">
@@ -3594,10 +3800,20 @@
                         fill="none" stroke="currentColor" stroke-width="3">
                         <polyline points="20 6 9 17 4 12" />
                       </svg></span></label></td>
+                <td class="mono">--accent-cyan</td>
+                <td class="mono">cyan-400</td>
+                <td class="mono">0.720 0.140 210</td>
+                <td>Tertiary brand / cool accent</td>
+              </tr>
+              <tr onclick="toggleRow(this)">
+                <td><label class="check-group"><span class="check-box"><svg width="12" height="12" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="3">
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg></span></label></td>
                 <td class="mono">--accent-green</td>
-                <td class="mono">green-500</td>
-                <td class="mono">0.680 0.170 155</td>
-                <td>Success / positive</td>
+                <td class="mono">green-400</td>
+                <td class="mono">0.680 0.155 148</td>
+                <td>Success / positive / safe</td>
               </tr>
               <tr onclick="toggleRow(this)">
                 <td><label class="check-group"><span class="check-box"><svg width="12" height="12" viewBox="0 0 24 24"
@@ -3606,7 +3822,7 @@
                       </svg></span></label></td>
                 <td class="mono">--text-muted</td>
                 <td class="mono">neutral-500</td>
-                <td class="mono">0.540 0.010 90</td>
+                <td class="mono">0.560 0.012 70</td>
                 <td>Placeholder, hints</td>
               </tr>
               <tr onclick="toggleRow(this)">
@@ -3616,7 +3832,7 @@
                       </svg></span></label></td>
                 <td class="mono">--bg-elevated</td>
                 <td class="mono">neutral-0</td>
-                <td class="mono">0.185 0.012 90</td>
+                <td class="mono">0.185 0.014 60</td>
                 <td>Dropdowns, popovers</td>
               </tr>
               <tr onclick="toggleRow(this)">
@@ -3671,15 +3887,15 @@
               <option value="var(--bg-page)">--bg-page</option>
               <option value="var(--bg-surface)">--bg-surface</option>
               <option value="var(--bg-subtle)">--bg-subtle</option>
-              <option value="var(--accent-blue)">--accent-blue</option>
-              <option value="var(--accent-red)">--accent-red</option>
+              <option value="var(--accent-primary)">--accent-primary</option>
+              <option value="var(--accent-danger)">--accent-danger</option>
             </select></label>
           <label>Foreground<select id="cc-fg">
               <option value="var(--text-primary)">--text-primary</option>
               <option value="var(--text-secondary)">--text-secondary</option>
               <option value="var(--text-muted)">--text-muted</option>
               <option value="var(--text-on-accent)">--text-on-accent</option>
-              <option value="var(--accent-blue-text)">--accent-blue-text</option>
+              <option value="var(--accent-primary-text)">--accent-primary-text</option>
             </select></label>
           <div class="contrast-preview" id="cc-preview" style="background:var(--bg-page);color:var(--text-primary)">
             Sample Text</div>
@@ -3693,8 +3909,8 @@
      ======================================================================== -->
     <section id="typography" class="ds-section scroll-reveal">
       <div class="section-header">
-        <div class="section-overline overline-yellow"><span class="status-dot"
-            style="background:var(--accent-yellow)"></span> 03 — Typography</div>
+        <div class="section-overline overline-cyan"><span class="status-dot"
+            style="background:var(--accent-cyan)"></span> 03 — Typography</div>
         <h2 class="section-title">Fluid type scale</h2>
         <p class="section-desc">Minor Third (1.2) ratio with clamp()-based fluid sizing. Inter variable for body,
           JetBrains Mono for code. Two fonts, infinite flexibility.</p>
@@ -3748,7 +3964,7 @@
       <div class="subsection">
         <div class="subsection-label">Inter Variable — Weight Showcase (100–900)</div>
         <div
-          style="display:flex;flex-direction:column;gap:var(--space-3);padding:var(--space-6);background:var(--bg-surface);border:1px solid var(--border-default);border-radius:var(--radius-lg);margin-bottom:var(--space-8)">
+          style="display:flex;flex-direction:column;gap:var(--space-3);padding:var(--space-6);background:var(--bg-surface);border:2px solid var(--border-default);border-radius:var(--radius-lg);margin-bottom:var(--space-8)">
           <div style="display:flex;align-items:baseline;gap:var(--space-4)"><span class="state-label"
               style="width:50px">100</span><span style="font-weight:100;font-size:var(--step-1)">Thin — The lightest
               expression of a thought</span></div>
@@ -3787,14 +4003,12 @@
 
       <div class="subsection">
         <div class="subsection-label">Monospace — JetBrains Mono</div>
-        <div
-          style="padding:var(--space-6);background:var(--bg-subtle);border-radius:var(--radius-md);font-family:var(--font-mono);font-size:0.9375rem;line-height:1.7">
-          <span style="color:var(--accent-blue-text)">const</span> tokens = {<br>
-          &nbsp;&nbsp;bg: <span style="color:var(--accent-red-text)">'oklch(0.988 0.004 90)'</span>,<br>
-          &nbsp;&nbsp;text: <span style="color:var(--accent-red-text)">'oklch(0.170 0.007 90)'</span>,<br>
-          &nbsp;&nbsp;accent: <span style="color:var(--accent-red-text)">'oklch(0.550 0.220 260)'</span>,<br>
-          }; <span style="color:var(--text-muted);font-style:italic">// warm minimalism</span>
-        </div>
+        <div class="code-block" style="padding:var(--space-6);font-size:0.9375rem;line-height:1.7">
+<span class="keyword">const</span> tokens = {
+  bg: <span class="string">'oklch(0.982 0.008 70)'</span>,
+  text: <span class="string">'oklch(0.200 0.015 60)'</span>,
+  accent: <span class="string">'oklch(0.640 0.270 350)'</span>,
+}; <span class="comment">// warm boldness</span></div>
       </div>
 
       <div class="subsection">
@@ -3829,10 +4043,10 @@
           <div class="card">
             <div class="card-title">Typewriter</div>
             <div
-              style="padding:var(--space-4);background:var(--bg-subtle);border-radius:var(--radius-sm);font-family:var(--font-mono);font-size:0.9375rem;color:var(--accent-blue-text);overflow:hidden;margin-top:var(--space-3)">
+              style="padding:var(--space-4);background:var(--bg-subtle);border-radius:var(--radius-sm);font-family:var(--font-mono);font-size:0.9375rem;color:var(--accent-primary-text);overflow:hidden;margin-top:var(--space-3)">
               <span class="typewriter-text"
-                style="display:inline-block;overflow:hidden;white-space:nowrap;border-right:2px solid var(--accent-blue);width:0;animation:typing 2s steps(28) 0.5s forwards, blink 0.6s step-end infinite">--accent-blue:
-                oklch(0.55 0.22 260);</span>
+                style="display:inline-block;overflow:hidden;white-space:nowrap;border-right:2px solid var(--accent-primary);width:0;animation:typing 2s steps(28) 0.5s forwards, blink 0.6s step-end infinite">--accent-primary:
+                oklch(0.64 0.27 350);</span>
             </div>
           </div>
           <div class="card">
@@ -3851,8 +4065,8 @@
      ======================================================================== -->
     <section id="spacing" class="ds-section scroll-reveal">
       <div class="section-header">
-        <div class="section-overline overline-green"><span class="status-dot"
-            style="background:var(--accent-green)"></span> 04 — Spacing & Layout</div>
+        <div class="section-overline overline-pink"><span class="status-dot"
+            style="background:var(--accent-primary)"></span> 04 — Spacing & Layout</div>
         <h2 class="section-title">8px grid system</h2>
         <p class="section-desc">Base grid of 8px with 4px sub-grid for fine adjustments. Spacing scale from 4px to 80px.
         </p>
@@ -3863,47 +4077,47 @@
         <div style="display:flex;flex-direction:column;gap:var(--space-3)">
           <div style="display:flex;align-items:center;gap:var(--space-4)"><span class="state-label"
               style="width:60px">4px</span>
-            <div class="duration-bar" style="width:4px;background:var(--accent-blue)"></div><span
+            <div class="duration-bar" style="width:4px;background:var(--accent-primary)"></div><span
               class="state-label">--space-1</span>
           </div>
           <div style="display:flex;align-items:center;gap:var(--space-4)"><span class="state-label"
               style="width:60px">8px</span>
-            <div class="duration-bar" style="width:8px;background:var(--accent-blue)"></div><span
+            <div class="duration-bar" style="width:8px;background:var(--accent-gold)"></div><span
               class="state-label">--space-2</span>
           </div>
           <div style="display:flex;align-items:center;gap:var(--space-4)"><span class="state-label"
               style="width:60px">12px</span>
-            <div class="duration-bar" style="width:12px;background:var(--accent-blue)"></div><span
+            <div class="duration-bar" style="width:12px;background:var(--accent-cyan)"></div><span
               class="state-label">--space-3</span>
           </div>
           <div style="display:flex;align-items:center;gap:var(--space-4)"><span class="state-label"
               style="width:60px">16px</span>
-            <div class="duration-bar" style="width:16px;background:var(--accent-blue)"></div><span
+            <div class="duration-bar" style="width:16px;background:var(--accent-primary)"></div><span
               class="state-label">--space-4</span>
           </div>
           <div style="display:flex;align-items:center;gap:var(--space-4)"><span class="state-label"
               style="width:60px">24px</span>
-            <div class="duration-bar" style="width:24px;background:var(--accent-blue)"></div><span
+            <div class="duration-bar" style="width:24px;background:var(--accent-gold)"></div><span
               class="state-label">--space-6</span>
           </div>
           <div style="display:flex;align-items:center;gap:var(--space-4)"><span class="state-label"
               style="width:60px">32px</span>
-            <div class="duration-bar" style="width:32px;background:var(--accent-blue)"></div><span
+            <div class="duration-bar" style="width:32px;background:var(--accent-cyan)"></div><span
               class="state-label">--space-8</span>
           </div>
           <div style="display:flex;align-items:center;gap:var(--space-4)"><span class="state-label"
               style="width:60px">48px</span>
-            <div class="duration-bar" style="width:48px;background:var(--accent-blue)"></div><span
+            <div class="duration-bar" style="width:48px;background:var(--accent-primary)"></div><span
               class="state-label">--space-12</span>
           </div>
           <div style="display:flex;align-items:center;gap:var(--space-4)"><span class="state-label"
               style="width:60px">64px</span>
-            <div class="duration-bar" style="width:64px;background:var(--accent-blue)"></div><span
+            <div class="duration-bar" style="width:64px;background:var(--accent-gold)"></div><span
               class="state-label">--space-16</span>
           </div>
           <div style="display:flex;align-items:center;gap:var(--space-4)"><span class="state-label"
               style="width:60px">80px</span>
-            <div class="duration-bar" style="width:80px;background:var(--accent-blue)"></div><span
+            <div class="duration-bar" style="width:80px;background:var(--accent-cyan)"></div><span
               class="state-label">--space-20</span>
           </div>
         </div>
@@ -3914,31 +4128,31 @@
         <div class="flex-wrap-gap" style="gap:var(--space-6)">
           <div style="text-align:center">
             <div
-              style="width:64px;height:64px;background:var(--accent-blue-subtle);border:1px solid var(--accent-blue);border-radius:6px">
+              style="width:64px;height:64px;background:var(--accent-primary-subtle);border:2px solid var(--accent-primary);border-radius:6px">
             </div>
             <div class="state-label" style="margin-top:var(--space-2)">6px · sm</div>
           </div>
           <div style="text-align:center">
             <div
-              style="width:64px;height:64px;background:var(--accent-blue-subtle);border:1px solid var(--accent-blue);border-radius:10px">
+              style="width:64px;height:64px;background:var(--accent-gold-subtle);border:2px solid var(--accent-gold);border-radius:10px">
             </div>
             <div class="state-label" style="margin-top:var(--space-2)">10px · md</div>
           </div>
           <div style="text-align:center">
             <div
-              style="width:64px;height:64px;background:var(--accent-blue-subtle);border:1px solid var(--accent-blue);border-radius:12px">
+              style="width:64px;height:64px;background:var(--accent-cyan-subtle);border:2px solid var(--accent-cyan);border-radius:12px">
             </div>
             <div class="state-label" style="margin-top:var(--space-2)">12px · lg</div>
           </div>
           <div style="text-align:center">
             <div
-              style="width:64px;height:64px;background:var(--accent-blue-subtle);border:1px solid var(--accent-blue);border-radius:16px">
+              style="width:64px;height:64px;background:var(--accent-primary-subtle);border:2px solid var(--accent-primary);border-radius:16px">
             </div>
             <div class="state-label" style="margin-top:var(--space-2)">16px · xl</div>
           </div>
           <div style="text-align:center">
             <div
-              style="width:64px;height:64px;background:var(--accent-blue-subtle);border:1px solid var(--accent-blue);border-radius:9999px">
+              style="width:64px;height:64px;background:var(--accent-gold-subtle);border:2px solid var(--accent-gold);border-radius:9999px">
             </div>
             <div class="state-label" style="margin-top:var(--space-2)">full</div>
           </div>
@@ -3951,13 +4165,13 @@
           elements nest inside each other.</div>
         <div class="grid-2" style="margin-bottom:var(--space-8)">
           <div
-            style="padding:var(--space-6);background:var(--bg-surface);border:1px solid var(--border-default);border-radius:var(--radius-lg)">
-            <div class="state-label" style="margin-bottom:var(--space-3);color:var(--accent-green-text)">Correct —
+            style="padding:var(--space-6);background:var(--bg-surface);border:2px solid var(--border-default);border-radius:var(--radius-lg)">
+            <div class="state-label" style="margin-bottom:var(--space-3);color:var(--accent-cyan-text)">Correct —
               Concentric radii</div>
             <div
-              style="background:var(--accent-blue-subtle);border:2px solid var(--accent-blue);border-radius:16px;padding:8px">
+              style="background:var(--accent-primary-subtle);border:2px solid var(--accent-primary);border-radius:16px;padding:8px">
               <div
-                style="background:var(--bg-surface);border:1px solid var(--border-default);border-radius:8px;padding:var(--space-4);text-align:center">
+                style="background:var(--bg-surface);border:2px solid var(--border-default);border-radius:8px;padding:var(--space-4);text-align:center">
                 <span style="font-size:0.8125rem;font-weight:550">Inner: 8px = 16px − 8px</span>
               </div>
             </div>
@@ -3966,13 +4180,13 @@
               outer: 16px, padding: 8px, inner: 8px</div>
           </div>
           <div
-            style="padding:var(--space-6);background:var(--bg-surface);border:1px solid var(--border-default);border-radius:var(--radius-lg)">
-            <div class="state-label" style="margin-bottom:var(--space-3);color:var(--accent-red-text)">Incorrect —
+            style="padding:var(--space-6);background:var(--bg-surface);border:2px solid var(--border-default);border-radius:var(--radius-lg)">
+            <div class="state-label" style="margin-bottom:var(--space-3);color:var(--accent-danger-text)">Incorrect —
               Matching radii</div>
             <div
-              style="background:var(--accent-red-subtle);border:2px solid var(--accent-red);border-radius:16px;padding:8px">
+              style="background:var(--accent-danger-subtle);border:2px solid var(--accent-danger);border-radius:16px;padding:8px">
               <div
-                style="background:var(--bg-surface);border:1px solid var(--border-default);border-radius:16px;padding:var(--space-4);text-align:center">
+                style="background:var(--bg-surface);border:2px solid var(--border-default);border-radius:16px;padding:var(--space-4);text-align:center">
                 <span style="font-size:0.8125rem;font-weight:550">Inner: 16px (too round)</span>
               </div>
             </div>
@@ -4024,8 +4238,8 @@
      ======================================================================== -->
     <section id="components" class="ds-section scroll-reveal">
       <div class="section-header">
-        <div class="section-overline overline-blue"><span class="status-dot"
-            style="background:var(--accent-blue)"></span> 05 — Components</div>
+        <div class="section-overline overline-gold"><span class="status-dot"
+            style="background:var(--accent-gold)"></span> 05 — Components</div>
         <h2 class="section-title">Interactive building blocks</h2>
         <p class="section-desc">Every component starts from shadcn/ui primitives. Five button variants, full form
           elements, cards, tables, badges, and navigation — all with live micro-interactions.</p>
@@ -4038,7 +4252,9 @@
         <div class="btn-row" style="margin-bottom:var(--space-6)">
           <button class="btn btn-md btn-primary btn-bounce">Primary</button>
           <button class="btn btn-md btn-danger btn-bounce">Danger</button>
-          <button class="btn btn-md btn-highlight btn-bounce">Highlight</button>
+          <button class="btn btn-md btn-gold btn-bounce">Highlight</button>
+          <button class="btn btn-md btn-cyan btn-bounce">Cyan</button>
+          <button class="btn btn-md btn-green btn-bounce">Success</button>
           <button class="btn btn-md btn-secondary btn-bounce">Secondary</button>
           <button class="btn btn-md btn-ghost btn-bounce">Ghost</button>
         </div>
@@ -4122,7 +4338,7 @@
                 </svg></span></div>
           </div>
           <div class="form-group"><label class="form-label">Description</label><textarea class="textarea"
-              rows="3">A design system built with warm minimalism and surgical precision.</textarea></div>
+              rows="3">A design system built with warm boldness and confident color.</textarea></div>
         </div>
         <div style="display:flex;gap:var(--space-8);flex-wrap:wrap;margin-top:var(--space-6);align-items:center">
           <label class="check-group" onclick="this.querySelector('.check-box').classList.toggle('checked')"><span
@@ -4161,7 +4377,7 @@
             <div class="card-desc">Production-ready building blocks built on shadcn/ui with Radix primitives.</div>
             <div class="card-meta">24 components · v2.1</div>
           </div>
-          <div class="card card-featured card-featured-green card-interactive">
+          <div class="card card-featured card-featured-cyan card-interactive">
             <div class="card-title">Animation System</div>
             <div class="card-desc">Spring-based motion, scroll-driven effects, and signature interactions.</div>
             <div class="card-meta">10 prototypes · Stable</div>
@@ -4240,7 +4456,7 @@
                       </svg></span></label></td>
                 <td style="font-weight:550">Toast</td>
                 <td data-sort="2Beta"><span class="status-row"><span class="status-dot"
-                      style="background:var(--accent-blue)"></span> Beta</span></td>
+                      style="background:var(--accent-primary)"></span> Beta</span></td>
                 <td>4</td>
                 <td class="mono" data-sort="2026-02-22">Feb 22, 2026</td>
               </tr>
@@ -4251,7 +4467,7 @@
                       </svg></span></label></td>
                 <td style="font-weight:550">Drawer</td>
                 <td data-sort="3Draft"><span class="status-row"><span class="status-dot"
-                      style="background:var(--accent-yellow)"></span> Draft</span></td>
+                      style="background:var(--accent-gold)"></span> Draft</span></td>
                 <td>2</td>
                 <td class="mono" data-sort="2026-02-15">Feb 15, 2026</td>
               </tr>
@@ -4264,12 +4480,13 @@
       <div class="subsection">
         <div class="subsection-title">Badges</div>
         <div class="flex-wrap-gap">
-          <span class="badge badge-blue badge-pop">Production</span>
-          <span class="badge badge-red badge-pop">Breaking</span>
-          <span class="badge badge-yellow badge-pop">Draft</span>
+          <span class="badge badge-pink badge-pop">Production</span>
+          <span class="badge badge-gold badge-pop">Draft</span>
+          <span class="badge badge-cyan badge-pop">Active</span>
           <span class="badge badge-green badge-pop">Stable</span>
-          <span class="badge badge-blue badge-pop"><span class="status-dot"
-              style="background:var(--accent-blue);margin-right:2px"></span> Active</span>
+          <span class="badge badge-red badge-pop">Breaking</span>
+          <span class="badge badge-pink badge-pop"><span class="status-dot"
+              style="background:var(--accent-primary);margin-right:2px"></span> With Dot</span>
         </div>
       </div>
 
@@ -4328,8 +4545,8 @@
      ======================================================================== -->
     <section id="icons" class="ds-section scroll-reveal">
       <div class="section-header">
-        <div class="section-overline overline-red"><span class="status-dot" style="background:var(--accent-red)"></span>
-          06 — Iconography</div>
+        <div class="section-overline overline-cyan"><span class="status-dot"
+            style="background:var(--accent-cyan)"></span> 06 — Iconography</div>
         <h2 class="section-title">Lucide icon system</h2>
         <p class="section-desc">24px default, 1.5–2px stroke, never mix outline and filled. Below are representative
           icons from the Lucide library.</p>
@@ -4494,7 +4711,7 @@
         <div class="subsection-desc">Icons should vertically center with text. Use inline-flex with align-items:center
           for consistent alignment across sizes.</div>
         <div
-          style="display:flex;flex-direction:column;gap:var(--space-4);padding:var(--space-6);background:var(--bg-surface);border:1px solid var(--border-default);border-radius:var(--radius-lg)">
+          style="display:flex;flex-direction:column;gap:var(--space-4);padding:var(--space-6);background:var(--bg-surface);border:2px solid var(--border-default);border-radius:var(--radius-lg)">
           <div style="display:inline-flex;align-items:center;gap:var(--space-2);font-size:0.8125rem">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
               stroke-linecap="round">
@@ -4529,8 +4746,8 @@
      ======================================================================== -->
     <section id="dataviz" class="ds-section scroll-reveal">
       <div class="section-header">
-        <div class="section-overline overline-yellow"><span class="status-dot"
-            style="background:var(--accent-yellow)"></span> 07 — Data Visualization</div>
+        <div class="section-overline overline-pink"><span class="status-dot"
+            style="background:var(--accent-primary)"></span> 07 — Data Visualization</div>
         <h2 class="section-title">Charts, KPIs, and data patterns</h2>
         <p class="section-desc">Purposeful data visualization using the design system's color tokens. Charts animate on
           scroll entry.</p>
@@ -4540,19 +4757,19 @@
         <div class="subsection-label">KPI Cards</div>
         <div class="grid-3">
           <div class="kpi-card">
-            <div class="kpi-value" style="color:var(--accent-blue-text)">2,847</div>
+            <div class="kpi-value" style="color:var(--accent-primary-text)">2,847</div>
             <div class="kpi-label">Active Users</div>
             <div class="kpi-change kpi-up">+12.3% from last month</div>
           </div>
-          <div class="kpi-card" style="border-top-color:var(--accent-green)">
-            <div class="kpi-value" style="color:var(--accent-green-text)">94.2%</div>
+          <div class="kpi-card" style="border-top-color:var(--accent-gold)">
+            <div class="kpi-value" style="color:var(--accent-gold-text)">94.2%</div>
             <div class="kpi-label">Uptime</div>
             <div class="kpi-change kpi-up">+0.8% from last quarter</div>
           </div>
-          <div class="kpi-card" style="border-top-color:var(--accent-red)">
-            <div class="kpi-value" style="color:var(--accent-red-text)">23ms</div>
+          <div class="kpi-card" style="border-top-color:var(--accent-cyan)">
+            <div class="kpi-value" style="color:var(--accent-cyan-text)">23ms</div>
             <div class="kpi-label">Response Time</div>
-            <div class="kpi-change kpi-down">-4.2ms improvement</div>
+            <div class="kpi-change kpi-up">4.2ms faster</div>
           </div>
         </div>
       </div>
@@ -4563,27 +4780,27 @@
             <div class="chart-title">Revenue by Month</div>
             <div class="bar-chart" id="bar-chart">
               <div class="bar-col">
-                <div class="bar" style="height:55%;background:var(--accent-blue)"></div>
+                <div class="bar" style="height:55%;background:var(--accent-primary)"></div>
                 <div class="bar-label">Jan</div>
               </div>
               <div class="bar-col">
-                <div class="bar" style="height:72%;background:var(--accent-blue)"></div>
+                <div class="bar" style="height:72%;background:var(--accent-gold)"></div>
                 <div class="bar-label">Feb</div>
               </div>
               <div class="bar-col">
-                <div class="bar" style="height:61%;background:var(--accent-blue)"></div>
+                <div class="bar" style="height:61%;background:var(--accent-cyan)"></div>
                 <div class="bar-label">Mar</div>
               </div>
               <div class="bar-col">
-                <div class="bar" style="height:84%;background:var(--accent-blue)"></div>
+                <div class="bar" style="height:84%;background:var(--accent-primary)"></div>
                 <div class="bar-label">Apr</div>
               </div>
               <div class="bar-col">
-                <div class="bar" style="height:68%;background:var(--accent-blue)"></div>
+                <div class="bar" style="height:68%;background:var(--accent-gold)"></div>
                 <div class="bar-label">May</div>
               </div>
               <div class="bar-col">
-                <div class="bar" style="height:92%;background:var(--accent-blue)"></div>
+                <div class="bar" style="height:92%;background:var(--accent-cyan)"></div>
                 <div class="bar-label">Jun</div>
               </div>
             </div>
@@ -4593,13 +4810,13 @@
             <div style="display:flex;align-items:center;justify-content:center;padding:var(--space-6)">
               <svg width="160" height="160" viewBox="0 0 160 160">
                 <circle cx="80" cy="80" r="60" fill="none" stroke="var(--border-subtle)" stroke-width="20" />
-                <circle cx="80" cy="80" r="60" fill="none" stroke="var(--accent-blue)" stroke-width="20"
+                <circle cx="80" cy="80" r="60" fill="none" stroke="var(--accent-primary)" stroke-width="20"
                   stroke-dasharray="226 377" stroke-dashoffset="0" transform="rotate(-90 80 80)"
                   stroke-linecap="round" />
-                <circle cx="80" cy="80" r="60" fill="none" stroke="var(--accent-green)" stroke-width="20"
+                <circle cx="80" cy="80" r="60" fill="none" stroke="var(--accent-gold)" stroke-width="20"
                   stroke-dasharray="94 377" stroke-dashoffset="-226" transform="rotate(-90 80 80)"
                   stroke-linecap="round" />
-                <circle cx="80" cy="80" r="60" fill="none" stroke="var(--accent-yellow)" stroke-width="20"
+                <circle cx="80" cy="80" r="60" fill="none" stroke="var(--accent-cyan)" stroke-width="20"
                   stroke-dasharray="57 377" stroke-dashoffset="-320" transform="rotate(-90 80 80)"
                   stroke-linecap="round" />
                 <text x="80" y="76" text-anchor="middle" font-family="var(--font-sans)" font-size="24" font-weight="700"
@@ -4609,11 +4826,11 @@
               </svg>
             </div>
             <div class="flex-wrap-gap" style="justify-content:center;gap:var(--space-4);font-size:0.75rem">
-              <span><span class="status-dot" style="background:var(--accent-blue);margin-right:4px"></span>Buttons
+              <span><span class="status-dot" style="background:var(--accent-primary);margin-right:4px"></span>Buttons
                 60%</span>
-              <span><span class="status-dot" style="background:var(--accent-green);margin-right:4px"></span>Cards
+              <span><span class="status-dot" style="background:var(--accent-gold);margin-right:4px"></span>Cards
                 25%</span>
-              <span><span class="status-dot" style="background:var(--accent-yellow);margin-right:4px"></span>Other
+              <span><span class="status-dot" style="background:var(--accent-cyan);margin-right:4px"></span>Other
                 15%</span>
             </div>
           </div>
@@ -4627,8 +4844,8 @@
           <svg viewBox="0 0 600 200" width="100%" style="max-height:200px">
             <defs>
               <linearGradient id="area-fill" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="var(--accent-blue)" stop-opacity="0.25" />
-                <stop offset="100%" stop-color="var(--accent-blue)" stop-opacity="0.02" />
+                <stop offset="0%" stop-color="var(--accent-primary)" stop-opacity="0.25" />
+                <stop offset="100%" stop-color="var(--accent-primary)" stop-opacity="0.02" />
               </linearGradient>
             </defs>
             <!-- Grid lines -->
@@ -4653,16 +4870,16 @@
               fill="url(#area-fill)" id="line-area" />
             <!-- Line -->
             <polyline points="40,140 130,100 220,120 310,60 400,80 490,40 580,30" fill="none"
-              stroke="var(--accent-blue)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+              stroke="var(--accent-primary)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
               id="line-path" style="stroke-dasharray:900;stroke-dashoffset:900" />
             <!-- Data points -->
-            <circle cx="40" cy="140" r="3.5" fill="var(--bg-surface)" stroke="var(--accent-blue)" stroke-width="2" />
-            <circle cx="130" cy="100" r="3.5" fill="var(--bg-surface)" stroke="var(--accent-blue)" stroke-width="2" />
-            <circle cx="220" cy="120" r="3.5" fill="var(--bg-surface)" stroke="var(--accent-blue)" stroke-width="2" />
-            <circle cx="310" cy="60" r="3.5" fill="var(--bg-surface)" stroke="var(--accent-blue)" stroke-width="2" />
-            <circle cx="400" cy="80" r="3.5" fill="var(--bg-surface)" stroke="var(--accent-blue)" stroke-width="2" />
-            <circle cx="490" cy="40" r="3.5" fill="var(--bg-surface)" stroke="var(--accent-blue)" stroke-width="2" />
-            <circle cx="580" cy="30" r="3.5" fill="var(--bg-surface)" stroke="var(--accent-blue)" stroke-width="2" />
+            <circle cx="40" cy="140" r="3.5" fill="var(--bg-surface)" stroke="var(--accent-primary)" stroke-width="2" />
+            <circle cx="130" cy="100" r="3.5" fill="var(--bg-surface)" stroke="var(--accent-primary)" stroke-width="2" />
+            <circle cx="220" cy="120" r="3.5" fill="var(--bg-surface)" stroke="var(--accent-primary)" stroke-width="2" />
+            <circle cx="310" cy="60" r="3.5" fill="var(--bg-surface)" stroke="var(--accent-primary)" stroke-width="2" />
+            <circle cx="400" cy="80" r="3.5" fill="var(--bg-surface)" stroke="var(--accent-primary)" stroke-width="2" />
+            <circle cx="490" cy="40" r="3.5" fill="var(--bg-surface)" stroke="var(--accent-primary)" stroke-width="2" />
+            <circle cx="580" cy="30" r="3.5" fill="var(--bg-surface)" stroke="var(--accent-primary)" stroke-width="2" />
             <!-- X-axis labels -->
             <text x="40" y="196" text-anchor="middle" font-family="var(--font-mono)" font-size="9"
               fill="var(--text-muted)">Mon</text>
@@ -4699,25 +4916,16 @@
                 <td style="font-weight:550">Page Views</td>
                 <td><svg class="sparkline" width="80" height="24" viewBox="0 0 80 24">
                     <polyline points="0,18 12,14 24,16 36,8 48,12 60,6 72,4 80,2" fill="none"
-                      stroke="var(--accent-blue)" stroke-width="1.5" stroke-linecap="round" />
+                      stroke="var(--accent-primary)" stroke-width="1.5" stroke-linecap="round" />
                   </svg></td>
                 <td class="mono">12,847</td>
                 <td><span class="kpi-up" style="font-size:0.75rem;font-weight:600">+14.2%</span></td>
               </tr>
               <tr>
-                <td style="font-weight:550">Bounce Rate</td>
-                <td><svg class="sparkline" width="80" height="24" viewBox="0 0 80 24">
-                    <polyline points="0,8 12,10 24,6 36,14 48,12 60,16 72,18 80,20" fill="none"
-                      stroke="var(--accent-red)" stroke-width="1.5" stroke-linecap="round" />
-                  </svg></td>
-                <td class="mono">34.8%</td>
-                <td><span class="kpi-down" style="font-size:0.75rem;font-weight:600">+2.1%</span></td>
-              </tr>
-              <tr>
                 <td style="font-weight:550">Avg Session</td>
                 <td><svg class="sparkline" width="80" height="24" viewBox="0 0 80 24">
                     <polyline points="0,16 12,12 24,14 36,10 48,8 60,10 72,6 80,4" fill="none"
-                      stroke="var(--accent-green)" stroke-width="1.5" stroke-linecap="round" />
+                      stroke="var(--accent-gold)" stroke-width="1.5" stroke-linecap="round" />
                   </svg></td>
                 <td class="mono">4m 32s</td>
                 <td><span class="kpi-up" style="font-size:0.75rem;font-weight:600">+8.7%</span></td>
@@ -4726,10 +4934,19 @@
                 <td style="font-weight:550">Conversions</td>
                 <td><svg class="sparkline" width="80" height="24" viewBox="0 0 80 24">
                     <polyline points="0,14 12,16 24,10 36,12 48,6 60,8 72,4 80,6" fill="none"
-                      stroke="var(--accent-yellow)" stroke-width="1.5" stroke-linecap="round" />
+                      stroke="var(--accent-cyan)" stroke-width="1.5" stroke-linecap="round" />
                   </svg></td>
                 <td class="mono">2.4%</td>
                 <td><span class="kpi-up" style="font-size:0.75rem;font-weight:600">+0.3%</span></td>
+              </tr>
+              <tr>
+                <td style="font-weight:550">Bounce Rate</td>
+                <td><svg class="sparkline" width="80" height="24" viewBox="0 0 80 24">
+                    <polyline points="0,8 12,10 24,6 36,14 48,12 60,16 72,18 80,20" fill="none"
+                      stroke="var(--accent-danger)" stroke-width="1.5" stroke-linecap="round" />
+                  </svg></td>
+                <td class="mono">34.8%</td>
+                <td><span class="kpi-down" style="font-size:0.75rem;font-weight:600">+2.1%</span></td>
               </tr>
             </tbody>
           </table>
@@ -4740,36 +4957,36 @@
         <div class="subsection-label">Color Palettes for Data</div>
         <div class="grid-3" style="margin-bottom:var(--space-6)">
           <div>
-            <div class="state-label" style="margin-bottom:var(--space-2)">Sequential (Blue)</div>
+            <div class="state-label" style="margin-bottom:var(--space-2)">Sequential (Pink)</div>
             <div style="display:flex;border-radius:var(--radius-sm);overflow:hidden">
-              <div style="flex:1;height:32px;background:var(--primitive-blue-100)"></div>
-              <div style="flex:1;height:32px;background:var(--primitive-blue-200)"></div>
-              <div style="flex:1;height:32px;background:var(--primitive-blue-300)"></div>
-              <div style="flex:1;height:32px;background:var(--primitive-blue-400)"></div>
-              <div style="flex:1;height:32px;background:var(--primitive-blue-500)"></div>
+              <div style="flex:1;height:32px;background:var(--primitive-pink-100)"></div>
+              <div style="flex:1;height:32px;background:var(--primitive-pink-200)"></div>
+              <div style="flex:1;height:32px;background:var(--primitive-pink-300)"></div>
+              <div style="flex:1;height:32px;background:var(--primitive-pink-400)"></div>
+              <div style="flex:1;height:32px;background:var(--primitive-pink-500)"></div>
             </div>
           </div>
           <div>
             <div class="state-label" style="margin-bottom:var(--space-2)">Categorical</div>
             <div style="display:flex;border-radius:var(--radius-sm);overflow:hidden">
-              <div style="flex:1;height:32px;background:var(--accent-blue)"></div>
-              <div style="flex:1;height:32px;background:var(--accent-red)"></div>
-              <div style="flex:1;height:32px;background:var(--accent-yellow)"></div>
+              <div style="flex:1;height:32px;background:var(--accent-primary)"></div>
+              <div style="flex:1;height:32px;background:var(--accent-gold)"></div>
+              <div style="flex:1;height:32px;background:var(--accent-cyan)"></div>
               <div style="flex:1;height:32px;background:var(--accent-green)"></div>
-              <div style="flex:1;height:32px;background:var(--primitive-blue-300)"></div>
-              <div style="flex:1;height:32px;background:var(--primitive-red-300)"></div>
-              <div style="flex:1;height:32px;background:var(--primitive-green-300)"></div>
-              <div style="flex:1;height:32px;background:var(--primitive-neutral-500)"></div>
+              <div style="flex:1;height:32px;background:var(--accent-danger)"></div>
+              <div style="flex:1;height:32px;background:var(--primitive-pink-300)"></div>
+              <div style="flex:1;height:32px;background:var(--primitive-gold-300)"></div>
+              <div style="flex:1;height:32px;background:var(--primitive-cyan-300)"></div>
             </div>
           </div>
           <div>
-            <div class="state-label" style="margin-bottom:var(--space-2)">Diverging (Red → Blue)</div>
+            <div class="state-label" style="margin-bottom:var(--space-2)">Diverging (Red → Pink)</div>
             <div style="display:flex;border-radius:var(--radius-sm);overflow:hidden">
               <div style="flex:1;height:32px;background:var(--primitive-red-500)"></div>
               <div style="flex:1;height:32px;background:var(--primitive-red-300)"></div>
               <div style="flex:1;height:32px;background:var(--primitive-neutral-200)"></div>
-              <div style="flex:1;height:32px;background:var(--primitive-blue-300)"></div>
-              <div style="flex:1;height:32px;background:var(--primitive-blue-500)"></div>
+              <div style="flex:1;height:32px;background:var(--primitive-pink-300)"></div>
+              <div style="flex:1;height:32px;background:var(--primitive-pink-500)"></div>
             </div>
           </div>
         </div>
@@ -4789,8 +5006,8 @@
      ======================================================================== -->
     <section id="motion" class="ds-section scroll-reveal">
       <div class="section-header">
-        <div class="section-overline overline-green"><span class="status-dot"
-            style="background:var(--accent-green)"></span> 08 — Motion & Easing</div>
+        <div class="section-overline overline-gold"><span class="status-dot"
+            style="background:var(--accent-gold)"></span> 08 — Motion & Easing</div>
         <h2 class="section-title">Duration and easing tokens</h2>
         <p class="section-desc">Default: no motion. Motion only for users who haven't opted out. Under 240ms for most
           interactions.</p>
@@ -4803,25 +5020,25 @@
             <div style="display:flex;align-items:center;gap:var(--space-3);margin-bottom:var(--space-1)"><span
                 class="state-label" style="width:50px">100ms</span><span
                 style="font-size:0.875rem;font-weight:550">Instant</span></div>
-            <div class="duration-bar" style="width:26%;background:var(--accent-blue);opacity:0.4"></div>
+            <div class="progress-track" style="width:26%"><div class="progress-fill progress-fill-pink" style="width:100%"></div></div>
           </div>
           <div>
             <div style="display:flex;align-items:center;gap:var(--space-3);margin-bottom:var(--space-1)"><span
                 class="state-label" style="width:50px">160ms</span><span
                 style="font-size:0.875rem;font-weight:550">Fast</span></div>
-            <div class="duration-bar" style="width:43%;background:var(--accent-blue);opacity:0.6"></div>
+            <div class="progress-track" style="width:43%"><div class="progress-fill progress-fill-gold" style="width:100%"></div></div>
           </div>
           <div>
             <div style="display:flex;align-items:center;gap:var(--space-3);margin-bottom:var(--space-1)"><span
                 class="state-label" style="width:50px">240ms</span><span
                 style="font-size:0.875rem;font-weight:550">Base</span></div>
-            <div class="duration-bar" style="width:64%;background:var(--accent-blue);opacity:0.8"></div>
+            <div class="progress-track" style="width:64%"><div class="progress-fill progress-fill-cyan" style="width:100%"></div></div>
           </div>
           <div>
             <div style="display:flex;align-items:center;gap:var(--space-3);margin-bottom:var(--space-1)"><span
                 class="state-label" style="width:50px">360ms</span><span
                 style="font-size:0.875rem;font-weight:550">Slow</span></div>
-            <div class="duration-bar" style="width:96%;background:var(--accent-blue)"></div>
+            <div class="progress-track" style="width:96%"><div class="progress-fill progress-fill-pink" style="width:100%"></div></div>
           </div>
         </div>
       </div>
@@ -4841,7 +5058,7 @@
             <div class="easing-label" style="margin-bottom:var(--space-1)">ease-bounce · cubic-bezier(0.34, 1.56, 0.64,
               1)</div>
             <div class="easing-track">
-              <div class="easing-dot" id="dot-ease-bounce" style="background:var(--accent-red)"></div>
+              <div class="easing-dot" id="dot-ease-bounce" style="background:var(--accent-gold)"></div>
             </div>
             <div class="easing-label">Toggle, checkbox, playful bounces</div>
           </div>
@@ -4849,7 +5066,7 @@
             <div class="easing-label" style="margin-bottom:var(--space-1)">ease-smooth · cubic-bezier(0.22, 1, 0.36, 1)
             </div>
             <div class="easing-track">
-              <div class="easing-dot" id="dot-ease-smooth" style="background:var(--accent-green)"></div>
+              <div class="easing-dot" id="dot-ease-smooth" style="background:var(--accent-cyan)"></div>
             </div>
             <div class="easing-label">Entrance animations, hover lifts</div>
           </div>
@@ -4868,12 +5085,12 @@
           </div>
           <div class="spring-demo">
             <div class="state-label">Standard · 400/35</div>
-            <div class="spring-box" id="spring-standard" style="background:var(--accent-green)"></div>
+            <div class="spring-box" id="spring-standard" style="background:var(--accent-cyan)"></div>
             <div style="font-size:0.75rem;color:var(--text-muted)">Modals, cards</div>
           </div>
           <div class="spring-demo">
             <div class="state-label">Gentle · 300/28</div>
-            <div class="spring-box" id="spring-gentle" style="background:var(--accent-yellow)"></div>
+            <div class="spring-box" id="spring-gentle" style="background:var(--accent-gold)"></div>
             <div style="font-size:0.75rem;color:var(--text-muted)">Large elements</div>
           </div>
         </div>
@@ -4885,25 +5102,25 @@
         <div class="subsection-label">Motion Guidelines</div>
         <div class="grid-2" style="gap:var(--space-4)">
           <div class="card card-compact">
-            <div class="card-title" style="color:var(--accent-blue-text)">Use ease-out for...</div>
+            <div class="card-title" style="color:var(--accent-primary-text)">Use ease-out for...</div>
             <div class="card-desc">Color changes, opacity fades, border transitions. Anything that responds immediately
               and decelerates naturally.</div>
             <div class="card-meta">100–160ms · CSS transitions</div>
           </div>
           <div class="card card-compact">
-            <div class="card-title" style="color:var(--accent-blue-text)">Use ease-bounce for...</div>
+            <div class="card-title" style="color:var(--accent-primary-text)">Use ease-bounce for...</div>
             <div class="card-desc">Toggle switches, checkboxes, small interactive elements. Creates playful overshooting
               that adds personality.</div>
             <div class="card-meta">160–240ms · Spring-like feel</div>
           </div>
           <div class="card card-compact">
-            <div class="card-title" style="color:var(--accent-blue-text)">Use ease-smooth for...</div>
+            <div class="card-title" style="color:var(--accent-primary-text)">Use ease-smooth for...</div>
             <div class="card-desc">Entrance animations, page transitions, modal reveals. Smooth deceleration creates a
               natural, controlled feel.</div>
             <div class="card-meta">240–360ms · Entrance/exit</div>
           </div>
           <div class="card card-compact">
-            <div class="card-title" style="color:var(--accent-red-text)">Never animate...</div>
+            <div class="card-title" style="color:var(--accent-danger-text)">Never animate...</div>
             <div class="card-desc">Layout shifts that cause content reflow, font-size changes, or anything that blocks
               user interaction. Keep the thread clear.</div>
             <div class="card-meta">Avoid transform + layout simultaneously</div>
@@ -4917,8 +5134,8 @@
      ======================================================================== -->
     <section id="micro" class="ds-section scroll-reveal">
       <div class="section-header">
-        <div class="section-overline overline-blue"><span class="status-dot"
-            style="background:var(--accent-blue)"></span> 09 — Micro-Interactions</div>
+        <div class="section-overline overline-cyan"><span class="status-dot"
+            style="background:var(--accent-cyan)"></span> 09 — Micro-Interactions</div>
         <h2 class="section-title">Feel every interaction</h2>
         <p class="section-desc">Button press scale, toggle spring, checkbox draw, input focus glow, error shake, success
           feedback — all live and interactive below.</p>
@@ -4948,7 +5165,7 @@
         </div>
         <div class="card">
           <div class="card-title">Focus Ring</div>
-          <div class="card-desc" style="margin-bottom:var(--space-4)">Blue border + 3px glow ring on focus.</div>
+          <div class="card-desc" style="margin-bottom:var(--space-4)">Pink border + 3px glow ring on focus.</div>
           <input class="input" type="text" placeholder="Click to focus" style="max-width:200px">
         </div>
         <div class="card">
@@ -4981,8 +5198,8 @@
      ======================================================================== -->
     <section id="loading" class="ds-section scroll-reveal">
       <div class="section-header">
-        <div class="section-overline overline-red"><span class="status-dot" style="background:var(--accent-red)"></span>
-          10 — Loading & Transitions</div>
+        <div class="section-overline overline-pink"><span class="status-dot"
+            style="background:var(--accent-primary)"></span> 10 — Loading & Transitions</div>
         <h2 class="section-title">Skeleton loading and staggered reveals</h2>
         <p class="section-desc">Shimmer and pulse skeleton patterns for loading states. Staggered content reveals with
           spring physics.</p>
@@ -5025,7 +5242,7 @@
             Right</button>
         </div>
         <div
-          style="position:relative;height:200px;border:1px solid var(--border-default);border-radius:var(--radius-lg);overflow:hidden;background:var(--bg-surface)"
+          style="position:relative;height:200px;border:2px solid var(--border-default);border-radius:var(--radius-lg);overflow:hidden;background:var(--bg-surface)"
           id="page-transition-frame">
           <div id="pt-page-a"
             style="position:absolute;inset:0;padding:var(--space-6);display:flex;flex-direction:column;justify-content:center">
@@ -5035,10 +5252,10 @@
             <div style="font-size:0.875rem;color:var(--text-secondary);margin-bottom:var(--space-4)">View your project
               metrics, team activity, and recent deployments.</div>
             <div style="display:flex;gap:var(--space-3)">
-              <div style="flex:1;height:40px;background:var(--accent-blue-subtle);border-radius:var(--radius-sm)"></div>
-              <div style="flex:1;height:40px;background:var(--accent-green-subtle);border-radius:var(--radius-sm)">
+              <div style="flex:1;height:40px;background:var(--accent-primary-subtle);border-radius:var(--radius-sm)"></div>
+              <div style="flex:1;height:40px;background:var(--accent-gold-subtle);border-radius:var(--radius-sm)">
               </div>
-              <div style="flex:1;height:40px;background:var(--accent-yellow-subtle);border-radius:var(--radius-sm)">
+              <div style="flex:1;height:40px;background:var(--accent-cyan-subtle);border-radius:var(--radius-sm)">
               </div>
             </div>
           </div>
@@ -5125,8 +5342,8 @@
      ======================================================================== -->
     <section id="overlays" class="ds-section scroll-reveal">
       <div class="section-header">
-        <div class="section-overline overline-yellow"><span class="status-dot"
-            style="background:var(--accent-yellow)"></span> 11 — Overlays & Feedback</div>
+        <div class="section-overline overline-gold"><span class="status-dot"
+            style="background:var(--accent-gold)"></span> 11 — Overlays & Feedback</div>
         <h2 class="section-title">Toasts, modals, drawers, alerts</h2>
         <p class="section-desc">Spring-powered overlays with stack management, swipe-to-dismiss, and progress-based
           auto-dismiss.</p>
@@ -5161,27 +5378,33 @@
       <div class="subsection">
         <div class="subsection-label">Alert Banners</div>
         <div style="display:flex;flex-direction:column;gap:var(--space-3)">
-          <div class="alert alert-info"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+          <div class="alert alert-pink"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"
               stroke="currentColor" stroke-width="2" stroke-linecap="round">
               <circle cx="12" cy="12" r="10" />
               <line x1="12" y1="16" x2="12" y2="12" />
               <line x1="12" y1="8" x2="12.01" y2="8" />
             </svg><span>A new version of the design system is available with improved tokens.</span><button
               class="alert-dismiss" onclick="this.parentElement.style.display='none'">&times;</button></div>
-          <div class="alert alert-success"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+          <div class="alert alert-green"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"
               stroke="currentColor" stroke-width="2" stroke-linecap="round">
               <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
               <polyline points="22 4 12 14.01 9 11.01" />
             </svg><span>All components passed accessibility audits with WCAG AA compliance.</span><button
               class="alert-dismiss" onclick="this.parentElement.style.display='none'">&times;</button></div>
-          <div class="alert alert-warning"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+          <div class="alert alert-gold"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"
               stroke="currentColor" stroke-width="2" stroke-linecap="round">
               <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
               <line x1="12" y1="9" x2="12" y2="13" />
               <line x1="12" y1="17" x2="12.01" y2="17" />
             </svg><span>Some tokens are deprecated and will be removed in the next major version.</span><button
               class="alert-dismiss" onclick="this.parentElement.style.display='none'">&times;</button></div>
-          <div class="alert alert-error" id="alert-error"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+          <div class="alert alert-cyan"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <circle cx="12" cy="12" r="10" />
+              <path d="M16 12H12V8" />
+            </svg><span>Scheduled maintenance window: Saturday 2am–4am UTC. No downtime expected.</span><button
+              class="alert-dismiss" onclick="this.parentElement.style.display='none'">&times;</button></div>
+          <div class="alert alert-danger" id="alert-danger"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"
               stroke="currentColor" stroke-width="2" stroke-linecap="round">
               <circle cx="12" cy="12" r="10" />
               <line x1="15" y1="9" x2="9" y2="15" />
@@ -5192,9 +5415,57 @@
       </div>
 
       <div class="subsection">
+        <div class="subsection-label">Progress Bars</div>
+        <div class="subsection-desc">Track-and-fill bars with brand color variants. 2px solid borders, full-radius
+          tracks, smooth transitions.</div>
+        <div style="max-width:480px">
+          <div class="progress-group">
+            <div class="progress-label"><span>Design Tokens</span><span>92%</span></div>
+            <div class="progress-track">
+              <div class="progress-fill progress-fill-pink" style="width:92%"></div>
+            </div>
+          </div>
+          <div class="progress-group">
+            <div class="progress-label"><span>Component Library</span><span>68%</span></div>
+            <div class="progress-track">
+              <div class="progress-fill progress-fill-gold" style="width:68%"></div>
+            </div>
+          </div>
+          <div class="progress-group">
+            <div class="progress-label"><span>Documentation</span><span>45%</span></div>
+            <div class="progress-track">
+              <div class="progress-fill progress-fill-cyan" style="width:45%"></div>
+            </div>
+          </div>
+          <div class="progress-group">
+            <div class="progress-label"><span>Test Coverage</span><span>78%</span></div>
+            <div class="progress-track">
+              <div class="progress-fill progress-fill-green" style="width:78%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <div class="subsection-label">Code Block — Warm Syntax</div>
+        <div class="subsection-desc">Dark code blocks with pink keywords, gold strings, cyan functions, and green
+          numbers. Warm neutral background with solid shadow.</div>
+        <div class="code-block"><span class="keyword">const</span> <span class="function">createToken</span> = (<span class="property">name</span>, <span class="property">value</span>) =&gt; {
+  <span class="keyword">const</span> token = {
+    <span class="property">name</span>: <span class="string">`--${name}`</span>,
+    <span class="property">value</span>: value,
+    <span class="property">tier</span>: <span class="number">2</span>,
+    <span class="property">immutable</span>: <span class="keyword">true</span>,
+  };
+  <span class="comment">// Register in the design system catalog</span>
+  <span class="keyword">return</span> <span class="function">Object</span>.<span class="function">freeze</span>(token);
+};</div>
+      </div>
+
+      <div class="subsection">
         <div class="subsection-label">Command Palette</div>
         <div class="subsection-desc">A searchable command palette for quick navigation. Press the button or use <kbd
-            style="padding:2px 6px;background:var(--bg-subtle);border:1px solid var(--border-default);border-radius:3px;font-family:var(--font-mono);font-size:0.75rem">⌘K</kbd>
+            style="padding:2px 6px;background:var(--bg-subtle);border:2px solid var(--border-default);border-radius:3px;font-family:var(--font-mono);font-size:0.75rem">⌘K</kbd>
           to open.</div>
         <button class="btn btn-secondary btn-sm btn-bounce" id="open-cmdpal">Open Command Palette</button>
       </div>
@@ -5205,8 +5476,8 @@
      ======================================================================== -->
     <section id="signature" class="ds-section scroll-reveal">
       <div class="section-header">
-        <div class="section-overline overline-green"><span class="status-dot"
-            style="background:var(--accent-green)"></span> 12 — Signature Effects</div>
+        <div class="section-overline overline-cyan"><span class="status-dot"
+            style="background:var(--accent-cyan)"></span> 12 — Signature Effects</div>
         <h2 class="section-title">The last 2% of polish</h2>
         <p class="section-desc">Distinctive interactions that define the brand. Each effect pushes boundaries while
           staying tasteful.</p>
@@ -5220,22 +5491,22 @@
           <div class="blur-card card">
             <div class="card-title">Analytics Dashboard</div>
             <div class="card-desc">Real-time metrics visualization with interactive filtering and drill-down
-              capabilities.</div><span class="badge badge-blue badge-pop">Production</span>
+              capabilities.</div><span class="badge badge-pink badge-pop">Production</span>
           </div>
           <div class="blur-card card">
             <div class="card-title">Design Token Pipeline</div>
             <div class="card-desc">Automated generation from Figma variables to CSS custom properties via Style
-              Dictionary.</div><span class="badge badge-green badge-pop">Active</span>
+              Dictionary.</div><span class="badge badge-cyan badge-pop">Active</span>
           </div>
           <div class="blur-card card">
             <div class="card-title">Component Storybook</div>
             <div class="card-desc">Interactive documentation with visual testing, accessibility audits, and usage
-              examples.</div><span class="badge badge-blue badge-pop">Beta</span>
+              examples.</div><span class="badge badge-pink badge-pop">Beta</span>
           </div>
           <div class="blur-card card">
             <div class="card-title">Marketing Site</div>
             <div class="card-desc">Brand-forward landing pages with scroll-driven narratives and view transitions.</div>
-            <span class="badge badge-yellow badge-pop">Planning</span>
+            <span class="badge badge-gold badge-pop">Planning</span>
           </div>
         </div>
       </div>
@@ -5247,7 +5518,7 @@
         <div class="tilt-container" style="max-width:400px">
           <div class="tilt-card" id="tilt-card">
             <div class="tilt-title">Delightful</div>
-            <div class="tilt-desc">A design system built with warm minimalism, surgical color, and purposeful motion.
+            <div class="tilt-desc">A design system built with warm boldness, confident color, and joyful motion.
             </div>
             <span class="tilt-badge">v2.1 · Stable</span>
           </div>
@@ -5259,9 +5530,9 @@
         <div class="subsection-desc">CSS @property enables smooth hue interpolation on hover. Watch the colors shift.
         </div>
         <div class="color-pills">
-          <button class="color-pill color-pill-1">Purple → Blue</button>
-          <button class="color-pill color-pill-2">Purple → Pink</button>
-          <button class="color-pill color-pill-3">Purple → Green</button>
+          <button class="color-pill color-pill-1">Pink → Gold</button>
+          <button class="color-pill color-pill-2">Pink → Red</button>
+          <button class="color-pill color-pill-3">Pink → Cyan</button>
         </div>
       </div>
 
@@ -5292,8 +5563,8 @@
      ======================================================================== -->
     <section id="compositions" class="ds-section scroll-reveal">
       <div class="section-header">
-        <div class="section-overline overline-blue"><span class="status-dot"
-            style="background:var(--accent-blue)"></span> Bonus — Sample Compositions</div>
+        <div class="section-overline overline-pink"><span class="status-dot"
+            style="background:var(--accent-primary)"></span> Bonus — Sample Compositions</div>
         <h2 class="section-title">Components in context</h2>
         <p class="section-desc">Full page layouts demonstrating how components work together in realistic contexts.</p>
       </div>
@@ -5337,15 +5608,15 @@
               <div
                 style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-4);margin-bottom:var(--space-6)">
                 <div class="card card-compact card-featured">
-                  <div style="font-size:var(--step-2);font-weight:700;color:var(--accent-blue-text)">2,847</div>
+                  <div style="font-size:var(--step-2);font-weight:700;color:var(--accent-primary-text)">2,847</div>
                   <div style="font-size:0.75rem;color:var(--text-muted)">Active Users</div>
                 </div>
-                <div class="card card-compact card-featured card-featured-green">
-                  <div style="font-size:var(--step-2);font-weight:700;color:var(--accent-green-text)">94.2%</div>
+                <div class="card card-compact card-featured card-featured-gold">
+                  <div style="font-size:var(--step-2);font-weight:700;color:var(--accent-gold-text)">94.2%</div>
                   <div style="font-size:0.75rem;color:var(--text-muted)">Uptime</div>
                 </div>
-                <div class="card card-compact card-featured card-featured-yellow">
-                  <div style="font-size:var(--step-2);font-weight:700;color:var(--accent-yellow-text)">1.2s</div>
+                <div class="card card-compact card-featured card-featured-cyan">
+                  <div style="font-size:var(--step-2);font-weight:700;color:var(--accent-cyan-text)">1.2s</div>
                   <div style="font-size:0.75rem;color:var(--text-muted)">Avg Load</div>
                 </div>
               </div>
@@ -5358,12 +5629,12 @@
                       style="color:var(--text-muted);margin-left:auto;font-family:var(--font-mono);font-size:0.75rem">2m
                       ago</span></div>
                   <div style="display:flex;align-items:center;gap:var(--space-3);font-size:0.8125rem"><span
-                      class="status-dot" style="background:var(--accent-blue)"></span><span>New color tokens added for
+                      class="status-dot" style="background:var(--accent-primary)"></span><span>New color tokens added for
                       data viz</span><span
                       style="color:var(--text-muted);margin-left:auto;font-family:var(--font-mono);font-size:0.75rem">1h
                       ago</span></div>
                   <div style="display:flex;align-items:center;gap:var(--space-3);font-size:0.8125rem"><span
-                      class="status-dot" style="background:var(--accent-yellow)"></span><span>Motion prototype review
+                      class="status-dot" style="background:var(--accent-gold)"></span><span>Motion prototype review
                       scheduled</span><span
                       style="color:var(--text-muted);margin-left:auto;font-family:var(--font-mono);font-size:0.75rem">3h
                       ago</span></div>
@@ -5380,29 +5651,29 @@
         <div class="comp-frame" style="padding:var(--space-6)">
           <div style="display:flex;align-items:center;gap:var(--space-6);margin-bottom:var(--space-6)">
             <div
-              style="width:72px;height:72px;border-radius:var(--radius-full);background:var(--accent-blue);display:flex;align-items:center;justify-content:center;font-size:1.5rem;font-weight:700;color:var(--text-on-accent);flex-shrink:0">
+              style="width:72px;height:72px;border-radius:var(--radius-full);background:var(--accent-primary);display:flex;align-items:center;justify-content:center;font-size:1.5rem;font-weight:700;color:var(--text-on-accent);flex-shrink:0">
               KS</div>
             <div>
               <div style="font-size:var(--step-2);font-weight:700;letter-spacing:var(--tracking-tighter)">Kyle Snav
               </div>
               <div style="font-size:0.875rem;color:var(--text-secondary)">Design Systems Engineer</div>
               <div class="flex-wrap-gap" style="margin-top:var(--space-2)">
-                <span class="badge badge-blue badge-pop">Admin</span>
-                <span class="badge badge-green badge-pop">Pro</span>
+                <span class="badge badge-pink badge-pop">Admin</span>
+                <span class="badge badge-cyan badge-pop">Pro</span>
               </div>
             </div>
           </div>
           <div class="grid-3" style="margin-bottom:var(--space-6)">
             <div class="card card-compact" style="text-align:center">
-              <div style="font-size:var(--step-2);font-weight:700;color:var(--accent-blue-text)">47</div>
+              <div style="font-size:var(--step-2);font-weight:700;color:var(--accent-primary-text)">47</div>
               <div style="font-size:0.75rem;color:var(--text-muted)">Components</div>
             </div>
             <div class="card card-compact" style="text-align:center">
-              <div style="font-size:var(--step-2);font-weight:700;color:var(--accent-green-text)">156</div>
+              <div style="font-size:var(--step-2);font-weight:700;color:var(--accent-gold-text)">156</div>
               <div style="font-size:0.75rem;color:var(--text-muted)">Tokens</div>
             </div>
             <div class="card card-compact" style="text-align:center">
-              <div style="font-size:var(--step-2);font-weight:700;color:var(--accent-yellow-text)">12</div>
+              <div style="font-size:var(--step-2);font-weight:700;color:var(--accent-cyan-text)">12</div>
               <div style="font-size:0.75rem;color:var(--text-muted)">Prototypes</div>
             </div>
           </div>
@@ -5410,9 +5681,9 @@
             <div class="card-title">Activity Timeline</div>
             <div style="margin-top:var(--space-4);display:flex;flex-direction:column;gap:0">
               <div
-                style="display:flex;gap:var(--space-4);padding:var(--space-3) 0;border-bottom:1px solid var(--border-subtle)">
+                style="display:flex;gap:var(--space-4);padding:var(--space-3) 0;border-bottom:2px solid var(--border-subtle)">
                 <div
-                  style="width:8px;height:8px;border-radius:50%;background:var(--accent-blue);margin-top:6px;flex-shrink:0">
+                  style="width:8px;height:8px;border-radius:50%;background:var(--accent-primary);margin-top:6px;flex-shrink:0">
                 </div>
                 <div>
                   <div style="font-size:0.8125rem;font-weight:550">Published v2.1 of the component library</div>
@@ -5420,9 +5691,9 @@
                 </div>
               </div>
               <div
-                style="display:flex;gap:var(--space-4);padding:var(--space-3) 0;border-bottom:1px solid var(--border-subtle)">
+                style="display:flex;gap:var(--space-4);padding:var(--space-3) 0;border-bottom:2px solid var(--border-subtle)">
                 <div
-                  style="width:8px;height:8px;border-radius:50%;background:var(--accent-green);margin-top:6px;flex-shrink:0">
+                  style="width:8px;height:8px;border-radius:50%;background:var(--accent-gold);margin-top:6px;flex-shrink:0">
                 </div>
                 <div>
                   <div style="font-size:0.8125rem;font-weight:550">Merged dark mode token refinements</div>
@@ -5430,9 +5701,9 @@
                 </div>
               </div>
               <div
-                style="display:flex;gap:var(--space-4);padding:var(--space-3) 0;border-bottom:1px solid var(--border-subtle)">
+                style="display:flex;gap:var(--space-4);padding:var(--space-3) 0;border-bottom:2px solid var(--border-subtle)">
                 <div
-                  style="width:8px;height:8px;border-radius:50%;background:var(--accent-yellow);margin-top:6px;flex-shrink:0">
+                  style="width:8px;height:8px;border-radius:50%;background:var(--accent-cyan);margin-top:6px;flex-shrink:0">
                 </div>
                 <div>
                   <div style="font-size:0.8125rem;font-weight:550">Added signature effects prototypes</div>
@@ -5441,7 +5712,7 @@
               </div>
               <div style="display:flex;gap:var(--space-4);padding:var(--space-3) 0">
                 <div
-                  style="width:8px;height:8px;border-radius:50%;background:var(--accent-red);margin-top:6px;flex-shrink:0">
+                  style="width:8px;height:8px;border-radius:50%;background:var(--accent-primary);margin-top:6px;flex-shrink:0">
                 </div>
                 <div>
                   <div style="font-size:0.8125rem;font-weight:550">Initial design system architecture</div>
@@ -5495,12 +5766,12 @@
      ======================================================================== -->
     <footer class="ds-footer">
       <div class="hero-dots" style="margin-bottom:var(--space-4)">
-        <span class="hero-dot" style="background:var(--accent-blue);width:8px;height:8px"></span>
-        <span class="hero-dot" style="background:var(--accent-red);width:8px;height:8px"></span>
-        <span class="hero-dot" style="background:var(--accent-yellow);width:8px;height:8px"></span>
+        <span class="hero-dot" style="background:var(--accent-primary);width:8px;height:8px"></span>
+        <span class="hero-dot" style="background:var(--accent-gold);width:8px;height:8px"></span>
+        <span class="hero-dot" style="background:var(--accent-cyan);width:8px;height:8px"></span>
       </div>
       <p><strong>Delightful</strong> — Design System</p>
-      <p style="margin-top:var(--space-2)">Warm minimalism · Surgical color · Purposeful motion</p>
+      <p style="margin-top:var(--space-2)">Warm boldness · Confident color · Joyful motion</p>
     </footer>
 
   </div><!-- end page-wrap -->
@@ -5555,7 +5826,7 @@
   <div class="modal-panel" id="cmdpal-panel" popover="auto"
     style="max-width:520px;padding:0;margin-top:min(20vh,160px)">
     <div
-      style="padding:var(--space-3) var(--space-4);border-bottom:1px solid var(--border-subtle);display:flex;align-items:center;gap:var(--space-2)">
+      style="padding:var(--space-3) var(--space-4);border-bottom:2px solid var(--border-subtle);display:flex;align-items:center;gap:var(--space-2)">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2"
         stroke-linecap="round">
         <circle cx="11" cy="11" r="8" />
@@ -5565,7 +5836,7 @@
         style="flex:1;border:none;background:none;font-family:var(--font-sans);font-size:0.9375rem;color:var(--text-primary);outline:none"
         autocomplete="off">
       <kbd
-        style="padding:2px 6px;background:var(--bg-subtle);border:1px solid var(--border-default);border-radius:3px;font-family:var(--font-mono);font-size:0.625rem;color:var(--text-muted)">ESC</kbd>
+        style="padding:2px 6px;background:var(--bg-subtle);border:2px solid var(--border-default);border-radius:3px;font-family:var(--font-mono);font-size:0.625rem;color:var(--text-muted)">ESC</kbd>
     </div>
     <div style="padding:var(--space-2);max-height:320px;overflow-y:auto" id="cmdpal-results">
       <div
@@ -5810,7 +6081,7 @@
         warning: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
         info: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>'
       };
-      const toastColors = { success: 'var(--accent-green)', error: 'var(--accent-red)', warning: 'var(--accent-yellow)', info: 'var(--accent-blue)' };
+      const toastColors = { success: 'var(--accent-green)', error: 'var(--accent-danger)', warning: 'var(--accent-gold)', info: 'var(--accent-primary)' };
 
       window.showToast = function (type, title, msg) {
         const toast = document.createElement('div');
@@ -5954,7 +6225,7 @@
         spotlightPanel.addEventListener('mousemove', e => {
           const rect = spotlightPanel.getBoundingClientRect();
           const x = e.clientX - rect.left, y = e.clientY - rect.top;
-          spotlightGrad.style.background = `radial-gradient(600px circle at ${x}px ${y}px, oklch(0.22 0.04 260), oklch(0.135 0.010 90))`;
+          spotlightGrad.style.background = `radial-gradient(600px circle at ${x}px ${y}px, oklch(0.22 0.04 350), oklch(0.135 0.010 60))`;
         });
       }
 
@@ -6144,7 +6415,7 @@
         data.forEach(v => {
           const cell = document.createElement('div');
           cell.className = 'heat-cell';
-          cell.style.background = `oklch(0.550 0.220 260 / ${v / 10})`;
+          cell.style.background = `oklch(0.560 0.280 350 / ${v / 10})`;
           cell.style.height = '24px';
           heatmap.appendChild(cell);
         });

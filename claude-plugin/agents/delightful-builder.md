@@ -44,11 +44,11 @@ When setting up a new project:
 
 When building components, follow these exact patterns:
 
-**Buttons:** `.btn` base + `.btn-{variant}` + `.btn-{size}`. Variants: primary (blue), danger (red), highlight (yellow), secondary (outlined), ghost (transparent).
+**Buttons:** `.btn` base + `.btn-{variant}` + `.btn-{size}`. Variants: primary (pink), danger (red), gold, cyan, green, secondary (outlined), ghost (transparent).
 
 **Cards:** `.card` with 2px border, solid shadow, neo-brutalist hover (translate -4px,-4px + shadow-lg), active (translate 2px,2px + no shadow).
 
-**Inputs:** `.input` with 2px border, solid shadow, focus state changes border to accent-blue + shadow-blue.
+**Inputs:** `.input` with 2px border, solid shadow, focus state changes border to accent-primary + shadow-pink.
 
 **Badges:** `.badge` + `.badge-{color}` using subtle background + text color variant.
 

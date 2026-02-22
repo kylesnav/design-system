@@ -1,0 +1,85 @@
+# Delightful Design System — Starship Prompt
+# ============================================
+# Warm, confident prompt using Delightful accent colors.
+# Matches the Delightful light theme in Ghostty.
+
+format = """
+$directory\
+$git_branch\
+$git_status\
+$nodejs\
+$python\
+$rust\
+$package\
+$cmd_duration\
+$line_break\
+$character"""
+
+right_format = """$time"""
+
+[character]
+success_symbol = "[>](bold #f600a3)"
+error_symbol = "[>](bold #ed324b)"
+vimcmd_symbol = "[<](bold #00a6c0)"
+
+[directory]
+format = "[$path]($style)[$read_only]($read_only_style) "
+style = "bold #1b150f"
+read_only = " "
+read_only_style = "#ed324b"
+truncation_length = 3
+truncation_symbol = ".../"
+
+[git_branch]
+format = "[$symbol$branch(:$remote_branch)]($style) "
+symbol = " "
+style = "#f600a3"
+
+[git_status]
+format = '([$all_status$ahead_behind]($style) )'
+style = "#ffb700"
+conflicted = "!"
+ahead = "+"
+behind = "-"
+diverged = "~"
+untracked = "?"
+stashed = "$"
+modified = "*"
+staged = "+"
+renamed = ">"
+deleted = "x"
+
+[cmd_duration]
+format = "[$duration]($style) "
+style = "#615d58"
+min_time = 2_000
+show_milliseconds = false
+
+[nodejs]
+format = "[$symbol($version)]($style) "
+symbol = " "
+style = "#22a448"
+
+[python]
+format = "[$symbol($version)]($style) "
+symbol = " "
+style = "#ffb700"
+
+[rust]
+format = "[$symbol($version)]($style) "
+symbol = " "
+style = "#ed324b"
+
+[package]
+format = "[$symbol$version]($style) "
+symbol = " "
+style = "#00a6c0"
+
+[time]
+disabled = false
+format = "[$time]($style)"
+style = "#615d58"
+time_format = "%H:%M"
+
+[line_break]
+disabled = false

@@ -1,6 +1,6 @@
 ---
 name: build-with-delightful
-description: Build new web projects and UI using the Delightful design system. Use when a user says "build with delightful", "create a new page", "new project with delightful", "scaffold a UI", or wants to create components, pages, or prototypes following neo-brutalist warm minimalism with oklch tokens.
+description: Build new web projects and UI using the Delightful design system. Use when a user says "build with delightful", "create a new page", "new project with delightful", "scaffold a UI", or wants to create components, pages, or prototypes following neo-brutalist warm boldness with oklch tokens.
 allowed-tools: "Bash WebFetch"
 metadata:
   author: Delightful Design System
@@ -25,7 +25,7 @@ Set up the project foundation:
 
 1. Add Google Fonts link (Inter + JetBrains Mono)
 2. Add the full CSS custom property system — all 3 tiers:
-   - **Tier 1 — Primitives:** Raw oklch color scales (neutral, blue, red, yellow, green)
+   - **Tier 1 — Primitives:** Raw oklch color scales (neutral, pink, red, gold, cyan, green)
    - **Tier 2 — Semantic:** Light mode + dark mode tokens (backgrounds, text, accents, borders, shadows)
    - **Tier 3 — Component:** Typography scale, spacing scale, radius scale, motion tokens, button/toggle tokens
 3. Add the base reset (`*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }`)
@@ -77,17 +77,17 @@ If browser tools are available (Playwright MCP), open the result and screenshot 
 
 ## Quick Token Reference
 
-**Colors:** `--accent-blue`, `--accent-red`, `--accent-yellow`, `--accent-green` (each with `-hover`, `-subtle`, `-text` variants)
+**Colors:** `--accent-primary`, `--accent-danger`, `--accent-gold`, `--accent-cyan`, `--accent-green` (each with `-hover`, `-subtle`, `-text` variants)
 
 **Backgrounds:** `--bg-page`, `--bg-surface`, `--bg-elevated`, `--bg-subtle`, `--bg-muted`
 
-**Text:** `--text-primary`, `--text-secondary`, `--text-muted`, `--text-on-accent`, `--text-on-yellow`
+**Text:** `--text-primary`, `--text-secondary`, `--text-muted`, `--text-on-accent`, `--text-on-gold`
 
 **Spacing:** `--space-1` (4px) through `--space-20` (80px)
 
 **Font sizes:** `--step--2` through `--step-5` (fluid clamp)
 
-**Shadows:** `--shadow-sm` (2px), `--shadow-md` (4px), `--shadow-lg` (8px), `--shadow-blue`, `--shadow-red`, `--shadow-yellow`
+**Shadows:** `--shadow-sm` (2px), `--shadow-md` (4px), `--shadow-lg` (8px), `--shadow-pink`, `--shadow-danger`, `--shadow-gold`, `--shadow-cyan`, `--shadow-green`
 
 **Radius:** `--radius-sm` (10px), `--radius-md` (16px), `--radius-lg` (24px), `--radius-xl` (32px), `--radius-full` (pill)
 
