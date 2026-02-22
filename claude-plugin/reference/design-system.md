@@ -226,14 +226,37 @@ Raw oklch values. Named by scale, no semantic meaning. **Never use directly in c
 --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
 ```
 
+### Control Heights
+```css
+--control-sm: 32px;   --control-md: 36px;
+--control-lg: 44px;   --control-xl: 56px;
+```
+
+### UI Text Sizes (fixed, non-fluid — for controls, tables, badges)
+```css
+--ui-text-2xs: 0.75rem;    /* 12px — captions, hints, metadata */
+--ui-text-xs: 0.6875rem;   /* 11px — badges, table headers */
+--ui-text-sm: 0.8125rem;   /* 13px — tables, sidebar items, small buttons */
+--ui-text-md: 0.875rem;    /* 14px — inputs, selects, alerts, tabs */
+--ui-text-lg: 0.9375rem;   /* 15px — medium buttons */
+--ui-text-xl: 1.0625rem;   /* 17px — large buttons */
+```
+
 ### Button Tokens
 ```css
+--btn-gap: 6px;
 --btn-primary-bg: var(--accent-blue);
 --btn-primary-text: var(--text-on-accent);
 --btn-danger-bg: var(--accent-red);
 --btn-danger-text: var(--text-on-accent);
 --btn-highlight-bg: var(--accent-yellow);
 --btn-highlight-text: var(--text-on-yellow);
+```
+
+### Badge Tokens
+```css
+--badge-py: 2px;
+--badge-px: 10px;
 ```
 
 ### Toggle Tokens
@@ -383,7 +406,7 @@ All animations MUST be wrapped in `@media (prefers-reduced-motion: no-preference
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: var(--btn-gap);
   font-family: var(--font-sans);
   font-weight: 700;
   border: 2px solid var(--text-primary);
@@ -400,7 +423,7 @@ All animations MUST be wrapped in `@media (prefers-reduced-motion: no-preference
 .btn:disabled { opacity: 0.4; cursor: not-allowed; pointer-events: none; }
 ```
 
-**Sizes:** `.btn-sm` (32px, 0.8125rem), `.btn-md` (44px, 0.9375rem), `.btn-lg` (56px, 1.0625rem)
+**Sizes:** `.btn-sm` (`--control-sm`, `--ui-text-sm`), `.btn-md` (`--control-lg`, `--ui-text-lg`), `.btn-lg` (`--control-xl`, `--ui-text-xl`)
 
 **Variants:**
 - `.btn-primary` — `background: var(--accent-blue); color: var(--text-on-accent); box-shadow: var(--shadow-blue);`
@@ -422,10 +445,10 @@ All animations MUST be wrapped in `@media (prefers-reduced-motion: no-preference
 ```css
 .input {
   width: 100%;
-  height: 36px;
+  height: var(--control-md);
   padding: 0 var(--space-3);
   font-family: var(--font-sans);
-  font-size: 0.875rem;
+  font-size: var(--ui-text-md);
   color: var(--text-primary);
   background: var(--bg-surface);
   border: 2px solid var(--text-primary);
@@ -452,8 +475,8 @@ All animations MUST be wrapped in `@media (prefers-reduced-motion: no-preference
 
 ```css
 .textarea {
-  height: auto; min-height: 80px; padding: var(--space-3);
-  resize: vertical; font-family: var(--font-sans); font-size: 0.875rem;
+  height: auto; min-height: var(--space-20); padding: var(--space-3);
+  resize: vertical; font-family: var(--font-sans); font-size: var(--ui-text-md);
   color: var(--text-primary); background: var(--bg-surface);
   border: 2px solid var(--text-primary); border-radius: var(--radius-sm);
   box-shadow: 2px 2px 0 var(--text-primary);
@@ -465,9 +488,9 @@ All animations MUST be wrapped in `@media (prefers-reduced-motion: no-preference
 
 ```css
 .select {
-  appearance: none; width: 100%; height: 36px;
-  padding: 0 32px 0 var(--space-3);
-  font-family: var(--font-sans); font-size: 0.875rem;
+  appearance: none; width: 100%; height: var(--control-md);
+  padding: 0 var(--space-8) 0 var(--space-3);
+  font-family: var(--font-sans); font-size: var(--ui-text-md);
   color: var(--text-primary); background: var(--bg-surface);
   border: 2px solid var(--text-primary); border-radius: var(--radius-sm);
   cursor: pointer;
@@ -539,8 +562,8 @@ All animations MUST be wrapped in `@media (prefers-reduced-motion: no-preference
 
 ```css
 .badge {
-  display: inline-flex; align-items: center; gap: 4px;
-  padding: 2px 10px; font-size: 0.6875rem; font-weight: 600;
+  display: inline-flex; align-items: center; gap: var(--space-1);
+  padding: var(--badge-py) var(--badge-px); font-size: var(--ui-text-xs); font-weight: 600;
   border-radius: var(--radius-full);
 }
 ```
@@ -564,7 +587,7 @@ All animations MUST be wrapped in `@media (prefers-reduced-motion: no-preference
 .alert {
   display: flex; align-items: flex-start; gap: var(--space-3);
   padding: var(--space-4); border-radius: var(--radius-md);
-  font-size: 0.875rem; line-height: 1.5;
+  font-size: var(--ui-text-md); line-height: 1.5;
 }
 .alert-info { background: var(--accent-blue-subtle); color: var(--accent-blue-text); }
 .alert-error { background: var(--accent-red-subtle); color: var(--accent-red-text); }
@@ -579,10 +602,10 @@ All animations MUST be wrapped in `@media (prefers-reduced-motion: no-preference
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg); overflow: hidden;
 }
-.data-table { width: 100%; border-collapse: collapse; font-size: 0.8125rem; }
+.data-table { width: 100%; border-collapse: collapse; font-size: var(--ui-text-sm); }
 .data-table th {
   text-align: left; padding: var(--space-3) var(--space-4);
-  font-weight: 600; font-size: 0.6875rem; letter-spacing: 0.04em;
+  font-weight: 600; font-size: var(--ui-text-xs); letter-spacing: 0.04em;
   text-transform: uppercase; color: var(--text-muted);
   background: var(--bg-subtle); border-bottom: 1px solid var(--border-subtle);
 }
@@ -602,7 +625,7 @@ All animations MUST be wrapped in `@media (prefers-reduced-motion: no-preference
 ```css
 .tabs { display: flex; border-bottom: 1px solid var(--border-subtle); }
 .tab {
-  padding: var(--space-3) var(--space-4); font-size: 0.875rem;
+  padding: var(--space-3) var(--space-4); font-size: var(--ui-text-md);
   font-weight: 500; color: var(--text-secondary);
   border: none; background: none;
   border-bottom: 2px solid transparent; margin-bottom: -1px;
@@ -622,7 +645,7 @@ All animations MUST be wrapped in `@media (prefers-reduced-motion: no-preference
 .sidebar-item {
   display: flex; align-items: center; gap: var(--space-2);
   padding: var(--space-2) var(--space-3); border-radius: var(--radius-sm);
-  font-size: 0.8125rem; color: var(--text-secondary); cursor: pointer;
+  font-size: var(--ui-text-sm); color: var(--text-secondary); cursor: pointer;
 }
 .sidebar-item:hover { background: var(--bg-subtle); color: var(--text-primary); }
 .sidebar-item.active { background: var(--accent-blue-subtle); color: var(--accent-blue-text); font-weight: 550; }
@@ -726,7 +749,7 @@ document.documentElement.setAttribute('data-theme', saved || (prefersDark ? 'dar
 6. **Color is surgical** — Blue for primary actions, red for danger, yellow for highlight, green for success
 7. **Warm backgrounds** — `--bg-page` is warm off-white, not pure white
 8. **All colors via tokens** — No hardcoded hex/rgb/hsl in components
-9. **All spacing via scale** — Only `var(--space-*)` values
+9. **All spacing via scale** — Only `var(--space-*)` and `var(--control-*)` values
 10. **Reduced motion respected** — All animations behind `prefers-reduced-motion: no-preference`
 11. **Focus visible on all interactive elements** — `outline: 2px solid var(--focus-ring); outline-offset: 2px;`
 12. **Border radius from scale** — Only `var(--radius-*)` values

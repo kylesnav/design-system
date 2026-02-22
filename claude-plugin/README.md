@@ -10,13 +10,13 @@ claude plugin install /path/to/claude-plugin
 
 ## Skills
 
-### `/buildwithdelightful`
+### `/build-with-delightful`
 
 Build a new project or UI from the ground up using the Delightful design system.
 
 Scaffolds the full token system, builds components using strict design system patterns, then audits for compliance. Zero hardcoded colors, zero arbitrary spacing, full dark mode, all interaction states.
 
-### `/refactorwithdelightful`
+### `/refactor-with-delightful`
 
 Refactor an existing project's UI to use the Delightful design system.
 
@@ -92,10 +92,10 @@ claude-plugin/
 ├── .claude-plugin/
 │   └── plugin.json              # Plugin manifest
 ├── skills/
-│   ├── buildwithdelightful/
-│   │   └── SKILL.md             # /buildwithdelightful skill
-│   └── refactorwithdelightful/
-│       └── SKILL.md             # /refactorwithdelightful skill
+│   ├── build-with-delightful/
+│   │   └── SKILL.md             # /build-with-delightful skill
+│   └── refactor-with-delightful/
+│       └── SKILL.md             # /refactor-with-delightful skill
 ├── agents/
 │   ├── delightful-auditor.md    # Compliance checker agent
 │   └── delightful-builder.md    # UI builder agent
@@ -105,7 +105,7 @@ claude-plugin/
 │   ├── css/
 │   │   └── delightful-tokens.css    # Standalone CSS tokens
 │   ├── tailwind/
-│   │   └── delightful-preset.js     # Tailwind v4 preset
+│   │   └── delightful-preset.js     # Tailwind v3 preset
 │   └── figma/
 │       └── tokens.json              # Figma/Style Dictionary tokens
 └── README.md
