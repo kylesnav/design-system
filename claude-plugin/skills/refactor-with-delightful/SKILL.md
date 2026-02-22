@@ -21,7 +21,7 @@ Launch the `delightful-auditor` agent to scan the existing codebase. The auditor
 
 - All hardcoded colors to which Delightful tokens they should become
 - All arbitrary spacing to which `--space-*` values
-- All font sizes to which `--step-*` values
+- All font sizes to which `--step-*` or `--ui-text-*` values
 - Components that don't follow Delightful patterns
 - Missing dark mode support
 - Missing interaction states (hover, active, focus-visible)
@@ -40,7 +40,7 @@ Propose a migration order:
 1. Inject the token system first
 2. Migrate colors to semantic tokens
 3. Migrate spacing to `--space-*` scale
-4. Migrate typography to fluid `--step-*` scale
+4. Migrate content typography to fluid `--step-*` scale, control typography to `--ui-text-*` scale
 5. Add interaction states
 6. Add dark mode support
 7. Add reduced-motion guards
@@ -77,11 +77,24 @@ Replace values file-by-file, component-by-component:
 - Map each pixel value to nearest `--space-*` token
 - 4px=1, 8px=2, 12px=3, 16px=4, 20px=5, 24px=6, 32px=8, 40px=10, 48px=12, 64px=16, 80px=20
 
-**Typography to Fluid scale:**
-- Small text to `--step--2` or `--step--1`
+**Content typography to Fluid scale:**
 - Body text to `--step-0`
 - Subheadings to `--step-1` or `--step-2`
 - Headings to `--step-3` through `--step-5`
+
+**Control typography to UI text scale:**
+- Captions, hints, metadata to `--ui-text-2xs` (12px)
+- Badges, table headers to `--ui-text-xs` (11px)
+- Tables, sidebar items, small buttons to `--ui-text-sm` (13px)
+- Inputs, selects, alerts, tabs to `--ui-text-md` (14px)
+- Medium buttons to `--ui-text-lg` (15px)
+- Large buttons to `--ui-text-xl` (17px)
+
+**Control heights:**
+- Small controls (32px) to `--control-sm`
+- Default controls (36px) to `--control-md`
+- Medium controls (44px) to `--control-lg`
+- Large controls (56px) to `--control-xl`
 
 **Shadows to Neo-brutalist solid:**
 - Replace any `box-shadow` with blur radius to solid offsets

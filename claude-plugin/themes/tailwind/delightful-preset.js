@@ -73,6 +73,19 @@ export default {
         'step-3': 'var(--step-3)',
         'step-4': 'var(--step-4)',
         'step-5': 'var(--step-5)',
+        'ui-2xs': 'var(--ui-text-2xs)',
+        'ui-xs': 'var(--ui-text-xs)',
+        'ui-sm': 'var(--ui-text-sm)',
+        'ui-md': 'var(--ui-text-md)',
+        'ui-lg': 'var(--ui-text-lg)',
+        'ui-xl': 'var(--ui-text-xl)',
+      },
+
+      height: {
+        'control-sm': 'var(--control-sm)',
+        'control-md': 'var(--control-md)',
+        'control-lg': 'var(--control-lg)',
+        'control-xl': 'var(--control-xl)',
       },
 
       letterSpacing: {
@@ -101,6 +114,9 @@ export default {
         '12': 'var(--space-12)',
         '16': 'var(--space-16)',
         '20': 'var(--space-20)',
+        'btn-gap': 'var(--btn-gap)',
+        'badge-y': 'var(--badge-py)',
+        'badge-x': 'var(--badge-px)',
       },
 
       borderRadius: {

@@ -17,8 +17,8 @@ When invoked, scan all HTML, CSS, JSX, TSX, Vue, and Svelte files in the target 
 | Check | Pattern to catch | Severity |
 |---|---|---|
 | Hardcoded colors | `#fff`, `#000`, `rgb(`, `rgba(`, `hsl(`, `hsla(`, any color value not wrapped in `var(--*)` | Error |
-| Arbitrary spacing | `padding: 12px`, `margin: 1.5rem`, `gap: 20px` — any spacing not using `var(--space-*)` | Error |
-| Arbitrary font sizes | `font-size: 14px`, `font-size: 1rem` — any not using `var(--step-*)` | Error |
+| Arbitrary spacing | `padding: 12px`, `margin: 1.5rem`, `gap: 20px` — any spacing not using `var(--space-*)`, `var(--control-*)`, `var(--btn-*)`, or `var(--badge-*)` | Error |
+| Arbitrary font sizes | `font-size: 14px`, `font-size: 1rem` — any not using `var(--step-*)` or `var(--ui-text-*)` | Error |
 | Missing dark mode | Direct `--primitive-*` references in component styles (should use semantic tokens) | Warning |
 | Missing hover state | Interactive elements (`button`, `a`, `[role="button"]`) without `:hover` styles that include `transform` and shadow change | Warning |
 | Missing active state | Buttons/links without `:active` that includes translate + shadow reduction | Warning |
@@ -100,15 +100,27 @@ When suggesting fixes, use these mappings:
 - 64px → `var(--space-16)`
 - 80px → `var(--space-20)`
 
-**Font sizes → Scale:**
-- ~11px → `var(--step--2)`
-- ~13px → `var(--step--1)`
+**Font sizes → Fluid scale (content):**
 - ~16px → `var(--step-0)`
 - ~19px → `var(--step-1)`
 - ~23px → `var(--step-2)`
 - ~28px → `var(--step-3)`
 - ~33px → `var(--step-4)`
 - ~40px → `var(--step-5)`
+
+**Font sizes → UI text scale (controls, non-fluid):**
+- 0.75rem (12px) → `var(--ui-text-2xs)` — captions, hints, metadata
+- 0.6875rem (11px) → `var(--ui-text-xs)` — badges, table headers
+- 0.8125rem (13px) → `var(--ui-text-sm)` — tables, sidebar items, small buttons
+- 0.875rem (14px) → `var(--ui-text-md)` — inputs, selects, alerts, tabs
+- 0.9375rem (15px) → `var(--ui-text-lg)` — medium buttons
+- 1.0625rem (17px) → `var(--ui-text-xl)` — large buttons
+
+**Control heights:**
+- 32px → `var(--control-sm)`
+- 36px → `var(--control-md)`
+- 44px → `var(--control-lg)`
+- 56px → `var(--control-xl)`
 
 **Border radius → Scale:**
 - 10px → `var(--radius-sm)`

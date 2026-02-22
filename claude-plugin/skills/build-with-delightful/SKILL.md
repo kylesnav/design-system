@@ -43,7 +43,7 @@ Create components and pages using **only** Delightful tokens and patterns:
 
 - Every color is a `var(--*)` token
 - Every spacing value uses `var(--space-*)`
-- Every font size uses `var(--step-*)`
+- Every content font size uses `var(--step-*)`, every control font size uses `var(--ui-text-*)`
 - Every border-radius uses `var(--radius-*)`
 - Shadows are solid (zero blur): `Xpx Ypx 0`
 - Borders are `2px solid` on cards/buttons
@@ -57,7 +57,7 @@ Launch the `delightful-auditor` agent to scan every file produced. The auditor c
 
 - Zero hardcoded colors (no hex, rgb, hsl — only `var(--*)`)
 - Zero arbitrary spacing (only `var(--space-*)`)
-- Zero arbitrary font sizes (only `var(--step-*)`)
+- Zero arbitrary font sizes (only `var(--step-*)` or `var(--ui-text-*)`)
 - All interactive elements have hover/active/focus-visible states
 - Dark mode works (semantic tokens, not primitives)
 - `prefers-reduced-motion` guards on all animations
@@ -85,7 +85,11 @@ If browser tools are available (Playwright MCP), open the result and screenshot 
 
 **Spacing:** `--space-1` (4px) through `--space-20` (80px)
 
-**Font sizes:** `--step--2` through `--step-5` (fluid clamp)
+**Content font sizes:** `--step--2` through `--step-5` (fluid clamp)
+
+**UI font sizes:** `--ui-text-2xs` (12px), `--ui-text-xs` (11px), `--ui-text-sm` (13px), `--ui-text-md` (14px), `--ui-text-lg` (15px), `--ui-text-xl` (17px)
+
+**Control heights:** `--control-sm` (32px), `--control-md` (36px), `--control-lg` (44px), `--control-xl` (56px)
 
 **Shadows:** `--shadow-sm` (2px), `--shadow-md` (4px), `--shadow-lg` (8px), `--shadow-pink`, `--shadow-danger`, `--shadow-gold`, `--shadow-cyan`, `--shadow-green`
 
