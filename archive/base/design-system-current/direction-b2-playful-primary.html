@@ -372,6 +372,19 @@
       background-color: var(--bg-page);
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--focus-ring);
+      outline-offset: 2px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
     }
 
     /* ============================================================
@@ -543,12 +556,15 @@
     .sticky-nav {
       position: sticky;
       top: 0;
-      z-index: 100;
-      background: var(--bg-surface);
+      z-index: 200;
       border-bottom: 1px solid var(--border-subtle);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      background: oklch(from var(--bg-surface) l c h / 0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      background: oklch(0.988 0.004 90 / 0.92);
+    }
+
+    [data-theme="dark"] .sticky-nav {
+      background: oklch(0.135 0.010 90 / 0.92);
     }
 
     .sticky-nav-inner {
@@ -605,6 +621,48 @@
       color: var(--text-primary);
     }
 
+    .nav-toggle {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-sm);
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      cursor: pointer;
+      font-family: var(--font-sans);
+      padding: 0;
+    }
+
+    .nav-toggle svg { width: 18px; height: 18px; }
+
+    @media (max-width: 768px) {
+      .nav-toggle { display: flex; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        background: var(--bg-surface);
+        border-bottom: 1px solid var(--border-subtle);
+        padding: var(--space-4) var(--space-6);
+        gap: var(--space-1);
+        z-index: 100;
+      }
+      .nav-links.open { display: flex; }
+      .nav-links a {
+        padding: var(--space-2) var(--space-3);
+        border-radius: var(--radius-sm);
+        width: 100%;
+      }
+      .nav-links a:hover { background: var(--bg-subtle); }
+      .sticky-nav-inner { position: relative; }
+    }
+
     .theme-toggle {
       display: flex;
       align-items: center;
@@ -618,11 +676,6 @@
       font-weight: 500;
       color: var(--text-secondary);
       font-family: var(--font-sans);
-    }
-
-    .theme-toggle:focus-visible {
-      outline: 2px solid var(--focus-ring);
-      outline-offset: 2px;
     }
 
     /* ============================================================
@@ -673,7 +726,7 @@
     .floating-decor {
       position: fixed;
       pointer-events: none;
-      z-index: 0;
+      z-index: -1;
     }
 
     .dot-blue-float {
@@ -868,6 +921,16 @@
     @media (max-width: 768px) {
       .component-grid { grid-template-columns: 1fr; }
       .swatch-row-5 { grid-template-columns: repeat(3, 1fr); }
+      .form-grid { grid-template-columns: 1fr; }
+      .page-container { padding: var(--space-8) var(--space-4); }
+      .sample-page-section { padding: var(--space-8) var(--space-4); }
+      .stat-cards { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 480px) {
+      .swatch-row-5 { grid-template-columns: repeat(2, 1fr); }
+      .swatch-grid { grid-template-columns: 1fr 1fr; }
+      footer .flex { flex-direction: column; gap: var(--space-3); text-align: center; }
     }
 
     .component-group {
@@ -1665,7 +1728,10 @@
         </span>
         Kyle DS
       </a>
-      <ul class="nav-links">
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <ul class="nav-links" id="navLinks">
         <li><a href="#colors" class="nav-link-animated">Colors</a></li>
         <li><a href="#typography" class="nav-link-animated">Type</a></li>
         <li><a href="#components" class="nav-link-animated">Components</a></li>
@@ -2553,6 +2619,23 @@
       // Respect system preference on load
       if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
         setTheme('dark');
+      }
+
+      // Mobile nav toggle
+      const navToggle = document.getElementById('navToggle');
+      const navLinks = document.getElementById('navLinks');
+      if (navToggle && navLinks) {
+        navToggle.addEventListener('click', function() {
+          const isOpen = navLinks.classList.toggle('open');
+          navToggle.setAttribute('aria-expanded', isOpen);
+        });
+        // Close nav when a link is clicked
+        navLinks.querySelectorAll('a').forEach(function(link) {
+          link.addEventListener('click', function() {
+            navLinks.classList.remove('open');
+            navToggle.setAttribute('aria-expanded', 'false');
+          });
+        });
       }
     })();
   </script>

@@ -1,23 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>05 — Toast Notifications | Kyle DS Prototypes</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primitive-neutral-50:  oklch(0.985 0.003 90);
-      --primitive-neutral-100: oklch(0.965 0.005 90);
-      --primitive-neutral-200: oklch(0.920 0.008 90);
-      --primitive-neutral-300: oklch(0.850 0.010 90);
-      --primitive-neutral-400: oklch(0.700 0.012 90);
-      --primitive-neutral-600: oklch(0.440 0.010 90);
-      --primitive-neutral-950: oklch(0.130 0.010 90);
-      --primitive-accent-500: oklch(0.60 0.24 270);
-      --primitive-accent-600: oklch(0.52 0.24 270);
+      --primitive-neutral-50:  oklch(0.978 0.005 90);
+      --primitive-neutral-100: oklch(0.958 0.006 90);
+      --primitive-neutral-200: oklch(0.905 0.007 90);
+      --primitive-neutral-300: oklch(0.855 0.008 90);
+      --primitive-neutral-400: oklch(0.755 0.010 90);
+      --primitive-neutral-600: oklch(0.490 0.010 90);
+      --primitive-neutral-950: oklch(0.135 0.008 90);
+      --primitive-blue-500: oklch(0.550 0.220 260);
+      --primitive-blue-600: oklch(0.480 0.220 260);
       --bg-page: var(--primitive-neutral-50);
       --bg-surface: oklch(0.995 0.002 90);
       --bg-muted: var(--primitive-neutral-100);
@@ -26,40 +26,43 @@
       --text-muted: var(--primitive-neutral-400);
       --border-default: var(--primitive-neutral-200);
       --border-strong: var(--primitive-neutral-300);
-      --accent-solid: var(--primitive-accent-500);
-      --accent-hover: var(--primitive-accent-600);
-      --accent-foreground: oklch(0.995 0.002 90);
-      --success-solid: oklch(0.62 0.19 145);
-      --error-solid: oklch(0.58 0.22 25);
+      --accent-blue: var(--primitive-blue-500);
+      --accent-blue-hover: var(--primitive-blue-600);
+      --text-on-accent: oklch(0.995 0.002 90);
+      --accent-green: oklch(0.580 0.180 155);
+      --accent-red: oklch(0.58 0.22 25);
       --warning-solid: oklch(0.75 0.18 85);
       --info-solid: oklch(0.60 0.15 240);
-      --space-1: 0.25rem; --space-2: 0.5rem; --space-3: 0.75rem;
-      --space-4: 1rem; --space-6: 1.5rem; --space-8: 2rem;
-      --space-12: 3rem;
-      --radius-sm: 4px; --radius-md: 8px; --radius-full: 9999px;
-      --shadow-overlay: 0 4px 24px oklch(0 0 0 / 0.08);
+      --space-1: 4px; --space-2: 8px; --space-3: 12px;
+      --space-4: 16px; --space-6: 24px; --space-8: 32px;
+      --space-12: 48px;
+      --radius-sm: 6px; --radius-md: 10px; --radius-full: 9999px;
+      --radius-lg: 12px;
+      --radius-xl: 16px;
+      --shadow-md: 0 4px 24px oklch(0 0 0 / 0.08);
     }
-    .dark {
-      --bg-page: oklch(0.13 0.01 270);
-      --bg-surface: oklch(0.17 0.008 270);
-      --bg-muted: oklch(0.20 0.008 270);
+    [data-theme="dark"] {
+      --bg-page: oklch(0.135 0.010 90);
+      --bg-surface: oklch(0.160 0.012 90);
+      --bg-muted: oklch(0.205 0.012 90);
       --text-primary: oklch(0.95 0.003 90);
       --text-secondary: oklch(0.65 0.008 90);
       --text-muted: oklch(0.45 0.006 90);
-      --border-default: oklch(0.25 0.008 270);
-      --border-strong: oklch(0.35 0.010 270);
-      --accent-solid: oklch(0.70 0.20 270);
-      --accent-hover: oklch(0.75 0.18 270);
-      --accent-foreground: oklch(0.995 0.002 90);
-      --success-solid: oklch(0.72 0.17 145);
-      --error-solid: oklch(0.68 0.20 25);
+      --border-default: oklch(0.260 0.012 90);
+      --border-strong: oklch(0.330 0.012 90);
+      --accent-blue: oklch(0.670 0.200 260);
+      --accent-blue-hover: oklch(0.720 0.190 260);
+      --text-on-accent: oklch(0.995 0.002 90);
+      --accent-green: oklch(0.680 0.170 155);
+      --accent-red: oklch(0.68 0.20 25);
       --warning-solid: oklch(0.80 0.16 85);
       --info-solid: oklch(0.70 0.13 240);
-      --shadow-overlay: 0 4px 24px oklch(0 0 0 / 0.3);
+      --shadow-md: 0 4px 24px oklch(0 0 0 / 0.3);
     }
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      font-feature-settings: "cv02", "cv03", "cv04", "cv11";
       background: var(--bg-page); color: var(--text-primary);
       line-height: 1.6; -webkit-font-smoothing: antialiased;
       min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -78,7 +81,7 @@
       transition: background 160ms ease-out, border-color 160ms ease-out;
     }
     .btn:hover { background: var(--bg-muted); border-color: var(--border-strong); }
-    .btn:focus-visible { outline: 2px solid var(--accent-solid); outline-offset: 2px; }
+    .btn:focus-visible { outline: 2px solid var(--accent-blue); outline-offset: 2px; }
     .btn:active { transform: scale(0.97); }
     .btn-clear { grid-column: 1 / -1; background: transparent; border-color: transparent; color: var(--text-muted); font-size: 0.8125rem; }
     .btn-clear:hover { color: var(--text-secondary); background: var(--bg-muted); }
@@ -95,7 +98,7 @@
       display: flex; align-items: flex-start; gap: var(--space-3);
       padding: var(--space-4); padding-left: var(--space-4);
       background: var(--bg-surface); border: 1px solid var(--border-default);
-      border-radius: var(--radius-md); box-shadow: var(--shadow-overlay);
+      border-radius: var(--radius-md); box-shadow: var(--shadow-md);
       position: relative; overflow: hidden;
       touch-action: pan-y; cursor: grab;
       opacity: 0; transform: translateY(80px);
@@ -103,13 +106,13 @@
     .toast-stripe {
       position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
     }
-    .toast-stripe.success { background: var(--success-solid); }
-    .toast-stripe.error { background: var(--error-solid); }
+    .toast-stripe.success { background: var(--accent-green); }
+    .toast-stripe.error { background: var(--accent-red); }
     .toast-stripe.warning { background: var(--warning-solid); }
     .toast-stripe.info { background: var(--info-solid); }
     .toast-icon { flex-shrink: 0; margin-top: 1px; margin-left: var(--space-2); }
-    .toast-icon.success { color: var(--success-solid); }
-    .toast-icon.error { color: var(--error-solid); }
+    .toast-icon.success { color: var(--accent-green); }
+    .toast-icon.error { color: var(--accent-red); }
     .toast-icon.warning { color: var(--warning-solid); }
     .toast-icon.info { color: var(--info-solid); }
     .toast-content { flex: 1; font-size: 0.875rem; line-height: 1.4; margin-right: var(--space-6); }
@@ -139,8 +142,8 @@
 
     .theme-toggle { position: fixed; top: var(--space-4); right: var(--space-4); z-index: 100; background: var(--bg-surface); border: 1px solid var(--border-default); border-radius: var(--radius-full); width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--text-secondary); }
     .theme-toggle:hover { border-color: var(--border-strong); color: var(--text-primary); }
-    .theme-toggle .icon-sun, .dark .theme-toggle .icon-moon { display: none; }
-    .dark .theme-toggle .icon-sun { display: block; }
+    .theme-toggle .icon-sun, [data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+    [data-theme="dark"] .theme-toggle .icon-sun { display: block; }
     .theme-toggle .icon-moon { display: block; }
 
     @media (max-width: 600px) {
@@ -160,7 +163,7 @@
     <p class="page-description">Spring-powered entry, stack compression, swipe-to-dismiss, and auto-dismiss with progress.</p>
     <div class="trigger-grid">
       <button class="btn" id="toast-success">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="oklch(0.62 0.19 145)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="oklch(0.580 0.180 155)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
         Save project
       </button>
       <button class="btn" id="toast-error">
@@ -198,7 +201,7 @@
     let toasts = [];
 
     document.getElementById('theme-toggle').addEventListener('click', () => {
-      document.documentElement.classList.toggle('dark');
+      document.documentElement.dataset.theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
     });
 
     const icons = {
