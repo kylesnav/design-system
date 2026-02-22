@@ -47,8 +47,8 @@
       --primitive-gold-100: oklch(0.960 0.050 85);
       --primitive-gold-200: oklch(0.920 0.110 85);
       --primitive-gold-300: oklch(0.870 0.160 85);
-      --primitive-gold-400: oklch(0.830 0.180 80);
-      --primitive-gold-500: oklch(0.780 0.180 78);
+      --primitive-gold-400: oklch(0.840 0.175 85);
+      --primitive-gold-500: oklch(0.820 0.165 84);
 
       /* Cyan-blue (tertiary brand — hue 210) */
       --primitive-cyan-100: oklch(0.930 0.038 210);
@@ -100,11 +100,11 @@
       --accent-danger-subtle: oklch(0.950 0.040 20);
       --accent-danger-text: oklch(0.550 0.220 20);
 
-      --accent-gold: oklch(0.830 0.180 80);
+      --accent-gold: oklch(0.840 0.175 85);
       /* Warm gold */
-      --accent-gold-hover: oklch(0.790 0.175 78);
+      --accent-gold-hover: oklch(0.820 0.165 84);
       --accent-gold-subtle: oklch(0.965 0.060 85);
-      --accent-gold-text: oklch(0.440 0.130 80);
+      --accent-gold-text: oklch(0.440 0.130 85);
 
       --accent-cyan: oklch(0.650 0.148 210);
       /* Cyan-blue (tertiary brand) */
@@ -168,10 +168,10 @@
       --accent-danger-subtle: oklch(0.250 0.055 20);
       --accent-danger-text: oklch(0.720 0.180 20);
 
-      --accent-gold: oklch(0.820 0.170 80);
-      --accent-gold-hover: oklch(0.860 0.160 78);
-      --accent-gold-subtle: oklch(0.260 0.065 80);
-      --accent-gold-text: oklch(0.860 0.160 80);
+      --accent-gold: oklch(0.840 0.170 85);
+      --accent-gold-hover: oklch(0.870 0.155 84);
+      --accent-gold-subtle: oklch(0.260 0.065 85);
+      --accent-gold-text: oklch(0.870 0.155 85);
 
       --accent-cyan: oklch(0.720 0.140 210);
       --accent-cyan-hover: oklch(0.760 0.130 210);
@@ -794,6 +794,60 @@
       .tile-grid {
         grid-template-columns: 1fr 1fr !important;
       }
+
+      .ds-section {
+        padding: var(--space-10) 0;
+      }
+
+      .section-header {
+        margin-bottom: var(--space-8);
+      }
+
+      .hero {
+        min-height: auto;
+        padding: var(--space-12) 0 var(--space-10);
+      }
+
+      .table-wrap {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .contrast-checker {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .type-tester-controls {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .card {
+        padding: var(--space-4);
+      }
+
+      .alert {
+        padding: var(--space-3) var(--space-4);
+      }
+
+      .tilt-container {
+        perspective: none;
+      }
+
+      .tilt-card {
+        transform: none !important;
+      }
+
+      .tilt-title,
+      .tilt-desc,
+      .tilt-badge {
+        transform: none;
+      }
+
+      .spotlight-panel {
+        height: 220px;
+      }
     }
 
     @media (max-width: 480px) {
@@ -803,6 +857,40 @@
 
       .hero-title-text {
         font-size: var(--step-4) !important;
+      }
+
+      .ds-section {
+        padding: var(--space-8) 0;
+      }
+
+      .hero {
+        min-height: auto;
+        padding: var(--space-8) 0 var(--space-6);
+      }
+
+      .swatch-row {
+        flex-direction: column;
+      }
+
+      .swatch-row-cell {
+        height: 32px;
+      }
+
+      .btn-row {
+        flex-direction: column;
+      }
+
+      .btn-row .btn {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .spotlight-panel {
+        height: 180px;
+      }
+
+      .section-header {
+        margin-bottom: var(--space-6);
       }
     }
 
@@ -1044,6 +1132,10 @@
     @media (min-width: 769px) and (max-width: 1024px) {
       .tile-grid {
         grid-template-columns: repeat(3, 1fr);
+      }
+
+      .comp-sidebar-layout {
+        grid-template-columns: 200px 1fr;
       }
     }
 
@@ -3601,18 +3693,18 @@
                 <div class="swatch-val">oklch(0.870 0.160 85)</div>
               </div>
             </div>
-            <div class="swatch" style="margin-top:var(--space-2)" data-copy="oklch(0.830 0.180 80)">
+            <div class="swatch" style="margin-top:var(--space-2)" data-copy="oklch(0.840 0.175 85)">
               <div class="swatch-color" style="background:var(--primitive-gold-400)"></div>
               <div class="swatch-info">
                 <div class="swatch-name">gold-400</div>
-                <div class="swatch-val">oklch(0.830 0.180 80)</div>
+                <div class="swatch-val">oklch(0.840 0.175 85)</div>
               </div>
             </div>
-            <div class="swatch" style="margin-top:var(--space-2)" data-copy="oklch(0.780 0.180 78)">
+            <div class="swatch" style="margin-top:var(--space-2)" data-copy="oklch(0.820 0.165 84)">
               <div class="swatch-color" style="background:var(--primitive-gold-500)"></div>
               <div class="swatch-info">
                 <div class="swatch-name">gold-500</div>
-                <div class="swatch-val">oklch(0.780 0.180 78)</div>
+                <div class="swatch-val">oklch(0.820 0.165 84)</div>
               </div>
             </div>
           </div>

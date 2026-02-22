@@ -39,8 +39,8 @@
   --primitive-gold-100: oklch(0.960 0.050 85);
   --primitive-gold-200: oklch(0.920 0.110 85);
   --primitive-gold-300: oklch(0.870 0.160 85);
-  --primitive-gold-400: oklch(0.830 0.180 80);
-  --primitive-gold-500: oklch(0.780 0.180 78);
+  --primitive-gold-400: oklch(0.840 0.175 85);
+  --primitive-gold-500: oklch(0.820 0.165 84);
 
   /* Cyan-blue (tertiary brand — hue 210) */
   --primitive-cyan-100: oklch(0.930 0.038 210);
@@ -92,11 +92,11 @@
   --accent-danger-subtle: oklch(0.950 0.040 20);
   --accent-danger-text: oklch(0.550 0.220 20);
 
-  --accent-gold: oklch(0.830 0.180 80);
+  --accent-gold: oklch(0.840 0.175 85);
   /* Warm gold */
-  --accent-gold-hover: oklch(0.790 0.175 78);
+  --accent-gold-hover: oklch(0.820 0.165 84);
   --accent-gold-subtle: oklch(0.965 0.060 85);
-  --accent-gold-text: oklch(0.440 0.130 80);
+  --accent-gold-text: oklch(0.440 0.130 85);
 
   --accent-cyan: oklch(0.650 0.148 210);
   /* Cyan-blue (tertiary brand) */
@@ -160,10 +160,10 @@
   --accent-danger-subtle: oklch(0.250 0.055 20);
   --accent-danger-text: oklch(0.720 0.180 20);
 
-  --accent-gold: oklch(0.820 0.170 80);
-  --accent-gold-hover: oklch(0.860 0.160 78);
-  --accent-gold-subtle: oklch(0.260 0.065 80);
-  --accent-gold-text: oklch(0.860 0.160 80);
+  --accent-gold: oklch(0.840 0.170 85);
+  --accent-gold-hover: oklch(0.870 0.155 84);
+  --accent-gold-subtle: oklch(0.260 0.065 85);
+  --accent-gold-text: oklch(0.870 0.155 85);
 
   --accent-cyan: oklch(0.720 0.140 210);
   --accent-cyan-hover: oklch(0.760 0.130 210);

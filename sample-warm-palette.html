@@ -41,8 +41,8 @@
       --primitive-gold-100: oklch(0.960 0.050 85);
       --primitive-gold-200: oklch(0.920 0.110 85);
       --primitive-gold-300: oklch(0.870 0.160 85);
-      --primitive-gold-400: oklch(0.830 0.180 80);
-      --primitive-gold-500: oklch(0.780 0.180 78);
+      --primitive-gold-400: oklch(0.840 0.175 85);
+      --primitive-gold-500: oklch(0.820 0.165 84);
 
       /* Soft teal (complementary) */
       --primitive-teal-100: oklch(0.930 0.040 180);
@@ -86,10 +86,10 @@
       --accent-primary-text: oklch(0.560 0.270 350);
 
       /* Secondary = Warm Gold */
-      --accent-gold: oklch(0.830 0.180 80);
-      --accent-gold-hover: oklch(0.790 0.175 78);
+      --accent-gold: oklch(0.840 0.175 85);
+      --accent-gold-hover: oklch(0.820 0.165 84);
       --accent-gold-subtle: oklch(0.965 0.060 85);
-      --accent-gold-text: oklch(0.440 0.130 80);
+      --accent-gold-text: oklch(0.440 0.130 85);
 
       /* Tertiary = Teal */
       --accent-teal: oklch(0.650 0.150 175);
@@ -749,6 +749,68 @@
       .fade-in:nth-child(4) { animation-delay: 0.24s; }
       .fade-in:nth-child(5) { animation-delay: 0.32s; }
     }
+
+    /* ==========================================================================
+       RESPONSIVE
+       ========================================================================== */
+    @media (max-width: 768px) {
+      .page-wrapper {
+        padding: var(--space-6) var(--space-4);
+      }
+
+      .hero {
+        min-height: auto;
+        padding: var(--space-12) var(--space-4);
+      }
+
+      .card-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .table-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .section {
+        margin-bottom: var(--space-10);
+      }
+
+      .card {
+        padding: var(--space-4);
+      }
+
+      .alert {
+        padding: var(--space-3) var(--space-4);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero {
+        padding: var(--space-8) var(--space-4);
+      }
+
+      .hero-title {
+        font-size: var(--step-4);
+      }
+
+      .btn-row {
+        flex-direction: column;
+      }
+
+      .btn-row .btn {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .section {
+        margin-bottom: var(--space-8);
+      }
+
+      .section-title {
+        font-size: var(--step-2);
+      }
+    }
   </style>
 </head>
 
@@ -811,11 +873,11 @@
         </div>
         <div class="swatch">
           <div class="swatch-color" style="background: var(--primitive-gold-400)"></div>
-          <div class="swatch-label"><span class="name">Gold 400</span><span class="value">oklch(0.830 0.180 80)</span></div>
+          <div class="swatch-label"><span class="name">Gold 400</span><span class="value">oklch(0.840 0.175 85)</span></div>
         </div>
         <div class="swatch">
           <div class="swatch-color" style="background: var(--primitive-gold-500)"></div>
-          <div class="swatch-label"><span class="name">Gold 500</span><span class="value">oklch(0.780 0.180 78)</span></div>
+          <div class="swatch-label"><span class="name">Gold 500</span><span class="value">oklch(0.820 0.165 84)</span></div>
         </div>
         <div class="swatch">
           <div class="swatch-color" style="background: var(--primitive-teal-100)"></div>
@@ -1028,7 +1090,7 @@
             <tr>
               <td><code style="font-family: var(--font-mono)">--accent-gold</code></td>
               <td>Highlights, strings</td>
-              <td>oklch(0.830 0.180 80)</td>
+              <td>oklch(0.840 0.175 85)</td>
             </tr>
             <tr>
               <td><code style="font-family: var(--font-mono)">--accent-teal</code></td>
