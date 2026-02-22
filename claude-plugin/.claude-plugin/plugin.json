@@ -1,0 +1,29 @@
+{
+  "name": "delightful-design-system",
+  "version": "1.0.0",
+  "description": "Neo-brutalist design system with oklch colors, 3-tier tokens, 20+ components, and a complete motion system. Includes skills for building new UI and refactoring existing projects.",
+  "skills": [
+    {
+      "name": "build-with-delightful",
+      "description": "Build a new project or UI from the ground up using the Delightful design system",
+      "path": "skills/build-with-delightful/SKILL.md"
+    },
+    {
+      "name": "refactor-with-delightful",
+      "description": "Refactor an existing project's UI to use the Delightful design system",
+      "path": "skills/refactor-with-delightful/SKILL.md"
+    }
+  ],
+  "agents": [
+    {
+      "name": "delightful-builder",
+      "description": "Builds UI strictly following the Delightful design system",
+      "path": "agents/delightful-builder.md"
+    },
+    {
+      "name": "delightful-auditor",
+      "description": "Audits code for Delightful design system compliance",
+      "path": "agents/delightful-auditor.md"
+    }
+  ]
+}
