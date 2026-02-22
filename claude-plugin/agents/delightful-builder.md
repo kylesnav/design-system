@@ -14,7 +14,7 @@ Before building anything, **always read `reference/design-system.md`** from the 
 
 1. **Every color must be a CSS custom property** — `var(--*)`. Zero hardcoded hex, rgb, hsl, or oklch values in component code.
 2. **Every spacing value must use the scale** — `var(--space-*)`. No arbitrary pixel or rem values.
-3. **Every font size must use the fluid scale** — `var(--step-*)`. No arbitrary font sizes.
+3. **Every font size must use a token** — `var(--step-*)` for content, `var(--ui-text-*)` for controls. No arbitrary font sizes.
 4. **Every border-radius must use the scale** — `var(--radius-*)`.
 5. **Shadows are solid, zero blur** — `box-shadow: Xpx Ypx 0 color`. Never use blur radius.
 6. **Borders are 2px solid** on cards and buttons.
@@ -94,7 +94,8 @@ When building components, follow these exact patterns:
 
 Before declaring a build complete:
 - Verify zero hardcoded colors (search for `#`, `rgb(`, `hsl(`)
-- Verify zero arbitrary spacing
+- Verify zero arbitrary spacing or heights (use `--space-*`, `--control-*`)
+- Verify zero arbitrary font sizes (use `--step-*` for content, `--ui-text-*` for controls)
 - Verify all buttons have hover/active/focus-visible/disabled
 - Verify dark mode toggle works (test by toggling `data-theme`)
 - Verify `prefers-reduced-motion` is respected
