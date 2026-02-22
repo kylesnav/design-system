@@ -36,6 +36,14 @@ If token names, values, or component patterns changed, also update:
 - `claude-plugin/skills/build-with-delightful/SKILL.md`
 - `claude-plugin/skills/refactor-with-delightful/SKILL.md`
 
+## Claude Plugin External Repo Sync
+
+The Claude Code plugin lives in two places:
+- `claude-plugin/` in this repo (development copy)
+- `delightful-claude-plugin` repo (distribution copy — installable via `claude plugin install`)
+
+When any file in `claude-plugin/` is updated, copy **all** its contents (`.claude-plugin/`, `agents/`, `skills/`, `themes/`, `reference/`, `README.md`) to the `delightful-claude-plugin` repo and commit/push both repos.
+
 ## Obsidian External Repo Sync
 
 The Obsidian theme lives in two places:
