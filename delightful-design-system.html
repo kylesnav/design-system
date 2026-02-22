@@ -238,6 +238,9 @@
     /* ==========================================================================
        ANIMATIONS
        ========================================================================== */
+    /* Tiles start hidden; animation or reduced-motion fallback reveals them */
+    .anim-in { opacity: 0; }
+    @media (prefers-reduced-motion: reduce) { .anim-in { opacity: 1; } }
     @media (prefers-reduced-motion: no-preference) {
       @keyframes fadeInUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
       @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
@@ -301,9 +304,13 @@
       .feedback-enter { animation: scale-in var(--motion-fast) var(--ease-out) forwards; }
       .shake-anim { animation: shake var(--motion-base) ease-out; }
 
-      .blur-grid:hover .blur-card:not(:hover) { filter: blur(2px); opacity: 0.7; }
+      .blur-grid:hover .blur-card:not(:hover) { filter: blur(2px); }
       .blur-card { transition: filter var(--motion-base) ease-out, opacity var(--motion-base) ease-out, border-color var(--motion-fast) ease-out; }
     }
+
+    /* Blur-grid hover effects work regardless of motion preference */
+    .blur-grid:hover .blur-card:not(:hover) { opacity: 0.7; }
+    .blur-card:hover { border-color: var(--border-strong); }
 
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
@@ -401,14 +408,19 @@
     .tile-blue { border-top-color: var(--accent-blue); } .tile-red { border-top-color: var(--accent-red); }
     .tile-yellow { border-top-color: var(--accent-yellow); } .tile-green { border-top-color: var(--accent-green); }
     .tile-anim { height: 24px; margin-top: var(--space-3); display: flex; align-items: center; gap: 3px; }
-    .tile-anim-bar { height: 100%; border-radius: 2px; min-width: 4px; }
+    .tile-anim-bar { height: 100%; border-radius: 2px; min-width: 4px; transform-origin: bottom; }
     @media (prefers-reduced-motion: no-preference) {
       @keyframes tile-pulse { 0%, 100% { transform: scaleY(0.3); } 50% { transform: scaleY(1); } }
-      .tile-anim-bar { animation: tile-pulse 1.4s ease-in-out infinite; transform-origin: bottom; }
-      .tile-anim-bar:nth-child(2) { animation-delay: 0.15s; }
-      .tile-anim-bar:nth-child(3) { animation-delay: 0.3s; }
-      .tile-anim-bar:nth-child(4) { animation-delay: 0.45s; }
-      .tile-anim-bar:nth-child(5) { animation-delay: 0.6s; }
+      .tile:hover .tile-anim-bar { animation: tile-pulse 1.4s ease-in-out infinite; }
+      .tile:hover .tile-anim-bar:nth-child(2) { animation-delay: 0.15s; }
+      .tile:hover .tile-anim-bar:nth-child(3) { animation-delay: 0.3s; }
+      .tile:hover .tile-anim-bar:nth-child(4) { animation-delay: 0.45s; }
+      .tile:hover .tile-anim-bar:nth-child(5) { animation-delay: 0.6s; }
+      .tile-anim { transition: opacity var(--motion-fast) ease-out; opacity: 0.5; }
+      .tile:hover .tile-anim { opacity: 1; }
+      .tile:hover .tile-anim-dot { animation: easing-loop 2s cubic-bezier(0.22,1,0.36,1) infinite; }
+      .tile:hover .tile-anim .skel-shimmer { animation: shimmer 1.5s linear infinite; }
+      .tile-anim .skel-shimmer { animation: none; }
     }
 
     /* ==========================================================================
@@ -481,7 +493,8 @@
     .check-box, .radio-circle { width: 18px; height: 18px; border: 1.5px solid var(--border-strong); background: var(--bg-surface); display: flex; align-items: center; justify-content: center; flex-shrink: 0; cursor: pointer; }
     .check-box { border-radius: 4px; } .radio-circle { border-radius: 50%; }
     .check-box.checked, .radio-circle.checked { background: var(--accent-blue); border-color: var(--accent-blue); }
-    .check-box.checked svg { color: var(--text-on-accent); }
+    .check-box svg { opacity: 0; transition: opacity var(--motion-fast) ease-out; }
+    .check-box.checked svg { opacity: 1; color: var(--text-on-accent); }
     .radio-circle.checked::after { content: ''; width: 6px; height: 6px; background: var(--text-on-accent); border-radius: 50%; }
     .toggle { width: 40px; height: 22px; border-radius: var(--radius-full); background: var(--toggle-off-bg); cursor: pointer; position: relative; border: none; padding: 0; flex-shrink: 0; }
     .toggle-knob { position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; border-radius: 50%; background: var(--toggle-knob); box-shadow: 0 1px 3px oklch(0 0 0 / 0.15); }
@@ -512,7 +525,8 @@
     .data-table th { text-align: left; padding: var(--space-3) var(--space-4); font-weight: 600; font-size: 0.6875rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-muted); background: var(--bg-subtle); border-bottom: 1px solid var(--border-subtle); }
     .data-table td { padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--border-subtle); }
     .data-table tr:last-child td { border-bottom: none; }
-    .data-table tbody tr:hover { background: var(--bg-subtle); }
+    .data-table tbody tr { border-left: 3px solid transparent; transition: background var(--motion-fast) ease-out, border-color var(--motion-fast) ease-out; }
+    .data-table tbody tr:hover { background: var(--bg-muted); border-left-color: var(--accent-blue); }
     .data-table .mono { font-family: var(--font-mono); font-size: 0.75rem; }
     .status-dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; }
     .status-row { display: inline-flex; align-items: center; gap: 6px; }
@@ -605,7 +619,8 @@
        ICON GRID
        ========================================================================== */
     .icon-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: var(--space-3); }
-    .icon-cell { display: flex; flex-direction: column; align-items: center; gap: var(--space-2); padding: var(--space-4); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); background: var(--bg-surface); font-size: 0.625rem; font-family: var(--font-mono); color: var(--text-muted); text-align: center; }
+    .icon-cell { display: flex; flex-direction: column; align-items: center; gap: var(--space-2); padding: var(--space-4); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); background: var(--bg-surface); font-size: 0.625rem; font-family: var(--font-mono); color: var(--text-muted); text-align: center; transition: border-color var(--motion-fast) ease-out; cursor: default; }
+    .icon-cell:hover { border-color: var(--border-strong); }
     .icon-cell svg { color: var(--text-primary); }
 
     /* ==========================================================================
@@ -614,8 +629,12 @@
     .chart-wrapper { background: var(--bg-surface); border: 1px solid var(--border-default); border-radius: var(--radius-lg); padding: var(--space-6); }
     .chart-title { font-size: 0.875rem; font-weight: 600; margin-bottom: var(--space-4); }
     .bar-chart { display: flex; align-items: flex-end; gap: var(--space-3); height: 160px; padding-top: var(--space-4); }
-    .bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: var(--space-1); }
-    .bar { width: 100%; border-radius: var(--radius-sm) var(--radius-sm) 0 0; min-height: 4px; transition: height 0.6s var(--ease-smooth); }
+    .bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: var(--space-1); position: relative; }
+    .bar { width: 100%; border-radius: var(--radius-sm) var(--radius-sm) 0 0; min-height: 4px; transition: height 0.6s var(--ease-smooth), opacity var(--motion-fast) ease-out; }
+    .bar-chart:hover .bar-col:not(:hover) .bar { opacity: 0.4; }
+    .bar-col:hover .bar { filter: brightness(1.1); }
+    .bar-tooltip { position: absolute; top: -8px; left: 50%; transform: translate(-50%, -100%); background: var(--bg-elevated); color: var(--text-primary); border: 1px solid var(--border-default); border-radius: var(--radius-sm); padding: 2px 8px; font-size: 0.6875rem; font-family: var(--font-mono); font-weight: 600; white-space: nowrap; opacity: 0; transition: opacity var(--motion-fast) ease-out; pointer-events: none; box-shadow: var(--shadow-md); }
+    .bar-col:hover .bar-tooltip { opacity: 1; }
     .bar-label { font-size: 0.625rem; font-family: var(--font-mono); color: var(--text-muted); }
     .kpi-card { background: var(--bg-surface); border: 1px solid var(--border-default); border-radius: var(--radius-lg); padding: var(--space-6); border-top: 3px solid var(--accent-blue); }
     .kpi-value { font-size: var(--step-3); font-weight: 700; letter-spacing: var(--tracking-tighter); line-height: 1; margin-bottom: var(--space-1); }
@@ -625,11 +644,34 @@
     .kpi-down { color: var(--accent-red-text); }
 
     .donut-chart { display: flex; align-items: center; justify-content: center; }
+    .donut-segment { transition: opacity var(--motion-fast) ease-out, stroke-width var(--motion-fast) ease-out; cursor: pointer; }
+    .donut-segment:hover { stroke-width: 24; }
+    .donut-segment-hit { pointer-events: all; cursor: pointer; }
+    .donut-tooltip { position: absolute; background: var(--bg-elevated); color: var(--text-primary); border: 1px solid var(--border-default); border-radius: var(--radius-sm); padding: 4px 10px; font-size: 0.75rem; font-weight: 600; white-space: nowrap; opacity: 0; transition: opacity var(--motion-fast) ease-out; pointer-events: none; box-shadow: var(--shadow-md); z-index: 10; }
     .sparkline { display: inline-block; vertical-align: middle; }
+    .sparkline .spark-end { opacity: 0; transition: opacity var(--motion-fast) ease-out; }
+    tr:hover .sparkline .spark-end { opacity: 1; }
+
+    /* Line chart hover */
+    .line-crosshair { opacity: 0; transition: opacity var(--motion-instant) ease-out; pointer-events: none; }
+    .line-tooltip { position: absolute; background: var(--bg-elevated); color: var(--text-primary); border: 1px solid var(--border-default); border-radius: var(--radius-sm); padding: 4px 10px; font-size: 0.75rem; font-weight: 600; white-space: nowrap; opacity: 0; transition: opacity var(--motion-fast) ease-out; pointer-events: none; box-shadow: var(--shadow-md); z-index: 10; }
 
     /* Heatmap */
     .heatmap { display: grid; gap: 2px; }
-    .heat-cell { border-radius: 2px; aspect-ratio: 1; }
+    .heat-cell { border-radius: 2px; aspect-ratio: 1; transition: transform var(--motion-fast) ease-out, box-shadow var(--motion-fast) ease-out; cursor: pointer; position: relative; }
+    .heat-cell:hover { transform: scale(1.3); box-shadow: var(--shadow-md); z-index: 2; }
+    .heat-label { font-size: 0.625rem; font-family: var(--font-mono); color: var(--text-muted); display: flex; align-items: center; justify-content: center; }
+    .heat-header { font-size: 0.5625rem; font-family: var(--font-mono); color: var(--text-muted); display: flex; align-items: flex-end; justify-content: center; padding-bottom: 2px; }
+    .heatmap-legend { display: flex; align-items: center; gap: var(--space-2); margin-top: var(--space-3); font-size: 0.625rem; font-family: var(--font-mono); color: var(--text-muted); }
+    .heatmap-legend-bar { width: 96px; height: 8px; border-radius: 4px; background: linear-gradient(to right, oklch(0.550 0.220 260 / 0.1), oklch(0.550 0.220 260 / 0.9)); }
+    .heat-tooltip { position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%); background: var(--bg-elevated); color: var(--text-primary); border: 1px solid var(--border-default); border-radius: var(--radius-sm); padding: 3px 8px; font-size: 0.625rem; font-family: var(--font-mono); white-space: nowrap; opacity: 0; pointer-events: none; box-shadow: var(--shadow-md); z-index: 10; }
+    .heat-cell:hover .heat-tooltip { opacity: 1; }
+
+    /* Color palette swatches */
+    .palette-swatch { cursor: pointer; transition: transform var(--motion-fast) ease-out; position: relative; }
+    .palette-swatch:hover { transform: scaleY(1.25); }
+    .palette-swatch-label { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 0.5rem; font-family: var(--font-mono); opacity: 0; pointer-events: none; transition: opacity var(--motion-fast) ease-out; text-shadow: 0 1px 2px oklch(0 0 0 / 0.5); color: oklch(1 0 0); white-space: nowrap; }
+    .palette-swatch:hover .palette-swatch-label { opacity: 1; }
 
     /* ==========================================================================
        MOTION SECTION
@@ -660,8 +702,34 @@
     @property --hue-1 { syntax: "<number>"; inherits: false; initial-value: 270; }
     @property --hue-2 { syntax: "<number>"; inherits: false; initial-value: 270; }
     @property --hue-3 { syntax: "<number>"; inherits: false; initial-value: 270; }
+    @property --hue-4 { syntax: "<number>"; inherits: false; initial-value: 270; }
+    @property --light-1 { syntax: "<number>"; inherits: false; initial-value: 0.60; }
+    @property --chroma-1 { syntax: "<number>"; inherits: false; initial-value: 0.24; }
+    @property --hue-ring { syntax: "<number>"; inherits: false; initial-value: 270; }
     .color-pills { display: flex; gap: var(--space-3); flex-wrap: wrap; }
-    .color-pill { padding: var(--space-2) var(--space-6); font-family: var(--font-sans); font-size: 0.9375rem; font-weight: 600; color: oklch(0.995 0.002 90); border: none; border-radius: var(--radius-full); cursor: pointer; }
+    .color-pill { padding: var(--space-2) var(--space-6); font-family: var(--font-sans); font-size: 0.9375rem; font-weight: 600; color: oklch(0.995 0.002 90); border: none; border-radius: var(--radius-full); cursor: pointer; position: relative; }
+    .color-pill-value { position: absolute; top: -20px; left: 50%; transform: translateX(-50%); font-size: 0.625rem; font-family: var(--font-mono); color: var(--text-muted); opacity: 0; transition: opacity var(--motion-fast) ease-out; white-space: nowrap; pointer-events: none; }
+    .color-pill:hover .color-pill-value { opacity: 1; }
+    .color-shift-spectrum { height: 6px; border-radius: 3px; margin-top: var(--space-2); }
+    .color-shift-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-3); }
+    .color-shift-card { background: var(--bg-surface); border: 1px solid var(--border-default); border-radius: var(--radius-lg); padding: var(--space-4); }
+    .color-shift-card-label { font-size: 0.75rem; font-weight: 600; margin-bottom: var(--space-2); }
+    .color-shift-card-desc { font-size: 0.6875rem; color: var(--text-muted); margin-bottom: var(--space-3); }
+    .color-shift-swatch { height: 48px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 600; color: oklch(0.995 0.002 90); cursor: pointer; }
+    .color-shift-meta { font-size: 0.625rem; font-family: var(--font-mono); color: var(--text-muted); margin-top: var(--space-2); text-align: center; }
+    /* Hue ring */
+    .hue-ring-container { display: flex; align-items: center; gap: var(--space-6); flex-wrap: wrap; }
+    .hue-ring-wrap { position: relative; width: 160px; height: 160px; flex-shrink: 0; }
+    .hue-ring-svg { width: 160px; height: 160px; }
+    .hue-ring-indicator { transition: transform var(--motion-base) var(--ease-smooth); transform-origin: 80px 80px; }
+    .hue-ring-preview { width: 40px; height: 40px; border-radius: 50%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border: 3px solid var(--bg-surface); box-shadow: var(--shadow-md); }
+    .hue-ring-info { flex: 1; min-width: 200px; }
+    .hue-ring-val { font-size: var(--step-2); font-weight: 700; font-family: var(--font-mono); letter-spacing: var(--tracking-tighter); margin-bottom: var(--space-1); }
+    .hue-ring-label { font-size: 0.8125rem; color: var(--text-secondary); margin-bottom: var(--space-3); }
+    .hue-ring-slider { -webkit-appearance: none; appearance: none; width: 100%; height: 6px; border-radius: 3px; background: conic-gradient(from 0deg, oklch(0.65 0.25 0), oklch(0.65 0.25 60), oklch(0.65 0.25 120), oklch(0.65 0.25 180), oklch(0.65 0.25 240), oklch(0.65 0.25 300), oklch(0.65 0.25 360)); outline: none; cursor: pointer; }
+    .hue-ring-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; background: var(--bg-surface); border: 2px solid var(--text-primary); cursor: grab; }
+    .hue-ring-slider::-moz-range-thumb { width: 16px; height: 16px; border-radius: 50%; background: var(--bg-surface); border: 2px solid var(--text-primary); cursor: grab; }
+    .hue-ring-bar { height: 32px; border-radius: var(--radius-sm); margin-top: var(--space-3); display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-size: 0.75rem; font-weight: 600; color: oklch(0.995 0.002 90); }
     @supports (background: oklch(0.6 0.24 var(--hue-1))) {
       @media (prefers-reduced-motion: no-preference) {
         .color-pill-1 { background: oklch(0.60 0.24 var(--hue-1)); transition: --hue-1 var(--motion-slow) ease-out; }
@@ -670,16 +738,24 @@
         .color-pill-2:hover { --hue-2: 310; }
         .color-pill-3 { background: oklch(0.60 0.24 var(--hue-3)); transition: --hue-3 var(--motion-slow) ease-out; }
         .color-pill-3:hover { --hue-3: 145; }
+        .color-pill-4 { background: oklch(0.60 0.24 var(--hue-4)); transition: --hue-4 var(--motion-slow) ease-out; }
+        .color-pill-4:hover { --hue-4: 50; }
+        .color-shift-light { background: oklch(var(--light-1) 0.24 270); transition: --light-1 var(--motion-slow) ease-out; }
+        .color-shift-light:hover { --light-1: 0.80; }
+        .color-shift-chroma { background: oklch(0.60 var(--chroma-1) 270); transition: --chroma-1 var(--motion-slow) ease-out; }
+        .color-shift-chroma:hover { --chroma-1: 0.08; }
       }
     }
     @supports not (background: oklch(0.6 0.24 var(--hue-1))) {
       .color-pill { background: var(--accent-blue); } .color-pill:hover { background: var(--accent-blue-hover); }
+      .color-shift-swatch { background: var(--accent-blue); }
     }
 
-    .spotlight-panel { position: relative; overflow: hidden; background: oklch(0.135 0.010 90); border-radius: var(--radius-lg); height: 280px; display: flex; align-items: center; justify-content: center; cursor: crosshair; }
-    .spotlight-text { position: relative; z-index: 1; font-size: 1.125rem; font-weight: 500; color: oklch(0.45 0.006 90); text-align: center; }
-    .spotlight-dots { position: absolute; inset: 0; background-image: radial-gradient(circle, oklch(0.25 0.005 260) 1px, transparent 1px); background-size: 24px 24px; opacity: 0.5; }
-    .spotlight-gradient { position: absolute; inset: 0; background: radial-gradient(600px circle at 50% 50%, oklch(0.22 0.04 260), oklch(0.135 0.010 90)); }
+    .spotlight-panel { position: relative; overflow: hidden; background: var(--spotlight-bg); border-radius: var(--radius-lg); height: 280px; display: flex; align-items: center; justify-content: center; cursor: crosshair; --spotlight-bg: oklch(0.94 0.006 90); --spotlight-glow: oklch(0.85 0.06 260); --spotlight-dot: oklch(0.80 0.005 260); --spotlight-text-color: oklch(0.55 0.006 90); }
+    :root[data-theme="dark"] .spotlight-panel { --spotlight-bg: oklch(0.135 0.010 90); --spotlight-glow: oklch(0.22 0.04 260); --spotlight-dot: oklch(0.25 0.005 260); --spotlight-text-color: oklch(0.45 0.006 90); }
+    .spotlight-text { position: relative; z-index: 1; font-size: 1.125rem; font-weight: 500; color: var(--spotlight-text-color); text-align: center; }
+    .spotlight-dots { position: absolute; inset: 0; background-image: radial-gradient(circle, var(--spotlight-dot) 1px, transparent 1px); background-size: 24px 24px; opacity: 0.5; }
+    .spotlight-gradient { position: absolute; inset: 0; background: radial-gradient(600px circle at 50% 50%, var(--spotlight-glow), var(--spotlight-bg)); }
 
     .magnetic-zone { display: inline-block; position: relative; }
     .magnetic-btn { display: inline-flex; align-items: center; gap: var(--space-2); padding: var(--space-3) var(--space-8); font-family: var(--font-sans); font-size: 1rem; font-weight: 600; background: var(--accent-blue); color: var(--text-on-accent); border: none; border-radius: var(--radius-full); cursor: pointer; }
@@ -794,7 +870,7 @@
     <a href="#components" class="tile tile-blue hover-lift anim-in anim-d5"><span class="tile-num">05</span><div class="tile-name">Components</div><div class="tile-desc">Buttons, forms, cards, tables, nav</div><div class="tile-anim"><div style="width:28px;height:14px;background:var(--accent-blue);border-radius:3px"></div><div style="width:28px;height:14px;background:var(--bg-muted);border:1px solid var(--border-default);border-radius:3px"></div></div></a>
     <a href="#icons" class="tile tile-red hover-lift anim-in anim-d6"><span class="tile-num">06</span><div class="tile-name">Iconography</div><div class="tile-desc">Lucide icons, sizing, alignment</div><div class="tile-anim"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div></a>
     <a href="#dataviz" class="tile tile-yellow hover-lift anim-in anim-d7"><span class="tile-num">07</span><div class="tile-name">Data Visualization</div><div class="tile-desc">Charts, KPIs, heatmaps, sparklines</div><div class="tile-anim"><div class="tile-anim-bar" style="width:6px;background:var(--accent-blue);height:60%"></div><div class="tile-anim-bar" style="width:6px;background:var(--accent-blue);height:80%"></div><div class="tile-anim-bar" style="width:6px;background:var(--accent-blue);height:45%"></div><div class="tile-anim-bar" style="width:6px;background:var(--accent-blue);height:90%"></div><div class="tile-anim-bar" style="width:6px;background:var(--accent-blue);height:70%"></div></div></a>
-    <a href="#motion" class="tile tile-green hover-lift anim-in anim-d8"><span class="tile-num">08</span><div class="tile-name">Motion & Easing</div><div class="tile-desc">Durations, curves, spring physics</div><div class="tile-anim"><div style="width:8px;height:8px;border-radius:50%;background:var(--accent-green);animation:easing-loop 2s cubic-bezier(0.22,1,0.36,1) infinite;position:relative"></div></div></a>
+    <a href="#motion" class="tile tile-green hover-lift anim-in anim-d8"><span class="tile-num">08</span><div class="tile-name">Motion & Easing</div><div class="tile-desc">Durations, curves, spring physics</div><div class="tile-anim"><div class="tile-anim-dot" style="width:8px;height:8px;border-radius:50%;background:var(--accent-green);position:relative"></div></div></a>
     <a href="#micro" class="tile tile-blue hover-lift anim-in anim-d9"><span class="tile-num">09</span><div class="tile-name">Micro-Interactions</div><div class="tile-desc">Press, toggle, checkbox, shake, success</div><div class="tile-anim"><div style="width:24px;height:12px;border-radius:6px;background:var(--accent-blue);position:relative"><div style="position:absolute;top:2px;right:2px;width:8px;height:8px;border-radius:50%;background:white"></div></div></div></a>
     <a href="#loading" class="tile tile-red hover-lift anim-in anim-d10"><span class="tile-num">10</span><div class="tile-name">Loading & Transitions</div><div class="tile-desc">Skeletons, page transitions, reveals</div><div class="tile-anim"><div style="flex:1;height:6px;background:var(--bg-muted);border-radius:3px;overflow:hidden"><div class="skel-shimmer" style="height:100%;width:100%"></div></div></div></a>
     <a href="#overlays" class="tile tile-yellow hover-lift anim-in anim-d11"><span class="tile-num">11</span><div class="tile-name">Overlays & Feedback</div><div class="tile-desc">Toasts, modal, drawer, alerts</div><div class="tile-anim"><div style="width:48px;height:12px;background:var(--bg-surface);border:1px solid var(--border-default);border-radius:3px;border-left:2px solid var(--accent-green)"></div></div></a>
@@ -1166,7 +1242,8 @@
     <div style="display:flex;gap:var(--space-8);flex-wrap:wrap;margin-top:var(--space-6);align-items:center">
       <label class="check-group" onclick="this.querySelector('.check-box').classList.toggle('checked')"><span class="check-box checked"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span> Enable dark mode</label>
       <label class="check-group" onclick="this.querySelector('.check-box').classList.toggle('checked')"><span class="check-box"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span> Send notifications</label>
-      <label class="check-group" onclick="this.querySelector('.radio-circle').classList.toggle('checked')"><span class="radio-circle checked"></span> Option A</label>
+      <label class="check-group" onclick="document.querySelectorAll('.radio-circle').forEach(r=>r.classList.remove('checked'));this.querySelector('.radio-circle').classList.add('checked')"><span class="radio-circle checked"></span> Option A</label>
+      <label class="check-group" onclick="document.querySelectorAll('.radio-circle').forEach(r=>r.classList.remove('checked'));this.querySelector('.radio-circle').classList.add('checked')"><span class="radio-circle"></span> Option B</label>
       <div style="display:flex;align-items:center;gap:var(--space-2)"><button class="toggle toggle-bg-anim on" onclick="this.classList.toggle('on')"><span class="toggle-knob toggle-knob-anim"></span></button><span style="font-size:0.875rem">Auto-save</span></div>
     </div>
     <div style="margin-top:var(--space-6)"><label class="form-label" style="margin-bottom:var(--space-2)">Volume</label><input type="range" class="range" min="0" max="100" value="65"></div>
@@ -1258,31 +1335,31 @@
 
   <div class="subsection">
     <div class="subsection-label">Icon Grid — 24px, stroke-width 2</div>
-    <div class="icon-grid blur-grid">
-      <div class="blur-card icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>home</div>
-      <div class="blur-card icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>search</div>
-      <div class="blur-card icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>user</div>
-      <div class="blur-card icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9 1.65 1.65 0 0 0 4.27 7.18l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>settings</div>
-      <div class="blur-card icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>mail</div>
-      <div class="blur-card icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>bell</div>
-      <div class="blur-card icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>star</div>
-      <div class="blur-card icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>heart</div>
-      <div class="blur-card icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>check</div>
-      <div class="blur-card icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>x</div>
-      <div class="blur-card icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>plus</div>
-      <div class="blur-card icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>arrow-left</div>
-      <div class="blur-card icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>arrow-right</div>
-      <div class="blur-card icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>chevron-down</div>
-      <div class="blur-card icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>menu</div>
-      <div class="blur-card icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/></svg>minus</div>
-      <div class="blur-card icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>code</div>
-      <div class="blur-card icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>terminal</div>
-      <div class="blur-card icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="13.5" cy="6.5" r="0.5"/><circle cx="17.5" cy="10.5" r="0.5"/><circle cx="8.5" cy="7.5" r="0.5"/><circle cx="6.5" cy="12.5" r="0.5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>palette</div>
-      <div class="blur-card icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>layers</div>
-      <div class="blur-card icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>zap</div>
-      <div class="blur-card icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>eye</div>
-      <div class="blur-card icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>lock</div>
-      <div class="blur-card icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>globe</div>
+    <div class="icon-grid">
+      <div class="icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>home</div>
+      <div class="icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>search</div>
+      <div class="icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>user</div>
+      <div class="icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9 1.65 1.65 0 0 0 4.27 7.18l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>settings</div>
+      <div class="icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>mail</div>
+      <div class="icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>bell</div>
+      <div class="icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>star</div>
+      <div class="icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>heart</div>
+      <div class="icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>check</div>
+      <div class="icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>x</div>
+      <div class="icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>plus</div>
+      <div class="icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>arrow-left</div>
+      <div class="icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>arrow-right</div>
+      <div class="icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>chevron-down</div>
+      <div class="icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>menu</div>
+      <div class="icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/></svg>minus</div>
+      <div class="icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>code</div>
+      <div class="icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>terminal</div>
+      <div class="icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="13.5" cy="6.5" r="0.5"/><circle cx="17.5" cy="10.5" r="0.5"/><circle cx="8.5" cy="7.5" r="0.5"/><circle cx="6.5" cy="12.5" r="0.5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>palette</div>
+      <div class="icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>layers</div>
+      <div class="icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>zap</div>
+      <div class="icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>eye</div>
+      <div class="icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>lock</div>
+      <div class="icon-cell"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>globe</div>
     </div>
   </div>
 
@@ -1328,9 +1405,9 @@
   <div class="subsection">
     <div class="subsection-label">KPI Cards</div>
     <div class="grid-3">
-      <div class="kpi-card"><div class="kpi-value" style="color:var(--accent-blue-text)">2,847</div><div class="kpi-label">Active Users</div><div class="kpi-change kpi-up">+12.3% from last month</div></div>
-      <div class="kpi-card" style="border-top-color:var(--accent-green)"><div class="kpi-value" style="color:var(--accent-green-text)">94.2%</div><div class="kpi-label">Uptime</div><div class="kpi-change kpi-up">+0.8% from last quarter</div></div>
-      <div class="kpi-card" style="border-top-color:var(--accent-red)"><div class="kpi-value" style="color:var(--accent-red-text)">23ms</div><div class="kpi-label">Response Time</div><div class="kpi-change kpi-down">-4.2ms improvement</div></div>
+      <div class="kpi-card"><div class="kpi-value" style="color:var(--accent-blue-text)" data-value="2847" data-format="comma">2,847</div><div class="kpi-label">Active Users</div><div class="kpi-change kpi-up">+12.3% from last month</div></div>
+      <div class="kpi-card" style="border-top-color:var(--accent-green)"><div class="kpi-value" style="color:var(--accent-green-text)" data-value="94.2" data-suffix="%">94.2%</div><div class="kpi-label">Uptime</div><div class="kpi-change kpi-up">+0.8% from last quarter</div></div>
+      <div class="kpi-card" style="border-top-color:var(--accent-red)"><div class="kpi-value" style="color:var(--accent-red-text)" data-value="23" data-suffix="ms">23ms</div><div class="kpi-label">Response Time</div><div class="kpi-change kpi-down">-4.2ms improvement</div></div>
     </div>
   </div>
 
@@ -1339,30 +1416,35 @@
       <div class="chart-wrapper">
         <div class="chart-title">Revenue by Month</div>
         <div class="bar-chart" id="bar-chart">
-          <div class="bar-col"><div class="bar" style="height:55%;background:var(--accent-blue)"></div><div class="bar-label">Jan</div></div>
-          <div class="bar-col"><div class="bar" style="height:72%;background:var(--accent-blue)"></div><div class="bar-label">Feb</div></div>
-          <div class="bar-col"><div class="bar" style="height:61%;background:var(--accent-blue)"></div><div class="bar-label">Mar</div></div>
-          <div class="bar-col"><div class="bar" style="height:84%;background:var(--accent-blue)"></div><div class="bar-label">Apr</div></div>
-          <div class="bar-col"><div class="bar" style="height:68%;background:var(--accent-blue)"></div><div class="bar-label">May</div></div>
-          <div class="bar-col"><div class="bar" style="height:92%;background:var(--accent-blue)"></div><div class="bar-label">Jun</div></div>
+          <div class="bar-col"><div class="bar" style="height:55%;background:var(--accent-blue)"></div><div class="bar-tooltip">$55K</div><div class="bar-label">Jan</div></div>
+          <div class="bar-col"><div class="bar" style="height:72%;background:var(--accent-blue)"></div><div class="bar-tooltip">$72K</div><div class="bar-label">Feb</div></div>
+          <div class="bar-col"><div class="bar" style="height:61%;background:var(--accent-blue)"></div><div class="bar-tooltip">$61K</div><div class="bar-label">Mar</div></div>
+          <div class="bar-col"><div class="bar" style="height:84%;background:var(--accent-blue)"></div><div class="bar-tooltip">$84K</div><div class="bar-label">Apr</div></div>
+          <div class="bar-col"><div class="bar" style="height:68%;background:var(--accent-blue)"></div><div class="bar-tooltip">$68K</div><div class="bar-label">May</div></div>
+          <div class="bar-col"><div class="bar" style="height:92%;background:var(--accent-blue)"></div><div class="bar-tooltip">$92K</div><div class="bar-label">Jun</div></div>
         </div>
       </div>
-      <div class="chart-wrapper">
+      <div class="chart-wrapper" style="position:relative" id="donut-wrapper">
         <div class="chart-title">Component Adoption</div>
         <div style="display:flex;align-items:center;justify-content:center;padding:var(--space-6)">
-          <svg width="160" height="160" viewBox="0 0 160 160">
+          <svg width="160" height="160" viewBox="0 0 160 160" id="donut-chart">
             <circle cx="80" cy="80" r="60" fill="none" stroke="var(--border-subtle)" stroke-width="20"/>
-            <circle cx="80" cy="80" r="60" fill="none" stroke="var(--accent-blue)" stroke-width="20" stroke-dasharray="226 377" stroke-dashoffset="0" transform="rotate(-90 80 80)" stroke-linecap="round"/>
-            <circle cx="80" cy="80" r="60" fill="none" stroke="var(--accent-green)" stroke-width="20" stroke-dasharray="94 377" stroke-dashoffset="-226" transform="rotate(-90 80 80)" stroke-linecap="round"/>
-            <circle cx="80" cy="80" r="60" fill="none" stroke="var(--accent-yellow)" stroke-width="20" stroke-dasharray="57 377" stroke-dashoffset="-320" transform="rotate(-90 80 80)" stroke-linecap="round"/>
-            <text x="80" y="76" text-anchor="middle" font-family="var(--font-sans)" font-size="24" font-weight="700" fill="var(--text-primary)">86%</text>
-            <text x="80" y="96" text-anchor="middle" font-family="var(--font-sans)" font-size="11" fill="var(--text-muted)">adopted</text>
+            <circle class="donut-segment" data-label="Buttons" data-pct="60" data-dash="226" cx="80" cy="80" r="60" fill="none" stroke="var(--accent-blue)" stroke-width="20" stroke-dasharray="226 377" stroke-dashoffset="226" transform="rotate(-90 80 80)" stroke-linecap="round"/>
+            <circle class="donut-segment" data-label="Cards" data-pct="25" data-dash="94" cx="80" cy="80" r="60" fill="none" stroke="var(--accent-green)" stroke-width="20" stroke-dasharray="94 377" stroke-dashoffset="94" transform="rotate(125.9 80 80)" stroke-linecap="round"/>
+            <circle class="donut-segment" data-label="Other" data-pct="15" data-dash="57" cx="80" cy="80" r="60" fill="none" stroke="var(--accent-yellow)" stroke-width="20" stroke-dasharray="57 377" stroke-dashoffset="57" transform="rotate(215.6 80 80)" stroke-linecap="round"/>
+            <!-- Wider invisible hit areas -->
+            <circle class="donut-segment-hit" data-idx="0" cx="80" cy="80" r="60" fill="none" stroke="transparent" stroke-width="30" stroke-dasharray="226 377" stroke-dashoffset="0" transform="rotate(-90 80 80)"/>
+            <circle class="donut-segment-hit" data-idx="1" cx="80" cy="80" r="60" fill="none" stroke="transparent" stroke-width="30" stroke-dasharray="94 377" stroke-dashoffset="-226" transform="rotate(-90 80 80)"/>
+            <circle class="donut-segment-hit" data-idx="2" cx="80" cy="80" r="60" fill="none" stroke="transparent" stroke-width="30" stroke-dasharray="57 377" stroke-dashoffset="-320" transform="rotate(-90 80 80)"/>
+            <text x="80" y="76" text-anchor="middle" font-family="var(--font-sans)" font-size="24" font-weight="700" fill="var(--text-primary)" id="donut-center-val">86%</text>
+            <text x="80" y="96" text-anchor="middle" font-family="var(--font-sans)" font-size="11" fill="var(--text-muted)" id="donut-center-label">adopted</text>
           </svg>
         </div>
-        <div class="flex-wrap-gap" style="justify-content:center;gap:var(--space-4);font-size:0.75rem">
-          <span><span class="status-dot" style="background:var(--accent-blue);margin-right:4px"></span>Buttons 60%</span>
-          <span><span class="status-dot" style="background:var(--accent-green);margin-right:4px"></span>Cards 25%</span>
-          <span><span class="status-dot" style="background:var(--accent-yellow);margin-right:4px"></span>Other 15%</span>
+        <div class="donut-tooltip" id="donut-tooltip"></div>
+        <div class="flex-wrap-gap" style="justify-content:center;gap:var(--space-4);font-size:0.75rem" id="donut-legend">
+          <span data-idx="0" style="cursor:pointer"><span class="status-dot" style="background:var(--accent-blue);margin-right:4px"></span>Buttons 60%</span>
+          <span data-idx="1" style="cursor:pointer"><span class="status-dot" style="background:var(--accent-green);margin-right:4px"></span>Cards 25%</span>
+          <span data-idx="2" style="cursor:pointer"><span class="status-dot" style="background:var(--accent-yellow);margin-right:4px"></span>Other 15%</span>
         </div>
       </div>
     </div>
@@ -1370,9 +1452,9 @@
 
   <div class="subsection">
     <div class="subsection-label">Line Chart with Area Fill</div>
-    <div class="chart-wrapper">
+    <div class="chart-wrapper" style="position:relative" id="line-chart-wrapper">
       <div class="chart-title">Performance Over Time</div>
-      <svg viewBox="0 0 600 200" width="100%" style="max-height:200px">
+      <svg viewBox="0 0 600 200" width="100%" style="max-height:200px" id="line-chart-svg">
         <defs>
           <linearGradient id="area-fill" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stop-color="var(--accent-blue)" stop-opacity="0.25"/>
@@ -1395,14 +1477,20 @@
         <path d="M 40 140 L 130 100 L 220 120 L 310 60 L 400 80 L 490 40 L 580 30 L 580 180 L 40 180 Z" fill="url(#area-fill)" id="line-area"/>
         <!-- Line -->
         <polyline points="40,140 130,100 220,120 310,60 400,80 490,40 580,30" fill="none" stroke="var(--accent-blue)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" id="line-path" style="stroke-dasharray:900;stroke-dashoffset:900"/>
+        <!-- Crosshair -->
+        <line class="line-crosshair" id="line-crosshair" x1="0" y1="0" x2="0" y2="180" stroke="var(--text-muted)" stroke-width="1" stroke-dasharray="3 3"/>
         <!-- Data points -->
-        <circle cx="40" cy="140" r="3.5" fill="var(--bg-surface)" stroke="var(--accent-blue)" stroke-width="2"/>
-        <circle cx="130" cy="100" r="3.5" fill="var(--bg-surface)" stroke="var(--accent-blue)" stroke-width="2"/>
-        <circle cx="220" cy="120" r="3.5" fill="var(--bg-surface)" stroke="var(--accent-blue)" stroke-width="2"/>
-        <circle cx="310" cy="60" r="3.5" fill="var(--bg-surface)" stroke="var(--accent-blue)" stroke-width="2"/>
-        <circle cx="400" cy="80" r="3.5" fill="var(--bg-surface)" stroke="var(--accent-blue)" stroke-width="2"/>
-        <circle cx="490" cy="40" r="3.5" fill="var(--bg-surface)" stroke="var(--accent-blue)" stroke-width="2"/>
-        <circle cx="580" cy="30" r="3.5" fill="var(--bg-surface)" stroke="var(--accent-blue)" stroke-width="2"/>
+        <circle class="line-dot" cx="40" cy="140" r="3.5" fill="var(--bg-surface)" stroke="var(--accent-blue)" stroke-width="2"/>
+        <circle class="line-dot" cx="130" cy="100" r="3.5" fill="var(--bg-surface)" stroke="var(--accent-blue)" stroke-width="2"/>
+        <circle class="line-dot" cx="220" cy="120" r="3.5" fill="var(--bg-surface)" stroke="var(--accent-blue)" stroke-width="2"/>
+        <circle class="line-dot" cx="310" cy="60" r="3.5" fill="var(--bg-surface)" stroke="var(--accent-blue)" stroke-width="2"/>
+        <circle class="line-dot" cx="400" cy="80" r="3.5" fill="var(--bg-surface)" stroke="var(--accent-blue)" stroke-width="2"/>
+        <circle class="line-dot" cx="490" cy="40" r="3.5" fill="var(--bg-surface)" stroke="var(--accent-blue)" stroke-width="2"/>
+        <circle class="line-dot" cx="580" cy="30" r="3.5" fill="var(--bg-surface)" stroke="var(--accent-blue)" stroke-width="2"/>
+        <!-- Hover highlight point (hidden by default) -->
+        <circle id="line-hover-dot" cx="0" cy="0" r="5" fill="var(--accent-blue)" stroke="var(--bg-surface)" stroke-width="2" style="opacity:0;pointer-events:none"/>
+        <!-- Invisible hover area -->
+        <rect x="40" y="0" width="540" height="200" fill="transparent" id="line-hover-area" style="cursor:crosshair"/>
         <!-- X-axis labels -->
         <text x="40" y="196" text-anchor="middle" font-family="var(--font-mono)" font-size="9" fill="var(--text-muted)">Mon</text>
         <text x="130" y="196" text-anchor="middle" font-family="var(--font-mono)" font-size="9" fill="var(--text-muted)">Tue</text>
@@ -1412,6 +1500,7 @@
         <text x="490" y="196" text-anchor="middle" font-family="var(--font-mono)" font-size="9" fill="var(--text-muted)">Sat</text>
         <text x="580" y="196" text-anchor="middle" font-family="var(--font-mono)" font-size="9" fill="var(--text-muted)">Sun</text>
       </svg>
+      <div class="line-tooltip" id="line-tooltip"></div>
     </div>
   </div>
 
@@ -1423,25 +1512,25 @@
         <tbody>
           <tr>
             <td style="font-weight:550">Page Views</td>
-            <td><svg class="sparkline" width="80" height="24" viewBox="0 0 80 24"><polyline points="0,18 12,14 24,16 36,8 48,12 60,6 72,4 80,2" fill="none" stroke="var(--accent-blue)" stroke-width="1.5" stroke-linecap="round"/></svg></td>
+            <td><svg class="sparkline" width="80" height="24" viewBox="0 0 80 24"><polyline points="0,18 12,14 24,16 36,8 48,12 60,6 72,4 80,2" fill="none" stroke="var(--accent-blue)" stroke-width="1.5" stroke-linecap="round"/><circle class="spark-end" cx="80" cy="2" r="3" fill="var(--accent-blue)"/></svg></td>
             <td class="mono">12,847</td>
             <td><span class="kpi-up" style="font-size:0.75rem;font-weight:600">+14.2%</span></td>
           </tr>
           <tr>
             <td style="font-weight:550">Bounce Rate</td>
-            <td><svg class="sparkline" width="80" height="24" viewBox="0 0 80 24"><polyline points="0,8 12,10 24,6 36,14 48,12 60,16 72,18 80,20" fill="none" stroke="var(--accent-red)" stroke-width="1.5" stroke-linecap="round"/></svg></td>
+            <td><svg class="sparkline" width="80" height="24" viewBox="0 0 80 24"><polyline points="0,8 12,10 24,6 36,14 48,12 60,16 72,18 80,20" fill="none" stroke="var(--accent-red)" stroke-width="1.5" stroke-linecap="round"/><circle class="spark-end" cx="80" cy="20" r="3" fill="var(--accent-red)"/></svg></td>
             <td class="mono">34.8%</td>
             <td><span class="kpi-down" style="font-size:0.75rem;font-weight:600">+2.1%</span></td>
           </tr>
           <tr>
             <td style="font-weight:550">Avg Session</td>
-            <td><svg class="sparkline" width="80" height="24" viewBox="0 0 80 24"><polyline points="0,16 12,12 24,14 36,10 48,8 60,10 72,6 80,4" fill="none" stroke="var(--accent-green)" stroke-width="1.5" stroke-linecap="round"/></svg></td>
+            <td><svg class="sparkline" width="80" height="24" viewBox="0 0 80 24"><polyline points="0,16 12,12 24,14 36,10 48,8 60,10 72,6 80,4" fill="none" stroke="var(--accent-green)" stroke-width="1.5" stroke-linecap="round"/><circle class="spark-end" cx="80" cy="4" r="3" fill="var(--accent-green)"/></svg></td>
             <td class="mono">4m 32s</td>
             <td><span class="kpi-up" style="font-size:0.75rem;font-weight:600">+8.7%</span></td>
           </tr>
           <tr>
             <td style="font-weight:550">Conversions</td>
-            <td><svg class="sparkline" width="80" height="24" viewBox="0 0 80 24"><polyline points="0,14 12,16 24,10 36,12 48,6 60,8 72,4 80,6" fill="none" stroke="var(--accent-yellow)" stroke-width="1.5" stroke-linecap="round"/></svg></td>
+            <td><svg class="sparkline" width="80" height="24" viewBox="0 0 80 24"><polyline points="0,14 12,16 24,10 36,12 48,6 60,8 72,4 80,6" fill="none" stroke="var(--accent-yellow)" stroke-width="1.5" stroke-linecap="round"/><circle class="spark-end" cx="80" cy="6" r="3" fill="var(--accent-yellow)"/></svg></td>
             <td class="mono">2.4%</td>
             <td><span class="kpi-up" style="font-size:0.75rem;font-weight:600">+0.3%</span></td>
           </tr>
@@ -1455,35 +1544,35 @@
     <div class="grid-3" style="margin-bottom:var(--space-6)">
       <div>
         <div class="state-label" style="margin-bottom:var(--space-2)">Sequential (Blue)</div>
-        <div style="display:flex;border-radius:var(--radius-sm);overflow:hidden">
-          <div style="flex:1;height:32px;background:var(--primitive-blue-100)"></div>
-          <div style="flex:1;height:32px;background:var(--primitive-blue-200)"></div>
-          <div style="flex:1;height:32px;background:var(--primitive-blue-300)"></div>
-          <div style="flex:1;height:32px;background:var(--primitive-blue-400)"></div>
-          <div style="flex:1;height:32px;background:var(--primitive-blue-500)"></div>
+        <div style="display:flex;border-radius:var(--radius-sm);overflow:hidden" class="palette-row">
+          <div class="palette-swatch" style="flex:1;height:32px;background:var(--primitive-blue-100)" data-token="--primitive-blue-100"><span class="palette-swatch-label">blue-100</span></div>
+          <div class="palette-swatch" style="flex:1;height:32px;background:var(--primitive-blue-200)" data-token="--primitive-blue-200"><span class="palette-swatch-label">blue-200</span></div>
+          <div class="palette-swatch" style="flex:1;height:32px;background:var(--primitive-blue-300)" data-token="--primitive-blue-300"><span class="palette-swatch-label">blue-300</span></div>
+          <div class="palette-swatch" style="flex:1;height:32px;background:var(--primitive-blue-400)" data-token="--primitive-blue-400"><span class="palette-swatch-label">blue-400</span></div>
+          <div class="palette-swatch" style="flex:1;height:32px;background:var(--primitive-blue-500)" data-token="--primitive-blue-500"><span class="palette-swatch-label">blue-500</span></div>
         </div>
       </div>
       <div>
         <div class="state-label" style="margin-bottom:var(--space-2)">Categorical</div>
-        <div style="display:flex;border-radius:var(--radius-sm);overflow:hidden">
-          <div style="flex:1;height:32px;background:var(--accent-blue)"></div>
-          <div style="flex:1;height:32px;background:var(--accent-red)"></div>
-          <div style="flex:1;height:32px;background:var(--accent-yellow)"></div>
-          <div style="flex:1;height:32px;background:var(--accent-green)"></div>
-          <div style="flex:1;height:32px;background:var(--primitive-blue-300)"></div>
-          <div style="flex:1;height:32px;background:var(--primitive-red-300)"></div>
-          <div style="flex:1;height:32px;background:var(--primitive-green-300)"></div>
-          <div style="flex:1;height:32px;background:var(--primitive-neutral-500)"></div>
+        <div style="display:flex;border-radius:var(--radius-sm);overflow:hidden" class="palette-row">
+          <div class="palette-swatch" style="flex:1;height:32px;background:var(--accent-blue)" data-token="--accent-blue"><span class="palette-swatch-label">blue</span></div>
+          <div class="palette-swatch" style="flex:1;height:32px;background:var(--accent-red)" data-token="--accent-red"><span class="palette-swatch-label">red</span></div>
+          <div class="palette-swatch" style="flex:1;height:32px;background:var(--accent-yellow)" data-token="--accent-yellow"><span class="palette-swatch-label">yellow</span></div>
+          <div class="palette-swatch" style="flex:1;height:32px;background:var(--accent-green)" data-token="--accent-green"><span class="palette-swatch-label">green</span></div>
+          <div class="palette-swatch" style="flex:1;height:32px;background:var(--primitive-blue-300)" data-token="--primitive-blue-300"><span class="palette-swatch-label">blue-300</span></div>
+          <div class="palette-swatch" style="flex:1;height:32px;background:var(--primitive-red-300)" data-token="--primitive-red-300"><span class="palette-swatch-label">red-300</span></div>
+          <div class="palette-swatch" style="flex:1;height:32px;background:var(--primitive-green-300)" data-token="--primitive-green-300"><span class="palette-swatch-label">green-300</span></div>
+          <div class="palette-swatch" style="flex:1;height:32px;background:var(--primitive-neutral-500)" data-token="--primitive-neutral-500"><span class="palette-swatch-label">neutral</span></div>
         </div>
       </div>
       <div>
         <div class="state-label" style="margin-bottom:var(--space-2)">Diverging (Red → Blue)</div>
-        <div style="display:flex;border-radius:var(--radius-sm);overflow:hidden">
-          <div style="flex:1;height:32px;background:var(--primitive-red-500)"></div>
-          <div style="flex:1;height:32px;background:var(--primitive-red-300)"></div>
-          <div style="flex:1;height:32px;background:var(--primitive-neutral-200)"></div>
-          <div style="flex:1;height:32px;background:var(--primitive-blue-300)"></div>
-          <div style="flex:1;height:32px;background:var(--primitive-blue-500)"></div>
+        <div style="display:flex;border-radius:var(--radius-sm);overflow:hidden" class="palette-row">
+          <div class="palette-swatch" style="flex:1;height:32px;background:var(--primitive-red-500)" data-token="--primitive-red-500"><span class="palette-swatch-label">red-500</span></div>
+          <div class="palette-swatch" style="flex:1;height:32px;background:var(--primitive-red-300)" data-token="--primitive-red-300"><span class="palette-swatch-label">red-300</span></div>
+          <div class="palette-swatch" style="flex:1;height:32px;background:var(--primitive-neutral-200)" data-token="--primitive-neutral-200"><span class="palette-swatch-label">neutral</span></div>
+          <div class="palette-swatch" style="flex:1;height:32px;background:var(--primitive-blue-300)" data-token="--primitive-blue-300"><span class="palette-swatch-label">blue-300</span></div>
+          <div class="palette-swatch" style="flex:1;height:32px;background:var(--primitive-blue-500)" data-token="--primitive-blue-500"><span class="palette-swatch-label">blue-500</span></div>
         </div>
       </div>
     </div>
@@ -1491,9 +1580,10 @@
 
   <div class="subsection">
     <div class="subsection-label">Heatmap — Weekly Activity</div>
-    <div class="chart-wrapper">
-      <div class="heatmap" id="heatmap" style="grid-template-columns:repeat(7,1fr);max-width:400px">
+    <div class="chart-wrapper" id="heatmap-wrapper">
+      <div class="heatmap" id="heatmap" style="max-width:400px">
       </div>
+      <div class="heatmap-legend"><span>Less</span><div class="heatmap-legend-bar"></div><span>More</span></div>
     </div>
   </div>
 </section>
@@ -1764,11 +1854,69 @@
 
   <div class="subsection">
     <div class="subsection-label">@property Color Shift</div>
-    <div class="subsection-desc">CSS @property enables smooth hue interpolation on hover. Watch the colors shift.</div>
-    <div class="color-pills">
-      <button class="color-pill color-pill-1">Purple → Blue</button>
-      <button class="color-pill color-pill-2">Purple → Pink</button>
-      <button class="color-pill color-pill-3">Purple → Green</button>
+    <div class="subsection-desc">CSS <code>@property</code> registers custom properties with type information, enabling smooth interpolation between values that would otherwise snap. Hover the pills to see hue, lightness, and chroma transitions.</div>
+
+    <div class="color-pills" style="margin-bottom:var(--space-4)">
+      <button class="color-pill color-pill-1"><span class="color-pill-value" data-from="270" data-to="200">270° → 200°</span>Purple → Blue</button>
+      <button class="color-pill color-pill-2"><span class="color-pill-value" data-from="270" data-to="310">270° → 310°</span>Purple → Pink</button>
+      <button class="color-pill color-pill-3"><span class="color-pill-value" data-from="270" data-to="145">270° → 145°</span>Purple → Green</button>
+      <button class="color-pill color-pill-4"><span class="color-pill-value" data-from="270" data-to="50">270° → 50°</span>Purple → Orange</button>
+    </div>
+
+    <div class="color-shift-grid" style="margin-bottom:var(--space-6)">
+      <div class="color-shift-card">
+        <div class="color-shift-card-label">Hue Shift</div>
+        <div class="color-shift-card-desc">Interpolates the hue angle while keeping lightness and chroma fixed.</div>
+        <div class="color-shift-swatch color-pill-1" style="cursor:default">oklch(0.60 0.24 <span id="cs-hue-val">270</span>)</div>
+        <div class="color-shift-spectrum" style="background:linear-gradient(to right, oklch(0.60 0.24 270), oklch(0.60 0.24 235), oklch(0.60 0.24 200))"></div>
+      </div>
+      <div class="color-shift-card">
+        <div class="color-shift-card-label">Lightness Shift</div>
+        <div class="color-shift-card-desc">Varies the L channel. Hover to brighten from 0.60 to 0.80.</div>
+        <div class="color-shift-swatch color-shift-light">oklch(<span id="cs-light-val">0.60</span> 0.24 270)</div>
+        <div class="color-shift-spectrum" style="background:linear-gradient(to right, oklch(0.60 0.24 270), oklch(0.70 0.24 270), oklch(0.80 0.24 270))"></div>
+      </div>
+      <div class="color-shift-card">
+        <div class="color-shift-card-label">Chroma Shift</div>
+        <div class="color-shift-card-desc">Varies the C channel. Hover to desaturate from 0.24 to 0.08.</div>
+        <div class="color-shift-swatch color-shift-chroma">oklch(0.60 <span id="cs-chroma-val">0.24</span> 270)</div>
+        <div class="color-shift-spectrum" style="background:linear-gradient(to right, oklch(0.60 0.24 270), oklch(0.60 0.16 270), oklch(0.60 0.08 270))"></div>
+      </div>
+    </div>
+
+    <div class="subsection-label" style="margin-bottom:var(--space-3)">Interactive Hue Ring</div>
+    <div class="subsection-desc" style="margin-bottom:var(--space-4)">Drag the slider to explore the full oklch hue wheel. The ring indicator and preview swatch update in real time via <code>@property</code> transitions.</div>
+    <div class="hue-ring-container">
+      <div class="hue-ring-wrap">
+        <svg class="hue-ring-svg" viewBox="0 0 160 160">
+          <defs>
+            <linearGradient id="hue-seg-0" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="oklch(0.65 0.25 0)"/><stop offset="100%" stop-color="oklch(0.65 0.25 60)"/></linearGradient>
+            <linearGradient id="hue-seg-1" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="oklch(0.65 0.25 60)"/><stop offset="100%" stop-color="oklch(0.65 0.25 120)"/></linearGradient>
+            <linearGradient id="hue-seg-2" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="oklch(0.65 0.25 120)"/><stop offset="100%" stop-color="oklch(0.65 0.25 180)"/></linearGradient>
+            <linearGradient id="hue-seg-3" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="oklch(0.65 0.25 180)"/><stop offset="100%" stop-color="oklch(0.65 0.25 240)"/></linearGradient>
+            <linearGradient id="hue-seg-4" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="oklch(0.65 0.25 240)"/><stop offset="100%" stop-color="oklch(0.65 0.25 300)"/></linearGradient>
+            <linearGradient id="hue-seg-5" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="oklch(0.65 0.25 300)"/><stop offset="100%" stop-color="oklch(0.65 0.25 360)"/></linearGradient>
+          </defs>
+          <!-- Hue ring as 6 arcs (conic-gradient fallback) -->
+          <circle cx="80" cy="80" r="60" fill="none" stroke="oklch(0.65 0.25 0)" stroke-width="14" stroke-dasharray="62.8 314.16" stroke-dashoffset="0" transform="rotate(-90 80 80)" opacity="0.9"/>
+          <circle cx="80" cy="80" r="60" fill="none" stroke="oklch(0.65 0.25 60)" stroke-width="14" stroke-dasharray="62.8 314.16" stroke-dashoffset="-62.8" transform="rotate(-90 80 80)" opacity="0.9"/>
+          <circle cx="80" cy="80" r="60" fill="none" stroke="oklch(0.65 0.25 120)" stroke-width="14" stroke-dasharray="62.8 314.16" stroke-dashoffset="-125.6" transform="rotate(-90 80 80)" opacity="0.9"/>
+          <circle cx="80" cy="80" r="60" fill="none" stroke="oklch(0.65 0.25 180)" stroke-width="14" stroke-dasharray="62.8 314.16" stroke-dashoffset="-188.4" transform="rotate(-90 80 80)" opacity="0.9"/>
+          <circle cx="80" cy="80" r="60" fill="none" stroke="oklch(0.65 0.25 240)" stroke-width="14" stroke-dasharray="62.8 314.16" stroke-dashoffset="-251.3" transform="rotate(-90 80 80)" opacity="0.9"/>
+          <circle cx="80" cy="80" r="60" fill="none" stroke="oklch(0.65 0.25 300)" stroke-width="14" stroke-dasharray="62.8 314.16" stroke-dashoffset="-314.16" transform="rotate(-90 80 80)" opacity="0.9"/>
+          <!-- Indicator dot -->
+          <g class="hue-ring-indicator" id="hue-ring-indicator" style="transform:rotate(270deg)">
+            <circle cx="80" cy="20" r="8" fill="var(--bg-surface)" stroke="var(--text-primary)" stroke-width="2"/>
+          </g>
+        </svg>
+        <div class="hue-ring-preview" id="hue-ring-preview" style="background:oklch(0.65 0.25 270)"></div>
+      </div>
+      <div class="hue-ring-info">
+        <div class="hue-ring-val" id="hue-ring-val">270°</div>
+        <div class="hue-ring-label" id="hue-ring-label">Purple</div>
+        <input type="range" min="0" max="360" value="270" class="hue-ring-slider" id="hue-ring-slider">
+        <div class="hue-ring-bar" id="hue-ring-bar" style="background:oklch(0.65 0.25 270)">oklch(0.65 0.25 270)</div>
+      </div>
     </div>
   </div>
 
@@ -2020,16 +2168,23 @@
   // === Theme Toggle ===
   const html = document.documentElement;
   const themeBtn = document.getElementById('theme-toggle');
-  if (window.matchMedia('(prefers-color-scheme: dark)').matches) html.setAttribute('data-theme', 'dark');
+  const storedTheme = localStorage.getItem('ds-theme');
+  if (storedTheme) {
+    html.setAttribute('data-theme', storedTheme);
+  } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    html.setAttribute('data-theme', 'dark');
+  }
   themeBtn.addEventListener('click', () => {
     const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
     html.setAttribute('data-theme', next);
+    localStorage.setItem('ds-theme', next);
   });
 
   // === Mobile Nav Toggle ===
   const navToggle = document.getElementById('nav-toggle');
   const navLinks = document.getElementById('nav-links');
   navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
 
   // === Hero Word Reveal ===
   function initHeroReveal() {
@@ -2163,24 +2318,30 @@
     toast.className = 'toast';
     toast.innerHTML = `<div class="toast-stripe ${type}"></div><div class="toast-icon" style="color:${toastColors[type]}">${toastIcons[type]}</div><div class="toast-content"><strong>${title}</strong><br><span style="color:var(--text-secondary)">${msg}</span></div><button class="toast-close" onclick="this.parentElement.remove()">&times;</button><div class="toast-progress"><div class="toast-progress-bar"></div></div>`;
     toastContainer.appendChild(toast);
+    addToastSwipe(toast);
     requestAnimationFrame(() => { toast.style.transition = 'opacity 0.3s ease-out, transform 0.3s cubic-bezier(0.22,1,0.36,1)'; toast.style.opacity = '1'; toast.style.transform = 'translateY(0)'; });
     const bar = toast.querySelector('.toast-progress-bar');
     if (!prefersReduced && bar) { bar.style.animation = 'progress-shrink 5s linear forwards'; }
-    setTimeout(() => { toast.style.opacity = '0'; toast.style.transform = 'translateX(80px)'; setTimeout(() => toast.remove(), 300); }, 5000);
+    const autoRemoveTimer = setTimeout(() => { toast.style.opacity = '0'; toast.style.transform = 'translateX(80px)'; setTimeout(() => toast.remove(), 300); }, 5000);
+    toast._autoRemoveTimer = autoRemoveTimer;
     while (toastContainer.children.length > MAX_TOASTS) toastContainer.children[0].remove();
   };
 
   // === Modal ===
   const modalBackdrop = document.getElementById('modal-backdrop');
   const modalPanel = document.getElementById('modal-panel');
-  document.getElementById('open-modal').addEventListener('click', () => { modalBackdrop.classList.add('visible'); modalPanel.classList.add('visible'); });
-  window.closeModal = function() { modalBackdrop.classList.remove('visible'); modalPanel.classList.remove('visible'); };
-  modalBackdrop.addEventListener('click', closeModal);
+  let activeOverlay = null; // 'modal' | 'drawer' | null
+  document.getElementById('open-modal').addEventListener('click', () => { activeOverlay = 'modal'; modalBackdrop.classList.add('visible'); modalPanel.classList.add('visible'); });
+  window.closeModal = function() { activeOverlay = null; modalBackdrop.classList.remove('visible'); modalPanel.classList.remove('visible'); };
+  modalBackdrop.addEventListener('click', () => {
+    if (activeOverlay === 'drawer') closeDrawer();
+    else closeModal();
+  });
 
   // === Drawer ===
   const drawerPanel = document.getElementById('drawer-panel');
-  document.getElementById('open-drawer').addEventListener('click', () => { modalBackdrop.classList.add('visible'); drawerPanel.classList.add('visible'); });
-  window.closeDrawer = function() { modalBackdrop.classList.remove('visible'); drawerPanel.classList.remove('visible'); };
+  document.getElementById('open-drawer').addEventListener('click', () => { activeOverlay = 'drawer'; modalBackdrop.classList.add('visible'); drawerPanel.classList.add('visible'); });
+  window.closeDrawer = function() { activeOverlay = null; modalBackdrop.classList.remove('visible'); drawerPanel.classList.remove('visible'); };
 
   // === Success Feedback ===
   document.getElementById('success-trigger').addEventListener('click', function() {
@@ -2197,21 +2358,7 @@
       s.className = skelMode === 'shimmer' ? 'skel skel-shimmer' : 'skel skel-pulse';
     });
   });
-  document.getElementById('skel-load').addEventListener('click', () => {
-    const cards = [
-      { title: 'Design Tokens', desc: 'Centralized design decisions as data' },
-      { title: 'Component Library', desc: 'Production-ready building blocks' },
-      { title: 'Animation System', desc: 'Spring-based motion patterns' }
-    ];
-    cards.forEach((c, i) => {
-      const card = document.getElementById(`skel-card-${i + 1}`);
-      setTimeout(() => {
-        card.innerHTML = `<div class="card-title">${c.title}</div><div class="card-desc">${c.desc}</div>`;
-        card.style.opacity = '0'; card.style.transform = 'translateY(8px)';
-        requestAnimationFrame(() => { card.style.transition = 'opacity 0.3s ease-out, transform 0.3s ease-out'; card.style.opacity = '1'; card.style.transform = 'translateY(0)'; });
-      }, i * 120);
-    });
-  });
+  // skeleton load moved to bottom with reset support
 
   // === Staggered Reveal (3 spring configs) ===
   function staggerRevealGroup(selector, delay, easing, duration) {
@@ -2279,7 +2426,7 @@
     spotlightPanel.addEventListener('mousemove', e => {
       const rect = spotlightPanel.getBoundingClientRect();
       const x = e.clientX - rect.left, y = e.clientY - rect.top;
-      spotlightGrad.style.background = `radial-gradient(600px circle at ${x}px ${y}px, oklch(0.22 0.04 260), oklch(0.135 0.010 90))`;
+      spotlightGrad.style.background = `radial-gradient(600px circle at ${x}px ${y}px, var(--spotlight-glow), var(--spotlight-bg))`;
     });
   }
 
@@ -2302,6 +2449,108 @@
     magneticZone.addEventListener('mouseleave', () => {
       magneticBtn.style.transition = 'transform 0.4s cubic-bezier(0.34,1.56,0.64,1)';
       magneticBtn.style.transform = 'translate(0, 0)';
+    });
+  }
+
+  // === Interactive Hue Ring ===
+  const hueSlider = document.getElementById('hue-ring-slider');
+  const hueIndicator = document.getElementById('hue-ring-indicator');
+  const huePreview = document.getElementById('hue-ring-preview');
+  const hueVal = document.getElementById('hue-ring-val');
+  const hueLabel = document.getElementById('hue-ring-label');
+  const hueBar = document.getElementById('hue-ring-bar');
+  if (hueSlider) {
+    const hueNames = [
+      [0,'Red'],[30,'Orange'],[60,'Yellow'],[90,'Chartreuse'],[120,'Green'],[150,'Spring'],
+      [180,'Cyan'],[210,'Azure'],[240,'Blue'],[270,'Purple'],[300,'Magenta'],[330,'Rose'],[360,'Red']
+    ];
+    function getHueName(h) {
+      for (let i = hueNames.length - 1; i >= 0; i--) {
+        if (h >= hueNames[i][0] - 15) return hueNames[i][1];
+      }
+      return 'Red';
+    }
+    function updateHueRing(h) {
+      hueIndicator.style.transform = `rotate(${h}deg)`;
+      huePreview.style.background = `oklch(0.65 0.25 ${h})`;
+      hueVal.textContent = Math.round(h) + '°';
+      hueLabel.textContent = getHueName(h);
+      hueBar.style.background = `oklch(0.65 0.25 ${h})`;
+      hueBar.textContent = `oklch(0.65 0.25 ${Math.round(h)})`;
+    }
+    hueSlider.addEventListener('input', () => updateHueRing(parseFloat(hueSlider.value)));
+  }
+
+  // === Color Shift Live Values ===
+  const csHueVal = document.getElementById('cs-hue-val');
+  const csLightVal = document.getElementById('cs-light-val');
+  const csChromaVal = document.getElementById('cs-chroma-val');
+  // Hue card swatch hover
+  const hueSwatch = csHueVal?.closest('.color-shift-swatch');
+  if (hueSwatch && csHueVal) {
+    hueSwatch.addEventListener('mouseenter', () => {
+      let start = performance.now();
+      function tick(now) {
+        const t = Math.min((now - start) / 360, 1);
+        const hue = Math.round(270 + (200 - 270) * t);
+        csHueVal.textContent = hue;
+        if (t < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    });
+    hueSwatch.addEventListener('mouseleave', () => {
+      let start = performance.now();
+      function tick(now) {
+        const t = Math.min((now - start) / 360, 1);
+        const hue = Math.round(200 + (270 - 200) * t);
+        csHueVal.textContent = hue;
+        if (t < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    });
+  }
+  // Light card swatch hover
+  const lightSwatch = csLightVal?.closest('.color-shift-swatch');
+  if (lightSwatch && csLightVal) {
+    lightSwatch.addEventListener('mouseenter', () => {
+      let start = performance.now();
+      function tick(now) {
+        const t = Math.min((now - start) / 360, 1);
+        csLightVal.textContent = (0.60 + (0.80 - 0.60) * t).toFixed(2);
+        if (t < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    });
+    lightSwatch.addEventListener('mouseleave', () => {
+      let start = performance.now();
+      function tick(now) {
+        const t = Math.min((now - start) / 360, 1);
+        csLightVal.textContent = (0.80 + (0.60 - 0.80) * t).toFixed(2);
+        if (t < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    });
+  }
+  // Chroma card swatch hover
+  const chromaSwatch = csChromaVal?.closest('.color-shift-swatch');
+  if (chromaSwatch && csChromaVal) {
+    chromaSwatch.addEventListener('mouseenter', () => {
+      let start = performance.now();
+      function tick(now) {
+        const t = Math.min((now - start) / 360, 1);
+        csChromaVal.textContent = (0.24 + (0.08 - 0.24) * t).toFixed(2);
+        if (t < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    });
+    chromaSwatch.addEventListener('mouseleave', () => {
+      let start = performance.now();
+      function tick(now) {
+        const t = Math.min((now - start) / 360, 1);
+        csChromaVal.textContent = (0.08 + (0.24 - 0.08) * t).toFixed(2);
+        if (t < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
     });
   }
 
@@ -2341,19 +2590,195 @@
     ptCurrentPage = ptCurrentPage === 'a' ? 'b' : 'a';
   };
 
-  // === Line Chart Path Draw ===
-  const linePath = document.getElementById('line-path');
-  if (linePath && !prefersReduced) {
-    const lineObserver = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          linePath.style.transition = 'stroke-dashoffset 1.2s cubic-bezier(0.22,1,0.36,1)';
-          linePath.style.strokeDashoffset = '0';
-          lineObserver.unobserve(e.target);
+  // === KPI Count-Up Animation ===
+  const kpiValues = document.querySelectorAll('.kpi-value[data-value]');
+  if (kpiValues.length) {
+    const animateValue = (el) => {
+      const target = parseFloat(el.dataset.value);
+      const suffix = el.dataset.suffix || '';
+      const hasComma = el.dataset.format === 'comma';
+      const isFloat = target % 1 !== 0;
+      const duration = 1200;
+      const startTime = performance.now();
+      const ease = t => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+      function tick(now) {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const current = target * ease(progress);
+        let display = isFloat ? current.toFixed(1) : Math.round(current);
+        if (hasComma) display = Math.round(current).toLocaleString();
+        el.textContent = display + suffix;
+        if (progress < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    };
+    if (prefersReduced) {
+      kpiValues.forEach(el => {
+        const target = parseFloat(el.dataset.value);
+        const suffix = el.dataset.suffix || '';
+        const hasComma = el.dataset.format === 'comma';
+        el.textContent = (hasComma ? Math.round(target).toLocaleString() : target) + suffix;
+      });
+    } else {
+      const kpiObserver = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.querySelectorAll('.kpi-value[data-value]').forEach(animateValue);
+            kpiObserver.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.3 });
+      const kpiGrid = kpiValues[0].closest('.grid-3');
+      if (kpiGrid) kpiObserver.observe(kpiGrid);
+    }
+  }
+
+  // === Donut Chart Animated Draw + Hover ===
+  const donutChart = document.getElementById('donut-chart');
+  if (donutChart) {
+    const segments = donutChart.querySelectorAll('.donut-segment');
+    const segmentData = [{dash:226,label:'Buttons',pct:'60%'},{dash:94,label:'Cards',pct:'25%'},{dash:57,label:'Other',pct:'15%'}];
+    const donutTooltip = document.getElementById('donut-tooltip');
+    const donutCenterVal = document.getElementById('donut-center-val');
+    const donutCenterLabel = document.getElementById('donut-center-label');
+
+    const animateDonut = () => {
+      segments.forEach((seg, i) => {
+        if (prefersReduced) {
+          seg.setAttribute('stroke-dashoffset', '0');
+        } else {
+          setTimeout(() => {
+            seg.style.transition = 'stroke-dashoffset 0.8s cubic-bezier(0.22,1,0.36,1)';
+            seg.setAttribute('stroke-dashoffset', '0');
+          }, i * 200);
         }
       });
-    }, { threshold: 0.3 });
-    lineObserver.observe(linePath.closest('.chart-wrapper'));
+    };
+
+    if (prefersReduced) {
+      animateDonut();
+    } else {
+      const donutObserver = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            animateDonut();
+            donutObserver.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.3 });
+      donutObserver.observe(donutChart.closest('.chart-wrapper'));
+    }
+
+    // Hover on invisible hit areas
+    const hitAreas = donutChart.querySelectorAll('.donut-segment-hit');
+    hitAreas.forEach(hit => {
+      const idx = parseInt(hit.dataset.idx);
+      hit.addEventListener('mouseenter', () => {
+        segments.forEach((s, i) => { s.style.opacity = i === idx ? '1' : '0.3'; });
+        donutCenterVal.textContent = segmentData[idx].pct;
+        donutCenterLabel.textContent = segmentData[idx].label;
+      });
+      hit.addEventListener('mouseleave', () => {
+        segments.forEach(s => { s.style.opacity = '1'; });
+        donutCenterVal.textContent = '86%';
+        donutCenterLabel.textContent = 'adopted';
+      });
+    });
+
+    // Legend hover
+    const legendItems = document.querySelectorAll('#donut-legend span[data-idx]');
+    legendItems.forEach(item => {
+      const idx = parseInt(item.dataset.idx);
+      item.addEventListener('mouseenter', () => {
+        segments.forEach((s, i) => { s.style.opacity = i === idx ? '1' : '0.3'; });
+        donutCenterVal.textContent = segmentData[idx].pct;
+        donutCenterLabel.textContent = segmentData[idx].label;
+      });
+      item.addEventListener('mouseleave', () => {
+        segments.forEach(s => { s.style.opacity = '1'; });
+        donutCenterVal.textContent = '86%';
+        donutCenterLabel.textContent = 'adopted';
+      });
+    });
+  }
+
+  // === Line Chart Path Draw + Hover Crosshair ===
+  const linePath = document.getElementById('line-path');
+  if (linePath) {
+    if (prefersReduced) {
+      linePath.style.strokeDashoffset = '0';
+    } else {
+      const lineObserver = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            linePath.style.transition = 'stroke-dashoffset 1.2s cubic-bezier(0.22,1,0.36,1)';
+            linePath.style.strokeDashoffset = '0';
+            lineObserver.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.3 });
+      lineObserver.observe(linePath.closest('.chart-wrapper'));
+    }
+  }
+
+  // Line chart hover
+  const lineHoverArea = document.getElementById('line-hover-area');
+  const lineChartSvg = document.getElementById('line-chart-svg');
+  const lineCrosshair = document.getElementById('line-crosshair');
+  const lineHoverDot = document.getElementById('line-hover-dot');
+  const lineTooltip = document.getElementById('line-tooltip');
+  const lineWrapper = document.getElementById('line-chart-wrapper');
+  if (lineHoverArea && lineChartSvg) {
+    const lineData = [
+      {x:40,y:140,label:'Mon',value:25},{x:130,y:100,label:'Tue',value:50},
+      {x:220,y:120,label:'Wed',value:38},{x:310,y:60,label:'Thu',value:75},
+      {x:400,y:80,label:'Fri',value:63},{x:490,y:40,label:'Sat',value:88},
+      {x:580,y:30,label:'Sun',value:94}
+    ];
+    const lineDots = lineChartSvg.querySelectorAll('.line-dot');
+
+    lineHoverArea.addEventListener('mousemove', e => {
+      const svgRect = lineChartSvg.getBoundingClientRect();
+      const wrapperRect = lineWrapper.getBoundingClientRect();
+      const svgX = (e.clientX - svgRect.left) / svgRect.width * 600;
+      // Find nearest point
+      let nearest = lineData[0], minDist = Infinity;
+      lineData.forEach(p => { const d = Math.abs(svgX - p.x); if (d < minDist) { minDist = d; nearest = p; } });
+
+      lineCrosshair.setAttribute('x1', nearest.x);
+      lineCrosshair.setAttribute('x2', nearest.x);
+      lineCrosshair.setAttribute('y1', nearest.y);
+      lineCrosshair.setAttribute('y2', 180);
+      lineCrosshair.style.opacity = '1';
+
+      lineHoverDot.setAttribute('cx', nearest.x);
+      lineHoverDot.setAttribute('cy', nearest.y);
+      lineHoverDot.style.opacity = '1';
+
+      // Dim non-active dots
+      lineDots.forEach(dot => {
+        const cx = parseFloat(dot.getAttribute('cx'));
+        dot.style.opacity = cx === nearest.x ? '1' : '0.3';
+      });
+
+      // Position tooltip relative to wrapper
+      const offsetX = svgRect.left - wrapperRect.left;
+      const offsetY = svgRect.top - wrapperRect.top;
+      const pxX = nearest.x / 600 * svgRect.width;
+      const pxY = nearest.y / 200 * svgRect.height;
+      lineTooltip.textContent = nearest.label + ': ' + nearest.value;
+      lineTooltip.style.opacity = '1';
+      lineTooltip.style.left = (offsetX + pxX) + 'px';
+      lineTooltip.style.top = (offsetY + pxY - 32) + 'px';
+      lineTooltip.style.transform = 'translateX(-50%)';
+    });
+
+    lineHoverArea.addEventListener('mouseleave', () => {
+      lineCrosshair.style.opacity = '0';
+      lineHoverDot.style.opacity = '0';
+      lineTooltip.style.opacity = '0';
+      lineDots.forEach(dot => { dot.style.opacity = '1'; });
+    });
   }
 
   // === Command Palette ===
@@ -2363,11 +2788,13 @@
   const cmdpalItems = document.querySelectorAll('.cmdpal-item');
 
   function openCmdPal() {
+    cmdpalFocusIdx = -1;
     cmdpalBackdrop.classList.add('visible');
     cmdpalPanel.style.transition = 'opacity 0.2s ease-out, transform 0.2s cubic-bezier(0.22,1,0.36,1)';
     cmdpalPanel.style.opacity = '1';
     cmdpalPanel.style.transform = 'scale(1) translateY(0)';
     cmdpalPanel.style.pointerEvents = 'auto';
+    cmdpalItems.forEach(i => { i.classList.remove('focused'); i.style.display = ''; });
     setTimeout(() => cmdpalInput.focus(), 50);
   }
   function closeCmdPal() {
@@ -2381,17 +2808,37 @@
 
   document.getElementById('open-cmdpal').addEventListener('click', openCmdPal);
   cmdpalBackdrop.addEventListener('click', closeCmdPal);
+  let cmdpalFocusIdx = -1;
+  function updateCmdpalFocus() {
+    const visible = [...cmdpalItems].filter(i => i.style.display !== 'none');
+    cmdpalItems.forEach(i => i.classList.remove('focused'));
+    if (cmdpalFocusIdx >= 0 && cmdpalFocusIdx < visible.length) visible[cmdpalFocusIdx].classList.add('focused');
+  }
+
   document.addEventListener('keydown', e => {
-    if ((e.metaKey || e.ctrlKey) && e.key === 'k') { e.preventDefault(); openCmdPal(); }
-    if (e.key === 'Escape' && cmdpalPanel.style.opacity === '1') closeCmdPal();
+    if ((e.metaKey || e.ctrlKey) && e.key === 'k') { e.preventDefault(); openCmdPal(); return; }
+    if (e.key === 'Escape') {
+      if (cmdpalPanel.style.opacity === '1') { closeCmdPal(); return; }
+      if (activeOverlay === 'drawer') { closeDrawer(); return; }
+      if (activeOverlay === 'modal') { closeModal(); return; }
+    }
+    // Command palette arrow navigation
+    if (cmdpalPanel.style.opacity === '1') {
+      const visible = [...cmdpalItems].filter(i => i.style.display !== 'none');
+      if (e.key === 'ArrowDown') { e.preventDefault(); cmdpalFocusIdx = Math.min(cmdpalFocusIdx + 1, visible.length - 1); updateCmdpalFocus(); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); cmdpalFocusIdx = Math.max(cmdpalFocusIdx - 1, 0); updateCmdpalFocus(); }
+      else if (e.key === 'Enter' && cmdpalFocusIdx >= 0 && cmdpalFocusIdx < visible.length) { e.preventDefault(); visible[cmdpalFocusIdx].click(); }
+    }
   });
 
   cmdpalInput.addEventListener('input', () => {
+    cmdpalFocusIdx = -1;
     const q = cmdpalInput.value.toLowerCase();
     cmdpalItems.forEach(item => {
       const text = item.textContent.toLowerCase();
       item.style.display = text.includes(q) ? '' : 'none';
     });
+    updateCmdpalFocus();
   });
 
   cmdpalItems.forEach(item => {
@@ -2409,18 +2856,216 @@
     });
   });
 
-  // === Heatmap ===
-  const heatmap = document.getElementById('heatmap');
-  if (heatmap) {
-    const data = [3,5,2,7,4,1,6, 8,3,5,2,9,4,3, 1,6,8,4,2,7,5, 4,2,9,5,3,8,6, 7,4,1,6,8,3,2];
-    data.forEach(v => {
-      const cell = document.createElement('div');
-      cell.className = 'heat-cell';
-      cell.style.background = `oklch(0.550 0.220 260 / ${v / 10})`;
-      cell.style.height = '24px';
-      heatmap.appendChild(cell);
+  // === Tabs ===
+  document.querySelectorAll('.tabs').forEach(tabGroup => {
+    tabGroup.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabGroup.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+      });
+    });
+  });
+
+  // === Pagination ===
+  document.querySelectorAll('.pagination').forEach(pagGroup => {
+    pagGroup.querySelectorAll('.page-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const text = btn.textContent.trim();
+        if (text === '\u00ab' || text === '\u00bb') return; // skip prev/next arrows
+        pagGroup.querySelectorAll('.page-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+  });
+
+  // === Sidebar Demo ===
+  document.querySelectorAll('.sidebar-demo').forEach(sidebar => {
+    sidebar.querySelectorAll('.sidebar-item').forEach(item => {
+      item.addEventListener('click', e => {
+        e.preventDefault();
+        sidebar.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+        item.classList.add('active');
+      });
+    });
+  });
+
+  // === Skeleton Reset ===
+  const skelCards = {};
+  [1, 2, 3].forEach(i => {
+    const card = document.getElementById(`skel-card-${i}`);
+    if (card) skelCards[i] = card.innerHTML;
+  });
+  let skelLoaded = false;
+  const skelLoadBtn = document.getElementById('skel-load');
+  skelLoadBtn.addEventListener('click', () => {
+    if (skelLoaded) {
+      // Reset to skeleton state
+      [1, 2, 3].forEach(i => {
+        const card = document.getElementById(`skel-card-${i}`);
+        card.innerHTML = skelCards[i];
+        card.style.opacity = ''; card.style.transform = ''; card.style.transition = '';
+      });
+      // Reapply current shimmer/pulse mode
+      document.querySelectorAll('.skel').forEach(s => {
+        s.className = skelMode === 'shimmer' ? 'skel skel-shimmer' : 'skel skel-pulse';
+      });
+      skelLoadBtn.textContent = 'Load Content';
+      skelLoaded = false;
+      return;
+    }
+    const cards = [
+      { title: 'Design Tokens', desc: 'Centralized design decisions as data' },
+      { title: 'Component Library', desc: 'Production-ready building blocks' },
+      { title: 'Animation System', desc: 'Spring-based motion patterns' }
+    ];
+    cards.forEach((c, i) => {
+      const card = document.getElementById(`skel-card-${i + 1}`);
+      setTimeout(() => {
+        card.innerHTML = `<div class="card-title">${c.title}</div><div class="card-desc">${c.desc}</div>`;
+        card.style.opacity = '0'; card.style.transform = 'translateY(8px)';
+        requestAnimationFrame(() => { card.style.transition = 'opacity 0.3s ease-out, transform 0.3s ease-out'; card.style.opacity = '1'; card.style.transform = 'translateY(0)'; });
+      }, i * 120);
+    });
+    skelLoadBtn.textContent = 'Reset Skeleton';
+    skelLoaded = true;
+  });
+
+  // === Toast Swipe-to-Dismiss ===
+  function addToastSwipe(toast) {
+    let startX = 0, currentX = 0, dragging = false;
+    toast.addEventListener('pointerdown', e => {
+      startX = e.clientX; currentX = 0; dragging = true;
+      toast.style.transition = 'none'; toast.setPointerCapture(e.pointerId);
+    });
+    toast.addEventListener('pointermove', e => {
+      if (!dragging) return;
+      currentX = e.clientX - startX;
+      toast.style.transform = `translateX(${currentX}px)`;
+      toast.style.opacity = `${1 - Math.abs(currentX) / 200}`;
+    });
+    toast.addEventListener('pointerup', () => {
+      dragging = false;
+      if (Math.abs(currentX) > 80) {
+        toast.style.transition = 'opacity 0.2s ease-out, transform 0.2s ease-out';
+        toast.style.transform = `translateX(${currentX > 0 ? 200 : -200}px)`;
+        toast.style.opacity = '0';
+        setTimeout(() => toast.remove(), 200);
+      } else {
+        toast.style.transition = 'opacity 0.2s ease-out, transform 0.2s ease-out';
+        toast.style.transform = 'translateX(0)';
+        toast.style.opacity = '1';
+      }
     });
   }
+
+  // === Drawer Handle Drag ===
+  const drawerHandle = document.getElementById('drawer-handle');
+  if (drawerHandle) {
+    let dhStartY = 0, dhDragging = false;
+    drawerHandle.addEventListener('pointerdown', e => {
+      dhStartY = e.clientY; dhDragging = true;
+      drawerPanel.style.transition = 'none'; drawerHandle.setPointerCapture(e.pointerId);
+    });
+    drawerHandle.addEventListener('pointermove', e => {
+      if (!dhDragging) return;
+      const dy = Math.max(0, e.clientY - dhStartY);
+      drawerPanel.style.transform = `translateY(${dy}px)`;
+    });
+    drawerHandle.addEventListener('pointerup', e => {
+      dhDragging = false;
+      const dy = e.clientY - dhStartY;
+      if (dy > 100) {
+        closeDrawer();
+      } else {
+        drawerPanel.style.transition = 'transform var(--motion-slow) var(--ease-smooth)';
+        drawerPanel.style.transform = 'translateY(0)';
+      }
+    });
+  }
+
+  // === Heatmap with Headers, Tooltips, Staggered Entry ===
+  const heatmap = document.getElementById('heatmap');
+  if (heatmap) {
+    const days = ['Mon','Tue','Wed','Thu','Fri'];
+    const weeks = ['W1','W2','W3','W4','W5','W6','W7'];
+    const data = [
+      [3,5,2,7,4,1,6],
+      [8,3,5,2,9,4,3],
+      [1,6,8,4,2,7,5],
+      [4,2,9,5,3,8,6],
+      [7,4,1,6,8,3,2]
+    ];
+    const levels = ['Very low','Low','Moderate','Active','High','Very high','Moderate','Active','High','Peak'];
+
+    heatmap.style.gridTemplateColumns = 'auto repeat(7, 1fr)';
+
+    // Header row: empty corner + week labels
+    const corner = document.createElement('div');
+    heatmap.appendChild(corner);
+    weeks.forEach(w => {
+      const header = document.createElement('div');
+      header.className = 'heat-header';
+      header.textContent = w;
+      heatmap.appendChild(header);
+    });
+
+    // Data rows
+    let cellIdx = 0;
+    data.forEach((row, ri) => {
+      const label = document.createElement('div');
+      label.className = 'heat-label';
+      label.textContent = days[ri];
+      heatmap.appendChild(label);
+      row.forEach((v, ci) => {
+        const cell = document.createElement('div');
+        cell.className = 'heat-cell';
+        cell.style.background = `oklch(0.550 0.220 260 / ${v / 10})`;
+        cell.style.height = '24px';
+        if (!prefersReduced) {
+          cell.style.opacity = '0';
+          cell.style.transition = 'opacity 0.3s ease-out, transform var(--motion-fast) ease-out, box-shadow var(--motion-fast) ease-out';
+        }
+        // Tooltip
+        const tip = document.createElement('div');
+        tip.className = 'heat-tooltip';
+        tip.textContent = days[ri] + ' ' + weeks[ci] + ': ' + v + ' commits';
+        cell.appendChild(tip);
+        heatmap.appendChild(cell);
+        cellIdx++;
+      });
+    });
+
+    // Staggered fade-in
+    if (!prefersReduced) {
+      const heatCells = heatmap.querySelectorAll('.heat-cell');
+      const heatObserver = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            heatCells.forEach((cell, i) => {
+              setTimeout(() => { cell.style.opacity = '1'; }, i * 15);
+            });
+            heatObserver.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.3 });
+      heatObserver.observe(document.getElementById('heatmap-wrapper'));
+    }
+  }
+
+  // === Color Palette Click-to-Copy ===
+  document.querySelectorAll('.palette-swatch[data-token]').forEach(swatch => {
+    swatch.addEventListener('click', () => {
+      const token = swatch.dataset.token;
+      const copyText = 'var(' + token + ')';
+      navigator.clipboard.writeText(copyText).then(() => {
+        const label = swatch.querySelector('.palette-swatch-label');
+        const orig = label.textContent;
+        label.textContent = 'Copied!';
+        label.style.opacity = '1';
+        setTimeout(() => { label.textContent = orig; }, 1200);
+      });
+    });
+  });
 })();
 </script>
 </body>
