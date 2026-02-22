@@ -230,6 +230,22 @@
       --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
       --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
 
+      /* Control Heights */
+      --control-sm: 32px;
+      --control-md: 36px;
+      --control-lg: 44px;
+      --control-xl: 56px;
+
+      /* UI Text Sizes (fixed, non-fluid — for controls, tables, badges) */
+      --ui-text-2xs: 0.75rem;
+      --ui-text-xs: 0.6875rem;
+      --ui-text-sm: 0.8125rem;
+      --ui-text-md: 0.875rem;
+      --ui-text-lg: 0.9375rem;
+      --ui-text-xl: 1.0625rem;
+
+      /* Button */
+      --btn-gap: 6px;
       --btn-primary-bg: var(--accent-blue);
       --btn-primary-text: var(--text-on-accent);
       --btn-danger-bg: var(--accent-red);
@@ -237,6 +253,11 @@
       --btn-highlight-bg: var(--accent-yellow);
       --btn-highlight-text: var(--text-on-yellow);
 
+      /* Badge */
+      --badge-py: 2px;
+      --badge-px: 10px;
+
+      /* Toggle */
       --toggle-off-bg: var(--primitive-neutral-300);
       --toggle-on-bg: var(--accent-blue);
       --toggle-knob: var(--primitive-neutral-0);
@@ -644,7 +665,7 @@
     }
 
     .section-overline {
-      font-size: 0.6875rem;
+      font-size: var(--ui-text-xs);
       font-weight: 600;
       letter-spacing: 0.08em;
       text-transform: uppercase;
@@ -697,7 +718,7 @@
     }
 
     .subsection-label {
-      font-size: 0.75rem;
+      font-size: var(--ui-text-2xs);
       font-weight: 600;
       letter-spacing: 0.04em;
       text-transform: uppercase;
@@ -838,7 +859,7 @@
     }
 
     .topnav-links a {
-      font-size: 0.8125rem;
+      font-size: var(--ui-text-sm);
       font-weight: 500;
       color: var(--text-secondary);
       text-decoration: none;
@@ -1053,14 +1074,14 @@
     }
 
     .tile-name {
-      font-size: 0.9375rem;
+      font-size: var(--ui-text-lg);
       font-weight: 620;
       letter-spacing: var(--tracking-tight);
       margin-bottom: var(--space-1);
     }
 
     .tile-desc {
-      font-size: 0.75rem;
+      font-size: var(--ui-text-2xs);
       color: var(--text-secondary);
       line-height: 1.45;
     }
@@ -1160,7 +1181,7 @@
     }
 
     .swatch-name {
-      font-size: 0.6875rem;
+      font-size: var(--ui-text-xs);
       font-weight: 600;
       color: var(--text-primary);
       font-family: var(--font-mono);
@@ -1205,7 +1226,7 @@
     }
 
     .contrast-checker label {
-      font-size: 0.8125rem;
+      font-size: var(--ui-text-sm);
       font-weight: 550;
       display: flex;
       flex-direction: column;
@@ -1213,10 +1234,10 @@
     }
 
     .contrast-checker select {
-      height: 36px;
+      height: var(--control-md);
       padding: 0 var(--space-3);
       font-family: var(--font-sans);
-      font-size: 0.875rem;
+      font-size: var(--ui-text-md);
       border: 1px solid var(--border-default);
       border-radius: var(--radius-sm);
       background: var(--bg-page);
@@ -1227,7 +1248,7 @@
       padding: var(--space-3) var(--space-4);
       border-radius: var(--radius-md);
       font-family: var(--font-mono);
-      font-size: 0.875rem;
+      font-size: var(--ui-text-md);
       font-weight: 600;
       min-width: 120px;
       text-align: center;
@@ -1262,7 +1283,7 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
+      gap: var(--btn-gap);
       font-family: var(--font-sans);
       font-weight: 700;
       border: 2px solid var(--text-primary);
@@ -1293,21 +1314,21 @@
     }
 
     .btn-sm {
-      height: 32px;
-      padding: 0 12px;
-      font-size: 0.8125rem;
+      height: var(--control-sm);
+      padding: 0 var(--space-3);
+      font-size: var(--ui-text-sm);
     }
 
     .btn-md {
-      height: 44px;
-      padding: 0 20px;
-      font-size: 0.9375rem;
+      height: var(--control-lg);
+      padding: 0 var(--space-5);
+      font-size: var(--ui-text-lg);
     }
 
     .btn-lg {
-      height: 56px;
-      padding: 0 28px;
-      font-size: 1.0625rem;
+      height: var(--control-xl);
+      padding: 0 var(--space-8);
+      font-size: var(--ui-text-xl);
       border-radius: var(--radius-lg);
     }
 
@@ -1421,27 +1442,27 @@
     }
 
     .form-label {
-      font-size: 0.8125rem;
+      font-size: var(--ui-text-sm);
       font-weight: 550;
       color: var(--text-primary);
     }
 
     .form-hint {
-      font-size: 0.75rem;
+      font-size: var(--ui-text-2xs);
       color: var(--text-muted);
     }
 
     .form-error-text {
-      font-size: 0.75rem;
+      font-size: var(--ui-text-2xs);
       color: var(--accent-red-text);
     }
 
     .input {
       width: 100%;
-      height: 36px;
+      height: var(--control-md);
       padding: 0 var(--space-3);
       font-family: var(--font-sans);
-      font-size: 0.875rem;
+      font-size: var(--ui-text-md);
       color: var(--text-primary);
       background: var(--bg-surface);
       border: 2px solid var(--text-primary);
@@ -1481,11 +1502,11 @@
 
     .textarea {
       height: auto;
-      min-height: 80px;
+      min-height: var(--space-20);
       padding: var(--space-3);
       resize: vertical;
       font-family: var(--font-sans);
-      font-size: 0.875rem;
+      font-size: var(--ui-text-md);
       color: var(--text-primary);
       background: var(--bg-surface);
       border: 2px solid var(--text-primary);
@@ -1508,10 +1529,10 @@
     .select {
       appearance: none;
       width: 100%;
-      height: 36px;
-      padding: 0 32px 0 var(--space-3);
+      height: var(--control-md);
+      padding: 0 var(--space-8) 0 var(--space-3);
       font-family: var(--font-sans);
-      font-size: 0.875rem;
+      font-size: var(--ui-text-md);
       color: var(--text-primary);
       background: var(--bg-surface);
       border: 2px solid var(--text-primary);
@@ -1532,12 +1553,12 @@
     }
 
     .input-icon-wrap .input {
-      padding-left: 36px;
+      padding-left: var(--control-md);
     }
 
     .input-icon-wrap svg {
       position: absolute;
-      left: 12px;
+      left: var(--space-3);
       top: 50%;
       transform: translateY(-50%);
       color: var(--text-muted);
@@ -1547,9 +1568,9 @@
     .multi-select {
       display: flex;
       flex-wrap: wrap;
-      gap: 6px;
-      min-height: 36px;
-      padding: 6px var(--space-3);
+      gap: var(--btn-gap);
+      min-height: var(--control-md);
+      padding: var(--btn-gap) var(--space-3);
       background: var(--bg-surface);
       border: 2px solid var(--text-primary);
       border-radius: var(--radius-sm);
@@ -1566,11 +1587,11 @@
     .multi-select-tag {
       display: inline-flex;
       align-items: center;
-      gap: 4px;
+      gap: var(--space-1);
       background: var(--bg-muted);
-      padding: 2px 8px;
+      padding: var(--badge-py) var(--space-2);
       border-radius: var(--radius-full);
-      font-size: 0.75rem;
+      font-size: var(--ui-text-2xs);
       color: var(--text-primary);
     }
 
@@ -1601,7 +1622,7 @@
       align-items: center;
       gap: var(--space-2);
       cursor: pointer;
-      font-size: 0.875rem;
+      font-size: var(--ui-text-md);
     }
 
     .check-box,
@@ -1720,20 +1741,20 @@
     }
 
     .card-title {
-      font-size: 0.9375rem;
+      font-size: var(--ui-text-lg);
       font-weight: 620;
       letter-spacing: var(--tracking-tight);
       margin-bottom: var(--space-2);
     }
 
     .card-desc {
-      font-size: 0.8125rem;
+      font-size: var(--ui-text-sm);
       color: var(--text-secondary);
       line-height: 1.55;
     }
 
     .card-meta {
-      font-size: 0.75rem;
+      font-size: var(--ui-text-2xs);
       font-family: var(--font-mono);
       color: var(--text-muted);
       margin-top: var(--space-4);
@@ -1762,7 +1783,7 @@
     }
 
     .card-compact .card-title {
-      font-size: 0.8125rem;
+      font-size: var(--ui-text-sm);
     }
 
     /* ==========================================================================
@@ -1777,14 +1798,14 @@
     .data-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.8125rem;
+      font-size: var(--ui-text-sm);
     }
 
     .data-table th {
       text-align: left;
       padding: var(--space-3) var(--space-4);
       font-weight: 600;
-      font-size: 0.6875rem;
+      font-size: var(--ui-text-xs);
       letter-spacing: 0.04em;
       text-transform: uppercase;
       color: var(--text-muted);
@@ -1861,7 +1882,7 @@
 
     .data-table .mono {
       font-family: var(--font-mono);
-      font-size: 0.75rem;
+      font-size: var(--ui-text-2xs);
     }
 
     .status-dot {
@@ -1874,7 +1895,7 @@
     .status-row {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: var(--btn-gap);
     }
 
     /* ==========================================================================
@@ -1883,9 +1904,9 @@
     .badge {
       display: inline-flex;
       align-items: center;
-      gap: 4px;
-      padding: 2px 10px;
-      font-size: 0.6875rem;
+      gap: var(--space-1);
+      padding: var(--badge-py) var(--badge-px);
+      font-size: var(--ui-text-xs);
       font-weight: 600;
       border-radius: var(--radius-full);
     }
@@ -1936,7 +1957,7 @@
       gap: var(--space-2);
       padding: var(--space-2) var(--space-3);
       border-radius: var(--radius-sm);
-      font-size: 0.8125rem;
+      font-size: var(--ui-text-sm);
       color: var(--text-secondary);
       cursor: pointer;
       text-decoration: none;
@@ -1970,7 +1991,7 @@
 
     .tab {
       padding: var(--space-3) var(--space-4);
-      font-size: 0.875rem;
+      font-size: var(--ui-text-md);
       font-weight: 500;
       color: var(--text-secondary);
       cursor: pointer;
@@ -1995,7 +2016,7 @@
       display: flex;
       align-items: center;
       gap: var(--space-2);
-      font-size: 0.8125rem;
+      font-size: var(--ui-text-sm);
     }
 
     .breadcrumbs a {
@@ -2023,12 +2044,12 @@
     }
 
     .page-btn {
-      width: 32px;
-      height: 32px;
+      width: var(--control-sm);
+      height: var(--control-sm);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.8125rem;
+      font-size: var(--ui-text-sm);
       border: 1px solid var(--border-default);
       border-radius: var(--radius-sm);
       background: var(--bg-surface);
@@ -2113,7 +2134,7 @@
 
     .toast-content {
       flex: 1;
-      font-size: 0.875rem;
+      font-size: var(--ui-text-md);
       line-height: 1.4;
       margin-right: var(--space-6);
     }
@@ -2224,7 +2245,7 @@
     }
 
     .modal-body {
-      font-size: 0.9375rem;
+      font-size: var(--ui-text-lg);
       color: var(--text-secondary);
       line-height: 1.6;
     }
@@ -2308,7 +2329,7 @@
       gap: var(--space-3);
       padding: var(--space-4);
       border-radius: var(--radius-md);
-      font-size: 0.875rem;
+      font-size: var(--ui-text-md);
       line-height: 1.5;
     }
 
@@ -2390,7 +2411,7 @@
     }
 
     .chart-title {
-      font-size: 0.875rem;
+      font-size: var(--ui-text-md);
       font-weight: 600;
       margin-bottom: var(--space-4);
     }
@@ -2441,12 +2462,12 @@
     }
 
     .kpi-label {
-      font-size: 0.8125rem;
+      font-size: var(--ui-text-sm);
       color: var(--text-secondary);
     }
 
     .kpi-change {
-      font-size: 0.75rem;
+      font-size: var(--ui-text-2xs);
       font-weight: 600;
       margin-top: var(--space-2);
     }
@@ -2505,7 +2526,7 @@
     }
 
     .easing-label {
-      font-size: 0.75rem;
+      font-size: var(--ui-text-2xs);
       font-family: var(--font-mono);
       color: var(--text-muted);
     }
@@ -2606,7 +2627,7 @@
     }
 
     .tilt-desc {
-      font-size: 0.9375rem;
+      font-size: var(--ui-text-lg);
       color: var(--text-secondary);
       line-height: 1.6;
       transform: translateZ(20px);
@@ -2616,7 +2637,7 @@
     .tilt-badge {
       display: inline-block;
       padding: var(--space-1) var(--space-3);
-      font-size: 0.75rem;
+      font-size: var(--ui-text-2xs);
       font-weight: 600;
       background: var(--accent-blue);
       color: var(--text-on-accent);
@@ -2651,7 +2672,7 @@
     .color-pill {
       padding: var(--space-2) var(--space-6);
       font-family: var(--font-sans);
-      font-size: 0.9375rem;
+      font-size: var(--ui-text-lg);
       font-weight: 600;
       color: oklch(0.995 0.002 90);
       border: none;
@@ -2799,8 +2820,8 @@
       position: fixed;
       bottom: var(--space-8);
       right: var(--space-6);
-      width: 44px;
-      height: 44px;
+      width: var(--control-lg);
+      height: var(--control-lg);
       border-radius: var(--radius-full);
       background: var(--bg-surface);
       color: var(--text-primary);
@@ -2849,7 +2870,7 @@
     }
 
     .type-tester-controls label {
-      font-size: 0.75rem;
+      font-size: var(--ui-text-2xs);
       font-weight: 600;
       color: var(--text-muted);
       display: flex;
