@@ -75,7 +75,7 @@ Replace values file-by-file, component-by-component:
 
 **Spacing to Scale:**
 - Map each pixel value to nearest `--space-*` token
-- 4px=1, 8px=2, 12px=3, 16px=4, 20px=5, 24px=6, 32px=8, 40px=10, 48px=12, 64px=16, 80px=20
+- 4px=1, 6px=1-5, 8px=2, 12px=3, 16px=4, 20px=5, 24px=6, 32px=8, 40px=10, 48px=12, 64px=16, 80px=20
 
 **Content typography to Fluid scale:**
 - Body text to `--step-0`
@@ -83,8 +83,8 @@ Replace values file-by-file, component-by-component:
 - Headings to `--step-3` through `--step-5`
 
 **Control typography to UI text scale:**
-- Captions, hints, metadata to `--ui-text-2xs` (12px)
-- Badges, table headers to `--ui-text-xs` (11px)
+- Badges, table headers to `--ui-text-2xs` (11px)
+- Captions, hints, form errors to `--ui-text-xs` (12px)
 - Tables, sidebar items, small buttons to `--ui-text-sm` (13px)
 - Inputs, selects, alerts, tabs to `--ui-text-md` (14px)
 - Medium buttons to `--ui-text-lg` (15px)
@@ -99,6 +99,10 @@ Replace values file-by-file, component-by-component:
 **Shadows to Neo-brutalist solid:**
 - Replace any `box-shadow` with blur radius to solid offsets
 - `--shadow-sm` (2px 2px 0), `--shadow-md` (4px 4px 0), `--shadow-lg` (8px 8px 0)
+
+**Z-index to scale:**
+- Replace hardcoded z-index values with `var(--z-*)` tokens
+- 1 → `--z-base`, 100 → `--z-sticky`, 200 → `--z-fixed`, 300 → `--z-overlay`, 1000 → `--z-modal`, 1100 → `--z-toast`, 1500 → `--z-tooltip`
 
 **Borders to 2px solid pattern:**
 - Cards, buttons: `border: 2px solid var(--text-primary)`

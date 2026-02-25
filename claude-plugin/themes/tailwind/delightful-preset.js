@@ -104,6 +104,7 @@ export default {
 
       spacing: {
         '1': 'var(--space-1)',
+        '1-5': 'var(--space-1-5)',
         '2': 'var(--space-2)',
         '3': 'var(--space-3)',
         '4': 'var(--space-4)',
@@ -149,6 +150,22 @@ export default {
         out: 'var(--ease-out)',
         bounce: 'var(--ease-bounce)',
         smooth: 'var(--ease-smooth)',
+      },
+
+      zIndex: {
+        base: 'var(--z-base)',
+        sticky: 'var(--z-sticky)',
+        fixed: 'var(--z-fixed)',
+        overlay: 'var(--z-overlay)',
+        modal: 'var(--z-modal)',
+        toast: 'var(--z-toast)',
+        tooltip: 'var(--z-tooltip)',
+      },
+
+      maxWidth: {
+        'container-sm': 'var(--container-sm)',
+        'container-md': 'var(--container-md)',
+        'container-lg': 'var(--container-lg)',
       },
     },
   },

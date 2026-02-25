@@ -221,8 +221,17 @@
   --leading-normal: 1.55;
   --leading-relaxed: 1.65;
 
+  /* UI Text Scale (fixed, non-fluid — for controls) */
+  --ui-text-2xs: 0.6875rem;   /* 11px — badges, table headers */
+  --ui-text-xs:  0.75rem;     /* 12px — captions, hints, form errors */
+  --ui-text-sm:  0.8125rem;   /* 13px — sidebar, breadcrumbs, small buttons */
+  --ui-text-md:  0.875rem;    /* 14px — inputs, selects, tabs */
+  --ui-text-lg:  0.9375rem;   /* 15px — medium buttons */
+  --ui-text-xl:  1.0625rem;   /* 17px — large buttons */
+
   /* Spacing (4px base) */
   --space-1: 4px;
+  --space-1-5: 6px;
   --space-2: 8px;
   --space-3: 12px;
   --space-4: 16px;
@@ -240,6 +249,12 @@
   --radius-lg: 24px;
   --radius-xl: 32px;
   --radius-full: 9999px;
+
+  /* Control Heights */
+  --control-sm: 32px;
+  --control-md: 36px;
+  --control-lg: 44px;
+  --control-xl: 56px;
 
   /* Motion */
   --motion-instant: 100ms;
@@ -261,9 +276,27 @@
   --btn-cyan-text: var(--text-on-accent);
   --btn-green-bg: var(--accent-green);
   --btn-green-text: var(--text-on-accent);
+  --btn-gap: var(--space-1-5);
+
+  --badge-py: 2px;
+  --badge-px: 10px;
 
   /* Toggle Tokens */
   --toggle-off-bg: var(--primitive-neutral-300);
   --toggle-on-bg: var(--accent-primary);
   --toggle-knob: var(--primitive-neutral-0);
+
+  /* Z-Index Scale */
+  --z-base: 1;
+  --z-sticky: 100;
+  --z-fixed: 200;
+  --z-overlay: 300;
+  --z-modal: 1000;
+  --z-toast: 1100;
+  --z-tooltip: 1500;
+
+  /* Container Widths */
+  --container-sm: 640px;
+  --container-md: 960px;
+  --container-lg: 1200px;
 }

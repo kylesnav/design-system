@@ -38,7 +38,7 @@ When setting up a new project:
 5. Add `:focus-visible` global style
 6. Add `prefers-reduced-motion: reduce` global guard
 7. Add dark mode toggle with `data-theme` attribute system
-8. Add animation keyframes (fadeInUp, fadeIn, scaleIn, shake, shimmer) inside reduced-motion media query
+8. Add animation keyframes (fadeInUp, fadeIn, scaleIn, shake, shimmer, fadeOutRight, slideInLeft) inside reduced-motion media query
 
 ### Component Patterns
 
@@ -59,6 +59,18 @@ When building components, follow these exact patterns:
 **Modals:** `<dialog>` element with `.modal-panel`, backdrop overlay, scale-in animation.
 
 **Toasts:** Fixed position container, left stripe color indicator, auto-dismiss with progress bar.
+
+**Avatars:** `.avatar` base + `.avatar-{size}` + `.avatar-{color}`. Sizes: sm (control-sm), md (control-lg), lg (control-xl). Group overlap with `.avatar-group`.
+
+**Tooltips:** `.tooltip-wrap` parent + `.tooltip` child. Pure CSS hover/focus reveal, positioned above trigger.
+
+**Empty States:** `.empty-state` centered layout with icon, title, description, and optional CTA button.
+
+**Breadcrumbs:** `.breadcrumbs` with `<a>` links, `.sep` separators, `.current` for active item.
+
+**Pagination:** `.pagination` row of `.page-btn` buttons. Active state uses accent-primary.
+
+**Progress Bars:** `.progress-track` + `.progress-fill-{color}`. Color variants: pink, gold, cyan, green.
 
 ### Page Structure
 
@@ -94,7 +106,8 @@ When building components, follow these exact patterns:
 
 Before declaring a build complete:
 - Verify zero hardcoded colors (search for `#`, `rgb(`, `hsl(`)
-- Verify zero arbitrary spacing or heights (use `--space-*`, `--control-*`)
+- Verify zero arbitrary spacing or heights (use `--space-*`, `--space-1-5`, `--control-*`)
+- Verify all z-index values use `var(--z-*)` tokens
 - Verify zero arbitrary font sizes (use `--step-*` for content, `--ui-text-*` for controls)
 - Verify all buttons have hover/active/focus-visible/disabled
 - Verify dark mode toggle works (test by toggling `data-theme`)

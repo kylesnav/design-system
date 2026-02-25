@@ -26,6 +26,7 @@ When invoked, scan all HTML, CSS, JSX, TSX, Vue, and Svelte files in the target 
 | Blurred shadows | `box-shadow` with a blur radius > 0 (should be solid offset shadows like `4px 4px 0`) | Error |
 | Missing reduced-motion | Animations or transitions without `prefers-reduced-motion` media query guard | Warning |
 | Wrong border style | Borders not using `2px solid` pattern on cards/buttons | Info |
+| Arbitrary z-index | `z-index: 100`, `z-index: 999` — any z-index not using `var(--z-*)` | Info |
 | Non-oklch colors | Color definitions using hex/rgb/hsl instead of oklch | Info |
 
 ### Allowed Exceptions
@@ -89,6 +90,7 @@ When suggesting fixes, use these mappings:
 
 **Spacing → Scale:**
 - 4px → `var(--space-1)`
+- 6px → `var(--space-1-5)`
 - 8px → `var(--space-2)`
 - 12px → `var(--space-3)`
 - 16px → `var(--space-4)`
@@ -109,8 +111,8 @@ When suggesting fixes, use these mappings:
 - ~40px → `var(--step-5)`
 
 **Font sizes → UI text scale (controls, non-fluid):**
-- 0.75rem (12px) → `var(--ui-text-2xs)` — captions, hints, metadata
-- 0.6875rem (11px) → `var(--ui-text-xs)` — badges, table headers
+- 0.6875rem (11px) → `var(--ui-text-2xs)` — badges, table headers
+- 0.75rem (12px) → `var(--ui-text-xs)` — captions, hints, form errors
 - 0.8125rem (13px) → `var(--ui-text-sm)` — tables, sidebar items, small buttons
 - 0.875rem (14px) → `var(--ui-text-md)` — inputs, selects, alerts, tabs
 - 0.9375rem (15px) → `var(--ui-text-lg)` — medium buttons
@@ -121,6 +123,15 @@ When suggesting fixes, use these mappings:
 - 36px → `var(--control-md)`
 - 44px → `var(--control-lg)`
 - 56px → `var(--control-xl)`
+
+**Z-Index → Scale:**
+- 1 → `var(--z-base)`
+- 100 → `var(--z-sticky)`
+- 200 → `var(--z-fixed)`
+- 300 → `var(--z-overlay)`
+- 1000 → `var(--z-modal)`
+- 1100 → `var(--z-toast)`
+- 1500 → `var(--z-tooltip)`
 
 **Border radius → Scale:**
 - 10px → `var(--radius-sm)`

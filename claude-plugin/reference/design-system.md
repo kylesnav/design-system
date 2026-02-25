@@ -213,12 +213,32 @@ Raw oklch values. Named by scale, no semantic meaning. **Never use directly in c
 --leading-relaxed: 1.65;
 ```
 
+### UI Text Scale (fixed, non-fluid — for controls)
+
+| Token | Value | Use |
+|---|---|---|
+| `--ui-text-2xs` | `0.6875rem` (11px) | Badges, table headers |
+| `--ui-text-xs` | `0.75rem` (12px) | Captions, hints, form errors |
+| `--ui-text-sm` | `0.8125rem` (13px) | Sidebar, breadcrumbs, small buttons |
+| `--ui-text-md` | `0.875rem` (14px) | Inputs, selects, tabs |
+| `--ui-text-lg` | `0.9375rem` (15px) | Medium buttons |
+| `--ui-text-xl` | `1.0625rem` (17px) | Large buttons |
+
+### Control Heights
+
+| Token | Value | Use |
+|---|---|---|
+| `--control-sm` | `32px` | Small buttons, pagination |
+| `--control-md` | `36px` | Inputs, selects |
+| `--control-lg` | `44px` | Medium buttons, avatars |
+| `--control-xl` | `56px` | Large buttons, large avatars |
+
 ### Spacing (4px base grid)
 ```css
---space-1: 4px;   --space-2: 8px;   --space-3: 12px;
---space-4: 16px;  --space-5: 20px;  --space-6: 24px;
---space-8: 32px;  --space-10: 40px; --space-12: 48px;
---space-16: 64px; --space-20: 80px;
+--space-1: 4px;   --space-1-5: 6px; --space-2: 8px;
+--space-3: 12px;  --space-4: 16px;  --space-5: 20px;
+--space-6: 24px;  --space-8: 32px;  --space-10: 40px;
+--space-12: 48px; --space-16: 64px; --space-20: 80px;
 ```
 
 ### Border Radius
@@ -239,6 +259,26 @@ Raw oklch values. Named by scale, no semantic meaning. **Never use directly in c
 --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
 ```
 
+### Z-Index Scale
+
+| Token | Value | Use |
+|---|---|---|
+| `--z-base` | `1` | Content layering |
+| `--z-sticky` | `100` | Sticky nav, mobile menu |
+| `--z-fixed` | `200` | Fixed topnav |
+| `--z-overlay` | `300` | Scroll progress, overlays |
+| `--z-modal` | `1000` | Modal dialogs |
+| `--z-toast` | `1100` | Toast notifications |
+| `--z-tooltip` | `1500` | Tooltips |
+
+### Container Widths
+
+| Token | Value | Use |
+|---|---|---|
+| `--container-sm` | `640px` | Narrow content (forms, settings) |
+| `--container-md` | `960px` | Medium content (tables, lists) |
+| `--container-lg` | `1200px` | Wide content (dashboards) |
+
 ### Button Tokens
 ```css
 --btn-primary-bg: var(--accent-primary);
@@ -251,6 +291,13 @@ Raw oklch values. Named by scale, no semantic meaning. **Never use directly in c
 --btn-cyan-text: var(--text-on-accent);
 --btn-green-bg: var(--accent-green);
 --btn-green-text: var(--text-on-accent);
+--btn-gap: var(--space-1-5);   /* 6px — icon + label spacing */
+```
+
+### Badge Tokens
+```css
+--badge-py: 2px;    /* vertical padding */
+--badge-px: 10px;   /* horizontal padding */
 ```
 
 ### Toggle Tokens
@@ -315,6 +362,14 @@ All animations MUST be wrapped in `@media (prefers-reduced-motion: no-preference
   @keyframes shimmer {
     0% { background-position: -200% 0; }
     100% { background-position: 200% 0; }
+  }
+  @keyframes fadeOutRight {
+    from { opacity: 1; transform: translateX(0); }
+    to { opacity: 0; transform: translateX(100%); }
+  }
+  @keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-100%); }
+    to { opacity: 1; transform: translateX(0); }
   }
 }
 
@@ -400,7 +455,7 @@ All animations MUST be wrapped in `@media (prefers-reduced-motion: no-preference
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: var(--btn-gap);
   font-family: var(--font-sans);
   font-weight: 700;
   border: 2px solid var(--text-primary);
@@ -417,7 +472,7 @@ All animations MUST be wrapped in `@media (prefers-reduced-motion: no-preference
 .btn:disabled { opacity: 0.4; cursor: not-allowed; pointer-events: none; }
 ```
 
-**Sizes:** `.btn-sm` (32px, 0.8125rem), `.btn-md` (44px, 0.9375rem), `.btn-lg` (56px, 1.0625rem)
+**Sizes:** `.btn-sm` (`--control-sm`, `--ui-text-sm`), `.btn-md` (`--control-lg`, `--ui-text-lg`), `.btn-lg` (`--control-xl`, `--ui-text-xl`)
 
 **Variants:**
 - `.btn-primary` — `background: var(--accent-primary); color: var(--text-on-accent); box-shadow: var(--shadow-pink);`
@@ -443,10 +498,10 @@ All animations MUST be wrapped in `@media (prefers-reduced-motion: no-preference
 ```css
 .input {
   width: 100%;
-  height: 36px;
+  height: var(--control-md);
   padding: 0 var(--space-3);
   font-family: var(--font-sans);
-  font-size: 0.875rem;
+  font-size: var(--ui-text-md);
   color: var(--text-primary);
   background: var(--bg-surface);
   border: 2px solid var(--text-primary);
@@ -486,9 +541,9 @@ All animations MUST be wrapped in `@media (prefers-reduced-motion: no-preference
 
 ```css
 .select {
-  appearance: none; width: 100%; height: 36px;
+  appearance: none; width: 100%; height: var(--control-md);
   padding: 0 32px 0 var(--space-3);
-  font-family: var(--font-sans); font-size: 0.875rem;
+  font-family: var(--font-sans); font-size: var(--ui-text-md);
   color: var(--text-primary); background: var(--bg-surface);
   border: 2px solid var(--text-primary); border-radius: var(--radius-sm);
   cursor: pointer;
@@ -561,7 +616,7 @@ All animations MUST be wrapped in `@media (prefers-reduced-motion: no-preference
 ```css
 .badge {
   display: inline-flex; align-items: center; gap: 4px;
-  padding: 2px 10px; font-size: 0.6875rem; font-weight: 600;
+  padding: var(--badge-py) var(--badge-px); font-size: var(--ui-text-2xs); font-weight: 600;
   border-radius: var(--radius-full);
 }
 ```
@@ -659,7 +714,7 @@ All animations MUST be wrapped in `@media (prefers-reduced-motion: no-preference
 .toast-container {
   position: fixed; bottom: var(--space-6); right: var(--space-6);
   display: flex; flex-direction: column-reverse; gap: var(--space-2);
-  z-index: 1000; max-width: 380px; width: 100%;
+  z-index: var(--z-toast); max-width: 380px; width: 100%;
 }
 .toast {
   display: flex; align-items: flex-start; gap: var(--space-3);
@@ -691,6 +746,8 @@ All animations MUST be wrapped in `@media (prefers-reduced-motion: no-preference
 
 Use `<dialog>` element with `.showModal()` / `.close()`.
 
+> **SPA Note:** In React/Vue/Svelte, modals are often rendered via portals to avoid stacking context issues. The design system's token-based approach works identically with portals — apply the same `.modal-panel` styles to your portal-rendered element.
+
 ### Drawer `.drawer-panel`
 
 ```css
@@ -714,6 +771,174 @@ Use `<dialog>` element with `.showModal()` / `.close()`.
   background: linear-gradient(110deg, var(--bg-muted) 30%, var(--bg-subtle) 50%, var(--bg-muted) 70%);
   background-size: 200% 100%;
   animation: playful-shimmer 2s linear infinite; /* wrap in reduced-motion check */
+}
+```
+
+### Breadcrumbs `.breadcrumbs`
+
+```css
+.breadcrumbs {
+  display: flex; align-items: center; gap: var(--space-2);
+  font-size: var(--ui-text-sm);
+}
+.breadcrumbs a { color: var(--text-secondary); text-decoration: none; }
+.breadcrumbs a:hover { color: var(--text-primary); }
+.breadcrumbs .sep { color: var(--text-muted); }
+.breadcrumbs .current { color: var(--text-primary); font-weight: 550; }
+```
+
+```html
+<div class="breadcrumbs">
+  <a href="#">Home</a><span class="sep">/</span>
+  <a href="#">Settings</a><span class="sep">/</span>
+  <span class="current">Profile</span>
+</div>
+```
+
+### Pagination `.pagination`
+
+```css
+.pagination { display: flex; gap: var(--space-1); align-items: center; }
+.page-btn {
+  width: var(--control-sm); height: var(--control-sm);
+  display: flex; align-items: center; justify-content: center;
+  font-size: var(--ui-text-sm);
+  border: 2px solid var(--border-default); border-radius: var(--radius-sm);
+  background: var(--bg-surface); color: var(--text-secondary); cursor: pointer;
+}
+.page-btn:hover { background: var(--bg-subtle); border-color: var(--border-strong); }
+.page-btn.active { background: var(--accent-primary); color: var(--text-on-accent); border-color: var(--accent-primary); }
+```
+
+### Progress Bar `.progress-track`
+
+```css
+.progress-group { margin-bottom: var(--space-4); }
+.progress-label {
+  display: flex; justify-content: space-between;
+  font-size: var(--step--1); font-weight: 600; margin-bottom: var(--space-2);
+}
+.progress-track {
+  height: 16px; background: var(--bg-muted);
+  border: 2px solid var(--border-default);
+  border-radius: var(--radius-full); overflow: hidden;
+}
+.progress-fill {
+  height: 100%; border-radius: var(--radius-full);
+  transition: width var(--motion-base) var(--ease-out);
+}
+.progress-fill-pink { background: var(--accent-primary); }
+.progress-fill-gold { background: var(--accent-gold); }
+.progress-fill-cyan { background: var(--accent-cyan); }
+.progress-fill-green { background: var(--accent-green); }
+```
+
+### Avatar `.avatar`
+
+```css
+.avatar {
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: var(--radius-full); border: 2px solid var(--border-default);
+  overflow: hidden; background: var(--bg-subtle); color: var(--text-secondary);
+  font-weight: 700; font-family: var(--font-sans);
+  letter-spacing: var(--tracking-tight); flex-shrink: 0; user-select: none;
+}
+.avatar-sm { width: var(--control-sm); height: var(--control-sm); font-size: var(--ui-text-2xs); }
+.avatar-md { width: var(--control-lg); height: var(--control-lg); font-size: var(--ui-text-md); }
+.avatar-lg { width: var(--control-xl); height: var(--control-xl); font-size: var(--ui-text-lg); }
+```
+
+**Color variants:** `.avatar-pink`, `.avatar-gold`, `.avatar-cyan`, `.avatar-green` — use `accent-*-subtle` backgrounds with `accent-*-text` foregrounds.
+
+**Avatar group:** `.avatar-group` stacks avatars with negative margin overlap.
+
+```html
+<div class="avatar-group">
+  <div class="avatar avatar-md avatar-pink">KS</div>
+  <div class="avatar avatar-md avatar-gold">JD</div>
+  <div class="avatar avatar-md avatar-cyan">AR</div>
+</div>
+```
+
+### Tooltip `.tooltip-wrap`
+
+```css
+.tooltip-wrap { position: relative; display: inline-block; }
+.tooltip {
+  position: absolute; bottom: calc(100% + var(--space-2)); left: 50%;
+  transform: translateX(-50%);
+  padding: var(--space-1) var(--space-2);
+  background: var(--text-primary); color: var(--bg-surface);
+  font-size: var(--ui-text-2xs); font-weight: 600;
+  border-radius: var(--radius-sm); white-space: nowrap;
+  pointer-events: none; opacity: 0;
+  transition: opacity var(--motion-fast) var(--ease-out);
+  z-index: var(--z-tooltip); box-shadow: var(--shadow-sm);
+}
+.tooltip-wrap:hover .tooltip,
+.tooltip-wrap:focus-within .tooltip { opacity: 1; }
+```
+
+```html
+<span class="tooltip-wrap">
+  <button class="btn btn-sm btn-icon">?<span class="tooltip">Help</span></button>
+</span>
+```
+
+### Empty State `.empty-state`
+
+```css
+.empty-state {
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; padding: var(--space-12) var(--space-6);
+  text-align: center;
+}
+.empty-state-icon { font-size: var(--step-3); margin-bottom: var(--space-4); color: var(--text-muted); }
+.empty-state-title {
+  font-size: var(--step-1); font-weight: 700;
+  letter-spacing: var(--tracking-tight); line-height: var(--leading-tight);
+  color: var(--text-primary); margin-bottom: var(--space-2);
+}
+.empty-state-desc {
+  font-size: var(--ui-text-md); color: var(--text-secondary);
+  max-width: 360px; line-height: var(--leading-normal); margin-bottom: var(--space-6);
+}
+```
+
+```html
+<div class="empty-state">
+  <div class="empty-state-icon">🔍</div>
+  <div class="empty-state-title">No results found</div>
+  <div class="empty-state-desc">Try adjusting your search or filter criteria.</div>
+  <button class="btn btn-sm btn-primary">Clear filters</button>
+</div>
+```
+
+---
+
+## Responsive Patterns
+
+The design system uses mobile-first responsive design with these breakpoints:
+
+| Breakpoint | Value | Use |
+|---|---|---|
+| Extra small | `480px` | Compact phone layouts |
+| Small | `600px` | Large phones, toast stacking |
+| Tablet | `768px` | Tablet layouts, grid reflow |
+| Desktop | `900px` | Desktop navigation |
+
+**Container widths:** Use `--container-sm` (640px), `--container-md` (960px), `--container-lg` (1200px) for `max-width` constraints on content areas.
+
+**Toast position:** The canonical placement is `bottom: var(--space-6); right: var(--space-6)` (bottom-right). For top-right placement, switch to `top: var(--space-6)` and change `flex-direction: column-reverse` to `flex-direction: column`.
+
+**Table horizontal scroll:** Tables need `overflow-x: auto` on their wrapper for small screens.
+
+**Responsive grid pattern:**
+```css
+.responsive-grid {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
 }
 ```
 

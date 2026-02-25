@@ -83,13 +83,17 @@ If browser tools are available (Playwright MCP), open the result and screenshot 
 
 **Text:** `--text-primary`, `--text-secondary`, `--text-muted`, `--text-on-accent`, `--text-on-gold`
 
-**Spacing:** `--space-1` (4px) through `--space-20` (80px)
+**Spacing:** `--space-1` (4px), `--space-1-5` (6px), `--space-2` (8px) through `--space-20` (80px)
 
 **Content font sizes:** `--step--2` through `--step-5` (fluid clamp)
 
-**UI font sizes:** `--ui-text-2xs` (12px), `--ui-text-xs` (11px), `--ui-text-sm` (13px), `--ui-text-md` (14px), `--ui-text-lg` (15px), `--ui-text-xl` (17px)
+**UI font sizes:** `--ui-text-2xs` (11px), `--ui-text-xs` (12px), `--ui-text-sm` (13px), `--ui-text-md` (14px), `--ui-text-lg` (15px), `--ui-text-xl` (17px)
 
 **Control heights:** `--control-sm` (32px), `--control-md` (36px), `--control-lg` (44px), `--control-xl` (56px)
+
+**Z-index:** `--z-base` (1), `--z-sticky` (100), `--z-fixed` (200), `--z-overlay` (300), `--z-modal` (1000), `--z-toast` (1100), `--z-tooltip` (1500)
+
+**Container widths:** `--container-sm` (640px), `--container-md` (960px), `--container-lg` (1200px)
 
 **Shadows:** `--shadow-sm` (2px), `--shadow-md` (4px), `--shadow-lg` (8px), `--shadow-pink`, `--shadow-danger`, `--shadow-gold`, `--shadow-cyan`, `--shadow-green`
 
