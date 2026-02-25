@@ -15,9 +15,12 @@ claude-plugin/                  ← Claude Code plugin
   agents/                           delightful-auditor, delightful-builder
   skills/                           build-with-delightful, refactor-with-delightful
 obsidian-theme/                 ← Obsidian theme (also lives in obsidian-delightful repo)
-ghostty/                        ← Ghostty terminal theme + Starship + zsh
+ghostty/                        ← Ghostty terminal theme
   ghostty-theme                     Ghostty config (colors + behavior)
   shaders/                          Optional GLSL shaders (vignette, bloom)
+iterm2/                         ← iTerm2 color profile
+  Delightful.itermcolors            Color profile (XML plist)
+shell/                          ← Shared terminal config (works with any terminal)
   starship.toml                     Starship prompt config
   zshrc-snippet                     Zsh additions (aliases, hooks)
 archive/                        ← Archived prior versions (gitignored)
@@ -53,7 +56,15 @@ When any file in `claude-plugin/` is updated, copy **all** its contents (`.claud
 
 ## Ghostty
 
-The Ghostty terminal theme lives only in this repo (`ghostty/`). There is no external sync repo. It contains hex color values derived from the OKLCH primitives — if primitive token values change, the hex mappings in `ghostty-theme` and `starship.toml` must be recalculated.
+The Ghostty terminal theme lives only in this repo (`ghostty/`). There is no external sync repo. It contains hex color values derived from the OKLCH primitives — if primitive token values change, the hex mappings in `ghostty-theme` must be recalculated.
+
+## iTerm2
+
+The iTerm2 color profile lives only in this repo (`iterm2/`). There is no external sync repo. It contains the same hex color values as the Ghostty theme converted to RGB floats — if primitive token values change, the float values in `Delightful.itermcolors` must be recalculated.
+
+## Shell
+
+The shared shell config (`shell/`) contains Starship prompt and zsh settings that work with any terminal. There is no external sync repo. The `starship.toml` contains hex color values derived from the OKLCH primitives — if accent hex values change, it must be updated.
 
 ## Obsidian External Repo Sync
 
@@ -77,9 +88,10 @@ When `obsidian-theme/` is updated, copy **all** its files (`theme.css`, `manifes
 | `obsidian-theme/theme.css` | Obsidian theme | Tokens or visual patterns change |
 | `obsidian-theme/manifest.json` | Theme metadata | Version bump |
 | `ghostty/ghostty-theme` | Ghostty terminal theme | Primitive hex values change |
-| `ghostty/starship.toml` | Starship prompt config | Accent hex values change |
 | `ghostty/shaders/*.glsl` | Optional GLSL shaders | Visual effect tweaks |
-| `ghostty/zshrc-snippet` | Zsh config | Alias or hook changes |
+| `iterm2/Delightful.itermcolors` | iTerm2 color profile | Primitive hex values change |
+| `shell/starship.toml` | Starship prompt config | Accent hex values change |
+| `shell/zshrc-snippet` | Zsh config | Alias or hook changes |
 
 ## Conventions
 
