@@ -20,6 +20,8 @@ ghostty/                        ← Ghostty terminal theme + Starship + zsh
   shaders/                          Optional GLSL shaders (vignette, bloom)
   starship.toml                     Starship prompt config
   zshrc-snippet                     Zsh additions (aliases, hooks)
+iterm2/                         ← iTerm2 color profile
+  Delightful.itermcolors            Color profile (XML plist)
 archive/                        ← Archived prior versions (gitignored)
 ```
 
@@ -55,6 +57,10 @@ When any file in `claude-plugin/` is updated, copy **all** its contents (`.claud
 
 The Ghostty terminal theme lives only in this repo (`ghostty/`). There is no external sync repo. It contains hex color values derived from the OKLCH primitives — if primitive token values change, the hex mappings in `ghostty-theme` and `starship.toml` must be recalculated.
 
+## iTerm2
+
+The iTerm2 color profile lives only in this repo (`iterm2/`). There is no external sync repo. It contains the same hex color values as the Ghostty theme converted to RGB floats — if primitive token values change, the float values in `Delightful.itermcolors` must be recalculated.
+
 ## Obsidian External Repo Sync
 
 The Obsidian theme lives in two places:
@@ -80,6 +86,7 @@ When `obsidian-theme/` is updated, copy **all** its files (`theme.css`, `manifes
 | `ghostty/starship.toml` | Starship prompt config | Accent hex values change |
 | `ghostty/shaders/*.glsl` | Optional GLSL shaders | Visual effect tweaks |
 | `ghostty/zshrc-snippet` | Zsh config | Alias or hook changes |
+| `iterm2/Delightful.itermcolors` | iTerm2 color profile | Primitive hex values change |
 
 ## Conventions
 

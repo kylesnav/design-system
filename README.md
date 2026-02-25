@@ -9,6 +9,7 @@ A warm, neo-brutalist design system built on OKLCH color science. 3-tier token a
 - **[Claude Code Plugin](claude-plugin/)** — Skills and agents for building and refactoring UI with the Delightful design system. Includes exportable CSS tokens, a Tailwind preset, and Figma/Style Dictionary tokens.
 - **[Obsidian Theme](obsidian-theme/)** — A full Obsidian theme translating the design system's tokens and visual language into the Obsidian editor.
 - **[Ghostty Theme](ghostty/)** — A Ghostty terminal theme, Starship prompt config, and zsh snippets derived from the Delightful palette.
+- **[iTerm2 Theme](iterm2/)** — An iTerm2 color profile using the Delightful palette.
 
 ## Design Principles
 
