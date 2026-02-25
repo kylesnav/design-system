@@ -2,13 +2,32 @@
 
 iTerm2 color profile derived from the Delightful Design System.
 
+![Delightful iTerm2 theme](screenshot.png)
+
 ## Contents
 
 ```
 Delightful.itermcolors    iTerm2 color profile (XML plist)
 ```
 
-## Install
+## Quick Start
+
+```bash
+# 1. Install Starship prompt
+brew install starship
+
+# 2. Copy Starship config
+cp shell/starship.toml ~/.config/starship.toml
+
+# 3. Add to ~/.zshrc (if not already present)
+eval "$(starship init zsh)"
+
+# 4. Import iTerm2 color profile (see below)
+
+# 5. Restart iTerm2
+```
+
+## Install Color Profile
 
 ### Import via iTerm2 Settings
 
@@ -26,6 +45,16 @@ cp Delightful.itermcolors ~/Library/Application\ Support/iTerm2/DynamicProfiles/
 ```
 
 Then restart iTerm2 and select the Delightful color preset in Settings > Profiles > Colors > Color Presets.
+
+## Recommended iTerm2 Settings
+
+These settings make iTerm2 look cleaner and closer to Ghostty's minimal chrome:
+
+| Setting | Path | Value |
+|---------|------|-------|
+| Theme | Appearance > General > Theme | **Minimal** |
+| Pane title bars | Appearance > Panes > "Show per-pane title bar with split panes" | **Off** |
+| Scroll bars | System Settings > Appearance > "Show scroll bars" | **When scrolling** |
 
 ## Starship Prompt & Zsh
 

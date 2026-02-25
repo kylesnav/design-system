@@ -11,11 +11,26 @@ shaders/            Optional GLSL shaders (vignette, bloom)
 
 See also [`shell/`](../shell/) for the shared Starship prompt and zsh config.
 
+## Quick Start
+
+```bash
+# 1. Install Starship prompt
+brew install starship
+
+# 2. Copy Starship config
+cp shell/starship.toml ~/.config/starship.toml
+
+# 3. Add to ~/.zshrc (if not already present)
+eval "$(starship init zsh)"
+
+# 4. Install Ghostty config (see below)
+
+# 5. Restart Ghostty
+```
+
 ## Install
 
-### Ghostty Config
-
-**Full config** (replaces your existing config):
+### Full Config (replaces your existing config)
 
 ```bash
 # macOS
@@ -25,7 +40,7 @@ cp ghostty-theme ~/Library/Application\ Support/com.mitchellh.ghostty/config
 cp ghostty-theme ~/.config/ghostty/config
 ```
 
-**Colors only** (keep your own config):
+### Colors Only (keep your own config)
 
 ```bash
 mkdir -p ~/.config/ghostty/themes
@@ -33,10 +48,6 @@ cp ghostty-theme ~/.config/ghostty/themes/delightful
 ```
 
 Then set `theme = delightful` in your Ghostty config.
-
-### Starship Prompt & Zsh
-
-See [`shell/README.md`](../shell/README.md) for Starship and zsh setup instructions. These configs work with any terminal, not just Ghostty.
 
 ### Shaders (optional)
 
@@ -51,6 +62,10 @@ cp shaders/*.glsl ~/.config/ghostty/shaders/
 ```
 
 Update the paths in your config to point to the copied files.
+
+## Starship Prompt & Zsh
+
+See [`shell/README.md`](../shell/README.md) for Starship and zsh setup instructions. These configs work with any terminal, not just Ghostty.
 
 ## Claude Code
 
@@ -68,12 +83,12 @@ On Ghostty 1.3+, the `GHOSTTY_QUICK_TERMINAL` env var enables auto-launch via th
 
 | Category | Details |
 |----------|---------|
-| **Typography** | JetBrains Mono (Ghostty default) at 14px. `font-thicken` enabled for macOS Retina. Stylistic alternates `cv02`–`cv04`, `cv11`. Explicit italic/bold/bold-italic styles. 20% extra line height. |
+| **Typography** | JetBrains Mono (Ghostty default) at 14px. `font-thicken` enabled for macOS Retina. Stylistic alternates `cv02`-`cv04`, `cv11`. Explicit italic/bold/bold-italic styles. 20% extra line height. |
 | **Colors** | Delightful light-mode palette mapped from OKLCH primitives to hex. Block cursor (no blink) in accent-primary pink. Pink selection highlight. 1.3 minimum contrast ratio. |
 | **Window** | 16px horizontal / 12px top + 8px bottom padding. Tab-style titlebar. Session state persists across restarts. Unfocused splits dim to 90% opacity. |
 | **Behavior** | Copy-on-select. No paste protection. Mouse hides while typing. Clickable URLs. Zsh shell integration (cursor shape, sudo detection, title updates). Option-as-alt. 10M line scrollback. |
 
-#### Keybinds
+### Keybinds
 
 | Keybind | Action |
 |---------|--------|
@@ -83,7 +98,7 @@ On Ghostty 1.3+, the `GHOSTTY_QUICK_TERMINAL` env var enables auto-launch via th
 | `Shift+Enter` | Literal newline |
 | `Cmd+T` | New tab |
 | `Cmd+W` | Close tab/split |
-| `Cmd+1`–`5` | Switch to tab 1–5 |
+| `Cmd+1`-`5` | Switch to tab 1-5 |
 | `Opt+Space` | Toggle quick terminal (global, works from any app) |
 | `Cmd+Shift+P` | Open config file |
 | `Cmd+Shift+,` | Reload config |
@@ -95,9 +110,9 @@ On Ghostty 1.3+, the `GHOSTTY_QUICK_TERMINAL` env var enables auto-launch via th
 | Glassmorphic background | Translucent terminal (88% opacity) with macOS backdrop blur |
 | Shaders | Warm edge vignette + subtle text bloom (GLSL, hot-reloadable) |
 
-### Starship Prompt & Zsh Snippet
+## Ghostty vs iTerm2
 
-See [`shell/README.md`](../shell/README.md) for full details on the Starship prompt and zsh snippet.
+Ghostty is minimal by default — no pane title bars, thin split dividers, auto-hiding scrollbars. If you use iTerm2 instead, see the [iTerm2 README](../iterm2/README.md) for recommended appearance settings to reduce chrome.
 
 ## Token Mapping
 
