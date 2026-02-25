@@ -27,6 +27,10 @@ cp Delightful.itermcolors ~/Library/Application\ Support/iTerm2/DynamicProfiles/
 
 Then restart iTerm2 and select the Delightful color preset in Settings > Profiles > Colors > Color Presets.
 
+## Starship Prompt & Zsh
+
+See [`shell/README.md`](../shell/README.md) for the shared Starship prompt and zsh config. These work with any terminal.
+
 ## Claude Code
 
 After applying the iTerm2 theme, run `/config` in Claude Code and set the theme to **light-ansi**. This makes Claude Code inherit the Delightful palette from your terminal.
@@ -64,3 +68,4 @@ Blue slots use the cyan hue at different lightness levels since Delightful has n
 |------|------|------|
 | iTerm2 | [gnachman/iTerm2](https://github.com/gnachman/iTerm2) | [iterm2.com](https://iterm2.com) |
 | Claude Code | [anthropics/claude-code](https://github.com/anthropics/claude-code) | [docs.anthropic.com](https://docs.anthropic.com/en/docs/claude-code) |
+| Starship | [starship/starship](https://github.com/starship/starship) | [starship.rs](https://starship.rs) |
