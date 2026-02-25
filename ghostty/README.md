@@ -7,9 +7,9 @@ Ghostty terminal config derived from the Delightful Design System.
 ```
 ghostty-theme       Complete Ghostty config
 shaders/            Optional GLSL shaders (vignette, bloom)
-starship.toml       Starship prompt config using Delightful colors
-zshrc-snippet       Zsh additions (starship, quick terminal hook, aliases)
 ```
+
+See also [`shell/`](../shell/) for the shared Starship prompt and zsh config.
 
 ## Install
 
@@ -34,14 +34,9 @@ cp ghostty-theme ~/.config/ghostty/themes/delightful
 
 Then set `theme = delightful` in your Ghostty config.
 
-### Starship Prompt
+### Starship Prompt & Zsh
 
-```bash
-brew install starship
-cp starship.toml ~/.config/starship.toml
-```
-
-Add `eval "$(starship init zsh)"` to your `~/.zshrc`, or use the full `zshrc-snippet`.
+See [`shell/README.md`](../shell/README.md) for Starship and zsh setup instructions. These configs work with any terminal, not just Ghostty.
 
 ### Shaders (optional)
 
@@ -100,36 +95,9 @@ On Ghostty 1.3+, the `GHOSTTY_QUICK_TERMINAL` env var enables auto-launch via th
 | Glassmorphic background | Translucent terminal (88% opacity) with macOS backdrop blur |
 | Shaders | Warm edge vignette + subtle text bloom (GLSL, hot-reloadable) |
 
-### Starship Prompt
+### Starship Prompt & Zsh Snippet
 
-Two-line prompt using Delightful accent colors:
-
-| Element | Color | Details |
-|---------|-------|---------|
-| `>` prompt character | Pink (`#f600a3`) | Red on error, cyan in vim mode |
-| Directory | Bold foreground | Truncated to 3 levels |
-| Git branch | Pink | |
-| Git status | Gold | Modified, staged, untracked indicators |
-| Node / Python / Rust | Green / Gold / Red | Shown when in a project directory |
-| Command duration | Muted | Shown for commands over 2 seconds |
-| Clock | Muted | Right-aligned, HH:MM |
-
-### Zsh Snippet
-
-| Feature | Details |
-|---------|---------|
-| Quick terminal hook | Auto-launches Claude Code on `Option+Space` (Ghostty 1.3+) |
-| `AUTO_CD` | Type a directory name to cd into it |
-| `CORRECT` | Spell correction for mistyped commands |
-| History | 50k entries, shared across sessions, no duplicates |
-| Tab completion | Case-insensitive, menu-selectable |
-| `c` | Alias for `claude` |
-| `cc` | Alias for `claude --dangerously-skip-permissions` |
-| `cr` | Alias for `claude --resume` |
-
-All aliases clear the command line before launching.
-
-Tip: `touch ~/.hushlogin` to suppress the macOS "Last login" message.
+See [`shell/README.md`](../shell/README.md) for full details on the Starship prompt and zsh snippet.
 
 ## Token Mapping
 
@@ -164,6 +132,4 @@ Blue slots use the cyan hue at different lightness levels since Delightful has n
 |------|------|------|
 | Ghostty | [ghostty-org/ghostty](https://github.com/ghostty-org/ghostty) | [ghostty.org/docs](https://ghostty.org/docs) |
 | Claude Code | [anthropics/claude-code](https://github.com/anthropics/claude-code) | [docs.anthropic.com](https://docs.anthropic.com/en/docs/claude-code) |
-| Starship | [starship/starship](https://github.com/starship/starship) | [starship.rs](https://starship.rs) |
 | JetBrains Mono | [JetBrains/JetBrainsMono](https://github.com/JetBrains/JetBrainsMono) | [jetbrains.com/lp/mono](https://www.jetbrains.com/lp/mono/) |
-| Zsh | [zsh-users/zsh](https://github.com/zsh-users/zsh) | [zsh.sourceforge.io](https://zsh.sourceforge.io/Doc/) |
