@@ -179,6 +179,8 @@ settings:
   --color-accent-hover: var(--d-pink-hover);
   --color-accent-1: var(--d-pink);
   --color-accent-2: var(--d-pink-hover);
+  --color-accent-hsl: var(--accent-h), var(--accent-s), var(--accent-l);
+  --interactive-accent-hsl: var(--accent-h), var(--accent-s), var(--accent-l);
   --background-modifier-accent: var(--d-pink-subtle);
 
   /* Background modifiers */
@@ -343,6 +345,8 @@ settings:
   --color-accent-hover: oklch(0.740 0.220 350);
   --color-accent-1: oklch(0.700 0.230 350);
   --color-accent-2: oklch(0.740 0.220 350);
+  --color-accent-hsl: var(--accent-h), var(--accent-s), var(--accent-l);
+  --interactive-accent-hsl: var(--accent-h), var(--accent-s), var(--accent-l);
   --background-modifier-accent: oklch(0.250 0.065 350);
 
   /* Background modifiers */
@@ -942,6 +946,8 @@ body.accent-danger {
   --color-accent-hover: var(--d-danger-hover);
   --color-accent-1: var(--d-danger);
   --color-accent-2: var(--d-danger-hover);
+  --color-accent-hsl: var(--accent-h), var(--accent-s), var(--accent-l);
+  --interactive-accent-hsl: var(--accent-h), var(--accent-s), var(--accent-l);
   --background-modifier-accent: var(--d-danger-subtle);
   --interactive-accent: var(--d-danger);
   --interactive-accent-hover: var(--d-danger-hover);
@@ -963,6 +969,8 @@ body.theme-dark.accent-danger {
   --color-accent-hover: oklch(0.700 0.190 20);
   --color-accent-1: oklch(0.660 0.200 20);
   --color-accent-2: oklch(0.700 0.190 20);
+  --color-accent-hsl: var(--accent-h), var(--accent-s), var(--accent-l);
+  --interactive-accent-hsl: var(--accent-h), var(--accent-s), var(--accent-l);
   --background-modifier-accent: oklch(0.250 0.055 20);
   --interactive-accent: oklch(0.660 0.200 20);
   --interactive-accent-hover: oklch(0.700 0.190 20);
@@ -987,6 +995,8 @@ body.accent-gold {
   --color-accent-hover: var(--d-gold-hover);
   --color-accent-1: var(--d-gold);
   --color-accent-2: var(--d-gold-hover);
+  --color-accent-hsl: var(--accent-h), var(--accent-s), var(--accent-l);
+  --interactive-accent-hsl: var(--accent-h), var(--accent-s), var(--accent-l);
   --background-modifier-accent: var(--d-gold-subtle);
   --interactive-accent: var(--d-gold);
   --interactive-accent-hover: var(--d-gold-hover);
@@ -1009,6 +1019,8 @@ body.theme-dark.accent-gold {
   --color-accent-hover: oklch(0.870 0.155 84);
   --color-accent-1: oklch(0.840 0.170 85);
   --color-accent-2: oklch(0.870 0.155 84);
+  --color-accent-hsl: var(--accent-h), var(--accent-s), var(--accent-l);
+  --interactive-accent-hsl: var(--accent-h), var(--accent-s), var(--accent-l);
   --background-modifier-accent: oklch(0.260 0.065 85);
   --interactive-accent: oklch(0.840 0.170 85);
   --interactive-accent-hover: oklch(0.870 0.155 84);
@@ -1034,6 +1046,8 @@ body.accent-cyan {
   --color-accent-hover: var(--d-cyan-hover);
   --color-accent-1: var(--d-cyan);
   --color-accent-2: var(--d-cyan-hover);
+  --color-accent-hsl: var(--accent-h), var(--accent-s), var(--accent-l);
+  --interactive-accent-hsl: var(--accent-h), var(--accent-s), var(--accent-l);
   --background-modifier-accent: var(--d-cyan-subtle);
   --interactive-accent: var(--d-cyan);
   --interactive-accent-hover: var(--d-cyan-hover);
@@ -1055,6 +1069,8 @@ body.theme-dark.accent-cyan {
   --color-accent-hover: oklch(0.760 0.130 210);
   --color-accent-1: oklch(0.720 0.140 210);
   --color-accent-2: oklch(0.760 0.130 210);
+  --color-accent-hsl: var(--accent-h), var(--accent-s), var(--accent-l);
+  --interactive-accent-hsl: var(--accent-h), var(--accent-s), var(--accent-l);
   --background-modifier-accent: oklch(0.250 0.045 210);
   --interactive-accent: oklch(0.720 0.140 210);
   --interactive-accent-hover: oklch(0.760 0.130 210);
@@ -1079,6 +1095,8 @@ body.accent-green {
   --color-accent-hover: var(--d-green-hover);
   --color-accent-1: var(--d-green);
   --color-accent-2: var(--d-green-hover);
+  --color-accent-hsl: var(--accent-h), var(--accent-s), var(--accent-l);
+  --interactive-accent-hsl: var(--accent-h), var(--accent-s), var(--accent-l);
   --background-modifier-accent: var(--d-green-subtle);
   --interactive-accent: var(--d-green);
   --interactive-accent-hover: var(--d-green-hover);
@@ -1100,6 +1118,8 @@ body.theme-dark.accent-green {
   --color-accent-hover: oklch(0.720 0.145 148);
   --color-accent-1: oklch(0.680 0.155 148);
   --color-accent-2: oklch(0.720 0.145 148);
+  --color-accent-hsl: var(--accent-h), var(--accent-s), var(--accent-l);
+  --interactive-accent-hsl: var(--accent-h), var(--accent-s), var(--accent-l);
   --background-modifier-accent: oklch(0.250 0.048 148);
   --interactive-accent: oklch(0.680 0.155 148);
   --interactive-accent-hover: oklch(0.720 0.145 148);
