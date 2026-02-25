@@ -40,7 +40,6 @@ Components reference semantic tokens. Semantic tokens reference primitives. Noth
 |:---:|:---:|
 | ![Light](screenshots/design-system-light.png) | ![Dark](screenshots/design-system-dark.png) |
 
-> Screenshots pending — run the browser automation capture step or add manually.
 
 ## License
 
