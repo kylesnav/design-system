@@ -15,6 +15,9 @@ claude-plugin/                  ← Claude Code plugin
   agents/                           delightful-auditor, delightful-builder
   skills/                           build-with-delightful, refactor-with-delightful
 obsidian-theme/                 ← Obsidian theme (also lives in obsidian-delightful repo)
+vscode-theme/                  ← VSCode color theme extension
+  themes/                          Light + dark theme JSON (generated)
+  scripts/                         OKLCH-to-hex generation script
 ghostty/                        ← Ghostty terminal theme
   ghostty-theme                     Ghostty config (colors + behavior)
   shaders/                          Optional GLSL shaders (vignette, bloom)
@@ -39,6 +42,7 @@ After modifying `delightful-design-system.html`, update all derivatives:
 3. `claude-plugin/themes/figma/tokens.json` — update DTCG-format token values
 4. `claude-plugin/reference/design-system.md` — update token tables and component patterns
 5. `obsidian-theme/theme.css` — update CSS variables and component styles to match
+6. `vscode-theme/themes/*.json` — regenerate via `cd vscode-theme/scripts && node generate-themes.mjs`
 
 If token names, values, or component patterns changed, also update:
 - `claude-plugin/agents/delightful-auditor.md`
@@ -53,6 +57,10 @@ The Claude Code plugin lives in two places:
 - `delightful-claude-plugin` repo (distribution copy — installable via `claude plugin install`)
 
 When any file in `claude-plugin/` is updated, copy **all** its contents (`.claude-plugin/`, `agents/`, `skills/`, `themes/`, `reference/`, `README.md`) to the `delightful-claude-plugin` repo and commit/push both repos.
+
+## VSCode Theme
+
+The VSCode theme lives only in this repo (`vscode-theme/`). Theme JSON files are generated from OKLCH tokens via `vscode-theme/scripts/generate-themes.mjs` (requires `culori`). If primitive or semantic token values change, regenerate the themes.
 
 ## Ghostty
 
@@ -87,6 +95,9 @@ When `obsidian-theme/` is updated, copy **all** its files (`theme.css`, `manifes
 | `claude-plugin/skills/*/SKILL.md` | Skill workflows | Rules, patterns, or workflow change |
 | `obsidian-theme/theme.css` | Obsidian theme | Tokens or visual patterns change |
 | `obsidian-theme/manifest.json` | Theme metadata | Version bump |
+| `vscode-theme/themes/*.json` | VSCode color theme | Tokens or syntax colors change |
+| `vscode-theme/package.json` | VSCode extension metadata | Version bump |
+| `vscode-theme/scripts/generate-themes.mjs` | Theme generator | Token names or structure change |
 | `ghostty/ghostty-theme` | Ghostty terminal theme | Primitive hex values change |
 | `ghostty/shaders/*.glsl` | Optional GLSL shaders | Visual effect tweaks |
 | `iterm2/Delightful.itermcolors` | iTerm2 color profile | Primitive hex values change |
