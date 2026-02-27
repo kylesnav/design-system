@@ -3502,6 +3502,28 @@
     }
 
     /* ==========================================================================
+       SKIP LINK
+       ========================================================================== */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: var(--space-4);
+      padding: var(--space-2) var(--space-4);
+      background: var(--accent-primary);
+      color: var(--text-on-accent);
+      font-weight: 600;
+      font-size: var(--ui-text-md);
+      border-radius: var(--radius-sm);
+      z-index: var(--z-toast);
+      text-decoration: none;
+      transition: top var(--motion-fast) var(--ease-out);
+    }
+
+    .skip-link:focus {
+      top: var(--space-4);
+    }
+
+    /* ==========================================================================
        BACK TO TOP
        ========================================================================== */
     .back-to-top {
@@ -3674,6 +3696,9 @@
 </head>
 
 <body>
+
+  <!-- Skip Navigation -->
+  <a href="#color" class="skip-link">Skip to content</a>
 
   <!-- Scroll Progress Bar -->
   <div class="scroll-progress" aria-hidden="true"></div>
@@ -4868,7 +4893,7 @@
 
       <!-- 5a. Buttons -->
       <div class="subsection">
-        <div class="subsection-title">Buttons</div>
+        <h3 class="subsection-title">Buttons</h3>
         <div class="subsection-label">Variants</div>
         <div class="btn-row" style="margin-bottom:var(--space-6)">
           <button class="btn btn-md btn-primary btn-bounce">Primary</button>
@@ -4909,7 +4934,7 @@
 
       <!-- 5b. Form Elements -->
       <div class="subsection">
-        <div class="subsection-title">Form Elements</div>
+        <h3 class="subsection-title">Form Elements</h3>
         <div class="grid-2">
           <div class="form-group"><label class="form-label" for="form-fullname">Full name</label><input class="input" id="form-fullname" type="text"
               placeholder="Enter your name" value="Kyle Snav"></div>
@@ -4988,7 +5013,7 @@
 
       <!-- 5c. Cards -->
       <div class="subsection">
-        <div class="subsection-title">Cards</div>
+        <h3 class="subsection-title">Cards</h3>
         <div class="grid-3">
           <div class="card card-interactive">
             <div class="card-title">Design Tokens</div>
@@ -5011,7 +5036,7 @@
 
       <!-- 5d. Data Table -->
       <div class="subsection">
-        <div class="subsection-title">Data Table</div>
+        <h3 class="subsection-title">Data Table</h3>
         <div class="table-wrap">
           <table class="data-table" id="components-table">
             <thead>
@@ -5102,7 +5127,7 @@
 
       <!-- 5e. Badges -->
       <div class="subsection">
-        <div class="subsection-title">Badges</div>
+        <h3 class="subsection-title">Badges</h3>
         <div class="flex-wrap-gap">
           <span class="badge badge-pink badge-pop">Production</span>
           <span class="badge badge-gold badge-pop">Draft</span>
@@ -5117,7 +5142,7 @@
 
       <!-- 5f. Navigation -->
       <div class="subsection">
-        <div class="subsection-title">Navigation</div>
+        <h3 class="subsection-title">Navigation</h3>
         <div class="grid-2">
           <div>
             <div class="subsection-label">Sidebar</div>
@@ -6582,7 +6607,7 @@
   </div><!-- end page-wrap -->
 
   <!-- Toast Container -->
-  <div class="toast-container" id="toast-container"></div>
+  <div class="toast-container" id="toast-container" aria-live="polite" aria-atomic="false"></div>
 
   <!-- Modal -->
   <dialog class="modal-panel" id="modal-panel">
@@ -7318,6 +7343,7 @@
 
       // === Splash & Pop Interaction Engine ===
       document.body.addEventListener('mousedown', function (e) {
+        if (prefersReduced) return;
         const target = e.target.closest('.btn, .card');
         if (!target || target.disabled) return;
 
