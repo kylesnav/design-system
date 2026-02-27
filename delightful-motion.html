@@ -327,6 +327,28 @@
     }
 
     /* ==========================================================================
+       SPRING EASINGS via linear() — Motion showcase only
+       These supplement the cubic-bezier tokens above with true multi-oscillation
+       spring curves. Not part of the synced token block.
+       ========================================================================== */
+    :root {
+      --ease-spring-gentle: linear(
+        0, 0.006, 0.025 2.8%, 0.101 6.1%, 0.539 18.9%,
+        0.721 25.3%, 0.849 31.5%, 0.937 38.1%, 0.968 41.8%,
+        0.991 45.7%, 1.006 50%, 1.015 55%, 1.017 63.9%,
+        1.001 85.9%, 1
+      );
+      --ease-spring-bouncy: linear(
+        0, 0.004, 0.016, 0.035, 0.063 9.1%,
+        0.141, 0.25, 0.391, 0.563, 0.765, 1,
+        0.891, 0.813 45.5%, 0.785, 0.766, 0.754, 0.75,
+        0.754, 0.766, 0.785, 0.813 63.6%, 0.891, 1 72.7%,
+        0.973, 0.953, 0.941, 0.938, 0.941, 0.953, 0.973, 1,
+        0.988, 0.984, 0.988, 1
+      );
+    }
+
+    /* ==========================================================================
        RESET & BASE
        ========================================================================== */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -823,6 +845,16 @@
       offset-path: path("M 10 110 C 78 165 36.5 -45 110 10");
       animation: traverse-curve 2s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
       fill: var(--accent-green);
+    }
+    .curve-dot[data-curve="ease-spring-gentle"] {
+      offset-path: path("M 10 110 L 30 32 L 50 8 L 65 6 L 80 8 L 95 9 L 110 10");
+      animation: traverse-curve 2s var(--ease-spring-gentle) infinite;
+      fill: var(--accent-purple);
+    }
+    .curve-dot[data-curve="ease-spring-bouncy"] {
+      offset-path: path("M 10 110 L 25 10 L 40 35 L 50 10 L 60 20 L 72 10 L 82 14 L 92 10 L 100 10 L 110 10");
+      animation: traverse-curve 2s var(--ease-spring-bouncy) infinite;
+      fill: var(--accent-purple);
     }
 
     /* ==========================================================================
@@ -2187,6 +2219,41 @@
               <svg width="120" height="120" viewBox="0 0 120 120" fill="none"><line x1="10" y1="10" x2="10" y2="110" stroke="var(--border-subtle)"/><line x1="10" y1="110" x2="110" y2="110" stroke="var(--border-subtle)"/><line x1="10" y1="110" x2="110" y2="10" stroke="var(--border-subtle)" stroke-dasharray="4 4"/><path d="M 10 110 C 78 165 36.5 -45 110 10" stroke="var(--accent-green)" stroke-width="2.5" stroke-linecap="round" fill="none"/><circle class="curve-dot" data-curve="ease-elastic" cx="0" cy="0" r="5"/></svg>
             </div>
             <div class="token-ref-easing-card-desc">Exaggerated overshoot. Pulls back before launching forward.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <div class="subsection-label">Spring Easings <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--text-muted)">(via <code style="font-family:var(--font-mono);font-size:inherit;background:var(--bg-muted);padding:1px 4px;border-radius:3px">linear()</code>)</span></div>
+        <div class="subsection-desc">True multi-oscillation spring curves using the CSS <code style="font-family:var(--font-mono);font-size:var(--ui-text-sm);background:var(--bg-muted);padding:2px 6px;border-radius:4px">linear()</code> function. These produce physically accurate spring motion impossible with cubic-bezier alone.</div>
+        <div class="token-ref-easing-grid">
+          <div class="token-ref-easing-card" style="border-color:var(--accent-purple)">
+            <div class="token-ref-easing-card-title">--ease-spring-gentle</div>
+            <div class="token-ref-easing-card-value">linear(0, ... 1)</div>
+            <div class="token-ref-easing-svg-wrap">
+              <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
+                <line x1="10" y1="10" x2="10" y2="110" stroke="var(--border-subtle)"/>
+                <line x1="10" y1="110" x2="110" y2="110" stroke="var(--border-subtle)"/>
+                <line x1="10" y1="110" x2="110" y2="10" stroke="var(--border-subtle)" stroke-dasharray="4 4"/>
+                <polyline points="10,110 30,32 50,8 65,6 80,8 95,9 110,10" stroke="var(--accent-purple)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                <circle class="curve-dot" data-curve="ease-spring-gentle" cx="0" cy="0" r="5"/>
+              </svg>
+            </div>
+            <div class="token-ref-easing-card-desc">Gentle spring. Single small overshoot, settles naturally. Modals, cards.</div>
+          </div>
+          <div class="token-ref-easing-card" style="border-color:var(--accent-purple)">
+            <div class="token-ref-easing-card-title">--ease-spring-bouncy</div>
+            <div class="token-ref-easing-card-value">linear(0, ... 1)</div>
+            <div class="token-ref-easing-svg-wrap">
+              <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
+                <line x1="10" y1="10" x2="10" y2="110" stroke="var(--border-subtle)"/>
+                <line x1="10" y1="110" x2="110" y2="110" stroke="var(--border-subtle)"/>
+                <line x1="10" y1="110" x2="110" y2="10" stroke="var(--border-subtle)" stroke-dasharray="4 4"/>
+                <polyline points="10,110 25,10 40,35 50,10 60,20 72,10 82,14 92,10 100,10 110,10" stroke="var(--accent-purple)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                <circle class="curve-dot" data-curve="ease-spring-bouncy" cx="0" cy="0" r="5"/>
+              </svg>
+            </div>
+            <div class="token-ref-easing-card-desc">Bouncy spring. Multiple oscillations, playful physics. Toggles, badges.</div>
           </div>
         </div>
       </div>
