@@ -1874,6 +1874,17 @@
       color: var(--text-primary);
     }
 
+    .multi-select-input {
+      border: none;
+      background: transparent;
+      outline: none;
+      font-size: var(--ui-text-md);
+      font-family: var(--font-sans);
+      color: var(--text-primary);
+      flex: 1;
+      min-width: 60px;
+    }
+
     .select-arrow {
       position: absolute;
       right: 10px;
@@ -2561,7 +2572,7 @@
       border-radius: var(--radius-lg);
       padding: var(--space-6);
       max-width: 440px;
-      width: calc(100% - 32px);
+      width: calc(100% - var(--space-8));
       box-shadow: var(--shadow-lg);
       color: var(--text-primary);
 
@@ -5112,8 +5123,7 @@
                     <line x1="18" y1="6" x2="6" y2="18" />
                     <line x1="6" y1="6" x2="18" y2="18" />
                   </svg></button></span>
-              <input id="form-tags" type="text" placeholder="Add..."
-                style="border:none;background:transparent;outline:none;font-size:0.875rem;font-family:var(--font-sans);flex:1;min-width:60px">
+              <input id="form-tags" type="text" placeholder="Add..." class="multi-select-input">
             </div>
           </div>
           <div class="form-group"><label class="form-label" for="form-project-type">Project type</label>
