@@ -4,7 +4,7 @@ description: Refactor existing project UI to use the Delightful design system. U
 allowed-tools: "Bash WebFetch"
 metadata:
   author: Delightful Design System
-  version: 0.4.5
+  version: 0.4.9
   category: frontend-design
   tags: [design-system, css, refactoring, migration, oklch]
 ---
