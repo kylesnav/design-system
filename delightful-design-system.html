@@ -1844,6 +1844,19 @@
       font-size: 0.875rem;
     }
 
+    /* Screen-reader only utility */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+
     .check-box,
     .radio-circle {
       width: 18px;
@@ -1855,6 +1868,7 @@
       justify-content: center;
       flex-shrink: 0;
       cursor: pointer;
+      transition: background var(--motion-fast) var(--ease-out), border-color var(--motion-fast) var(--ease-out);
     }
 
     .check-box {
@@ -1865,6 +1879,32 @@
       border-radius: 50%;
     }
 
+    /* Native input drives checked state */
+    .check-group input:checked + .check-box,
+    .check-group input:checked + .radio-circle {
+      background: var(--accent-primary);
+      border-color: var(--accent-primary);
+    }
+
+    .check-group input:checked + .check-box svg {
+      color: var(--text-on-accent);
+    }
+
+    .check-group input:checked + .radio-circle::after {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--text-on-accent);
+      border-radius: 50%;
+    }
+
+    .check-group input:focus-visible + .check-box,
+    .check-group input:focus-visible + .radio-circle {
+      outline: 2px solid var(--accent-primary);
+      outline-offset: 2px;
+    }
+
+    /* Legacy class-based fallback for table checkboxes */
     .check-box.checked,
     .radio-circle.checked {
       background: var(--accent-primary);
@@ -1906,6 +1946,15 @@
       box-shadow: 0 1px 3px oklch(0 0 0 / 0.15);
     }
 
+    .toggle[aria-checked="true"] {
+      background: var(--toggle-on-bg);
+    }
+
+    .toggle[aria-checked="true"] .toggle-knob {
+      transform: translateX(18px);
+    }
+
+    /* Legacy class fallback */
     .toggle.on {
       background: var(--toggle-on-bg);
     }
@@ -4260,9 +4309,9 @@
           <table class="data-table" id="token-table">
             <thead>
               <tr>
-                <th style="width:40px"><label class="check-group" onclick="toggleAllRows(this, 'token-table')"><span
-                      class="check-box"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="3">
+                <th style="width:40px"><label class="check-group" onclick="toggleAllRows(this, 'token-table')"><input type="checkbox" class="sr-only" aria-label="Select all token rows"><span
+                      class="check-box" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="3" aria-hidden="true">
                         <polyline points="20 6 9 17 4 12" />
                       </svg></span></label></th>
                 <th class="sortable" onclick="sortTable('token-table', 1)">Token<svg class="sort-icon"
@@ -4284,9 +4333,9 @@
               </tr>
             </thead>
             <tbody>
-              <tr onclick="toggleRow(this)">
-                <td><label class="check-group"><span class="check-box"><svg width="12" height="12" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="3">
+              <tr onclick="toggleRow(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleRow(this)}" tabindex="0">
+                <td><label class="check-group"><input type="checkbox" class="sr-only" aria-label="Select row"><span class="check-box" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
                         <polyline points="20 6 9 17 4 12" />
                       </svg></span></label></td>
                 <td class="mono">--bg-page</td>
@@ -4294,9 +4343,9 @@
                 <td class="mono">0.140 0.012 60</td>
                 <td>Page background</td>
               </tr>
-              <tr onclick="toggleRow(this)">
-                <td><label class="check-group"><span class="check-box"><svg width="12" height="12" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="3">
+              <tr onclick="toggleRow(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleRow(this)}" tabindex="0">
+                <td><label class="check-group"><input type="checkbox" class="sr-only" aria-label="Select row"><span class="check-box" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
                         <polyline points="20 6 9 17 4 12" />
                       </svg></span></label></td>
                 <td class="mono">--bg-surface</td>
@@ -4304,9 +4353,9 @@
                 <td class="mono">0.165 0.014 60</td>
                 <td>Cards, panels</td>
               </tr>
-              <tr onclick="toggleRow(this)">
-                <td><label class="check-group"><span class="check-box"><svg width="12" height="12" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="3">
+              <tr onclick="toggleRow(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleRow(this)}" tabindex="0">
+                <td><label class="check-group"><input type="checkbox" class="sr-only" aria-label="Select row"><span class="check-box" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
                         <polyline points="20 6 9 17 4 12" />
                       </svg></span></label></td>
                 <td class="mono">--text-primary</td>
@@ -4314,9 +4363,9 @@
                 <td class="mono">0.940 0.008 70</td>
                 <td>Body text</td>
               </tr>
-              <tr onclick="toggleRow(this)">
-                <td><label class="check-group"><span class="check-box"><svg width="12" height="12" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="3">
+              <tr onclick="toggleRow(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleRow(this)}" tabindex="0">
+                <td><label class="check-group"><input type="checkbox" class="sr-only" aria-label="Select row"><span class="check-box" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
                         <polyline points="20 6 9 17 4 12" />
                       </svg></span></label></td>
                 <td class="mono">--text-secondary</td>
@@ -4324,9 +4373,9 @@
                 <td class="mono">0.700 0.010 70</td>
                 <td>Reduced emphasis</td>
               </tr>
-              <tr onclick="toggleRow(this)">
-                <td><label class="check-group"><span class="check-box"><svg width="12" height="12" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="3">
+              <tr onclick="toggleRow(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleRow(this)}" tabindex="0">
+                <td><label class="check-group"><input type="checkbox" class="sr-only" aria-label="Select row"><span class="check-box" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
                         <polyline points="20 6 9 17 4 12" />
                       </svg></span></label></td>
                 <td class="mono">--accent-primary</td>
@@ -4334,9 +4383,9 @@
                 <td class="mono">0.700 0.220 350</td>
                 <td>Primary actions</td>
               </tr>
-              <tr onclick="toggleRow(this)">
-                <td><label class="check-group"><span class="check-box"><svg width="12" height="12" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="3">
+              <tr onclick="toggleRow(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleRow(this)}" tabindex="0">
+                <td><label class="check-group"><input type="checkbox" class="sr-only" aria-label="Select row"><span class="check-box" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
                         <polyline points="20 6 9 17 4 12" />
                       </svg></span></label></td>
                 <td class="mono">--accent-danger</td>
@@ -4344,9 +4393,9 @@
                 <td class="mono">0.680 0.190 20</td>
                 <td>Danger / emphasis</td>
               </tr>
-              <tr onclick="toggleRow(this)">
-                <td><label class="check-group"><span class="check-box"><svg width="12" height="12" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="3">
+              <tr onclick="toggleRow(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleRow(this)}" tabindex="0">
+                <td><label class="check-group"><input type="checkbox" class="sr-only" aria-label="Select row"><span class="check-box" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
                         <polyline points="20 6 9 17 4 12" />
                       </svg></span></label></td>
                 <td class="mono">--accent-gold</td>
@@ -4354,9 +4403,9 @@
                 <td class="mono">0.810 0.160 80</td>
                 <td>Highlights / warnings</td>
               </tr>
-              <tr onclick="toggleRow(this)">
-                <td><label class="check-group"><span class="check-box"><svg width="12" height="12" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="3">
+              <tr onclick="toggleRow(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleRow(this)}" tabindex="0">
+                <td><label class="check-group"><input type="checkbox" class="sr-only" aria-label="Select row"><span class="check-box" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
                         <polyline points="20 6 9 17 4 12" />
                       </svg></span></label></td>
                 <td class="mono">--accent-cyan</td>
@@ -4364,9 +4413,9 @@
                 <td class="mono">0.720 0.140 210</td>
                 <td>Tertiary brand / cool accent</td>
               </tr>
-              <tr onclick="toggleRow(this)">
-                <td><label class="check-group"><span class="check-box"><svg width="12" height="12" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="3">
+              <tr onclick="toggleRow(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleRow(this)}" tabindex="0">
+                <td><label class="check-group"><input type="checkbox" class="sr-only" aria-label="Select row"><span class="check-box" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
                         <polyline points="20 6 9 17 4 12" />
                       </svg></span></label></td>
                 <td class="mono">--accent-green</td>
@@ -4374,9 +4423,9 @@
                 <td class="mono">0.680 0.155 148</td>
                 <td>Success / positive / safe</td>
               </tr>
-              <tr onclick="toggleRow(this)">
-                <td><label class="check-group"><span class="check-box"><svg width="12" height="12" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="3">
+              <tr onclick="toggleRow(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleRow(this)}" tabindex="0">
+                <td><label class="check-group"><input type="checkbox" class="sr-only" aria-label="Select row"><span class="check-box" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
                         <polyline points="20 6 9 17 4 12" />
                       </svg></span></label></td>
                 <td class="mono">--text-muted</td>
@@ -4384,9 +4433,9 @@
                 <td class="mono">0.560 0.012 70</td>
                 <td>Placeholder, hints</td>
               </tr>
-              <tr onclick="toggleRow(this)">
-                <td><label class="check-group"><span class="check-box"><svg width="12" height="12" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="3">
+              <tr onclick="toggleRow(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleRow(this)}" tabindex="0">
+                <td><label class="check-group"><input type="checkbox" class="sr-only" aria-label="Select row"><span class="check-box" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
                         <polyline points="20 6 9 17 4 12" />
                       </svg></span></label></td>
                 <td class="mono">--bg-elevated</td>
@@ -4394,9 +4443,9 @@
                 <td class="mono">0.185 0.014 60</td>
                 <td>Dropdowns, popovers</td>
               </tr>
-              <tr onclick="toggleRow(this)">
-                <td><label class="check-group"><span class="check-box"><svg width="12" height="12" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="3">
+              <tr onclick="toggleRow(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleRow(this)}" tabindex="0">
+                <td><label class="check-group"><input type="checkbox" class="sr-only" aria-label="Select row"><span class="check-box" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
                         <polyline points="20 6 9 17 4 12" />
                       </svg></span></label></td>
                 <td class="mono">--bg-muted</td>
@@ -4404,9 +4453,9 @@
                 <td class="mono">0.175 0.010 90</td>
                 <td>Skeleton, hover bg</td>
               </tr>
-              <tr onclick="toggleRow(this)">
-                <td><label class="check-group"><span class="check-box"><svg width="12" height="12" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="3">
+              <tr onclick="toggleRow(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleRow(this)}" tabindex="0">
+                <td><label class="check-group"><input type="checkbox" class="sr-only" aria-label="Select row"><span class="check-box" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
                         <polyline points="20 6 9 17 4 12" />
                       </svg></span></label></td>
                 <td class="mono">--border-default</td>
@@ -4414,9 +4463,9 @@
                 <td class="mono">0.260 0.012 90</td>
                 <td>Default borders</td>
               </tr>
-              <tr onclick="toggleRow(this)">
-                <td><label class="check-group"><span class="check-box"><svg width="12" height="12" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="3">
+              <tr onclick="toggleRow(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleRow(this)}" tabindex="0">
+                <td><label class="check-group"><input type="checkbox" class="sr-only" aria-label="Select row"><span class="check-box" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
                         <polyline points="20 6 9 17 4 12" />
                       </svg></span></label></td>
                 <td class="mono">--border-strong</td>
@@ -4424,9 +4473,9 @@
                 <td class="mono">0.330 0.012 90</td>
                 <td>Active borders</td>
               </tr>
-              <tr onclick="toggleRow(this)">
-                <td><label class="check-group"><span class="check-box"><svg width="12" height="12" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="3">
+              <tr onclick="toggleRow(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleRow(this)}" tabindex="0">
+                <td><label class="check-group"><input type="checkbox" class="sr-only" aria-label="Select row"><span class="check-box" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
                         <polyline points="20 6 9 17 4 12" />
                       </svg></span></label></td>
                 <td class="mono">--border-subtle</td>
@@ -4849,76 +4898,78 @@
       <div class="subsection">
         <div class="subsection-title">Form Elements</div>
         <div class="grid-2">
-          <div class="form-group"><label class="form-label">Full name</label><input class="input" type="text"
+          <div class="form-group"><label class="form-label" for="form-fullname">Full name</label><input class="input" id="form-fullname" type="text"
               placeholder="Enter your name" value="Kyle Snav"></div>
-          <div class="form-group"><label class="form-label">Email address</label><input class="input" type="email"
+          <div class="form-group"><label class="form-label" for="form-email">Email address</label><input class="input" id="form-email" type="email"
               placeholder="you@example.com"></div>
-          <div class="form-group"><label class="form-label">Error state</label><input class="input input-error"
+          <div class="form-group"><label class="form-label" for="error-input">Error state</label><input class="input input-error"
               type="text" value="invalid@" id="error-input">
             <div class="form-error-text">Please enter a valid email address</div>
           </div>
-          <div class="form-group"><label class="form-label">Disabled</label><input class="input" type="text"
+          <div class="form-group"><label class="form-label" for="form-disabled">Disabled</label><input class="input" id="form-disabled" type="text"
               value="Cannot edit" disabled></div>
-          <div class="form-group"><label class="form-label">Date</label>
+          <div class="form-group"><label class="form-label" for="form-date">Date</label>
             <div class="input-icon-wrap">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
                 <line x1="16" y1="2" x2="16" y2="6" />
                 <line x1="8" y1="2" x2="8" y2="6" />
                 <line x1="3" y1="10" x2="21" y2="10" />
               </svg>
-              <input class="input" type="text" placeholder="Select date" value="Oct 24, 2026">
+              <input class="input" id="form-date" type="text" placeholder="Select date" value="Oct 24, 2026">
             </div>
           </div>
-          <div class="form-group"><label class="form-label">Tags</label>
+          <div class="form-group"><label class="form-label" for="form-tags">Tags</label>
             <div class="multi-select">
-              <span class="multi-select-tag">Design<button><svg width="12" height="12" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2">
+              <span class="multi-select-tag">Design<button aria-label="Remove Design tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" aria-hidden="true">
                     <line x1="18" y1="6" x2="6" y2="18" />
                     <line x1="6" y1="6" x2="18" y2="18" />
                   </svg></button></span>
-              <span class="multi-select-tag">Engineering<button><svg width="12" height="12" viewBox="0 0 24 24"
-                    fill="none" stroke="currentColor" stroke-width="2">
+              <span class="multi-select-tag">Engineering<button aria-label="Remove Engineering tag"><svg width="12" height="12" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                     <line x1="18" y1="6" x2="6" y2="18" />
                     <line x1="6" y1="6" x2="18" y2="18" />
                   </svg></button></span>
-              <input type="text" placeholder="Add..."
+              <input id="form-tags" type="text" placeholder="Add..."
                 style="border:none;background:transparent;outline:none;font-size:0.875rem;font-family:var(--font-sans);flex:1;min-width:60px">
             </div>
           </div>
-          <div class="form-group"><label class="form-label">Project type</label>
-            <div class="select-wrap"><select class="select">
+          <div class="form-group"><label class="form-label" for="form-project-type">Project type</label>
+            <div class="select-wrap"><select class="select" id="form-project-type">
                 <option>Web Application</option>
                 <option>Marketing Site</option>
                 <option>Dashboard</option>
                 <option>Mobile App</option>
               </select><span class="select-arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" stroke-width="2">
+                  stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <polyline points="6 9 12 15 18 9" />
                 </svg></span></div>
           </div>
-          <div class="form-group"><label class="form-label">Description</label><textarea class="textarea"
+          <div class="form-group"><label class="form-label" for="form-description">Description</label><textarea class="textarea" id="form-description"
               rows="3">A design system built with warm boldness and confident color.</textarea></div>
         </div>
         <div style="display:flex;gap:var(--space-8);flex-wrap:wrap;margin-top:var(--space-6);align-items:center">
-          <label class="check-group" onclick="this.querySelector('.check-box').classList.toggle('checked')"><span
-              class="check-box checked"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="3">
+          <label class="check-group"><input type="checkbox" class="sr-only" checked><span
+              class="check-box" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="3" aria-hidden="true">
                 <polyline points="20 6 9 17 4 12" />
               </svg></span> Enable dark mode</label>
-          <label class="check-group" onclick="this.querySelector('.check-box').classList.toggle('checked')"><span
-              class="check-box"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                stroke-width="3">
+          <label class="check-group"><input type="checkbox" class="sr-only"><span
+              class="check-box" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="3" aria-hidden="true">
                 <polyline points="20 6 9 17 4 12" />
               </svg></span> Send notifications</label>
-          <label class="check-group" onclick="this.querySelector('.radio-circle').classList.toggle('checked')"><span
-              class="radio-circle checked"></span> Option A</label>
-          <div style="display:flex;align-items:center;gap:var(--space-2)"><button class="toggle toggle-bg-anim on"
-              onclick="this.classList.toggle('on')"><span class="toggle-knob toggle-knob-anim"></span></button><span
-              style="font-size:0.875rem">Auto-save</span></div>
+          <label class="check-group"><input type="radio" name="option-group" class="sr-only" checked><span
+              class="radio-circle" aria-hidden="true"></span> Option A</label>
+          <label class="check-group"><input type="radio" name="option-group" class="sr-only"><span
+              class="radio-circle" aria-hidden="true"></span> Option B</label>
+          <label class="toggle-group" style="display:flex;align-items:center;gap:var(--space-2)"><button class="toggle toggle-bg-anim" role="switch" aria-checked="true"
+              onclick="this.setAttribute('aria-checked', this.getAttribute('aria-checked') === 'true' ? 'false' : 'true')"><span class="toggle-knob toggle-knob-anim" aria-hidden="true"></span></button><span
+              style="font-size:0.875rem">Auto-save</span></label>
         </div>
-        <div style="margin-top:var(--space-6)"><label class="form-label"
-            style="margin-bottom:var(--space-2)">Volume</label><input type="range" class="range" min="0" max="100"
+        <div style="margin-top:var(--space-6)"><label class="form-label" for="form-volume"
+            style="margin-bottom:var(--space-2)">Volume</label><input id="form-volume" type="range" class="range" min="0" max="100"
             value="65"></div>
       </div>
 
@@ -4953,8 +5004,8 @@
             <thead>
               <tr>
                 <th style="width:40px"><label class="check-group"
-                    onclick="toggleAllRows(this, 'components-table')"><span class="check-box"><svg width="12"
-                        height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    onclick="toggleAllRows(this, 'components-table')"><input type="checkbox" class="sr-only" aria-label="Select all rows"><span class="check-box" aria-hidden="true"><svg width="12"
+                        height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
                         <polyline points="20 6 9 17 4 12" />
                       </svg></span></label></th>
                 <th class="sortable" onclick="sortTable('components-table', 1)">Component<svg class="sort-icon"
@@ -4976,9 +5027,9 @@
               </tr>
             </thead>
             <tbody>
-              <tr onclick="toggleRow(this)">
-                <td><label class="check-group"><span class="check-box"><svg width="12" height="12" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="3">
+              <tr onclick="toggleRow(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleRow(this)}" tabindex="0">
+                <td><label class="check-group"><input type="checkbox" class="sr-only" aria-label="Select Button row"><span class="check-box" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
                         <polyline points="20 6 9 17 4 12" />
                       </svg></span></label></td>
                 <td style="font-weight:550">Button</td>
@@ -4987,9 +5038,9 @@
                 <td>5</td>
                 <td class="mono" data-sort="2026-02-22">Feb 22, 2026</td>
               </tr>
-              <tr onclick="toggleRow(this)">
-                <td><label class="check-group"><span class="check-box"><svg width="12" height="12" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="3">
+              <tr onclick="toggleRow(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleRow(this)}" tabindex="0">
+                <td><label class="check-group"><input type="checkbox" class="sr-only" aria-label="Select Input row"><span class="check-box" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
                         <polyline points="20 6 9 17 4 12" />
                       </svg></span></label></td>
                 <td style="font-weight:550">Input</td>
@@ -4998,9 +5049,9 @@
                 <td>4</td>
                 <td class="mono" data-sort="2026-02-20">Feb 20, 2026</td>
               </tr>
-              <tr onclick="toggleRow(this)">
-                <td><label class="check-group"><span class="check-box"><svg width="12" height="12" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="3">
+              <tr onclick="toggleRow(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleRow(this)}" tabindex="0">
+                <td><label class="check-group"><input type="checkbox" class="sr-only" aria-label="Select Card row"><span class="check-box" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
                         <polyline points="20 6 9 17 4 12" />
                       </svg></span></label></td>
                 <td style="font-weight:550">Card</td>
@@ -5009,9 +5060,9 @@
                 <td>3</td>
                 <td class="mono" data-sort="2026-02-18">Feb 18, 2026</td>
               </tr>
-              <tr onclick="toggleRow(this)">
-                <td><label class="check-group"><span class="check-box"><svg width="12" height="12" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="3">
+              <tr onclick="toggleRow(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleRow(this)}" tabindex="0">
+                <td><label class="check-group"><input type="checkbox" class="sr-only" aria-label="Select Toast row"><span class="check-box" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
                         <polyline points="20 6 9 17 4 12" />
                       </svg></span></label></td>
                 <td style="font-weight:550">Toast</td>
@@ -5020,9 +5071,9 @@
                 <td>4</td>
                 <td class="mono" data-sort="2026-02-22">Feb 22, 2026</td>
               </tr>
-              <tr onclick="toggleRow(this)">
-                <td><label class="check-group"><span class="check-box"><svg width="12" height="12" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="3">
+              <tr onclick="toggleRow(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleRow(this)}" tabindex="0">
+                <td><label class="check-group"><input type="checkbox" class="sr-only" aria-label="Select Drawer row"><span class="check-box" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
                         <polyline points="20 6 9 17 4 12" />
                       </svg></span></label></td>
                 <td style="font-weight:550">Drawer</td>
@@ -5827,15 +5878,16 @@
         <div class="card">
           <div class="card-title">Toggle Switch</div>
           <div class="card-desc" style="margin-bottom:var(--space-4)">Spring-based knob with bounce easing.</div>
-          <button class="toggle toggle-bg-anim" onclick="this.classList.toggle('on')"><span
-              class="toggle-knob toggle-knob-anim"></span></button>
+          <button class="toggle toggle-bg-anim" role="switch" aria-checked="false"
+              onclick="this.setAttribute('aria-checked', this.getAttribute('aria-checked') === 'true' ? 'false' : 'true')"><span
+              class="toggle-knob toggle-knob-anim" aria-hidden="true"></span></button>
         </div>
         <div class="card">
           <div class="card-title">Animated Checkbox</div>
           <div class="card-desc" style="margin-bottom:var(--space-4)">SVG checkmark scales in with bounce.</div>
-          <label class="check-group" onclick="this.querySelector('.check-box').classList.toggle('checked')"><span
-              class="check-box"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                stroke-width="3">
+          <label class="check-group"><input type="checkbox" class="sr-only"><span
+              class="check-box" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="3" aria-hidden="true">
                 <polyline points="20 6 9 17 4 12" />
               </svg></span> Check this</label>
         </div>
@@ -6489,12 +6541,12 @@
             </div>
             <div class="card">
               <div class="card-title">Notifications</div>
-              <div class="form-group" style="margin-top:var(--space-4)"><label class="form-label">Email</label><input
-                  class="input" type="email" value="kyle@delightful.design"></div>
-              <div style="display:flex;justify-content:space-between;align-items:center;margin-top:var(--space-4)"><span
-                  style="font-size:0.875rem">Email notifications</span><button class="toggle toggle-bg-anim on"
-                  onclick="this.classList.toggle('on')"><span class="toggle-knob toggle-knob-anim"></span></button>
-              </div>
+              <div class="form-group" style="margin-top:var(--space-4)"><label class="form-label" for="settings-email">Email</label><input
+                  class="input" id="settings-email" type="email" value="kyle@delightful.design"></div>
+              <label style="display:flex;justify-content:space-between;align-items:center;margin-top:var(--space-4)"><span
+                  style="font-size:0.875rem">Email notifications</span><button class="toggle toggle-bg-anim" role="switch" aria-checked="true"
+                  onclick="this.setAttribute('aria-checked', this.getAttribute('aria-checked') === 'true' ? 'false' : 'true')"><span class="toggle-knob toggle-knob-anim" aria-hidden="true"></span></button>
+              </label>
             </div>
           </div>
         </div>
@@ -6544,12 +6596,12 @@
   <dialog class="drawer-panel" id="drawer-panel">
     <div class="drawer-handle" id="drawer-handle"></div>
     <div class="drawer-title">Add New Token</div>
-    <div class="form-group" style="margin-bottom:var(--space-4)"><label class="form-label">Token Name</label><input
-        class="input" type="text" placeholder="e.g., --accent-purple"></div>
-    <div class="form-group" style="margin-bottom:var(--space-4)"><label class="form-label">Value</label><input
-        class="input" type="text" placeholder="oklch(0.60 0.22 300)"></div>
-    <div class="form-group" style="margin-bottom:var(--space-6)"><label class="form-label">Category</label>
-      <div class="select-wrap"><select class="select">
+    <div class="form-group" style="margin-bottom:var(--space-4)"><label class="form-label" for="drawer-token-name">Token Name</label><input
+        class="input" id="drawer-token-name" type="text" placeholder="e.g., --accent-purple"></div>
+    <div class="form-group" style="margin-bottom:var(--space-4)"><label class="form-label" for="drawer-token-value">Value</label><input
+        class="input" id="drawer-token-value" type="text" placeholder="oklch(0.60 0.22 300)"></div>
+    <div class="form-group" style="margin-bottom:var(--space-6)"><label class="form-label" for="drawer-token-category">Category</label>
+      <div class="select-wrap"><select class="select" id="drawer-token-category">
           <option>Primitive</option>
           <option>Semantic</option>
           <option>Component</option>
@@ -7172,33 +7224,41 @@
       };
 
       window.toggleRow = function (rowElement) {
+        const input = rowElement.querySelector('input[type="checkbox"]');
         const cb = rowElement.querySelector('.check-box');
-        const isChecked = cb.classList.toggle('checked');
-        if (isChecked) {
-          rowElement.classList.add('selected');
-        } else {
-          rowElement.classList.remove('selected');
+        if (input) {
+          input.checked = !input.checked;
+          rowElement.classList.toggle('selected', input.checked);
+        } else if (cb) {
+          const isChecked = cb.classList.toggle('checked');
+          rowElement.classList.toggle('selected', isChecked);
         }
       };
 
       window.toggleAllRows = function (headerElement, tableId) {
-        // stop propagation so we don't accidentally sort
         if (event) event.stopPropagation();
 
-        const cb = headerElement.querySelector('.check-box');
-        const isChecked = cb.classList.toggle('checked');
+        const headerInput = headerElement.querySelector('input[type="checkbox"]');
+        const headerCb = headerElement.querySelector('.check-box');
+        let isChecked;
+        if (headerInput) {
+          headerInput.checked = !headerInput.checked;
+          isChecked = headerInput.checked;
+        } else if (headerCb) {
+          isChecked = headerCb.classList.toggle('checked');
+        }
 
         const table = document.getElementById(tableId);
         const rows = table.querySelectorAll('tbody tr');
         rows.forEach(row => {
+          const rowInput = row.querySelector('input[type="checkbox"]');
           const rowCb = row.querySelector('.check-box');
-          if (isChecked) {
-            rowCb.classList.add('checked');
-            row.classList.add('selected');
-          } else {
-            rowCb.classList.remove('checked');
-            row.classList.remove('selected');
+          if (rowInput) {
+            rowInput.checked = isChecked;
+          } else if (rowCb) {
+            rowCb.classList.toggle('checked', isChecked);
           }
+          row.classList.toggle('selected', isChecked);
         });
       };
 
