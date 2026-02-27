@@ -2069,17 +2069,45 @@
       border-radius: var(--radius-full);
       background: var(--border-default);
       outline: none;
+
+      &::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: var(--accent-primary);
+        cursor: pointer;
+        border: 2px solid var(--bg-surface);
+        box-shadow: 0 1px 4px oklch(0 0 0 / 0.15);
+      }
     }
 
-    .range::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background: var(--accent-primary);
-      cursor: pointer;
-      border: 2px solid var(--bg-surface);
-      box-shadow: 0 1px 4px oklch(0 0 0 / 0.15);
+    .slider-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+
+    .slider-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+    }
+
+    .slider-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: var(--ui-text-xs);
+      color: var(--text-muted);
+    }
+
+    .slider-value {
+      font-size: var(--ui-text-sm);
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+      color: var(--accent-primary-text);
+      min-width: 3ch;
+      text-align: right;
     }
 
     /* ==========================================================================
@@ -5219,9 +5247,19 @@
               onclick="this.setAttribute('aria-checked', this.getAttribute('aria-checked') === 'true' ? 'false' : 'true')"><span class="toggle-knob toggle-knob-anim" aria-hidden="true"></span></button><span
               style="font-size:0.875rem">Auto-save</span></label>
         </div>
-        <div style="margin-top:var(--space-6)"><label class="form-label" for="form-volume"
-            style="margin-bottom:var(--space-2)">Volume</label><input id="form-volume" type="range" class="range" min="0" max="100"
-            value="65"></div>
+        <div class="slider-group" style="margin-top:var(--space-6)">
+          <div class="slider-header">
+            <label class="form-label" for="form-volume">Volume</label>
+            <span class="slider-value" id="form-volume-val">65</span>
+          </div>
+          <input id="form-volume" type="range" class="range" min="0" max="100" value="65"
+            oninput="document.getElementById('form-volume-val').textContent = this.value">
+          <div class="slider-labels">
+            <span>0</span>
+            <span>50</span>
+            <span>100</span>
+          </div>
+        </div>
       </div>
 
       <!-- 5c. Cards -->
