@@ -764,8 +764,8 @@
       transition: transform var(--motion-instant) var(--ease-out),
                   box-shadow var(--motion-instant) linear;
     }
-    .hero-cta:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
-    .hero-cta:active { transform: translateY(1px); box-shadow: var(--shadow-sm); }
+    .hero-cta:hover { transform: translate(-2px, -2px); box-shadow: var(--shadow-lg); }
+    .hero-cta:active { transform: translate(2px, 2px); box-shadow: 0 0 0 var(--text-primary); }
     .hero-cta svg { width: 16px; height: 16px; }
     .hero-preview-grid {
       display: grid; grid-template-columns: repeat(6, 1fr); gap: var(--space-3);
@@ -1094,8 +1094,8 @@
       cursor: pointer; align-self: flex-start;
       transition: transform var(--motion-instant) linear, box-shadow var(--motion-instant) linear;
     }
-    .combo-btn:hover { box-shadow: var(--shadow-sm); transform: translateY(-1px); }
-    .combo-btn:active { transform: translateY(1px); box-shadow: none; }
+    .combo-btn:hover { transform: translate(-2px, -2px); box-shadow: var(--shadow-md); }
+    .combo-btn:active { transform: translate(2px, 2px); box-shadow: 0 0 0 var(--text-primary); }
     .combo-btn-secondary {
       background: var(--bg-surface); color: var(--text-primary);
     }
@@ -1741,12 +1741,12 @@
       cursor: pointer;
     }
     .micro-btn-press:hover {
-      transform: translateY(-2px);
+      transform: translate(-2px, -2px);
       box-shadow: var(--shadow-md);
     }
     .micro-btn-press:active {
-      transform: translateY(1px);
-      box-shadow: var(--shadow-sm);
+      transform: translate(2px, 2px);
+      box-shadow: 0 0 0 var(--text-primary);
     }
     
     /* 28. toggle-thwack — Toggle knob slides with squash-stretch */
@@ -2937,8 +2937,8 @@
             <p class="motion-card-desc">Hover lifts, active slams in. Transition-based.</p>
             <div class="motion-card-meta">instant · linear</div>
             <button class="code-toggle-btn">Show CSS</button>
-            <div class="motion-card-code" hidden><pre><code>.micro-btn-press:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
-.micro-btn-press:active { transform: translateY(1px); box-shadow: var(--shadow-sm); }</code></pre><button class="copy-btn">Copy</button></div>
+            <div class="motion-card-code" hidden><pre><code>.micro-btn-press:hover { transform: translate(-2px, -2px); box-shadow: var(--shadow-md); }
+.micro-btn-press:active { transform: translate(2px, 2px); box-shadow: 0 0 0 var(--text-primary); }</code></pre><button class="copy-btn">Copy</button></div>
           </div>
         </div>
         <div class="motion-card" data-animation="toggle-thwack" data-category="micro">
