@@ -1,3 +1,4 @@
 .DS_Store
 archive/
 .playwright-mcp/
+vscode-theme/scripts/node_modules/

@@ -104,6 +104,25 @@ When `obsidian-theme/` is updated, copy **all** its files (`theme.css`, `manifes
 | `shell/starship.toml` | Starship prompt config | Accent hex values change |
 | `shell/zshrc-snippet` | Zsh config | Alias or hook changes |
 
+## Versioning
+
+The canonical version is the latest git tag (`git tag -l | sort -V | tail -1`). Currently **v0.3.1**. The repo is public on GitHub but not published to npm (`"private": true` in `package.json` prevents accidental `npm publish`).
+
+When bumping the version, update **all 6 files** and create a matching git tag:
+
+| File | Field |
+|------|-------|
+| `package.json` | `"version"` |
+| `vscode-theme/package.json` | `"version"` |
+| `claude-plugin/.claude-plugin/plugin.json` | `"version"` |
+| `obsidian-theme/manifest.json` | `"version"` |
+| `claude-plugin/skills/build-with-delightful/SKILL.md` | `version:` in YAML frontmatter |
+| `claude-plugin/skills/refactor-with-delightful/SKILL.md` | `version:` in YAML frontmatter |
+
+After updating all files, commit and tag: `git tag vX.Y.Z`.
+
+Never set versions independently — all 6 files must always match.
+
 ## Conventions
 
 - All colors use OKLCH. No hex, rgb, or hsl anywhere.
