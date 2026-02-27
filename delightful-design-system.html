@@ -3403,6 +3403,68 @@
     }
 
     /* ==========================================================================
+       BENTO GRID
+       ========================================================================== */
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: minmax(120px, auto);
+      gap: var(--space-4);
+      container-type: inline-size;
+    }
+
+    .bento-span-2 { grid-column: span 2; }
+    .bento-span-3 { grid-column: span 3; }
+    .bento-tall { grid-row: span 2; }
+    .bento-wide { grid-column: span 2; grid-row: span 2; }
+
+    @container (max-width: 780px) {
+      .bento-grid { grid-template-columns: repeat(2, 1fr); }
+      .bento-span-3 { grid-column: span 2; }
+    }
+
+    @container (max-width: 480px) {
+      .bento-grid { grid-template-columns: 1fr; }
+      .bento-span-2, .bento-span-3, .bento-wide { grid-column: span 1; }
+      .bento-tall { grid-row: span 1; }
+    }
+
+    /* ==========================================================================
+       SKELETON VARIANTS
+       ========================================================================== */
+    .skel-circle {
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+    }
+
+    .skel-text {
+      height: 1em;
+      border-radius: var(--radius-sm);
+
+      &:nth-child(odd) { width: 100%; }
+      &:nth-child(even) { width: 75%; }
+    }
+
+    .skel-heading {
+      height: 1.5em;
+      width: 60%;
+      border-radius: var(--radius-sm);
+    }
+
+    .skel-card {
+      border: 2px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: var(--space-4);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+
+    .skel-avatar-sm { border-radius: 50%; width: var(--control-sm); height: var(--control-sm); }
+    .skel-avatar-lg { border-radius: 50%; width: var(--control-xl); height: var(--control-xl); }
+
+    /* ==========================================================================
        SIGNATURE EFFECTS
        ========================================================================== */
     .tilt-container {
@@ -6151,19 +6213,25 @@
         </div>
         <div class="grid-3" id="skel-grid">
           <div class="card" id="skel-card-1">
-            <div class="skel skel-shimmer" style="height:16px;width:60%;margin-bottom:var(--space-3)"></div>
-            <div class="skel skel-shimmer" style="height:12px;width:100%;margin-bottom:var(--space-2)"></div>
-            <div class="skel skel-shimmer" style="height:12px;width:80%"></div>
+            <div class="skel skel-shimmer skel-heading" style="margin-bottom:var(--space-3)"></div>
+            <div class="skel skel-shimmer skel-text" style="margin-bottom:var(--space-2)"></div>
+            <div class="skel skel-shimmer skel-text" style="width:80%"></div>
           </div>
           <div class="card" id="skel-card-2">
-            <div class="skel skel-shimmer" style="height:16px;width:50%;margin-bottom:var(--space-3)"></div>
-            <div class="skel skel-shimmer" style="height:12px;width:90%;margin-bottom:var(--space-2)"></div>
-            <div class="skel skel-shimmer" style="height:12px;width:70%"></div>
+            <div style="display:flex;align-items:center;gap:var(--space-3);margin-bottom:var(--space-3)">
+              <div class="skel skel-shimmer skel-circle"></div>
+              <div style="flex:1">
+                <div class="skel skel-shimmer skel-text" style="width:60%;margin-bottom:var(--space-2)"></div>
+                <div class="skel skel-shimmer skel-text" style="width:40%"></div>
+              </div>
+            </div>
+            <div class="skel skel-shimmer skel-text" style="margin-bottom:var(--space-2)"></div>
+            <div class="skel skel-shimmer skel-text" style="width:70%"></div>
           </div>
           <div class="card" id="skel-card-3">
-            <div class="skel skel-shimmer" style="height:16px;width:45%;margin-bottom:var(--space-3)"></div>
-            <div class="skel skel-shimmer" style="height:12px;width:95%;margin-bottom:var(--space-2)"></div>
-            <div class="skel skel-shimmer" style="height:12px;width:65%"></div>
+            <div class="skel skel-shimmer" style="height:80px;border-radius:var(--radius-md);margin-bottom:var(--space-3)"></div>
+            <div class="skel skel-shimmer skel-heading" style="margin-bottom:var(--space-2)"></div>
+            <div class="skel skel-shimmer skel-text"></div>
           </div>
         </div>
       </div>
@@ -6568,6 +6636,42 @@
             style="background:var(--accent-primary)"></span> Bonus — Sample Compositions</div>
         <h2 class="section-title">Components in context</h2>
         <p class="section-desc">Full page layouts demonstrating how components work together in realistic contexts.</p>
+      </div>
+
+      <!-- Bento Grid -->
+      <div class="subsection">
+        <div class="subsection-label">Bento Grid</div>
+        <div class="bento-grid">
+          <div class="card card-featured bento-span-2 bento-tall" style="display:flex;flex-direction:column;justify-content:space-between">
+            <div>
+              <div class="card-title" style="font-size:var(--step-1)">Design System</div>
+              <div class="card-desc">OKLCH tokens, neo-brutalist components, and signature interactions — all in one self-contained file.</div>
+            </div>
+            <div class="badge badge-pink" style="align-self:flex-start">v0.4.5</div>
+          </div>
+          <div class="card card-accent-gold">
+            <div class="kpi-value" style="color:var(--accent-gold-text)">42</div>
+            <div class="kpi-label">Color Primitives</div>
+          </div>
+          <div class="card card-accent-cyan">
+            <div class="kpi-value" style="color:var(--accent-cyan-text)">3</div>
+            <div class="kpi-label">Token Tiers</div>
+          </div>
+          <div class="card card-accent-green bento-span-2">
+            <div class="card-title">Motion System</div>
+            <div class="card-desc">5 duration tokens, 5 easing curves, scroll-driven animations, spring physics, and 59 CSS animations.</div>
+          </div>
+          <div class="card card-accent-purple" style="display:flex;align-items:center;justify-content:center">
+            <div style="text-align:center">
+              <div style="font-size:var(--step-2);font-weight:800;color:var(--accent-purple-text)">7</div>
+              <div style="font-size:var(--ui-text-xs);color:var(--text-muted)">Color Families</div>
+            </div>
+          </div>
+          <div class="card" style="background:var(--bg-subtle)">
+            <div class="card-title">OKLCH Only</div>
+            <div class="card-desc">No hex, no rgb, no hsl. Perceptually uniform color throughout.</div>
+          </div>
+        </div>
       </div>
 
       <!-- Dashboard Composition -->
