@@ -1,0 +1,3510 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Delightful — Motion System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ==========================================================================
+       TIER 1 — PRIMITIVES
+       ========================================================================== */
+    :root {
+      --primitive-neutral-0: oklch(1.00 0.000 0);
+      --primitive-neutral-25: oklch(0.988 0.006 70);
+      --primitive-neutral-50: oklch(0.980 0.008 70);
+      --primitive-neutral-100: oklch(0.960 0.010 70);
+      --primitive-neutral-150: oklch(0.940 0.012 70);
+      --primitive-neutral-200: oklch(0.920 0.012 70);
+      --primitive-neutral-300: oklch(0.860 0.014 70);
+      --primitive-neutral-400: oklch(0.750 0.014 70);
+      --primitive-neutral-500: oklch(0.600 0.012 70);
+      --primitive-neutral-600: oklch(0.480 0.010 70);
+      --primitive-neutral-700: oklch(0.350 0.010 70);
+      --primitive-neutral-800: oklch(0.250 0.012 60);
+      --primitive-neutral-900: oklch(0.180 0.012 60);
+      --primitive-neutral-950: oklch(0.140 0.012 60);
+      --primitive-pink-100: oklch(0.920 0.060 350);
+      --primitive-pink-300: oklch(0.720 0.220 350);
+      --primitive-pink-400: oklch(0.640 0.270 350);
+      --primitive-pink-500: oklch(0.560 0.280 350);
+      --primitive-red-100: oklch(0.930 0.050 20);
+      --primitive-red-300: oklch(0.720 0.180 20);
+      --primitive-red-400: oklch(0.620 0.220 20);
+      --primitive-gold-100: oklch(0.960 0.050 85);
+      --primitive-gold-300: oklch(0.870 0.160 85);
+      --primitive-gold-400: oklch(0.840 0.175 85);
+      --primitive-gold-500: oklch(0.820 0.165 84);
+      --primitive-cyan-100: oklch(0.930 0.038 210);
+      --primitive-cyan-300: oklch(0.740 0.125 210);
+      --primitive-cyan-400: oklch(0.650 0.148 210);
+      --primitive-green-100: oklch(0.930 0.042 148);
+      --primitive-green-300: oklch(0.730 0.145 148);
+      --primitive-green-400: oklch(0.630 0.170 148);
+    }
+
+    /* ==========================================================================
+       TIER 2 — SEMANTIC TOKENS (Light)
+       ========================================================================== */
+    :root, [data-theme="light"] {
+      --bg-page: oklch(0.982 0.008 70);
+      --bg-surface: oklch(0.995 0.004 70);
+      --bg-elevated: oklch(1.00 0.00 0);
+      --bg-subtle: oklch(0.965 0.012 70);
+      --bg-muted: oklch(0.948 0.014 70);
+      --text-primary: oklch(0.200 0.015 60);
+      --text-secondary: oklch(0.420 0.015 60);
+      --text-muted: oklch(0.560 0.012 60);
+      --text-on-accent: oklch(1.00 0.000 0);
+      --text-on-gold: oklch(0.220 0.020 70);
+      --border-default: var(--text-primary);
+      --border-strong: var(--text-primary);
+      --border-subtle: oklch(0.820 0.015 70);
+      --accent-primary: oklch(0.640 0.270 350);
+      --accent-primary-hover: oklch(0.580 0.280 350);
+      --accent-primary-subtle: oklch(0.955 0.040 350);
+      --accent-primary-text: oklch(0.560 0.270 350);
+      --accent-danger: oklch(0.620 0.220 20);
+      --accent-danger-hover: oklch(0.570 0.230 20);
+      --accent-danger-subtle: oklch(0.950 0.040 20);
+      --accent-danger-text: oklch(0.550 0.220 20);
+      --accent-gold: oklch(0.840 0.175 85);
+      --accent-gold-hover: oklch(0.820 0.165 84);
+      --accent-gold-subtle: oklch(0.965 0.060 85);
+      --accent-gold-text: oklch(0.440 0.130 85);
+      --accent-cyan: oklch(0.650 0.148 210);
+      --accent-cyan-hover: oklch(0.600 0.150 210);
+      --accent-cyan-subtle: oklch(0.945 0.030 210);
+      --accent-cyan-text: oklch(0.520 0.148 210);
+      --accent-green: oklch(0.630 0.170 148);
+      --accent-green-hover: oklch(0.580 0.165 148);
+      --accent-green-subtle: oklch(0.945 0.035 148);
+      --accent-green-text: oklch(0.480 0.165 148);
+      --focus-ring: var(--accent-primary);
+      --overlay-bg: oklch(0.200 0.015 60 / 0.30);
+      --shadow-sm: 2px 2px 0 var(--text-primary);
+      --shadow-md: 4px 4px 0 var(--text-primary);
+      --shadow-lg: 8px 8px 0 var(--text-primary);
+      --shadow-pink: 4px 4px 0 var(--accent-primary);
+      --shadow-gold: 4px 4px 0 var(--accent-gold);
+      --shadow-cyan: 4px 4px 0 var(--accent-cyan);
+      --shadow-green: 4px 4px 0 var(--accent-green);
+    }
+
+    /* ==========================================================================
+       TIER 2 — SEMANTIC TOKENS (Dark)
+       ========================================================================== */
+    [data-theme="dark"] {
+      --bg-page: oklch(0.140 0.014 65);
+      --bg-surface: oklch(0.165 0.015 65);
+      --bg-elevated: oklch(0.190 0.015 65);
+      --bg-subtle: oklch(0.210 0.015 65);
+      --bg-muted: oklch(0.180 0.013 65);
+      --text-primary: oklch(0.935 0.008 70);
+      --text-secondary: oklch(0.690 0.012 70);
+      --text-muted: oklch(0.540 0.010 70);
+      --text-on-accent: oklch(1.00 0.000 0);
+      --text-on-gold: oklch(0.140 0.014 65);
+      --border-default: var(--text-primary);
+      --border-strong: var(--text-primary);
+      --border-subtle: oklch(0.330 0.015 65);
+      --accent-primary: oklch(0.700 0.230 350);
+      --accent-primary-hover: oklch(0.740 0.220 350);
+      --accent-primary-subtle: oklch(0.250 0.065 350);
+      --accent-primary-text: oklch(0.750 0.210 350);
+      --accent-danger: oklch(0.660 0.200 20);
+      --accent-danger-hover: oklch(0.700 0.190 20);
+      --accent-danger-subtle: oklch(0.250 0.055 20);
+      --accent-danger-text: oklch(0.720 0.180 20);
+      --accent-gold: oklch(0.840 0.170 85);
+      --accent-gold-hover: oklch(0.870 0.155 84);
+      --accent-gold-subtle: oklch(0.260 0.065 85);
+      --accent-gold-text: oklch(0.870 0.155 85);
+      --accent-cyan: oklch(0.720 0.140 210);
+      --accent-cyan-hover: oklch(0.760 0.130 210);
+      --accent-cyan-subtle: oklch(0.250 0.045 210);
+      --accent-cyan-text: oklch(0.780 0.130 210);
+      --accent-green: oklch(0.680 0.155 148);
+      --accent-green-hover: oklch(0.720 0.145 148);
+      --accent-green-subtle: oklch(0.250 0.048 148);
+      --accent-green-text: oklch(0.740 0.145 148);
+      --focus-ring: oklch(0.700 0.230 350);
+      --overlay-bg: oklch(0 0 0 / 0.60);
+      --shadow-sm: 2px 2px 0 oklch(0.92 0.010 65);
+      --shadow-md: 4px 4px 0 oklch(0.92 0.010 65);
+      --shadow-lg: 8px 8px 0 oklch(0.92 0.010 65);
+      --shadow-pink: 4px 4px 0 var(--accent-primary);
+      --shadow-gold: 4px 4px 0 var(--accent-gold);
+      --shadow-cyan: 4px 4px 0 var(--accent-cyan);
+      --shadow-green: 4px 4px 0 var(--accent-green);
+    }
+
+    /* ==========================================================================
+       TIER 3 — COMPONENT TOKENS + TYPOGRAPHY + SPACING + MOTION
+       ========================================================================== */
+    :root {
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Code', monospace;
+      --step--2: clamp(0.694rem, 0.650rem + 0.22vi, 0.8rem);
+      --step--1: clamp(0.833rem, 0.775rem + 0.29vi, 1rem);
+      --step-0: clamp(1rem, 0.913rem + 0.43vi, 1.25rem);
+      --step-1: clamp(1.2rem, 1.074rem + 0.63vi, 1.5625rem);
+      --step-2: clamp(1.44rem, 1.261rem + 0.89vi, 1.953rem);
+      --step-3: clamp(1.728rem, 1.480rem + 1.24vi, 2.441rem);
+      --step-4: clamp(2.074rem, 1.734rem + 1.70vi, 3.052rem);
+      --step-5: clamp(2.488rem, 2.028rem + 2.30vi, 3.815rem);
+      --tracking-tight: -0.02em;
+      --tracking-tighter: -0.03em;
+      --tracking-tightest: -0.04em;
+      --leading-none: 1.0;
+      --leading-tight: 1.15;
+      --leading-snug: 1.3;
+      --leading-normal: 1.55;
+      --leading-relaxed: 1.65;
+      --ui-text-2xs: 0.6875rem;
+      --ui-text-xs: 0.75rem;
+      --ui-text-sm: 0.8125rem;
+      --ui-text-md: 0.875rem;
+      --ui-text-lg: 0.9375rem;
+      --space-1: 4px; --space-1-5: 6px; --space-2: 8px; --space-3: 12px;
+      --space-4: 16px; --space-5: 20px; --space-6: 24px; --space-8: 32px;
+      --space-10: 40px; --space-12: 48px; --space-16: 64px; --space-20: 80px;
+      --radius-sm: 10px; --radius-md: 16px; --radius-lg: 24px;
+      --radius-xl: 32px; --radius-full: 9999px;
+      --control-sm: 32px; --control-md: 36px; --control-lg: 44px;
+      --motion-instant: 100ms; --motion-fast: 160ms; --motion-base: 240ms;
+      --motion-slow: 360ms; --motion-deliberate: 500ms;
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+      --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+      --ease-slam: cubic-bezier(0.55, 0.06, 0.68, 0.19);
+      --ease-elastic: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      --z-sticky: 100; --z-fixed: 200; --z-overlay: 300;
+      --z-modal: 1000; --z-toast: 1100;
+    }
+
+    /* ==========================================================================
+       RESET & BASE
+       ========================================================================== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+    body {
+      font-family: var(--font-sans);
+      font-size: var(--step-0);
+      line-height: var(--leading-normal);
+      color: var(--text-primary);
+      background: var(--bg-page);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    }
+    :focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+
+    /* ==========================================================================
+       SCROLL PROGRESS BAR
+       ========================================================================== */
+    .scroll-progress {
+      position: fixed; top: 0; left: 0; right: 0; height: 3px;
+      background: var(--accent-primary); transform-origin: left;
+      z-index: var(--z-overlay);
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      @supports (animation-timeline: scroll()) {
+        .scroll-progress {
+          transform: scaleX(0);
+          animation: scroll-progress-fill linear both;
+          animation-timeline: scroll();
+        }
+        @keyframes scroll-progress-fill {
+          0% { transform: scaleX(0); background-color: var(--accent-primary); }
+          99% { background-color: var(--accent-primary); }
+          100% { transform: scaleX(1); background-color: var(--accent-green); }
+        }
+      }
+    }
+
+    /* ==========================================================================
+       NAV
+       ========================================================================== */
+    .topnav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: var(--z-fixed);
+      background: oklch(0.995 0.004 70 / 0.88);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-bottom: 2px solid var(--border-subtle);
+    }
+    [data-theme="dark"] .topnav {
+      background: oklch(0.165 0.015 65 / 0.88);
+    }
+    .topnav-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center;
+      padding: var(--space-3) var(--space-6); gap: var(--space-4);
+    }
+    .topnav-brand {
+      display: flex; align-items: center; gap: var(--space-2);
+      font-weight: 900; font-size: var(--step-1); letter-spacing: var(--tracking-tight);
+      white-space: nowrap; text-decoration: none; color: var(--text-primary);
+    }
+    .brand-dots { display: flex; gap: 4px; }
+    .brand-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+    .nav-links {
+      display: flex; gap: var(--space-1); list-style: none;
+      overflow-x: auto; flex: 1; scrollbar-width: none;
+    }
+    .nav-links::-webkit-scrollbar { display: none; }
+    .nav-links a {
+      font-size: var(--ui-text-sm); font-weight: 600; color: var(--text-secondary);
+      text-decoration: none; padding: var(--space-1) var(--space-2);
+      border-radius: var(--radius-sm); white-space: nowrap;
+      transition: color var(--motion-instant) ease-out, background var(--motion-instant) ease-out;
+    }
+    .nav-links a:hover { color: var(--text-primary); background: var(--bg-subtle); }
+    .nav-right { display: flex; gap: var(--space-2); align-items: center; }
+    .nav-btn {
+      width: 36px; height: 36px; border-radius: var(--radius-sm);
+      border: 2px solid var(--border-default); background: var(--bg-surface);
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      color: var(--text-primary); text-decoration: none;
+      transition: background var(--motion-instant) ease-out, box-shadow var(--motion-instant) linear;
+    }
+    .nav-btn:hover { box-shadow: var(--shadow-sm); }
+    .nav-btn:active { box-shadow: none; transform: translateY(1px); }
+    .nav-btn svg { width: 18px; height: 18px; }
+    .nav-kbd {
+      font-size: var(--ui-text-xs); font-family: var(--font-sans);
+      padding: 2px var(--space-1); border-radius: 4px;
+      border: 1px solid var(--border-subtle); background: var(--bg-subtle);
+      color: var(--text-muted); cursor: pointer; white-space: nowrap;
+      transition: border-color var(--motion-instant) ease-out;
+    }
+    .nav-kbd:hover { border-color: var(--border-default); }
+    .icon-sun { display: block; } .icon-moon { display: none; }
+    [data-theme="dark"] .icon-sun { display: none; }
+    [data-theme="dark"] .icon-moon { display: block; }
+    .icon-motion-on { display: block; } .icon-motion-off { display: none; }
+    [data-reduced-motion="true"] .icon-motion-on { display: none; }
+    [data-reduced-motion="true"] .icon-motion-off { display: block; }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .topnav-inner { padding: var(--space-3) var(--space-4); }
+    }
+
+    /* ==========================================================================
+       PAGE LAYOUT
+       ========================================================================== */
+    .page-wrap {
+      max-width: 1200px; margin: 0 auto;
+      padding: calc(56px + var(--space-8)) var(--space-6) var(--space-20);
+    }
+
+    /* ==========================================================================
+       FOOTER
+       ========================================================================== */
+    .ds-footer {
+      text-align: center; padding: var(--space-12) var(--space-6);
+      color: var(--text-secondary); border-top: 2px dashed var(--border-subtle);
+    }
+    .ds-footer a {
+      color: var(--accent-primary-text); text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .ds-footer a:hover { color: var(--accent-primary); }
+
+    /* ==========================================================================
+       BACK TO TOP
+       ========================================================================== */
+    .back-to-top {
+      position: fixed; bottom: var(--space-6); right: var(--space-6);
+      z-index: var(--z-fixed); width: 44px; height: 44px;
+      border-radius: var(--radius-sm); border: 2px solid var(--border-default);
+      background: var(--bg-elevated); color: var(--text-primary);
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      box-shadow: var(--shadow-md);
+      opacity: 0; pointer-events: none;
+      transition: opacity var(--motion-base) var(--ease-out), box-shadow var(--motion-instant) linear;
+    }
+    .back-to-top.visible { opacity: 1; pointer-events: auto; }
+    .back-to-top:hover { box-shadow: var(--shadow-lg); }
+    .back-to-top:active { box-shadow: var(--shadow-sm); transform: translateY(1px); }
+    .back-to-top svg { width: 20px; height: 20px; }
+
+    /* ==========================================================================
+       COMMAND PALETTE
+       ========================================================================== */
+    .cmd-palette-overlay {
+      position: fixed; inset: 0; z-index: var(--z-modal);
+      background: var(--overlay-bg); display: none;
+      align-items: flex-start; justify-content: center;
+      padding-top: 20vh;
+    }
+    .cmd-palette-overlay.active { display: flex; }
+    .cmd-palette {
+      width: 100%; max-width: 520px;
+      background: var(--bg-elevated); border: 2px solid var(--border-default);
+      border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);
+      overflow: hidden;
+    }
+    .cmd-palette-input {
+      width: 100%; padding: var(--space-4) var(--space-6);
+      font-family: var(--font-sans); font-size: var(--step-0);
+      border: none; border-bottom: 2px solid var(--border-subtle);
+      background: transparent; color: var(--text-primary);
+      outline: none;
+    }
+    .cmd-palette-input::placeholder { color: var(--text-muted); }
+    .cmd-palette-list {
+      list-style: none; max-height: 320px; overflow-y: auto;
+      padding: var(--space-2) 0;
+    }
+    .cmd-palette-item {
+      padding: var(--space-2) var(--space-6);
+      font-size: var(--ui-text-md); color: var(--text-secondary);
+      cursor: pointer; display: flex; align-items: center; gap: var(--space-3);
+      transition: background var(--motion-instant) ease-out, color var(--motion-instant) ease-out;
+    }
+    .cmd-palette-item:hover,
+    .cmd-palette-item.active {
+      background: var(--bg-subtle); color: var(--text-primary);
+    }
+    .cmd-palette-item .cmd-section-dot {
+      width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
+    }
+    .cmd-palette-empty {
+      padding: var(--space-4) var(--space-6);
+      color: var(--text-muted); font-size: var(--ui-text-sm); text-align: center;
+    }
+
+    /* ==========================================================================
+       HERO
+       ========================================================================== */
+    .hero {
+      text-align: center; padding: var(--space-16) 0 var(--space-12);
+    }
+    .hero-title {
+      font-size: var(--step-5); font-weight: 900;
+      letter-spacing: var(--tracking-tightest);
+      line-height: var(--leading-none);
+      margin-bottom: var(--space-4);
+    }
+    .hero-title .char {
+      display: inline-block; opacity: 0;
+    }
+    .hero-subtitle {
+      font-size: var(--step-1); color: var(--text-secondary);
+      max-width: 640px; margin: 0 auto var(--space-6);
+      line-height: var(--leading-snug);
+    }
+    .hero-dots {
+      display: flex; justify-content: center; gap: var(--space-3);
+    }
+    .hero-dot {
+      width: 12px; height: 12px; border-radius: 50%;
+      border: 2px solid var(--border-default);
+    }
+
+    /* ==========================================================================
+       SECTION LAYOUT
+       ========================================================================== */
+    .motion-section {
+      margin-bottom: var(--space-16);
+      padding-bottom: var(--space-16);
+      border-bottom: 2px dashed var(--border-subtle);
+    }
+    .motion-section:last-of-type {
+      border-bottom: none;
+    }
+    .section-header {
+      margin-bottom: var(--space-8);
+    }
+    .section-overline {
+      font-size: var(--ui-text-xs); font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--text-muted); margin-bottom: var(--space-2);
+      display: flex; align-items: center; gap: var(--space-2);
+    }
+    .status-dot {
+      width: 8px; height: 8px; border-radius: 50%; display: inline-block;
+    }
+    .section-title {
+      font-size: var(--step-3); font-weight: 800;
+      letter-spacing: var(--tracking-tight);
+      line-height: var(--leading-tight);
+      margin-bottom: var(--space-2);
+    }
+    .section-desc {
+      font-size: var(--step-0); color: var(--text-secondary);
+      max-width: 640px; line-height: var(--leading-normal);
+    }
+    .section-actions {
+      margin-top: var(--space-4);
+    }
+    .subsection { margin-top: var(--space-8); }
+    .subsection-label {
+      font-size: var(--ui-text-sm); font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.06em;
+      color: var(--text-muted); margin-bottom: var(--space-1);
+    }
+    .subsection-desc {
+      font-size: var(--ui-text-md); color: var(--text-secondary);
+      margin-bottom: var(--space-4); line-height: var(--leading-normal);
+    }
+
+    /* ==========================================================================
+       ANIMATION CARD GRID
+       ========================================================================== */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: var(--space-6);
+    }
+    .motion-card {
+      background: var(--bg-surface);
+      border: 2px solid var(--border-default);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+      display: flex; flex-direction: column;
+    }
+    .motion-card-demo {
+      padding: var(--space-8) var(--space-6);
+      display: flex; align-items: center; justify-content: center;
+      background: var(--bg-subtle);
+      border-bottom: 2px solid var(--border-subtle);
+      min-height: 140px;
+      position: relative; overflow: hidden;
+    }
+    .demo-element {
+      width: 80px; height: 56px;
+      background: var(--bg-surface);
+      border: 2px solid var(--border-default);
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-sm);
+      display: flex; align-items: center; justify-content: center;
+      font-size: var(--ui-text-sm); font-weight: 700;
+      color: var(--text-primary);
+    }
+    .demo-element-wide {
+      width: 120px; height: 56px;
+    }
+    .demo-element-text {
+      width: auto; height: auto; background: none; border: none;
+      box-shadow: none; border-radius: 0;
+      font-size: var(--step-1); font-weight: 800;
+    }
+    .demo-dots {
+      display: flex; gap: var(--space-2); align-items: center;
+    }
+    .demo-dot {
+      width: 12px; height: 12px; border-radius: 50%;
+      background: var(--accent-primary);
+      border: 2px solid var(--border-default);
+    }
+    .demo-bar {
+      height: 8px; border-radius: var(--radius-full);
+      background: var(--accent-primary); width: 0;
+      border: 2px solid var(--border-default);
+    }
+    .motion-card-body {
+      padding: var(--space-4) var(--space-4) var(--space-3);
+      flex: 1; display: flex; flex-direction: column;
+    }
+    .motion-card-top {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: var(--space-2);
+    }
+    .motion-card-name {
+      font-family: var(--font-mono); font-size: var(--ui-text-md);
+      font-weight: 700; color: var(--text-primary);
+    }
+    .play-btn {
+      background: var(--accent-primary); color: var(--text-on-accent);
+      border: 2px solid var(--border-default); border-radius: var(--radius-sm);
+      font-family: var(--font-sans); font-size: var(--ui-text-xs);
+      font-weight: 700; padding: var(--space-1) var(--space-3);
+      cursor: pointer; white-space: nowrap;
+      transition: transform var(--motion-instant) linear, box-shadow var(--motion-instant) linear;
+    }
+    .play-btn:hover { box-shadow: var(--shadow-sm); transform: translateY(-1px); }
+    .play-btn:active { box-shadow: none; transform: translateY(1px); }
+    .play-all-btn {
+      background: var(--bg-surface); color: var(--text-primary);
+      border: 2px solid var(--border-default); border-radius: var(--radius-sm);
+      font-family: var(--font-sans); font-size: var(--ui-text-sm);
+      font-weight: 700; padding: var(--space-2) var(--space-4);
+      cursor: pointer;
+      transition: transform var(--motion-instant) linear, box-shadow var(--motion-instant) linear;
+    }
+    .play-all-btn:hover { box-shadow: var(--shadow-sm); transform: translateY(-1px); }
+    .play-all-btn:active { box-shadow: none; transform: translateY(1px); }
+    .motion-card-desc {
+      font-size: var(--ui-text-sm); color: var(--text-secondary);
+      line-height: var(--leading-normal); margin-bottom: var(--space-3);
+    }
+    .motion-card-meta {
+      font-family: var(--font-mono); font-size: var(--ui-text-xs);
+      color: var(--text-muted); margin-bottom: var(--space-3);
+    }
+    .motion-card-tags {
+      display: flex; gap: var(--space-1); flex-wrap: wrap; margin-bottom: var(--space-3);
+    }
+    .tag {
+      font-size: var(--ui-text-2xs); font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.04em;
+      padding: 2px 10px; border: 2px solid var(--border-default);
+      border-radius: var(--radius-full); color: var(--text-secondary);
+    }
+    .code-toggle-btn {
+      background: none; border: none; cursor: pointer;
+      font-family: var(--font-mono); font-size: var(--ui-text-xs);
+      font-weight: 600; color: var(--accent-primary-text);
+      padding: var(--space-2) 0; margin-top: auto;
+      text-align: left;
+    }
+    .code-toggle-btn:hover { text-decoration: underline; }
+    .motion-card-code {
+      border-top: 2px solid var(--border-subtle);
+      padding: var(--space-3) var(--space-4);
+      background: var(--bg-subtle); position: relative;
+    }
+    .motion-card-code pre {
+      font-family: var(--font-mono); font-size: var(--ui-text-xs);
+      line-height: var(--leading-relaxed); color: var(--text-primary);
+      overflow-x: auto; white-space: pre; margin: 0;
+    }
+    .copy-btn {
+      position: absolute; top: var(--space-2); right: var(--space-3);
+      background: var(--bg-surface); border: 2px solid var(--border-default);
+      border-radius: var(--radius-sm); font-family: var(--font-mono);
+      font-size: var(--ui-text-2xs); font-weight: 700; cursor: pointer;
+      padding: 2px 8px; color: var(--text-primary);
+    }
+    .copy-btn:hover { box-shadow: var(--shadow-sm); }
+
+    /* ==========================================================================
+       TOKEN REFERENCE CARDS (from researcher)
+       ========================================================================== */
+    .card-compact {
+      background: var(--bg-surface); border: 2px solid var(--border-default);
+      border-radius: var(--radius-md); padding: var(--space-4);
+      box-shadow: var(--shadow-sm);
+    }
+    .card-title {
+      font-size: var(--ui-text-md); font-weight: 700; margin-bottom: var(--space-1);
+    }
+    .card-desc {
+      font-size: var(--ui-text-sm); color: var(--text-secondary);
+      line-height: var(--leading-normal); margin-bottom: var(--space-2);
+    }
+    .card-meta {
+      font-family: var(--font-mono); font-size: var(--ui-text-xs);
+      color: var(--text-muted); font-weight: 600;
+    }
+
+    /* ==========================================================================
+       TOKEN REFERENCE STYLES
+       ========================================================================== */
+    .token-ref-duration-row {
+      display: flex; align-items: center; gap: var(--space-4); padding: var(--space-3) 0;
+    }
+    .token-ref-duration-row + .token-ref-duration-row { border-top: 1px solid var(--border-subtle); }
+    .token-ref-duration-meta { flex: 0 0 180px; display: flex; flex-direction: column; gap: 2px; }
+    .token-ref-duration-name { font-family: var(--font-mono); font-size: var(--ui-text-sm); font-weight: 600; }
+    .token-ref-duration-value { font-family: var(--font-mono); font-size: var(--ui-text-xs); color: var(--text-muted); }
+    .token-ref-duration-bar-wrap { flex: 1; display: flex; align-items: center; gap: var(--space-3); }
+    .token-ref-duration-bar {
+      height: 20px; border-radius: var(--radius-sm); border: 2px solid var(--text-primary);
+      position: relative; overflow: hidden;
+    }
+    .token-ref-duration-bar-fill { position: absolute; inset: 0; opacity: 0.85; }
+    .token-ref-duration-use { font-size: var(--ui-text-xs); color: var(--text-secondary); flex: 0 0 200px; text-align: right; }
+    .token-ref-easing-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-6);
+    }
+    .token-ref-easing-card {
+      background: var(--bg-surface); border: 2px solid var(--border-default);
+      border-radius: var(--radius-md); padding: var(--space-4); box-shadow: var(--shadow-sm);
+    }
+    .token-ref-easing-card-title { font-family: var(--font-mono); font-size: var(--ui-text-sm); font-weight: 600; margin-bottom: var(--space-1); }
+    .token-ref-easing-card-value { font-family: var(--font-mono); font-size: var(--ui-text-xs); color: var(--text-muted); margin-bottom: var(--space-3); }
+    .token-ref-easing-svg-wrap { display: flex; justify-content: center; padding: var(--space-2) 0; margin-bottom: var(--space-3); }
+    .token-ref-easing-svg-wrap svg { display: block; }
+    .token-ref-easing-card-desc {
+      font-size: var(--ui-text-xs); color: var(--text-secondary);
+      line-height: var(--leading-normal); padding-top: var(--space-3);
+      border-top: 2px solid var(--border-subtle);
+    }
+    @keyframes traverse-curve {
+      0% { offset-distance: 0%; }
+      100% { offset-distance: 100%; }
+    }
+    .curve-dot {
+      r: 5; fill: var(--accent-primary);
+    }
+    .curve-dot[data-curve="ease-out"] {
+      offset-path: path("M 10 110 C 26.4 10 40 10 110 10");
+      animation: traverse-curve 2s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+    }
+    .curve-dot[data-curve="ease-bounce"] {
+      offset-path: path("M 10 110 C 44.4 -46.6 74.4 10 110 10");
+      animation: traverse-curve 2s cubic-bezier(0.34, 1.56, 0.64, 1) infinite;
+      fill: var(--accent-gold);
+    }
+    .curve-dot[data-curve="ease-smooth"] {
+      offset-path: path("M 10 110 C 32 10 46 10 110 10");
+      animation: traverse-curve 2s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+      fill: var(--accent-cyan);
+    }
+    .curve-dot[data-curve="ease-slam"] {
+      offset-path: path("M 10 110 C 65 104 78 91 110 10");
+      animation: traverse-curve 2s cubic-bezier(0.55, 0.06, 0.68, 0.19) infinite;
+      fill: var(--accent-danger);
+    }
+    .curve-dot[data-curve="ease-elastic"] {
+      offset-path: path("M 10 110 C 78 165 36.5 -45 110 10");
+      animation: traverse-curve 2s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+      fill: var(--accent-green);
+    }
+
+    /* ==========================================================================
+       COMBO SHOWCASE
+       ========================================================================== */
+    .combo-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--space-6);
+    }
+    .combo-card {
+      background: var(--bg-surface); border: 2px solid var(--border-default);
+      border-radius: var(--radius-md); box-shadow: var(--shadow-md);
+      padding: var(--space-6); display: flex; flex-direction: column; gap: var(--space-4);
+    }
+    .combo-card h3 {
+      font-size: var(--step-1); font-weight: 800;
+      letter-spacing: var(--tracking-tight);
+    }
+    .combo-card p { font-size: var(--ui-text-sm); color: var(--text-secondary); }
+    .combo-btn {
+      background: var(--accent-primary); color: var(--text-on-accent);
+      border: 2px solid var(--border-default); border-radius: var(--radius-sm);
+      font-family: var(--font-sans); font-size: var(--ui-text-md);
+      font-weight: 700; padding: var(--space-2) var(--space-4);
+      cursor: pointer; align-self: flex-start;
+      transition: transform var(--motion-instant) linear, box-shadow var(--motion-instant) linear;
+    }
+    .combo-btn:hover { box-shadow: var(--shadow-sm); transform: translateY(-1px); }
+    .combo-btn:active { transform: translateY(1px); box-shadow: none; }
+    .combo-btn-secondary {
+      background: var(--bg-surface); color: var(--text-primary);
+    }
+    /* Toast container */
+    .toast-container {
+      position: fixed; bottom: var(--space-6); right: var(--space-6);
+      display: flex; flex-direction: column-reverse; gap: var(--space-3);
+      z-index: var(--z-toast); pointer-events: none;
+    }
+    .toast {
+      background: var(--bg-elevated); border: 2px solid var(--border-default);
+      border-radius: var(--radius-sm); box-shadow: var(--shadow-md);
+      padding: var(--space-3) var(--space-4); pointer-events: auto;
+      font-size: var(--ui-text-sm); font-weight: 600;
+      min-width: 240px; max-width: 360px;
+    }
+    /* Modal */
+    .modal-overlay {
+      position: fixed; inset: 0; background: var(--overlay-bg);
+      z-index: var(--z-modal); display: none;
+      align-items: center; justify-content: center;
+    }
+    .modal-overlay.active { display: flex; }
+    .modal-box {
+      background: var(--bg-elevated); border: 2px solid var(--border-default);
+      border-radius: var(--radius-md); box-shadow: var(--shadow-lg);
+      padding: var(--space-8); max-width: 440px; width: 90%;
+      text-align: center;
+    }
+    .modal-box h3 { font-size: var(--step-2); font-weight: 800; margin-bottom: var(--space-3); }
+    .modal-box p { color: var(--text-secondary); margin-bottom: var(--space-6); }
+    .modal-close {
+      background: var(--bg-surface); border: 2px solid var(--border-default);
+      border-radius: var(--radius-sm); padding: var(--space-2) var(--space-6);
+      font-family: var(--font-sans); font-weight: 700; cursor: pointer;
+      font-size: var(--ui-text-md);
+    }
+    /* Form validation demo */
+    .form-demo { display: flex; flex-direction: column; gap: var(--space-3); }
+    .form-demo input {
+      border: 2px solid var(--border-default); border-radius: var(--radius-sm);
+      padding: var(--space-2) var(--space-3); font-family: var(--font-sans);
+      font-size: var(--ui-text-md); background: var(--bg-surface);
+      color: var(--text-primary);
+      transition: box-shadow var(--motion-instant) var(--ease-out);
+    }
+    .form-demo input:focus { box-shadow: 4px 4px 0 var(--accent-primary); }
+    .form-msg {
+      font-size: var(--ui-text-sm); font-weight: 600;
+      padding: var(--space-2) var(--space-3);
+      border-radius: var(--radius-sm); border: 2px solid var(--border-default);
+      display: none;
+    }
+    .form-msg.show { display: block; }
+    .form-msg.error { background: var(--accent-danger-subtle); color: var(--accent-danger-text); }
+    .form-msg.success { background: var(--accent-green-subtle); color: var(--accent-green-text); }
+
+    /* ==========================================================================
+       SCROLL SECTION
+       ========================================================================== */
+    .scroll-demo-area {
+      display: flex; flex-direction: column; gap: var(--space-16);
+      padding: var(--space-12) 0;
+    }
+    .scroll-demo-item {
+      background: var(--bg-surface); border: 2px solid var(--border-default);
+      border-radius: var(--radius-md); padding: var(--space-8);
+      box-shadow: var(--shadow-sm); text-align: center;
+      font-weight: 700; font-size: var(--step-1);
+    }
+
+    /* ==========================================================================
+       REDUCED MOTION OVERRIDE (manual toggle)
+       ========================================================================== */
+    [data-reduced-motion="true"] *, [data-reduced-motion="true"] *::before,
+    [data-reduced-motion="true"] *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+
+    /* ==========================================================================
+       ENTRANCE ANIMATIONS (page load)
+       ========================================================================== */
+    @media (prefers-reduced-motion: no-preference) {
+      @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(16px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      .anim-in { opacity: 0; animation: fadeInUp 0.5s var(--ease-smooth) both; }
+      .anim-d1 { animation-delay: 0.06s; }
+      .anim-d2 { animation-delay: 0.12s; }
+      .anim-d3 { animation-delay: 0.18s; }
+      .anim-d4 { animation-delay: 0.24s; }
+      .anim-d5 { animation-delay: 0.30s; }
+      .anim-d6 { animation-delay: 0.36s; }
+      .anim-d7 { animation-delay: 0.42s; }
+      .anim-d8 { animation-delay: 0.48s; }
+      .anim-d9 { animation-delay: 0.54s; }
+      .anim-d10 { animation-delay: 0.60s; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .anim-in { opacity: 1; }
+      .curve-dot { animation: none !important; }
+    }
+
+    @media (max-width: 768px) {
+      .token-ref-duration-row { flex-wrap: wrap; }
+      .token-ref-duration-meta { flex: 0 0 100%; }
+      .token-ref-duration-use { flex: 0 0 100%; text-align: left; }
+      .card-grid { grid-template-columns: 1fr; }
+      .combo-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ==========================================================================
+       MOTION KEYFRAMES — 55 animations across 10 categories
+       ========================================================================== */
+    /* ==========================================================================
+       DELIGHTFUL DESIGN SYSTEM — Motion Keyframes & Utility Classes
+       55 named animations across 10 categories.
+       Neo-brutalist: snappy, decisive, weighted. Never floaty.
+       ========================================================================== */
+    
+    /* --------------------------------------------------------------------------
+       REDUCED MOTION FALLBACK
+       When the user prefers reduced motion, all animations become instant opacity.
+       -------------------------------------------------------------------------- */
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+    
+    /* ==========================================================================
+       ALL ANIMATIONS — Only active when motion is allowed
+       ========================================================================== */
+    @media (prefers-reduced-motion: no-preference) {
+    
+    /* ========== CATEGORY 1: ENTRANCES ========== */
+    
+    /* 1. stamp-in — Scale 1.4->1 + Y drop, shadow appears on impact */
+    @keyframes stamp-in {
+      0% {
+        transform: scale(1.4) translateY(-20px);
+        box-shadow: 0 0 0 transparent;
+        opacity: 0;
+      }
+      60% {
+        opacity: 1;
+      }
+      100% {
+        transform: scale(1) translateY(0);
+        box-shadow: var(--shadow-md);
+        opacity: 1;
+      }
+    }
+    .anim-stamp-in {
+      animation: stamp-in 360ms var(--ease-bounce) both;
+    }
+    
+    /* 2. drop-in — Falls from above with slight rotation, bounces at landing */
+    @keyframes drop-in {
+      0% {
+        transform: translateY(-60px) rotate(2deg);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+    }
+    .anim-drop-in {
+      animation: drop-in 360ms var(--ease-bounce) both;
+    }
+    
+    /* 3. slide-slam — Slides from left with rotation, corrects sharply */
+    @keyframes slide-slam {
+      0% {
+        transform: translateX(-100px) rotate(-3deg);
+        opacity: 0;
+      }
+      40% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateX(0) rotate(0deg);
+        opacity: 1;
+      }
+    }
+    .anim-slide-slam {
+      animation: slide-slam 360ms var(--ease-out) both;
+    }
+    
+    /* 4. punch-up — Punches up from below, overshoots, settles */
+    @keyframes punch-up {
+      0% {
+        transform: translateY(40px);
+        opacity: 0;
+      }
+      40% {
+        opacity: 1;
+      }
+      70% {
+        transform: translateY(-8px);
+      }
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    .anim-punch-up {
+      animation: punch-up 240ms var(--ease-bounce) both;
+    }
+    
+    /* 5. unfold — scaleY(0)->scaleY(1), paper-unfolding feel */
+    @keyframes unfold {
+      0% {
+        transform: scaleY(0);
+        opacity: 0;
+      }
+      100% {
+        transform: scaleY(1);
+        opacity: 1;
+      }
+    }
+    .anim-unfold {
+      animation: unfold 240ms var(--ease-smooth) both;
+      transform-origin: top;
+    }
+    
+    /* 6. brick-stack — Simple Y+opacity entrance, stagger via JS */
+    @keyframes brick-stack {
+      0% {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    .anim-brick-stack {
+      animation: brick-stack 160ms var(--ease-out) both;
+    }
+    
+    /* 7. pop-stamp — Scale 0->1.15->1 with border-radius morph */
+    @keyframes pop-stamp {
+      0% {
+        transform: scale(0);
+        border-radius: 50%;
+        opacity: 0;
+      }
+      60% {
+        transform: scale(1.15);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(1);
+        border-radius: var(--radius-md);
+        opacity: 1;
+      }
+    }
+    .anim-pop-stamp {
+      animation: pop-stamp 360ms var(--ease-bounce) both;
+    }
+    
+    /* 8. shutter-reveal — clip-path reveal from left */
+    @keyframes shutter-reveal {
+      0% {
+        clip-path: inset(0 100% 0 0);
+      }
+      100% {
+        clip-path: inset(0 0 0 0);
+      }
+    }
+    .anim-shutter-reveal {
+      animation: shutter-reveal 360ms var(--ease-out) both;
+    }
+    
+    
+    /* ========== CATEGORY 2: EXITS ========== */
+    
+    /* 9. fling-right — Flings element off to the right */
+    @keyframes fling-right {
+      0% {
+        transform: translateX(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateX(200px) rotate(8deg);
+        opacity: 0;
+      }
+    }
+    .anim-fling-right {
+      animation: fling-right 240ms var(--ease-out) both;
+    }
+    
+    /* 10. press-away — Presses down, shadow collapses, fades */
+    @keyframes press-away {
+      0% {
+        transform: scale(1);
+        box-shadow: var(--shadow-md);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(0.9);
+        box-shadow: 0 0 0 transparent;
+        opacity: 0;
+      }
+    }
+    .anim-press-away {
+      animation: press-away 240ms var(--ease-out) both;
+    }
+    
+    /* 11. crumple — Shrinks with alternating rotation, like crumpling paper */
+    @keyframes crumple {
+      0% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+      }
+      20% {
+        transform: scale(0.8) rotate(5deg);
+        opacity: 0.8;
+      }
+      40% {
+        transform: scale(0.6) rotate(-3deg);
+        opacity: 0.6;
+      }
+      60% {
+        transform: scale(0.45) rotate(7deg);
+        opacity: 0.4;
+      }
+      80% {
+        transform: scale(0.35) rotate(0deg);
+        opacity: 0.2;
+      }
+      100% {
+        transform: scale(0.3) rotate(0deg);
+        opacity: 0;
+      }
+    }
+    .anim-crumple {
+      animation: crumple 360ms var(--ease-slam) both;
+    }
+    
+    /* 12. trapdoor — Rotates away on X axis like a trapdoor */
+    @keyframes trapdoor {
+      0% {
+        transform: perspective(600px) rotateX(0deg);
+        opacity: 1;
+      }
+      80% {
+        opacity: 1;
+      }
+      100% {
+        transform: perspective(600px) rotateX(90deg);
+        opacity: 0;
+      }
+    }
+    .anim-trapdoor {
+      animation: trapdoor 300ms var(--ease-slam) both;
+      transform-origin: bottom center;
+    }
+    
+    /* 13. snap-shrink — Instant decisive shrink to nothing */
+    @keyframes snap-shrink {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(0);
+        opacity: 0;
+      }
+    }
+    .anim-snap-shrink {
+      animation: snap-shrink 160ms var(--ease-out) both;
+    }
+    
+    /* 14. gravity-fall — Falls with rotation, shadow detaches */
+    @keyframes gravity-fall {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        box-shadow: var(--shadow-md);
+        opacity: 1;
+      }
+      30% {
+        box-shadow: var(--shadow-lg);
+      }
+      100% {
+        transform: translateY(300px) rotate(12deg);
+        box-shadow: 0 0 0 transparent;
+        opacity: 0;
+      }
+    }
+    .anim-gravity-fall {
+      animation: gravity-fall 500ms var(--ease-slam) both;
+    }
+    
+    
+    /* ========== CATEGORY 3: ATTENTION ========== */
+    
+    /* 15. knock — Front-loaded horizontal shake */
+    @keyframes knock {
+      0%   { transform: translateX(0); }
+      15%  { transform: translateX(12px); }
+      30%  { transform: translateX(-10px); }
+      50%  { transform: translateX(6px); }
+      70%  { transform: translateX(-3px); }
+      85%  { transform: translateX(1px); }
+      100% { transform: translateX(0); }
+    }
+    .anim-knock {
+      animation: knock 400ms linear both;
+    }
+    
+    /* 16. stamp-pulse — Scale up (shadow grows) -> compress (shadow shrinks) -> settle */
+    @keyframes stamp-pulse {
+      0% {
+        transform: scale(1);
+        box-shadow: var(--shadow-md);
+      }
+      35% {
+        transform: scale(1.08);
+        box-shadow: var(--shadow-lg);
+      }
+      65% {
+        transform: scale(0.96);
+        box-shadow: var(--shadow-sm);
+      }
+      100% {
+        transform: scale(1);
+        box-shadow: var(--shadow-md);
+      }
+    }
+    .anim-stamp-pulse {
+      animation: stamp-pulse 500ms var(--ease-bounce) both;
+    }
+    
+    /* 17. wiggle — Small alternating rotation, eager tremor */
+    @keyframes wiggle {
+      0%   { transform: rotate(0deg); }
+      15%  { transform: rotate(3deg); }
+      30%  { transform: rotate(-3deg); }
+      50%  { transform: rotate(2deg); }
+      70%  { transform: rotate(-1deg); }
+      100% { transform: rotate(0deg); }
+    }
+    .anim-wiggle {
+      animation: wiggle 500ms var(--ease-out) both;
+    }
+    
+    /* 18. spotlight — Shadow grows to accent ring, then retreats */
+    @keyframes spotlight {
+      0% {
+        box-shadow: var(--shadow-md);
+      }
+      50% {
+        box-shadow: 0 0 0 6px var(--accent-primary);
+      }
+      100% {
+        box-shadow: var(--shadow-md);
+      }
+    }
+    .anim-spotlight {
+      animation: spotlight 1200ms var(--ease-smooth) both;
+    }
+    
+    /* 19. headbutt — Vertical jump with bounce settle */
+    @keyframes headbutt {
+      0%   { transform: translateY(0); }
+      25%  { transform: translateY(-16px); }
+      50%  { transform: translateY(0); }
+      70%  { transform: translateY(-6px); }
+      100% { transform: translateY(0); }
+    }
+    .anim-headbutt {
+      animation: headbutt 400ms var(--ease-bounce) both;
+    }
+    
+    /* 20. border-march — Marching ants via background-position */
+    @keyframes border-march {
+      0% {
+        background-position: 0 0, 100% 0, 0 100%, 0 0;
+      }
+      100% {
+        background-position: 16px 0, 100% 16px, -16px 100%, 0 -16px;
+      }
+    }
+    .anim-border-march {
+      background-image:
+        repeating-linear-gradient(90deg, var(--text-primary) 0 4px, transparent 4px 8px),
+        repeating-linear-gradient(180deg, var(--text-primary) 0 4px, transparent 4px 8px),
+        repeating-linear-gradient(90deg, var(--text-primary) 0 4px, transparent 4px 8px),
+        repeating-linear-gradient(180deg, var(--text-primary) 0 4px, transparent 4px 8px);
+      background-size: 8px 2px, 2px 8px, 8px 2px, 2px 8px;
+      background-position: 0 0, 100% 0, 0 100%, 0 0;
+      background-repeat: repeat-x, repeat-y, repeat-x, repeat-y;
+      animation: border-march 800ms linear infinite;
+    }
+    
+    
+    /* ========== CATEGORY 4: FEEDBACK ========== */
+    
+    /* 21. confirm-thud — Multi-bounce landing with green flash */
+    @keyframes confirm-thud {
+      0% {
+        transform: scale(0);
+        background-color: var(--accent-green-subtle);
+        opacity: 0;
+      }
+      50% {
+        transform: scale(1.1);
+        opacity: 1;
+      }
+      70% {
+        transform: scale(0.95);
+      }
+      100% {
+        transform: scale(1);
+        background-color: transparent;
+        opacity: 1;
+      }
+    }
+    .anim-confirm-thud {
+      animation: confirm-thud 360ms var(--ease-bounce) both;
+    }
+    
+    /* 22. error-jolt — Horizontal shake with danger flash */
+    @keyframes error-jolt {
+      0%   { transform: translateX(0); background-color: transparent; }
+      20%  { transform: translateX(8px); background-color: var(--accent-danger-subtle); }
+      40%  { transform: translateX(-8px); background-color: transparent; }
+      60%  { transform: translateX(4px); }
+      80%  { transform: translateX(-2px); }
+      100% { transform: translateX(0); }
+    }
+    .anim-error-jolt {
+      animation: error-jolt 500ms linear both;
+    }
+    
+    /* 23. warning-bob — Gentle vertical bob with slight rotation */
+    @keyframes warning-bob {
+      0%   { transform: translateY(0) rotate(0deg); }
+      20%  { transform: translateY(-6px) rotate(1deg); }
+      40%  { transform: translateY(0) rotate(0deg); }
+      60%  { transform: translateY(-3px) rotate(-0.5deg); }
+      80%  { transform: translateY(0) rotate(0deg); }
+      100% { transform: translateY(0) rotate(0deg); }
+    }
+    .anim-warning-bob {
+      animation: warning-bob 600ms var(--ease-smooth) both;
+    }
+    
+    /* 24. info-slide — Slide-in from left with subtle overshoot */
+    @keyframes info-slide {
+      0% {
+        transform: translateX(-30px);
+        opacity: 0;
+      }
+      70% {
+        transform: translateX(4px);
+        opacity: 1;
+      }
+      100% {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+    .anim-info-slide {
+      animation: info-slide 240ms var(--ease-out) both;
+    }
+    
+    /* 25. loading-slam — Bounce for loading dots, stagger via nth-child */
+    @keyframes loading-slam {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      40% {
+        transform: translateY(-20px);
+      }
+      60% {
+        transform: translateY(0);
+      }
+    }
+    .anim-loading-slam {
+      animation: loading-slam 1s var(--ease-bounce) infinite;
+    }
+    .anim-loading-slam:nth-child(2) {
+      animation-delay: 120ms;
+    }
+    .anim-loading-slam:nth-child(3) {
+      animation-delay: 240ms;
+    }
+    
+    /* 26. progress-fill-slam — scaleX with overshoot for progress bars */
+    @keyframes progress-fill-slam {
+      0% {
+        transform: scaleX(0);
+      }
+      85% {
+        transform: scaleX(1.02);
+      }
+      100% {
+        transform: scaleX(1);
+      }
+    }
+    .anim-progress-fill-slam {
+      animation: progress-fill-slam 500ms var(--ease-out) forwards;
+      transform-origin: left;
+    }
+    
+    
+    /* ========== CATEGORY 5: MICRO-INTERACTIONS ========== */
+    
+    /* 27. btn-press — Transition-based utility (not a keyframe) */
+    .micro-btn-press {
+      transition: transform var(--motion-instant) linear,
+                  box-shadow var(--motion-instant) linear;
+      cursor: pointer;
+    }
+    .micro-btn-press:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    .micro-btn-press:active {
+      transform: translateY(1px);
+      box-shadow: var(--shadow-sm);
+    }
+    
+    /* 28. toggle-thwack — Toggle knob slides with squash-stretch */
+    @keyframes toggle-thwack {
+      0% {
+        transform: translateX(0) scaleX(1);
+      }
+      40% {
+        transform: translateX(12px) scaleX(1.3);
+      }
+      100% {
+        transform: translateX(24px) scaleX(1);
+      }
+    }
+    .anim-toggle-thwack {
+      animation: toggle-thwack 240ms var(--ease-bounce) both;
+    }
+    
+    /* 29. check-pop — Checkmark container pops in */
+    @keyframes check-pop {
+      0% {
+        transform: scale(0);
+        opacity: 0;
+      }
+      60% {
+        transform: scale(1.2);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+    .anim-check-pop {
+      animation: check-pop 240ms var(--ease-bounce) both;
+    }
+    
+    /* 30. hover-tilt — Transition-based tilt on hover (not a keyframe) */
+    .micro-hover-tilt {
+      transition: transform var(--motion-fast) var(--ease-smooth);
+    }
+    .micro-hover-tilt:hover {
+      transform: perspective(600px) rotateY(4deg) rotateX(-2deg);
+    }
+    
+    /* 31. drag-lift — Element lifts when dragged */
+    @keyframes drag-lift {
+      0% {
+        transform: scale(1) rotate(0deg);
+        box-shadow: var(--shadow-md);
+      }
+      100% {
+        transform: scale(1.05) rotate(2deg);
+        box-shadow: var(--shadow-lg);
+      }
+    }
+    .anim-drag-lift {
+      animation: drag-lift var(--motion-fast) var(--ease-bounce) both;
+    }
+    
+    /* 32. input-focus-grow — Transition-based focus ring (not a keyframe) */
+    .micro-input-focus {
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow var(--motion-instant) var(--ease-out);
+    }
+    .micro-input-focus:focus,
+    .micro-input-focus:focus-within {
+      box-shadow: 4px 4px 0 var(--accent-primary);
+    }
+    
+    /* 33. resize-grip-pulse — Gentle opacity pulse for resize handles */
+    @keyframes resize-grip-pulse {
+      0%, 100% {
+        opacity: 0.4;
+      }
+      50% {
+        opacity: 1;
+      }
+    }
+    .anim-resize-grip-pulse {
+      animation: resize-grip-pulse 1200ms var(--ease-smooth) infinite;
+    }
+    
+    /* 34. ripple-stamp — Border circle scales out and fades */
+    @keyframes ripple-stamp {
+      0% {
+        transform: scale(0);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(4);
+        opacity: 0;
+      }
+    }
+    .anim-ripple-stamp {
+      border: 2px solid var(--accent-primary);
+      border-radius: 50%;
+      animation: ripple-stamp 400ms var(--ease-out) both;
+      pointer-events: none;
+    }
+    
+    
+    /* ========== CATEGORY 6: LOOPING / AMBIENT ========== */
+    
+    /* 35. hover-orbit — Dot orbits an element via offset-path */
+    @keyframes hover-orbit {
+      0% {
+        offset-distance: 0%;
+        transform: rotate(0deg);
+      }
+      100% {
+        offset-distance: 100%;
+        transform: rotate(-360deg);
+      }
+    }
+    .anim-hover-orbit {
+      offset-path: circle(20px);
+      animation: hover-orbit 4s linear infinite;
+    }
+    
+    /* 36. breathe-shadow — Shadow alternates between sm and md */
+    @keyframes breathe-shadow {
+      0% {
+        box-shadow: var(--shadow-sm);
+      }
+      100% {
+        box-shadow: var(--shadow-md);
+      }
+    }
+    .anim-breathe-shadow {
+      animation: breathe-shadow 3s var(--ease-smooth) infinite alternate;
+    }
+    
+    /* 37. pendulum — Swing from top center */
+    @keyframes pendulum {
+      0%   { transform: rotate(0deg); }
+      25%  { transform: rotate(3deg); }
+      50%  { transform: rotate(0deg); }
+      75%  { transform: rotate(-3deg); }
+      100% { transform: rotate(0deg); }
+    }
+    .anim-pendulum {
+      animation: pendulum 2.5s var(--ease-smooth) infinite;
+      transform-origin: top center;
+    }
+    
+    /* 38. idle-bounce — Gentle vertical bounce */
+    @keyframes idle-bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-4px);
+      }
+    }
+    .anim-idle-bounce {
+      animation: idle-bounce 2s var(--ease-bounce) infinite;
+    }
+    
+    /* 39. ticker-scroll — Horizontal text scroll */
+    @keyframes ticker-scroll {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-100%);
+      }
+    }
+    .anim-ticker-scroll {
+      animation: ticker-scroll 15s linear infinite;
+      white-space: nowrap;
+    }
+    
+    
+    /* ========== CATEGORY 7: TEXT ========== */
+    
+    /* 40. typewriter-mono — Width expands with steps, blinking cursor */
+    @keyframes typewriter-mono {
+      0% {
+        width: 0;
+      }
+      100% {
+        width: 100%;
+      }
+    }
+    @keyframes typewriter-cursor-blink {
+      0%, 100% {
+        border-right-color: var(--text-primary);
+      }
+      50% {
+        border-right-color: transparent;
+      }
+    }
+    .anim-typewriter-mono {
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 2px solid var(--text-primary);
+      width: 0;
+      animation:
+        typewriter-mono 2s steps(20, end) forwards,
+        typewriter-cursor-blink 700ms steps(1) infinite;
+    }
+    
+    /* 41. text-stamp — Per-character drop-in. 40ms stagger via JS. */
+    @keyframes text-stamp {
+      0% {
+        transform: translateY(-20px);
+        opacity: 0;
+      }
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    .anim-text-stamp {
+      animation: text-stamp 200ms var(--ease-bounce) both;
+    }
+    
+    /* 42. text-scramble — JS-driven, no keyframe needed */
+    /* text-scramble: Implement via JS. Randomize characters before resolving to final text. */
+    
+    /* 43. underline-draw — Underline draws in from left on hover */
+    .text-underline-draw {
+      position: relative;
+      display: inline-block;
+    }
+    .text-underline-draw::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--accent-primary);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 240ms var(--ease-out);
+    }
+    .text-underline-draw:hover::after {
+      transform: scaleX(1);
+    }
+    
+    /* 44. highlight-sweep — Background sweeps in from left */
+    @keyframes highlight-sweep {
+      0% {
+        background-size: 0% 100%;
+      }
+      100% {
+        background-size: 100% 100%;
+      }
+    }
+    .anim-highlight-sweep {
+      background-image: linear-gradient(var(--accent-gold-subtle), var(--accent-gold-subtle));
+      background-repeat: no-repeat;
+      background-position: left;
+      animation: highlight-sweep 400ms var(--ease-out) both;
+    }
+    
+    
+    /* ========== CATEGORY 8: PHYSICS ========== */
+    
+    /* 45. spring-snap — Damped spring oscillation */
+    @keyframes spring-snap {
+      0% {
+        transform: translateX(-100px);
+      }
+      40% {
+        transform: translateX(8px);
+      }
+      60% {
+        transform: translateX(-4px);
+      }
+      80% {
+        transform: translateX(2px);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+    .anim-spring-snap {
+      animation: spring-snap 400ms var(--ease-elastic) both;
+    }
+    
+    /* 46. gravity-drop — Accelerating fall with multi-bounce */
+    @keyframes gravity-drop {
+      0% {
+        transform: translateY(-200px);
+        opacity: 0;
+      }
+      15% {
+        opacity: 1;
+      }
+      40% {
+        transform: translateY(0);
+      }
+      55% {
+        transform: translateY(-30px);
+      }
+      70% {
+        transform: translateY(0);
+      }
+      80% {
+        transform: translateY(-8px);
+      }
+      100% {
+        transform: translateY(0);
+      }
+    }
+    .anim-gravity-drop {
+      animation: gravity-drop 500ms cubic-bezier(0.4, 0, 1, 1) both;
+    }
+    
+    /* 47. rubber-band — Squash and stretch */
+    @keyframes rubber-band {
+      0% {
+        transform: scaleX(1) scaleY(1);
+      }
+      25% {
+        transform: scaleX(1.3) scaleY(0.8);
+      }
+      50% {
+        transform: scaleX(0.85) scaleY(1.15);
+      }
+      75% {
+        transform: scaleX(1.05) scaleY(0.95);
+      }
+      100% {
+        transform: scaleX(1) scaleY(1);
+      }
+    }
+    .anim-rubber-band {
+      animation: rubber-band 500ms var(--ease-bounce) both;
+    }
+    
+    /* 48. magnetic-snap — JS-driven, no keyframe needed */
+    /* magnetic-snap: Implement via JS. Element is attracted to cursor within a radius threshold, snapping to nearest grid/anchor point. */
+    
+    /* 49. momentum-scroll — JS-driven, no keyframe needed */
+    /* momentum-scroll: Implement via JS. Apply deceleration curve to scroll velocity after user releases, simulating physical momentum. */
+    
+    
+    /* ========== CATEGORY 9: SCROLL-DRIVEN ========== */
+    
+    @supports (animation-timeline: scroll()) {
+    
+      /* 50. scroll-stamp-in — stamp-in triggered by scroll */
+      /* Reuses @keyframes stamp-in from Category 1 */
+      .scroll-anim-stamp-in {
+        animation: stamp-in linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 100%;
+      }
+    
+      /* 51. scroll-parallax-shadow — Shadow depth tied to scroll position */
+      @keyframes scroll-parallax-shadow {
+        0% {
+          box-shadow: var(--shadow-sm);
+        }
+        50% {
+          box-shadow: var(--shadow-lg);
+        }
+        100% {
+          box-shadow: var(--shadow-sm);
+        }
+      }
+      .scroll-anim-parallax-shadow {
+        animation: scroll-parallax-shadow linear both;
+        animation-timeline: view();
+      }
+    
+      /* 52. scroll-reveal-wipe — clip-path reveal tied to scroll */
+      /* Reuses @keyframes shutter-reveal from Category 1 */
+      .scroll-anim-reveal-wipe {
+        animation: shutter-reveal linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 100%;
+      }
+    
+      /* 53. scroll-rotate-in — Rotate and fade on scroll entry */
+      @keyframes scroll-rotate-in {
+        0% {
+          transform: rotate(12deg);
+          opacity: 0;
+        }
+        100% {
+          transform: rotate(0deg);
+          opacity: 1;
+        }
+      }
+      .scroll-anim-rotate-in {
+        animation: scroll-rotate-in linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 100%;
+      }
+    
+      /* 54. scroll-progress-track — Progress bar at page top */
+      @keyframes scroll-progress-track {
+        0% {
+          transform: scaleX(0);
+          background-color: var(--accent-primary);
+        }
+        99% {
+          background-color: var(--accent-primary);
+        }
+        100% {
+          transform: scaleX(1);
+          background-color: var(--accent-green);
+        }
+      }
+      .scroll-anim-progress-track {
+        transform-origin: left;
+        animation: scroll-progress-track linear both;
+        animation-timeline: scroll();
+      }
+    
+    } /* end @supports (animation-timeline: scroll()) */
+    
+    
+    /* ========== CATEGORY 10: TRANSITIONS ========== */
+    
+    /* 55. morph-expand — Circle morphs to rounded rectangle */
+    @keyframes morph-expand {
+      0% {
+        border-radius: 50%;
+        transform: scale(0.5);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        border-radius: var(--radius-md);
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+    .anim-morph-expand {
+      animation: morph-expand 360ms var(--ease-bounce) both;
+    }
+    
+    /* 56. state-swap — Paired exit/enter for state changes */
+    @keyframes state-swap-out {
+      0% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10px);
+        opacity: 0;
+      }
+    }
+    @keyframes state-swap-in {
+      0% {
+        transform: translateY(10px);
+        opacity: 0;
+      }
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    .anim-state-swap-out {
+      animation: state-swap-out 160ms var(--ease-out) both;
+    }
+    .anim-state-swap-in {
+      animation: state-swap-in 160ms var(--ease-out) both;
+    }
+    
+    /* 57. accordion-squish — Grid-based smooth height animation */
+    .accordion-squish {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 240ms var(--ease-smooth);
+    }
+    .accordion-squish > * {
+      overflow: hidden;
+    }
+    .accordion-squish.accordion-open {
+      grid-template-rows: 1fr;
+    }
+    
+    /* 58. card-flip — 3D card flip with backface hidden */
+    @keyframes card-flip-front {
+      0% {
+        transform: perspective(600px) rotateY(0deg);
+      }
+      100% {
+        transform: perspective(600px) rotateY(180deg);
+      }
+    }
+    @keyframes card-flip-back {
+      0% {
+        transform: perspective(600px) rotateY(-180deg);
+      }
+      100% {
+        transform: perspective(600px) rotateY(0deg);
+      }
+    }
+    .anim-card-flip-front {
+      animation: card-flip-front 360ms var(--ease-smooth) both;
+      backface-visibility: hidden;
+    }
+    .anim-card-flip-back {
+      animation: card-flip-back 360ms var(--ease-smooth) both;
+      backface-visibility: hidden;
+    }
+    
+    /* 59. collapse-to-chip — Card compresses to chip */
+    @keyframes collapse-to-chip {
+      0% {
+        transform: scale(1);
+        border-radius: var(--radius-md);
+        opacity: 1;
+      }
+      60% {
+        opacity: 0.6;
+      }
+      100% {
+        transform: scale(0.4, 0.3);
+        border-radius: var(--radius-full);
+        opacity: 0;
+      }
+    }
+    .anim-collapse-to-chip {
+      animation: collapse-to-chip 360ms var(--ease-out) both;
+    }
+    
+    } /* end @media (prefers-reduced-motion: no-preference) */
+
+  </style>
+</head>
+<body>
+  <div class="scroll-progress" aria-hidden="true"></div>
+
+  <!-- NAV -->
+  <nav class="topnav" role="navigation" aria-label="Motion system navigation">
+    <div class="topnav-inner">
+      <a href="#" class="topnav-brand">
+        <span class="brand-dots">
+          <span class="brand-dot" style="background:var(--accent-primary)"></span>
+          <span class="brand-dot" style="background:var(--accent-gold)"></span>
+          <span class="brand-dot" style="background:var(--accent-cyan)"></span>
+        </span>
+        Delightful Motion
+      </a>
+      <ul class="nav-links">
+        <li><a href="#tokens">Tokens</a></li>
+        <li><a href="#entrances">Entrances</a></li>
+        <li><a href="#exits">Exits</a></li>
+        <li><a href="#attention">Attention</a></li>
+        <li><a href="#feedback">Feedback</a></li>
+        <li><a href="#micro">Micro</a></li>
+        <li><a href="#looping">Looping</a></li>
+        <li><a href="#text">Text</a></li>
+        <li><a href="#physics">Physics</a></li>
+        <li><a href="#scroll-driven">Scroll</a></li>
+        <li><a href="#transitions">Transitions</a></li>
+        <li><a href="#combos">Combos</a></li>
+      </ul>
+      <div class="nav-right">
+        <kbd class="nav-kbd" id="cmd-k-trigger" title="Quick navigation">&#8984;K</kbd>
+        <a href="delightful-design-system.html" class="nav-btn" aria-label="Design System" title="Design System">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        </a>
+        <button class="nav-btn" id="motion-toggle" aria-label="Toggle reduced motion">
+          <svg class="icon-motion-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14"/><polyline points="12 5 19 12 12 19"/></svg>
+          <svg class="icon-motion-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <button class="nav-btn" id="theme-toggle" aria-label="Toggle dark mode">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="page-wrap">
+
+    <!-- HERO -->
+    <section class="hero anim-in">
+      <h1 class="hero-title" id="hero-title">Delightful Motion</h1>
+      <p class="hero-subtitle anim-in anim-d3">Objects have weight. Shadows show depth. Movements are snappy and decisive.</p>
+      <p class="hero-crosslink anim-in anim-d4" style="margin-top:var(--space-2);font-size:var(--ui-text-sm);color:var(--text-muted)">Part of the <a href="delightful-design-system.html" style="color:var(--accent-primary-text);text-decoration:underline;text-underline-offset:2px">Delightful Design System</a></p>
+      <div class="hero-dots anim-in anim-d5">
+        <span class="hero-dot" style="background:var(--accent-primary)"></span>
+        <span class="hero-dot" style="background:var(--accent-gold)"></span>
+        <span class="hero-dot" style="background:var(--accent-cyan)"></span>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         TOKEN REFERENCE
+         ================================================================ -->
+    <section id="tokens" class="motion-section anim-in anim-d4">
+      <div class="section-header">
+        <div class="section-overline"><span class="status-dot" style="background:var(--accent-gold)"></span> Token Reference</div>
+        <h2 class="section-title">Duration and easing tokens</h2>
+        <p class="section-desc">The motion system is built on five durations and five easing curves. Every animation references these tokens — never raw values.</p>
+      </div>
+
+      <div class="subsection">
+        <div class="subsection-label">Duration Scale</div>
+        <div style="background:var(--bg-surface);border:2px solid var(--border-default);border-radius:var(--radius-md);padding:var(--space-4) var(--space-6);box-shadow:var(--shadow-sm)">
+          <div class="token-ref-duration-row">
+            <div class="token-ref-duration-meta"><span class="token-ref-duration-name">--motion-instant</span><span class="token-ref-duration-value">100ms</span></div>
+            <div class="token-ref-duration-bar-wrap"><div class="token-ref-duration-bar" style="width:20%"><div class="token-ref-duration-bar-fill" style="background:var(--accent-primary)"></div></div></div>
+            <div class="token-ref-duration-use">Hover color, press scale</div>
+          </div>
+          <div class="token-ref-duration-row">
+            <div class="token-ref-duration-meta"><span class="token-ref-duration-name">--motion-fast</span><span class="token-ref-duration-value">160ms</span></div>
+            <div class="token-ref-duration-bar-wrap"><div class="token-ref-duration-bar" style="width:32%"><div class="token-ref-duration-bar-fill" style="background:var(--accent-gold)"></div></div></div>
+            <div class="token-ref-duration-use">Toggle, checkbox, tooltip</div>
+          </div>
+          <div class="token-ref-duration-row">
+            <div class="token-ref-duration-meta"><span class="token-ref-duration-name">--motion-base</span><span class="token-ref-duration-value">240ms</span></div>
+            <div class="token-ref-duration-bar-wrap"><div class="token-ref-duration-bar" style="width:48%"><div class="token-ref-duration-bar-fill" style="background:var(--accent-cyan)"></div></div></div>
+            <div class="token-ref-duration-use">Card hover, popover, shake</div>
+          </div>
+          <div class="token-ref-duration-row">
+            <div class="token-ref-duration-meta"><span class="token-ref-duration-name">--motion-slow</span><span class="token-ref-duration-value">360ms</span></div>
+            <div class="token-ref-duration-bar-wrap"><div class="token-ref-duration-bar" style="width:72%"><div class="token-ref-duration-bar-fill" style="background:var(--accent-primary)"></div></div></div>
+            <div class="token-ref-duration-use">Modal entry, drawer slide</div>
+          </div>
+          <div class="token-ref-duration-row">
+            <div class="token-ref-duration-meta"><span class="token-ref-duration-name">--motion-deliberate</span><span class="token-ref-duration-value">500ms</span></div>
+            <div class="token-ref-duration-bar-wrap"><div class="token-ref-duration-bar" style="width:100%"><div class="token-ref-duration-bar-fill" style="background:var(--accent-gold)"></div></div></div>
+            <div class="token-ref-duration-use">Page transitions, choreography</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <div class="subsection-label">Easing Curves</div>
+        <div class="subsection-desc">Each SVG plots the curve. The animated dot traverses using the curve's own timing function.</div>
+        <div class="token-ref-easing-grid">
+          <div class="token-ref-easing-card">
+            <div class="token-ref-easing-card-title">--ease-out</div>
+            <div class="token-ref-easing-card-value">cubic-bezier(0.16, 1, 0.3, 1)</div>
+            <div class="token-ref-easing-svg-wrap">
+              <svg width="120" height="120" viewBox="0 0 120 120" fill="none"><line x1="10" y1="10" x2="10" y2="110" stroke="var(--border-subtle)" stroke-width="1"/><line x1="10" y1="110" x2="110" y2="110" stroke="var(--border-subtle)"/><line x1="10" y1="110" x2="110" y2="10" stroke="var(--border-subtle)" stroke-dasharray="4 4"/><path d="M 10 110 C 26.4 10 40 10 110 10" stroke="var(--accent-primary)" stroke-width="2.5" stroke-linecap="round" fill="none"/><circle class="curve-dot" data-curve="ease-out" cx="0" cy="0" r="5"/></svg>
+            </div>
+            <div class="token-ref-easing-card-desc">Exits, fades, hover states. Fast start, gentle stop.</div>
+          </div>
+          <div class="token-ref-easing-card">
+            <div class="token-ref-easing-card-title">--ease-bounce</div>
+            <div class="token-ref-easing-card-value">cubic-bezier(0.34, 1.56, 0.64, 1)</div>
+            <div class="token-ref-easing-svg-wrap">
+              <svg width="120" height="120" viewBox="0 0 120 120" fill="none"><line x1="10" y1="10" x2="10" y2="110" stroke="var(--border-subtle)"/><line x1="10" y1="110" x2="110" y2="110" stroke="var(--border-subtle)"/><line x1="10" y1="110" x2="110" y2="10" stroke="var(--border-subtle)" stroke-dasharray="4 4"/><path d="M 10 110 C 44.4 -46.6 74.4 10 110 10" stroke="var(--accent-gold)" stroke-width="2.5" stroke-linecap="round" fill="none"/><circle class="curve-dot" data-curve="ease-bounce" cx="0" cy="0" r="5"/></svg>
+            </div>
+            <div class="token-ref-easing-card-desc">Entrances, attention, playful interactions. Overshoots then settles.</div>
+          </div>
+          <div class="token-ref-easing-card">
+            <div class="token-ref-easing-card-title">--ease-smooth</div>
+            <div class="token-ref-easing-card-value">cubic-bezier(0.22, 1, 0.36, 1)</div>
+            <div class="token-ref-easing-svg-wrap">
+              <svg width="120" height="120" viewBox="0 0 120 120" fill="none"><line x1="10" y1="10" x2="10" y2="110" stroke="var(--border-subtle)"/><line x1="10" y1="110" x2="110" y2="110" stroke="var(--border-subtle)"/><line x1="10" y1="110" x2="110" y2="10" stroke="var(--border-subtle)" stroke-dasharray="4 4"/><path d="M 10 110 C 32 10 46 10 110 10" stroke="var(--accent-cyan)" stroke-width="2.5" stroke-linecap="round" fill="none"/><circle class="curve-dot" data-curve="ease-smooth" cx="0" cy="0" r="5"/></svg>
+            </div>
+            <div class="token-ref-easing-card-desc">Page transitions, modal reveals. Smooth deceleration.</div>
+          </div>
+          <div class="token-ref-easing-card" style="border-color:var(--accent-danger)">
+            <div class="token-ref-easing-card-title">--ease-slam</div>
+            <div class="token-ref-easing-card-value">cubic-bezier(0.55, 0.06, 0.68, 0.19)</div>
+            <div class="token-ref-easing-svg-wrap">
+              <svg width="120" height="120" viewBox="0 0 120 120" fill="none"><line x1="10" y1="10" x2="10" y2="110" stroke="var(--border-subtle)"/><line x1="10" y1="110" x2="110" y2="110" stroke="var(--border-subtle)"/><line x1="10" y1="110" x2="110" y2="10" stroke="var(--border-subtle)" stroke-dasharray="4 4"/><path d="M 10 110 C 65 104 78 91 110 10" stroke="var(--accent-danger)" stroke-width="2.5" stroke-linecap="round" fill="none"/><circle class="curve-dot" data-curve="ease-slam" cx="0" cy="0" r="5"/></svg>
+            </div>
+            <div class="token-ref-easing-card-desc">Fast-in, abrupt stop. Dismissals, snapping, slam-down effects.</div>
+          </div>
+          <div class="token-ref-easing-card" style="border-color:var(--accent-green)">
+            <div class="token-ref-easing-card-title">--ease-elastic</div>
+            <div class="token-ref-easing-card-value">cubic-bezier(0.68, -0.55, 0.265, 1.55)</div>
+            <div class="token-ref-easing-svg-wrap">
+              <svg width="120" height="120" viewBox="0 0 120 120" fill="none"><line x1="10" y1="10" x2="10" y2="110" stroke="var(--border-subtle)"/><line x1="10" y1="110" x2="110" y2="110" stroke="var(--border-subtle)"/><line x1="10" y1="110" x2="110" y2="10" stroke="var(--border-subtle)" stroke-dasharray="4 4"/><path d="M 10 110 C 78 165 36.5 -45 110 10" stroke="var(--accent-green)" stroke-width="2.5" stroke-linecap="round" fill="none"/><circle class="curve-dot" data-curve="ease-elastic" cx="0" cy="0" r="5"/></svg>
+            </div>
+            <div class="token-ref-easing-card-desc">Exaggerated overshoot. Pulls back before launching forward.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         CATEGORY 1: ENTRANCES
+         ================================================================ -->
+    <section id="entrances" class="motion-section anim-in anim-d5">
+      <div class="section-header">
+        <div class="section-overline"><span class="status-dot" style="background:var(--accent-primary)"></span> Category 1</div>
+        <h2 class="section-title">Entrances</h2>
+        <p class="section-desc">First impressions. Objects arrive with weight — dropping, stamping, slamming into place.</p>
+        <div class="section-actions"><button class="play-all-btn" data-section="entrances">Play All</button></div>
+      </div>
+      <div class="card-grid">
+        <div class="motion-card" data-animation="stamp-in" data-category="entrances">
+          <div class="motion-card-demo"><div class="demo-element">Stamp</div></div>
+          <div class="motion-card-body">
+            <div class="motion-card-top"><span class="motion-card-name">stamp-in</span><button class="play-btn">Play</button></div>
+            <p class="motion-card-desc">Scale 1.4 to 1 + Y drop, shadow appears on impact</p>
+            <div class="motion-card-meta">360ms · bounce</div>
+            <div class="motion-card-tags"><span class="tag">hero</span><span class="tag">modal</span></div>
+            <button class="code-toggle-btn">Show CSS</button>
+            <div class="motion-card-code" hidden><pre><code>@keyframes stamp-in {
+  0% { transform: scale(1.4) translateY(-20px); box-shadow: 0 0 0 transparent; opacity: 0; }
+  60% { opacity: 1; }
+  100% { transform: scale(1) translateY(0); box-shadow: var(--shadow-md); opacity: 1; }
+}
+.anim-stamp-in { animation: stamp-in 360ms var(--ease-bounce) both; }</code></pre><button class="copy-btn">Copy</button></div>
+          </div>
+        </div>
+        <div class="motion-card" data-animation="drop-in" data-category="entrances">
+          <div class="motion-card-demo"><div class="demo-element">Drop</div></div>
+          <div class="motion-card-body">
+            <div class="motion-card-top"><span class="motion-card-name">drop-in</span><button class="play-btn">Play</button></div>
+            <p class="motion-card-desc">Falls from above with slight rotation, bounces at landing</p>
+            <div class="motion-card-meta">360ms · bounce</div>
+            <div class="motion-card-tags"><span class="tag">card</span><span class="tag">notification</span></div>
+            <button class="code-toggle-btn">Show CSS</button>
+            <div class="motion-card-code" hidden><pre><code>@keyframes drop-in {
+  0% { transform: translateY(-60px) rotate(2deg); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateY(0) rotate(0deg); opacity: 1; }
+}
+.anim-drop-in { animation: drop-in 360ms var(--ease-bounce) both; }</code></pre><button class="copy-btn">Copy</button></div>
+          </div>
+        </div>
+        <div class="motion-card" data-animation="slide-slam" data-category="entrances">
+          <div class="motion-card-demo"><div class="demo-element">Slam</div></div>
+          <div class="motion-card-body">
+            <div class="motion-card-top"><span class="motion-card-name">slide-slam</span><button class="play-btn">Play</button></div>
+            <p class="motion-card-desc">Slides from left with rotation, corrects sharply</p>
+            <div class="motion-card-meta">360ms · out</div>
+            <div class="motion-card-tags"><span class="tag">drawer</span><span class="tag">panel</span></div>
+            <button class="code-toggle-btn">Show CSS</button>
+            <div class="motion-card-code" hidden><pre><code>@keyframes slide-slam {
+  0% { transform: translateX(-100px) rotate(-3deg); opacity: 0; }
+  100% { transform: translateX(0) rotate(0deg); opacity: 1; }
+}
+.anim-slide-slam { animation: slide-slam 360ms var(--ease-out) both; }</code></pre><button class="copy-btn">Copy</button></div>
+          </div>
+        </div>
+        <div class="motion-card" data-animation="punch-up" data-category="entrances">
+          <div class="motion-card-demo"><div class="demo-element">Punch</div></div>
+          <div class="motion-card-body">
+            <div class="motion-card-top"><span class="motion-card-name">punch-up</span><button class="play-btn">Play</button></div>
+            <p class="motion-card-desc">Punches up from below past resting point, then settles</p>
+            <div class="motion-card-meta">240ms · bounce</div>
+            <div class="motion-card-tags"><span class="tag">tooltip</span><span class="tag">popover</span></div>
+            <button class="code-toggle-btn">Show CSS</button>
+            <div class="motion-card-code" hidden><pre><code>@keyframes punch-up {
+  0% { transform: translateY(40px); opacity: 0; }
+  70% { transform: translateY(-8px); }
+  100% { transform: translateY(0); opacity: 1; }
+}
+.anim-punch-up { animation: punch-up 240ms var(--ease-bounce) both; }</code></pre><button class="copy-btn">Copy</button></div>
+          </div>
+        </div>
+        <div class="motion-card" data-animation="unfold" data-category="entrances">
+          <div class="motion-card-demo"><div class="demo-element" style="height:72px">Unfold</div></div>
+          <div class="motion-card-body">
+            <div class="motion-card-top"><span class="motion-card-name">unfold</span><button class="play-btn">Play</button></div>
+            <p class="motion-card-desc">ScaleY from top, paper-unfolding feel</p>
+            <div class="motion-card-meta">240ms · smooth</div>
+            <div class="motion-card-tags"><span class="tag">accordion</span><span class="tag">menu</span></div>
+            <button class="code-toggle-btn">Show CSS</button>
+            <div class="motion-card-code" hidden><pre><code>@keyframes unfold {
+  0% { transform: scaleY(0); opacity: 0; }
+  100% { transform: scaleY(1); opacity: 1; }
+}
+.anim-unfold { animation: unfold 240ms var(--ease-smooth) both; transform-origin: top; }</code></pre><button class="copy-btn">Copy</button></div>
+          </div>
+        </div>
+        <div class="motion-card" data-animation="brick-stack" data-category="entrances">
+          <div class="motion-card-demo">
+            <div style="display:flex;gap:var(--space-2)">
+              <div class="demo-element" style="width:40px;height:40px;font-size:var(--ui-text-xs)">1</div>
+              <div class="demo-element" style="width:40px;height:40px;font-size:var(--ui-text-xs)">2</div>
+              <div class="demo-element" style="width:40px;height:40px;font-size:var(--ui-text-xs)">3</div>
+            </div>
+          </div>
+          <div class="motion-card-body">
+            <div class="motion-card-top"><span class="motion-card-name">brick-stack</span><button class="play-btn">Play</button></div>
+            <p class="motion-card-desc">Simple drop-in with 60ms stagger per child</p>
+            <div class="motion-card-meta">160ms · out · stagger</div>
+            <div class="motion-card-tags"><span class="tag">list</span><span class="tag">grid</span></div>
+            <button class="code-toggle-btn">Show CSS</button>
+            <div class="motion-card-code" hidden><pre><code>@keyframes brick-stack {
+  0% { transform: translateY(20px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+.anim-brick-stack { animation: brick-stack 160ms var(--ease-out) both; }</code></pre><button class="copy-btn">Copy</button></div>
+          </div>
+        </div>
+        <div class="motion-card" data-animation="pop-stamp" data-category="entrances">
+          <div class="motion-card-demo"><div class="demo-element">Pop</div></div>
+          <div class="motion-card-body">
+            <div class="motion-card-top"><span class="motion-card-name">pop-stamp</span><button class="play-btn">Play</button></div>
+            <p class="motion-card-desc">Scale 0 to 1.15 to 1 with radius morph (circle to rect)</p>
+            <div class="motion-card-meta">360ms · bounce</div>
+            <div class="motion-card-tags"><span class="tag">badge</span><span class="tag">notification</span></div>
+            <button class="code-toggle-btn">Show CSS</button>
+            <div class="motion-card-code" hidden><pre><code>@keyframes pop-stamp {
+  0% { transform: scale(0); border-radius: 50%; opacity: 0; }
+  60% { transform: scale(1.15); opacity: 1; }
+  100% { transform: scale(1); border-radius: var(--radius-md); opacity: 1; }
+}
+.anim-pop-stamp { animation: pop-stamp 360ms var(--ease-bounce) both; }</code></pre><button class="copy-btn">Copy</button></div>
+          </div>
+        </div>
+        <div class="motion-card" data-animation="shutter-reveal" data-category="entrances">
+          <div class="motion-card-demo"><div class="demo-element demo-element-wide">Reveal</div></div>
+          <div class="motion-card-body">
+            <div class="motion-card-top"><span class="motion-card-name">shutter-reveal</span><button class="play-btn">Play</button></div>
+            <p class="motion-card-desc">Clip-path wipe from left to right</p>
+            <div class="motion-card-meta">360ms · out</div>
+            <div class="motion-card-tags"><span class="tag">image</span><span class="tag">content</span></div>
+            <button class="code-toggle-btn">Show CSS</button>
+            <div class="motion-card-code" hidden><pre><code>@keyframes shutter-reveal {
+  0% { clip-path: inset(0 100% 0 0); }
+  100% { clip-path: inset(0 0 0 0); }
+}
+.anim-shutter-reveal { animation: shutter-reveal 360ms var(--ease-out) both; }</code></pre><button class="copy-btn">Copy</button></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         CATEGORY 2: EXITS
+         ================================================================ -->
+    <section id="exits" class="motion-section anim-in anim-d6">
+      <div class="section-header">
+        <div class="section-overline"><span class="status-dot" style="background:var(--accent-danger)"></span> Category 2</div>
+        <h2 class="section-title">Exits</h2>
+        <p class="section-desc">Clean departures. Objects leave with intention — flung, pressed, crumpled away.</p>
+        <div class="section-actions"><button class="play-all-btn" data-section="exits">Play All</button></div>
+      </div>
+      <div class="card-grid">
+        <div class="motion-card" data-animation="fling-right" data-category="exits">
+          <div class="motion-card-demo"><div class="demo-element">Fling</div></div>
+          <div class="motion-card-body">
+            <div class="motion-card-top"><span class="motion-card-name">fling-right</span><button class="play-btn">Play</button></div>
+            <p class="motion-card-desc">Thrown right with 8deg rotation, fades out</p>
+            <div class="motion-card-meta">240ms · out</div>
+            <div class="motion-card-tags"><span class="tag">dismiss</span><span class="tag">swipe</span></div>
+            <button class="code-toggle-btn">Show CSS</button>
+            <div class="motion-card-code" hidden><pre><code>@keyframes fling-right {
+  0% { transform: translateX(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateX(200px) rotate(8deg); opacity: 0; }
+}</code></pre><button class="copy-btn">Copy</button></div>
+          </div>
+        </div>
+        <div class="motion-card" data-animation="press-away" data-category="exits">
+          <div class="motion-card-demo"><div class="demo-element">Press</div></div>
+          <div class="motion-card-body">
+            <div class="motion-card-top"><span class="motion-card-name">press-away</span><button class="play-btn">Play</button></div>
+            <p class="motion-card-desc">Pressed into surface, shadow collapses, fades</p>
+            <div class="motion-card-meta">240ms · out</div>
+            <div class="motion-card-tags"><span class="tag">close</span><span class="tag">modal</span></div>
+            <button class="code-toggle-btn">Show CSS</button>
+            <div class="motion-card-code" hidden><pre><code>@keyframes press-away {
+  0% { transform: scale(1); box-shadow: var(--shadow-md); opacity: 1; }
+  100% { transform: scale(0.9); box-shadow: 0 0 0 transparent; opacity: 0; }
+}</code></pre><button class="copy-btn">Copy</button></div>
+          </div>
+        </div>
+        <div class="motion-card" data-animation="crumple" data-category="exits">
+          <div class="motion-card-demo"><div class="demo-element">Crumple</div></div>
+          <div class="motion-card-body">
+            <div class="motion-card-top"><span class="motion-card-name">crumple</span><button class="play-btn">Play</button></div>
+            <p class="motion-card-desc">Scale down + alternating rotation, like crumpling paper</p>
+            <div class="motion-card-meta">360ms · slam</div>
+            <div class="motion-card-tags"><span class="tag">delete</span><span class="tag">discard</span></div>
+            <button class="code-toggle-btn">Show CSS</button>
+            <div class="motion-card-code" hidden><pre><code>@keyframes crumple {
+  0% { transform: scale(1) rotate(0deg); opacity: 1; }
+  40% { transform: scale(0.6) rotate(-3deg); }
+  100% { transform: scale(0.3) rotate(0deg); opacity: 0; }
+}</code></pre><button class="copy-btn">Copy</button></div>
+          </div>
+        </div>
+        <div class="motion-card" data-animation="trapdoor" data-category="exits">
+          <div class="motion-card-demo"><div class="demo-element">Trap</div></div>
+          <div class="motion-card-body">
+            <div class="motion-card-top"><span class="motion-card-name">trapdoor</span><button class="play-btn">Play</button></div>
+            <p class="motion-card-desc">Hinges from bottom edge via perspective rotateX</p>
+            <div class="motion-card-meta">300ms · slam</div>
+            <div class="motion-card-tags"><span class="tag">remove</span><span class="tag">list</span></div>
+            <button class="code-toggle-btn">Show CSS</button>
+            <div class="motion-card-code" hidden><pre><code>@keyframes trapdoor {
+  0% { transform: perspective(600px) rotateX(0deg); opacity: 1; }
+  100% { transform: perspective(600px) rotateX(90deg); opacity: 0; }
+}</code></pre><button class="copy-btn">Copy</button></div>
+          </div>
+        </div>
+        <div class="motion-card" data-animation="snap-shrink" data-category="exits">
+          <div class="motion-card-demo"><div class="demo-element">Snap</div></div>
+          <div class="motion-card-body">
+            <div class="motion-card-top"><span class="motion-card-name">snap-shrink</span><button class="play-btn">Play</button></div>
+            <p class="motion-card-desc">Scale to 0, instant and decisive</p>
+            <div class="motion-card-meta">160ms · out</div>
+            <div class="motion-card-tags"><span class="tag">quick</span><span class="tag">chip</span></div>
+            <button class="code-toggle-btn">Show CSS</button>
+            <div class="motion-card-code" hidden><pre><code>@keyframes snap-shrink {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(0); opacity: 0; }
+}</code></pre><button class="copy-btn">Copy</button></div>
+          </div>
+        </div>
+        <div class="motion-card" data-animation="gravity-fall" data-category="exits">
+          <div class="motion-card-demo"><div class="demo-element">Fall</div></div>
+          <div class="motion-card-body">
+            <div class="motion-card-top"><span class="motion-card-name">gravity-fall</span><button class="play-btn">Play</button></div>
+            <p class="motion-card-desc">Detaches from surface, accelerates downward with tumble</p>
+            <div class="motion-card-meta">500ms · slam</div>
+            <div class="motion-card-tags"><span class="tag">dramatic</span><span class="tag">error</span></div>
+            <button class="code-toggle-btn">Show CSS</button>
+            <div class="motion-card-code" hidden><pre><code>@keyframes gravity-fall {
+  0% { transform: translateY(0) rotate(0deg); box-shadow: var(--shadow-md); opacity: 1; }
+  100% { transform: translateY(300px) rotate(12deg); box-shadow: none; opacity: 0; }
+}</code></pre><button class="copy-btn">Copy</button></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         CATEGORY 3: ATTENTION
+         ================================================================ -->
+    <section id="attention" class="motion-section anim-in anim-d7">
+      <div class="section-header">
+        <div class="section-overline"><span class="status-dot" style="background:var(--accent-gold)"></span> Category 3</div>
+        <h2 class="section-title">Attention</h2>
+        <p class="section-desc">Look here. Shakes, pulses, and wiggles that grab focus without being obnoxious.</p>
+        <div class="section-actions"><button class="play-all-btn" data-section="attention">Play All</button></div>
+      </div>
+      <div class="card-grid">
+        <div class="motion-card" data-animation="knock" data-category="attention">
+          <div class="motion-card-demo"><div class="demo-element">Knock</div></div>
+          <div class="motion-card-body">
+            <div class="motion-card-top"><span class="motion-card-name">knock</span><button class="play-btn">Play</button></div>
+            <p class="motion-card-desc">Front-loaded horizontal shake, settles fast</p>
+            <div class="motion-card-meta">400ms · linear</div>
+            <button class="code-toggle-btn">Show CSS</button>
+            <div class="motion-card-code" hidden><pre><code>@keyframes knock {
+  0% { transform: translateX(0); } 15% { transform: translateX(12px); }
+  30% { transform: translateX(-10px); } 50% { transform: translateX(6px); }
+  70% { transform: translateX(-3px); } 100% { transform: translateX(0); }
+}</code></pre><button class="copy-btn">Copy</button></div>
+          </div>
+        </div>
+        <div class="motion-card" data-animation="stamp-pulse" data-category="attention">
+          <div class="motion-card-demo"><div class="demo-element">Pulse</div></div>
+          <div class="motion-card-body">
+            <div class="motion-card-top"><span class="motion-card-name">stamp-pulse</span><button class="play-btn">Play</button></div>
+            <p class="motion-card-desc">Scale up (shadow grows), compress (shadow collapses), settle</p>
+            <div class="motion-card-meta">500ms · bounce</div>
+            <button class="code-toggle-btn">Show CSS</button>
+            <div class="motion-card-code" hidden><pre><code>@keyframes stamp-pulse {
+  0% { transform: scale(1); box-shadow: var(--shadow-md); }
+  35% { transform: scale(1.08); box-shadow: var(--shadow-lg); }
+  65% { transform: scale(0.96); box-shadow: var(--shadow-sm); }
+  100% { transform: scale(1); box-shadow: var(--shadow-md); }
+}</code></pre><button class="copy-btn">Copy</button></div>
+          </div>
+        </div>
+        <div class="motion-card" data-animation="wiggle" data-category="attention">
+          <div class="motion-card-demo"><div class="demo-element">Wiggle</div></div>
+          <div class="motion-card-body">
+            <div class="motion-card-top"><span class="motion-card-name">wiggle</span><button class="play-btn">Play</button></div>
+            <p class="motion-card-desc">Small alternating rotation, eager tremor</p>
+            <div class="motion-card-meta">500ms · out</div>
+            <button class="code-toggle-btn">Show CSS</button>
+            <div class="motion-card-code" hidden><pre><code>@keyframes wiggle {
+  0% { transform: rotate(0deg); } 15% { transform: rotate(3deg); }
+  30% { transform: rotate(-3deg); } 50% { transform: rotate(2deg); }
+  70% { transform: rotate(-1deg); } 100% { transform: rotate(0deg); }
+}</code></pre><button class="copy-btn">Copy</button></div>
+          </div>
+        </div>
+        <div class="motion-card" data-animation="spotlight" data-category="attention">
+          <div class="motion-card-demo"><div class="demo-element">Spot</div></div>
+          <div class="motion-card-body">
+            <div class="motion-card-top"><span class="motion-card-name">spotlight</span><button class="play-btn">Play</button></div>
+            <p class="motion-card-desc">Shadow grows + focus ring blooms, then retreats</p>
+            <div class="motion-card-meta">1200ms · smooth</div>
+            <button class="code-toggle-btn">Show CSS</button>
+            <div class="motion-card-code" hidden><pre><code>@keyframes spotlight {
+  0% { box-shadow: var(--shadow-md); }
+  50% { box-shadow: 0 0 0 6px var(--accent-primary); }
+  100% { box-shadow: var(--shadow-md); }
+}</code></pre><button class="copy-btn">Copy</button></div>
+          </div>
+        </div>
+        <div class="motion-card" data-animation="headbutt" data-category="attention">
+          <div class="motion-card-demo"><div class="demo-element">Butt</div></div>
+          <div class="motion-card-body">
+            <div class="motion-card-top"><span class="motion-card-name">headbutt</span><button class="play-btn">Play</button></div>
+            <p class="motion-card-desc">Vertical jump with bounce settle</p>
+            <div class="motion-card-meta">400ms · bounce</div>
+            <button class="code-toggle-btn">Show CSS</button>
+            <div class="motion-card-code" hidden><pre><code>@keyframes headbutt {
+  0% { transform: translateY(0); } 25% { transform: translateY(-16px); }
+  50% { transform: translateY(0); } 70% { transform: translateY(-6px); }
+  100% { transform: translateY(0); }
+}</code></pre><button class="copy-btn">Copy</button></div>
+          </div>
+        </div>
+        <div class="motion-card" data-animation="border-march" data-category="attention">
+          <div class="motion-card-demo"><div class="demo-element" style="border:none;box-shadow:none;width:100px;height:64px;background:var(--bg-surface)">March</div></div>
+          <div class="motion-card-body">
+            <div class="motion-card-top"><span class="motion-card-name">border-march</span><button class="play-btn">Play</button></div>
+            <p class="motion-card-desc">Marching ants with chunky 8px dashes</p>
+            <div class="motion-card-meta">800ms · linear · infinite</div>
+            <button class="code-toggle-btn">Show CSS</button>
+            <div class="motion-card-code" hidden><pre><code>/* Uses repeating-linear-gradient for marching ants */
+.anim-border-march { animation: border-march 800ms linear infinite; }</code></pre><button class="copy-btn">Copy</button></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         CATEGORY 4: FEEDBACK
+         ================================================================ -->
+    <section id="feedback" class="motion-section anim-in anim-d8">
+      <div class="section-header">
+        <div class="section-overline"><span class="status-dot" style="background:var(--accent-green)"></span> Category 4</div>
+        <h2 class="section-title">Feedback</h2>
+        <p class="section-desc">System responses. Confirmations, errors, warnings, and loading states.</p>
+        <div class="section-actions"><button class="play-all-btn" data-section="feedback">Play All</button></div>
+      </div>
+      <div class="card-grid">
+        <div class="motion-card" data-animation="confirm-thud" data-category="feedback">
+          <div class="motion-card-demo"><div class="demo-element" style="background:var(--accent-green-subtle);border-color:var(--accent-green)">OK</div></div>
+          <div class="motion-card-body">
+            <div class="motion-card-top"><span class="motion-card-name">confirm-thud</span><button class="play-btn">Play</button></div>
+            <p class="motion-card-desc">Multi-bounce landing with green flash</p>
+            <div class="motion-card-meta">360ms · bounce</div>
+            <button class="code-toggle-btn">Show CSS</button>
+            <div class="motion-card-code" hidden><pre><code>@keyframes confirm-thud {
+  0% { transform: scale(0); opacity: 0; }
+  50% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}</code></pre><button class="copy-btn">Copy</button></div>
+          </div>
+        </div>
+        <div class="motion-card" data-animation="error-jolt" data-category="feedback">
+          <div class="motion-card-demo"><div class="demo-element" style="background:var(--accent-danger-subtle);border-color:var(--accent-danger)">ERR</div></div>
+          <div class="motion-card-body">
+            <div class="motion-card-top"><span class="motion-card-name">error-jolt</span><button class="play-btn">Play</button></div>
+            <p class="motion-card-desc">Horizontal shake + danger background flash</p>
+            <div class="motion-card-meta">500ms · linear</div>
+            <button class="code-toggle-btn">Show CSS</button>
+            <div class="motion-card-code" hidden><pre><code>@keyframes error-jolt {
+  0% { transform: translateX(0); }
+  20% { transform: translateX(8px); background: var(--accent-danger-subtle); }
+  40% { transform: translateX(-8px); }
+  100% { transform: translateX(0); }
+}</code></pre><button class="copy-btn">Copy</button></div>
+          </div>
+        </div>
+        <div class="motion-card" data-animation="warning-bob" data-category="feedback">
+          <div class="motion-card-demo"><div class="demo-element" style="background:var(--accent-gold-subtle);border-color:var(--accent-gold);color:var(--accent-gold-text)">WARN</div></div>
+          <div class="motion-card-body">
+            <div class="motion-card-top"><span class="motion-card-name">warning-bob</span><button class="play-btn">Play</button></div>
+            <p class="motion-card-desc">Gentle vertical bob with slight tilt</p>
+            <div class="motion-card-meta">600ms · smooth</div>
+            <button class="code-toggle-btn">Show CSS</button>
+            <div class="motion-card-code" hidden><pre><code>@keyframes warning-bob {
+  0% { transform: translateY(0) rotate(0deg); }
+  20% { transform: translateY(-6px) rotate(1deg); }
+  100% { transform: translateY(0) rotate(0deg); }
+}</code></pre><button class="copy-btn">Copy</button></div>
+          </div>
+        </div>
+        <div class="motion-card" data-animation="info-slide" data-category="feedback">
+          <div class="motion-card-demo"><div class="demo-element" style="background:var(--accent-cyan-subtle);border-color:var(--accent-cyan);color:var(--accent-cyan-text)">INFO</div></div>
+          <div class="motion-card-body">
+            <div class="motion-card-top"><span class="motion-card-name">info-slide</span><button class="play-btn">Play</button></div>
+            <p class="motion-card-desc">Slide-in from left with subtle overshoot</p>
+            <div class="motion-card-meta">240ms · out</div>
+            <button class="code-toggle-btn">Show CSS</button>
+            <div class="motion-card-code" hidden><pre><code>@keyframes info-slide {
+  0% { transform: translateX(-30px); opacity: 0; }
+  70% { transform: translateX(4px); opacity: 1; }
+  100% { transform: translateX(0); opacity: 1; }
+}</code></pre><button class="copy-btn">Copy</button></div>
+          </div>
+        </div>
+        <div class="motion-card" data-animation="loading-slam" data-category="feedback">
+          <div class="motion-card-demo">
+            <div class="demo-dots"><div class="demo-dot"></div><div class="demo-dot"></div><div class="demo-dot"></div></div>
+          </div>
+          <div class="motion-card-body">
+            <div class="motion-card-top"><span class="motion-card-name">loading-slam</span><button class="play-btn">Play</button></div>
+            <p class="motion-card-desc">Three dots bouncing with 120ms stagger</p>
+            <div class="motion-card-meta">1s · bounce · infinite</div>
+            <button class="code-toggle-btn">Show CSS</button>
+            <div class="motion-card-code" hidden><pre><code>@keyframes loading-slam {
+  0%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-20px); }
+}</code></pre><button class="copy-btn">Copy</button></div>
+          </div>
+        </div>
+        <div class="motion-card" data-animation="progress-fill-slam" data-category="feedback">
+          <div class="motion-card-demo"><div class="demo-bar" style="width:100%;height:12px"></div></div>
+          <div class="motion-card-body">
+            <div class="motion-card-top"><span class="motion-card-name">progress-fill-slam</span><button class="play-btn">Play</button></div>
+            <p class="motion-card-desc">ScaleX fill that overshoots 2% and springs back</p>
+            <div class="motion-card-meta">500ms · out</div>
+            <button class="code-toggle-btn">Show CSS</button>
+            <div class="motion-card-code" hidden><pre><code>@keyframes progress-fill-slam {
+  0% { transform: scaleX(0); }
+  85% { transform: scaleX(1.02); }
+  100% { transform: scaleX(1); }
+}</code></pre><button class="copy-btn">Copy</button></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         CATEGORY 5: MICRO-INTERACTIONS
+         ================================================================ -->
+    <section id="micro" class="motion-section anim-in anim-d9">
+      <div class="section-header">
+        <div class="section-overline"><span class="status-dot" style="background:var(--accent-primary)"></span> Category 5</div>
+        <h2 class="section-title">Micro-interactions</h2>
+        <p class="section-desc">The small stuff. Buttons press, toggles snap, inputs glow. These run on transitions, not keyframes.</p>
+        <div class="section-actions"><button class="play-all-btn" data-section="micro">Play All</button></div>
+      </div>
+      <div class="card-grid">
+        <div class="motion-card" data-animation="btn-press" data-category="micro">
+          <div class="motion-card-demo"><button class="demo-element micro-btn-press" style="cursor:pointer;width:auto;padding:var(--space-2) var(--space-4)">Hover & press me</button></div>
+          <div class="motion-card-body">
+            <div class="motion-card-top"><span class="motion-card-name">btn-press</span></div>
+            <p class="motion-card-desc">Hover lifts, active slams in. Transition-based.</p>
+            <div class="motion-card-meta">instant · linear</div>
+            <button class="code-toggle-btn">Show CSS</button>
+            <div class="motion-card-code" hidden><pre><code>.micro-btn-press:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.micro-btn-press:active { transform: translateY(1px); box-shadow: var(--shadow-sm); }</code></pre><button class="copy-btn">Copy</button></div>
+          </div>
+        </div>
+        <div class="motion-card" data-animation="toggle-thwack" data-category="micro">
+          <div class="motion-card-demo">
+            <div style="width:52px;height:28px;border-radius:var(--radius-full);border:2px solid var(--border-default);background:var(--bg-muted);padding:2px;cursor:pointer" class="toggle-demo">
+              <div class="demo-element" style="width:20px;height:20px;border-radius:50%;border:2px solid var(--border-default);box-shadow:var(--shadow-sm)"></div>
+            </div>
+          </div>
+          <div class="motion-card-body">
+            <div class="motion-card-top"><span class="motion-card-name">toggle-thwack</span><button class="play-btn">Play</button></div>
+            <p class="motion-card-desc">Knob stretches horizontally during transit, squishes on arrival</p>
+            <div class="motion-card-meta">240ms · bounce</div>
+            <button class="code-toggle-btn">Show CSS</button>
+            <div class="motion-card-code" hidden><pre><code>@keyframes toggle-thwack {
+  0% { transform: translateX(0) scaleX(1); }
+  40% { transform: translateX(12px) scaleX(1.3); }
+  100% { transform: translateX(24px) scaleX(1); }
+}</code></pre><button class="copy-btn">Copy</button></div>
+          </div>
+        </div>
+        <div class="motion-card" data-animation="check-pop" data-category="micro">
+          <div class="motion-card-demo">
+            <div class="demo-element" style="width:32px;height:32px;background:var(--accent-primary);color:var(--text-on-accent);font-size:var(--step-1)">&#10003;</div>
+          </div>
+          <div class="motion-card-body">
+            <div class="motion-card-top"><span class="motion-card-name">check-pop</span><button class="play-btn">Play</button></div>
+            <p class="motion-card-desc">Container pops in with overshoot + checkmark</p>
+            <div class="motion-card-meta">240ms · bounce</div>
+            <button class="code-toggle-btn">Show CSS</button>
+            <div class="motion-card-code" hidden><pre><code>@keyframes check-pop {
+  0% { transform: scale(0); opacity: 0; }
+  60% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}</code></pre><button class="copy-btn">Copy</button></div>
+          </div>
+        </div>
+        <div class="motion-card" data-animation="hover-tilt" data-category="micro">
+          <div class="motion-card-demo"><div class="demo-element micro-hover-tilt" style="cursor:pointer">Tilt me</div></div>
+          <div class="motion-card-body">
+            <div class="motion-card-top"><span class="motion-card-name">hover-tilt</span></div>
+            <p class="motion-card-desc">Subtle 3D perspective tilt on hover</p>
+            <div class="motion-card-meta">fast · smooth</div>
+            <button class="code-toggle-btn">Show CSS</button>
+            <div class="motion-card-code" hidden><pre><code>.micro-hover-tilt:hover {
+  transform: perspective(600px) rotateY(4deg) rotateX(-2deg);
+}</code></pre><button class="copy-btn">Copy</button></div>
+          </div>
+        </div>
+        <div class="motion-card" data-animation="drag-lift" data-category="micro">
+          <div class="motion-card-demo"><div class="demo-element">Drag</div></div>
+          <div class="motion-card-body">
+            <div class="motion-card-top"><span class="motion-card-name">drag-lift</span><button class="play-btn">Play</button></div>
+            <p class="motion-card-desc">Scale up + rotate + shadow max on drag start</p>
+            <div class="motion-card-meta">fast · bounce</div>
+            <button class="code-toggle-btn">Show CSS</button>
+            <div class="motion-card-code" hidden><pre><code>@keyframes drag-lift {
+  0% { transform: scale(1) rotate(0deg); box-shadow: var(--shadow-md); }
+  100% { transform: scale(1.05) rotate(2deg); box-shadow: var(--shadow-lg); }
+}</code></pre><button class="copy-btn">Copy</button></div>
+          </div>
+        </div>
+        <div class="motion-card" data-animation="input-focus" data-category="micro">
+          <div class="motion-card-demo"><input class="micro-input-focus" type="text" placeholder="Focus me..." style="border:2px solid var(--border-default);border-radius:var(--radius-sm);padding:var(--space-2) var(--space-3);font-family:var(--font-sans);font-size:var(--ui-text-md);background:var(--bg-surface);color:var(--text-primary);width:160px"></div>
+          <div class="motion-card-body">
+            <div class="motion-card-top"><span class="motion-card-name">input-focus-grow</span></div>
+            <p class="motion-card-desc">Shadow shifts to accent 4px offset on focus</p>
+            <div class="motion-card-meta">instant · out</div>
+            <button class="code-toggle-btn">Show CSS</button>
+            <div class="motion-card-code" hidden><pre><code>.micro-input-focus:focus {
+  box-shadow: 4px 4px 0 var(--accent-primary);
+}</code></pre><button class="copy-btn">Copy</button></div>
+          </div>
+        </div>
+        <div class="motion-card" data-animation="resize-grip-pulse" data-category="micro">
+          <div class="motion-card-demo"><div class="demo-element" style="opacity:0.4">&#8942;&#8942;</div></div>
+          <div class="motion-card-body">
+            <div class="motion-card-top"><span class="motion-card-name">resize-grip-pulse</span><button class="play-btn">Play</button></div>
+            <p class="motion-card-desc">Gentle opacity pulse on resize handles</p>
+            <div class="motion-card-meta">1200ms · smooth · infinite</div>
+            <button class="code-toggle-btn">Show CSS</button>
+            <div class="motion-card-code" hidden><pre><code>@keyframes resize-grip-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}</code></pre><button class="copy-btn">Copy</button></div>
+          </div>
+        </div>
+        <div class="motion-card" data-animation="ripple-stamp" data-category="micro">
+          <div class="motion-card-demo" style="cursor:pointer" data-ripple>
+            <div class="demo-element" style="pointer-events:none">Click</div>
+          </div>
+          <div class="motion-card-body">
+            <div class="motion-card-top"><span class="motion-card-name">ripple-stamp</span></div>
+            <p class="motion-card-desc">Solid-border circle expanding from click point</p>
+            <div class="motion-card-meta">400ms · out</div>
+            <button class="code-toggle-btn">Show CSS</button>
+            <div class="motion-card-code" hidden><pre><code>@keyframes ripple-stamp {
+  0% { transform: scale(0); opacity: 1; }
+  100% { transform: scale(4); opacity: 0; }
+}</code></pre><button class="copy-btn">Copy</button></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         CATEGORY 6: LOOPING / AMBIENT
+         ================================================================ -->
+    <section id="looping" class="motion-section anim-in anim-d10">
+      <div class="section-header">
+        <div class="section-overline"><span class="status-dot" style="background:var(--accent-cyan)"></span> Category 6</div>
+        <h2 class="section-title">Looping / Ambient</h2>
+        <p class="section-desc">Background motion. Subtle, continuous animations that add life without demanding attention.</p>
+        <div class="section-actions"><button class="play-all-btn" data-section="looping">Play All</button></div>
+      </div>
+      <div class="card-grid">
+        <div class="motion-card" data-animation="hover-orbit" data-category="looping">
+          <div class="motion-card-demo" style="position:relative">
+            <div class="demo-element" style="position:relative">Center</div>
+          </div>
+          <div class="motion-card-body">
+            <div class="motion-card-top"><span class="motion-card-name">hover-orbit</span><button class="play-btn">Play</button></div>
+            <p class="motion-card-desc">Small dot orbiting an element with counter-rotation</p>
+            <div class="motion-card-meta">4s · linear · infinite</div>
+            <button class="code-toggle-btn">Show CSS</button>
+            <div class="motion-card-code" hidden><pre><code>@keyframes hover-orbit {
+  0% { offset-distance: 0%; transform: rotate(0deg); }
+  100% { offset-distance: 100%; transform: rotate(-360deg); }
+}</code></pre><button class="copy-btn">Copy</button></div>
+          </div>
+        </div>
+        <div class="motion-card" data-animation="breathe-shadow" data-category="looping">
+          <div class="motion-card-demo"><div class="demo-element">Breathe</div></div>
+          <div class="motion-card-body">
+            <div class="motion-card-top"><span class="motion-card-name">breathe-shadow</span><button class="play-btn">Play</button></div>
+            <p class="motion-card-desc">Shadow breathes between sm and md</p>
+            <div class="motion-card-meta">3s · smooth · infinite</div>
+            <button class="code-toggle-btn">Show CSS</button>
+            <div class="motion-card-code" hidden><pre><code>@keyframes breathe-shadow {
+  0% { box-shadow: var(--shadow-sm); }
+  100% { box-shadow: var(--shadow-md); }
+}</code></pre><button class="copy-btn">Copy</button></div>
+          </div>
+        </div>
+        <div class="motion-card" data-animation="pendulum" data-category="looping">
+          <div class="motion-card-demo"><div class="demo-element" style="transform-origin:top center">Swing</div></div>
+          <div class="motion-card-body">
+            <div class="motion-card-top"><span class="motion-card-name">pendulum</span><button class="play-btn">Play</button></div>
+            <p class="motion-card-desc">Swings +/-3deg from top-center origin</p>
+            <div class="motion-card-meta">2.5s · smooth · infinite</div>
+            <button class="code-toggle-btn">Show CSS</button>
+            <div class="motion-card-code" hidden><pre><code>@keyframes pendulum {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(3deg); }
+  75% { transform: rotate(-3deg); }
+}</code></pre><button class="copy-btn">Copy</button></div>
+          </div>
+        </div>
+        <div class="motion-card" data-animation="idle-bounce" data-category="looping">
+          <div class="motion-card-demo"><div class="demo-element">Idle</div></div>
+          <div class="motion-card-body">
+            <div class="motion-card-top"><span class="motion-card-name">idle-bounce</span><button class="play-btn">Play</button></div>
+            <p class="motion-card-desc">Gentle 4px vertical bounce</p>
+            <div class="motion-card-meta">2s · bounce · infinite</div>
+            <button class="code-toggle-btn">Show CSS</button>
+            <div class="motion-card-code" hidden><pre><code>@keyframes idle-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}</code></pre><button class="copy-btn">Copy</button></div>
+          </div>
+        </div>
+        <div class="motion-card" data-animation="ticker-scroll" data-category="looping">
+          <div class="motion-card-demo" style="overflow:hidden;width:100%">
+            <div class="demo-element-text" style="font-family:var(--font-mono);white-space:nowrap">Delightful Design System &mdash; Motion Language &mdash; Snappy &amp; Decisive &mdash;&nbsp;</div>
+          </div>
+          <div class="motion-card-body">
+            <div class="motion-card-top"><span class="motion-card-name">ticker-scroll</span><button class="play-btn">Play</button></div>
+            <p class="motion-card-desc">Horizontal text scroll, marquee-style</p>
+            <div class="motion-card-meta">15s · linear · infinite</div>
+            <button class="code-toggle-btn">Show CSS</button>
+            <div class="motion-card-code" hidden><pre><code>@keyframes ticker-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}</code></pre><button class="copy-btn">Copy</button></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         CATEGORY 7: TEXT
+         ================================================================ -->
+    <section id="text" class="motion-section">
+      <div class="section-header">
+        <div class="section-overline"><span class="status-dot" style="background:var(--accent-gold)"></span> Category 7</div>
+        <h2 class="section-title">Text</h2>
+        <p class="section-desc">Typography in motion. Characters arrive, underlines draw, highlights sweep.</p>
+        <div class="section-actions"><button class="play-all-btn" data-section="text">Play All</button></div>
+      </div>
+      <div class="card-grid">
+        <div class="motion-card" data-animation="typewriter-mono" data-category="text">
+          <div class="motion-card-demo"><div class="demo-element-text" style="font-family:var(--font-mono);font-size:var(--ui-text-md)">console.log("hello")</div></div>
+          <div class="motion-card-body">
+            <div class="motion-card-top"><span class="motion-card-name">typewriter-mono</span><button class="play-btn">Play</button></div>
+            <p class="motion-card-desc">Character-by-character reveal with blinking cursor</p>
+            <div class="motion-card-meta">2s · steps · cursor-blink</div>
+            <button class="code-toggle-btn">Show CSS</button>
+            <div class="motion-card-code" hidden><pre><code>.anim-typewriter-mono {
+  overflow: hidden; white-space: nowrap; width: 0;
+  border-right: 2px solid var(--text-primary);
+  animation: typewriter-mono 2s steps(20, end) forwards,
+    typewriter-cursor-blink 700ms steps(1) infinite;
+}</code></pre><button class="copy-btn">Copy</button></div>
+          </div>
+        </div>
+        <div class="motion-card" data-animation="text-stamp" data-category="text">
+          <div class="motion-card-demo"><div class="demo-element-text text-stamp-target" style="font-size:var(--step-2)">STAMP IT</div></div>
+          <div class="motion-card-body">
+            <div class="motion-card-top"><span class="motion-card-name">text-stamp</span><button class="play-btn">Play</button></div>
+            <p class="motion-card-desc">Per-character drop-in with 40ms stagger</p>
+            <div class="motion-card-meta">200ms/char · bounce</div>
+            <button class="code-toggle-btn">Show CSS</button>
+            <div class="motion-card-code" hidden><pre><code>@keyframes text-stamp {
+  0% { transform: translateY(-20px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}</code></pre><button class="copy-btn">Copy</button></div>
+          </div>
+        </div>
+        <div class="motion-card" data-animation="text-scramble" data-category="text">
+          <div class="motion-card-demo"><div class="demo-element-text text-scramble-target" style="font-family:var(--font-mono);font-size:var(--ui-text-lg)">DELIGHTFUL</div></div>
+          <div class="motion-card-body">
+            <div class="motion-card-top"><span class="motion-card-name">text-scramble</span><button class="play-btn">Play</button></div>
+            <p class="motion-card-desc">Characters cycle through random glyphs before resolving</p>
+            <div class="motion-card-meta">JS-driven · 30ms/char</div>
+            <button class="code-toggle-btn">Show CSS</button>
+            <div class="motion-card-code" hidden><pre><code>// JS-driven: randomize each character for ~400ms
+// then resolve left-to-right with 30ms stagger</code></pre><button class="copy-btn">Copy</button></div>
+          </div>
+        </div>
+        <div class="motion-card" data-animation="underline-draw" data-category="text">
+          <div class="motion-card-demo"><span class="text-underline-draw demo-element-text" style="cursor:pointer;font-size:var(--step-1)">Hover this text</span></div>
+          <div class="motion-card-body">
+            <div class="motion-card-top"><span class="motion-card-name">underline-draw</span></div>
+            <p class="motion-card-desc">3px underline draws left-to-right on hover</p>
+            <div class="motion-card-meta">240ms · out</div>
+            <button class="code-toggle-btn">Show CSS</button>
+            <div class="motion-card-code" hidden><pre><code>.text-underline-draw::after {
+  content: ''; position: absolute; bottom: 0; left: 0;
+  width: 100%; height: 3px; background: var(--accent-primary);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 240ms var(--ease-out);
+}
+.text-underline-draw:hover::after { transform: scaleX(1); }</code></pre><button class="copy-btn">Copy</button></div>
+          </div>
+        </div>
+        <div class="motion-card" data-animation="highlight-sweep" data-category="text">
+          <div class="motion-card-demo"><span class="demo-element-text" style="font-size:var(--step-1)">Highlighted text</span></div>
+          <div class="motion-card-body">
+            <div class="motion-card-top"><span class="motion-card-name">highlight-sweep</span><button class="play-btn">Play</button></div>
+            <p class="motion-card-desc">Gold background sweeps across text</p>
+            <div class="motion-card-meta">400ms · out</div>
+            <button class="code-toggle-btn">Show CSS</button>
+            <div class="motion-card-code" hidden><pre><code>@keyframes highlight-sweep {
+  0% { background-size: 0% 100%; }
+  100% { background-size: 100% 100%; }
+}</code></pre><button class="copy-btn">Copy</button></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         CATEGORY 8: PHYSICS
+         ================================================================ -->
+    <section id="physics" class="motion-section">
+      <div class="section-header">
+        <div class="section-overline"><span class="status-dot" style="background:var(--accent-danger)"></span> Category 8</div>
+        <h2 class="section-title">Physics</h2>
+        <p class="section-desc">Real-world forces. Springs, gravity, rubber bands — objects that feel like they have mass.</p>
+        <div class="section-actions"><button class="play-all-btn" data-section="physics">Play All</button></div>
+      </div>
+      <div class="card-grid">
+        <div class="motion-card" data-animation="spring-snap" data-category="physics">
+          <div class="motion-card-demo"><div class="demo-element">Spring</div></div>
+          <div class="motion-card-body">
+            <div class="motion-card-top"><span class="motion-card-name">spring-snap</span><button class="play-btn">Play</button></div>
+            <p class="motion-card-desc">Damped spring oscillation with decreasing overshoots</p>
+            <div class="motion-card-meta">400ms · elastic</div>
+            <button class="code-toggle-btn">Show CSS</button>
+            <div class="motion-card-code" hidden><pre><code>@keyframes spring-snap {
+  0% { transform: translateX(-100px); }
+  40% { transform: translateX(8px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(2px); }
+  100% { transform: translateX(0); }
+}</code></pre><button class="copy-btn">Copy</button></div>
+          </div>
+        </div>
+        <div class="motion-card" data-animation="gravity-drop" data-category="physics">
+          <div class="motion-card-demo"><div class="demo-element">Gravity</div></div>
+          <div class="motion-card-body">
+            <div class="motion-card-top"><span class="motion-card-name">gravity-drop</span><button class="play-btn">Play</button></div>
+            <p class="motion-card-desc">Accelerating fall + bounce on impact</p>
+            <div class="motion-card-meta">500ms · slam+bounce</div>
+            <button class="code-toggle-btn">Show CSS</button>
+            <div class="motion-card-code" hidden><pre><code>@keyframes gravity-drop {
+  0% { transform: translateY(-200px); opacity: 0; }
+  40% { transform: translateY(0); } 55% { transform: translateY(-30px); }
+  70% { transform: translateY(0); } 80% { transform: translateY(-8px); }
+  100% { transform: translateY(0); }
+}</code></pre><button class="copy-btn">Copy</button></div>
+          </div>
+        </div>
+        <div class="motion-card" data-animation="rubber-band" data-category="physics">
+          <div class="motion-card-demo"><div class="demo-element demo-element-wide">Rubber</div></div>
+          <div class="motion-card-body">
+            <div class="motion-card-top"><span class="motion-card-name">rubber-band</span><button class="play-btn">Play</button></div>
+            <p class="motion-card-desc">Squash and stretch with volume conservation</p>
+            <div class="motion-card-meta">500ms · bounce</div>
+            <button class="code-toggle-btn">Show CSS</button>
+            <div class="motion-card-code" hidden><pre><code>@keyframes rubber-band {
+  0% { transform: scaleX(1) scaleY(1); }
+  25% { transform: scaleX(1.3) scaleY(0.8); }
+  50% { transform: scaleX(0.85) scaleY(1.15); }
+  75% { transform: scaleX(1.05) scaleY(0.95); }
+  100% { transform: scaleX(1) scaleY(1); }
+}</code></pre><button class="copy-btn">Copy</button></div>
+          </div>
+        </div>
+        <div class="motion-card" data-animation="magnetic-snap" data-category="physics">
+          <div class="motion-card-demo" style="position:relative;cursor:crosshair;min-height:160px" id="magnetic-demo">
+            <div class="demo-element" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);transition:transform 0.15s var(--ease-bounce)" id="magnetic-el">Magnet</div>
+          </div>
+          <div class="motion-card-body">
+            <div class="motion-card-top"><span class="motion-card-name">magnetic-snap</span></div>
+            <p class="motion-card-desc">JS: elements accelerate toward cursor past threshold</p>
+            <div class="motion-card-meta">JS-driven · 80px threshold</div>
+            <button class="code-toggle-btn">Show CSS</button>
+            <div class="motion-card-code" hidden><pre><code>// Move cursor near the element — it follows
+// Uses requestAnimationFrame + spring easing</code></pre><button class="copy-btn">Copy</button></div>
+          </div>
+        </div>
+        <div class="motion-card" data-animation="momentum-scroll" data-category="physics">
+          <div class="motion-card-demo">
+            <div style="width:160px;height:100px;overflow-y:auto;border:2px solid var(--border-default);border-radius:var(--radius-sm);background:var(--bg-surface);padding:var(--space-2)" id="momentum-container">
+              <div style="font-size:var(--ui-text-xs);line-height:2;color:var(--text-secondary)">Scroll me<br>with momentum<br>and watch<br>the overshoot<br>spring back<br>naturally<br>like real<br>physics</div>
+            </div>
+          </div>
+          <div class="motion-card-body">
+            <div class="motion-card-top"><span class="motion-card-name">momentum-scroll</span></div>
+            <p class="motion-card-desc">Velocity-preserving scroll with overshoot</p>
+            <div class="motion-card-meta">JS-driven</div>
+            <button class="code-toggle-btn">Show CSS</button>
+            <div class="motion-card-code" hidden><pre><code>// JS: Track scroll velocity, apply deceleration
+// curve after release with spring-back</code></pre><button class="copy-btn">Copy</button></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         CATEGORY 9: SCROLL-DRIVEN
+         ================================================================ -->
+    <section id="scroll-driven" class="motion-section">
+      <div class="section-header">
+        <div class="section-overline"><span class="status-dot" style="background:var(--accent-cyan)"></span> Category 9</div>
+        <h2 class="section-title">Scroll-driven</h2>
+        <p class="section-desc">Animations tied to scroll position. These use <code style="font-family:var(--font-mono);font-size:var(--ui-text-sm);background:var(--bg-muted);padding:2px 6px;border-radius:4px">animation-timeline: view()</code> — scroll down to trigger them.</p>
+      </div>
+      <div class="scroll-demo-area">
+        <div class="scroll-demo-item scroll-anim-stamp-in">scroll-stamp-in</div>
+        <div class="scroll-demo-item scroll-anim-parallax-shadow">scroll-parallax-shadow</div>
+        <div class="scroll-demo-item scroll-anim-reveal-wipe">scroll-reveal-wipe</div>
+        <div class="scroll-demo-item scroll-anim-rotate-in">scroll-rotate-in</div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         CATEGORY 10: TRANSITIONS
+         ================================================================ -->
+    <section id="transitions" class="motion-section">
+      <div class="section-header">
+        <div class="section-overline"><span class="status-dot" style="background:var(--accent-primary)"></span> Category 10</div>
+        <h2 class="section-title">Transitions</h2>
+        <p class="section-desc">State changes. Morphing shapes, flipping cards, expanding accordions.</p>
+        <div class="section-actions"><button class="play-all-btn" data-section="transitions">Play All</button></div>
+      </div>
+      <div class="card-grid">
+        <div class="motion-card" data-animation="morph-expand" data-category="transitions">
+          <div class="motion-card-demo"><div class="demo-element" style="border-radius:50%;width:56px;height:56px">Morph</div></div>
+          <div class="motion-card-body">
+            <div class="motion-card-top"><span class="motion-card-name">morph-expand</span><button class="play-btn">Play</button></div>
+            <p class="motion-card-desc">Circle morphs to rounded rectangle while expanding</p>
+            <div class="motion-card-meta">360ms · bounce</div>
+            <button class="code-toggle-btn">Show CSS</button>
+            <div class="motion-card-code" hidden><pre><code>@keyframes morph-expand {
+  0% { border-radius: 50%; transform: scale(0.5); opacity: 0; }
+  100% { border-radius: var(--radius-md); transform: scale(1); opacity: 1; }
+}</code></pre><button class="copy-btn">Copy</button></div>
+          </div>
+        </div>
+        <div class="motion-card" data-animation="state-swap" data-category="transitions">
+          <div class="motion-card-demo">
+            <div style="position:relative;width:80px;height:56px">
+              <div class="demo-element state-a" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center">State A</div>
+              <div class="demo-element state-b" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transform:translateY(10px)">State B</div>
+            </div>
+          </div>
+          <div class="motion-card-body">
+            <div class="motion-card-top"><span class="motion-card-name">state-swap</span><button class="play-btn">Play</button></div>
+            <p class="motion-card-desc">Old slides up/fades, new slides up from below</p>
+            <div class="motion-card-meta">160ms x 2 · out</div>
+            <button class="code-toggle-btn">Show CSS</button>
+            <div class="motion-card-code" hidden><pre><code>@keyframes state-swap-out { 0% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(-10px); opacity: 0; } }
+@keyframes state-swap-in { 0% { transform: translateY(10px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }</code></pre><button class="copy-btn">Copy</button></div>
+          </div>
+        </div>
+        <div class="motion-card" data-animation="accordion-squish" data-category="transitions">
+          <div class="motion-card-demo">
+            <div style="width:160px">
+              <div style="border:2px solid var(--border-default);border-radius:var(--radius-sm);padding:var(--space-2) var(--space-3);font-size:var(--ui-text-sm);font-weight:700;cursor:pointer;background:var(--bg-surface)" class="accordion-trigger">Click to expand</div>
+              <div class="accordion-squish" id="accordion-demo">
+                <div><div style="border:2px solid var(--border-subtle);border-top:none;border-radius:0 0 var(--radius-sm) var(--radius-sm);padding:var(--space-3);font-size:var(--ui-text-xs);color:var(--text-secondary);background:var(--bg-subtle)">Expanded content with smooth grid-template-rows transition.</div></div>
+              </div>
+            </div>
+          </div>
+          <div class="motion-card-body">
+            <div class="motion-card-top"><span class="motion-card-name">accordion-squish</span></div>
+            <p class="motion-card-desc">grid-template-rows 0fr to 1fr height animation</p>
+            <div class="motion-card-meta">240ms · smooth</div>
+            <button class="code-toggle-btn">Show CSS</button>
+            <div class="motion-card-code" hidden><pre><code>.accordion-squish {
+  display: grid; grid-template-rows: 0fr;
+  transition: grid-template-rows 240ms var(--ease-smooth);
+}
+.accordion-squish.accordion-open { grid-template-rows: 1fr; }</code></pre><button class="copy-btn">Copy</button></div>
+          </div>
+        </div>
+        <div class="motion-card" data-animation="card-flip" data-category="transitions">
+          <div class="motion-card-demo">
+            <div style="perspective:600px;width:80px;height:56px;position:relative;cursor:pointer" class="flip-container">
+              <div class="demo-element flip-front" style="position:absolute;inset:0;backface-visibility:hidden;display:flex;align-items:center;justify-content:center">Front</div>
+              <div class="demo-element flip-back" style="position:absolute;inset:0;backface-visibility:hidden;transform:rotateY(180deg);display:flex;align-items:center;justify-content:center;background:var(--accent-primary-subtle)">Back</div>
+            </div>
+          </div>
+          <div class="motion-card-body">
+            <div class="motion-card-top"><span class="motion-card-name">card-flip</span><button class="play-btn">Play</button></div>
+            <p class="motion-card-desc">180deg Y-axis flip with perspective</p>
+            <div class="motion-card-meta">360ms · smooth</div>
+            <button class="code-toggle-btn">Show CSS</button>
+            <div class="motion-card-code" hidden><pre><code>@keyframes card-flip-front { 0% { transform: perspective(600px) rotateY(0deg); } 100% { transform: perspective(600px) rotateY(180deg); } }
+@keyframes card-flip-back { 0% { transform: perspective(600px) rotateY(-180deg); } 100% { transform: perspective(600px) rotateY(0deg); } }</code></pre><button class="copy-btn">Copy</button></div>
+          </div>
+        </div>
+        <div class="motion-card" data-animation="collapse-to-chip" data-category="transitions">
+          <div class="motion-card-demo"><div class="demo-element demo-element-wide">Collapse</div></div>
+          <div class="motion-card-body">
+            <div class="motion-card-top"><span class="motion-card-name">collapse-to-chip</span><button class="play-btn">Play</button></div>
+            <p class="motion-card-desc">Full card compresses to badge/chip</p>
+            <div class="motion-card-meta">360ms · out</div>
+            <button class="code-toggle-btn">Show CSS</button>
+            <div class="motion-card-code" hidden><pre><code>@keyframes collapse-to-chip {
+  0% { transform: scale(1); border-radius: var(--radius-md); opacity: 1; }
+  100% { transform: scale(0.4, 0.3); border-radius: var(--radius-full); opacity: 0; }
+}</code></pre><button class="copy-btn">Copy</button></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         COMBO SHOWCASE
+         ================================================================ -->
+    <section id="combos" class="motion-section">
+      <div class="section-header">
+        <div class="section-overline"><span class="status-dot" style="background:var(--accent-primary)"></span> Showcase</div>
+        <h2 class="section-title">Combo patterns</h2>
+        <p class="section-desc">Animations composed together in real UI patterns. Toast, modal, form validation.</p>
+      </div>
+      <div class="combo-grid">
+        <div class="combo-card">
+          <h3>Toast System</h3>
+          <p>Spawns toast notifications with slide-slam entrance and fling-right auto-dismiss.</p>
+          <button class="combo-btn" id="toast-trigger">Trigger Toast</button>
+        </div>
+        <div class="combo-card">
+          <h3>Modal</h3>
+          <p>Backdrop fades in, modal enters with stamp-in, closes with press-away.</p>
+          <button class="combo-btn" id="modal-trigger">Open Modal</button>
+        </div>
+        <div class="combo-card">
+          <h3>Form Validation</h3>
+          <p>Empty submit shakes with error-jolt. Valid submit confirms with confirm-thud.</p>
+          <div class="form-demo">
+            <input type="text" placeholder="Type something..." id="form-input">
+            <button class="combo-btn combo-btn-secondary" id="form-submit">Submit</button>
+            <div class="form-msg" id="form-msg"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="ds-footer">
+      <div class="hero-dots" style="margin-bottom:var(--space-4)">
+        <span class="hero-dot" style="background:var(--accent-primary);width:8px;height:8px"></span>
+        <span class="hero-dot" style="background:var(--accent-gold);width:8px;height:8px"></span>
+        <span class="hero-dot" style="background:var(--accent-cyan);width:8px;height:8px"></span>
+      </div>
+      <p><strong>Delightful</strong> — Motion System</p>
+      <p style="margin-top:var(--space-2)">Part of the <a href="delightful-design-system.html">Delightful Design System</a></p>
+    </footer>
+
+  </div><!-- .page-wrap -->
+
+  <!-- Back to top -->
+  <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+
+  <!-- Command palette -->
+  <div class="cmd-palette-overlay" id="cmd-palette-overlay">
+    <div class="cmd-palette" role="dialog" aria-label="Quick navigation">
+      <input class="cmd-palette-input" id="cmd-palette-input" type="text" placeholder="Jump to section..." autocomplete="off" />
+      <ul class="cmd-palette-list" id="cmd-palette-list" role="listbox"></ul>
+    </div>
+  </div>
+
+  <!-- Toast container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Modal -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal-box" id="modal-box">
+      <h3>Modal Title</h3>
+      <p>This modal entered with stamp-in and will exit with press-away. The backdrop fades independently.</p>
+      <button class="modal-close" id="modal-close">Close</button>
+    </div>
+  </div>
+
+  <script>
+    /* ==========================================================================
+       DELIGHTFUL MOTION — Interactive JavaScript
+       ========================================================================== */
+
+    const html = document.documentElement;
+
+    // --- Dark mode with localStorage persistence ---
+    const savedTheme = localStorage.getItem('delightful-theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    html.setAttribute('data-theme', savedTheme || (prefersDark ? 'dark' : 'light'));
+    document.getElementById('theme-toggle').addEventListener('click', () => {
+      const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('delightful-theme', next);
+    });
+
+    // --- Back to top button ---
+    const backToTop = document.getElementById('back-to-top');
+    const heroSection = document.querySelector('.hero');
+    if (backToTop && heroSection) {
+      const observer = new IntersectionObserver(([entry]) => {
+        backToTop.classList.toggle('visible', !entry.isIntersecting);
+      }, { threshold: 0 });
+      observer.observe(heroSection);
+      backToTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    // --- Command palette ---
+    const cmdSections = [
+      { id: 'tokens', label: 'Tokens', color: 'var(--accent-gold)' },
+      { id: 'entrances', label: 'Entrances', color: 'var(--accent-primary)' },
+      { id: 'exits', label: 'Exits', color: 'var(--accent-primary)' },
+      { id: 'attention', label: 'Attention', color: 'var(--accent-gold)' },
+      { id: 'feedback', label: 'Feedback', color: 'var(--accent-cyan)' },
+      { id: 'micro', label: 'Micro Interactions', color: 'var(--accent-green)' },
+      { id: 'looping', label: 'Looping', color: 'var(--accent-primary)' },
+      { id: 'text', label: 'Text Animations', color: 'var(--accent-gold)' },
+      { id: 'physics', label: 'Physics', color: 'var(--accent-cyan)' },
+      { id: 'scroll-driven', label: 'Scroll-driven', color: 'var(--accent-green)' },
+      { id: 'transitions', label: 'Transitions', color: 'var(--accent-primary)' },
+      { id: 'combos', label: 'Combos', color: 'var(--accent-gold)' },
+    ];
+    const cmdOverlay = document.getElementById('cmd-palette-overlay');
+    const cmdInput = document.getElementById('cmd-palette-input');
+    const cmdList = document.getElementById('cmd-palette-list');
+    let cmdActiveIdx = 0;
+
+    function renderCmdList(filter) {
+      const q = (filter || '').toLowerCase();
+      const filtered = cmdSections.filter(s => s.label.toLowerCase().includes(q) || s.id.toLowerCase().includes(q));
+      cmdList.innerHTML = '';
+      if (filtered.length === 0) {
+        cmdList.innerHTML = '<li class="cmd-palette-empty">No sections found</li>';
+        return;
+      }
+      filtered.forEach((s, i) => {
+        const li = document.createElement('li');
+        li.className = 'cmd-palette-item' + (i === 0 ? ' active' : '');
+        li.setAttribute('role', 'option');
+        li.dataset.sectionId = s.id;
+        li.innerHTML = '<span class="cmd-section-dot" style="background:' + s.color + '"></span>' + s.label;
+        li.addEventListener('click', () => navigateToSection(s.id));
+        li.addEventListener('mouseenter', () => {
+          cmdList.querySelectorAll('.cmd-palette-item').forEach(el => el.classList.remove('active'));
+          li.classList.add('active');
+          cmdActiveIdx = i;
+        });
+        cmdList.appendChild(li);
+      });
+      cmdActiveIdx = 0;
+    }
+
+    function openCmdPalette() {
+      cmdOverlay.classList.add('active');
+      cmdInput.value = '';
+      renderCmdList('');
+      requestAnimationFrame(() => cmdInput.focus());
+    }
+
+    function closeCmdPalette() {
+      cmdOverlay.classList.remove('active');
+      cmdInput.value = '';
+    }
+
+    function navigateToSection(id) {
+      closeCmdPalette();
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    cmdInput.addEventListener('input', () => renderCmdList(cmdInput.value));
+    cmdInput.addEventListener('keydown', (e) => {
+      const items = cmdList.querySelectorAll('.cmd-palette-item');
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        cmdActiveIdx = Math.min(cmdActiveIdx + 1, items.length - 1);
+        items.forEach((el, i) => el.classList.toggle('active', i === cmdActiveIdx));
+        items[cmdActiveIdx]?.scrollIntoView({ block: 'nearest' });
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        cmdActiveIdx = Math.max(cmdActiveIdx - 1, 0);
+        items.forEach((el, i) => el.classList.toggle('active', i === cmdActiveIdx));
+        items[cmdActiveIdx]?.scrollIntoView({ block: 'nearest' });
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        const active = items[cmdActiveIdx];
+        if (active) navigateToSection(active.dataset.sectionId);
+      } else if (e.key === 'Escape') {
+        closeCmdPalette();
+      }
+    });
+
+    cmdOverlay.addEventListener('click', (e) => {
+      if (e.target === cmdOverlay) closeCmdPalette();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        if (cmdOverlay.classList.contains('active')) {
+          closeCmdPalette();
+        } else {
+          openCmdPalette();
+        }
+      }
+    });
+
+    document.getElementById('cmd-k-trigger').addEventListener('click', openCmdPalette);
+
+    // --- Reduced motion toggle ---
+    document.getElementById('motion-toggle').addEventListener('click', () => {
+      const current = html.getAttribute('data-reduced-motion') === 'true';
+      html.setAttribute('data-reduced-motion', current ? 'false' : 'true');
+    });
+
+    // --- Play buttons ---
+    document.querySelectorAll('.play-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const card = btn.closest('.motion-card');
+        if (!card) return;
+        const animName = card.dataset.animation;
+        const category = card.dataset.category;
+        const demos = card.querySelectorAll('.demo-element, .demo-element-text, .demo-dot, .demo-bar');
+
+        // Special handling per animation type
+        if (animName === 'brick-stack') {
+          demos.forEach((el, i) => {
+            el.classList.remove('anim-brick-stack');
+            void el.offsetWidth;
+            el.style.animationDelay = (i * 60) + 'ms';
+            el.classList.add('anim-brick-stack');
+            el.addEventListener('animationend', () => {
+              el.classList.remove('anim-brick-stack');
+              el.style.animationDelay = '';
+            }, { once: true });
+          });
+          return;
+        }
+
+        if (animName === 'loading-slam') {
+          demos.forEach((el, i) => {
+            el.classList.remove('anim-loading-slam');
+            void el.offsetWidth;
+            el.classList.add('anim-loading-slam');
+            // Auto-stop after 3 seconds
+            setTimeout(() => el.classList.remove('anim-loading-slam'), 3000);
+          });
+          return;
+        }
+
+        if (animName === 'text-stamp') {
+          const target = card.querySelector('.text-stamp-target');
+          if (target) animateTextStamp(target);
+          return;
+        }
+
+        if (animName === 'text-scramble') {
+          const target = card.querySelector('.text-scramble-target');
+          if (target) animateTextScramble(target, target.textContent);
+          return;
+        }
+
+        if (animName === 'typewriter-mono') {
+          const target = demos[0];
+          if (target) {
+            target.classList.remove('anim-typewriter-mono');
+            void target.offsetWidth;
+            target.classList.add('anim-typewriter-mono');
+            setTimeout(() => target.classList.remove('anim-typewriter-mono'), 4000);
+          }
+          return;
+        }
+
+        if (animName === 'state-swap') {
+          const stateA = card.querySelector('.state-a');
+          const stateB = card.querySelector('.state-b');
+          if (stateA && stateB) {
+            stateA.classList.add('anim-state-swap-out');
+            stateA.addEventListener('animationend', () => {
+              stateA.style.opacity = '0';
+              stateA.classList.remove('anim-state-swap-out');
+              stateB.classList.add('anim-state-swap-in');
+              stateB.style.opacity = '1';
+              stateB.addEventListener('animationend', () => {
+                stateB.classList.remove('anim-state-swap-in');
+                // Reset after 1s
+                setTimeout(() => {
+                  stateB.style.opacity = '0';
+                  stateB.style.transform = 'translateY(10px)';
+                  stateA.style.opacity = '1';
+                  stateA.style.transform = '';
+                }, 1000);
+              }, { once: true });
+            }, { once: true });
+          }
+          return;
+        }
+
+        if (animName === 'card-flip') {
+          const flipFront = card.querySelector('.flip-front');
+          const flipBack = card.querySelector('.flip-back');
+          if (flipFront && flipBack) {
+            flipFront.classList.add('anim-card-flip-front');
+            flipBack.classList.add('anim-card-flip-back');
+            setTimeout(() => {
+              flipFront.classList.remove('anim-card-flip-front');
+              flipBack.classList.remove('anim-card-flip-back');
+              flipFront.style.transform = '';
+              flipBack.style.transform = 'rotateY(180deg)';
+            }, 1500);
+          }
+          return;
+        }
+
+        if (animName === 'progress-fill-slam') {
+          const bar = card.querySelector('.demo-bar');
+          if (bar) {
+            bar.style.transform = 'scaleX(0)';
+            bar.style.transformOrigin = 'left';
+            bar.classList.remove('anim-progress-fill-slam');
+            void bar.offsetWidth;
+            bar.classList.add('anim-progress-fill-slam');
+            bar.addEventListener('animationend', () => {
+              bar.classList.remove('anim-progress-fill-slam');
+              setTimeout(() => { bar.style.transform = ''; }, 1000);
+            }, { once: true });
+          }
+          return;
+        }
+
+        const isLooping = ['border-march', 'hover-orbit', 'breathe-shadow', 'pendulum',
+                           'idle-bounce', 'ticker-scroll', 'resize-grip-pulse'].includes(animName);
+
+        demos.forEach(el => {
+          const cls = 'anim-' + animName;
+          el.classList.remove(cls);
+          void el.offsetWidth;
+          el.classList.add(cls);
+          if (isLooping) {
+            setTimeout(() => el.classList.remove(cls), 5000);
+          } else {
+            el.addEventListener('animationend', () => el.classList.remove(cls), { once: true });
+          }
+        });
+      });
+    });
+
+    // --- Play All per section ---
+    document.querySelectorAll('.play-all-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const section = btn.closest('.motion-section');
+        if (!section) return;
+        const playBtns = section.querySelectorAll('.play-btn');
+        playBtns.forEach((pb, i) => {
+          setTimeout(() => pb.click(), i * 120);
+        });
+      });
+    });
+
+    // --- Code toggle ---
+    document.querySelectorAll('.code-toggle-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const codeBlock = btn.closest('.motion-card-body').querySelector('.motion-card-code');
+        if (!codeBlock) return;
+        const isHidden = codeBlock.hidden;
+        codeBlock.hidden = !isHidden;
+        btn.textContent = isHidden ? 'Hide CSS' : 'Show CSS';
+      });
+    });
+
+    // --- Copy button ---
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const code = btn.closest('.motion-card-code').querySelector('code').textContent;
+        navigator.clipboard.writeText(code).then(() => {
+          btn.textContent = 'Copied!';
+          setTimeout(() => btn.textContent = 'Copy', 1500);
+        });
+      });
+    });
+
+    // --- Text stamp animation ---
+    function animateTextStamp(el) {
+      const text = el.textContent;
+      el.innerHTML = '';
+      [...text].forEach((char, i) => {
+        const span = document.createElement('span');
+        span.textContent = char === ' ' ? '\u00A0' : char;
+        span.style.display = 'inline-block';
+        span.style.opacity = '0';
+        span.classList.add('anim-text-stamp');
+        span.style.animationDelay = (i * 40) + 'ms';
+        el.appendChild(span);
+        span.addEventListener('animationend', () => {
+          span.style.opacity = '1';
+          span.classList.remove('anim-text-stamp');
+        }, { once: true });
+      });
+    }
+
+    // --- Text scramble animation ---
+    function animateTextScramble(el, finalText) {
+      const glyphs = '!@#$%^&*()_+-=[]{}|;:,.<>?';
+      const chars = [...finalText];
+      const duration = 400;
+      const stagger = 30;
+      let frame;
+      const startTime = performance.now();
+
+      function update(now) {
+        const elapsed = now - startTime;
+        let result = '';
+        chars.forEach((char, i) => {
+          const charStart = i * stagger;
+          if (elapsed > charStart + duration) {
+            result += char;
+          } else if (elapsed > charStart) {
+            result += glyphs[Math.floor(Math.random() * glyphs.length)];
+          } else {
+            result += glyphs[Math.floor(Math.random() * glyphs.length)];
+          }
+        });
+        el.textContent = result;
+        if (elapsed < (chars.length * stagger) + duration) {
+          frame = requestAnimationFrame(update);
+        } else {
+          el.textContent = finalText;
+        }
+      }
+      if (frame) cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(update);
+    }
+
+    // --- Accordion ---
+    document.querySelectorAll('.accordion-trigger').forEach(trigger => {
+      trigger.addEventListener('click', () => {
+        const accordion = trigger.nextElementSibling;
+        if (accordion && accordion.classList.contains('accordion-squish')) {
+          accordion.classList.toggle('accordion-open');
+          trigger.textContent = accordion.classList.contains('accordion-open') ? 'Click to collapse' : 'Click to expand';
+        }
+      });
+    });
+
+    // --- Ripple stamp ---
+    document.querySelectorAll('[data-ripple]').forEach(area => {
+      area.addEventListener('click', (e) => {
+        const rect = area.getBoundingClientRect();
+        const ripple = document.createElement('div');
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        ripple.style.cssText = `position:absolute;left:${x}px;top:${y}px;width:12px;height:12px;
+          border-radius:50%;border:2px solid var(--accent-primary);pointer-events:none;
+          transform:translate(-50%,-50%);`;
+        ripple.classList.add('anim-ripple-stamp');
+        area.appendChild(ripple);
+        ripple.addEventListener('animationend', () => ripple.remove());
+      });
+    });
+
+    // --- Magnetic snap ---
+    const magneticDemo = document.getElementById('magnetic-demo');
+    const magneticEl = document.getElementById('magnetic-el');
+    if (magneticDemo && magneticEl) {
+      magneticDemo.addEventListener('mousemove', (e) => {
+        const rect = magneticDemo.getBoundingClientRect();
+        const cx = rect.width / 2;
+        const cy = rect.height / 2;
+        const mx = e.clientX - rect.left;
+        const my = e.clientY - rect.top;
+        const dx = mx - cx;
+        const dy = my - cy;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        const threshold = 80;
+        if (dist < threshold) {
+          const pull = (threshold - dist) / threshold;
+          magneticEl.style.transform = `translate(calc(-50% + ${dx * pull * 0.5}px), calc(-50% + ${dy * pull * 0.5}px))`;
+        } else {
+          magneticEl.style.transform = 'translate(-50%, -50%)';
+        }
+      });
+      magneticDemo.addEventListener('mouseleave', () => {
+        magneticEl.style.transform = 'translate(-50%, -50%)';
+      });
+    }
+
+    // --- Toast system ---
+    let toastCount = 0;
+    document.getElementById('toast-trigger').addEventListener('click', () => {
+      const container = document.getElementById('toast-container');
+      if (container.children.length >= 3) return;
+      toastCount++;
+      const msgs = ['Action completed', 'Item saved', 'Changes applied', 'File uploaded'];
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.textContent = msgs[toastCount % msgs.length] + ' #' + toastCount;
+      toast.classList.add('anim-slide-slam');
+      container.appendChild(toast);
+      toast.addEventListener('animationend', () => toast.classList.remove('anim-slide-slam'), { once: true });
+      setTimeout(() => {
+        toast.classList.add('anim-fling-right');
+        toast.addEventListener('animationend', () => toast.remove(), { once: true });
+      }, 3000);
+    });
+
+    // --- Modal ---
+    const modalOverlay = document.getElementById('modal-overlay');
+    const modalBox = document.getElementById('modal-box');
+    document.getElementById('modal-trigger').addEventListener('click', () => {
+      modalOverlay.classList.add('active');
+      modalOverlay.style.opacity = '0';
+      modalOverlay.style.transition = 'opacity 240ms var(--ease-out)';
+      void modalOverlay.offsetWidth;
+      modalOverlay.style.opacity = '1';
+      modalBox.classList.add('anim-stamp-in');
+      modalBox.addEventListener('animationend', () => modalBox.classList.remove('anim-stamp-in'), { once: true });
+    });
+    function closeModal() {
+      modalBox.classList.add('anim-press-away');
+      modalBox.addEventListener('animationend', () => {
+        modalBox.classList.remove('anim-press-away');
+        modalOverlay.style.opacity = '0';
+        setTimeout(() => {
+          modalOverlay.classList.remove('active');
+          modalOverlay.style.opacity = '';
+          modalOverlay.style.transition = '';
+          modalBox.style.opacity = '';
+          modalBox.style.transform = '';
+        }, 240);
+      }, { once: true });
+    }
+    document.getElementById('modal-close').addEventListener('click', closeModal);
+    modalOverlay.addEventListener('click', (e) => {
+      if (e.target === modalOverlay) closeModal();
+    });
+
+    // --- Form validation ---
+    document.getElementById('form-submit').addEventListener('click', () => {
+      const input = document.getElementById('form-input');
+      const msg = document.getElementById('form-msg');
+      msg.classList.remove('show', 'error', 'success', 'anim-error-jolt', 'anim-info-slide', 'anim-confirm-thud');
+      void msg.offsetWidth;
+
+      if (!input.value.trim()) {
+        input.classList.add('anim-error-jolt');
+        input.addEventListener('animationend', () => input.classList.remove('anim-error-jolt'), { once: true });
+        msg.textContent = 'Please fill in the field';
+        msg.classList.add('show', 'error', 'anim-info-slide');
+        msg.addEventListener('animationend', () => msg.classList.remove('anim-info-slide'), { once: true });
+      } else {
+        msg.textContent = 'Success! Form submitted.';
+        msg.classList.add('show', 'success', 'anim-confirm-thud');
+        msg.addEventListener('animationend', () => msg.classList.remove('anim-confirm-thud'), { once: true });
+        setTimeout(() => {
+          msg.classList.remove('show');
+          input.value = '';
+        }, 2000);
+      }
+    });
+
+    // --- Hero text-stamp on load ---
+    window.addEventListener('DOMContentLoaded', () => {
+      const heroTitle = document.getElementById('hero-title');
+      if (heroTitle && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        setTimeout(() => animateTextStamp(heroTitle), 200);
+      }
+    });
+  </script>
+</body>
+</html>

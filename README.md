@@ -1,8 +1,8 @@
 # Delightful Design System
 
-A warm, neo-brutalist design system built on OKLCH color science. 3-tier token architecture, 20+ components, full light/dark mode, and a complete motion system.
+A warm, neo-brutalist design system built on OKLCH color science. 3-tier token architecture, 20+ components, full light/dark mode, and a complete motion system with 59 named animations.
 
-**[Live Demo](https://kylesnav.github.io/delightful-design-system/delightful-design-system.html)** · **[Claude Code Plugin](https://github.com/kylesnav/delightful-claude-plugin)** · **[Obsidian Theme](https://github.com/kylesnav/obsidian-delightful)**
+> **[Live Demo](https://kylesnav.github.io/delightful-design-system/delightful-design-system.html)** · **[Motion System](https://kylesnav.github.io/delightful-design-system/delightful-motion.html)** · **[Claude Code Plugin](https://github.com/kylesnav/delightful-claude-plugin)** · **[Obsidian Theme](https://github.com/kylesnav/obsidian-delightful)**
 
 ![Delightful Design System — Light Mode](screenshots/design-system-light.png)
 
@@ -16,6 +16,7 @@ A warm, neo-brutalist design system built on OKLCH color science. 3-tier token a
 | **[Ghostty Theme](ghostty/)** | A Ghostty terminal theme with optional GLSL shaders. |
 | **[iTerm2 Theme](iterm2/)** | An iTerm2 color profile using the Delightful palette. |
 | **[Shell Config](shell/)** | Starship prompt and zsh config using Delightful colors. Works with any terminal. |
+| **[Motion System](delightful-motion.html)** | 59 named animations across 10 categories with live interactive demos. Includes entrances, exits, attention seekers, feedback, micro-interactions, and scroll-driven effects. |
 
 ## Design Principles
 

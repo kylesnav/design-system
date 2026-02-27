@@ -253,11 +253,36 @@ Raw oklch values. Named by scale, no semantic meaning. **Never use directly in c
 --motion-fast: 160ms;
 --motion-base: 240ms;
 --motion-slow: 360ms;
+--motion-deliberate: 500ms;
 
 --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
 --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+--ease-slam: cubic-bezier(0.55, 0.06, 0.68, 0.19);
+--ease-elastic: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 ```
+
+**Duration guidance:**
+
+| Token | Value | Use |
+|-------|-------|-----|
+| `--motion-instant` | 100ms | Button press, toggle snap |
+| `--motion-fast` | 160ms | Hover effects, micro-interactions |
+| `--motion-base` | 240ms | General transitions, fade in/out |
+| `--motion-slow` | 360ms | Complex transitions, panel slides |
+| `--motion-deliberate` | 500ms | Page transitions, choreographed sequences |
+
+**Easing guidance:**
+
+| Token | Use |
+|-------|-----|
+| `--ease-out` | General deceleration, most UI transitions |
+| `--ease-bounce` | Playful overshoot, toggle/switch, attention |
+| `--ease-smooth` | Smooth deceleration, content reveals |
+| `--ease-slam` | Fast-in abrupt stop, stamps, thuds |
+| `--ease-elastic` | Exaggerated overshoot, springy elements |
+
+See the [Motion System](https://kylesnav.github.io/delightful-design-system/delightful-motion.html) for 59 named animations across 10 categories with live interactive demos.
 
 ### Z-Index Scale
 

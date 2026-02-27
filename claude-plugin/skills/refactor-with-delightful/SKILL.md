@@ -4,7 +4,7 @@ description: Refactor existing project UI to use the Delightful design system. U
 allowed-tools: "Bash WebFetch"
 metadata:
   author: Delightful Design System
-  version: 0.3.1
+  version: 0.4.0
   category: frontend-design
   tags: [design-system, css, refactoring, migration, oklch]
 ---
@@ -181,3 +181,27 @@ Solution: These are allowed exceptions — the auditor should skip `:root` and `
 ### Existing hover effects conflict with Delightful patterns
 Cause: Old CSS transitions clash with neo-brutalist translate + shadow pattern
 Solution: Remove old `transition` and `:hover` rules before applying Delightful interaction patterns. Use `transition: all var(--motion-fast) var(--ease-out)` as the base.
+
+## Quick Token Reference
+
+**Colors:** `--accent-primary`, `--accent-danger`, `--accent-gold`, `--accent-cyan`, `--accent-green` (each with `-hover`, `-subtle`, `-text` variants)
+
+**Backgrounds:** `--bg-page`, `--bg-surface`, `--bg-elevated`, `--bg-subtle`, `--bg-muted`
+
+**Text:** `--text-primary`, `--text-secondary`, `--text-muted`, `--text-on-accent`, `--text-on-gold`
+
+**Spacing:** `--space-1` (4px), `--space-1-5` (6px), `--space-2` (8px) through `--space-20` (80px)
+
+**Content font sizes:** `--step--2` through `--step-5` (fluid clamp)
+
+**UI font sizes:** `--ui-text-2xs` (11px), `--ui-text-xs` (12px), `--ui-text-sm` (13px), `--ui-text-md` (14px), `--ui-text-lg` (15px), `--ui-text-xl` (17px)
+
+**Control heights:** `--control-sm` (32px), `--control-md` (36px), `--control-lg` (44px), `--control-xl` (56px)
+
+**Shadows:** `--shadow-sm` (2px), `--shadow-md` (4px), `--shadow-lg` (8px), `--shadow-pink`, `--shadow-danger`, `--shadow-gold`, `--shadow-cyan`, `--shadow-green`
+
+**Radius:** `--radius-sm` (10px), `--radius-md` (16px), `--radius-lg` (24px), `--radius-xl` (32px), `--radius-full` (pill)
+
+**Motion:** `--motion-instant` (100ms), `--motion-fast` (160ms), `--motion-base` (240ms), `--motion-slow` (360ms), `--motion-deliberate` (500ms)
+
+**Easing:** `--ease-out`, `--ease-bounce`, `--ease-smooth`, `--ease-slam`, `--ease-elastic`

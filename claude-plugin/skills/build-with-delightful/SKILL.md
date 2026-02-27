@@ -4,7 +4,7 @@ description: Build new web projects and UI using the Delightful design system. U
 allowed-tools: "Bash WebFetch"
 metadata:
   author: Delightful Design System
-  version: 0.3.1
+  version: 0.4.0
   category: frontend-design
   tags: [design-system, css, neo-brutalist, oklch, ui]
 ---
@@ -99,9 +99,9 @@ If browser tools are available (Playwright MCP), open the result and screenshot 
 
 **Radius:** `--radius-sm` (10px), `--radius-md` (16px), `--radius-lg` (24px), `--radius-xl` (32px), `--radius-full` (pill)
 
-**Motion:** `--motion-instant` (100ms), `--motion-fast` (160ms), `--motion-base` (240ms), `--motion-slow` (360ms)
+**Motion:** `--motion-instant` (100ms), `--motion-fast` (160ms), `--motion-base` (240ms), `--motion-slow` (360ms), `--motion-deliberate` (500ms)
 
-**Easing:** `--ease-out`, `--ease-bounce`, `--ease-smooth`
+**Easing:** `--ease-out`, `--ease-bounce`, `--ease-smooth`, `--ease-slam`, `--ease-elastic`
 
 ## Examples
 

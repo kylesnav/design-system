@@ -25,6 +25,7 @@ When invoked, scan all HTML, CSS, JSX, TSX, Vue, and Svelte files in the target 
 | Missing focus-visible | Interactive elements without `:focus-visible` outline | Warning |
 | Blurred shadows | `box-shadow` with a blur radius > 0 (should be solid offset shadows like `4px 4px 0`) | Error |
 | Missing reduced-motion | Animations or transitions without `prefers-reduced-motion` media query guard | Warning |
+| Raw motion values | `transition: 500ms`, `animation-duration: 0.3s`, `cubic-bezier(` not wrapped in `var(--ease-*)` or `var(--motion-*)` | Warning |
 | Wrong border style | Borders not using `2px solid` pattern on cards/buttons | Info |
 | Arbitrary z-index | `z-index: 100`, `z-index: 999` — any z-index not using `var(--z-*)` | Info |
 | Non-oklch colors | Color definitions using hex/rgb/hsl instead of oklch | Info |

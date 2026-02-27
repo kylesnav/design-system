@@ -265,9 +265,12 @@
       --motion-fast: 160ms;
       --motion-base: 240ms;
       --motion-slow: 360ms;
+      --motion-deliberate: 500ms;
       --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
       --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
       --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+      --ease-slam: cubic-bezier(0.55, 0.06, 0.68, 0.19);
+      --ease-elastic: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
       --btn-primary-bg: var(--accent-primary);
       --btn-primary-text: var(--text-on-accent);
@@ -3448,6 +3451,7 @@
         <li><a href="#loading">Loading</a></li>
         <li><a href="#overlays">Overlays</a></li>
         <li><a href="#signature">Signature</a></li>
+        <li><a href="delightful-motion.html" style="color:var(--accent-gold)">Motion ↗</a></li>
       </ul>
       <div class="topnav-right">
         <button class="nav-toggle-btn" id="nav-toggle" aria-label="Toggle navigation">
@@ -3455,6 +3459,17 @@
             <line x1="3" y1="6" x2="21" y2="6" />
             <line x1="3" y1="12" x2="21" y2="12" />
             <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        </button>
+        <button class="theme-btn" id="motion-toggle" aria-label="Toggle reduced motion" title="Toggle animations">
+          <svg class="icon-motion-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="5 3 19 12 5 21 5 3" />
+          </svg>
+          <svg class="icon-motion-pause" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <rect x="6" y="4" width="4" height="16" />
+            <rect x="14" y="4" width="4" height="16" />
           </svg>
         </button>
         <button class="theme-btn" id="theme-toggle" aria-label="Toggle dark mode">
@@ -3494,6 +3509,31 @@
 
     [data-theme="dark"] .icon-moon {
       display: block;
+    }
+
+    .icon-motion-play {
+      display: none;
+    }
+
+    .icon-motion-pause {
+      display: block;
+    }
+
+    [data-reduced-motion="reduce"] .icon-motion-play {
+      display: block;
+    }
+
+    [data-reduced-motion="reduce"] .icon-motion-pause {
+      display: none;
+    }
+
+    [data-reduced-motion="reduce"] *,
+    [data-reduced-motion="reduce"] *::before,
+    [data-reduced-motion="reduce"] *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
     }
   </style>
 
@@ -5317,6 +5357,12 @@
                 style="font-size:0.875rem;font-weight:550">Slow</span></div>
             <div class="progress-track" style="width:96%"><div class="progress-fill progress-fill-pink" style="width:100%"></div></div>
           </div>
+          <div>
+            <div style="display:flex;align-items:center;gap:var(--space-3);margin-bottom:var(--space-1)"><span
+                class="state-label" style="width:50px">500ms</span><span
+                style="font-size:0.875rem;font-weight:550">Deliberate</span></div>
+            <div class="progress-track" style="width:100%"><div class="progress-fill progress-fill-gold" style="width:100%"></div></div>
+          </div>
         </div>
       </div>
 
@@ -5346,6 +5392,22 @@
               <div class="easing-dot" id="dot-ease-smooth" style="background:var(--accent-cyan)"></div>
             </div>
             <div class="easing-label">Entrance animations, hover lifts</div>
+          </div>
+          <div>
+            <div class="easing-label" style="margin-bottom:var(--space-1)">ease-slam · cubic-bezier(0.55, 0.06, 0.68, 0.19)
+            </div>
+            <div class="easing-track">
+              <div class="easing-dot" id="dot-ease-slam" style="background:var(--accent-danger)"></div>
+            </div>
+            <div class="easing-label">Hard stops, dismissals, stamp-like impacts</div>
+          </div>
+          <div>
+            <div class="easing-label" style="margin-bottom:var(--space-1)">ease-elastic · cubic-bezier(0.68, -0.55, 0.265, 1.55)
+            </div>
+            <div class="easing-track">
+              <div class="easing-dot" id="dot-ease-elastic" style="background:var(--accent-success)"></div>
+            </div>
+            <div class="easing-label">Springy overshoots, playful entrances</div>
           </div>
         </div>
         <button class="btn btn-secondary btn-sm btn-bounce" style="margin-top:var(--space-4)" id="play-easings">Play
@@ -5402,7 +5464,45 @@
               user interaction. Keep the thread clear.</div>
             <div class="card-meta">Avoid transform + layout simultaneously</div>
           </div>
+          <div class="card card-compact">
+            <div class="card-title" style="color:var(--accent-primary-text)">Use ease-slam for...</div>
+            <div class="card-desc">Hard stops, dismissals, and stamp-like impacts. Decelerates sharply for a weighty,
+              definitive feel.</div>
+            <div class="card-meta">160–360ms · Exits and impacts</div>
+          </div>
+          <div class="card card-compact">
+            <div class="card-title" style="color:var(--accent-primary-text)">Use ease-elastic for...</div>
+            <div class="card-desc">Springy overshoots and playful entrances. Pulls back before springing forward for
+              lively, energetic motion.</div>
+            <div class="card-meta">240–500ms · Entrances and emphasis</div>
+          </div>
         </div>
+      </div>
+
+      <div class="subsection">
+        <div class="subsection-label">Component Motion Recipes</div>
+        <div style="overflow-x:auto">
+          <table class="token-table">
+            <thead>
+              <tr>
+                <th>Component</th>
+                <th>Entrance</th>
+                <th>Exit</th>
+                <th>Feedback</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Toast</td><td>slide-slam</td><td>fling-right</td><td>confirm-thud</td></tr>
+              <tr><td>Modal</td><td>stamp-in</td><td>press-away</td><td>--</td></tr>
+              <tr><td>Card</td><td>brick-stack</td><td>trapdoor</td><td>spotlight</td></tr>
+              <tr><td>Alert</td><td>info-slide</td><td>press-away</td><td>error-jolt</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <p style="font-size:0.95rem;color:var(--text-secondary)">See the full <a href="delightful-motion.html" style="color:var(--accent-gold);font-weight:600">Motion System showcase</a> for 59 named animations across 10 categories.</p>
       </div>
     </section>
 
@@ -6281,10 +6381,28 @@
       // === Theme Toggle ===
       const html = document.documentElement;
       const themeBtn = document.getElementById('theme-toggle');
-      if (window.matchMedia('(prefers-color-scheme: dark)').matches) html.setAttribute('data-theme', 'dark');
+      const saved = localStorage.getItem('delightful-theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      html.setAttribute('data-theme', saved || (prefersDark ? 'dark' : 'light'));
       themeBtn.addEventListener('click', () => {
         const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
         html.setAttribute('data-theme', next);
+        localStorage.setItem('delightful-theme', next);
+      });
+
+      // === Motion Toggle ===
+      const motionBtn = document.getElementById('motion-toggle');
+      const savedMotion = localStorage.getItem('delightful-reduced-motion');
+      if (savedMotion === 'reduce') html.setAttribute('data-reduced-motion', 'reduce');
+      motionBtn.addEventListener('click', () => {
+        const isReduced = html.getAttribute('data-reduced-motion') === 'reduce';
+        if (isReduced) {
+          html.removeAttribute('data-reduced-motion');
+          localStorage.removeItem('delightful-reduced-motion');
+        } else {
+          html.setAttribute('data-reduced-motion', 'reduce');
+          localStorage.setItem('delightful-reduced-motion', 'reduce');
+        }
       });
 
       // === Mobile Nav Toggle ===
@@ -6339,14 +6457,14 @@
       document.querySelectorAll('[data-copy]').forEach(el => {
         el.style.cursor = 'pointer';
         el.addEventListener('click', () => {
-          navigator.clipboard.writeText(el.getAttribute('data-copy')).then(() => showToast('success', 'Copied', el.getAttribute('data-copy')));
+          navigator.clipboard.writeText(el.getAttribute('data-copy')).then(() => showToast('success', 'Copied', el.getAttribute('data-copy'))).catch(() => {});
         });
       });
       document.querySelectorAll('.swatch').forEach(el => {
         if (el.getAttribute('data-copy')) return;
         el.addEventListener('click', () => {
           const val = el.querySelector('.swatch-val');
-          if (val) navigator.clipboard.writeText(val.textContent).then(() => showToast('success', 'Copied', val.textContent));
+          if (val) navigator.clipboard.writeText(val.textContent).then(() => showToast('success', 'Copied', val.textContent)).catch(() => {});
         });
       });
 
@@ -6462,8 +6580,9 @@
           s.className = skelMode === 'shimmer' ? 'skel skel-shimmer' : 'skel skel-pulse';
         });
       });
-      document.getElementById('skel-load').addEventListener('click', () => {
-        const btn = document.getElementById('skel-load');
+      const skelLoadBtn = document.getElementById('skel-load');
+      if (skelLoadBtn) skelLoadBtn.addEventListener('click', () => {
+        const btn = skelLoadBtn;
         if (btn.hasAttribute('disabled')) return;
 
         btn.setAttribute('disabled', 'true');
@@ -6518,7 +6637,7 @@
 
       // === Easing Dots ===
       document.getElementById('play-easings').addEventListener('click', () => {
-        const easings = { 'dot-ease-out': 'cubic-bezier(0.16,1,0.3,1)', 'dot-ease-bounce': 'cubic-bezier(0.34,1.56,0.64,1)', 'dot-ease-smooth': 'cubic-bezier(0.22,1,0.36,1)' };
+        const easings = { 'dot-ease-out': 'cubic-bezier(0.16,1,0.3,1)', 'dot-ease-bounce': 'cubic-bezier(0.34,1.56,0.64,1)', 'dot-ease-smooth': 'cubic-bezier(0.22,1,0.36,1)', 'dot-ease-slam': 'cubic-bezier(0.55,0.06,0.68,0.19)', 'dot-ease-elastic': 'cubic-bezier(0.68,-0.55,0.265,1.55)' };
         Object.entries(easings).forEach(([id, easing]) => {
           const dot = document.getElementById(id);
           dot.style.transition = 'none'; dot.style.left = '0';

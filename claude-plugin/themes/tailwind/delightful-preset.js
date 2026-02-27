@@ -144,12 +144,15 @@ export default {
         fast: 'var(--motion-fast)',
         base: 'var(--motion-base)',
         slow: 'var(--motion-slow)',
+        deliberate: 'var(--motion-deliberate)',
       },
 
       transitionTimingFunction: {
         out: 'var(--ease-out)',
         bounce: 'var(--ease-bounce)',
         smooth: 'var(--ease-smooth)',
+        slam: 'var(--ease-slam)',
+        elastic: 'var(--ease-elastic)',
       },
 
       zIndex: {
