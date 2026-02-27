@@ -1,10 +1,11 @@
 {
   "name": "delightful-design-system",
-  "version": "0.4.0",
+  "version": "0.4.5",
   "private": true,
   "description": "A warm, neo-brutalist design system built on OKLCH color science. 3-tier token architecture, 20+ components, full light/dark mode, and a complete motion system.",
   "scripts": {
-    "sync": "node scripts/sync-tokens.mjs"
+    "sync": "node scripts/sync-tokens.mjs",
+    "bump": "node scripts/bump-version.mjs"
   },
   "repository": {
     "type": "git",

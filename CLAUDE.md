@@ -8,6 +8,7 @@ Monorepo for the Delightful design system, its Claude Code plugin, and its Obsid
 delightful-design-system.html   ← SINGLE SOURCE OF TRUTH (all tokens, components, patterns)
 sample-warm-palette.html        ← Palette variant demo (not a derivative)
 delightful-motion.html          ← Motion system showcase (59 animations, 10 categories)
+delightful-animation.html       ← Animation system showcase (JS-powered: springs, FLIP, particles, gestures)
 claude-plugin/                  ← Claude Code plugin
   themes/css/                       Standalone CSS token export
   themes/tailwind/                  Tailwind v3 preset
@@ -44,7 +45,8 @@ After modifying `delightful-design-system.html`, update all derivatives:
 4. `claude-plugin/reference/design-system.md` — update token tables and component patterns
 5. `obsidian-theme/theme.css` — update CSS variables and component styles to match
 6. `vscode-theme/themes/*.json` — regenerate via `cd vscode-theme/scripts && node generate-themes.mjs`
-7. `delightful-motion.html` — sync motion token block (lines 148-187) if any motion token values changed
+7. `delightful-motion.html` — sync motion token block if any motion token values changed
+8. `delightful-animation.html` — sync animation token block if any token values changed
 
 If token names, values, or component patterns changed, also update:
 - `claude-plugin/agents/delightful-auditor.md`
@@ -78,9 +80,13 @@ The shared shell config (`shell/`) contains Starship prompt and zsh settings tha
 
 ## Motion System
 
-`delightful-motion.html` is a self-contained showcase of the motion system. It duplicates the token block from the source of truth. When motion tokens change in `delightful-design-system.html`, the token block in `delightful-motion.html` must be manually synced (lines 148-187).
+`delightful-motion.html` is a self-contained showcase of the motion system. It duplicates the token block from the source of truth. When motion tokens change in `delightful-design-system.html`, the token block in `delightful-motion.html` must be manually synced.
 
 The motion file is NOT a derivative in the same way as CSS/Tailwind/Figma exports. It's a companion document with its own animations, demos, and interactive features. However, its token values must always match the source of truth.
+
+## Animation System
+
+`delightful-animation.html` is a self-contained showcase of JS-powered animations (spring physics, timeline/FLIP, particles, gestures). Like the motion file, it duplicates the token block from the source of truth and must be kept in sync. It sits above the CSS Motion System — CSS animations handle transitions, JS handles physics-based and interactive animations.
 
 ## Obsidian External Repo Sync
 
@@ -96,6 +102,7 @@ When `obsidian-theme/` is updated, copy **all** its files (`theme.css`, `manifes
 |------|------|-------------|
 | `delightful-design-system.html` | Source of truth | First — all changes start here |
 | `delightful-motion.html` | Motion system showcase | Motion tokens change, visual patterns change |
+| `delightful-animation.html` | Animation system showcase | Token values change |
 | `claude-plugin/themes/css/delightful-tokens.css` | Standalone CSS tokens | Tokens change |
 | `claude-plugin/themes/tailwind/delightful-preset.js` | Tailwind preset | Tokens change |
 | `claude-plugin/themes/figma/tokens.json` | Figma/Style Dictionary tokens | Tokens change |
@@ -115,7 +122,7 @@ When `obsidian-theme/` is updated, copy **all** its files (`theme.css`, `manifes
 
 ## Versioning
 
-The canonical version is the latest git tag (`git tag -l | sort -V | tail -1`). Currently **v0.4.0**. The repo is public on GitHub but not published to npm (`"private": true` in `package.json` prevents accidental `npm publish`).
+The canonical version is the latest git tag (`git tag -l | sort -V | tail -1`). Currently **v0.4.5**. The repo is public on GitHub but not published to npm (`"private": true` in `package.json` prevents accidental `npm publish`).
 
 When bumping the version, update **all 6 files** and create a matching git tag:
 
@@ -136,5 +143,8 @@ Never set versions independently — all 6 files must always match.
 
 - All colors use OKLCH. No hex, rgb, or hsl anywhere.
 - Token architecture is 3-tier: Primitives → Semantic → Component. Components never reference primitives directly.
+- Color families: neutral, pink (primary), red (danger), gold (warning), cyan (tertiary), green (success), purple (creative/special). Each has 5 primitive stops and 4 semantic tokens (base, hover, subtle, text).
 - Shadows are solid (zero blur). Borders are 2px solid.
-- The HTML file is self-contained — all CSS and JS inline, no external dependencies except Google Fonts.
+- Dark mode uses muted `--border-default` (`oklch(0.550 0.010 65)`) and bright `--border-strong` for emphasis.
+- The HTML files are self-contained — all CSS and JS inline, no external dependencies except Google Fonts.
+- Version bumps use `npm run bump <version>` to update all 6 version files.

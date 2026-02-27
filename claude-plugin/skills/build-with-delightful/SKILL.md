@@ -4,7 +4,7 @@ description: Build new web projects and UI using the Delightful design system. U
 allowed-tools: "Bash WebFetch"
 metadata:
   author: Delightful Design System
-  version: 0.4.0
+  version: 0.4.5
   category: frontend-design
   tags: [design-system, css, neo-brutalist, oklch, ui]
 ---
@@ -25,7 +25,7 @@ Set up the project foundation:
 
 1. Add Google Fonts link (Inter + JetBrains Mono)
 2. Add the full CSS custom property system — all 3 tiers:
-   - **Tier 1 — Primitives:** Raw oklch color scales (neutral, pink, red, gold, cyan, green)
+   - **Tier 1 — Primitives:** Raw oklch color scales (neutral, pink, red, gold, cyan, green, purple)
    - **Tier 2 — Semantic:** Light mode + dark mode tokens (backgrounds, text, accents, borders, shadows)
    - **Tier 3 — Component:** Typography scale, spacing scale, radius scale, motion tokens, button/toggle tokens
 3. Add the base reset (`*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }`)
@@ -77,7 +77,7 @@ If browser tools are available (Playwright MCP), open the result and screenshot 
 
 ## Quick Token Reference
 
-**Colors:** `--accent-primary`, `--accent-danger`, `--accent-gold`, `--accent-cyan`, `--accent-green` (each with `-hover`, `-subtle`, `-text` variants)
+**Colors:** `--accent-primary`, `--accent-danger`, `--accent-gold`, `--accent-cyan`, `--accent-green`, `--accent-purple` (each with `-hover`, `-subtle`, `-text` variants)
 
 **Backgrounds:** `--bg-page`, `--bg-surface`, `--bg-elevated`, `--bg-subtle`, `--bg-muted`
 
@@ -95,7 +95,7 @@ If browser tools are available (Playwright MCP), open the result and screenshot 
 
 **Container widths:** `--container-sm` (640px), `--container-md` (960px), `--container-lg` (1200px)
 
-**Shadows:** `--shadow-sm` (2px), `--shadow-md` (4px), `--shadow-lg` (8px), `--shadow-pink`, `--shadow-danger`, `--shadow-gold`, `--shadow-cyan`, `--shadow-green`
+**Shadows:** `--shadow-sm` (2px), `--shadow-md` (4px), `--shadow-lg` (8px), `--shadow-pink`, `--shadow-danger`, `--shadow-gold`, `--shadow-cyan`, `--shadow-green`, `--shadow-purple`
 
 **Radius:** `--radius-sm` (10px), `--radius-md` (16px), `--radius-lg` (24px), `--radius-xl` (32px), `--radius-full` (pill)
 

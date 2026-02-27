@@ -11,6 +11,14 @@ zshrc-snippet       Zsh additions (starship, aliases, hooks)
 
 ## Install
 
+The fastest way to set up shell config (along with your terminal theme) is the setup script:
+
+```bash
+bash scripts/setup-terminal.sh
+```
+
+Or install manually:
+
 ### Starship Prompt
 
 ```bash

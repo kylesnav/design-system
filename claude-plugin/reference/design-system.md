@@ -79,6 +79,15 @@ Raw oklch values. Named by scale, no semantic meaning. **Never use directly in c
 | `--primitive-green-400` | `oklch(0.630 0.170 148)` |
 | `--primitive-green-500` | `oklch(0.540 0.165 148)` |
 
+### Purple
+| Token | Value |
+|---|---|
+| `--primitive-purple-100` | `oklch(0.940 0.040 300)` |
+| `--primitive-purple-200` | `oklch(0.860 0.080 300)` |
+| `--primitive-purple-300` | `oklch(0.720 0.160 300)` |
+| `--primitive-purple-400` | `oklch(0.640 0.220 300)` |
+| `--primitive-purple-500` | `oklch(0.560 0.260 300)` |
+
 ---
 
 ## Tier 2 — Semantic Tokens
@@ -110,6 +119,8 @@ Raw oklch values. Named by scale, no semantic meaning. **Never use directly in c
 | `--border-strong` | `var(--text-primary)` |
 | `--border-subtle` | `oklch(0.820 0.015 70)` |
 
+Note: In dark mode, `--border-default` is muted (`oklch(0.550 0.010 65)`) to reduce visual noise. Use `--border-strong` for intentional emphasis.
+
 **Accent Colors:**
 | Family | Base | Hover | Subtle | Text |
 |---|---|---|---|---|
@@ -118,6 +129,7 @@ Raw oklch values. Named by scale, no semantic meaning. **Never use directly in c
 | Gold | `oklch(0.840 0.175 85)` | `oklch(0.820 0.165 84)` | `oklch(0.965 0.060 85)` | `oklch(0.440 0.130 85)` |
 | Cyan | `oklch(0.650 0.148 210)` | `oklch(0.600 0.150 210)` | `oklch(0.945 0.030 210)` | `oklch(0.520 0.148 210)` |
 | Green | `oklch(0.630 0.170 148)` | `oklch(0.580 0.165 148)` | `oklch(0.945 0.035 148)` | `oklch(0.480 0.165 148)` |
+| Purple | `oklch(0.640 0.220 300)` | `oklch(0.580 0.230 300)` | `oklch(0.950 0.035 300)` | `oklch(0.520 0.220 300)` |
 
 **Status:** `--status-info` = primary, `--status-error` = danger, `--status-warning` = gold, `--status-success` = green
 
@@ -138,6 +150,7 @@ Raw oklch values. Named by scale, no semantic meaning. **Never use directly in c
 | `--shadow-gold` | `4px 4px 0 var(--accent-gold)` |
 | `--shadow-cyan` | `4px 4px 0 var(--accent-cyan)` |
 | `--shadow-green` | `4px 4px 0 var(--accent-green)` |
+| `--shadow-purple` | `4px 4px 0 var(--accent-purple)` |
 
 ### Dark Mode (`[data-theme="dark"]`)
 
@@ -162,7 +175,7 @@ Raw oklch values. Named by scale, no semantic meaning. **Never use directly in c
 **Borders:**
 | Token | Value |
 |---|---|
-| `--border-default` | `var(--text-primary)` |
+| `--border-default` | `oklch(0.550 0.010 65)` — muted for structure |
 | `--border-strong` | `var(--text-primary)` |
 | `--border-subtle` | `oklch(0.330 0.015 65)` |
 
@@ -174,6 +187,7 @@ Raw oklch values. Named by scale, no semantic meaning. **Never use directly in c
 | Gold | `oklch(0.840 0.170 85)` | `oklch(0.870 0.155 84)` | `oklch(0.260 0.065 85)` | `oklch(0.870 0.155 85)` |
 | Cyan | `oklch(0.720 0.140 210)` | `oklch(0.760 0.130 210)` | `oklch(0.250 0.045 210)` | `oklch(0.780 0.130 210)` |
 | Green | `oklch(0.680 0.155 148)` | `oklch(0.720 0.145 148)` | `oklch(0.250 0.048 148)` | `oklch(0.740 0.145 148)` |
+| Purple | `oklch(0.700 0.200 300)` | `oklch(0.740 0.190 300)` | `oklch(0.250 0.055 300)` | `oklch(0.760 0.180 300)` |
 
 **Utility (Dark):**
 | Token | Value |
@@ -181,7 +195,7 @@ Raw oklch values. Named by scale, no semantic meaning. **Never use directly in c
 | `--focus-ring` | `oklch(0.700 0.230 350)` |
 | `--overlay-bg` | `oklch(0 0 0 / 0.60)` |
 
-**Dark Shadows:** Cream `oklch(0.92 0.010 65)` instead of `var(--text-primary)` for sm/md/lg — warm inverted shadows for visible 3D on dark backgrounds. Color shadows (pink, danger, gold, cyan, green) still use their respective accent vars.
+**Dark Shadows:** Cream `oklch(0.92 0.010 65)` instead of `var(--text-primary)` for sm/md/lg — warm inverted shadows for visible 3D on dark backgrounds. Color shadows (pink, danger, gold, cyan, green, purple) still use their respective accent vars.
 
 ---
 
@@ -316,6 +330,8 @@ See the [Motion System](https://kylesnav.github.io/delightful-design-system/deli
 --btn-cyan-text: var(--text-on-accent);
 --btn-green-bg: var(--accent-green);
 --btn-green-text: var(--text-on-accent);
+--btn-purple-bg: var(--accent-purple);
+--btn-purple-text: var(--text-on-accent);
 --btn-gap: var(--space-1-5);   /* 6px — icon + label spacing */
 ```
 
@@ -505,6 +521,7 @@ All animations MUST be wrapped in `@media (prefers-reduced-motion: no-preference
 - `.btn-gold` — `background: var(--accent-gold); color: var(--text-on-gold); box-shadow: var(--shadow-gold);`
 - `.btn-cyan` — `background: var(--accent-cyan); color: var(--text-on-accent); box-shadow: var(--shadow-cyan);`
 - `.btn-green` — `background: var(--accent-green); color: var(--text-on-accent); box-shadow: var(--shadow-green);`
+- `.btn-purple` — `background: var(--accent-purple); color: var(--text-on-accent); box-shadow: var(--shadow-purple);`
 - `.btn-secondary` — `background: var(--bg-surface); border: 2px solid var(--border-default);`
 - `.btn-ghost` — `background: transparent; color: var(--text-secondary);`
 
@@ -626,7 +643,7 @@ All animations MUST be wrapped in `@media (prefers-reduced-motion: no-preference
 .card:active { transform: translate(2px, 2px); box-shadow: 0 0 0 var(--text-primary); }
 ```
 
-**Variants:** `.card-featured` (pink top border), `.card-featured-red`, `.card-featured-gold`, `.card-featured-cyan`, `.card-featured-green`, `.card-compact` (smaller padding)
+**Variants:** `.card-featured` (pink top border), `.card-featured-red`, `.card-featured-gold`, `.card-featured-cyan`, `.card-featured-green`, `.card-featured-purple`, `.card-compact` (smaller padding)
 
 ```html
 <div class="card card-featured">
@@ -652,6 +669,7 @@ All animations MUST be wrapped in `@media (prefers-reduced-motion: no-preference
 - `.badge-gold` — gold subtle/text
 - `.badge-cyan` — cyan subtle/text
 - `.badge-green` — green subtle/text
+- `.badge-purple` — purple subtle/text
 
 ```html
 <span class="badge badge-pink">Info</span>
@@ -659,6 +677,7 @@ All animations MUST be wrapped in `@media (prefers-reduced-motion: no-preference
 <span class="badge badge-gold">Warning</span>
 <span class="badge badge-danger">Error</span>
 <span class="badge badge-cyan">Tertiary</span>
+<span class="badge badge-purple">Purple</span>
 ```
 
 ### Alert `.alert`
@@ -675,6 +694,7 @@ All animations MUST be wrapped in `@media (prefers-reduced-motion: no-preference
 .alert-gold { background: var(--accent-gold-subtle); color: var(--accent-gold-text); border-color: var(--accent-gold); box-shadow: var(--shadow-gold); }
 .alert-cyan { background: var(--accent-cyan-subtle); color: var(--accent-cyan-text); border-color: var(--accent-cyan); box-shadow: var(--shadow-cyan); }
 .alert-green { background: var(--accent-green-subtle); color: var(--accent-green-text); border-color: var(--accent-green); box-shadow: var(--shadow-green); }
+.alert-purple { background: var(--accent-purple-subtle); color: var(--accent-purple-text); border-color: var(--accent-purple); box-shadow: var(--shadow-purple); }
 ```
 
 ### Data Table `.data-table`
@@ -856,6 +876,7 @@ Use `<dialog>` element with `.showModal()` / `.close()`.
 .progress-fill-gold { background: var(--accent-gold); }
 .progress-fill-cyan { background: var(--accent-cyan); }
 .progress-fill-green { background: var(--accent-green); }
+.progress-fill-purple { background: var(--accent-purple); }
 ```
 
 ### Avatar `.avatar`
@@ -873,7 +894,7 @@ Use `<dialog>` element with `.showModal()` / `.close()`.
 .avatar-lg { width: var(--control-xl); height: var(--control-xl); font-size: var(--ui-text-lg); }
 ```
 
-**Color variants:** `.avatar-pink`, `.avatar-gold`, `.avatar-cyan`, `.avatar-green` — use `accent-*-subtle` backgrounds with `accent-*-text` foregrounds.
+**Color variants:** `.avatar-pink`, `.avatar-gold`, `.avatar-cyan`, `.avatar-green`, `.avatar-purple` — use `accent-*-subtle` backgrounds with `accent-*-text` foregrounds.
 
 **Avatar group:** `.avatar-group` stacks avatars with negative margin overlap.
 
@@ -998,7 +1019,7 @@ document.documentElement.setAttribute('data-theme', saved || (prefersDark ? 'dar
 3. **Hover = lift + bigger shadow** — `transform: translate(-4px, -4px); box-shadow: var(--shadow-lg);`
 4. **Active = press + no shadow** — `transform: translate(2px, 2px); box-shadow: 0 0 0 var(--text-primary);`
 5. **Bold typography** — Headings 650-800 weight, tight tracking
-6. **Color is confident** — Pink for primary actions, red for danger, gold for highlight, cyan for tertiary, green for success
+6. **Color is confident** — Pink for primary actions, red for danger, gold for highlight, cyan for tertiary, green for success, purple for creative/special
 7. **Warm backgrounds** — `--bg-page` is warm cream, not pure white
 8. **All colors via tokens** — No hardcoded hex/rgb/hsl in components
 9. **All spacing via scale** — Only `var(--space-*)` values

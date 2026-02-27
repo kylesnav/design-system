@@ -89,6 +89,13 @@ const primitives = {
     400: 'oklch(0.630 0.170 148)',
     500: 'oklch(0.540 0.165 148)',
   },
+  purple: {
+    100: 'oklch(0.940 0.040 300)',
+    200: 'oklch(0.860 0.080 300)',
+    300: 'oklch(0.720 0.160 300)',
+    400: 'oklch(0.640 0.220 300)',
+    500: 'oklch(0.560 0.260 300)',
+  },
 };
 
 // ---------------------------------------------------------------------------
@@ -134,6 +141,11 @@ const light = {
   accentGreenHover:  'oklch(0.580 0.165 148)',
   accentGreenSubtle: 'oklch(0.945 0.035 148)',
   accentGreenText:   'oklch(0.480 0.165 148)',
+
+  accentPurple:       'oklch(0.640 0.220 300)',
+  accentPurpleHover:  'oklch(0.580 0.230 300)',
+  accentPurpleSubtle: 'oklch(0.950 0.035 300)',
+  accentPurpleText:   'oklch(0.520 0.220 300)',
 };
 
 const dark = {
@@ -175,6 +187,11 @@ const dark = {
   accentGreenHover:  'oklch(0.720 0.145 148)',
   accentGreenSubtle: 'oklch(0.250 0.048 148)',
   accentGreenText:   'oklch(0.740 0.145 148)',
+
+  accentPurple:       'oklch(0.700 0.200 300)',
+  accentPurpleHover:  'oklch(0.740 0.190 300)',
+  accentPurpleSubtle: 'oklch(0.250 0.055 300)',
+  accentPurpleText:   'oklch(0.760 0.180 300)',
 };
 
 // Canonical syntax colors from delightful-design-system.html:2792-2798

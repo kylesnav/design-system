@@ -4,7 +4,7 @@ description: Refactor existing project UI to use the Delightful design system. U
 allowed-tools: "Bash WebFetch"
 metadata:
   author: Delightful Design System
-  version: 0.4.0
+  version: 0.4.5
   category: frontend-design
   tags: [design-system, css, refactoring, migration, oklch]
 ---
@@ -72,6 +72,7 @@ Replace values file-by-file, component-by-component:
 - Gold/warning to `var(--accent-gold)` family
 - Cyan to `var(--accent-cyan)` family
 - Green/success to `var(--accent-green)` family
+- Purple/creative to `var(--accent-purple)` family
 
 **Spacing to Scale:**
 - Map each pixel value to nearest `--space-*` token
@@ -184,7 +185,7 @@ Solution: Remove old `transition` and `:hover` rules before applying Delightful 
 
 ## Quick Token Reference
 
-**Colors:** `--accent-primary`, `--accent-danger`, `--accent-gold`, `--accent-cyan`, `--accent-green` (each with `-hover`, `-subtle`, `-text` variants)
+**Colors:** `--accent-primary`, `--accent-danger`, `--accent-gold`, `--accent-cyan`, `--accent-green`, `--accent-purple` (each with `-hover`, `-subtle`, `-text` variants)
 
 **Backgrounds:** `--bg-page`, `--bg-surface`, `--bg-elevated`, `--bg-subtle`, `--bg-muted`
 
@@ -198,7 +199,7 @@ Solution: Remove old `transition` and `:hover` rules before applying Delightful 
 
 **Control heights:** `--control-sm` (32px), `--control-md` (36px), `--control-lg` (44px), `--control-xl` (56px)
 
-**Shadows:** `--shadow-sm` (2px), `--shadow-md` (4px), `--shadow-lg` (8px), `--shadow-pink`, `--shadow-danger`, `--shadow-gold`, `--shadow-cyan`, `--shadow-green`
+**Shadows:** `--shadow-sm` (2px), `--shadow-md` (4px), `--shadow-lg` (8px), `--shadow-pink`, `--shadow-danger`, `--shadow-gold`, `--shadow-cyan`, `--shadow-green`, `--shadow-purple`
 
 **Radius:** `--radius-sm` (10px), `--radius-md` (16px), `--radius-lg` (24px), `--radius-xl` (32px), `--radius-full` (pill)
 

@@ -13,6 +13,14 @@ See also [`shell/`](../shell/) for the shared Starship prompt and zsh config.
 
 ## Quick Start
 
+The fastest way to set up everything (Ghostty + Starship + zsh) is the setup script:
+
+```bash
+bash scripts/setup-terminal.sh
+```
+
+It detects Ghostty, copies the config, installs Starship, and tells you about any manual steps. Or install manually:
+
 ```bash
 # 1. Install Starship prompt
 brew install starship
@@ -125,7 +133,7 @@ Ghostty is minimal by default — no pane title bars, thin split dividers, auto-
 | Black | neutral-950 | `#16100c` |
 | Red | red-400 | `#ed324b` |
 | Green | green-400 | `#22a448` |
-| Yellow | gold-400 | `#ffb700` |
+| Yellow | gold-400 | `#febf00` |
 | Blue | cyan-400 | `#00a6c0` |
 | Magenta | pink-400 | `#f600a3` |
 | Cyan | cyan-300 | `#17c0d6` |

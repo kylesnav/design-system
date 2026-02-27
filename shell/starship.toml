@@ -83,3 +83,26 @@ time_format = "%H:%M"
 
 [line_break]
 disabled = false
+
+# ==========================================================================
+# LIGHT MODE ACCENT REFERENCE
+# These are the hex values used above, derived from Delightful OKLCH tokens:
+#   pink:   #f600a3  (--accent-primary)
+#   red:    #ed324b  (--accent-danger)
+#   gold:   #febf00  (--accent-gold)
+#   cyan:   #00a6c0  (--accent-cyan)
+#   green:  #22a448  (--accent-green)
+#   purple: #b040d6  (--accent-purple)
+# ==========================================================================
+
+# ==========================================================================
+# DARK MODE NOTE
+# The above colors work on any background, but for dark terminals
+# you may prefer these brighter accent variants:
+#   pink:   #ff4fa8  (--accent-primary dark)
+#   red:    #e8554c  (--accent-danger dark)
+#   gold:   #f5c526  (--accent-gold dark)
+#   cyan:   #5cb8d6  (--accent-cyan dark)
+#   green:  #3aad5f  (--accent-green dark)
+#   purple: #b464e0  (--accent-purple dark)
+# ==========================================================================

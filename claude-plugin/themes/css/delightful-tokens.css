@@ -55,6 +55,13 @@
       --primitive-green-300: oklch(0.730 0.145 148);
       --primitive-green-400: oklch(0.630 0.170 148);
       --primitive-green-500: oklch(0.540 0.165 148);
+
+      /* Purple/Violet (hue 300) */
+      --primitive-purple-100: oklch(0.940 0.040 300);
+      --primitive-purple-200: oklch(0.860 0.080 300);
+      --primitive-purple-300: oklch(0.720 0.160 300);
+      --primitive-purple-400: oklch(0.640 0.220 300);
+      --primitive-purple-500: oklch(0.560 0.260 300);
 }
 
 /* ==========================================================================
@@ -146,7 +153,8 @@
       --text-on-accent: oklch(1.00 0.000 0);
       --text-on-gold: oklch(0.140 0.014 65);
 
-      --border-default: var(--text-primary);
+      --border-default: oklch(0.550 0.010 65);
+      /* Muted for structure — use --border-strong for emphasis */
       --border-strong: var(--text-primary);
       --border-subtle: oklch(0.330 0.015 65);
 
@@ -175,6 +183,11 @@
       --accent-green-subtle: oklch(0.250 0.048 148);
       --accent-green-text: oklch(0.740 0.145 148);
 
+      --accent-purple: oklch(0.700 0.200 300);
+      --accent-purple-hover: oklch(0.740 0.190 300);
+      --accent-purple-subtle: oklch(0.250 0.055 300);
+      --accent-purple-text: oklch(0.760 0.180 300);
+
       --status-info: var(--accent-primary);
       --status-error: var(--accent-danger);
       --status-warning: var(--accent-gold);
@@ -192,6 +205,7 @@
       --shadow-gold: 4px 4px 0 var(--accent-gold);
       --shadow-cyan: 4px 4px 0 var(--accent-cyan);
       --shadow-green: 4px 4px 0 var(--accent-green);
+      --shadow-purple: 4px 4px 0 var(--accent-purple);
 }
 
 /* ==========================================================================
@@ -274,6 +288,8 @@
       --btn-cyan-text: var(--text-on-accent);
       --btn-green-bg: var(--accent-green);
       --btn-green-text: var(--text-on-accent);
+      --btn-purple-bg: var(--accent-purple);
+      --btn-purple-text: var(--text-on-accent);
       --btn-gap: var(--space-1-5);
 
       --badge-py: 2px;

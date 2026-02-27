@@ -44,7 +44,7 @@ When setting up a new project:
 
 When building components, follow these exact patterns:
 
-**Buttons:** `.btn` base + `.btn-{variant}` + `.btn-{size}`. Variants: primary (pink), danger (red), gold, cyan, green, secondary (outlined), ghost (transparent).
+**Buttons:** `.btn` base + `.btn-{variant}` + `.btn-{size}`. Variants: primary (pink), danger (red), gold, cyan, green, purple, secondary (outlined), ghost (transparent).
 
 **Cards:** `.card` with 2px border, solid shadow, neo-brutalist hover (translate -4px,-4px + shadow-lg), active (translate 2px,2px + no shadow).
 
@@ -70,7 +70,7 @@ When building components, follow these exact patterns:
 
 **Pagination:** `.pagination` row of `.page-btn` buttons. Active state uses accent-primary.
 
-**Progress Bars:** `.progress-track` + `.progress-fill-{color}`. Color variants: pink, gold, cyan, green.
+**Progress Bars:** `.progress-track` + `.progress-fill-{color}`. Color variants: pink, gold, cyan, green, purple.
 
 ### Page Structure
 

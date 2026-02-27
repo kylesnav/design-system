@@ -7,10 +7,19 @@ iTerm2 color profile derived from the Delightful Design System.
 ## Contents
 
 ```
-Delightful.itermcolors    iTerm2 color profile (XML plist)
+Delightful.itermcolors        iTerm2 color profile — light (XML plist)
+Delightful-Dark.itermcolors   iTerm2 color profile — dark (XML plist)
 ```
 
 ## Quick Start
+
+The fastest way to set up everything (iTerm2 + Starship + zsh) is the setup script:
+
+```bash
+bash scripts/setup-terminal.sh
+```
+
+It imports the color profile, maps Shift+Enter for Claude Code, installs Starship, and tells you about any manual steps. Or install manually:
 
 ```bash
 # 1. Install Starship prompt
@@ -24,7 +33,10 @@ eval "$(starship init zsh)"
 
 # 4. Import iTerm2 color profile (see below)
 
-# 5. Restart iTerm2
+# 5. Map Shift+Enter to newline (see Key Mappings below)
+#    Required for multi-line input in Claude Code.
+
+# 6. Restart iTerm2
 ```
 
 ## Install Color Profile
@@ -41,10 +53,10 @@ eval "$(starship init zsh)"
 ### Import via command line
 
 ```bash
-cp Delightful.itermcolors ~/Library/Application\ Support/iTerm2/DynamicProfiles/
+open Delightful.itermcolors
 ```
 
-Then restart iTerm2 and select the Delightful color preset in Settings > Profiles > Colors > Color Presets.
+This opens the file in iTerm2 and registers the color preset. Then select it in Settings > Profiles > Colors > Color Presets.
 
 ## Recommended iTerm2 Settings
 
@@ -55,6 +67,30 @@ These settings make iTerm2 look cleaner and closer to Ghostty's minimal chrome:
 | Theme | Appearance > General > Theme | **Minimal** |
 | Pane title bars | Appearance > Panes > "Show per-pane title bar with split panes" | **Off** |
 | Scroll bars | System Settings > Appearance > "Show scroll bars" | **When scrolling** |
+
+## Key Mappings
+
+### Shift+Enter → Newline (for Claude Code)
+
+By default iTerm2 sends a CSI u escape sequence for Shift+Enter, which Claude Code treats the same as Enter (submit). To make Shift+Enter insert a newline instead (matching Ghostty behavior):
+
+1. Open iTerm2
+2. Go to **Settings > Profiles > Keys > Key Mappings**
+3. Click **+** (or edit the existing Shift+Enter mapping)
+4. Set **Keyboard Shortcut** to **Shift+Enter**
+5. Set **Action** to **Send Hex Code**
+6. Set **Value** to `0a`
+7. Click **OK**
+
+Or apply via command line:
+
+```bash
+/usr/libexec/PlistBuddy -c "Add ':New Bookmarks:0:Keyboard Map:0xd-0x20000-0x24' dict" ~/Library/Preferences/com.googlecode.iterm2.plist 2>/dev/null
+/usr/libexec/PlistBuddy -c "Set ':New Bookmarks:0:Keyboard Map:0xd-0x20000-0x24:Action' 11" ~/Library/Preferences/com.googlecode.iterm2.plist
+/usr/libexec/PlistBuddy -c "Set ':New Bookmarks:0:Keyboard Map:0xd-0x20000-0x24:Text' 0a" ~/Library/Preferences/com.googlecode.iterm2.plist
+```
+
+Restart iTerm2 after applying.
 
 ## Starship Prompt & Zsh
 

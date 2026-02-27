@@ -87,6 +87,7 @@ When suggesting fixes, use these mappings:
 - Gold/warning → `var(--accent-gold)`
 - Cyan → `var(--accent-cyan)`
 - Green/success → `var(--accent-green)`
+- Purple/creative → `var(--accent-purple)`
 - Background → `var(--bg-page)`, `var(--bg-surface)`, `var(--bg-subtle)`, `var(--bg-muted)`
 
 **Spacing → Scale:**

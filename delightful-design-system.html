@@ -63,6 +63,13 @@
       --primitive-green-300: oklch(0.730 0.145 148);
       --primitive-green-400: oklch(0.630 0.170 148);
       --primitive-green-500: oklch(0.540 0.165 148);
+
+      /* Purple/Violet (hue 300) */
+      --primitive-purple-100: oklch(0.940 0.040 300);
+      --primitive-purple-200: oklch(0.860 0.080 300);
+      --primitive-purple-300: oklch(0.720 0.160 300);
+      --primitive-purple-400: oklch(0.640 0.220 300);
+      --primitive-purple-500: oklch(0.560 0.260 300);
     }
 
     /* ==========================================================================
@@ -118,6 +125,12 @@
       --accent-green-subtle: oklch(0.945 0.035 148);
       --accent-green-text: oklch(0.480 0.165 148);
 
+      --accent-purple: oklch(0.640 0.220 300);
+      /* Purple/Violet */
+      --accent-purple-hover: oklch(0.580 0.230 300);
+      --accent-purple-subtle: oklch(0.950 0.035 300);
+      --accent-purple-text: oklch(0.520 0.220 300);
+
       --status-info: var(--accent-primary);
       --status-error: var(--accent-danger);
       --status-warning: var(--accent-gold);
@@ -135,6 +148,7 @@
       --shadow-gold: 4px 4px 0 var(--accent-gold);
       --shadow-cyan: 4px 4px 0 var(--accent-cyan);
       --shadow-green: 4px 4px 0 var(--accent-green);
+      --shadow-purple: 4px 4px 0 var(--accent-purple);
     }
 
     /* ==========================================================================
@@ -154,7 +168,8 @@
       --text-on-accent: oklch(1.00 0.000 0);
       --text-on-gold: oklch(0.140 0.014 65);
 
-      --border-default: var(--text-primary);
+      --border-default: oklch(0.550 0.010 65);
+      /* Muted for structure — use --border-strong for emphasis */
       --border-strong: var(--text-primary);
       --border-subtle: oklch(0.330 0.015 65);
 
@@ -183,6 +198,11 @@
       --accent-green-subtle: oklch(0.250 0.048 148);
       --accent-green-text: oklch(0.740 0.145 148);
 
+      --accent-purple: oklch(0.700 0.200 300);
+      --accent-purple-hover: oklch(0.740 0.190 300);
+      --accent-purple-subtle: oklch(0.250 0.055 300);
+      --accent-purple-text: oklch(0.760 0.180 300);
+
       --status-info: var(--accent-primary);
       --status-error: var(--accent-danger);
       --status-warning: var(--accent-gold);
@@ -200,6 +220,7 @@
       --shadow-gold: 4px 4px 0 var(--accent-gold);
       --shadow-cyan: 4px 4px 0 var(--accent-cyan);
       --shadow-green: 4px 4px 0 var(--accent-green);
+      --shadow-purple: 4px 4px 0 var(--accent-purple);
     }
 
     /* ==========================================================================
@@ -282,6 +303,8 @@
       --btn-cyan-text: var(--text-on-accent);
       --btn-green-bg: var(--accent-green);
       --btn-green-text: var(--text-on-accent);
+      --btn-purple-bg: var(--accent-purple);
+      --btn-purple-text: var(--text-on-accent);
       --btn-gap: var(--space-1-5);
 
       --badge-py: 2px;
@@ -1551,6 +1574,17 @@
       box-shadow: var(--shadow-green);
     }
 
+    .btn-purple {
+      background: var(--accent-purple);
+      color: var(--text-on-accent);
+      box-shadow: var(--shadow-purple);
+    }
+
+    .btn-purple:hover {
+      background: var(--accent-purple-hover);
+      box-shadow: var(--shadow-purple);
+    }
+
     .btn-secondary {
       background: var(--bg-surface);
       color: var(--text-primary);
@@ -1967,6 +2001,10 @@
       border-top-color: var(--accent-green);
     }
 
+    .card-featured-purple {
+      border-top-color: var(--accent-purple);
+    }
+
     .card-accent-pink { box-shadow: var(--shadow-pink); }
     .card-accent-pink:hover { box-shadow: 6px 6px 0 var(--accent-primary); }
 
@@ -1978,6 +2016,9 @@
 
     .card-accent-green { box-shadow: var(--shadow-green); }
     .card-accent-green:hover { box-shadow: 6px 6px 0 var(--accent-green); }
+
+    .card-accent-purple { box-shadow: var(--shadow-purple); }
+    .card-accent-purple:hover { box-shadow: 6px 6px 0 var(--accent-purple); }
 
     .card-compact {
       padding: var(--space-4);
@@ -2118,6 +2159,12 @@
       border-bottom-color: var(--accent-cyan);
     }
 
+    .table-header-purple th {
+      background: var(--accent-purple-subtle);
+      color: var(--accent-purple-text);
+      border-bottom-color: var(--accent-purple);
+    }
+
     /* ==========================================================================
        BADGES
        ========================================================================== */
@@ -2154,6 +2201,11 @@
     .badge-green {
       background: var(--accent-green-subtle);
       color: var(--accent-green-text);
+    }
+
+    .badge-purple {
+      background: var(--accent-purple-subtle);
+      color: var(--accent-purple-text);
     }
 
     /* ==========================================================================
@@ -2594,6 +2646,13 @@
       box-shadow: var(--shadow-green);
     }
 
+    .alert-purple {
+      background: var(--accent-purple-subtle);
+      color: var(--accent-purple-text);
+      border-color: var(--accent-purple);
+      box-shadow: var(--shadow-purple);
+    }
+
     .alert svg {
       flex-shrink: 0;
       margin-top: 1px;
@@ -2646,6 +2705,7 @@
     .progress-fill-gold { background: var(--accent-gold); }
     .progress-fill-cyan { background: var(--accent-cyan); }
     .progress-fill-green { background: var(--accent-green); }
+    .progress-fill-purple { background: var(--accent-purple); }
 
     /* ==========================================================================
        AVATAR
@@ -2707,6 +2767,7 @@
     .avatar-gold { background: var(--accent-gold-subtle); color: var(--accent-gold-text); }
     .avatar-cyan { background: var(--accent-cyan-subtle); color: var(--accent-cyan-text); }
     .avatar-green { background: var(--accent-green-subtle); color: var(--accent-green-text); }
+    .avatar-purple { background: var(--accent-purple-subtle); color: var(--accent-purple-text); }
 
     /* ==========================================================================
        TOOLTIP
@@ -2773,6 +2834,144 @@
       max-width: 360px;
       line-height: var(--leading-normal);
       margin-bottom: var(--space-6);
+    }
+
+    /* ==========================================================================
+       POPOVER
+       ========================================================================== */
+    .popover-panel {
+      border: 2px solid var(--border-default);
+      border-radius: var(--radius-md);
+      background: var(--bg-elevated);
+      box-shadow: var(--shadow-md);
+      padding: var(--space-2);
+      min-width: 180px;
+      margin: 0;
+      inset: unset;
+    }
+
+    .popover-panel:popover-open {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .popover-panel::backdrop {
+      background: transparent;
+    }
+
+    .popover-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-3);
+      font-size: var(--ui-text-sm);
+      font-family: var(--font-sans);
+      font-weight: 500;
+      border: none;
+      border-radius: var(--radius-sm);
+      background: transparent;
+      color: var(--text-primary);
+      cursor: pointer;
+      text-align: left;
+      width: 100%;
+      transition: background var(--motion-fast) var(--ease-out);
+    }
+
+    .popover-item:hover {
+      background: var(--bg-subtle);
+    }
+
+    .popover-item svg {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+
+    .popover-divider {
+      height: 1px;
+      background: var(--border-subtle);
+      margin: var(--space-1) 0;
+    }
+
+    /* ==========================================================================
+       STEPPER
+       ========================================================================== */
+    .stepper {
+      display: flex;
+      align-items: flex-start;
+      gap: 0;
+    }
+
+    .stepper-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+      position: relative;
+    }
+
+    .stepper-step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      top: 16px;
+      left: calc(50% + 20px);
+      right: calc(-50% + 20px);
+      height: 2px;
+      background: var(--border-subtle);
+      z-index: 0;
+    }
+
+    .stepper-step.completed:not(:last-child)::after {
+      background: var(--accent-primary);
+    }
+
+    .stepper-step.active:not(:last-child)::after {
+      background: linear-gradient(to right, var(--accent-primary) 50%, var(--border-subtle) 50%);
+    }
+
+    .stepper-indicator {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-full);
+      border: 2px solid var(--border-subtle);
+      background: var(--bg-surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: var(--ui-text-sm);
+      font-weight: 700;
+      color: var(--text-muted);
+      z-index: 1;
+      transition: all var(--motion-base) var(--ease-out);
+    }
+
+    .stepper-step.active .stepper-indicator {
+      border-color: var(--accent-primary);
+      background: var(--accent-primary);
+      color: var(--text-on-accent);
+      box-shadow: var(--shadow-pink);
+    }
+
+    .stepper-step.completed .stepper-indicator {
+      border-color: var(--accent-primary);
+      background: var(--accent-primary);
+      color: var(--text-on-accent);
+    }
+
+    .stepper-label {
+      margin-top: var(--space-2);
+      font-size: var(--ui-text-xs);
+      font-weight: 600;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    .stepper-step.active .stepper-label {
+      color: var(--accent-primary-text);
+    }
+
+    .stepper-step.completed .stepper-label {
+      color: var(--text-secondary);
     }
 
     /* ==========================================================================
@@ -3472,7 +3671,7 @@
             <rect x="14" y="4" width="4" height="16" />
           </svg>
         </button>
-        <button class="theme-btn" id="theme-toggle" aria-label="Toggle dark mode">
+        <button class="theme-btn" id="theme-toggle" aria-label="Toggle theme (light / dark / system)">
           <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
             stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="5" />
@@ -3489,27 +3688,32 @@
             stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
           </svg>
+          <svg class="icon-monitor" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+            <line x1="8" y1="21" x2="16" y2="21" />
+            <line x1="12" y1="17" x2="12" y2="21" />
+          </svg>
         </button>
       </div>
     </div>
   </nav>
 
   <style>
-    .icon-sun {
-      display: block;
-    }
+    .icon-sun { display: none; }
+    .icon-moon { display: none; }
+    .icon-monitor { display: none; }
 
-    .icon-moon {
-      display: none;
-    }
+    /* Light mode: show sun */
+    [data-theme="light"] .icon-sun { display: block; }
 
-    [data-theme="dark"] .icon-sun {
-      display: none;
-    }
+    /* Dark mode: show moon */
+    [data-theme="dark"] .icon-moon { display: block; }
 
-    [data-theme="dark"] .icon-moon {
-      display: block;
-    }
+    /* System mode: show monitor */
+    [data-theme-mode="system"] .icon-sun,
+    [data-theme-mode="system"] .icon-moon { display: none !important; }
+    [data-theme-mode="system"] .icon-monitor { display: block; }
 
     .icon-motion-play {
       display: none;
@@ -4006,6 +4210,44 @@
               <div class="swatch-info">
                 <div class="swatch-name">green-500</div>
                 <div class="swatch-val">oklch(0.540 0.165 148)</div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="subsection-label" style="margin-bottom:var(--space-2)">Purple — Accent (300°)</div>
+            <div class="swatch" data-copy="oklch(0.940 0.040 300)">
+              <div class="swatch-color" style="background:var(--primitive-purple-100)"></div>
+              <div class="swatch-info">
+                <div class="swatch-name">purple-100</div>
+                <div class="swatch-val">oklch(0.940 0.040 300)</div>
+              </div>
+            </div>
+            <div class="swatch" style="margin-top:var(--space-2)" data-copy="oklch(0.860 0.080 300)">
+              <div class="swatch-color" style="background:var(--primitive-purple-200)"></div>
+              <div class="swatch-info">
+                <div class="swatch-name">purple-200</div>
+                <div class="swatch-val">oklch(0.860 0.080 300)</div>
+              </div>
+            </div>
+            <div class="swatch" style="margin-top:var(--space-2)" data-copy="oklch(0.720 0.160 300)">
+              <div class="swatch-color" style="background:var(--primitive-purple-300)"></div>
+              <div class="swatch-info">
+                <div class="swatch-name">purple-300</div>
+                <div class="swatch-val">oklch(0.720 0.160 300)</div>
+              </div>
+            </div>
+            <div class="swatch" style="margin-top:var(--space-2)" data-copy="oklch(0.640 0.220 300)">
+              <div class="swatch-color" style="background:var(--primitive-purple-400)"></div>
+              <div class="swatch-info">
+                <div class="swatch-name">purple-400</div>
+                <div class="swatch-val">oklch(0.640 0.220 300)</div>
+              </div>
+            </div>
+            <div class="swatch" style="margin-top:var(--space-2)" data-copy="oklch(0.560 0.260 300)">
+              <div class="swatch-color" style="background:var(--primitive-purple-500)"></div>
+              <div class="swatch-info">
+                <div class="swatch-name">purple-500</div>
+                <div class="swatch-val">oklch(0.560 0.260 300)</div>
               </div>
             </div>
           </div>
@@ -4572,6 +4814,7 @@
           <button class="btn btn-md btn-gold btn-bounce">Highlight</button>
           <button class="btn btn-md btn-cyan btn-bounce">Cyan</button>
           <button class="btn btn-md btn-green btn-bounce">Success</button>
+          <button class="btn btn-md btn-purple btn-bounce">Purple</button>
           <button class="btn btn-md btn-secondary btn-bounce">Secondary</button>
           <button class="btn btn-md btn-ghost btn-bounce">Ghost</button>
         </div>
@@ -4801,6 +5044,7 @@
           <span class="badge badge-gold badge-pop">Draft</span>
           <span class="badge badge-cyan badge-pop">Active</span>
           <span class="badge badge-green badge-pop">Stable</span>
+          <span class="badge badge-purple badge-pop">New</span>
           <span class="badge badge-red badge-pop">Breaking</span>
           <span class="badge badge-pink badge-pop"><span class="status-dot"
               style="background:var(--accent-primary);margin-right:2px"></span> With Dot</span>
@@ -4852,6 +5096,61 @@
               <button class="page-btn">3</button>
               <button class="page-btn">&raquo;</button>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Popover -->
+      <div class="subsection">
+        <div class="subsection-label">Popover / Dropdown</div>
+        <div class="subsection-desc">Lightweight menus and contextual content using the native Popover API. No JS needed for basic show/hide — just <code>popovertarget</code>.</div>
+        <div class="flex-wrap-gap" style="gap:var(--space-4)">
+          <div style="position:relative">
+            <button class="btn btn-primary" popovertarget="popover-menu">Actions Menu</button>
+            <div id="popover-menu" popover class="popover-panel" style="position:absolute;top:calc(100% + var(--space-2));left:0">
+              <button class="popover-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Edit</button>
+              <button class="popover-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Duplicate</button>
+              <div class="popover-divider"></div>
+              <button class="popover-item" style="color:var(--accent-danger-text)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg> Delete</button>
+            </div>
+          </div>
+          <div style="position:relative">
+            <button class="btn btn-secondary" popovertarget="popover-info">More Info</button>
+            <div id="popover-info" popover class="popover-panel" style="position:absolute;top:calc(100% + var(--space-2));left:0;padding:var(--space-4);min-width:240px">
+              <div style="font-weight:700;font-size:var(--ui-text-sm);margin-bottom:var(--space-2)">Design Tokens</div>
+              <div style="font-size:var(--ui-text-xs);color:var(--text-secondary);line-height:var(--leading-normal)">Tokens are the atomic building blocks of the design system. They encode color, spacing, typography, and motion decisions as reusable variables.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stepper -->
+      <div class="subsection">
+        <div class="subsection-label">Stepper / Wizard</div>
+        <div class="subsection-desc">Multi-step progress indicator with connecting lines, accent colors, and checkmarks for completed steps.</div>
+        <div id="stepper-demo" style="max-width:600px">
+          <div class="stepper" id="stepper-track">
+            <div class="stepper-step completed">
+              <div class="stepper-indicator"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div class="stepper-label">Account</div>
+            </div>
+            <div class="stepper-step active">
+              <div class="stepper-indicator">2</div>
+              <div class="stepper-label">Profile</div>
+            </div>
+            <div class="stepper-step">
+              <div class="stepper-indicator">3</div>
+              <div class="stepper-label">Preferences</div>
+            </div>
+            <div class="stepper-step">
+              <div class="stepper-indicator">4</div>
+              <div class="stepper-label">Review</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:var(--space-2);margin-top:var(--space-6)">
+            <button class="btn btn-secondary btn-sm" id="stepper-prev">Back</button>
+            <button class="btn btn-primary btn-sm" id="stepper-next">Next</button>
+            <button class="btn btn-ghost btn-sm" id="stepper-reset" style="margin-left:auto">Reset</button>
           </div>
         </div>
       </div>
@@ -5788,6 +6087,11 @@
               <line x1="9" y1="9" x2="15" y2="15" />
             </svg><span>Build failed: 3 type errors found in component library. Check logs for details.</span><button
               class="alert-dismiss" onclick="this.parentElement.style.display='none'">&times;</button></div>
+          <div class="alert alert-purple"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+            </svg><span>Animation system v0.4.5 now available with spring physics and gesture support.</span><button
+              class="alert-dismiss" onclick="this.parentElement.style.display='none'">&times;</button></div>
         </div>
       </div>
 
@@ -6378,16 +6682,40 @@
       'use strict';
       const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-      // === Theme Toggle ===
+      // === Theme Toggle (3-way: light → dark → system) ===
       const html = document.documentElement;
       const themeBtn = document.getElementById('theme-toggle');
-      const saved = localStorage.getItem('delightful-theme');
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      html.setAttribute('data-theme', saved || (prefersDark ? 'dark' : 'light'));
+      const prefersDarkMq = window.matchMedia('(prefers-color-scheme: dark)');
+      const savedMode = localStorage.getItem('delightful-theme-mode') || localStorage.getItem('delightful-theme') || 'system';
+
+      function applyThemeMode(mode) {
+        if (mode === 'system') {
+          html.setAttribute('data-theme', prefersDarkMq.matches ? 'dark' : 'light');
+          html.setAttribute('data-theme-mode', 'system');
+          localStorage.setItem('delightful-theme-mode', 'system');
+          localStorage.removeItem('delightful-theme');
+        } else {
+          html.setAttribute('data-theme', mode);
+          html.removeAttribute('data-theme-mode');
+          localStorage.setItem('delightful-theme-mode', mode);
+          localStorage.setItem('delightful-theme', mode);
+        }
+      }
+
+      // Initialize
+      applyThemeMode(savedMode === 'light' || savedMode === 'dark' ? savedMode : 'system');
+
+      // Listen for OS theme changes when in system mode
+      prefersDarkMq.addEventListener('change', () => {
+        if (html.getAttribute('data-theme-mode') === 'system') {
+          html.setAttribute('data-theme', prefersDarkMq.matches ? 'dark' : 'light');
+        }
+      });
+
       themeBtn.addEventListener('click', () => {
-        const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-        html.setAttribute('data-theme', next);
-        localStorage.setItem('delightful-theme', next);
+        const current = localStorage.getItem('delightful-theme-mode') || 'system';
+        const next = current === 'light' ? 'dark' : current === 'dark' ? 'system' : 'light';
+        applyThemeMode(next);
       });
 
       // === Motion Toggle ===
@@ -6472,15 +6800,24 @@
       const ccBg = document.getElementById('cc-bg'), ccFg = document.getElementById('cc-fg');
       const ccPreview = document.getElementById('cc-preview'), ccResult = document.getElementById('cc-result');
 
+      // Canvas-based color conversion — works with OKLCH, rgb, hex, any CSS color
+      function getColorAsRGB(colorStr) {
+        const cvs = document.createElement('canvas');
+        cvs.width = cvs.height = 1;
+        const ctx = cvs.getContext('2d');
+        ctx.fillStyle = colorStr;
+        ctx.fillRect(0, 0, 1, 1);
+        return ctx.getImageData(0, 0, 1, 1).data;
+      }
+
       function getLuminanceFromElement(el, prop) {
-        const rgb = getComputedStyle(el)[prop];
-        const match = rgb.match(/[\d.]+/g);
-        if (!match || match.length < 3) return 0;
-        const [r, g, b] = match.slice(0, 3).map(v => {
-          const srgb = parseFloat(v) / 255;
+        const raw = getComputedStyle(el)[prop];
+        const [r, g, b] = getColorAsRGB(raw);
+        const [rl, gl, bl] = [r, g, b].map(v => {
+          const srgb = v / 255;
           return srgb <= 0.04045 ? srgb / 12.92 : Math.pow((srgb + 0.055) / 1.055, 2.4);
         });
-        return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+        return 0.2126 * rl + 0.7152 * gl + 0.0722 * bl;
       }
 
       function updateCC() {
@@ -6511,7 +6848,9 @@
         });
       }
       ccBg.addEventListener('change', updateCC);
+      ccBg.addEventListener('input', updateCC);
       ccFg.addEventListener('change', updateCC);
+      ccFg.addEventListener('input', updateCC);
       setTimeout(updateCC, 100);
 
       // === Type Tester ===
@@ -6875,6 +7214,34 @@
           heatmap.appendChild(cell);
         });
       }
+
+      // === Stepper Demo ===
+      const stepperSteps = document.querySelectorAll('#stepper-track .stepper-step');
+      let stepperCurrent = 1; // 0-indexed, starts at step 2 (active)
+      function updateStepper() {
+        stepperSteps.forEach((step, i) => {
+          step.classList.remove('active', 'completed');
+          const indicator = step.querySelector('.stepper-indicator');
+          if (i < stepperCurrent) {
+            step.classList.add('completed');
+            indicator.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>';
+          } else if (i === stepperCurrent) {
+            step.classList.add('active');
+            indicator.textContent = i + 1;
+          } else {
+            indicator.textContent = i + 1;
+          }
+        });
+      }
+      document.getElementById('stepper-next').addEventListener('click', () => {
+        if (stepperCurrent < stepperSteps.length - 1) { stepperCurrent++; updateStepper(); }
+      });
+      document.getElementById('stepper-prev').addEventListener('click', () => {
+        if (stepperCurrent > 0) { stepperCurrent--; updateStepper(); }
+      });
+      document.getElementById('stepper-reset').addEventListener('click', () => {
+        stepperCurrent = 0; updateStepper();
+      });
 
       // === Splash & Pop Interaction Engine ===
       document.body.addEventListener('mousedown', function (e) {
