@@ -8,7 +8,7 @@ Monorepo for the Delightful design system, its Claude Code plugin, and its Obsid
 delightful-design-system.html   ← SINGLE SOURCE OF TRUTH (all tokens, components, patterns)
 sample-warm-palette.html        ← Palette variant demo (not a derivative)
 delightful-motion.html          ← Motion system showcase (59 animations, 10 categories)
-delightful-animation.html       ← Animation system showcase (JS-powered: springs, FLIP, particles, gestures)
+delightful-animation.html       ← Animation system showcase (3,433 lines, 10 categories, 23 demos)
 claude-plugin/                  ← Claude Code plugin
   themes/css/                       Standalone CSS token export
   themes/tailwind/                  Tailwind v3 preset
@@ -124,7 +124,7 @@ When `obsidian-theme/` is updated, copy **all** its files (`theme.css`, `manifes
 
 ## Versioning
 
-The canonical version is the latest git tag (`git tag -l | sort -V | tail -1`). Currently **v0.4.5**. The repo is public on GitHub but not published to npm (`"private": true` in `package.json` prevents accidental `npm publish`).
+The canonical version is the latest git tag (`git tag -l | sort -V | tail -1`). Currently **v0.4.9**. The repo is public on GitHub but not published to npm (`"private": true` in `package.json` prevents accidental `npm publish`).
 
 When bumping the version, update **all 6 files** and create a matching git tag:
 
@@ -149,4 +149,9 @@ Never set versions independently — all 6 files must always match.
 - Shadows are solid (zero blur). Borders are 2px solid.
 - Dark mode uses muted `--border-default` (`oklch(0.550 0.010 65)`) and bright `--border-strong` for emphasis.
 - The HTML files are self-contained — all CSS and JS inline, no external dependencies except Google Fonts.
+- CSS is organized in cascade layers: `@layer reset, primitives, semantic, component, utilities`. All styles must live in the correct layer.
+- Component CSS uses native CSS nesting with the `&` parent selector.
+- Container queries (`@container`) are used for responsive grid layouts.
+- `@starting-style` is used for entry animations on overlays (modals, command palette).
+- View Transitions API is used for the theme toggle crossfade effect.
 - Version bumps use `npm run bump <version>` to update all 6 version files.
