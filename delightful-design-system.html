@@ -843,18 +843,37 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: var(--space-8);
+      container-type: inline-size;
     }
 
     .grid-3 {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: var(--space-6);
+      container-type: inline-size;
     }
 
     .grid-4 {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: var(--space-4);
+      container-type: inline-size;
+    }
+
+    /* Container query responsive grids — adapt to container, not viewport */
+    @container (max-width: 540px) {
+      .grid-2,
+      .grid-3,
+      .grid-4 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @container (min-width: 541px) and (max-width: 780px) {
+      .grid-3,
+      .grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
 
     /* Reactive Grid Dimming using :has() — only on direct card hover */
@@ -986,6 +1005,63 @@
 
       .section-header {
         margin-bottom: var(--space-6);
+      }
+    }
+
+    /* Touch target minimum — 44px interactive areas on touch devices */
+    @media (pointer: coarse) {
+      .btn-sm,
+      .check-group,
+      .toggle,
+      .tab,
+      .page-btn,
+      .sidebar-item,
+      .popover-item,
+      .topnav-links a {
+        min-height: 44px;
+        min-width: 44px;
+      }
+
+      .check-group {
+        padding: var(--space-1) 0;
+      }
+    }
+
+    /* Responsive stacked data table for narrow viewports */
+    @media (max-width: 600px) {
+      .data-table {
+        & thead {
+          display: none;
+        }
+
+        & tbody tr {
+          display: flex;
+          flex-direction: column;
+          padding: var(--space-3) var(--space-4);
+          border-bottom: 2px solid var(--border-subtle);
+          gap: var(--space-1);
+
+          &:hover {
+            transform: none;
+            box-shadow: none;
+          }
+        }
+
+        & td {
+          display: flex;
+          justify-content: space-between;
+          padding: var(--space-1) 0;
+          border-bottom: none;
+
+          &::before {
+            content: attr(data-label);
+            font-weight: 600;
+            font-size: 0.6875rem;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+          }
+        }
       }
     }
 
@@ -4445,150 +4521,150 @@
                         fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
                         <polyline points="20 6 9 17 4 12" />
                       </svg></span></label></td>
-                <td class="mono">--bg-page</td>
-                <td class="mono">neutral-25</td>
-                <td class="mono">0.140 0.012 60</td>
-                <td>Page background</td>
+                <td data-label="Token" class="mono">--bg-page</td>
+                <td data-label="Light" class="mono">neutral-25</td>
+                <td data-label="Dark" class="mono">0.140 0.012 60</td>
+                <td data-label="Usage">Page background</td>
               </tr>
               <tr onclick="toggleRow(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleRow(this)}" tabindex="0">
                 <td><label class="check-group"><input type="checkbox" class="sr-only" aria-label="Select row"><span class="check-box" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
                         <polyline points="20 6 9 17 4 12" />
                       </svg></span></label></td>
-                <td class="mono">--bg-surface</td>
-                <td class="mono">neutral-0</td>
-                <td class="mono">0.165 0.014 60</td>
-                <td>Cards, panels</td>
+                <td data-label="Token" class="mono">--bg-surface</td>
+                <td data-label="Light" class="mono">neutral-0</td>
+                <td data-label="Dark" class="mono">0.165 0.014 60</td>
+                <td data-label="Usage">Cards, panels</td>
               </tr>
               <tr onclick="toggleRow(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleRow(this)}" tabindex="0">
                 <td><label class="check-group"><input type="checkbox" class="sr-only" aria-label="Select row"><span class="check-box" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
                         <polyline points="20 6 9 17 4 12" />
                       </svg></span></label></td>
-                <td class="mono">--text-primary</td>
-                <td class="mono">neutral-900</td>
-                <td class="mono">0.940 0.008 70</td>
-                <td>Body text</td>
+                <td data-label="Token" class="mono">--text-primary</td>
+                <td data-label="Light" class="mono">neutral-900</td>
+                <td data-label="Dark" class="mono">0.940 0.008 70</td>
+                <td data-label="Usage">Body text</td>
               </tr>
               <tr onclick="toggleRow(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleRow(this)}" tabindex="0">
                 <td><label class="check-group"><input type="checkbox" class="sr-only" aria-label="Select row"><span class="check-box" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
                         <polyline points="20 6 9 17 4 12" />
                       </svg></span></label></td>
-                <td class="mono">--text-secondary</td>
-                <td class="mono">neutral-600</td>
-                <td class="mono">0.700 0.010 70</td>
-                <td>Reduced emphasis</td>
+                <td data-label="Token" class="mono">--text-secondary</td>
+                <td data-label="Light" class="mono">neutral-600</td>
+                <td data-label="Dark" class="mono">0.700 0.010 70</td>
+                <td data-label="Usage">Reduced emphasis</td>
               </tr>
               <tr onclick="toggleRow(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleRow(this)}" tabindex="0">
                 <td><label class="check-group"><input type="checkbox" class="sr-only" aria-label="Select row"><span class="check-box" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
                         <polyline points="20 6 9 17 4 12" />
                       </svg></span></label></td>
-                <td class="mono">--accent-primary</td>
-                <td class="mono">pink-400</td>
-                <td class="mono">0.700 0.220 350</td>
-                <td>Primary actions</td>
+                <td data-label="Token" class="mono">--accent-primary</td>
+                <td data-label="Light" class="mono">pink-400</td>
+                <td data-label="Dark" class="mono">0.700 0.220 350</td>
+                <td data-label="Usage">Primary actions</td>
               </tr>
               <tr onclick="toggleRow(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleRow(this)}" tabindex="0">
                 <td><label class="check-group"><input type="checkbox" class="sr-only" aria-label="Select row"><span class="check-box" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
                         <polyline points="20 6 9 17 4 12" />
                       </svg></span></label></td>
-                <td class="mono">--accent-danger</td>
-                <td class="mono">red-400</td>
-                <td class="mono">0.680 0.190 20</td>
-                <td>Danger / emphasis</td>
+                <td data-label="Token" class="mono">--accent-danger</td>
+                <td data-label="Light" class="mono">red-400</td>
+                <td data-label="Dark" class="mono">0.680 0.190 20</td>
+                <td data-label="Usage">Danger / emphasis</td>
               </tr>
               <tr onclick="toggleRow(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleRow(this)}" tabindex="0">
                 <td><label class="check-group"><input type="checkbox" class="sr-only" aria-label="Select row"><span class="check-box" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
                         <polyline points="20 6 9 17 4 12" />
                       </svg></span></label></td>
-                <td class="mono">--accent-gold</td>
-                <td class="mono">gold-400</td>
-                <td class="mono">0.810 0.160 80</td>
-                <td>Highlights / warnings</td>
+                <td data-label="Token" class="mono">--accent-gold</td>
+                <td data-label="Light" class="mono">gold-400</td>
+                <td data-label="Dark" class="mono">0.810 0.160 80</td>
+                <td data-label="Usage">Highlights / warnings</td>
               </tr>
               <tr onclick="toggleRow(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleRow(this)}" tabindex="0">
                 <td><label class="check-group"><input type="checkbox" class="sr-only" aria-label="Select row"><span class="check-box" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
                         <polyline points="20 6 9 17 4 12" />
                       </svg></span></label></td>
-                <td class="mono">--accent-cyan</td>
-                <td class="mono">cyan-400</td>
-                <td class="mono">0.720 0.140 210</td>
-                <td>Tertiary brand / cool accent</td>
+                <td data-label="Token" class="mono">--accent-cyan</td>
+                <td data-label="Light" class="mono">cyan-400</td>
+                <td data-label="Dark" class="mono">0.720 0.140 210</td>
+                <td data-label="Usage">Tertiary brand / cool accent</td>
               </tr>
               <tr onclick="toggleRow(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleRow(this)}" tabindex="0">
                 <td><label class="check-group"><input type="checkbox" class="sr-only" aria-label="Select row"><span class="check-box" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
                         <polyline points="20 6 9 17 4 12" />
                       </svg></span></label></td>
-                <td class="mono">--accent-green</td>
-                <td class="mono">green-400</td>
-                <td class="mono">0.680 0.155 148</td>
-                <td>Success / positive / safe</td>
+                <td data-label="Token" class="mono">--accent-green</td>
+                <td data-label="Light" class="mono">green-400</td>
+                <td data-label="Dark" class="mono">0.680 0.155 148</td>
+                <td data-label="Usage">Success / positive / safe</td>
               </tr>
               <tr onclick="toggleRow(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleRow(this)}" tabindex="0">
                 <td><label class="check-group"><input type="checkbox" class="sr-only" aria-label="Select row"><span class="check-box" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
                         <polyline points="20 6 9 17 4 12" />
                       </svg></span></label></td>
-                <td class="mono">--text-muted</td>
-                <td class="mono">neutral-500</td>
-                <td class="mono">0.560 0.012 70</td>
-                <td>Placeholder, hints</td>
+                <td data-label="Token" class="mono">--text-muted</td>
+                <td data-label="Light" class="mono">neutral-500</td>
+                <td data-label="Dark" class="mono">0.560 0.012 70</td>
+                <td data-label="Usage">Placeholder, hints</td>
               </tr>
               <tr onclick="toggleRow(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleRow(this)}" tabindex="0">
                 <td><label class="check-group"><input type="checkbox" class="sr-only" aria-label="Select row"><span class="check-box" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
                         <polyline points="20 6 9 17 4 12" />
                       </svg></span></label></td>
-                <td class="mono">--bg-elevated</td>
-                <td class="mono">neutral-0</td>
-                <td class="mono">0.185 0.014 60</td>
-                <td>Dropdowns, popovers</td>
+                <td data-label="Token" class="mono">--bg-elevated</td>
+                <td data-label="Light" class="mono">neutral-0</td>
+                <td data-label="Dark" class="mono">0.185 0.014 60</td>
+                <td data-label="Usage">Dropdowns, popovers</td>
               </tr>
               <tr onclick="toggleRow(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleRow(this)}" tabindex="0">
                 <td><label class="check-group"><input type="checkbox" class="sr-only" aria-label="Select row"><span class="check-box" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
                         <polyline points="20 6 9 17 4 12" />
                       </svg></span></label></td>
-                <td class="mono">--bg-muted</td>
-                <td class="mono">neutral-150</td>
-                <td class="mono">0.175 0.010 90</td>
-                <td>Skeleton, hover bg</td>
+                <td data-label="Token" class="mono">--bg-muted</td>
+                <td data-label="Light" class="mono">neutral-150</td>
+                <td data-label="Dark" class="mono">0.175 0.010 90</td>
+                <td data-label="Usage">Skeleton, hover bg</td>
               </tr>
               <tr onclick="toggleRow(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleRow(this)}" tabindex="0">
                 <td><label class="check-group"><input type="checkbox" class="sr-only" aria-label="Select row"><span class="check-box" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
                         <polyline points="20 6 9 17 4 12" />
                       </svg></span></label></td>
-                <td class="mono">--border-default</td>
-                <td class="mono">neutral-300</td>
-                <td class="mono">0.260 0.012 90</td>
-                <td>Default borders</td>
+                <td data-label="Token" class="mono">--border-default</td>
+                <td data-label="Light" class="mono">neutral-300</td>
+                <td data-label="Dark" class="mono">0.260 0.012 90</td>
+                <td data-label="Usage">Default borders</td>
               </tr>
               <tr onclick="toggleRow(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleRow(this)}" tabindex="0">
                 <td><label class="check-group"><input type="checkbox" class="sr-only" aria-label="Select row"><span class="check-box" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
                         <polyline points="20 6 9 17 4 12" />
                       </svg></span></label></td>
-                <td class="mono">--border-strong</td>
-                <td class="mono">neutral-400</td>
-                <td class="mono">0.330 0.012 90</td>
-                <td>Active borders</td>
+                <td data-label="Token" class="mono">--border-strong</td>
+                <td data-label="Light" class="mono">neutral-400</td>
+                <td data-label="Dark" class="mono">0.330 0.012 90</td>
+                <td data-label="Usage">Active borders</td>
               </tr>
               <tr onclick="toggleRow(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleRow(this)}" tabindex="0">
                 <td><label class="check-group"><input type="checkbox" class="sr-only" aria-label="Select row"><span class="check-box" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
                         <polyline points="20 6 9 17 4 12" />
                       </svg></span></label></td>
-                <td class="mono">--border-subtle</td>
-                <td class="mono">neutral-200</td>
-                <td class="mono">0.210 0.010 90</td>
-                <td>Dividers, separators</td>
+                <td data-label="Token" class="mono">--border-subtle</td>
+                <td data-label="Light" class="mono">neutral-200</td>
+                <td data-label="Dark" class="mono">0.210 0.010 90</td>
+                <td data-label="Usage">Dividers, separators</td>
               </tr>
             </tbody>
           </table>
@@ -5145,55 +5221,55 @@
                         fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
                         <polyline points="20 6 9 17 4 12" />
                       </svg></span></label></td>
-                <td style="font-weight:550">Button</td>
-                <td data-sort="1Stable"><span class="status-row"><span class="status-dot"
+                <td data-label="Component" style="font-weight:550">Button</td>
+                <td data-label="Status" data-sort="1Stable"><span class="status-row"><span class="status-dot"
                       style="background:var(--accent-green)"></span> Stable</span></td>
-                <td>5</td>
-                <td class="mono" data-sort="2026-02-22">Feb 22, 2026</td>
+                <td data-label="Variants">5</td>
+                <td data-label="Updated" class="mono" data-sort="2026-02-22">Feb 22, 2026</td>
               </tr>
               <tr onclick="toggleRow(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleRow(this)}" tabindex="0">
                 <td><label class="check-group"><input type="checkbox" class="sr-only" aria-label="Select Input row"><span class="check-box" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
                         <polyline points="20 6 9 17 4 12" />
                       </svg></span></label></td>
-                <td style="font-weight:550">Input</td>
-                <td data-sort="1Stable"><span class="status-row"><span class="status-dot"
+                <td data-label="Component" style="font-weight:550">Input</td>
+                <td data-label="Status" data-sort="1Stable"><span class="status-row"><span class="status-dot"
                       style="background:var(--accent-green)"></span> Stable</span></td>
-                <td>4</td>
-                <td class="mono" data-sort="2026-02-20">Feb 20, 2026</td>
+                <td data-label="Variants">4</td>
+                <td data-label="Updated" class="mono" data-sort="2026-02-20">Feb 20, 2026</td>
               </tr>
               <tr onclick="toggleRow(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleRow(this)}" tabindex="0">
                 <td><label class="check-group"><input type="checkbox" class="sr-only" aria-label="Select Card row"><span class="check-box" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
                         <polyline points="20 6 9 17 4 12" />
                       </svg></span></label></td>
-                <td style="font-weight:550">Card</td>
-                <td data-sort="1Stable"><span class="status-row"><span class="status-dot"
+                <td data-label="Component" style="font-weight:550">Card</td>
+                <td data-label="Status" data-sort="1Stable"><span class="status-row"><span class="status-dot"
                       style="background:var(--accent-green)"></span> Stable</span></td>
-                <td>3</td>
-                <td class="mono" data-sort="2026-02-18">Feb 18, 2026</td>
+                <td data-label="Variants">3</td>
+                <td data-label="Updated" class="mono" data-sort="2026-02-18">Feb 18, 2026</td>
               </tr>
               <tr onclick="toggleRow(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleRow(this)}" tabindex="0">
                 <td><label class="check-group"><input type="checkbox" class="sr-only" aria-label="Select Toast row"><span class="check-box" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
                         <polyline points="20 6 9 17 4 12" />
                       </svg></span></label></td>
-                <td style="font-weight:550">Toast</td>
-                <td data-sort="2Beta"><span class="status-row"><span class="status-dot"
+                <td data-label="Component" style="font-weight:550">Toast</td>
+                <td data-label="Status" data-sort="2Beta"><span class="status-row"><span class="status-dot"
                       style="background:var(--accent-primary)"></span> Beta</span></td>
-                <td>4</td>
-                <td class="mono" data-sort="2026-02-22">Feb 22, 2026</td>
+                <td data-label="Variants">4</td>
+                <td data-label="Updated" class="mono" data-sort="2026-02-22">Feb 22, 2026</td>
               </tr>
               <tr onclick="toggleRow(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleRow(this)}" tabindex="0">
                 <td><label class="check-group"><input type="checkbox" class="sr-only" aria-label="Select Drawer row"><span class="check-box" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
                         <polyline points="20 6 9 17 4 12" />
                       </svg></span></label></td>
-                <td style="font-weight:550">Drawer</td>
-                <td data-sort="3Draft"><span class="status-row"><span class="status-dot"
+                <td data-label="Component" style="font-weight:550">Drawer</td>
+                <td data-label="Status" data-sort="3Draft"><span class="status-row"><span class="status-dot"
                       style="background:var(--accent-gold)"></span> Draft</span></td>
-                <td>2</td>
-                <td class="mono" data-sort="2026-02-15">Feb 15, 2026</td>
+                <td data-label="Variants">2</td>
+                <td data-label="Updated" class="mono" data-sort="2026-02-15">Feb 15, 2026</td>
               </tr>
             </tbody>
           </table>
