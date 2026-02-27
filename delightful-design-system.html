@@ -12,10 +12,14 @@
     rel="stylesheet" />
 
   <style>
+    /* Cascade layer order — earlier layers have lower priority */
+    @layer reset, primitives, semantic, component, utilities;
+
     /* ==========================================================================
        TIER 1 — PRIMITIVES
        Raw oklch values. Named by scale, no semantic meaning.
        ========================================================================== */
+    @layer primitives {
     :root {
       --primitive-neutral-0: oklch(1.00 0.000 0);
       --primitive-neutral-25: oklch(0.988 0.006 70);
@@ -71,10 +75,12 @@
       --primitive-purple-400: oklch(0.640 0.220 300);
       --primitive-purple-500: oklch(0.560 0.260 300);
     }
+    } /* end @layer primitives */
 
     /* ==========================================================================
        TIER 2 — SEMANTIC TOKENS (Light) - V3 NEO-BRUTALIST
        ========================================================================== */
+    @layer semantic {
     :root,
     [data-theme="light"] {
       --bg-page: oklch(0.982 0.008 70);
@@ -222,10 +228,12 @@
       --shadow-green: 4px 4px 0 var(--accent-green);
       --shadow-purple: 4px 4px 0 var(--accent-purple);
     }
+    } /* end @layer semantic */
 
     /* ==========================================================================
        TIER 3 — COMPONENT TOKENS + TYPOGRAPHY + SPACING + MOTION
        ========================================================================== */
+    @layer component {
     :root {
       --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
       --font-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Code', monospace;
@@ -328,10 +336,12 @@
       --container-md: 960px;
       --container-lg: 1200px;
     }
+    } /* end @layer component (tokens) */
 
     /* ==========================================================================
        RESET & BASE
        ========================================================================== */
+    @layer reset {
     *,
     *::before,
     *::after {
@@ -360,10 +370,12 @@
       outline: 2px solid var(--focus-ring);
       outline-offset: 2px;
     }
+    } /* end @layer reset */
 
     /* ==========================================================================
        ANIMATIONS
        ========================================================================== */
+    @layer component {
     @media (prefers-reduced-motion: no-preference) {
       @keyframes fadeInUp {
         from {
@@ -3657,6 +3669,7 @@
         border-width: 0px;
       }
     }
+    } /* end @layer component */
   </style>
 </head>
 
