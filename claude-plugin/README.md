@@ -1,6 +1,6 @@
 # Delightful Design System — Claude Code Plugin
 
-A neo-brutalist design system with oklch colors, 3-tier tokens, 20+ components, and a complete motion system. Installable as a Claude Code plugin with two skills for building and refactoring UI.
+A neo-brutalist design system with oklch colors, 3-tier tokens (7 color families), 50+ components, @layer cascade architecture, a CSS motion system, and a JS animation system. Installable as a Claude Code plugin with two skills for building and refactoring UI.
 
 ## Installation
 
@@ -72,7 +72,7 @@ Design Tokens Community Group format. Import into Figma with the Tokens Studio p
 ## Design Principles
 
 - **Warm clarity** — Cream backgrounds, near-black text, generous whitespace
-- **Surgical color** — Pink for actions, red for danger, gold for highlights, cyan for coolness, green for success
+- **Surgical color** — Pink for actions, red for danger, gold for highlights, cyan for coolness, green for success, purple for creative
 - **Joyful restraint** — Playful but controlled. Spring motion under 240ms.
 - **Neo-brutalist** — 2px borders, solid shadows (zero blur), bold typography
 - **Systematic** — Every value comes from a token. No magic numbers.
@@ -80,7 +80,7 @@ Design Tokens Community Group format. Import into Figma with the Tokens Studio p
 ## Token Architecture
 
 ```
-Tier 1 — Primitives     Raw oklch scales (neutral, pink, red, gold, cyan, green)
+Tier 1 — Primitives     Raw oklch scales (neutral, pink, red, gold, cyan, green, purple)
 Tier 2 — Semantic        Light/dark mode tokens (bg, text, accent, border, shadow)
 Tier 3 — Component       Typography, spacing, radius, motion, button, toggle
 ```
