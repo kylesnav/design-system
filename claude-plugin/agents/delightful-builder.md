@@ -32,13 +32,15 @@ Before building anything, **always read `reference/design-system.md`** from the 
 When setting up a new project:
 
 1. Add Google Fonts link for Inter + JetBrains Mono
-2. Import or inline the full CSS custom property system (all 3 tiers)
-3. Add the base reset (box-sizing, margin/padding reset)
-4. Set body styles (font-family, font-size, line-height, color, background)
-5. Add `:focus-visible` global style
-6. Add `prefers-reduced-motion: reduce` global guard
-7. Add dark mode toggle with `data-theme` attribute system
-8. Add animation keyframes (fadeInUp, fadeIn, scaleIn, shake, shimmer, fadeOutRight, slideInLeft) inside reduced-motion media query
+2. Add cascade layer order: `@layer reset, primitives, semantic, component, utilities;`
+3. Import or inline the full CSS custom property system (all 3 tiers, each in its `@layer`)
+4. Add the base reset (box-sizing, margin/padding reset) in `@layer reset`
+5. Set body styles (font-family, font-size, line-height, color, background)
+6. Add `:focus-visible` global style
+7. Add `prefers-reduced-motion: reduce` global guard
+8. Add dark mode toggle with `data-theme` attribute system
+9. Add animation keyframes (fadeInUp, fadeIn, scaleIn, shake, shimmer, fadeOutRight, slideInLeft) inside reduced-motion media query
+10. Add skip navigation link as first element in `<body>`
 
 ### Component Patterns
 
@@ -71,6 +73,18 @@ When building components, follow these exact patterns:
 **Pagination:** `.pagination` row of `.page-btn` buttons. Active state uses accent-primary.
 
 **Progress Bars:** `.progress-track` + `.progress-fill-{color}`. Color variants: pink, gold, cyan, green, purple.
+
+**Button Loading:** `.btn-loading` on any `.btn` — hides text, shows spinner. Adapts spinner color for secondary/ghost (uses text-primary) and gold (uses text-on-gold).
+
+**Accordion:** Native `<details>` / `<summary>` elements. `.accordion-item` with `.accordion-trigger` and `.accordion-content`. Adjacent items share borders. Open state rotates "+" to "x".
+
+**Slider Group:** `.slider-group` wrapping native `<input type="range">` with `.slider-header` (label + `.slider-value`) and `.slider-labels` (tick marks). Uses accent-primary thumb.
+
+**Bento Grid:** `.bento-grid` 4-column grid with `.bento-span-2`, `.bento-span-3`, `.bento-tall`, `.bento-wide` modifiers. Uses container queries to reflow at 780px and 480px.
+
+**Skeleton Variants:** `.skel` base + `.skel-shimmer` or `.skel-pulse` animation + shape variants: `.skel-circle`, `.skel-text`, `.skel-heading`, `.skel-card`, `.skel-avatar-sm`, `.skel-avatar-lg`.
+
+**Skip Navigation:** `.skip-link` — hidden until focused, appears at top-left for keyboard users. Always include as first element in `<body>`.
 
 ### Page Structure
 

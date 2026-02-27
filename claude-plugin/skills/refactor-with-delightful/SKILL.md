@@ -51,11 +51,13 @@ Add the full CSS custom property system to the project:
 
 1. Import or inline the token CSS from `themes/css/delightful-tokens.css` (relative to plugin root)
 2. Add Google Fonts link if not present (Inter + JetBrains Mono)
-3. Add the base reset if not present
-4. Set body styles using tokens
-5. Add global `:focus-visible` style
-6. Set up `data-theme` attribute on `<html>` for dark mode
-7. Add reduced-motion media query
+3. Add cascade layer order: `@layer reset, primitives, semantic, component, utilities;`
+4. Add the base reset if not present (inside `@layer reset`)
+5. Set body styles using tokens
+6. Add global `:focus-visible` style
+7. Set up `data-theme` attribute on `<html>` for dark mode
+8. Add reduced-motion media query
+9. Add skip navigation link if not present
 
 ### Step 4 — Migrate Systematically
 
@@ -113,6 +115,15 @@ Replace values file-by-file, component-by-component:
 - Hover: `transform: translate(-4px, -4px)` + `box-shadow: var(--shadow-lg)` (or `translateY(-2px)` for subtler lift)
 - Active: `transform: translate(2px, 2px)` + `box-shadow: 0 0 0 var(--text-primary)`
 - Focus: `:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }`
+
+**Native form controls:**
+- Replace custom accordion JS with native `<details>` / `<summary>` + `.accordion-item` pattern
+- Replace custom slider JS with native `<input type="range">` + `.slider-group` pattern
+- Replace custom checkbox/radio JS with native inputs where possible
+
+**Container queries:**
+- Convert component-level media queries to container queries where appropriate
+- Set `container-type: inline-size` on parent, use `@container (max-width: ...)` breakpoints
 
 ### Step 5 — Re-audit
 
