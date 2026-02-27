@@ -7,8 +7,8 @@ Monorepo for the Delightful design system, its Claude Code plugin, and its Obsid
 ```
 delightful-design-system.html   ← SINGLE SOURCE OF TRUTH (all tokens, components, patterns)
 sample-warm-palette.html        ← Palette variant demo (not a derivative)
-delightful-motion.html          ← Motion system showcase (59 animations, 10 categories)
-delightful-animation.html       ← Animation system showcase (3,433 lines, 10 categories, 23 demos)
+delightful-motion.html          ← Motion system showcase (54 animations, 12 categories)
+delightful-animation.html       ← Animation system showcase (3,938 lines, 8 categories, 24 demos)
 claude-plugin/                  ← Claude Code plugin
   themes/css/                       Standalone CSS token export
   themes/tailwind/                  Tailwind v3 preset
