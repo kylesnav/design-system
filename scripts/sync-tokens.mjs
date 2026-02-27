@@ -35,8 +35,8 @@ function writeFile(filePath, content) {
 
 function extractCSSBlock(htmlContent, blockComment) {
   // Finds a block starting with the given comment, matching :root or [data-theme] up to the closing brace
-  // This heavily relies on the current formatting of the HTML file.
-  const regex = new RegExp(`\\/\\* ={10,}\\s*${blockComment.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')}[\\s\\S]*?={10,} \\*\\/\\s*(:root|,?\\s*\\[data-theme=[^\\]]+\\])\\s*\\{([\\s\\S]*?)\\n\\s{4}\\}`, 'g');
+  // Handles optional @layer wrapping (e.g. @layer primitives { :root { ... } })
+  const regex = new RegExp(`\\/\\* ={10,}\\s*${blockComment.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')}[\\s\\S]*?={10,} \\*\\/\\s*(?:@layer\\s+\\w+\\s*\\{\\s*)?(:root|,?\\s*\\[data-theme=[^\\]]+\\])\\s*\\{([\\s\\S]*?)\\n\\s{4}\\}`, 'g');
 
   const matches = [...htmlContent.matchAll(regex)];
   if (matches.length === 0) {
@@ -55,11 +55,14 @@ function extractCSSBlock(htmlContent, blockComment) {
  */
 function extractFullTokenBlock(htmlContent, tierLabel) {
   const escaped = tierLabel.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
-  // Match: comment block + optional multi-line selector (handles `:root,\n    [data-theme="light"]`) + `{...}`
+  // Match: comment block + optional @layer wrapper + selector(s) + {content}
+  // Handles both `@layer X { :root { ... } }` and plain `:root { ... }` formats
   const regex = new RegExp(
     `(\\/\\* ={10,}\\s*${escaped}[\\s\\S]*?={10,} \\*\\/)` + // comment block
-    `(\\s*(?::root|\\[data-theme=[^\\]]+\\])(?:,\\s*(?::root|\\[data-theme=[^\\]]+\\]))*)` + // selector(s)
-    `(\\s*\\{[\\s\\S]*?\\n\\s{4}\\})`, // { ... }
+    `(\\s*(?:@layer\\s+\\w+\\s*\\{)?` + // optional @layer opener
+    `\\s*(?::root|\\[data-theme=[^\\]]+\\])(?:,\\s*(?::root|\\[data-theme=[^\\]]+\\]))*)` + // selector(s)
+    `(\\s*\\{[\\s\\S]*?\\n\\s{4}\\})` + // { content }
+    `(\\s*\\}\\s*\\/\\*[^*]*\\*\\/)?`, // optional @layer closing } /* end ... */
     ''
   );
   const m = htmlContent.match(regex);

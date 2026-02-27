@@ -13,6 +13,7 @@
        TIER 1 — PRIMITIVES
        Raw oklch values. Named by scale, no semantic meaning.
        ========================================================================== */
+    @layer primitives {
     :root {
       --primitive-neutral-0: oklch(1.00 0.000 0);
       --primitive-neutral-25: oklch(0.988 0.006 70);
@@ -68,6 +69,160 @@
       --primitive-purple-400: oklch(0.640 0.220 300);
       --primitive-purple-500: oklch(0.560 0.260 300);
     }
+    } /* end @layer primitives */
+
+    /* ==========================================================================
+       TIER 2 — SEMANTIC TOKENS (Light) - V3 NEO-BRUTALIST
+       ========================================================================== */
+    @layer semantic {
+    :root,
+    [data-theme="light"] {
+      --bg-page: oklch(0.982 0.008 70);
+      /* Warm cream from code-editor palette */
+      --bg-surface: oklch(0.995 0.004 70);
+      --bg-elevated: oklch(1.00 0.00 0);
+      --bg-subtle: oklch(0.965 0.012 70);
+      --bg-muted: oklch(0.948 0.014 70);
+
+      --text-primary: oklch(0.200 0.015 60);
+      --text-secondary: oklch(0.420 0.015 60);
+      --text-muted: oklch(0.560 0.012 60);
+      --text-on-accent: oklch(1.00 0.000 0);
+      --text-on-gold: oklch(0.220 0.020 70);
+
+      --border-default: var(--text-primary);
+      --border-strong: var(--text-primary);
+      --border-subtle: oklch(0.820 0.015 70);
+
+      /* Vibrant Accents — Warm Palette */
+      --accent-primary: oklch(0.640 0.270 350);
+      /* Hot pink / fuchsia */
+      --accent-primary-hover: oklch(0.580 0.280 350);
+      --accent-primary-subtle: oklch(0.955 0.040 350);
+      --accent-primary-text: oklch(0.560 0.270 350);
+
+      --accent-danger: oklch(0.620 0.220 20);
+      /* Warm red for danger */
+      --accent-danger-hover: oklch(0.570 0.230 20);
+      --accent-danger-subtle: oklch(0.950 0.040 20);
+      --accent-danger-text: oklch(0.550 0.220 20);
+
+      --accent-gold: oklch(0.840 0.175 85);
+      /* Warm gold */
+      --accent-gold-hover: oklch(0.820 0.165 84);
+      --accent-gold-subtle: oklch(0.965 0.060 85);
+      --accent-gold-text: oklch(0.440 0.130 85);
+
+      --accent-cyan: oklch(0.650 0.148 210);
+      /* Cyan-blue (tertiary brand) */
+      --accent-cyan-hover: oklch(0.600 0.150 210);
+      --accent-cyan-subtle: oklch(0.945 0.030 210);
+      --accent-cyan-text: oklch(0.520 0.148 210);
+
+      --accent-green: oklch(0.630 0.170 148);
+      /* Green (success/safe) */
+      --accent-green-hover: oklch(0.580 0.165 148);
+      --accent-green-subtle: oklch(0.945 0.035 148);
+      --accent-green-text: oklch(0.480 0.165 148);
+
+      --accent-purple: oklch(0.640 0.220 300);
+      /* Purple/Violet */
+      --accent-purple-hover: oklch(0.580 0.230 300);
+      --accent-purple-subtle: oklch(0.950 0.035 300);
+      --accent-purple-text: oklch(0.520 0.220 300);
+
+      --status-info: var(--accent-primary);
+      --status-error: var(--accent-danger);
+      --status-warning: var(--accent-gold);
+      --status-success: var(--accent-green);
+
+      --focus-ring: var(--accent-primary);
+      --overlay-bg: oklch(0.200 0.015 60 / 0.30);
+
+      /* Neo-Brutalist Solid Shadows */
+      --shadow-sm: 2px 2px 0 var(--text-primary);
+      --shadow-md: 4px 4px 0 var(--text-primary);
+      --shadow-lg: 8px 8px 0 var(--text-primary);
+      --shadow-pink: 4px 4px 0 var(--accent-primary);
+      --shadow-danger: 4px 4px 0 var(--accent-danger);
+      --shadow-gold: 4px 4px 0 var(--accent-gold);
+      --shadow-cyan: 4px 4px 0 var(--accent-cyan);
+      --shadow-green: 4px 4px 0 var(--accent-green);
+      --shadow-purple: 4px 4px 0 var(--accent-purple);
+    }
+
+    /* ==========================================================================
+       TIER 2 — SEMANTIC TOKENS (Dark)
+       ========================================================================== */
+    [data-theme="dark"] {
+      /* Warm dark backgrounds — hue 65 for amber-tinted darkness */
+      --bg-page: oklch(0.140 0.014 65);
+      --bg-surface: oklch(0.165 0.015 65);
+      --bg-elevated: oklch(0.190 0.015 65);
+      --bg-subtle: oklch(0.210 0.015 65);
+      --bg-muted: oklch(0.180 0.013 65);
+
+      --text-primary: oklch(0.935 0.008 70);
+      --text-secondary: oklch(0.690 0.012 70);
+      --text-muted: oklch(0.540 0.010 70);
+      --text-on-accent: oklch(1.00 0.000 0);
+      --text-on-gold: oklch(0.140 0.014 65);
+
+      --border-default: oklch(0.550 0.010 65);
+      /* Muted for structure — use --border-strong for emphasis */
+      --border-strong: var(--text-primary);
+      --border-subtle: oklch(0.330 0.015 65);
+
+      --accent-primary: oklch(0.700 0.230 350);
+      --accent-primary-hover: oklch(0.740 0.220 350);
+      --accent-primary-subtle: oklch(0.250 0.065 350);
+      --accent-primary-text: oklch(0.750 0.210 350);
+
+      --accent-danger: oklch(0.660 0.200 20);
+      --accent-danger-hover: oklch(0.700 0.190 20);
+      --accent-danger-subtle: oklch(0.250 0.055 20);
+      --accent-danger-text: oklch(0.720 0.180 20);
+
+      --accent-gold: oklch(0.840 0.170 85);
+      --accent-gold-hover: oklch(0.870 0.155 84);
+      --accent-gold-subtle: oklch(0.260 0.065 85);
+      --accent-gold-text: oklch(0.870 0.155 85);
+
+      --accent-cyan: oklch(0.720 0.140 210);
+      --accent-cyan-hover: oklch(0.760 0.130 210);
+      --accent-cyan-subtle: oklch(0.250 0.045 210);
+      --accent-cyan-text: oklch(0.780 0.130 210);
+
+      --accent-green: oklch(0.680 0.155 148);
+      --accent-green-hover: oklch(0.720 0.145 148);
+      --accent-green-subtle: oklch(0.250 0.048 148);
+      --accent-green-text: oklch(0.740 0.145 148);
+
+      --accent-purple: oklch(0.700 0.200 300);
+      --accent-purple-hover: oklch(0.740 0.190 300);
+      --accent-purple-subtle: oklch(0.250 0.055 300);
+      --accent-purple-text: oklch(0.760 0.180 300);
+
+      --status-info: var(--accent-primary);
+      --status-error: var(--accent-danger);
+      --status-warning: var(--accent-gold);
+      --status-success: var(--accent-green);
+
+      --focus-ring: oklch(0.700 0.230 350);
+      --overlay-bg: oklch(0 0 0 / 0.60);
+
+      /* Neo-Brutalist Solid Shadows — Warm Inverted (cream on dark = visible 3D) */
+      --shadow-sm: 2px 2px 0 oklch(0.92 0.010 65);
+      --shadow-md: 4px 4px 0 oklch(0.92 0.010 65);
+      --shadow-lg: 8px 8px 0 oklch(0.92 0.010 65);
+      --shadow-pink: 4px 4px 0 var(--accent-primary);
+      --shadow-danger: 4px 4px 0 var(--accent-danger);
+      --shadow-gold: 4px 4px 0 var(--accent-gold);
+      --shadow-cyan: 4px 4px 0 var(--accent-cyan);
+      --shadow-green: 4px 4px 0 var(--accent-green);
+      --shadow-purple: 4px 4px 0 var(--accent-purple);
+    }
+    } /* end @layer semantic */
 
     /* ==========================================================================
        TIER 2 — SEMANTIC TOKENS (Light) - V3 NEO-BRUTALIST
@@ -223,6 +378,7 @@
     /* ==========================================================================
        TIER 3 — COMPONENT TOKENS + TYPOGRAPHY + SPACING + MOTION
        ========================================================================== */
+    @layer component {
     :root {
       --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
       --font-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Code', monospace;
@@ -325,6 +481,7 @@
       --container-md: 960px;
       --container-lg: 1200px;
     }
+    } /* end @layer component (tokens) */
 
     /* ==========================================================================
        SPRING EASINGS via linear() — Motion showcase only
