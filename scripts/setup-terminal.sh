@@ -126,19 +126,28 @@ install_iterm2() {
     fi
   fi
 
-  # Shift+Enter key mapping
+  # Shift+Enter key mapping — apply to all profiles
   if confirm "Set Shift+Enter to newline (for multi-line Claude Code input)?"; then
     local plist="$HOME/Library/Preferences/com.googlecode.iterm2.plist"
     local key="0xd-0x20000-0x24"
 
     if [[ -f "$plist" ]]; then
-      # Try to add the dict first (fails silently if it already exists)
-      /usr/libexec/PlistBuddy -c "Add ':New Bookmarks:0:Keyboard Map:$key' dict" "$plist" 2>/dev/null || true
-      /usr/libexec/PlistBuddy -c "Add ':New Bookmarks:0:Keyboard Map:$key:Action' integer 11" "$plist" 2>/dev/null || \
-        /usr/libexec/PlistBuddy -c "Set ':New Bookmarks:0:Keyboard Map:$key:Action' 11" "$plist"
-      /usr/libexec/PlistBuddy -c "Add ':New Bookmarks:0:Keyboard Map:$key:Text' string 0a" "$plist" 2>/dev/null || \
-        /usr/libexec/PlistBuddy -c "Set ':New Bookmarks:0:Keyboard Map:$key:Text' 0a" "$plist"
-      ok "Shift+Enter → newline mapped"
+      local i=0
+      while /usr/libexec/PlistBuddy -c "Print ':New Bookmarks:$i:Name'" "$plist" &>/dev/null; do
+        local name
+        name=$(/usr/libexec/PlistBuddy -c "Print ':New Bookmarks:$i:Name'" "$plist")
+        /usr/libexec/PlistBuddy -c "Add ':New Bookmarks:$i:Keyboard Map:$key' dict" "$plist" 2>/dev/null || true
+        /usr/libexec/PlistBuddy -c "Add ':New Bookmarks:$i:Keyboard Map:$key:Action' integer 11" "$plist" 2>/dev/null || \
+          /usr/libexec/PlistBuddy -c "Set ':New Bookmarks:$i:Keyboard Map:$key:Action' 11" "$plist"
+        /usr/libexec/PlistBuddy -c "Add ':New Bookmarks:$i:Keyboard Map:$key:Text' string 0a" "$plist" 2>/dev/null || \
+          /usr/libexec/PlistBuddy -c "Set ':New Bookmarks:$i:Keyboard Map:$key:Text' 0a" "$plist"
+        ok "Shift+Enter → newline mapped (profile: $name)"
+        i=$((i + 1))
+      done
+      if [[ $i -eq 0 ]]; then
+        warn "No iTerm2 profiles found — set this manually"
+        manual "In iTerm2: Settings > Profiles > Keys > Key Mappings > add Shift+Enter → Send Hex Code → 0a"
+      fi
     else
       warn "iTerm2 plist not found — set this manually"
       manual "In iTerm2: Settings > Profiles > Keys > Key Mappings > add Shift+Enter → Send Hex Code → 0a"
