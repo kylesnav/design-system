@@ -1,6 +1,6 @@
 # Delightful Design System — Reference
 
-Neo-brutalist, warm boldness. oklch colors. 3-tier tokens. Solid shadows. Purposeful motion.
+Neo-brutalist, warm boldness. oklch colors. 3-tier tokens. Solid shadows. Purposeful motion. CSS cascade layers (`@layer reset, primitives, semantic, component, utilities`).
 
 **Fonts:** Inter (sans), JetBrains Mono (mono)
 **Font links:**
@@ -817,6 +817,31 @@ Use `<dialog>` element with `.showModal()` / `.close()`.
   background-size: 200% 100%;
   animation: playful-shimmer 2s linear infinite; /* wrap in reduced-motion check */
 }
+.skel-pulse {
+  animation: playful-pulse 1.6s var(--ease-bounce) infinite;
+  transform-origin: center left; /* wrap in reduced-motion check */
+}
+```
+
+**Skeleton variants:**
+```css
+.skel-circle { border-radius: 50%; width: 40px; height: 40px; }
+.skel-text { height: 1em; border-radius: var(--radius-sm); }
+  .skel-text:nth-child(odd) { width: 100%; }
+  .skel-text:nth-child(even) { width: 75%; }
+.skel-heading { height: 1.5em; width: 60%; border-radius: var(--radius-sm); }
+.skel-card {
+  border: 2px solid var(--border-subtle); border-radius: var(--radius-lg);
+  padding: var(--space-4); display: flex; flex-direction: column; gap: var(--space-3);
+}
+.skel-avatar-sm { border-radius: 50%; width: var(--control-sm); height: var(--control-sm); }
+.skel-avatar-lg { border-radius: 50%; width: var(--control-xl); height: var(--control-xl); }
+```
+
+```html
+<div class="skel skel-shimmer skel-heading"></div>
+<div class="skel skel-shimmer skel-text"></div>
+<div class="skel skel-pulse skel-circle"></div>
 ```
 
 ### Breadcrumbs `.breadcrumbs`
@@ -960,6 +985,184 @@ Use `<dialog>` element with `.showModal()` / `.close()`.
 </div>
 ```
 
+### Button Loading State `.btn-loading`
+
+```css
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.btn-loading {
+  pointer-events: none;
+  position: relative;
+  color: transparent !important;
+}
+.btn-loading::after {
+  content: "";
+  position: absolute; inset: 0; margin: auto;
+  width: 18px; height: 18px;
+  border: 2px solid var(--text-on-accent);
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+.btn-secondary.btn-loading::after,
+.btn-ghost.btn-loading::after {
+  border-color: var(--text-primary);
+  border-right-color: transparent;
+}
+.btn-gold.btn-loading::after {
+  border-color: var(--text-on-gold);
+  border-right-color: transparent;
+}
+```
+
+```html
+<button class="btn btn-md btn-primary btn-loading">Saving</button>
+<button class="btn btn-md btn-secondary btn-loading">Loading</button>
+<button class="btn btn-md btn-danger btn-loading">Deleting</button>
+```
+
+### Accordion `.accordion-item`
+
+Uses native `<details>` / `<summary>` elements for zero-JS expand/collapse.
+
+```css
+.accordion-item {
+  border: 2px solid var(--border-default);
+  border-radius: var(--radius-md); overflow: hidden;
+}
+.accordion-item + .accordion-item {
+  margin-top: -2px;
+  border-top-left-radius: 0; border-top-right-radius: 0;
+}
+.accordion-item:has(+ .accordion-item) {
+  border-bottom-left-radius: 0; border-bottom-right-radius: 0;
+}
+.accordion-trigger {
+  display: flex; align-items: center; justify-content: space-between;
+  width: 100%; padding: var(--space-4) var(--space-5);
+  font-weight: 600; font-size: var(--ui-text-md);
+  cursor: pointer; background: var(--bg-surface);
+  list-style: none; font-family: var(--font-sans);
+}
+.accordion-trigger::after {
+  content: "+"; font-size: 1.25rem; font-weight: 400; color: var(--text-muted);
+  transition: transform var(--motion-fast) var(--ease-out);
+}
+.accordion-item[open] .accordion-trigger::after { transform: rotate(45deg); }
+.accordion-content {
+  padding: 0 var(--space-5) var(--space-5);
+  font-size: var(--ui-text-md); color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+}
+```
+
+```html
+<details class="accordion-item" open>
+  <summary class="accordion-trigger">Question one?</summary>
+  <div class="accordion-content">Answer to question one.</div>
+</details>
+<details class="accordion-item">
+  <summary class="accordion-trigger">Question two?</summary>
+  <div class="accordion-content">Answer to question two.</div>
+</details>
+```
+
+### Slider Group `.slider-group`
+
+Native `<input type="range">` with value label and tick marks.
+
+```css
+input[type="range"] {
+  appearance: none; width: 100%; height: 4px;
+  border-radius: var(--radius-full);
+  background: var(--border-default); outline: none;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 18px; height: 18px;
+  border-radius: 50%; background: var(--accent-primary);
+  cursor: pointer; border: 2px solid var(--bg-surface);
+}
+.slider-group { display: flex; flex-direction: column; gap: var(--space-2); }
+.slider-header { display: flex; align-items: baseline; justify-content: space-between; }
+.slider-labels {
+  display: flex; justify-content: space-between;
+  font-size: var(--ui-text-xs); color: var(--text-muted);
+}
+.slider-value {
+  font-size: var(--ui-text-sm); font-weight: 600;
+  font-variant-numeric: tabular-nums; color: var(--accent-primary-text);
+  min-width: 3ch; text-align: right;
+}
+```
+
+```html
+<div class="slider-group">
+  <div class="slider-header">
+    <label class="form-label">Volume</label>
+    <span class="slider-value" id="vol-val">65</span>
+  </div>
+  <input type="range" min="0" max="100" value="65" />
+  <div class="slider-labels"><span>0</span><span>50</span><span>100</span></div>
+</div>
+```
+
+### Bento Grid `.bento-grid`
+
+Responsive multi-span grid layout using container queries.
+
+```css
+.bento-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: minmax(120px, auto); gap: var(--space-4);
+  container-type: inline-size;
+}
+.bento-span-2 { grid-column: span 2; }
+.bento-span-3 { grid-column: span 3; }
+.bento-tall { grid-row: span 2; }
+.bento-wide { grid-column: span 2; grid-row: span 2; }
+
+@container (max-width: 780px) {
+  .bento-grid { grid-template-columns: repeat(2, 1fr); }
+  .bento-span-3 { grid-column: span 2; }
+}
+@container (max-width: 480px) {
+  .bento-grid { grid-template-columns: 1fr; }
+  .bento-span-2, .bento-span-3, .bento-wide { grid-column: span 1; }
+  .bento-tall { grid-row: span 1; }
+}
+```
+
+```html
+<div class="bento-grid">
+  <div class="card bento-span-2 bento-tall">Featured</div>
+  <div class="card">Small 1</div>
+  <div class="card">Small 2</div>
+  <div class="card bento-span-2">Wide card</div>
+</div>
+```
+
+### Skip Navigation `.skip-link`
+
+Accessibility skip link for keyboard users.
+
+```css
+.skip-link {
+  position: absolute; top: -100%; left: var(--space-4);
+  padding: var(--space-2) var(--space-4);
+  background: var(--accent-primary); color: var(--text-on-accent);
+  font-weight: 600; font-size: var(--ui-text-md);
+  border-radius: var(--radius-sm); z-index: var(--z-toast);
+  text-decoration: none; transition: top var(--motion-fast) var(--ease-out);
+}
+.skip-link:focus { top: var(--space-4); }
+```
+
+```html
+<a href="#main-content" class="skip-link">Skip to content</a>
+```
+
 ---
 
 ## Responsive Patterns
@@ -977,7 +1180,36 @@ The design system uses mobile-first responsive design with these breakpoints:
 
 **Toast position:** The canonical placement is `bottom: var(--space-6); right: var(--space-6)` (bottom-right). For top-right placement, switch to `top: var(--space-6)` and change `flex-direction: column-reverse` to `flex-direction: column`.
 
-**Table horizontal scroll:** Tables need `overflow-x: auto` on their wrapper for small screens.
+**Responsive data table:** On narrow viewports (< 600px), tables stack cells vertically using `data-label` attributes:
+```css
+@media (max-width: 600px) {
+  .data-table thead { display: none; }
+  .data-table tbody tr {
+    display: flex; flex-direction: column;
+    padding: var(--space-3) var(--space-4);
+    border-bottom: 2px solid var(--border-subtle); gap: var(--space-1);
+  }
+  .data-table td {
+    display: flex; justify-content: space-between; padding: var(--space-1) 0;
+  }
+  .data-table td::before {
+    content: attr(data-label); font-weight: 600;
+    font-size: 0.6875rem; letter-spacing: 0.04em;
+    text-transform: uppercase; color: var(--text-muted);
+  }
+}
+```
+
+Each `<td>` needs a `data-label` attribute matching its column header: `<td data-label="Status">Active</td>`.
+
+**Touch targets:** Interactive elements in touch contexts should have minimum 44x44px hit areas:
+```css
+@media (pointer: coarse) {
+  .topnav-links a { min-height: 44px; min-width: 44px; }
+}
+```
+
+**Container queries:** Used for component-level responsive behavior (e.g., bento grid). Set `container-type: inline-size` on the parent, then use `@container (max-width: ...)` breakpoints.
 
 **Responsive grid pattern:**
 ```css
@@ -986,6 +1218,52 @@ The design system uses mobile-first responsive design with these breakpoints:
   gap: var(--space-4);
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
 }
+```
+
+---
+
+## Utility Classes
+
+Low-level utilities at the `@layer utilities` level for common patterns:
+
+```css
+/* Layout */
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.flex-wrap { flex-wrap: wrap; }
+.items-center { align-items: center; }
+.items-start { align-items: flex-start; }
+.justify-between { justify-content: space-between; }
+.justify-center { justify-content: center; }
+.justify-end { justify-content: flex-end; }
+
+/* Spacing (gap) */
+.gap-1 { gap: var(--space-1); }
+.gap-2 { gap: var(--space-2); }
+.gap-3 { gap: var(--space-3); }
+.gap-4 { gap: var(--space-4); }
+.gap-6 { gap: var(--space-6); }
+.gap-8 { gap: var(--space-8); }
+
+/* Margin */
+.mt-2 { margin-top: var(--space-2); }
+.mt-4 { margin-top: var(--space-4); }
+.mt-6 { margin-top: var(--space-6); }
+.mt-8 { margin-top: var(--space-8); }
+.mb-4 { margin-bottom: var(--space-4); }
+.mb-6 { margin-bottom: var(--space-6); }
+
+/* Typography */
+.text-center { text-align: center; }
+.font-mono { font-family: var(--font-mono); }
+.text-sm { font-size: var(--ui-text-sm); }
+.text-xs { font-size: var(--ui-text-xs); }
+.text-muted { color: var(--text-muted); }
+.text-secondary { color: var(--text-secondary); }
+
+/* Sizing */
+.w-full { width: 100%; }
+.max-w-md { max-width: var(--container-md); }
 ```
 
 ---
