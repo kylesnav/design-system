@@ -30,6 +30,11 @@ When invoked, scan all HTML, CSS, JSX, TSX, Vue, and Svelte files in the target 
 | Arbitrary z-index | `z-index: 100`, `z-index: 999` — any z-index not using `var(--z-*)` | Info |
 | Non-oklch colors | Color definitions using hex/rgb/hsl instead of oklch | Info |
 
+| Missing skip link | Page has no `.skip-link` or skip navigation element as first body child | Info |
+| Missing cascade layers | CSS not wrapped in `@layer reset, primitives, semantic, component, utilities` | Info |
+| Accordion not using native details | Custom accordion JS instead of `<details>` / `<summary>` | Info |
+| Slider missing value label | `<input type="range">` without associated `.slider-value` or visible output | Info |
+
 ### Allowed Exceptions
 
 - Colors inside SVG `fill`/`stroke` attributes when using `currentColor`
@@ -38,6 +43,7 @@ When invoked, scan all HTML, CSS, JSX, TSX, Vue, and Svelte files in the target 
 - Colors in CSS custom property definitions at the `:root` or `[data-theme]` level (these ARE the token definitions)
 - `box-shadow: none` or `box-shadow: 0 0 0` (shadow removal is valid)
 - Third-party library stylesheets
+- Native form control pseudo-elements (slider thumb, checkbox) may need browser-specific styling
 
 ### Scanning Process
 

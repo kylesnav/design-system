@@ -28,12 +28,14 @@ Set up the project foundation:
    - **Tier 1 — Primitives:** Raw oklch color scales (neutral, pink, red, gold, cyan, green, purple)
    - **Tier 2 — Semantic:** Light mode + dark mode tokens (backgrounds, text, accents, borders, shadows)
    - **Tier 3 — Component:** Typography scale, spacing scale, radius scale, motion tokens, button/toggle tokens
-3. Add the base reset (`*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }`)
-4. Set body styles (font-family, font-size, line-height, color, background, font-smoothing, font-feature-settings)
-5. Add global `:focus-visible` style
-6. Add `prefers-reduced-motion: reduce` global guard
-7. Add dark mode toggle using `data-theme` attribute on `<html>`
-8. Add animation keyframes inside `@media (prefers-reduced-motion: no-preference)`
+3. Add cascade layer order: `@layer reset, primitives, semantic, component, utilities;`
+4. Add the base reset (`*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }`) in `@layer reset`
+5. Set body styles (font-family, font-size, line-height, color, background, font-smoothing, font-feature-settings)
+6. Add global `:focus-visible` style
+7. Add `prefers-reduced-motion: reduce` global guard
+8. Add dark mode toggle using `data-theme` attribute on `<html>`
+9. Add animation keyframes inside `@media (prefers-reduced-motion: no-preference)`
+10. Add skip navigation link as first element in `<body>`
 
 You can copy the complete token system from `themes/css/delightful-tokens.css` in this plugin.
 
@@ -50,6 +52,9 @@ Create components and pages using **only** Delightful tokens and patterns:
 - All interactive elements have: `:hover` (lift + shadow), `:active` (press + no shadow), `:focus-visible` (outline), `:disabled` (opacity 0.4)
 - Neo-brutalist hover pattern: `transform: translate(-4px, -4px); box-shadow: var(--shadow-lg);`
 - Neo-brutalist active pattern: `transform: translate(2px, 2px); box-shadow: 0 0 0 var(--text-primary);`
+- Use native `<details>`/`<summary>` for accordions, native `<input type="range">` for sliders
+- Use container queries (`container-type: inline-size` + `@container`) for component-level responsive behavior
+- Include `.skip-link` for keyboard accessibility
 
 ### Step 4 — Verify
 
