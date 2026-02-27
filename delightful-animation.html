@@ -914,13 +914,11 @@
       <ul class="nav-links">
         <li><a href="#springs">Springs</a></li>
         <li><a href="#particles">Particles</a></li>
-        <li><a href="#physics">Physics</a></li>
         <li><a href="#flip">FLIP</a></li>
         <li><a href="#gestures">Gestures</a></li>
-        <li><a href="#generative">Generative</a></li>
         <li><a href="#cursor">Cursor</a></li>
-        <li><a href="#svg">SVG</a></li>
-        <li><a href="#splashy">Splashy</a></li>
+        <li><a href="#generative">Generative</a></li>
+        <li><a href="#components">Components</a></li>
         <li><a href="#combined">Combined</a></li>
       </ul>
       <div class="nav-right">
@@ -1041,6 +1039,108 @@
             </div>
           </div>
         </div>
+
+        <!-- Spring Toggle -->
+        <div class="demo-card">
+          <div class="demo-card-stage" id="spring-toggle-stage" style="display:flex;gap:var(--space-8);align-items:center;justify-content:center;padding:var(--space-8)">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:var(--space-2)">
+              <button id="spring-toggle-0" role="switch" aria-checked="false" aria-label="Notifications toggle" style="width:56px;height:30px;border-radius:var(--radius-full);background:var(--primitive-neutral-300);border:2px solid var(--border-default);box-shadow:var(--shadow-sm);position:relative;cursor:pointer;flex-shrink:0;padding:0;transition:none;">
+                <span style="position:absolute;top:2px;left:2px;width:22px;height:22px;border-radius:50%;background:var(--primitive-neutral-0);border:2px solid var(--border-default);box-shadow:1px 1px 0 var(--border-default);display:block;will-change:transform;"></span>
+              </button>
+              <span style="font-size:var(--ui-text-xs);color:var(--text-muted);font-weight:600">Alerts</span>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:var(--space-2)">
+              <button id="spring-toggle-1" role="switch" aria-checked="true" aria-label="Sync toggle" style="width:56px;height:30px;border-radius:var(--radius-full);background:var(--accent-green);border:2px solid var(--border-default);box-shadow:var(--shadow-sm);position:relative;cursor:pointer;flex-shrink:0;padding:0;transition:none;">
+                <span style="position:absolute;top:2px;left:2px;width:22px;height:22px;border-radius:50%;background:var(--primitive-neutral-0);border:2px solid var(--border-default);box-shadow:1px 1px 0 var(--border-default);display:block;will-change:transform;transform:translateX(26px);"></span>
+              </button>
+              <span style="font-size:var(--ui-text-xs);color:var(--text-muted);font-weight:600">Sync</span>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:var(--space-2)">
+              <button id="spring-toggle-2" role="switch" aria-checked="false" aria-label="Dark mode toggle" style="width:56px;height:30px;border-radius:var(--radius-full);background:var(--primitive-neutral-300);border:2px solid var(--border-default);box-shadow:var(--shadow-sm);position:relative;cursor:pointer;flex-shrink:0;padding:0;transition:none;">
+                <span style="position:absolute;top:2px;left:2px;width:22px;height:22px;border-radius:50%;background:var(--primitive-neutral-0);border:2px solid var(--border-default);box-shadow:1px 1px 0 var(--border-default);display:block;will-change:transform;"></span>
+              </button>
+              <span style="font-size:var(--ui-text-xs);color:var(--text-muted);font-weight:600">Dark</span>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:var(--space-2)">
+              <button id="spring-toggle-3" role="switch" aria-checked="true" aria-label="AI features toggle" style="width:56px;height:30px;border-radius:var(--radius-full);background:var(--accent-purple);border:2px solid var(--border-default);box-shadow:var(--shadow-sm);position:relative;cursor:pointer;flex-shrink:0;padding:0;transition:none;">
+                <span style="position:absolute;top:2px;left:2px;width:22px;height:22px;border-radius:50%;background:var(--primitive-neutral-0);border:2px solid var(--border-default);box-shadow:1px 1px 0 var(--border-default);display:block;will-change:transform;transform:translateX(26px);"></span>
+              </button>
+              <span style="font-size:var(--ui-text-xs);color:var(--text-muted);font-weight:600">AI</span>
+            </div>
+          </div>
+          <div class="demo-card-body">
+            <div class="demo-card-top">
+              <span class="demo-card-name">spring-toggle</span>
+              <span class="demo-card-tags"><span class="tag">Spring</span><span class="tag">DOM</span></span>
+            </div>
+            <p class="demo-card-desc">Toggle switches animated with a damped spring. The knob overshoots on click and settles with bounce — driven by springStep(), not CSS transitions.</p>
+            <p class="demo-card-hint">Click any toggle to switch it</p>
+          </div>
+        </div>
+
+        <!-- Spring Accordion -->
+        <div class="demo-card demo-card-wide">
+          <div class="demo-card-stage" style="min-height:auto;padding:var(--space-4)">
+            <div id="spring-accordion" style="width:100%;display:flex;flex-direction:column;gap:var(--space-2)">
+              <div class="sacc-panel" style="border:2px solid var(--border-default);border-radius:var(--radius-sm);overflow:hidden;background:var(--bg-surface)">
+                <button class="sacc-header" aria-expanded="false" style="width:100%;display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-4);background:var(--accent-primary-subtle);border:none;cursor:pointer;font-family:var(--font-sans);font-size:var(--ui-text-md);font-weight:700;color:var(--text-primary);text-align:left">
+                  <span style="width:8px;height:8px;border-radius:50%;background:var(--accent-primary);flex-shrink:0"></span>
+                  Spring Physics
+                  <span class="sacc-chevron" style="margin-left:auto;font-size:var(--ui-text-xs);transition:none">&#9660;</span>
+                </button>
+                <div class="sacc-body" style="height:0;overflow:hidden">
+                  <div class="sacc-inner" style="padding:var(--space-3) var(--space-4);font-size:var(--ui-text-sm);color:var(--text-secondary);line-height:var(--leading-normal)">
+                    Damped harmonic oscillators bring natural, organic motion. Every interactive element uses <code style="font-family:var(--font-mono);background:var(--bg-muted);padding:1px 4px;border-radius:4px">springStep()</code> for physically grounded animation.
+                  </div>
+                </div>
+              </div>
+              <div class="sacc-panel" style="border:2px solid var(--border-default);border-radius:var(--radius-sm);overflow:hidden;background:var(--bg-surface)">
+                <button class="sacc-header" aria-expanded="false" style="width:100%;display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-4);background:var(--accent-gold-subtle);border:none;cursor:pointer;font-family:var(--font-sans);font-size:var(--ui-text-md);font-weight:700;color:var(--text-primary);text-align:left">
+                  <span style="width:8px;height:8px;border-radius:50%;background:var(--accent-gold);flex-shrink:0"></span>
+                  Token Architecture
+                  <span class="sacc-chevron" style="margin-left:auto;font-size:var(--ui-text-xs);transition:none">&#9660;</span>
+                </button>
+                <div class="sacc-body" style="height:0;overflow:hidden">
+                  <div class="sacc-inner" style="padding:var(--space-3) var(--space-4);font-size:var(--ui-text-sm);color:var(--text-secondary);line-height:var(--leading-normal)">
+                    Three-tier token system: Primitives define raw OKLCH values, Semantic tokens map to meaning, Component tokens style specific UI elements. Never skip a tier.
+                  </div>
+                </div>
+              </div>
+              <div class="sacc-panel" style="border:2px solid var(--border-default);border-radius:var(--radius-sm);overflow:hidden;background:var(--bg-surface)">
+                <button class="sacc-header" aria-expanded="false" style="width:100%;display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-4);background:var(--accent-cyan-subtle);border:none;cursor:pointer;font-family:var(--font-sans);font-size:var(--ui-text-md);font-weight:700;color:var(--text-primary);text-align:left">
+                  <span style="width:8px;height:8px;border-radius:50%;background:var(--accent-cyan);flex-shrink:0"></span>
+                  Neo-Brutalist Style
+                  <span class="sacc-chevron" style="margin-left:auto;font-size:var(--ui-text-xs);transition:none">&#9660;</span>
+                </button>
+                <div class="sacc-body" style="height:0;overflow:hidden">
+                  <div class="sacc-inner" style="padding:var(--space-3) var(--space-4);font-size:var(--ui-text-sm);color:var(--text-secondary);line-height:var(--leading-normal)">
+                    Solid shadows (zero blur), 2px borders, bold typography, and high-contrast color. No gradients on UI elements — flat fills with hard edges.
+                  </div>
+                </div>
+              </div>
+              <div class="sacc-panel" style="border:2px solid var(--border-default);border-radius:var(--radius-sm);overflow:hidden;background:var(--bg-surface)">
+                <button class="sacc-header" aria-expanded="false" style="width:100%;display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-4);background:var(--accent-purple-subtle);border:none;cursor:pointer;font-family:var(--font-sans);font-size:var(--ui-text-md);font-weight:700;color:var(--text-primary);text-align:left">
+                  <span style="width:8px;height:8px;border-radius:50%;background:var(--accent-purple);flex-shrink:0"></span>
+                  Reduced Motion
+                  <span class="sacc-chevron" style="margin-left:auto;font-size:var(--ui-text-xs);transition:none">&#9660;</span>
+                </button>
+                <div class="sacc-body" style="height:0;overflow:hidden">
+                  <div class="sacc-inner" style="padding:var(--space-3) var(--space-4);font-size:var(--ui-text-sm);color:var(--text-secondary);line-height:var(--leading-normal)">
+                    When <code style="font-family:var(--font-mono);background:var(--bg-muted);padding:1px 4px;border-radius:4px">prefers-reduced-motion</code> is active, all spring animations snap instantly to their targets. Every demo respects this preference.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="demo-card-body">
+            <div class="demo-card-top">
+              <span class="demo-card-name">spring-accordion</span>
+              <span class="demo-card-tags"><span class="tag">Spring</span><span class="tag">DOM</span></span>
+            </div>
+            <p class="demo-card-desc">Accordion panels with spring-animated height. Only one panel opens at a time — opening one springs the previous closed with bouncy overshoot.</p>
+            <p class="demo-card-hint">Click a panel header to expand it</p>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -1051,7 +1151,7 @@
       <div class="section-header">
         <div class="section-overline"><span class="status-dot" style="background:var(--accent-gold)"></span> Category 02</div>
         <h2 class="section-title">Particle Systems</h2>
-        <p class="section-desc">Object-pooled particle engines for confetti, fireworks, text explosions, and star fields. All running at 60fps with recycled particles.</p>
+        <p class="section-desc">Object-pooled particle engines for confetti, fireworks, and token-colored bubbles. All running at 60fps with recycled particles.</p>
       </div>
 
       <div class="demo-grid">
@@ -1086,87 +1186,29 @@
           </div>
         </div>
 
-        <!-- Particle Text -->
-        <div class="demo-card">
-          <div class="demo-card-stage" style="min-height:240px">
-            <canvas id="particle-text-canvas" aria-label="Particle text: text rendered as particles that explode on hover"></canvas>
-          </div>
-          <div class="demo-card-body">
-            <div class="demo-card-top">
-              <span class="demo-card-name">particle-text</span>
-              <span class="demo-card-tags"><span class="tag">Particles</span><span class="tag">Text</span></span>
-            </div>
-            <p class="demo-card-desc">Text rendered as individual particles. Hover to scatter them; they spring back into place when you move away.</p>
-            <p class="demo-card-hint">Hover over the text</p>
-          </div>
-        </div>
-
-        <!-- Star Field -->
-        <div class="demo-card">
-          <div class="demo-card-stage" style="min-height:240px;background:oklch(0.14 0.012 60)">
-            <canvas id="starfield-canvas" aria-label="Star field: parallax space simulation with depth layers"></canvas>
-          </div>
-          <div class="demo-card-body">
-            <div class="demo-card-top">
-              <span class="demo-card-name">star-field</span>
-              <span class="demo-card-tags"><span class="tag">Particles</span></span>
-            </div>
-            <p class="demo-card-desc">Parallax star field with three depth layers. Stars streak past faster in the foreground for a warp-speed effect.</p>
-            <p class="demo-card-hint">Move mouse to steer</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================================================================
-         3. PHYSICS PLAYGROUND
-         ================================================================ -->
-    <section id="physics" class="anim-section">
-      <div class="section-header">
-        <div class="section-overline"><span class="status-dot" style="background:var(--accent-cyan)"></span> Category 03</div>
-        <h2 class="section-title">Physics Playground</h2>
-        <p class="section-desc">Gravity, collision detection, and Verlet integration for soft-body simulations. Interactive physics you can touch.</p>
-      </div>
-
-      <div class="demo-grid">
-        <!-- Gravity Balls -->
+        <!-- Token Bubbles -->
         <div class="demo-card">
           <div class="demo-card-stage" style="min-height:280px">
-            <canvas id="gravity-canvas" aria-label="Gravity balls: click to drop bouncing balls with realistic physics"></canvas>
+            <canvas id="token-bubbles-canvas" aria-label="Token bubbles: floating circles representing each color family"></canvas>
           </div>
           <div class="demo-card-body">
             <div class="demo-card-top">
-              <span class="demo-card-name">gravity-balls</span>
-              <span class="demo-card-tags"><span class="tag">Physics</span></span>
+              <span class="demo-card-name">token-bubbles</span>
+              <span class="demo-card-tags"><span class="tag">Particles</span><span class="tag">Canvas</span></span>
             </div>
-            <p class="demo-card-desc">Click to drop balls that bounce with gravity and restitution. Each ball has a random size, color, and bounciness.</p>
-            <p class="demo-card-hint">Click to drop balls</p>
-          </div>
-        </div>
-
-        <!-- Verlet Cloth -->
-        <div class="demo-card demo-card-wide">
-          <div class="demo-card-stage" style="min-height:320px">
-            <canvas id="cloth-canvas" aria-label="Verlet cloth simulation: drag to interact with a soft-body cloth"></canvas>
-          </div>
-          <div class="demo-card-body">
-            <div class="demo-card-top">
-              <span class="demo-card-name">verlet-cloth</span>
-              <span class="demo-card-tags"><span class="tag">Physics</span><span class="tag">Verlet</span></span>
-            </div>
-            <p class="demo-card-desc">A grid of points connected by distance constraints, simulated with Verlet integration. Drag to interact with the cloth.</p>
-            <p class="demo-card-hint">Click and drag on the cloth</p>
+            <p class="demo-card-desc">Seven gently floating circles — one per color family — labeled with their names. Click a bubble to spring-scale it and emit micro-particles.</p>
+            <p class="demo-card-hint">Click a bubble to pop it</p>
           </div>
         </div>
       </div>
     </section>
 
     <!-- ================================================================
-         4. FLIP & LAYOUT
+         3. FLIP & LAYOUT
          ================================================================ -->
     <section id="flip" class="anim-section">
       <div class="section-header">
-        <div class="section-overline"><span class="status-dot" style="background:var(--accent-green)"></span> Category 04</div>
+        <div class="section-overline"><span class="status-dot" style="background:var(--accent-green)"></span> Category 03</div>
         <h2 class="section-title">FLIP &amp; Layout Animation</h2>
         <p class="section-desc">First-Last-Invert-Play technique for smooth layout transitions. Elements animate from where they were to where they are.</p>
       </div>
@@ -1195,17 +1237,99 @@
             <p class="demo-card-hint">Click Shuffle to see FLIP in action</p>
           </div>
         </div>
+
+        <!-- FLIP Filter Grid -->
+        <div class="demo-card demo-card-wide">
+          <div class="demo-card-stage" style="min-height:auto;padding:var(--space-4)">
+            <div style="width:100%">
+              <div id="filter-btns" style="display:flex;gap:var(--space-2);flex-wrap:wrap;margin-bottom:var(--space-4)">
+                <button data-filter="all" class="demo-btn active" style="font-size:var(--ui-text-xs)">All</button>
+                <button data-filter="pink" class="demo-btn demo-btn-secondary" style="font-size:var(--ui-text-xs)">Pink</button>
+                <button data-filter="gold" class="demo-btn demo-btn-secondary" style="font-size:var(--ui-text-xs)">Gold</button>
+                <button data-filter="cyan" class="demo-btn demo-btn-secondary" style="font-size:var(--ui-text-xs)">Cyan</button>
+                <button data-filter="green" class="demo-btn demo-btn-secondary" style="font-size:var(--ui-text-xs)">Green</button>
+                <button data-filter="purple" class="demo-btn demo-btn-secondary" style="font-size:var(--ui-text-xs)">Purple</button>
+                <button data-filter="danger" class="demo-btn demo-btn-secondary" style="font-size:var(--ui-text-xs)">Red</button>
+              </div>
+              <div id="filter-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(70px,1fr));gap:var(--space-3)">
+                <div data-color="pink" style="height:70px;background:var(--accent-primary-subtle);border:2px solid var(--accent-primary);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:var(--ui-text-xs);color:var(--accent-primary-text)">Pink</div>
+                <div data-color="gold" style="height:70px;background:var(--accent-gold-subtle);border:2px solid var(--accent-gold);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:var(--ui-text-xs);color:var(--accent-gold-text)">Gold</div>
+                <div data-color="cyan" style="height:70px;background:var(--accent-cyan-subtle);border:2px solid var(--accent-cyan);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:var(--ui-text-xs);color:var(--accent-cyan-text)">Cyan</div>
+                <div data-color="green" style="height:70px;background:var(--accent-green-subtle);border:2px solid var(--accent-green);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:var(--ui-text-xs);color:var(--accent-green-text)">Green</div>
+                <div data-color="purple" style="height:70px;background:var(--accent-purple-subtle);border:2px solid var(--accent-purple);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:var(--ui-text-xs);color:var(--accent-purple-text)">Purple</div>
+                <div data-color="danger" style="height:70px;background:var(--accent-danger-subtle);border:2px solid var(--accent-danger);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:var(--ui-text-xs);color:var(--accent-danger-text)">Red</div>
+                <div data-color="pink" style="height:70px;background:var(--accent-primary-subtle);border:2px solid var(--accent-primary);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:var(--ui-text-xs);color:var(--accent-primary-text)">Pink</div>
+                <div data-color="gold" style="height:70px;background:var(--accent-gold-subtle);border:2px solid var(--accent-gold);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:var(--ui-text-xs);color:var(--accent-gold-text)">Gold</div>
+                <div data-color="cyan" style="height:70px;background:var(--accent-cyan-subtle);border:2px solid var(--accent-cyan);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:var(--ui-text-xs);color:var(--accent-cyan-text)">Cyan</div>
+                <div data-color="green" style="height:70px;background:var(--accent-green-subtle);border:2px solid var(--accent-green);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:var(--ui-text-xs);color:var(--accent-green-text)">Green</div>
+                <div data-color="purple" style="height:70px;background:var(--accent-purple-subtle);border:2px solid var(--accent-purple);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:var(--ui-text-xs);color:var(--accent-purple-text)">Purple</div>
+                <div data-color="danger" style="height:70px;background:var(--accent-danger-subtle);border:2px solid var(--accent-danger);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:var(--ui-text-xs);color:var(--accent-danger-text)">Red</div>
+              </div>
+            </div>
+          </div>
+          <div class="demo-card-body">
+            <div class="demo-card-top">
+              <span class="demo-card-name">flip-filter-grid</span>
+              <span class="demo-card-tags"><span class="tag">FLIP</span><span class="tag">Filter</span></span>
+            </div>
+            <p class="demo-card-desc">A grid of color chips with filter buttons. Clicking a filter FLIP-animates matching cards into new positions while non-matching scale to zero.</p>
+            <p class="demo-card-hint">Click a filter button</p>
+          </div>
+        </div>
+
+        <!-- FLIP Reorder List -->
+        <div class="demo-card demo-card-wide">
+          <div class="demo-card-stage" style="min-height:auto;padding:var(--space-4)">
+            <div style="width:100%;max-width:400px">
+              <div id="reorder-list" style="display:flex;flex-direction:column;gap:var(--space-2)">
+                <div class="reorder-item" style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-2) var(--space-3);background:var(--accent-green-subtle);border:2px solid var(--accent-green);border-radius:var(--radius-sm);font-weight:700;font-size:var(--ui-text-sm)">
+                  <span style="color:var(--accent-green-text);flex:1">Emerald</span>
+                  <button class="reorder-up demo-btn demo-btn-secondary" style="padding:2px 8px;font-size:10px">&#9650;</button>
+                  <button class="reorder-down demo-btn demo-btn-secondary" style="padding:2px 8px;font-size:10px">&#9660;</button>
+                </div>
+                <div class="reorder-item" style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-2) var(--space-3);background:var(--accent-gold-subtle);border:2px solid var(--accent-gold);border-radius:var(--radius-sm);font-weight:700;font-size:var(--ui-text-sm)">
+                  <span style="color:var(--accent-gold-text);flex:1">Amber</span>
+                  <button class="reorder-up demo-btn demo-btn-secondary" style="padding:2px 8px;font-size:10px">&#9650;</button>
+                  <button class="reorder-down demo-btn demo-btn-secondary" style="padding:2px 8px;font-size:10px">&#9660;</button>
+                </div>
+                <div class="reorder-item" style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-2) var(--space-3);background:var(--accent-danger-subtle);border:2px solid var(--accent-danger);border-radius:var(--radius-sm);font-weight:700;font-size:var(--ui-text-sm)">
+                  <span style="color:var(--accent-danger-text);flex:1">Coral</span>
+                  <button class="reorder-up demo-btn demo-btn-secondary" style="padding:2px 8px;font-size:10px">&#9650;</button>
+                  <button class="reorder-down demo-btn demo-btn-secondary" style="padding:2px 8px;font-size:10px">&#9660;</button>
+                </div>
+                <div class="reorder-item" style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-2) var(--space-3);background:var(--accent-cyan-subtle);border:2px solid var(--accent-cyan);border-radius:var(--radius-sm);font-weight:700;font-size:var(--ui-text-sm)">
+                  <span style="color:var(--accent-cyan-text);flex:1">Sapphire</span>
+                  <button class="reorder-up demo-btn demo-btn-secondary" style="padding:2px 8px;font-size:10px">&#9650;</button>
+                  <button class="reorder-down demo-btn demo-btn-secondary" style="padding:2px 8px;font-size:10px">&#9660;</button>
+                </div>
+                <div class="reorder-item" style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-2) var(--space-3);background:var(--accent-purple-subtle);border:2px solid var(--accent-purple);border-radius:var(--radius-sm);font-weight:700;font-size:var(--ui-text-sm)">
+                  <span style="color:var(--accent-purple-text);flex:1">Orchid</span>
+                  <button class="reorder-up demo-btn demo-btn-secondary" style="padding:2px 8px;font-size:10px">&#9650;</button>
+                  <button class="reorder-down demo-btn demo-btn-secondary" style="padding:2px 8px;font-size:10px">&#9660;</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="demo-card-body">
+            <div class="demo-card-top">
+              <span class="demo-card-name">flip-reorder-list</span>
+              <button class="demo-btn" id="reorder-sort-btn">Sort A-Z</button>
+            </div>
+            <p class="demo-card-desc">A vertical list with up/down arrows. Clicking swaps items with FLIP animation. Sort A-Z reorders all at once.</p>
+            <p class="demo-card-hint">Click arrows or Sort A-Z</p>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- ================================================================
-         5. GESTURES & DRAG
+         4. GESTURES & DRAG
          ================================================================ -->
     <section id="gestures" class="anim-section">
       <div class="section-header">
-        <div class="section-overline"><span class="status-dot" style="background:var(--accent-primary)"></span> Category 05</div>
+        <div class="section-overline"><span class="status-dot" style="background:var(--accent-primary)"></span> Category 04</div>
         <h2 class="section-title">Gestures &amp; Drag</h2>
-        <p class="section-desc">Unified pointer event handling for drag with inertia, snap points, and swipe gestures.</p>
+        <p class="section-desc">Unified pointer event handling for drag with inertia, swipe-to-dismiss, and elastic overscroll.</p>
       </div>
 
       <div class="demo-grid">
@@ -1246,60 +1370,66 @@
             <p class="demo-card-hint">Drag the cards around</p>
           </div>
         </div>
+
+        <!-- Swipe Dismiss -->
+        <div class="demo-card demo-card-wide">
+          <div class="demo-card-stage" style="min-height:auto;padding:var(--space-4)">
+            <div style="width:100%;max-width:360px">
+              <div id="swipe-dismiss-stack" style="display:flex;flex-direction:column;gap:var(--space-2)">
+                <div class="swipe-card" style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-4);background:var(--bg-elevated);border:2px solid var(--border-default);border-radius:var(--radius-sm);box-shadow:var(--shadow-sm);border-left:4px solid var(--accent-primary);cursor:grab;touch-action:none;user-select:none;font-size:var(--ui-text-sm);font-weight:600">New message from Alex</div>
+                <div class="swipe-card" style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-4);background:var(--bg-elevated);border:2px solid var(--border-default);border-radius:var(--radius-sm);box-shadow:var(--shadow-sm);border-left:4px solid var(--accent-green);cursor:grab;touch-action:none;user-select:none;font-size:var(--ui-text-sm);font-weight:600">Task complete: Deploy v2</div>
+                <div class="swipe-card" style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-4);background:var(--bg-elevated);border:2px solid var(--border-default);border-radius:var(--radius-sm);box-shadow:var(--shadow-sm);border-left:4px solid var(--accent-gold);cursor:grab;touch-action:none;user-select:none;font-size:var(--ui-text-sm);font-weight:600">Warning: Storage 90% full</div>
+                <div class="swipe-card" style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-4);background:var(--bg-elevated);border:2px solid var(--border-default);border-radius:var(--radius-sm);box-shadow:var(--shadow-sm);border-left:4px solid var(--accent-danger);cursor:grab;touch-action:none;user-select:none;font-size:var(--ui-text-sm);font-weight:600">Error alert: Build failed</div>
+                <div class="swipe-card" style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-4);background:var(--bg-elevated);border:2px solid var(--border-default);border-radius:var(--radius-sm);box-shadow:var(--shadow-sm);border-left:4px solid var(--accent-purple);cursor:grab;touch-action:none;user-select:none;font-size:var(--ui-text-sm);font-weight:600">Update ready: v3.0</div>
+              </div>
+            </div>
+          </div>
+          <div class="demo-card-body">
+            <div class="demo-card-top">
+              <span class="demo-card-name">swipe-dismiss</span>
+              <button class="demo-btn" id="swipe-reset-btn">Reset</button>
+            </div>
+            <p class="demo-card-desc">Swipe notification cards horizontally to dismiss. Past the threshold, the card flings off and remaining cards FLIP upward.</p>
+            <p class="demo-card-hint">Drag a card left or right to dismiss</p>
+          </div>
+        </div>
+
+        <!-- Elastic Scroll -->
+        <div class="demo-card demo-card-wide">
+          <div class="demo-card-stage" style="min-height:auto;padding:var(--space-4);position:relative">
+            <div id="elastic-glow-left" style="position:absolute;left:0;top:0;bottom:0;width:40px;background:linear-gradient(to right,var(--accent-primary),transparent);opacity:0;pointer-events:none;z-index:2;transition:opacity 100ms"></div>
+            <div id="elastic-glow-right" style="position:absolute;right:0;top:0;bottom:0;width:40px;background:linear-gradient(to left,var(--accent-primary),transparent);opacity:0;pointer-events:none;z-index:2;transition:opacity 100ms"></div>
+            <div id="elastic-inner" style="display:flex;gap:var(--space-3);overflow-x:hidden;cursor:grab;touch-action:none;padding:var(--space-2) 0;will-change:transform">
+              <div style="flex-shrink:0;width:120px;height:80px;background:var(--accent-primary-subtle);border:2px solid var(--accent-primary);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:var(--ui-text-xs);color:var(--accent-primary-text)">Pink</div>
+              <div style="flex-shrink:0;width:120px;height:80px;background:var(--accent-gold-subtle);border:2px solid var(--accent-gold);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:var(--ui-text-xs);color:var(--accent-gold-text)">Gold</div>
+              <div style="flex-shrink:0;width:120px;height:80px;background:var(--accent-cyan-subtle);border:2px solid var(--accent-cyan);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:var(--ui-text-xs);color:var(--accent-cyan-text)">Cyan</div>
+              <div style="flex-shrink:0;width:120px;height:80px;background:var(--accent-green-subtle);border:2px solid var(--accent-green);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:var(--ui-text-xs);color:var(--accent-green-text)">Green</div>
+              <div style="flex-shrink:0;width:120px;height:80px;background:var(--accent-purple-subtle);border:2px solid var(--accent-purple);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:var(--ui-text-xs);color:var(--accent-purple-text)">Purple</div>
+              <div style="flex-shrink:0;width:120px;height:80px;background:var(--accent-danger-subtle);border:2px solid var(--accent-danger);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:var(--ui-text-xs);color:var(--accent-danger-text)">Red</div>
+              <div style="flex-shrink:0;width:120px;height:80px;background:var(--accent-primary-subtle);border:2px solid var(--accent-primary);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:var(--ui-text-xs);color:var(--accent-primary-text)">Pink 2</div>
+              <div style="flex-shrink:0;width:120px;height:80px;background:var(--accent-gold-subtle);border:2px solid var(--accent-gold);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:var(--ui-text-xs);color:var(--accent-gold-text)">Gold 2</div>
+            </div>
+          </div>
+          <div class="demo-card-body">
+            <div class="demo-card-top">
+              <span class="demo-card-name">elastic-scroll</span>
+              <span class="demo-card-tags"><span class="tag">Gesture</span><span class="tag">Spring</span></span>
+            </div>
+            <p class="demo-card-desc">Horizontally scrollable strip with elastic overscroll. Drag past the edge for a rubber-band effect with spring snap-back and edge glow.</p>
+            <p class="demo-card-hint">Drag horizontally, pull past the edge</p>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- ================================================================
-         6. GENERATIVE ART
-         ================================================================ -->
-    <section id="generative" class="anim-section">
-      <div class="section-header">
-        <div class="section-overline"><span class="status-dot" style="background:var(--accent-purple)"></span> Category 06</div>
-        <h2 class="section-title">Generative Art</h2>
-        <p class="section-desc">Algorithmic visuals driven by noise, recursion, and flow fields. Unique every time, always on-brand.</p>
-      </div>
-
-      <div class="demo-grid">
-        <!-- Flow Field -->
-        <div class="demo-card">
-          <div class="demo-card-stage" style="min-height:280px">
-            <canvas id="flowfield-canvas" aria-label="Flow field: noise-based particle flow creating organic patterns"></canvas>
-          </div>
-          <div class="demo-card-body">
-            <div class="demo-card-top">
-              <span class="demo-card-name">flow-field</span>
-              <span class="demo-card-tags"><span class="tag">Generative</span><span class="tag">Noise</span></span>
-            </div>
-            <p class="demo-card-desc">Particles follow a Perlin noise flow field, creating organic, wind-like patterns colored by the token palette.</p>
-            <p class="demo-card-hint">Watch the flow emerge</p>
-          </div>
-        </div>
-
-        <!-- Fractal Tree -->
-        <div class="demo-card">
-          <div class="demo-card-stage" style="min-height:280px">
-            <canvas id="fractal-canvas" aria-label="Recursive fractal tree that grows with animated branching"></canvas>
-          </div>
-          <div class="demo-card-body">
-            <div class="demo-card-top">
-              <span class="demo-card-name">fractal-tree</span>
-              <button class="demo-btn" id="fractal-regrow">Regrow</button>
-            </div>
-            <p class="demo-card-desc">Recursive L-system tree drawn with animated stroke. Each branch splits with slight random variation. Click Regrow for a new tree.</p>
-            <p class="demo-card-hint">Click Regrow for a new variation</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================================================================
-         7. CURSOR & INTERACTIVE
+         5. CURSOR & INTERACTIVE
          ================================================================ -->
     <section id="cursor" class="anim-section">
       <div class="section-header">
-        <div class="section-overline"><span class="status-dot" style="background:var(--accent-gold)"></span> Category 07</div>
+        <div class="section-overline"><span class="status-dot" style="background:var(--accent-gold)"></span> Category 05</div>
         <h2 class="section-title">Cursor &amp; Interactive</h2>
-        <p class="section-desc">Magnetic buttons, spotlight effects, 3D tilt cards, and ripple interactions that respond to your every move.</p>
+        <p class="section-desc">Magnetic buttons, spotlight effects, and spring-physics cursor trails that respond to your every move.</p>
       </div>
 
       <div class="demo-grid">
@@ -1341,177 +1471,78 @@
           </div>
         </div>
 
-        <!-- Tilt Cards -->
+        <!-- Spotlight Card -->
         <div class="demo-card">
-          <div class="demo-card-stage" style="display:flex;gap:var(--space-4);flex-wrap:wrap;justify-content:center">
-            <div class="tilt-card" style="
-              width:140px;height:180px;
+          <div class="demo-card-stage" style="display:flex;gap:var(--space-4);flex-wrap:wrap;justify-content:center;padding:var(--space-6)">
+            <div class="spotlight-wrap" data-accent-r="200" data-accent-g="80" data-accent-b="180" style="
+              width:160px;height:120px;position:relative;
               background:var(--accent-primary-subtle);border:2px solid var(--accent-primary);
               border-radius:var(--radius-md);box-shadow:var(--shadow-md);
               display:flex;align-items:center;justify-content:center;
-              font-weight:800;font-size:var(--step-2);color:var(--accent-primary-text);
-              cursor:default;transition:box-shadow 0.3s ease;
-            ">3D</div>
-            <div class="tilt-card" style="
-              width:140px;height:180px;
-              background:var(--accent-gold-subtle);border:2px solid var(--accent-gold);
+              font-weight:800;color:var(--accent-primary-text);overflow:hidden;cursor:default;
+            "><div class="spotlight-overlay" style="position:absolute;inset:0;pointer-events:none;border-radius:inherit"></div>Hover</div>
+            <div class="spotlight-wrap" data-accent-r="100" data-accent-g="160" data-accent-b="220" style="
+              width:160px;height:120px;position:relative;
+              background:var(--accent-cyan-subtle);border:2px solid var(--accent-cyan);
               border-radius:var(--radius-md);box-shadow:var(--shadow-md);
               display:flex;align-items:center;justify-content:center;
-              font-weight:800;font-size:var(--step-2);color:var(--accent-gold-text);
-              cursor:default;transition:box-shadow 0.3s ease;
-            ">Tilt</div>
+              font-weight:800;color:var(--accent-cyan-text);overflow:hidden;cursor:default;
+            "><div class="spotlight-overlay" style="position:absolute;inset:0;pointer-events:none;border-radius:inherit"></div>Glow</div>
           </div>
           <div class="demo-card-body">
             <div class="demo-card-top">
-              <span class="demo-card-name">tilt-cards</span>
-              <span class="demo-card-tags"><span class="tag">3D</span><span class="tag">Perspective</span></span>
+              <span class="demo-card-name">spotlight-card</span>
+              <span class="demo-card-tags"><span class="tag">Cursor</span><span class="tag">DOM</span></span>
             </div>
-            <p class="demo-card-desc">Cards respond to mouse position with 3D perspective rotation. Move your cursor across the card surface.</p>
-            <p class="demo-card-hint">Hover over the cards</p>
+            <p class="demo-card-desc">Cursor creates a radial spotlight in the card's accent color. The solid shadow shifts direction opposite the cursor — light source follows your mouse.</p>
+            <p class="demo-card-hint">Move cursor over the cards</p>
           </div>
         </div>
 
-        <!-- Ripple Effect -->
+        <!-- Spring Cursor Trail -->
         <div class="demo-card">
-          <div class="demo-card-stage" id="ripple-stage" style="cursor:pointer;min-height:200px">
-            <span style="font-size:var(--ui-text-sm);color:var(--text-muted);pointer-events:none">Click anywhere</span>
+          <div class="demo-card-stage" style="min-height:240px">
+            <canvas id="spring-trail-canvas" aria-label="Spring cursor trail: circles trailing the cursor connected by springs"></canvas>
           </div>
           <div class="demo-card-body">
             <div class="demo-card-top">
-              <span class="demo-card-name">ripple-effect</span>
-              <span class="demo-card-tags"><span class="tag">Click</span></span>
+              <span class="demo-card-name">spring-cursor-trail</span>
+              <span class="demo-card-tags"><span class="tag">Spring</span><span class="tag">Canvas</span></span>
             </div>
-            <p class="demo-card-desc">Material-style ripple effect on click. Ripple expands from click point with token-colored rings.</p>
-            <p class="demo-card-hint">Click anywhere on the stage</p>
+            <p class="demo-card-desc">12 shrinking circles trail the cursor, each springing toward its predecessor with decreasing stiffness. Colors cycle through the full token palette.</p>
+            <p class="demo-card-hint">Move mouse over the canvas</p>
           </div>
         </div>
       </div>
     </section>
 
     <!-- ================================================================
-         8. SVG & MORPHING
+         6. GENERATIVE ART
          ================================================================ -->
-    <section id="svg" class="anim-section">
+    <section id="generative" class="anim-section">
       <div class="section-header">
-        <div class="section-overline"><span class="status-dot" style="background:var(--accent-cyan)"></span> Category 08</div>
-        <h2 class="section-title">SVG &amp; Morphing</h2>
-        <p class="section-desc">Shape transitions, gooey filters, and stroke animations using inline SVG and path manipulation.</p>
+        <div class="section-overline"><span class="status-dot" style="background:var(--accent-purple)"></span> Category 06</div>
+        <h2 class="section-title">Generative Art</h2>
+        <p class="section-desc">Algorithmic visuals driven by noise, flow fields, and spring-physics wave propagation. Unique every time, always on-brand.</p>
       </div>
 
       <div class="demo-grid">
-        <!-- SVG Morph -->
+        <!-- Flow Field -->
         <div class="demo-card">
-          <div class="demo-card-stage" style="min-height:220px">
-            <svg id="morph-svg" viewBox="0 0 200 200" width="160" height="160">
-              <path id="morph-path" d="M100,20 C140,20 180,60 180,100 C180,140 140,180 100,180 C60,180 20,140 20,100 C20,60 60,20 100,20 Z" fill="var(--accent-primary)" stroke="var(--border-default)" stroke-width="3"/>
-            </svg>
+          <div class="demo-card-stage" style="min-height:280px">
+            <canvas id="flowfield-canvas" aria-label="Flow field: noise-based particle flow creating organic patterns"></canvas>
           </div>
           <div class="demo-card-body">
             <div class="demo-card-top">
-              <span class="demo-card-name">svg-morph</span>
-              <button class="demo-btn" id="morph-toggle">Morph</button>
+              <span class="demo-card-name">flow-field</span>
+              <span class="demo-card-tags"><span class="tag">Generative</span><span class="tag">Noise</span></span>
             </div>
-            <p class="demo-card-desc">SVG path morphing between shapes: circle, star, square, and blob. Smooth interpolation between path data.</p>
-            <p class="demo-card-hint">Click Morph to cycle shapes</p>
+            <p class="demo-card-desc">Particles follow a Perlin noise flow field, creating organic, wind-like patterns colored by the token palette.</p>
+            <p class="demo-card-hint">Watch the flow emerge</p>
           </div>
         </div>
 
-        <!-- Drawing Animation -->
-        <div class="demo-card">
-          <div class="demo-card-stage" style="min-height:220px">
-            <svg id="draw-svg" viewBox="0 0 240 120" width="240" height="120">
-              <path id="draw-path" d="M20,100 Q60,10 120,60 T220,20" fill="none" stroke="var(--accent-cyan)" stroke-width="3" stroke-linecap="round" stroke-dasharray="400" stroke-dashoffset="400"/>
-              <circle id="draw-dot" cx="20" cy="100" r="5" fill="var(--accent-primary)" opacity="0"/>
-            </svg>
-          </div>
-          <div class="demo-card-body">
-            <div class="demo-card-top">
-              <span class="demo-card-name">drawing-anim</span>
-              <button class="demo-btn" id="draw-play">Draw</button>
-            </div>
-            <p class="demo-card-desc">Stroke-dasharray reveal animation. The path draws itself on screen with a leading dot that traces the curve.</p>
-            <p class="demo-card-hint">Click Draw to animate</p>
-          </div>
-        </div>
-
-        <!-- Gooey Button -->
-        <div class="demo-card">
-          <div class="demo-card-stage" style="min-height:220px">
-            <svg width="0" height="0" style="position:absolute">
-              <defs>
-                <filter id="gooey-filter">
-                  <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur"/>
-                  <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo"/>
-                  <feComposite in="SourceGraphic" in2="goo" operator="atop"/>
-                </filter>
-              </defs>
-            </svg>
-            <div id="gooey-container" style="filter:url(#gooey-filter);display:flex;align-items:center;justify-content:center;position:relative;width:180px;height:64px">
-              <div id="gooey-main" style="
-                width:160px;height:56px;background:var(--accent-purple);
-                border-radius:28px;display:flex;align-items:center;justify-content:center;
-                font-weight:700;font-size:var(--ui-text-md);color:var(--text-on-accent);
-                cursor:pointer;position:relative;z-index:2;user-select:none;
-              ">Gooey</div>
-              <div id="gooey-blob-1" style="width:40px;height:40px;background:var(--accent-purple);border-radius:50%;position:absolute;left:10px;top:12px;z-index:1;opacity:0"></div>
-              <div id="gooey-blob-2" style="width:36px;height:36px;background:var(--accent-purple);border-radius:50%;position:absolute;right:10px;top:14px;z-index:1;opacity:0"></div>
-            </div>
-          </div>
-          <div class="demo-card-body">
-            <div class="demo-card-top">
-              <span class="demo-card-name">gooey-button</span>
-              <span class="demo-card-tags"><span class="tag">SVG Filter</span></span>
-            </div>
-            <p class="demo-card-desc">SVG filter metaballs creating a liquid/gooey effect. Blobs merge and separate from the button on hover.</p>
-            <p class="demo-card-hint">Hover over the button</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================================================================
-         9. SPLASHY & FUN
-         ================================================================ -->
-    <section id="splashy" class="anim-section">
-      <div class="section-header">
-        <div class="section-overline"><span class="status-dot" style="background:var(--accent-primary)"></span> Category 09</div>
-        <h2 class="section-title">Splashy &amp; Fun</h2>
-        <p class="section-desc">Pure delight: emoji rain, aurora gradients, and digital waterfalls. Because a design system should make you smile.</p>
-      </div>
-
-      <div class="demo-grid">
-        <!-- Emoji Rain -->
-        <div class="demo-card">
-          <div class="demo-card-stage" style="min-height:240px;overflow:hidden">
-            <canvas id="emoji-canvas" aria-label="Emoji rain: cascading emojis falling like rain"></canvas>
-            <button class="demo-btn" id="emoji-start" style="position:absolute;bottom:var(--space-3);left:50%;transform:translateX(-50%);z-index:2">Rain!</button>
-          </div>
-          <div class="demo-card-body">
-            <div class="demo-card-top">
-              <span class="demo-card-name">emoji-rain</span>
-              <span class="demo-card-tags"><span class="tag">Fun</span></span>
-            </div>
-            <p class="demo-card-desc">Cascading emojis with rotation, varying sizes, and gentle swaying. Pure celebration.</p>
-            <p class="demo-card-hint">Click Rain! to start</p>
-          </div>
-        </div>
-
-        <!-- Matrix Rain -->
-        <div class="demo-card">
-          <div class="demo-card-stage" style="min-height:240px;background:oklch(0.14 0.012 60)">
-            <canvas id="matrix-canvas" aria-label="Matrix digital rain: cascading characters in green"></canvas>
-          </div>
-          <div class="demo-card-body">
-            <div class="demo-card-top">
-              <span class="demo-card-name">matrix-rain</span>
-              <span class="demo-card-tags"><span class="tag">Fun</span><span class="tag">Canvas</span></span>
-            </div>
-            <p class="demo-card-desc">Digital character cascade in the style of The Matrix. Uses token green for an on-brand digital rain.</p>
-            <p class="demo-card-hint">Watch the characters fall</p>
-          </div>
-        </div>
-
-        <!-- Aurora Gradient -->
+        <!-- Aurora Gradient (relocated from Splashy) -->
         <div class="demo-card">
           <div class="demo-card-stage" style="min-height:240px">
             <canvas id="aurora-canvas" aria-label="Aurora gradient: animated mesh gradients creating nebula-like effects"></canvas>
@@ -1525,15 +1556,87 @@
             <p class="demo-card-hint">Watch the colors shift</p>
           </div>
         </div>
+
+        <!-- Token Wave -->
+        <div class="demo-card">
+          <div class="demo-card-stage" style="min-height:280px">
+            <canvas id="token-wave-canvas" aria-label="Token wave: grid of dots displaced by radial spring-physics waves"></canvas>
+          </div>
+          <div class="demo-card-body">
+            <div class="demo-card-top">
+              <span class="demo-card-name">token-wave</span>
+              <span class="demo-card-tags"><span class="tag">Generative</span><span class="tag">Spring</span></span>
+            </div>
+            <p class="demo-card-desc">A grid of ~200 dots in token palette colors. Click to send a radial wave that displaces dots with spring settling. Auto-waves every 3 seconds.</p>
+            <p class="demo-card-hint">Click anywhere for a wave</p>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- ================================================================
-         10. COMBINED & ADVANCED
+         7. COMPONENT SHOWCASE
+         ================================================================ -->
+    <section id="components" class="anim-section">
+      <div class="section-header">
+        <div class="section-overline"><span class="status-dot" style="background:var(--accent-cyan)"></span> Category 07</div>
+        <h2 class="section-title">Component Showcase</h2>
+        <p class="section-desc">Real design system components brought to life with spring physics. Toast notifications, badge counters, and more.</p>
+      </div>
+
+      <div class="demo-grid">
+        <!-- Toast Stack -->
+        <div class="demo-card">
+          <div class="demo-card-stage" style="min-height:280px;padding:var(--space-4);align-items:flex-start;justify-content:flex-end;flex-direction:column">
+            <div id="toast-container" style="width:100%;display:flex;flex-direction:column"></div>
+            <button class="demo-btn" id="toast-send-btn" style="align-self:center;margin-top:var(--space-3)">Send Toast</button>
+          </div>
+          <div class="demo-card-body">
+            <div class="demo-card-top">
+              <span class="demo-card-name">toast-stack</span>
+              <span class="demo-card-tags"><span class="tag">Component</span><span class="tag">FLIP</span></span>
+            </div>
+            <p class="demo-card-desc">Toast notifications that spring in from the right and auto-dismiss after 3 seconds. Remaining toasts FLIP upward when one is removed.</p>
+            <p class="demo-card-hint">Click Send Toast to spawn notifications</p>
+          </div>
+        </div>
+
+        <!-- Badge Counter -->
+        <div class="demo-card">
+          <div class="demo-card-stage" style="padding:var(--space-8)">
+            <div id="badge-counter-wrap" style="display:flex;gap:var(--space-8);align-items:center">
+              <button class="badge-icon-btn" data-badge-id="bell" style="position:relative;width:52px;height:52px;border-radius:var(--radius-sm);border:2px solid var(--border-default);background:var(--accent-primary-subtle);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:var(--shadow-sm)">
+                &#128276;
+                <span class="badge-count" style="position:absolute;top:-6px;right:-6px;min-width:20px;height:20px;border-radius:var(--radius-full);background:var(--accent-primary);color:var(--text-on-accent);font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;border:2px solid var(--bg-surface);transform:scale(0)">0</span>
+              </button>
+              <button class="badge-icon-btn" data-badge-id="msg" style="position:relative;width:52px;height:52px;border-radius:var(--radius-sm);border:2px solid var(--border-default);background:var(--accent-cyan-subtle);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:var(--shadow-sm)">
+                &#128172;
+                <span class="badge-count" style="position:absolute;top:-6px;right:-6px;min-width:20px;height:20px;border-radius:var(--radius-full);background:var(--accent-cyan);color:var(--text-on-accent);font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;border:2px solid var(--bg-surface);transform:scale(0)">0</span>
+              </button>
+              <button class="badge-icon-btn" data-badge-id="heart" style="position:relative;width:52px;height:52px;border-radius:var(--radius-sm);border:2px solid var(--border-default);background:var(--accent-purple-subtle);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:var(--shadow-sm)">
+                &#10084;
+                <span class="badge-count" style="position:absolute;top:-6px;right:-6px;min-width:20px;height:20px;border-radius:var(--radius-full);background:var(--accent-purple);color:var(--text-on-accent);font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;border:2px solid var(--bg-surface);transform:scale(0)">0</span>
+              </button>
+            </div>
+          </div>
+          <div class="demo-card-body">
+            <div class="demo-card-top">
+              <span class="demo-card-name">badge-counter</span>
+              <button class="demo-btn" id="badge-clear-btn">Clear All</button>
+            </div>
+            <p class="demo-card-desc">Icon buttons with spring-animated badge counters. Badges pop into existence from scale(0) when going 0 to 1, and spring-pop on each increment.</p>
+            <p class="demo-card-hint">Click icons to increment, Clear to reset</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         8. COMBINED & ADVANCED
          ================================================================ -->
     <section id="combined" class="anim-section">
       <div class="section-header">
-        <div class="section-overline"><span class="status-dot" style="background:var(--accent-green)"></span> Category 10</div>
+        <div class="section-overline"><span class="status-dot" style="background:var(--accent-green)"></span> Category 08</div>
         <h2 class="section-title">Combined &amp; Advanced</h2>
         <p class="section-desc">Multiple animation systems working in concert. The grand finale that showcases what token-driven JS animation can do.</p>
       </div>
@@ -1559,6 +1662,48 @@
             </div>
             <p class="demo-card-desc">A spring-animated button that fires confetti on click. Combines the spring press effect with the particle cannon for a celebration moment.</p>
             <p class="demo-card-hint">Click Celebrate! for the full effect</p>
+          </div>
+        </div>
+
+        <!-- Spring Drag Sort -->
+        <div class="demo-card demo-card-wide">
+          <div class="demo-card-stage" style="min-height:auto;padding:var(--space-4)">
+            <div style="width:100%;max-width:400px">
+              <div id="spring-drag-sort-list" style="display:flex;flex-direction:column;gap:var(--space-2)">
+                <div class="sds-item" style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-4);background:var(--accent-primary-subtle);border:2px solid var(--accent-primary);border-radius:var(--radius-sm);font-weight:700;font-size:var(--ui-text-sm);color:var(--accent-primary-text);user-select:none">
+                  <span class="sds-handle" style="cursor:grab;font-size:var(--ui-text-lg);color:var(--text-muted);touch-action:none">&#8801;</span>
+                  <span>Cherry</span>
+                </div>
+                <div class="sds-item" style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-4);background:var(--accent-gold-subtle);border:2px solid var(--accent-gold);border-radius:var(--radius-sm);font-weight:700;font-size:var(--ui-text-sm);color:var(--accent-gold-text);user-select:none">
+                  <span class="sds-handle" style="cursor:grab;font-size:var(--ui-text-lg);color:var(--text-muted);touch-action:none">&#8801;</span>
+                  <span>Amber</span>
+                </div>
+                <div class="sds-item" style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-4);background:var(--accent-cyan-subtle);border:2px solid var(--accent-cyan);border-radius:var(--radius-sm);font-weight:700;font-size:var(--ui-text-sm);color:var(--accent-cyan-text);user-select:none">
+                  <span class="sds-handle" style="cursor:grab;font-size:var(--ui-text-lg);color:var(--text-muted);touch-action:none">&#8801;</span>
+                  <span>Ocean</span>
+                </div>
+                <div class="sds-item" style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-4);background:var(--accent-green-subtle);border:2px solid var(--accent-green);border-radius:var(--radius-sm);font-weight:700;font-size:var(--ui-text-sm);color:var(--accent-green-text);user-select:none">
+                  <span class="sds-handle" style="cursor:grab;font-size:var(--ui-text-lg);color:var(--text-muted);touch-action:none">&#8801;</span>
+                  <span>Sage</span>
+                </div>
+                <div class="sds-item" style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-4);background:var(--accent-purple-subtle);border:2px solid var(--accent-purple);border-radius:var(--radius-sm);font-weight:700;font-size:var(--ui-text-sm);color:var(--accent-purple-text);user-select:none">
+                  <span class="sds-handle" style="cursor:grab;font-size:var(--ui-text-lg);color:var(--text-muted);touch-action:none">&#8801;</span>
+                  <span>Plum</span>
+                </div>
+                <div class="sds-item" style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-4);background:var(--accent-danger-subtle);border:2px solid var(--accent-danger);border-radius:var(--radius-sm);font-weight:700;font-size:var(--ui-text-sm);color:var(--accent-danger-text);user-select:none">
+                  <span class="sds-handle" style="cursor:grab;font-size:var(--ui-text-lg);color:var(--text-muted);touch-action:none">&#8801;</span>
+                  <span>Sunset</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="demo-card-body">
+            <div class="demo-card-top">
+              <span class="demo-card-name">spring-drag-sort</span>
+              <span class="demo-card-tags"><span class="tag">Combined</span><span class="tag">Spring</span><span class="tag">Gesture</span></span>
+            </div>
+            <p class="demo-card-desc">Drag-sortable list combining springs, gestures, and FLIP. Grab a handle to lift (scale + shadow), drag to reorder, drop to spring-animate into place.</p>
+            <p class="demo-card-hint">Grab the handle and drag to reorder</p>
           </div>
         </div>
       </div>
@@ -1720,13 +1865,11 @@
       const cmdSections = [
         { id: 'springs', label: 'Spring Physics', color: 'var(--accent-primary)' },
         { id: 'particles', label: 'Particle Systems', color: 'var(--accent-gold)' },
-        { id: 'physics', label: 'Physics Playground', color: 'var(--accent-cyan)' },
         { id: 'flip', label: 'FLIP & Layout', color: 'var(--accent-green)' },
         { id: 'gestures', label: 'Gestures & Drag', color: 'var(--accent-primary)' },
-        { id: 'generative', label: 'Generative Art', color: 'var(--accent-purple)' },
         { id: 'cursor', label: 'Cursor & Interactive', color: 'var(--accent-gold)' },
-        { id: 'svg', label: 'SVG & Morphing', color: 'var(--accent-cyan)' },
-        { id: 'splashy', label: 'Splashy & Fun', color: 'var(--accent-primary)' },
+        { id: 'generative', label: 'Generative Art', color: 'var(--accent-purple)' },
+        { id: 'components', label: 'Component Showcase', color: 'var(--accent-cyan)' },
         { id: 'combined', label: 'Combined & Advanced', color: 'var(--accent-green)' },
       ];
       const cmdOverlay = document.getElementById('cmd-palette-overlay');
@@ -2447,344 +2590,6 @@
         window.addEventListener('resize', () => { if (ctx) init(); });
       })();
 
-      // ================================================================
-      //  2c. PARTICLE TEXT
-      // ================================================================
-      (function() {
-        const canvas = document.getElementById('particle-text-canvas');
-        if (!canvas) return;
-
-        let ctx, w, h;
-        const particles = [];
-        let mx = -1000, my = -1000;
-
-        function init() {
-          ({ ctx, w, h } = setupCanvas(canvas));
-          particles.length = 0;
-
-          // Draw text offscreen to sample pixels
-          const offscreen = document.createElement('canvas');
-          offscreen.width = w; offscreen.height = h;
-          const offCtx = offscreen.getContext('2d');
-          const fontSize = Math.min(w / 5, 60);
-          offCtx.fillStyle = '#000';
-          offCtx.font = `900 ${fontSize}px Inter, sans-serif`;
-          offCtx.textAlign = 'center';
-          offCtx.textBaseline = 'middle';
-          offCtx.fillText('DELIGHTFUL', w / 2, h / 2);
-
-          const imageData = offCtx.getImageData(0, 0, w, h).data;
-          const gap = 4;
-          const palette = [colors.primary, colors.gold, colors.cyan, colors.green, colors.purple];
-          let ci = 0;
-          for (let y = 0; y < h; y += gap) {
-            for (let x = 0; x < w; x += gap) {
-              const idx = (y * w + x) * 4;
-              if (imageData[idx + 3] > 128) {
-                particles.push({
-                  homeX: x, homeY: y,
-                  x, y,
-                  vx: 0, vy: 0,
-                  color: palette[ci++ % palette.length],
-                });
-              }
-            }
-          }
-        }
-
-        canvas.parentElement.addEventListener('mousemove', (e) => {
-          const rect = canvas.getBoundingClientRect();
-          mx = e.clientX - rect.left;
-          my = e.clientY - rect.top;
-        });
-        canvas.parentElement.addEventListener('mouseleave', () => { mx = -1000; my = -1000; });
-
-        registerAnimation('particle-text', (dt) => {
-          ctx.clearRect(0, 0, w, h);
-          for (const p of particles) {
-            const dx = mx - p.x;
-            const dy = my - p.y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-            const repelRadius = 60;
-
-            if (dist < repelRadius && dist > 0) {
-              const force = (repelRadius - dist) / repelRadius * 8;
-              p.vx -= (dx / dist) * force;
-              p.vy -= (dy / dist) * force;
-            }
-
-            // Spring back to home
-            p.vx += (p.homeX - p.x) * 4 * dt;
-            p.vy += (p.homeY - p.y) * 4 * dt;
-            p.vx *= 0.9;
-            p.vy *= 0.9;
-            p.x += p.vx;
-            p.y += p.vy;
-
-            ctx.fillStyle = p.color;
-            ctx.fillRect(p.x - 1.5, p.y - 1.5, 3, 3);
-          }
-        });
-
-        observeCanvas(canvas.parentElement, 'particle-text', init);
-        window.addEventListener('resize', () => { if (ctx) init(); });
-      })();
-
-      // ================================================================
-      //  2d. STAR FIELD
-      // ================================================================
-      (function() {
-        const canvas = document.getElementById('starfield-canvas');
-        if (!canvas) return;
-
-        let ctx, w, h;
-        const stars = [];
-        const STAR_COUNT = 150;
-        let mx = 0.5, my = 0.5;
-
-        function init() {
-          ({ ctx, w, h } = setupCanvas(canvas));
-          stars.length = 0;
-          for (let i = 0; i < STAR_COUNT; i++) {
-            stars.push({
-              x: Math.random() * w,
-              y: Math.random() * h,
-              z: Math.random() * 3 + 0.5,
-              size: Math.random() * 2 + 0.5,
-            });
-          }
-        }
-
-        canvas.parentElement.addEventListener('mousemove', (e) => {
-          const rect = canvas.getBoundingClientRect();
-          mx = (e.clientX - rect.left) / rect.width;
-          my = (e.clientY - rect.top) / rect.height;
-        });
-
-        registerAnimation('starfield', (dt) => {
-          ctx.fillStyle = '#1a1a1a';
-          ctx.fillRect(0, 0, w, h);
-          const speed = 200;
-          const steerX = (mx - 0.5) * 100;
-          const steerY = (my - 0.5) * 50;
-
-          for (const s of stars) {
-            s.x -= (speed * s.z + steerX * s.z) * dt;
-            s.y -= steerY * s.z * dt;
-
-            if (s.x < 0) { s.x = w; s.y = Math.random() * h; }
-            if (s.x > w) { s.x = 0; s.y = Math.random() * h; }
-            if (s.y < 0) s.y = h;
-            if (s.y > h) s.y = 0;
-
-            const alpha = Math.min(s.z / 3, 1);
-            const streakLen = s.z * 4;
-            ctx.beginPath();
-            ctx.moveTo(s.x, s.y);
-            ctx.lineTo(s.x + streakLen, s.y);
-            ctx.strokeStyle = `rgba(255,255,255,${alpha})`;
-            ctx.lineWidth = s.size;
-            ctx.stroke();
-          }
-        });
-
-        observeCanvas(canvas.parentElement, 'starfield', init);
-        window.addEventListener('resize', () => { if (ctx) init(); });
-      })();
-
-      // ================================================================
-      //  3a. GRAVITY BALLS
-      // ================================================================
-      (function() {
-        const canvas = document.getElementById('gravity-canvas');
-        if (!canvas) return;
-
-        let ctx, w, h;
-        const balls = [];
-
-        function init() {
-          ({ ctx, w, h } = setupCanvas(canvas));
-          balls.length = 0;
-        }
-
-        canvas.addEventListener('click', (e) => {
-          const rect = canvas.getBoundingClientRect();
-          const palette = [colors.primary, colors.gold, colors.cyan, colors.danger, colors.green, colors.purple];
-          balls.push({
-            x: e.clientX - rect.left,
-            y: e.clientY - rect.top,
-            vx: (Math.random() - 0.5) * 100,
-            vy: 0,
-            r: 10 + Math.random() * 20,
-            color: palette[Math.floor(Math.random() * palette.length)],
-            restitution: 0.5 + Math.random() * 0.35,
-          });
-          if (balls.length > 30) balls.shift();
-          activateAnimation('gravity');
-        });
-
-        registerAnimation('gravity', (dt) => {
-          ctx.clearRect(0, 0, w, h);
-          const gravity = 600;
-          let moving = false;
-
-          for (const b of balls) {
-            b.vy += gravity * dt;
-            b.x += b.vx * dt;
-            b.y += b.vy * dt;
-
-            // Floor
-            if (b.y + b.r > h) {
-              b.y = h - b.r;
-              b.vy = -b.vy * b.restitution;
-              if (Math.abs(b.vy) < 10) b.vy = 0;
-            }
-            // Walls
-            if (b.x - b.r < 0) { b.x = b.r; b.vx = Math.abs(b.vx) * b.restitution; }
-            if (b.x + b.r > w) { b.x = w - b.r; b.vx = -Math.abs(b.vx) * b.restitution; }
-
-            b.vx *= 0.999;
-
-            if (Math.abs(b.vx) > 0.5 || Math.abs(b.vy) > 0.5 || b.y + b.r < h - 1) moving = true;
-
-            ctx.beginPath();
-            ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
-            ctx.fillStyle = b.color;
-            ctx.fill();
-            ctx.strokeStyle = colors.borderDefault;
-            ctx.lineWidth = 2;
-            ctx.stroke();
-          }
-
-          // Draw ground line
-          ctx.beginPath();
-          ctx.moveTo(0, h - 1);
-          ctx.lineTo(w, h - 1);
-          ctx.strokeStyle = colors.borderDefault + '40';
-          ctx.lineWidth = 2;
-          ctx.stroke();
-
-          if (!moving && balls.length > 0) deactivateAnimation('gravity');
-        });
-
-        observeCanvas(canvas.parentElement, 'gravity', init);
-        window.addEventListener('resize', () => { if (ctx) init(); });
-      })();
-
-      // ================================================================
-      //  3b. VERLET CLOTH
-      // ================================================================
-      (function() {
-        const canvas = document.getElementById('cloth-canvas');
-        if (!canvas) return;
-
-        let ctx, w, h;
-        const cols = 20, rows = 14;
-        const spacing = 18;
-        let points = [];
-        let sticks = [];
-        let dragPoint = null;
-        let mx = 0, my = 0, dragging = false;
-
-        function init() {
-          ({ ctx, w, h } = setupCanvas(canvas));
-          points = []; sticks = [];
-          const startX = (w - cols * spacing) / 2;
-          const startY = 20;
-
-          for (let y = 0; y < rows; y++) {
-            for (let x = 0; x < cols; x++) {
-              const px = startX + x * spacing;
-              const py = startY + y * spacing;
-              points.push({ x: px, y: py, oldX: px, oldY: py, pinned: y === 0 });
-            }
-          }
-
-          for (let y = 0; y < rows; y++) {
-            for (let x = 0; x < cols; x++) {
-              const i = y * cols + x;
-              if (x < cols - 1) sticks.push({ a: i, b: i + 1, len: spacing });
-              if (y < rows - 1) sticks.push({ a: i, b: i + cols, len: spacing });
-            }
-          }
-        }
-
-        canvas.addEventListener('pointerdown', (e) => {
-          const rect = canvas.getBoundingClientRect();
-          mx = e.clientX - rect.left;
-          my = e.clientY - rect.top;
-          dragging = true;
-          // Find nearest
-          let minDist = 30, best = null;
-          for (const p of points) {
-            const d = Math.sqrt((p.x - mx) ** 2 + (p.y - my) ** 2);
-            if (d < minDist) { minDist = d; best = p; }
-          }
-          dragPoint = best;
-        });
-        canvas.addEventListener('pointermove', (e) => {
-          const rect = canvas.getBoundingClientRect();
-          mx = e.clientX - rect.left;
-          my = e.clientY - rect.top;
-        });
-        canvas.addEventListener('pointerup', () => { dragging = false; dragPoint = null; });
-
-        registerAnimation('cloth', (dt) => {
-          // Verlet integration
-          const gravity = 600;
-          for (const p of points) {
-            if (p.pinned) continue;
-            const vx = p.x - p.oldX;
-            const vy = p.y - p.oldY;
-            p.oldX = p.x;
-            p.oldY = p.y;
-            p.x += vx * 0.99;
-            p.y += vy * 0.99 + gravity * dt * dt;
-          }
-
-          if (dragging && dragPoint && !dragPoint.pinned) {
-            dragPoint.x = mx;
-            dragPoint.y = my;
-          }
-
-          // Constraint satisfaction
-          for (let iter = 0; iter < 5; iter++) {
-            for (const s of sticks) {
-              const a = points[s.a];
-              const b = points[s.b];
-              const dx = b.x - a.x;
-              const dy = b.y - a.y;
-              const dist = Math.sqrt(dx * dx + dy * dy);
-              if (dist === 0) continue;
-              const diff = (dist - s.len) / dist * 0.5;
-              if (!a.pinned) { a.x += dx * diff; a.y += dy * diff; }
-              if (!b.pinned) { b.x -= dx * diff; b.y -= dy * diff; }
-            }
-          }
-
-          // Draw
-          ctx.clearRect(0, 0, w, h);
-          ctx.strokeStyle = colors.primary + '60';
-          ctx.lineWidth = 1;
-          for (const s of sticks) {
-            const a = points[s.a];
-            const b = points[s.b];
-            ctx.beginPath();
-            ctx.moveTo(a.x, a.y);
-            ctx.lineTo(b.x, b.y);
-            ctx.stroke();
-          }
-          for (const p of points) {
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, p.pinned ? 4 : 2, 0, Math.PI * 2);
-            ctx.fillStyle = p.pinned ? colors.danger : colors.primary;
-            ctx.fill();
-          }
-        });
-
-        observeCanvas(canvas.parentElement, 'cloth', init);
-        window.addEventListener('resize', () => { if (ctx) init(); });
-      })();
 
       // ================================================================
       //  4. FLIP CARD SHUFFLE
@@ -2962,54 +2767,6 @@
         window.addEventListener('resize', () => { if (ctx) init(); });
       })();
 
-      // ================================================================
-      //  6b. FRACTAL TREE
-      // ================================================================
-      (function() {
-        const canvas = document.getElementById('fractal-canvas');
-        const regrowBtn = document.getElementById('fractal-regrow');
-        if (!canvas) return;
-
-        let ctx, w, h;
-
-        function init() {
-          ({ ctx, w, h } = setupCanvas(canvas));
-          drawTree();
-        }
-
-        function drawTree() {
-          ctx.clearRect(0, 0, w, h);
-          const startX = w / 2;
-          const startY = h - 10;
-          const palette = [colors.green, colors.cyan, colors.primary, colors.gold, colors.purple];
-
-          function branch(x, y, angle, length, depth) {
-            if (depth > 10 || length < 3) return;
-            const endX = x + Math.cos(angle) * length;
-            const endY = y + Math.sin(angle) * length;
-
-            ctx.beginPath();
-            ctx.moveTo(x, y);
-            ctx.lineTo(endX, endY);
-            ctx.strokeStyle = palette[Math.min(depth, palette.length - 1)];
-            ctx.lineWidth = Math.max(1, 8 - depth);
-            ctx.stroke();
-
-            const spread = 0.4 + Math.random() * 0.3;
-            const shrink = 0.65 + Math.random() * 0.15;
-            branch(endX, endY, angle - spread, length * shrink, depth + 1);
-            branch(endX, endY, angle + spread, length * shrink, depth + 1);
-          }
-
-          branch(startX, startY, -Math.PI / 2, Math.min(h / 4, 80), 0);
-        }
-
-        if (regrowBtn) regrowBtn.addEventListener('click', drawTree);
-
-        observeCanvas(canvas.parentElement, 'fractal', init);
-        registerAnimation('fractal', () => {});
-        window.addEventListener('resize', () => { if (ctx) init(); });
-      })();
 
       // ================================================================
       //  7a. MAGNETIC BUTTONS
@@ -3042,249 +2799,9 @@
         });
       })();
 
-      // ================================================================
-      //  7b. TILT CARDS
-      // ================================================================
-      (function() {
-        document.querySelectorAll('.tilt-card').forEach(card => {
-          card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = (e.clientX - rect.left) / rect.width - 0.5;
-            const y = (e.clientY - rect.top) / rect.height - 0.5;
-            card.style.transform = `perspective(500px) rotateY(${x * 20}deg) rotateX(${-y * 20}deg)`;
-            card.style.boxShadow = `${-x * 8}px ${y * 8}px 0 var(--border-default)`;
-          });
-          card.addEventListener('mouseleave', () => {
-            card.style.transform = '';
-            card.style.boxShadow = '';
-          });
-        });
-      })();
 
-      // ================================================================
-      //  7c. RIPPLE EFFECT
-      // ================================================================
-      (function() {
-        const stage = document.getElementById('ripple-stage');
-        if (!stage) return;
 
-        stage.addEventListener('click', (e) => {
-          const rect = stage.getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const y = e.clientY - rect.top;
-          const ripple = document.createElement('div');
-          ripple.style.cssText = `
-            position:absolute;left:${x}px;top:${y}px;width:10px;height:10px;
-            border-radius:50%;border:2px solid var(--accent-primary);
-            transform:translate(-50%,-50%) scale(1);opacity:1;
-            pointer-events:none;
-          `;
-          stage.appendChild(ripple);
-          ripple.animate([
-            { transform: 'translate(-50%,-50%) scale(1)', opacity: 1 },
-            { transform: 'translate(-50%,-50%) scale(20)', opacity: 0 }
-          ], { duration: 600, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' }).onfinish = () => ripple.remove();
-        });
-      })();
 
-      // ================================================================
-      //  8a. SVG MORPH
-      // ================================================================
-      (function() {
-        const path = document.getElementById('morph-path');
-        const btn = document.getElementById('morph-toggle');
-        if (!path || !btn) return;
-
-        const shapes = [
-          'M100,20 C140,20 180,60 180,100 C180,140 140,180 100,180 C60,180 20,140 20,100 C20,60 60,20 100,20 Z',
-          'M100,10 L120,75 L190,75 L135,115 L155,180 L100,140 L45,180 L65,115 L10,75 L80,75 Z',
-          'M30,30 L170,30 L170,170 L30,170 Z',
-          'M100,20 C150,40 180,80 160,120 C140,160 110,180 80,160 C50,140 20,120 40,80 C60,40 80,20 100,20 Z',
-        ];
-        const colorList = ['var(--accent-primary)', 'var(--accent-gold)', 'var(--accent-cyan)', 'var(--accent-purple)'];
-        let shapeIdx = 0;
-
-        btn.addEventListener('click', () => {
-          shapeIdx = (shapeIdx + 1) % shapes.length;
-          path.style.transition = 'd 400ms cubic-bezier(0.22, 1, 0.36, 1), fill 400ms ease';
-          path.setAttribute('d', shapes[shapeIdx]);
-          path.setAttribute('fill', colorList[shapeIdx]);
-        });
-      })();
-
-      // ================================================================
-      //  8b. DRAWING ANIMATION
-      // ================================================================
-      (function() {
-        const drawPath = document.getElementById('draw-path');
-        const drawDot = document.getElementById('draw-dot');
-        const drawBtn = document.getElementById('draw-play');
-        if (!drawPath || !drawBtn) return;
-
-        drawBtn.addEventListener('click', () => {
-          const len = drawPath.getTotalLength();
-          drawPath.style.strokeDasharray = len;
-          drawPath.style.strokeDashoffset = len;
-          drawPath.style.transition = 'none';
-          if (drawDot) { drawDot.style.opacity = '1'; drawDot.style.transition = 'none'; }
-          void drawPath.offsetWidth;
-
-          drawPath.style.transition = `stroke-dashoffset 1.5s cubic-bezier(0.22, 1, 0.36, 1)`;
-          drawPath.style.strokeDashoffset = '0';
-
-          // Animate dot along path
-          if (drawDot) {
-            const start = performance.now();
-            const duration = 1500;
-            function moveDot(now) {
-              const t = Math.min((now - start) / duration, 1);
-              const eased = 1 - Math.pow(1 - t, 3);
-              const pt = drawPath.getPointAtLength(eased * len);
-              drawDot.setAttribute('cx', pt.x);
-              drawDot.setAttribute('cy', pt.y);
-              if (t < 1) requestAnimationFrame(moveDot);
-            }
-            requestAnimationFrame(moveDot);
-          }
-        });
-      })();
-
-      // ================================================================
-      //  8c. GOOEY BUTTON
-      // ================================================================
-      (function() {
-        const main = document.getElementById('gooey-main');
-        const blob1 = document.getElementById('gooey-blob-1');
-        const blob2 = document.getElementById('gooey-blob-2');
-        if (!main || !blob1 || !blob2) return;
-
-        main.addEventListener('mouseenter', () => {
-          blob1.style.transition = 'transform 0.4s ease, opacity 0.2s ease';
-          blob2.style.transition = 'transform 0.5s ease 0.05s, opacity 0.2s ease';
-          blob1.style.opacity = '1';
-          blob2.style.opacity = '1';
-          blob1.style.transform = 'translate(-30px, -20px)';
-          blob2.style.transform = 'translate(30px, -18px)';
-        });
-        main.addEventListener('mouseleave', () => {
-          blob1.style.transition = 'transform 0.3s ease, opacity 0.3s ease 0.1s';
-          blob2.style.transition = 'transform 0.3s ease, opacity 0.3s ease 0.1s';
-          blob1.style.transform = '';
-          blob2.style.transform = '';
-          blob1.style.opacity = '0';
-          blob2.style.opacity = '0';
-        });
-      })();
-
-      // ================================================================
-      //  9a. EMOJI RAIN
-      // ================================================================
-      (function() {
-        const canvas = document.getElementById('emoji-canvas');
-        const startBtn = document.getElementById('emoji-start');
-        if (!canvas) return;
-
-        let ctx, w, h;
-        const emojis = [];
-        const emojiChars = ['🎉', '✨', '🌟', '💖', '🔥', '🎨', '🌈', '💫', '🎪', '🦄'];
-
-        function init() {
-          ({ ctx, w, h } = setupCanvas(canvas));
-          emojis.length = 0;
-        }
-
-        function spawnBatch() {
-          for (let i = 0; i < 20; i++) {
-            emojis.push({
-              x: Math.random() * w,
-              y: -30 - Math.random() * 100,
-              vy: 40 + Math.random() * 80,
-              vx: (Math.random() - 0.5) * 30,
-              size: 16 + Math.random() * 20,
-              char: emojiChars[Math.floor(Math.random() * emojiChars.length)],
-              rotation: Math.random() * Math.PI * 2,
-              rotSpeed: (Math.random() - 0.5) * 3,
-            });
-          }
-          activateAnimation('emoji');
-        }
-
-        if (startBtn) startBtn.addEventListener('click', (e) => { e.stopPropagation(); spawnBatch(); });
-        canvas.addEventListener('click', spawnBatch);
-
-        registerAnimation('emoji', (dt) => {
-          ctx.clearRect(0, 0, w, h);
-          for (let i = emojis.length - 1; i >= 0; i--) {
-            const e = emojis[i];
-            e.y += e.vy * dt;
-            e.x += e.vx * dt;
-            e.vx += Math.sin(e.y * 0.02) * dt * 10;
-            e.rotation += e.rotSpeed * dt;
-
-            if (e.y > h + 40) { emojis.splice(i, 1); continue; }
-
-            ctx.save();
-            ctx.translate(e.x, e.y);
-            ctx.rotate(e.rotation);
-            ctx.font = `${e.size}px serif`;
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
-            ctx.fillText(e.char, 0, 0);
-            ctx.restore();
-          }
-          if (emojis.length === 0) deactivateAnimation('emoji');
-        });
-
-        observeCanvas(canvas.parentElement, 'emoji', init);
-        window.addEventListener('resize', () => { if (ctx) init(); });
-      })();
-
-      // ================================================================
-      //  9b. MATRIX RAIN
-      // ================================================================
-      (function() {
-        const canvas = document.getElementById('matrix-canvas');
-        if (!canvas) return;
-
-        let ctx, w, h;
-        const columns = [];
-        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%^&*()';
-        const fontSize = 14;
-
-        function init() {
-          ({ ctx, w, h } = setupCanvas(canvas));
-          columns.length = 0;
-          const colCount = Math.floor(w / fontSize);
-          for (let i = 0; i < colCount; i++) {
-            columns.push(Math.random() * h / fontSize);
-          }
-        }
-
-        registerAnimation('matrix', (dt) => {
-          ctx.fillStyle = 'rgba(20, 20, 20, 0.05)';
-          ctx.fillRect(0, 0, w, h);
-          ctx.font = `${fontSize}px JetBrains Mono, monospace`;
-
-          for (let i = 0; i < columns.length; i++) {
-            const char = chars[Math.floor(Math.random() * chars.length)];
-            const x = i * fontSize;
-            const y = columns[i] * fontSize;
-
-            ctx.fillStyle = colors.green;
-            ctx.globalAlpha = 0.9;
-            ctx.fillText(char, x, y);
-            ctx.globalAlpha = 1;
-
-            if (y > h && Math.random() > 0.975) {
-              columns[i] = 0;
-            }
-            columns[i] += 0.5;
-          }
-        });
-
-        observeCanvas(canvas.parentElement, 'matrix', init);
-        window.addEventListener('resize', () => { if (ctx) init(); });
-      })();
 
       // ================================================================
       //  9c. AURORA GRADIENT
@@ -3325,7 +2842,1002 @@
       })();
 
       // ================================================================
-      //  10. COMBINED: SPRING + CONFETTI
+      //  1d. SPRING TOGGLE
+      // ================================================================
+      (function() {
+        const TRAVEL = 26;
+        const configs = [
+          { id: 'spring-toggle-0', onColor: 'var(--accent-primary)',  off: false },
+          { id: 'spring-toggle-1', onColor: 'var(--accent-green)',    off: true  },
+          { id: 'spring-toggle-2', onColor: 'var(--accent-cyan)',     off: false },
+          { id: 'spring-toggle-3', onColor: 'var(--accent-purple)',   off: true  },
+        ];
+        const OFF_BG = 'var(--primitive-neutral-300)';
+        const springConfig = { stiffness: 380, damping: 18, mass: 1 };
+        const toggles = configs.map((cfg, i) => {
+          const el = document.getElementById(cfg.id);
+          if (!el) return null;
+          const knob = el.querySelector('span');
+          const on = cfg.off;
+          const state = { value: on ? TRAVEL : 0, velocity: 0, target: on ? TRAVEL : 0 };
+          const key = 'spring-toggle-' + i;
+          registerAnimation(key, (dt) => {
+            if (reducedMotion) { state.value = state.target; state.velocity = 0; }
+            else { springStep(state, springConfig, dt); }
+            knob.style.transform = `translateX(${state.value}px)`;
+            const settled = Math.abs(state.value - state.target) < 0.3 && Math.abs(state.velocity) < 0.5;
+            if (settled) { state.value = state.target; state.velocity = 0; deactivateAnimation(key); }
+          });
+          return { el, knob, key, state, isOn: on };
+        }).filter(Boolean);
+        toggles.forEach(t => {
+          t.knob.style.transform = `translateX(${t.state.value}px)`;
+          t.el.addEventListener('click', () => {
+            t.isOn = !t.isOn;
+            t.state.target = t.isOn ? TRAVEL : 0;
+            t.el.setAttribute('aria-checked', String(t.isOn));
+            t.el.style.background = t.isOn ? configs[toggles.indexOf(t)].onColor : OFF_BG;
+            const dir = t.isOn ? 1 : -1;
+            t.state.velocity += dir * 80;
+            activateAnimation(t.key);
+          });
+        });
+      })();
+
+      // ================================================================
+      //  1e. SPRING ACCORDION
+      // ================================================================
+      (function() {
+        const accordion = document.getElementById('spring-accordion');
+        if (!accordion) return;
+        const panels = Array.from(accordion.querySelectorAll('.sacc-panel'));
+        const SPRING_OPEN = { stiffness: 260, damping: 20, mass: 1 };
+        const SPRING_CLOSE = { stiffness: 320, damping: 28, mass: 1 };
+        const states = panels.map((panel, i) => {
+          const header = panel.querySelector('.sacc-header');
+          const body = panel.querySelector('.sacc-body');
+          const inner = panel.querySelector('.sacc-inner');
+          const chevron = panel.querySelector('.sacc-chevron');
+          return { panel, header, body, inner, chevron, isOpen: false, naturalH: 0,
+            spring: { value: 0, velocity: 0, target: 0 }, key: 'sacc-' + i };
+        });
+        function measureHeights() {
+          states.forEach(s => {
+            s.body.style.height = 'auto';
+            s.naturalH = s.inner.getBoundingClientRect().height + 4;
+            s.body.style.height = s.isOpen ? s.naturalH + 'px' : '0px';
+          });
+        }
+        requestAnimationFrame(measureHeights);
+        states.forEach(s => {
+          registerAnimation(s.key, (dt) => {
+            if (reducedMotion) { s.spring.value = s.spring.target; s.spring.velocity = 0; }
+            else { springStep(s.spring, s.isOpen ? SPRING_OPEN : SPRING_CLOSE, dt); }
+            const h = Math.max(0, s.spring.value);
+            s.body.style.height = h + 'px';
+            const progress = s.naturalH > 0 ? Math.max(0, Math.min(1, h / s.naturalH)) : (s.isOpen ? 1 : 0);
+            s.chevron.style.transform = `rotate(${progress * 180}deg)`;
+            const settled = Math.abs(s.spring.value - s.spring.target) < 0.5 && Math.abs(s.spring.velocity) < 1;
+            if (settled) {
+              s.spring.value = s.spring.target; s.spring.velocity = 0;
+              s.body.style.height = s.spring.target <= 0 ? '0px' : s.naturalH + 'px';
+              deactivateAnimation(s.key);
+            }
+          });
+        });
+        states.forEach((s, clickedIdx) => {
+          s.header.addEventListener('click', () => {
+            measureHeights();
+            states.forEach((t, i) => {
+              const shouldOpen = (i === clickedIdx) && !t.isOpen;
+              if (shouldOpen) { t.isOpen = true; t.spring.target = t.naturalH; t.header.setAttribute('aria-expanded', 'true'); t.spring.velocity += 60; }
+              else if (t.isOpen && i !== clickedIdx) { t.isOpen = false; t.spring.target = 0; t.header.setAttribute('aria-expanded', 'false'); }
+              else if (i === clickedIdx && t.isOpen) { t.isOpen = false; t.spring.target = 0; t.header.setAttribute('aria-expanded', 'false'); }
+              activateAnimation(t.key);
+            });
+          });
+        });
+        window.addEventListener('resize', measureHeights);
+      })();
+
+      // ================================================================
+      //  2c. TOKEN BUBBLES
+      // ================================================================
+      (function() {
+        const canvas = document.getElementById('token-bubbles-canvas');
+        if (!canvas) return;
+        let ctx, w, h;
+        const bubbles = [];
+        const microPool = [];
+        const MICRO_MAX = 80;
+        const FAMILIES = [
+          { name: 'Pink', key: 'primary' },
+          { name: 'Red', key: 'danger' },
+          { name: 'Gold', key: 'gold' },
+          { name: 'Cyan', key: 'cyan' },
+          { name: 'Green', key: 'green' },
+          { name: 'Purple', key: 'purple' },
+          { name: 'Neutral', key: 'textMuted' },
+        ];
+
+        function init() {
+          ({ ctx, w, h } = setupCanvas(canvas));
+          bubbles.length = 0;
+          const r = Math.min(w, h) * 0.085;
+          const positions = [
+            { x: w * 0.15, y: h * 0.30 },
+            { x: w * 0.38, y: h * 0.22 },
+            { x: w * 0.62, y: h * 0.28 },
+            { x: w * 0.85, y: h * 0.25 },
+            { x: w * 0.25, y: h * 0.68 },
+            { x: w * 0.52, y: h * 0.72 },
+            { x: w * 0.78, y: h * 0.65 },
+          ];
+          FAMILIES.forEach((fam, i) => {
+            const pos = positions[i];
+            bubbles.push({
+              x: pos.x, y: pos.y,
+              vx: (Math.random() - 0.5) * 0.5,
+              vy: (Math.random() - 0.5) * 0.5,
+              r, color: colors[fam.key], name: fam.name,
+              scale: { value: 1, velocity: 0, target: 1 },
+            });
+          });
+          for (let i = 0; i < MICRO_MAX; i++) {
+            microPool.push({ active: false, x: 0, y: 0, vx: 0, vy: 0, life: 0, maxLife: 0, color: '', r: 0 });
+          }
+        }
+
+        canvas.addEventListener('click', (e) => {
+          const rect = canvas.getBoundingClientRect();
+          const mx = e.clientX - rect.left;
+          const my = e.clientY - rect.top;
+          for (const b of bubbles) {
+            const dx = mx - b.x, dy = my - b.y;
+            if (Math.sqrt(dx * dx + dy * dy) < b.r * b.scale.value) {
+              b.scale.target = 1.3;
+              b.scale.velocity = 5;
+              activateAnimation('token-bubbles');
+              const count = 8 + Math.floor(Math.random() * 5);
+              for (let i = 0; i < count; i++) {
+                const mp = microPool.find(m => !m.active);
+                if (!mp) break;
+                mp.active = true;
+                mp.x = b.x; mp.y = b.y;
+                const angle = Math.random() * Math.PI * 2;
+                const speed = 40 + Math.random() * 80;
+                mp.vx = Math.cos(angle) * speed;
+                mp.vy = Math.sin(angle) * speed;
+                mp.r = 2 + Math.random() * 3;
+                mp.color = b.color;
+                mp.life = 0; mp.maxLife = 0.5 + Math.random() * 0.5;
+              }
+              break;
+            }
+          }
+        });
+
+        const springCfg = { stiffness: 200, damping: 14, mass: 1 };
+
+        registerAnimation('token-bubbles', (dt) => {
+          ctx.clearRect(0, 0, w, h);
+
+          for (const b of bubbles) {
+            b.x += b.vx; b.y += b.vy;
+            if (b.x - b.r < 0) { b.x = b.r; b.vx = Math.abs(b.vx); }
+            if (b.x + b.r > w) { b.x = w - b.r; b.vx = -Math.abs(b.vx); }
+            if (b.y - b.r < 0) { b.y = b.r; b.vy = Math.abs(b.vy); }
+            if (b.y + b.r > h) { b.y = h - b.r; b.vy = -Math.abs(b.vy); }
+
+            if (b.scale.value !== b.scale.target || Math.abs(b.scale.velocity) > 0.01) {
+              springStep(b.scale, springCfg, dt);
+              if (Math.abs(b.scale.value - 1) < 0.01 && b.scale.target <= 1) {
+                b.scale.value = 1; b.scale.velocity = 0; b.scale.target = 1;
+              }
+              if (b.scale.target > 1 && b.scale.value >= b.scale.target - 0.05) {
+                b.scale.target = 1;
+              }
+            }
+
+            const sr = b.r * b.scale.value;
+            ctx.beginPath();
+            ctx.arc(b.x, b.y, sr, 0, Math.PI * 2);
+            ctx.fillStyle = b.color + '30';
+            ctx.fill();
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = colors.borderDefault;
+            ctx.stroke();
+
+            ctx.save();
+            ctx.translate(b.x + 3, b.y + 3);
+            ctx.beginPath();
+            ctx.arc(0, 0, sr, 0, Math.PI * 2);
+            ctx.fillStyle = colors.borderDefault + '15';
+            ctx.fill();
+            ctx.restore();
+
+            ctx.fillStyle = colors.text;
+            ctx.font = `600 ${Math.max(10, sr * 0.35)}px Inter, sans-serif`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(b.name, b.x, b.y);
+          }
+
+          let microActive = false;
+          for (const mp of microPool) {
+            if (!mp.active) continue;
+            mp.life += dt;
+            if (mp.life > mp.maxLife) { mp.active = false; continue; }
+            microActive = true;
+            mp.x += mp.vx * dt;
+            mp.y += mp.vy * dt;
+            mp.vy += 80 * dt;
+            const alpha = 1 - mp.life / mp.maxLife;
+            ctx.beginPath();
+            ctx.arc(mp.x, mp.y, mp.r * alpha, 0, Math.PI * 2);
+            ctx.fillStyle = mp.color;
+            ctx.globalAlpha = alpha;
+            ctx.fill();
+            ctx.globalAlpha = 1;
+          }
+        });
+
+        observeCanvas(canvas.parentElement, 'token-bubbles', init);
+        window.addEventListener('resize', () => { if (ctx) init(); });
+      })();
+
+      // ================================================================
+      //  6c. TOKEN WAVE
+      // ================================================================
+      (function() {
+        const canvas = document.getElementById('token-wave-canvas');
+        if (!canvas) return;
+        let ctx, w, h;
+        const COLS = 15, ROWS = 13;
+        const dots = [];
+        const DOT_R = 4;
+        let autoTimer = 0;
+        const AUTO_INTERVAL = 3;
+
+        function init() {
+          ({ ctx, w, h } = setupCanvas(canvas));
+          dots.length = 0;
+          const accentKeys = ['primary', 'gold', 'cyan', 'green', 'purple', 'danger'];
+          const gapX = w / (COLS + 1);
+          const gapY = h / (ROWS + 1);
+          for (let r = 0; r < ROWS; r++) {
+            for (let c = 0; c < COLS; c++) {
+              const idx = r * COLS + c;
+              dots.push({
+                homeX: (c + 1) * gapX,
+                homeY: (r + 1) * gapY,
+                color: colors[accentKeys[idx % accentKeys.length]],
+                spring: { value: 0, velocity: 0, target: 0 },
+              });
+            }
+          }
+        }
+
+        function triggerWave(cx, cy) {
+          const maxDist = Math.sqrt(w * w + h * h) * 0.6;
+          dots.forEach(d => {
+            const dx = d.homeX - cx, dy = d.homeY - cy;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            const delay = dist / maxDist;
+            const amp = Math.max(0, 1 - dist / maxDist) * 20;
+            setTimeout(() => {
+              d.spring.velocity += amp * 40;
+              d.spring.target = 0;
+              activateAnimation('token-wave');
+            }, delay * 400);
+          });
+          activateAnimation('token-wave');
+        }
+
+        canvas.addEventListener('click', (e) => {
+          const rect = canvas.getBoundingClientRect();
+          triggerWave(e.clientX - rect.left, e.clientY - rect.top);
+          autoTimer = 0;
+        });
+
+        const springCfg = { stiffness: 300, damping: 12, mass: 1 };
+
+        registerAnimation('token-wave', (dt) => {
+          ctx.clearRect(0, 0, w, h);
+
+          autoTimer += dt;
+          if (autoTimer > AUTO_INTERVAL) {
+            autoTimer = 0;
+            triggerWave(Math.random() * w, Math.random() * h);
+          }
+
+          let anyMoving = false;
+          for (const d of dots) {
+            if (Math.abs(d.spring.value) > 0.1 || Math.abs(d.spring.velocity) > 0.1) {
+              springStep(d.spring, springCfg, dt);
+              anyMoving = true;
+            } else {
+              d.spring.value = 0; d.spring.velocity = 0;
+            }
+
+            const y = d.homeY + d.spring.value;
+            ctx.beginPath();
+            ctx.arc(d.homeX, y, DOT_R, 0, Math.PI * 2);
+            ctx.fillStyle = d.color;
+            ctx.fill();
+            ctx.lineWidth = 1;
+            ctx.strokeStyle = colors.borderDefault + '60';
+            ctx.stroke();
+          }
+          if (!anyMoving) { autoTimer += dt; }
+        });
+
+        observeCanvas(canvas.parentElement, 'token-wave', init);
+        window.addEventListener('resize', () => { if (ctx) init(); });
+      })();
+
+      // ================================================================
+      //  3b. FLIP FILTER GRID
+      // ================================================================
+      (function() {
+        const grid = document.getElementById('filter-grid');
+        const btns = document.getElementById('filter-btns');
+        if (!grid || !btns) return;
+
+        btns.addEventListener('click', (e) => {
+          const btn = e.target.closest('[data-filter]');
+          if (!btn) return;
+          const filter = btn.dataset.filter;
+          btns.querySelectorAll('[data-filter]').forEach(b => b.classList.toggle('active', b === btn));
+
+          const cards = [...grid.children];
+          const firstRects = new Map();
+          cards.forEach(c => firstRects.set(c, c.getBoundingClientRect()));
+
+          cards.forEach(c => {
+            if (filter === 'all' || c.dataset.color === filter) {
+              c.style.display = '';
+              c.style.transform = '';
+              c.style.opacity = '';
+            } else {
+              c.style.transform = 'scale(0)';
+              c.style.opacity = '0';
+            }
+          });
+
+          requestAnimationFrame(() => {
+            cards.forEach(c => {
+              if (c.style.transform === 'scale(0)') {
+                setTimeout(() => { c.style.display = 'none'; }, 400);
+                return;
+              }
+              const first = firstRects.get(c);
+              const last = c.getBoundingClientRect();
+              const dx = first.left - last.left;
+              const dy = first.top - last.top;
+              if (Math.abs(dx) < 1 && Math.abs(dy) < 1) return;
+              c.style.transform = `translate(${dx}px, ${dy}px)`;
+              c.style.transition = 'none';
+              requestAnimationFrame(() => {
+                c.style.transition = 'transform 400ms cubic-bezier(0.22, 1, 0.36, 1), opacity 400ms ease';
+                c.style.transform = '';
+                c.addEventListener('transitionend', () => { c.style.transition = ''; }, { once: true });
+              });
+            });
+          });
+        });
+
+        // Set initial active
+        const allBtn = btns.querySelector('[data-filter="all"]');
+        if (allBtn) allBtn.classList.add('active');
+      })();
+
+      // ================================================================
+      //  3c. FLIP REORDER LIST
+      // ================================================================
+      (function() {
+        const list = document.getElementById('reorder-list');
+        const sortBtn = document.getElementById('reorder-sort-btn');
+        if (!list) return;
+
+        function flipSwap(item, direction) {
+          const items = [...list.children];
+          const idx = items.indexOf(item);
+          const swapIdx = idx + direction;
+          if (swapIdx < 0 || swapIdx >= items.length) return;
+
+          const other = items[swapIdx];
+          const firstA = item.getBoundingClientRect();
+          const firstB = other.getBoundingClientRect();
+
+          if (direction === -1) list.insertBefore(item, other);
+          else list.insertBefore(other, item);
+
+          [
+            [item, firstA],
+            [other, firstB],
+          ].forEach(([el, first]) => {
+            const last = el.getBoundingClientRect();
+            const dx = first.left - last.left;
+            const dy = first.top - last.top;
+            el.style.transform = `translate(${dx}px, ${dy}px)`;
+            el.style.transition = 'none';
+            requestAnimationFrame(() => {
+              requestAnimationFrame(() => {
+                el.style.transition = 'transform 380ms cubic-bezier(0.22, 1, 0.36, 1)';
+                el.style.transform = '';
+                el.addEventListener('transitionend', () => { el.style.transition = ''; }, { once: true });
+              });
+            });
+          });
+        }
+
+        list.addEventListener('click', (e) => {
+          const btn = e.target.closest('.reorder-up, .reorder-down');
+          if (!btn) return;
+          const item = btn.closest('.reorder-item');
+          if (!item) return;
+          flipSwap(item, btn.classList.contains('reorder-up') ? -1 : 1);
+        });
+
+        if (sortBtn) {
+          sortBtn.addEventListener('click', () => {
+            const items = [...list.children];
+            const firstRects = items.map(el => el.getBoundingClientRect());
+            items.sort((a, b) => a.textContent.localeCompare(b.textContent));
+            items.forEach(el => list.appendChild(el));
+            items.forEach((el, i) => {
+              const last = el.getBoundingClientRect();
+              const dx = firstRects[items.indexOf(el) !== -1 ? [...list.children].indexOf(el) : i];
+              const first = firstRects[[...document.querySelectorAll('.reorder-item')].indexOf(el)] || firstRects[i];
+              if (!first) return;
+              const ddx = firstRects[i].left - last.left;
+              const ddy = firstRects[i].top - last.top;
+              el.style.transform = `translate(${ddx}px, ${ddy}px)`;
+              el.style.transition = 'none';
+              requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                  el.style.transition = 'transform 380ms cubic-bezier(0.22, 1, 0.36, 1)';
+                  el.style.transform = '';
+                  el.addEventListener('transitionend', () => { el.style.transition = ''; }, { once: true });
+                });
+              });
+            });
+          });
+        }
+      })();
+
+      // ================================================================
+      //  4b. SWIPE DISMISS
+      // ================================================================
+      (function() {
+        const stack = document.getElementById('swipe-dismiss-stack');
+        const resetBtn = document.getElementById('swipe-reset-btn');
+        if (!stack) return;
+        let originalHTML = stack.innerHTML;
+
+        function initCards() {
+          const cards = stack.querySelectorAll('.swipe-card');
+          cards.forEach(card => {
+            let startX = 0, offsetX = 0, dragging = false;
+
+            card.addEventListener('pointerdown', (e) => {
+              dragging = true;
+              startX = e.clientX;
+              offsetX = 0;
+              card.setPointerCapture(e.pointerId);
+              card.style.transition = 'none';
+            });
+
+            card.addEventListener('pointermove', (e) => {
+              if (!dragging) return;
+              offsetX = e.clientX - startX;
+              const rotation = (offsetX / 300) * 15;
+              const opacity = Math.max(0, 1 - Math.abs(offsetX) / 300);
+              card.style.transform = `translateX(${offsetX}px) rotate(${rotation}deg)`;
+              card.style.opacity = opacity;
+            });
+
+            card.addEventListener('pointerup', () => {
+              if (!dragging) return;
+              dragging = false;
+              if (Math.abs(offsetX) > 120) {
+                const dir = offsetX > 0 ? 1 : -1;
+                card.style.transition = 'transform 300ms ease-out, opacity 300ms ease-out';
+                card.style.transform = `translateX(${dir * 600}px) rotate(${dir * 30}deg)`;
+                card.style.opacity = '0';
+                card.addEventListener('transitionend', () => {
+                  const remaining = [...stack.querySelectorAll('.swipe-card')];
+                  const rects = remaining.map(c => c.getBoundingClientRect());
+                  card.remove();
+                  remaining.filter(c => c !== card).forEach((c, i) => {
+                    const newRect = c.getBoundingClientRect();
+                    const oldRect = rects[remaining.indexOf(c)];
+                    if (!oldRect) return;
+                    const dy = oldRect.top - newRect.top;
+                    if (Math.abs(dy) < 1) return;
+                    c.style.transform = `translateY(${dy}px)`;
+                    c.style.transition = 'none';
+                    requestAnimationFrame(() => {
+                      requestAnimationFrame(() => {
+                        c.style.transition = 'transform 300ms cubic-bezier(0.22, 1, 0.36, 1)';
+                        c.style.transform = '';
+                      });
+                    });
+                  });
+                }, { once: true });
+              } else {
+                card.style.transition = 'transform 300ms cubic-bezier(0.22, 1, 0.36, 1), opacity 300ms ease';
+                card.style.transform = '';
+                card.style.opacity = '';
+              }
+            });
+          });
+        }
+
+        initCards();
+        if (resetBtn) {
+          resetBtn.addEventListener('click', () => {
+            stack.innerHTML = originalHTML;
+            initCards();
+          });
+        }
+      })();
+
+      // ================================================================
+      //  4c. ELASTIC SCROLL
+      // ================================================================
+      (function() {
+        const inner = document.getElementById('elastic-inner');
+        const glowL = document.getElementById('elastic-glow-left');
+        const glowR = document.getElementById('elastic-glow-right');
+        if (!inner) return;
+
+        let dragging = false, startX = 0, scrollStart = 0;
+        let overscroll = 0;
+        const springState = { value: 0, velocity: 0, target: 0 };
+        const springCfg = { stiffness: 300, damping: 22, mass: 1 };
+        const MAX_OVER = 120;
+
+        inner.addEventListener('pointerdown', (e) => {
+          dragging = true;
+          startX = e.clientX;
+          scrollStart = inner.scrollLeft;
+          inner.setPointerCapture(e.pointerId);
+          inner.style.cursor = 'grabbing';
+          overscroll = 0;
+          springState.value = 0; springState.velocity = 0; springState.target = 0;
+        });
+
+        inner.addEventListener('pointermove', (e) => {
+          if (!dragging) return;
+          const dx = e.clientX - startX;
+          const maxScroll = inner.scrollWidth - inner.clientWidth;
+          const newScroll = scrollStart - dx;
+
+          if (newScroll < 0) {
+            inner.scrollLeft = 0;
+            overscroll = -newScroll;
+            const clamped = overscroll / (1 + overscroll / MAX_OVER);
+            inner.style.transform = `translateX(${clamped}px)`;
+            if (glowL) glowL.style.opacity = Math.min(1, clamped / 60);
+          } else if (newScroll > maxScroll) {
+            inner.scrollLeft = maxScroll;
+            overscroll = -(newScroll - maxScroll);
+            const clamped = -Math.abs(overscroll) / (1 + Math.abs(overscroll) / MAX_OVER);
+            inner.style.transform = `translateX(${clamped}px)`;
+            if (glowR) glowR.style.opacity = Math.min(1, Math.abs(clamped) / 60);
+          } else {
+            inner.scrollLeft = newScroll;
+            overscroll = 0;
+            inner.style.transform = '';
+            if (glowL) glowL.style.opacity = '0';
+            if (glowR) glowR.style.opacity = '0';
+          }
+        });
+
+        inner.addEventListener('pointerup', () => {
+          if (!dragging) return;
+          dragging = false;
+          inner.style.cursor = 'grab';
+          if (overscroll !== 0) {
+            springState.value = overscroll > 0
+              ? overscroll / (1 + overscroll / MAX_OVER)
+              : -Math.abs(overscroll) / (1 + Math.abs(overscroll) / MAX_OVER);
+            springState.velocity = 0;
+            springState.target = 0;
+            activateAnimation('elastic-scroll');
+          }
+        });
+
+        registerAnimation('elastic-scroll', (dt) => {
+          springStep(springState, springCfg, dt);
+          inner.style.transform = `translateX(${springState.value}px)`;
+          const absVal = Math.abs(springState.value);
+          if (glowL) glowL.style.opacity = springState.value > 0 ? Math.min(1, absVal / 60) : '0';
+          if (glowR) glowR.style.opacity = springState.value < 0 ? Math.min(1, absVal / 60) : '0';
+          if (absVal < 0.5 && Math.abs(springState.velocity) < 1) {
+            inner.style.transform = '';
+            if (glowL) glowL.style.opacity = '0';
+            if (glowR) glowR.style.opacity = '0';
+            deactivateAnimation('elastic-scroll');
+          }
+        });
+      })();
+
+      // ================================================================
+      //  5b. SPOTLIGHT CARD
+      // ================================================================
+      (function() {
+        const cards = document.querySelectorAll('.spotlight-wrap');
+        cards.forEach(card => {
+          const overlay = card.querySelector('.spotlight-overlay');
+          if (!overlay) return;
+          const r = parseInt(card.dataset.accentR || '200');
+          const g = parseInt(card.dataset.accentG || '100');
+          const b = parseInt(card.dataset.accentB || '200');
+
+          card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const nx = (x / rect.width - 0.5);
+            const ny = (y / rect.height - 0.5);
+            overlay.style.background = `radial-gradient(circle 120px at ${x}px ${y}px, rgba(${r},${g},${b},0.25), transparent)`;
+            const sx = -nx * 4;
+            const sy = ny * 4;
+            card.style.boxShadow = `${sx}px ${sy}px 0 var(--border-default)`;
+          });
+
+          card.addEventListener('mouseleave', () => {
+            overlay.style.background = '';
+            card.style.boxShadow = '';
+          });
+        });
+      })();
+
+      // ================================================================
+      //  5c. SPRING CURSOR TRAIL
+      // ================================================================
+      (function() {
+        const canvas = document.getElementById('spring-trail-canvas');
+        if (!canvas) return;
+        let ctx, w, h;
+        const NODE_COUNT = 12;
+        const nodes = [];
+        let mx = -100, my = -100;
+
+        function init() {
+          ({ ctx, w, h } = setupCanvas(canvas));
+          nodes.length = 0;
+          for (let i = 0; i < NODE_COUNT; i++) {
+            nodes.push({
+              x: w / 2, y: h / 2,
+              springX: { value: w / 2, velocity: 0, target: w / 2 },
+              springY: { value: h / 2, velocity: 0, target: h / 2 },
+            });
+          }
+        }
+
+        canvas.parentElement.addEventListener('mousemove', (e) => {
+          const rect = canvas.getBoundingClientRect();
+          mx = e.clientX - rect.left;
+          my = e.clientY - rect.top;
+        });
+        canvas.parentElement.addEventListener('mouseleave', () => { mx = -100; my = -100; });
+
+        const accentKeys = ['primary', 'gold', 'cyan', 'green', 'purple', 'danger'];
+
+        registerAnimation('spring-trail', (dt) => {
+          ctx.clearRect(0, 0, w, h);
+          nodes[0].springX.target = mx;
+          nodes[0].springY.target = my;
+
+          for (let i = 0; i < nodes.length; i++) {
+            const n = nodes[i];
+            if (i > 0) {
+              n.springX.target = nodes[i - 1].x;
+              n.springY.target = nodes[i - 1].y;
+            }
+            const stiffness = Math.max(40, 120 - i * 8);
+            const damping = 12 + i;
+            const cfg = { stiffness, damping, mass: 1 };
+            springStep(n.springX, cfg, dt);
+            springStep(n.springY, cfg, dt);
+            n.x = n.springX.value;
+            n.y = n.springY.value;
+          }
+
+          // Draw lines
+          ctx.beginPath();
+          ctx.moveTo(nodes[0].x, nodes[0].y);
+          for (let i = 1; i < nodes.length; i++) {
+            ctx.lineTo(nodes[i].x, nodes[i].y);
+          }
+          ctx.strokeStyle = colors.borderDefault + '30';
+          ctx.lineWidth = 1.5;
+          ctx.stroke();
+
+          // Draw circles
+          for (let i = nodes.length - 1; i >= 0; i--) {
+            const n = nodes[i];
+            const r = Math.max(2, 8 - i * 0.5);
+            ctx.beginPath();
+            ctx.arc(n.x, n.y, r, 0, Math.PI * 2);
+            ctx.fillStyle = colors[accentKeys[i % accentKeys.length]] + '80';
+            ctx.fill();
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = colors.borderDefault;
+            ctx.stroke();
+          }
+        });
+
+        observeCanvas(canvas.parentElement, 'spring-trail', init);
+        window.addEventListener('resize', () => { if (ctx) init(); });
+      })();
+
+      // ================================================================
+      //  7a. TOAST STACK
+      // ================================================================
+      (function() {
+        const container = document.getElementById('toast-container');
+        const sendBtn = document.getElementById('toast-send-btn');
+        if (!container || !sendBtn) return;
+
+        const TYPES = [
+          { label: 'Saved successfully', accent: 'green', icon: '\u2713' },
+          { label: 'Check your settings', accent: 'gold', icon: '\u26A0' },
+          { label: 'New update available', accent: 'cyan', icon: '\u2139' },
+          { label: 'Something went wrong', accent: 'danger', icon: '\u2717' },
+        ];
+        let typeIdx = 0;
+        const MAX_TOASTS = 4;
+
+        function addToast() {
+          const type = TYPES[typeIdx++ % TYPES.length];
+          const toasts = container.querySelectorAll('.toast-item');
+          if (toasts.length >= MAX_TOASTS) {
+            toasts[0].remove();
+          }
+
+          const existing = [...container.querySelectorAll('.toast-item')];
+          const firstRects = existing.map(el => el.getBoundingClientRect());
+
+          const toast = document.createElement('div');
+          toast.className = 'toast-item';
+          toast.style.cssText = `
+            display:flex;align-items:center;gap:var(--space-3);
+            padding:var(--space-3) var(--space-4);
+            background:var(--bg-elevated);border:2px solid var(--border-default);
+            border-radius:var(--radius-sm);box-shadow:var(--shadow-sm);
+            border-left:4px solid var(--accent-${type.accent});
+            transform:translateX(120%);opacity:0;
+            margin-bottom:var(--space-2);
+            font-size:var(--ui-text-sm);font-weight:600;
+          `;
+          toast.innerHTML = `
+            <span style="font-size:var(--ui-text-lg)">${type.icon}</span>
+            <span style="flex:1">${type.label}</span>
+            <button class="toast-close" style="background:none;border:none;cursor:pointer;color:var(--text-muted);font-size:var(--ui-text-lg);padding:0 var(--space-1)">\u00D7</button>
+          `;
+          container.appendChild(toast);
+
+          // FLIP existing
+          existing.forEach((el, i) => {
+            const newRect = el.getBoundingClientRect();
+            const dy = firstRects[i].top - newRect.top;
+            if (Math.abs(dy) > 1) {
+              el.style.transform = `translateY(${dy}px)`;
+              el.style.transition = 'none';
+              requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                  el.style.transition = 'transform 300ms cubic-bezier(0.22, 1, 0.36, 1)';
+                  el.style.transform = '';
+                });
+              });
+            }
+          });
+
+          // Spring in
+          requestAnimationFrame(() => {
+            toast.style.transition = 'transform 400ms cubic-bezier(0.34, 1.56, 0.64, 1), opacity 300ms ease';
+            toast.style.transform = 'translateX(0)';
+            toast.style.opacity = '1';
+          });
+
+          // Close button
+          toast.querySelector('.toast-close').addEventListener('click', () => removeToast(toast));
+
+          // Auto-dismiss
+          setTimeout(() => {
+            if (toast.parentElement) removeToast(toast);
+          }, 3000);
+        }
+
+        function removeToast(toast) {
+          const remaining = [...container.querySelectorAll('.toast-item')].filter(el => el !== toast);
+          const firstRects = remaining.map(el => el.getBoundingClientRect());
+
+          toast.style.transition = 'transform 300ms ease-in, opacity 200ms ease';
+          toast.style.transform = 'translateX(120%)';
+          toast.style.opacity = '0';
+          toast.addEventListener('transitionend', () => {
+            toast.remove();
+            remaining.forEach((el, i) => {
+              const newRect = el.getBoundingClientRect();
+              const dy = firstRects[i].top - newRect.top;
+              if (Math.abs(dy) > 1) {
+                el.style.transform = `translateY(${dy}px)`;
+                el.style.transition = 'none';
+                requestAnimationFrame(() => {
+                  requestAnimationFrame(() => {
+                    el.style.transition = 'transform 300ms cubic-bezier(0.22, 1, 0.36, 1)';
+                    el.style.transform = '';
+                  });
+                });
+              }
+            });
+          }, { once: true });
+        }
+
+        sendBtn.addEventListener('click', addToast);
+      })();
+
+      // ================================================================
+      //  7b. BADGE COUNTER
+      // ================================================================
+      (function() {
+        const wrap = document.getElementById('badge-counter-wrap');
+        if (!wrap) return;
+        const btns = wrap.querySelectorAll('.badge-icon-btn');
+        const clearBtn = document.getElementById('badge-clear-btn');
+        const springCfg = { stiffness: 400, damping: 16, mass: 1 };
+
+        btns.forEach(btn => {
+          const badge = btn.querySelector('.badge-count');
+          if (!badge) return;
+          let count = 0;
+          const state = { value: 0, velocity: 0, target: 0 };
+          const key = 'badge-' + btn.dataset.badgeId;
+
+          registerAnimation(key, (dt) => {
+            if (reducedMotion) { state.value = state.target; state.velocity = 0; }
+            else { springStep(state, springCfg, dt); }
+            badge.style.transform = `scale(${state.value})`;
+            if (Math.abs(state.value - state.target) < 0.01 && Math.abs(state.velocity) < 0.1) {
+              state.value = state.target; state.velocity = 0;
+              badge.style.transform = `scale(${state.target})`;
+              deactivateAnimation(key);
+            }
+          });
+
+          btn.addEventListener('click', () => {
+            count++;
+            badge.textContent = count;
+            if (count === 1) {
+              state.value = 0; state.target = 1; state.velocity = 8;
+            } else {
+              state.target = 1.35; state.velocity = 6;
+              setTimeout(() => { state.target = 1; activateAnimation(key); }, 100);
+            }
+            activateAnimation(key);
+          });
+
+          btn._badgeReset = () => {
+            if (count === 0) return;
+            count = 0;
+            badge.textContent = '0';
+            state.target = 0; state.velocity = -4;
+            activateAnimation(key);
+          };
+        });
+
+        if (clearBtn) {
+          clearBtn.addEventListener('click', () => {
+            btns.forEach(btn => { if (btn._badgeReset) btn._badgeReset(); });
+          });
+        }
+      })();
+
+      // ================================================================
+      //  8b. SPRING DRAG SORT
+      // ================================================================
+      (function() {
+        const list = document.getElementById('spring-drag-sort-list');
+        if (!list) return;
+
+        let dragItem = null;
+        let dragStartY = 0;
+        let dragOffsetY = 0;
+        let placeholder = null;
+        const itemH = 52;
+
+        function getItems() { return [...list.querySelectorAll('.sds-item')]; }
+
+        list.addEventListener('pointerdown', (e) => {
+          const handle = e.target.closest('.sds-handle');
+          if (!handle) return;
+          dragItem = handle.closest('.sds-item');
+          if (!dragItem) return;
+
+          e.preventDefault();
+          dragItem.setPointerCapture(e.pointerId);
+          const rect = dragItem.getBoundingClientRect();
+          dragStartY = e.clientY;
+          dragOffsetY = 0;
+
+          dragItem.style.zIndex = '10';
+          dragItem.style.transition = 'box-shadow 200ms ease, transform 200ms ease';
+          dragItem.style.boxShadow = 'var(--shadow-lg)';
+          dragItem.style.transform = 'scale(1.04)';
+          dragItem.style.position = 'relative';
+
+          placeholder = document.createElement('div');
+          placeholder.style.cssText = `height:${rect.height}px;margin-bottom:var(--space-2);border:2px dashed var(--border-subtle);border-radius:var(--radius-sm);transition:none;`;
+          dragItem.parentElement.insertBefore(placeholder, dragItem);
+        });
+
+        list.addEventListener('pointermove', (e) => {
+          if (!dragItem) return;
+          dragOffsetY = e.clientY - dragStartY;
+          dragItem.style.transform = `scale(1.04) translateY(${dragOffsetY}px)`;
+
+          const items = getItems().filter(i => i !== dragItem);
+          const dragRect = dragItem.getBoundingClientRect();
+          const dragCenter = dragRect.top + dragRect.height / 2;
+
+          for (const item of items) {
+            const r = item.getBoundingClientRect();
+            const center = r.top + r.height / 2;
+            if (dragCenter < center && placeholder.nextSibling !== item) {
+              list.insertBefore(placeholder, item);
+              break;
+            }
+            if (dragCenter > center && placeholder !== item.nextSibling) {
+              list.insertBefore(placeholder, item.nextSibling);
+            }
+          }
+        });
+
+        list.addEventListener('pointerup', () => {
+          if (!dragItem) return;
+          const items = getItems();
+          const firstRects = items.map(el => el.getBoundingClientRect());
+
+          list.insertBefore(dragItem, placeholder);
+          placeholder.remove();
+          placeholder = null;
+
+          dragItem.style.transform = '';
+          dragItem.style.boxShadow = '';
+          dragItem.style.zIndex = '';
+          dragItem.style.position = '';
+
+          const updatedItems = getItems();
+          updatedItems.forEach((el, i) => {
+            const last = el.getBoundingClientRect();
+            const origIdx = items.indexOf(el);
+            if (origIdx === -1) return;
+            const first = firstRects[origIdx];
+            const dy = first.top - last.top;
+            if (Math.abs(dy) < 1) return;
+            el.style.transform = `translateY(${dy}px)`;
+            el.style.transition = 'none';
+            requestAnimationFrame(() => {
+              requestAnimationFrame(() => {
+                el.style.transition = 'transform 350ms cubic-bezier(0.34, 1.56, 0.64, 1)';
+                el.style.transform = '';
+                el.addEventListener('transitionend', () => { el.style.transition = ''; }, { once: true });
+              });
+            });
+          });
+
+          dragItem = null;
+        });
+      })();
+
+      // ================================================================
+      //  8. COMBINED: SPRING + CONFETTI
       // ================================================================
       (function() {
         const canvas = document.getElementById('combo-canvas');
