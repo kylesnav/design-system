@@ -779,7 +779,612 @@
       </div>
     </section>
 
-    <!-- Sections will be added incrementally -->
+    <!-- ================================================================
+         1. SPRING PHYSICS
+         ================================================================ -->
+    <section id="springs" class="anim-section">
+      <div class="section-header">
+        <div class="section-overline"><span class="status-dot" style="background:var(--accent-primary)"></span> Category 01</div>
+        <h2 class="section-title">Spring Physics</h2>
+        <p class="section-desc">Damped harmonic oscillators bring natural, organic motion to UI elements. Press, drag, and tweak parameters in real time.</p>
+      </div>
+
+      <div class="demo-grid">
+        <!-- Spring Button -->
+        <div class="demo-card">
+          <div class="demo-card-stage" id="spring-btn-stage" style="cursor:pointer">
+            <div id="spring-btn-el" style="
+              width:160px;height:56px;display:flex;align-items:center;justify-content:center;
+              background:var(--accent-primary);color:var(--text-on-accent);
+              border:2px solid var(--border-default);border-radius:var(--radius-sm);
+              box-shadow:var(--shadow-md);font-weight:700;font-size:var(--ui-text-md);
+              user-select:none;pointer-events:none;
+            ">Press Me</div>
+          </div>
+          <div class="demo-card-body">
+            <div class="demo-card-top">
+              <span class="demo-card-name">spring-button</span>
+              <span class="tag">Spring</span>
+            </div>
+            <p class="demo-card-desc">Click to compress with spring physics. Release bounces back with overshoot.</p>
+            <p class="demo-card-hint">Click or tap the button</p>
+          </div>
+        </div>
+
+        <!-- Spring Chain -->
+        <div class="demo-card">
+          <div class="demo-card-stage">
+            <canvas id="spring-chain-canvas" aria-label="Spring chain: linked circles connected by springs that follow mouse"></canvas>
+          </div>
+          <div class="demo-card-body">
+            <div class="demo-card-top">
+              <span class="demo-card-name">spring-chain</span>
+              <span class="tag">Spring</span>
+            </div>
+            <p class="demo-card-desc">Linked elements connected by springs. The leader follows the cursor, trailing nodes follow with cascading delay.</p>
+            <p class="demo-card-hint">Move mouse over the canvas</p>
+          </div>
+        </div>
+
+        <!-- Spring Parameters Playground -->
+        <div class="demo-card demo-card-wide">
+          <div class="demo-card-stage" id="spring-params-stage">
+            <canvas id="spring-params-canvas" aria-label="Spring parameters playground with adjustable stiffness, damping, and mass"></canvas>
+          </div>
+          <div class="demo-card-body">
+            <div class="demo-card-top">
+              <span class="demo-card-name">spring-playground</span>
+              <span class="tag">Spring</span>
+              <span class="tag">Interactive</span>
+            </div>
+            <p class="demo-card-desc">Adjust stiffness, damping, and mass to see how spring parameters affect motion. Click the canvas to set a new target position.</p>
+          </div>
+          <div class="demo-controls">
+            <div class="demo-control-group">
+              <label class="demo-control-label">Stiffness <span id="spring-stiffness-val">180</span></label>
+              <input type="range" id="spring-stiffness" min="20" max="600" value="180" />
+            </div>
+            <div class="demo-control-group">
+              <label class="demo-control-label">Damping <span id="spring-damping-val">12</span></label>
+              <input type="range" id="spring-damping" min="1" max="40" value="12" />
+            </div>
+            <div class="demo-control-group">
+              <label class="demo-control-label">Mass <span id="spring-mass-val">1.0</span></label>
+              <input type="range" id="spring-mass" min="0.1" max="5" step="0.1" value="1" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         2. PARTICLE SYSTEMS
+         ================================================================ -->
+    <section id="particles" class="anim-section">
+      <div class="section-header">
+        <div class="section-overline"><span class="status-dot" style="background:var(--accent-gold)"></span> Category 02</div>
+        <h2 class="section-title">Particle Systems</h2>
+        <p class="section-desc">Object-pooled particle engines for confetti, fireworks, text explosions, and star fields. All running at 60fps with recycled particles.</p>
+      </div>
+
+      <div class="demo-grid">
+        <!-- Confetti Cannon -->
+        <div class="demo-card">
+          <div class="demo-card-stage" style="min-height:240px">
+            <canvas id="confetti-canvas" aria-label="Confetti cannon: click to fire colorful confetti particles"></canvas>
+            <button class="demo-btn" id="confetti-fire" style="position:absolute;bottom:var(--space-3);left:50%;transform:translateX(-50%);z-index:2">Fire!</button>
+          </div>
+          <div class="demo-card-body">
+            <div class="demo-card-top">
+              <span class="demo-card-name">confetti-cannon</span>
+              <span class="tag">Particles</span>
+            </div>
+            <p class="demo-card-desc">Click to launch a burst of confetti with gravity, rotation, and air resistance. Particles are pooled and recycled.</p>
+            <p class="demo-card-hint">Click the Fire button or the canvas</p>
+          </div>
+        </div>
+
+        <!-- Fireworks -->
+        <div class="demo-card">
+          <div class="demo-card-stage" style="min-height:240px;background:var(--bg-page)">
+            <canvas id="fireworks-canvas" aria-label="Fireworks: click to launch multi-phase firework particles with trails"></canvas>
+          </div>
+          <div class="demo-card-body">
+            <div class="demo-card-top">
+              <span class="demo-card-name">fireworks</span>
+              <span class="tag">Particles</span>
+            </div>
+            <p class="demo-card-desc">Multi-phase particles: a rocket launches up, then explodes into trailing sparks with color shifts.</p>
+            <p class="demo-card-hint">Click anywhere on the canvas</p>
+          </div>
+        </div>
+
+        <!-- Particle Text -->
+        <div class="demo-card">
+          <div class="demo-card-stage" style="min-height:240px">
+            <canvas id="particle-text-canvas" aria-label="Particle text: text rendered as particles that explode on hover"></canvas>
+          </div>
+          <div class="demo-card-body">
+            <div class="demo-card-top">
+              <span class="demo-card-name">particle-text</span>
+              <span class="tag">Particles</span>
+              <span class="tag">Text</span>
+            </div>
+            <p class="demo-card-desc">Text rendered as individual particles. Hover to scatter them; they spring back into place when you move away.</p>
+            <p class="demo-card-hint">Hover over the text</p>
+          </div>
+        </div>
+
+        <!-- Star Field -->
+        <div class="demo-card">
+          <div class="demo-card-stage" style="min-height:240px;background:oklch(0.14 0.012 60)">
+            <canvas id="starfield-canvas" aria-label="Star field: parallax space simulation with depth layers"></canvas>
+          </div>
+          <div class="demo-card-body">
+            <div class="demo-card-top">
+              <span class="demo-card-name">star-field</span>
+              <span class="tag">Particles</span>
+            </div>
+            <p class="demo-card-desc">Parallax star field with three depth layers. Stars streak past faster in the foreground for a warp-speed effect.</p>
+            <p class="demo-card-hint">Move mouse to steer</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         3. PHYSICS PLAYGROUND
+         ================================================================ -->
+    <section id="physics" class="anim-section">
+      <div class="section-header">
+        <div class="section-overline"><span class="status-dot" style="background:var(--accent-cyan)"></span> Category 03</div>
+        <h2 class="section-title">Physics Playground</h2>
+        <p class="section-desc">Gravity, collision detection, and Verlet integration for soft-body simulations. Interactive physics you can touch.</p>
+      </div>
+
+      <div class="demo-grid">
+        <!-- Gravity Balls -->
+        <div class="demo-card">
+          <div class="demo-card-stage" style="min-height:280px">
+            <canvas id="gravity-canvas" aria-label="Gravity balls: click to drop bouncing balls with realistic physics"></canvas>
+          </div>
+          <div class="demo-card-body">
+            <div class="demo-card-top">
+              <span class="demo-card-name">gravity-balls</span>
+              <span class="tag">Physics</span>
+            </div>
+            <p class="demo-card-desc">Click to drop balls that bounce with gravity and restitution. Each ball has a random size, color, and bounciness.</p>
+            <p class="demo-card-hint">Click to drop balls</p>
+          </div>
+        </div>
+
+        <!-- Verlet Cloth -->
+        <div class="demo-card demo-card-wide">
+          <div class="demo-card-stage" style="min-height:320px">
+            <canvas id="cloth-canvas" aria-label="Verlet cloth simulation: drag to interact with a soft-body cloth"></canvas>
+          </div>
+          <div class="demo-card-body">
+            <div class="demo-card-top">
+              <span class="demo-card-name">verlet-cloth</span>
+              <span class="tag">Physics</span>
+              <span class="tag">Verlet</span>
+            </div>
+            <p class="demo-card-desc">A grid of points connected by distance constraints, simulated with Verlet integration. Drag to interact with the cloth.</p>
+            <p class="demo-card-hint">Click and drag on the cloth</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         4. FLIP & LAYOUT
+         ================================================================ -->
+    <section id="flip" class="anim-section">
+      <div class="section-header">
+        <div class="section-overline"><span class="status-dot" style="background:var(--accent-green)"></span> Category 04</div>
+        <h2 class="section-title">FLIP &amp; Layout Animation</h2>
+        <p class="section-desc">First-Last-Invert-Play technique for smooth layout transitions. Elements animate from where they were to where they are.</p>
+      </div>
+
+      <div class="demo-grid">
+        <!-- Card Shuffle -->
+        <div class="demo-card demo-card-wide">
+          <div class="demo-card-stage" style="min-height:auto;padding:var(--space-6)">
+            <div id="flip-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:var(--space-3);width:100%">
+              <div class="flip-card" data-id="1" style="height:80px;background:var(--accent-primary-subtle);border:2px solid var(--accent-primary);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:var(--step-1);color:var(--accent-primary-text);cursor:default">1</div>
+              <div class="flip-card" data-id="2" style="height:80px;background:var(--accent-gold-subtle);border:2px solid var(--accent-gold);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:var(--step-1);color:var(--accent-gold-text);cursor:default">2</div>
+              <div class="flip-card" data-id="3" style="height:80px;background:var(--accent-cyan-subtle);border:2px solid var(--accent-cyan);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:var(--step-1);color:var(--accent-cyan-text);cursor:default">3</div>
+              <div class="flip-card" data-id="4" style="height:80px;background:var(--accent-danger-subtle);border:2px solid var(--accent-danger);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:var(--step-1);color:var(--accent-danger-text);cursor:default">4</div>
+              <div class="flip-card" data-id="5" style="height:80px;background:var(--accent-green-subtle);border:2px solid var(--accent-green);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:var(--step-1);color:var(--accent-green-text);cursor:default">5</div>
+              <div class="flip-card" data-id="6" style="height:80px;background:var(--accent-purple-subtle);border:2px solid var(--accent-purple);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:var(--step-1);color:var(--accent-purple-text);cursor:default">6</div>
+              <div class="flip-card" data-id="7" style="height:80px;background:var(--accent-primary-subtle);border:2px solid var(--accent-primary);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:var(--step-1);color:var(--accent-primary-text);cursor:default">7</div>
+              <div class="flip-card" data-id="8" style="height:80px;background:var(--accent-gold-subtle);border:2px solid var(--accent-gold);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:var(--step-1);color:var(--accent-gold-text);cursor:default">8</div>
+            </div>
+          </div>
+          <div class="demo-card-body">
+            <div class="demo-card-top">
+              <span class="demo-card-name">card-shuffle</span>
+              <button class="demo-btn" id="flip-shuffle-btn">Shuffle</button>
+            </div>
+            <p class="demo-card-desc">FLIP-animated card reordering. Records positions, shuffles DOM, then animates from old positions to new.</p>
+            <p class="demo-card-hint">Click Shuffle to see FLIP in action</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         5. GESTURES & DRAG
+         ================================================================ -->
+    <section id="gestures" class="anim-section">
+      <div class="section-header">
+        <div class="section-overline"><span class="status-dot" style="background:var(--accent-primary)"></span> Category 05</div>
+        <h2 class="section-title">Gestures &amp; Drag</h2>
+        <p class="section-desc">Unified pointer event handling for drag with inertia, snap points, and swipe gestures.</p>
+      </div>
+
+      <div class="demo-grid">
+        <!-- Draggable Cards -->
+        <div class="demo-card demo-card-wide">
+          <div class="demo-card-stage" id="drag-stage" style="min-height:260px;cursor:grab">
+            <div class="drag-card" style="
+              position:absolute;left:60px;top:40px;width:100px;height:140px;
+              background:var(--accent-primary-subtle);border:2px solid var(--accent-primary);
+              border-radius:var(--radius-md);box-shadow:var(--shadow-md);
+              display:flex;align-items:center;justify-content:center;
+              font-weight:800;font-size:var(--step-2);color:var(--accent-primary-text);
+              cursor:grab;user-select:none;touch-action:none;
+            ">A</div>
+            <div class="drag-card" style="
+              position:absolute;left:200px;top:60px;width:100px;height:140px;
+              background:var(--accent-gold-subtle);border:2px solid var(--accent-gold);
+              border-radius:var(--radius-md);box-shadow:var(--shadow-md);
+              display:flex;align-items:center;justify-content:center;
+              font-weight:800;font-size:var(--step-2);color:var(--accent-gold-text);
+              cursor:grab;user-select:none;touch-action:none;
+            ">B</div>
+            <div class="drag-card" style="
+              position:absolute;left:340px;top:30px;width:100px;height:140px;
+              background:var(--accent-cyan-subtle);border:2px solid var(--accent-cyan);
+              border-radius:var(--radius-md);box-shadow:var(--shadow-md);
+              display:flex;align-items:center;justify-content:center;
+              font-weight:800;font-size:var(--step-2);color:var(--accent-cyan-text);
+              cursor:grab;user-select:none;touch-action:none;
+            ">C</div>
+          </div>
+          <div class="demo-card-body">
+            <div class="demo-card-top">
+              <span class="demo-card-name">draggable-cards</span>
+              <span class="tag">Gesture</span>
+              <span class="tag">Inertia</span>
+            </div>
+            <p class="demo-card-desc">Drag cards with momentum. Release to see inertia carry the card forward, with spring-damped settling.</p>
+            <p class="demo-card-hint">Drag the cards around</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         6. GENERATIVE ART
+         ================================================================ -->
+    <section id="generative" class="anim-section">
+      <div class="section-header">
+        <div class="section-overline"><span class="status-dot" style="background:var(--accent-purple)"></span> Category 06</div>
+        <h2 class="section-title">Generative Art</h2>
+        <p class="section-desc">Algorithmic visuals driven by noise, recursion, and flow fields. Unique every time, always on-brand.</p>
+      </div>
+
+      <div class="demo-grid">
+        <!-- Flow Field -->
+        <div class="demo-card">
+          <div class="demo-card-stage" style="min-height:280px">
+            <canvas id="flowfield-canvas" aria-label="Flow field: noise-based particle flow creating organic patterns"></canvas>
+          </div>
+          <div class="demo-card-body">
+            <div class="demo-card-top">
+              <span class="demo-card-name">flow-field</span>
+              <span class="tag">Generative</span>
+              <span class="tag">Noise</span>
+            </div>
+            <p class="demo-card-desc">Particles follow a Perlin noise flow field, creating organic, wind-like patterns colored by the token palette.</p>
+            <p class="demo-card-hint">Watch the flow emerge</p>
+          </div>
+        </div>
+
+        <!-- Fractal Tree -->
+        <div class="demo-card">
+          <div class="demo-card-stage" style="min-height:280px">
+            <canvas id="fractal-canvas" aria-label="Recursive fractal tree that grows with animated branching"></canvas>
+          </div>
+          <div class="demo-card-body">
+            <div class="demo-card-top">
+              <span class="demo-card-name">fractal-tree</span>
+              <button class="demo-btn" id="fractal-regrow">Regrow</button>
+            </div>
+            <p class="demo-card-desc">Recursive L-system tree drawn with animated stroke. Each branch splits with slight random variation. Click Regrow for a new tree.</p>
+            <p class="demo-card-hint">Click Regrow for a new variation</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         7. CURSOR & INTERACTIVE
+         ================================================================ -->
+    <section id="cursor" class="anim-section">
+      <div class="section-header">
+        <div class="section-overline"><span class="status-dot" style="background:var(--accent-gold)"></span> Category 07</div>
+        <h2 class="section-title">Cursor &amp; Interactive</h2>
+        <p class="section-desc">Magnetic buttons, spotlight effects, 3D tilt cards, and ripple interactions that respond to your every move.</p>
+      </div>
+
+      <div class="demo-grid">
+        <!-- Magnetic Buttons -->
+        <div class="demo-card">
+          <div class="demo-card-stage" id="magnetic-stage" style="display:flex;gap:var(--space-6);flex-wrap:wrap;justify-content:center">
+            <button class="magnetic-btn" style="
+              padding:var(--space-3) var(--space-8);font-family:var(--font-sans);
+              font-size:var(--ui-text-md);font-weight:700;
+              background:var(--accent-primary);color:var(--text-on-accent);
+              border:2px solid var(--border-default);border-radius:var(--radius-sm);
+              box-shadow:var(--shadow-md);cursor:pointer;
+              transition:transform 0.2s ease-out;
+            ">Hover Me</button>
+            <button class="magnetic-btn" style="
+              padding:var(--space-3) var(--space-8);font-family:var(--font-sans);
+              font-size:var(--ui-text-md);font-weight:700;
+              background:var(--accent-gold);color:var(--text-on-gold);
+              border:2px solid var(--border-default);border-radius:var(--radius-sm);
+              box-shadow:var(--shadow-md);cursor:pointer;
+              transition:transform 0.2s ease-out;
+            ">Attract</button>
+            <button class="magnetic-btn" style="
+              padding:var(--space-3) var(--space-8);font-family:var(--font-sans);
+              font-size:var(--ui-text-md);font-weight:700;
+              background:var(--accent-cyan);color:var(--text-on-accent);
+              border:2px solid var(--border-default);border-radius:var(--radius-sm);
+              box-shadow:var(--shadow-md);cursor:pointer;
+              transition:transform 0.2s ease-out;
+            ">Magnetic</button>
+          </div>
+          <div class="demo-card-body">
+            <div class="demo-card-top">
+              <span class="demo-card-name">magnetic-buttons</span>
+              <span class="tag">Cursor</span>
+            </div>
+            <p class="demo-card-desc">Buttons that are attracted to your cursor when you hover nearby. The pull increases as you get closer.</p>
+            <p class="demo-card-hint">Move cursor near the buttons</p>
+          </div>
+        </div>
+
+        <!-- Tilt Cards -->
+        <div class="demo-card">
+          <div class="demo-card-stage" style="display:flex;gap:var(--space-4);flex-wrap:wrap;justify-content:center">
+            <div class="tilt-card" style="
+              width:140px;height:180px;
+              background:var(--accent-primary-subtle);border:2px solid var(--accent-primary);
+              border-radius:var(--radius-md);box-shadow:var(--shadow-md);
+              display:flex;align-items:center;justify-content:center;
+              font-weight:800;font-size:var(--step-2);color:var(--accent-primary-text);
+              cursor:default;transition:box-shadow 0.3s ease;
+            ">3D</div>
+            <div class="tilt-card" style="
+              width:140px;height:180px;
+              background:var(--accent-gold-subtle);border:2px solid var(--accent-gold);
+              border-radius:var(--radius-md);box-shadow:var(--shadow-md);
+              display:flex;align-items:center;justify-content:center;
+              font-weight:800;font-size:var(--step-2);color:var(--accent-gold-text);
+              cursor:default;transition:box-shadow 0.3s ease;
+            ">Tilt</div>
+          </div>
+          <div class="demo-card-body">
+            <div class="demo-card-top">
+              <span class="demo-card-name">tilt-cards</span>
+              <span class="tag">3D</span>
+              <span class="tag">Perspective</span>
+            </div>
+            <p class="demo-card-desc">Cards respond to mouse position with 3D perspective rotation. Move your cursor across the card surface.</p>
+            <p class="demo-card-hint">Hover over the cards</p>
+          </div>
+        </div>
+
+        <!-- Ripple Effect -->
+        <div class="demo-card">
+          <div class="demo-card-stage" id="ripple-stage" style="cursor:pointer;min-height:200px">
+            <span style="font-size:var(--ui-text-sm);color:var(--text-muted);pointer-events:none">Click anywhere</span>
+          </div>
+          <div class="demo-card-body">
+            <div class="demo-card-top">
+              <span class="demo-card-name">ripple-effect</span>
+              <span class="tag">Click</span>
+            </div>
+            <p class="demo-card-desc">Material-style ripple effect on click. Ripple expands from click point with token-colored rings.</p>
+            <p class="demo-card-hint">Click anywhere on the stage</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         8. SVG & MORPHING
+         ================================================================ -->
+    <section id="svg" class="anim-section">
+      <div class="section-header">
+        <div class="section-overline"><span class="status-dot" style="background:var(--accent-cyan)"></span> Category 08</div>
+        <h2 class="section-title">SVG &amp; Morphing</h2>
+        <p class="section-desc">Shape transitions, gooey filters, and stroke animations using inline SVG and path manipulation.</p>
+      </div>
+
+      <div class="demo-grid">
+        <!-- SVG Morph -->
+        <div class="demo-card">
+          <div class="demo-card-stage" style="min-height:220px">
+            <svg id="morph-svg" viewBox="0 0 200 200" width="160" height="160">
+              <path id="morph-path" d="M100,20 C140,20 180,60 180,100 C180,140 140,180 100,180 C60,180 20,140 20,100 C20,60 60,20 100,20 Z" fill="var(--accent-primary)" stroke="var(--border-default)" stroke-width="3"/>
+            </svg>
+          </div>
+          <div class="demo-card-body">
+            <div class="demo-card-top">
+              <span class="demo-card-name">svg-morph</span>
+              <button class="demo-btn" id="morph-toggle">Morph</button>
+            </div>
+            <p class="demo-card-desc">SVG path morphing between shapes: circle, star, square, and blob. Smooth interpolation between path data.</p>
+            <p class="demo-card-hint">Click Morph to cycle shapes</p>
+          </div>
+        </div>
+
+        <!-- Drawing Animation -->
+        <div class="demo-card">
+          <div class="demo-card-stage" style="min-height:220px">
+            <svg id="draw-svg" viewBox="0 0 240 120" width="240" height="120">
+              <path id="draw-path" d="M20,100 Q60,10 120,60 T220,20" fill="none" stroke="var(--accent-cyan)" stroke-width="3" stroke-linecap="round" stroke-dasharray="400" stroke-dashoffset="400"/>
+              <circle id="draw-dot" cx="20" cy="100" r="5" fill="var(--accent-primary)" opacity="0"/>
+            </svg>
+          </div>
+          <div class="demo-card-body">
+            <div class="demo-card-top">
+              <span class="demo-card-name">drawing-anim</span>
+              <button class="demo-btn" id="draw-play">Draw</button>
+            </div>
+            <p class="demo-card-desc">Stroke-dasharray reveal animation. The path draws itself on screen with a leading dot that traces the curve.</p>
+            <p class="demo-card-hint">Click Draw to animate</p>
+          </div>
+        </div>
+
+        <!-- Gooey Button -->
+        <div class="demo-card">
+          <div class="demo-card-stage" style="min-height:220px">
+            <svg width="0" height="0" style="position:absolute">
+              <defs>
+                <filter id="gooey-filter">
+                  <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur"/>
+                  <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo"/>
+                  <feComposite in="SourceGraphic" in2="goo" operator="atop"/>
+                </filter>
+              </defs>
+            </svg>
+            <div id="gooey-container" style="filter:url(#gooey-filter);display:flex;align-items:center;justify-content:center;position:relative;width:180px;height:64px">
+              <div id="gooey-main" style="
+                width:160px;height:56px;background:var(--accent-purple);
+                border-radius:28px;display:flex;align-items:center;justify-content:center;
+                font-weight:700;font-size:var(--ui-text-md);color:var(--text-on-accent);
+                cursor:pointer;position:relative;z-index:2;user-select:none;
+              ">Gooey</div>
+              <div id="gooey-blob-1" style="width:40px;height:40px;background:var(--accent-purple);border-radius:50%;position:absolute;left:10px;top:12px;z-index:1;opacity:0"></div>
+              <div id="gooey-blob-2" style="width:36px;height:36px;background:var(--accent-purple);border-radius:50%;position:absolute;right:10px;top:14px;z-index:1;opacity:0"></div>
+            </div>
+          </div>
+          <div class="demo-card-body">
+            <div class="demo-card-top">
+              <span class="demo-card-name">gooey-button</span>
+              <span class="tag">SVG Filter</span>
+            </div>
+            <p class="demo-card-desc">SVG filter metaballs creating a liquid/gooey effect. Blobs merge and separate from the button on hover.</p>
+            <p class="demo-card-hint">Hover over the button</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         9. SPLASHY & FUN
+         ================================================================ -->
+    <section id="splashy" class="anim-section">
+      <div class="section-header">
+        <div class="section-overline"><span class="status-dot" style="background:var(--accent-primary)"></span> Category 09</div>
+        <h2 class="section-title">Splashy &amp; Fun</h2>
+        <p class="section-desc">Pure delight: emoji rain, aurora gradients, and digital waterfalls. Because a design system should make you smile.</p>
+      </div>
+
+      <div class="demo-grid">
+        <!-- Emoji Rain -->
+        <div class="demo-card">
+          <div class="demo-card-stage" style="min-height:240px;overflow:hidden">
+            <canvas id="emoji-canvas" aria-label="Emoji rain: cascading emojis falling like rain"></canvas>
+            <button class="demo-btn" id="emoji-start" style="position:absolute;bottom:var(--space-3);left:50%;transform:translateX(-50%);z-index:2">Rain!</button>
+          </div>
+          <div class="demo-card-body">
+            <div class="demo-card-top">
+              <span class="demo-card-name">emoji-rain</span>
+              <span class="tag">Fun</span>
+            </div>
+            <p class="demo-card-desc">Cascading emojis with rotation, varying sizes, and gentle swaying. Pure celebration.</p>
+            <p class="demo-card-hint">Click Rain! to start</p>
+          </div>
+        </div>
+
+        <!-- Matrix Rain -->
+        <div class="demo-card">
+          <div class="demo-card-stage" style="min-height:240px;background:oklch(0.14 0.012 60)">
+            <canvas id="matrix-canvas" aria-label="Matrix digital rain: cascading characters in green"></canvas>
+          </div>
+          <div class="demo-card-body">
+            <div class="demo-card-top">
+              <span class="demo-card-name">matrix-rain</span>
+              <span class="tag">Fun</span>
+              <span class="tag">Canvas</span>
+            </div>
+            <p class="demo-card-desc">Digital character cascade in the style of The Matrix. Uses token green for an on-brand digital rain.</p>
+            <p class="demo-card-hint">Watch the characters fall</p>
+          </div>
+        </div>
+
+        <!-- Aurora Gradient -->
+        <div class="demo-card">
+          <div class="demo-card-stage" style="min-height:240px">
+            <canvas id="aurora-canvas" aria-label="Aurora gradient: animated mesh gradients creating nebula-like effects"></canvas>
+          </div>
+          <div class="demo-card-body">
+            <div class="demo-card-top">
+              <span class="demo-card-name">aurora-gradient</span>
+              <span class="tag">Generative</span>
+              <span class="tag">Gradient</span>
+            </div>
+            <p class="demo-card-desc">Animated mesh gradients using token colors to create shifting aurora/nebula effects. Soft, dreamy, organic.</p>
+            <p class="demo-card-hint">Watch the colors shift</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         10. COMBINED & ADVANCED
+         ================================================================ -->
+    <section id="combined" class="anim-section">
+      <div class="section-header">
+        <div class="section-overline"><span class="status-dot" style="background:var(--accent-green)"></span> Category 10</div>
+        <h2 class="section-title">Combined &amp; Advanced</h2>
+        <p class="section-desc">Multiple animation systems working in concert. The grand finale that showcases what token-driven JS animation can do.</p>
+      </div>
+
+      <div class="demo-grid">
+        <!-- Spring + Confetti -->
+        <div class="demo-card demo-card-wide">
+          <div class="demo-card-stage" style="min-height:280px">
+            <canvas id="combo-canvas" aria-label="Combined demo: spring button that fires confetti on click"></canvas>
+            <div id="combo-btn" style="
+              position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+              width:200px;height:64px;display:flex;align-items:center;justify-content:center;
+              background:var(--accent-primary);color:var(--text-on-accent);
+              border:2px solid var(--border-default);border-radius:var(--radius-sm);
+              box-shadow:var(--shadow-lg);font-weight:800;font-size:var(--ui-text-lg);
+              cursor:pointer;user-select:none;z-index:2;
+            ">Celebrate!</div>
+          </div>
+          <div class="demo-card-body">
+            <div class="demo-card-top">
+              <span class="demo-card-name">spring-confetti</span>
+              <span class="tag">Combined</span>
+              <span class="tag">Spring</span>
+              <span class="tag">Particles</span>
+            </div>
+            <p class="demo-card-desc">A spring-animated button that fires confetti on click. Combines the spring press effect with the particle cannon for a celebration moment.</p>
+            <p class="demo-card-hint">Click Celebrate! for the full effect</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- FOOTER -->
     <footer class="ds-footer">
@@ -1166,12 +1771,1450 @@
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
           resizeHeroCanvas();
           initParticles();
-          // Draw single static frame
           drawHero();
           cancelAnimationFrame(heroAnimId);
           heroAnimId = null;
         }
       }
+
+      // ================================================================
+      //  SPRING SOLVER
+      // ================================================================
+      function springStep(state, config, dt) {
+        // Damped harmonic oscillator: F = -kx - cv
+        const { stiffness, damping, mass } = config;
+        const springForce = -stiffness * (state.value - state.target);
+        const dampingForce = -damping * state.velocity;
+        const acceleration = (springForce + dampingForce) / mass;
+        state.velocity += acceleration * dt;
+        state.value += state.velocity * dt;
+      }
+
+      // ================================================================
+      //  ANIMATION MANAGER — single rAF loop
+      // ================================================================
+      const animations = new Map();
+      let globalAnimId = null;
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      function registerAnimation(key, updateFn) {
+        animations.set(key, { update: updateFn, active: false });
+      }
+
+      function activateAnimation(key) {
+        const a = animations.get(key);
+        if (a) a.active = true;
+        if (!globalAnimId) globalLoop();
+      }
+
+      function deactivateAnimation(key) {
+        const a = animations.get(key);
+        if (a) a.active = false;
+      }
+
+      let lastTime = 0;
+      function globalLoop(now) {
+        if (!now) now = performance.now();
+        const dt = Math.min((now - lastTime) / 1000, 0.05);
+        lastTime = now;
+
+        let anyActive = false;
+        animations.forEach((a) => {
+          if (a.active) {
+            a.update(dt, now);
+            anyActive = true;
+          }
+        });
+
+        if (anyActive) {
+          globalAnimId = requestAnimationFrame(globalLoop);
+        } else {
+          globalAnimId = null;
+        }
+      }
+
+      // ================================================================
+      //  INTERSECTION OBSERVER for lazy activation
+      // ================================================================
+      function observeCanvas(canvasOrParent, key, initFn) {
+        let initialized = false;
+        const obs = new IntersectionObserver(([entry]) => {
+          if (entry.isIntersecting) {
+            if (!initialized) { initFn(); initialized = true; }
+            activateAnimation(key);
+          } else {
+            deactivateAnimation(key);
+          }
+        }, { threshold: 0.05 });
+        obs.observe(canvasOrParent);
+      }
+
+      // ================================================================
+      //  Canvas resize helper
+      // ================================================================
+      function setupCanvas(canvas) {
+        const dpr = window.devicePixelRatio || 1;
+        const rect = canvas.parentElement.getBoundingClientRect();
+        const w = rect.width;
+        const h = rect.height;
+        canvas.width = w * dpr;
+        canvas.height = h * dpr;
+        canvas.style.width = w + 'px';
+        canvas.style.height = h + 'px';
+        const ctx = canvas.getContext('2d');
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        return { ctx, w, h, dpr };
+      }
+
+      // ================================================================
+      //  1. SPRING BUTTON
+      // ================================================================
+      (function() {
+        const stage = document.getElementById('spring-btn-stage');
+        const el = document.getElementById('spring-btn-el');
+        if (!stage || !el) return;
+
+        const state = { value: 1, velocity: 0, target: 1 };
+        const config = { stiffness: 300, damping: 15, mass: 1 };
+        let pressing = false;
+
+        registerAnimation('spring-btn', (dt) => {
+          springStep(state, config, dt);
+          el.style.transform = `scale(${state.value})`;
+          if (Math.abs(state.value - state.target) < 0.001 && Math.abs(state.velocity) < 0.01) {
+            state.value = state.target;
+            el.style.transform = `scale(${state.target})`;
+            if (!pressing) deactivateAnimation('spring-btn');
+          }
+        });
+
+        stage.addEventListener('pointerdown', (e) => {
+          pressing = true;
+          state.target = 0.85;
+          activateAnimation('spring-btn');
+        });
+        stage.addEventListener('pointerup', () => {
+          pressing = false;
+          state.target = 1;
+          activateAnimation('spring-btn');
+        });
+        stage.addEventListener('pointerleave', () => {
+          if (pressing) {
+            pressing = false;
+            state.target = 1;
+            activateAnimation('spring-btn');
+          }
+        });
+      })();
+
+      // ================================================================
+      //  1b. SPRING CHAIN
+      // ================================================================
+      (function() {
+        const canvas = document.getElementById('spring-chain-canvas');
+        if (!canvas) return;
+
+        let ctx, w, h;
+        const NODES = 8;
+        const nodes = [];
+        let mx = 0, my = 0;
+
+        function init() {
+          ({ ctx, w, h } = setupCanvas(canvas));
+          nodes.length = 0;
+          const palette = [colors.primary, colors.gold, colors.cyan, colors.danger, colors.green, colors.purple, colors.primary, colors.gold];
+          for (let i = 0; i < NODES; i++) {
+            nodes.push({ x: w / 2, y: h / 2, vx: 0, vy: 0, color: palette[i % palette.length] });
+          }
+          mx = w / 2; my = h / 2;
+        }
+
+        canvas.parentElement.addEventListener('mousemove', (e) => {
+          const rect = canvas.getBoundingClientRect();
+          mx = e.clientX - rect.left;
+          my = e.clientY - rect.top;
+        });
+        canvas.parentElement.addEventListener('mouseleave', () => { mx = w / 2; my = h / 2; });
+
+        registerAnimation('spring-chain', (dt) => {
+          ctx.clearRect(0, 0, w, h);
+          // Leader follows mouse
+          const leader = nodes[0];
+          const stiffness = 120, damping = 12;
+          leader.vx += (mx - leader.x) * stiffness * dt - leader.vx * damping * dt;
+          leader.vy += (my - leader.y) * stiffness * dt - leader.vy * damping * dt;
+          leader.x += leader.vx * dt;
+          leader.y += leader.vy * dt;
+
+          // Followers
+          for (let i = 1; i < NODES; i++) {
+            const prev = nodes[i - 1];
+            const node = nodes[i];
+            const s = 80 - i * 5;
+            const d = 10 + i;
+            node.vx += (prev.x - node.x) * s * dt - node.vx * d * dt;
+            node.vy += (prev.y - node.y) * s * dt - node.vy * d * dt;
+            node.x += node.vx * dt;
+            node.y += node.vy * dt;
+          }
+
+          // Draw connections
+          ctx.beginPath();
+          ctx.moveTo(nodes[0].x, nodes[0].y);
+          for (let i = 1; i < NODES; i++) {
+            ctx.lineTo(nodes[i].x, nodes[i].y);
+          }
+          ctx.strokeStyle = colors.borderDefault + '40';
+          ctx.lineWidth = 2;
+          ctx.stroke();
+
+          // Draw nodes
+          for (let i = NODES - 1; i >= 0; i--) {
+            const r = 14 - i;
+            ctx.beginPath();
+            ctx.arc(nodes[i].x, nodes[i].y, r, 0, Math.PI * 2);
+            ctx.fillStyle = nodes[i].color;
+            ctx.fill();
+            ctx.strokeStyle = colors.borderDefault;
+            ctx.lineWidth = 2;
+            ctx.stroke();
+          }
+        });
+
+        observeCanvas(canvas.parentElement, 'spring-chain', init);
+        window.addEventListener('resize', () => { if (ctx) init(); });
+      })();
+
+      // ================================================================
+      //  1c. SPRING PARAMETERS PLAYGROUND
+      // ================================================================
+      (function() {
+        const canvas = document.getElementById('spring-params-canvas');
+        if (!canvas) return;
+
+        let ctx, w, h;
+        const ball = { value: 0.15, velocity: 0, target: 0.15 };
+        const ballY = { value: 0.5, velocity: 0, target: 0.5 };
+        const trail = [];
+
+        const stiffnessSlider = document.getElementById('spring-stiffness');
+        const dampingSlider = document.getElementById('spring-damping');
+        const massSlider = document.getElementById('spring-mass');
+        const stiffnessVal = document.getElementById('spring-stiffness-val');
+        const dampingVal = document.getElementById('spring-damping-val');
+        const massVal = document.getElementById('spring-mass-val');
+
+        stiffnessSlider.addEventListener('input', () => { stiffnessVal.textContent = stiffnessSlider.value; });
+        dampingSlider.addEventListener('input', () => { dampingVal.textContent = dampingSlider.value; });
+        massSlider.addEventListener('input', () => { massVal.textContent = (+massSlider.value).toFixed(1); });
+
+        function init() {
+          ({ ctx, w, h } = setupCanvas(canvas));
+          ball.value = 0.15; ball.target = 0.85;
+          ballY.value = 0.5; ballY.target = 0.5;
+          trail.length = 0;
+        }
+
+        canvas.addEventListener('click', (e) => {
+          const rect = canvas.getBoundingClientRect();
+          ball.target = (e.clientX - rect.left) / rect.width;
+          ballY.target = (e.clientY - rect.top) / rect.height;
+          ball.velocity = 0;
+          ballY.velocity = 0;
+          trail.length = 0;
+        });
+
+        registerAnimation('spring-params', (dt) => {
+          const config = {
+            stiffness: +stiffnessSlider.value,
+            damping: +dampingSlider.value,
+            mass: +massSlider.value,
+          };
+          springStep(ball, config, dt);
+          springStep(ballY, config, dt);
+
+          // Track trail
+          trail.push({ x: ball.value * w, y: ballY.value * h });
+          if (trail.length > 80) trail.shift();
+
+          ctx.clearRect(0, 0, w, h);
+
+          // Draw target
+          ctx.beginPath();
+          ctx.arc(ball.target * w, ballY.target * h, 20, 0, Math.PI * 2);
+          ctx.strokeStyle = colors.borderDefault + '30';
+          ctx.lineWidth = 2;
+          ctx.setLineDash([4, 4]);
+          ctx.stroke();
+          ctx.setLineDash([]);
+
+          // Draw trail
+          if (trail.length > 1) {
+            ctx.beginPath();
+            ctx.moveTo(trail[0].x, trail[0].y);
+            for (let i = 1; i < trail.length; i++) {
+              ctx.lineTo(trail[i].x, trail[i].y);
+            }
+            ctx.strokeStyle = colors.primary + '40';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+          }
+
+          // Draw ball
+          const bx = ball.value * w;
+          const by = ballY.value * h;
+          ctx.beginPath();
+          ctx.arc(bx, by, 16, 0, Math.PI * 2);
+          ctx.fillStyle = colors.primary;
+          ctx.fill();
+          ctx.strokeStyle = colors.borderDefault;
+          ctx.lineWidth = 2;
+          ctx.stroke();
+        });
+
+        observeCanvas(canvas.parentElement, 'spring-params', init);
+        window.addEventListener('resize', () => { if (ctx) init(); });
+      })();
+
+      // ================================================================
+      //  2a. CONFETTI CANNON
+      // ================================================================
+      (function() {
+        const canvas = document.getElementById('confetti-canvas');
+        const fireBtn = document.getElementById('confetti-fire');
+        if (!canvas) return;
+
+        let ctx, w, h;
+        const POOL_SIZE = 200;
+        const pool = [];
+        let activeCount = 0;
+
+        function init() {
+          ({ ctx, w, h } = setupCanvas(canvas));
+          pool.length = 0;
+          activeCount = 0;
+          for (let i = 0; i < POOL_SIZE; i++) {
+            pool.push({ active: false, x: 0, y: 0, vx: 0, vy: 0, r: 0, color: '', life: 0, maxLife: 0, rotation: 0, rotSpeed: 0, shape: 0 });
+          }
+        }
+
+        function emit(cx, cy, count) {
+          const palette = [colors.primary, colors.gold, colors.cyan, colors.danger, colors.green, colors.purple];
+          for (let i = 0; i < count && activeCount < POOL_SIZE; i++) {
+            const p = pool.find(pp => !pp.active);
+            if (!p) break;
+            p.active = true;
+            p.x = cx;
+            p.y = cy;
+            const angle = -Math.PI / 2 + (Math.random() - 0.5) * 1.2;
+            const speed = 200 + Math.random() * 400;
+            p.vx = Math.cos(angle) * speed;
+            p.vy = Math.sin(angle) * speed;
+            p.r = 3 + Math.random() * 5;
+            p.color = palette[Math.floor(Math.random() * palette.length)];
+            p.life = 0;
+            p.maxLife = 1.5 + Math.random() * 1.5;
+            p.rotation = Math.random() * Math.PI * 2;
+            p.rotSpeed = (Math.random() - 0.5) * 10;
+            p.shape = Math.floor(Math.random() * 3);
+            activeCount++;
+          }
+          activateAnimation('confetti');
+        }
+
+        if (fireBtn) fireBtn.addEventListener('click', (e) => { e.stopPropagation(); emit(w / 2, h * 0.8, 50); });
+        canvas.addEventListener('click', (e) => {
+          const rect = canvas.getBoundingClientRect();
+          emit(e.clientX - rect.left, e.clientY - rect.top, 40);
+        });
+
+        registerAnimation('confetti', (dt) => {
+          ctx.clearRect(0, 0, w, h);
+          activeCount = 0;
+          for (const p of pool) {
+            if (!p.active) continue;
+            p.life += dt;
+            if (p.life > p.maxLife) { p.active = false; continue; }
+            activeCount++;
+            p.vy += 400 * dt; // gravity
+            p.vx *= 0.99;
+            p.x += p.vx * dt;
+            p.y += p.vy * dt;
+            p.rotation += p.rotSpeed * dt;
+            const alpha = 1 - p.life / p.maxLife;
+            ctx.save();
+            ctx.translate(p.x, p.y);
+            ctx.rotate(p.rotation);
+            ctx.globalAlpha = alpha;
+            ctx.fillStyle = p.color;
+            if (p.shape === 0) {
+              ctx.fillRect(-p.r, -p.r / 3, p.r * 2, p.r * 0.66);
+            } else if (p.shape === 1) {
+              ctx.beginPath(); ctx.arc(0, 0, p.r / 2, 0, Math.PI * 2); ctx.fill();
+            } else {
+              ctx.beginPath();
+              ctx.moveTo(0, -p.r); ctx.lineTo(p.r * 0.7, p.r * 0.5); ctx.lineTo(-p.r * 0.7, p.r * 0.5);
+              ctx.fill();
+            }
+            ctx.restore();
+          }
+          if (activeCount === 0) deactivateAnimation('confetti');
+        });
+
+        observeCanvas(canvas.parentElement, 'confetti', init);
+        window.addEventListener('resize', () => { if (ctx) init(); });
+      })();
+
+      // ================================================================
+      //  2b. FIREWORKS
+      // ================================================================
+      (function() {
+        const canvas = document.getElementById('fireworks-canvas');
+        if (!canvas) return;
+
+        let ctx, w, h;
+        const rockets = [];
+        const sparks = [];
+
+        function init() {
+          ({ ctx, w, h } = setupCanvas(canvas));
+          rockets.length = 0; sparks.length = 0;
+        }
+
+        canvas.addEventListener('click', (e) => {
+          const rect = canvas.getBoundingClientRect();
+          const tx = e.clientX - rect.left;
+          const ty = e.clientY - rect.top;
+          rockets.push({ x: w / 2, y: h, tx, ty, vy: -400 - Math.random() * 200, vx: (tx - w / 2) * 0.5, life: 0, color: [colors.primary, colors.gold, colors.cyan, colors.purple][Math.floor(Math.random() * 4)] });
+          activateAnimation('fireworks');
+        });
+
+        registerAnimation('fireworks', (dt) => {
+          ctx.fillStyle = colors.bgPage + '18';
+          ctx.fillRect(0, 0, w, h);
+
+          // Rockets
+          for (let i = rockets.length - 1; i >= 0; i--) {
+            const r = rockets[i];
+            r.x += r.vx * dt;
+            r.y += r.vy * dt;
+            r.vy += 150 * dt;
+            r.life += dt;
+
+            ctx.beginPath();
+            ctx.arc(r.x, r.y, 3, 0, Math.PI * 2);
+            ctx.fillStyle = r.color;
+            ctx.fill();
+
+            if (r.vy > 0 || r.life > 2) {
+              // Explode
+              const count = 40 + Math.floor(Math.random() * 30);
+              for (let j = 0; j < count; j++) {
+                const angle = Math.random() * Math.PI * 2;
+                const speed = 60 + Math.random() * 180;
+                sparks.push({ x: r.x, y: r.y, vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed, life: 0, maxLife: 0.8 + Math.random() * 0.8, color: r.color, r: 2 + Math.random() * 2 });
+              }
+              rockets.splice(i, 1);
+            }
+          }
+
+          // Sparks
+          for (let i = sparks.length - 1; i >= 0; i--) {
+            const s = sparks[i];
+            s.life += dt;
+            if (s.life > s.maxLife) { sparks.splice(i, 1); continue; }
+            s.vy += 120 * dt;
+            s.vx *= 0.98;
+            s.x += s.vx * dt;
+            s.y += s.vy * dt;
+            const alpha = 1 - s.life / s.maxLife;
+            ctx.beginPath();
+            ctx.arc(s.x, s.y, s.r * alpha, 0, Math.PI * 2);
+            ctx.fillStyle = s.color;
+            ctx.globalAlpha = alpha;
+            ctx.fill();
+            ctx.globalAlpha = 1;
+          }
+
+          if (rockets.length === 0 && sparks.length === 0) deactivateAnimation('fireworks');
+        });
+
+        observeCanvas(canvas.parentElement, 'fireworks', init);
+        window.addEventListener('resize', () => { if (ctx) init(); });
+      })();
+
+      // ================================================================
+      //  2c. PARTICLE TEXT
+      // ================================================================
+      (function() {
+        const canvas = document.getElementById('particle-text-canvas');
+        if (!canvas) return;
+
+        let ctx, w, h;
+        const particles = [];
+        let mx = -1000, my = -1000;
+
+        function init() {
+          ({ ctx, w, h } = setupCanvas(canvas));
+          particles.length = 0;
+
+          // Draw text offscreen to sample pixels
+          const offscreen = document.createElement('canvas');
+          offscreen.width = w; offscreen.height = h;
+          const offCtx = offscreen.getContext('2d');
+          const fontSize = Math.min(w / 5, 60);
+          offCtx.fillStyle = '#000';
+          offCtx.font = `900 ${fontSize}px Inter, sans-serif`;
+          offCtx.textAlign = 'center';
+          offCtx.textBaseline = 'middle';
+          offCtx.fillText('DELIGHTFUL', w / 2, h / 2);
+
+          const imageData = offCtx.getImageData(0, 0, w, h).data;
+          const gap = 4;
+          const palette = [colors.primary, colors.gold, colors.cyan, colors.green, colors.purple];
+          let ci = 0;
+          for (let y = 0; y < h; y += gap) {
+            for (let x = 0; x < w; x += gap) {
+              const idx = (y * w + x) * 4;
+              if (imageData[idx + 3] > 128) {
+                particles.push({
+                  homeX: x, homeY: y,
+                  x, y,
+                  vx: 0, vy: 0,
+                  color: palette[ci++ % palette.length],
+                });
+              }
+            }
+          }
+        }
+
+        canvas.parentElement.addEventListener('mousemove', (e) => {
+          const rect = canvas.getBoundingClientRect();
+          mx = e.clientX - rect.left;
+          my = e.clientY - rect.top;
+        });
+        canvas.parentElement.addEventListener('mouseleave', () => { mx = -1000; my = -1000; });
+
+        registerAnimation('particle-text', (dt) => {
+          ctx.clearRect(0, 0, w, h);
+          for (const p of particles) {
+            const dx = mx - p.x;
+            const dy = my - p.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            const repelRadius = 60;
+
+            if (dist < repelRadius && dist > 0) {
+              const force = (repelRadius - dist) / repelRadius * 8;
+              p.vx -= (dx / dist) * force;
+              p.vy -= (dy / dist) * force;
+            }
+
+            // Spring back to home
+            p.vx += (p.homeX - p.x) * 4 * dt;
+            p.vy += (p.homeY - p.y) * 4 * dt;
+            p.vx *= 0.9;
+            p.vy *= 0.9;
+            p.x += p.vx;
+            p.y += p.vy;
+
+            ctx.fillStyle = p.color;
+            ctx.fillRect(p.x - 1.5, p.y - 1.5, 3, 3);
+          }
+        });
+
+        observeCanvas(canvas.parentElement, 'particle-text', init);
+        window.addEventListener('resize', () => { if (ctx) init(); });
+      })();
+
+      // ================================================================
+      //  2d. STAR FIELD
+      // ================================================================
+      (function() {
+        const canvas = document.getElementById('starfield-canvas');
+        if (!canvas) return;
+
+        let ctx, w, h;
+        const stars = [];
+        const STAR_COUNT = 150;
+        let mx = 0.5, my = 0.5;
+
+        function init() {
+          ({ ctx, w, h } = setupCanvas(canvas));
+          stars.length = 0;
+          for (let i = 0; i < STAR_COUNT; i++) {
+            stars.push({
+              x: Math.random() * w,
+              y: Math.random() * h,
+              z: Math.random() * 3 + 0.5,
+              size: Math.random() * 2 + 0.5,
+            });
+          }
+        }
+
+        canvas.parentElement.addEventListener('mousemove', (e) => {
+          const rect = canvas.getBoundingClientRect();
+          mx = (e.clientX - rect.left) / rect.width;
+          my = (e.clientY - rect.top) / rect.height;
+        });
+
+        registerAnimation('starfield', (dt) => {
+          ctx.fillStyle = '#1a1a1a';
+          ctx.fillRect(0, 0, w, h);
+          const speed = 200;
+          const steerX = (mx - 0.5) * 100;
+          const steerY = (my - 0.5) * 50;
+
+          for (const s of stars) {
+            s.x -= (speed * s.z + steerX * s.z) * dt;
+            s.y -= steerY * s.z * dt;
+
+            if (s.x < 0) { s.x = w; s.y = Math.random() * h; }
+            if (s.x > w) { s.x = 0; s.y = Math.random() * h; }
+            if (s.y < 0) s.y = h;
+            if (s.y > h) s.y = 0;
+
+            const alpha = Math.min(s.z / 3, 1);
+            const streakLen = s.z * 4;
+            ctx.beginPath();
+            ctx.moveTo(s.x, s.y);
+            ctx.lineTo(s.x + streakLen, s.y);
+            ctx.strokeStyle = `rgba(255,255,255,${alpha})`;
+            ctx.lineWidth = s.size;
+            ctx.stroke();
+          }
+        });
+
+        observeCanvas(canvas.parentElement, 'starfield', init);
+        window.addEventListener('resize', () => { if (ctx) init(); });
+      })();
+
+      // ================================================================
+      //  3a. GRAVITY BALLS
+      // ================================================================
+      (function() {
+        const canvas = document.getElementById('gravity-canvas');
+        if (!canvas) return;
+
+        let ctx, w, h;
+        const balls = [];
+
+        function init() {
+          ({ ctx, w, h } = setupCanvas(canvas));
+          balls.length = 0;
+        }
+
+        canvas.addEventListener('click', (e) => {
+          const rect = canvas.getBoundingClientRect();
+          const palette = [colors.primary, colors.gold, colors.cyan, colors.danger, colors.green, colors.purple];
+          balls.push({
+            x: e.clientX - rect.left,
+            y: e.clientY - rect.top,
+            vx: (Math.random() - 0.5) * 100,
+            vy: 0,
+            r: 10 + Math.random() * 20,
+            color: palette[Math.floor(Math.random() * palette.length)],
+            restitution: 0.5 + Math.random() * 0.35,
+          });
+          if (balls.length > 30) balls.shift();
+          activateAnimation('gravity');
+        });
+
+        registerAnimation('gravity', (dt) => {
+          ctx.clearRect(0, 0, w, h);
+          const gravity = 600;
+          let moving = false;
+
+          for (const b of balls) {
+            b.vy += gravity * dt;
+            b.x += b.vx * dt;
+            b.y += b.vy * dt;
+
+            // Floor
+            if (b.y + b.r > h) {
+              b.y = h - b.r;
+              b.vy = -b.vy * b.restitution;
+              if (Math.abs(b.vy) < 10) b.vy = 0;
+            }
+            // Walls
+            if (b.x - b.r < 0) { b.x = b.r; b.vx = Math.abs(b.vx) * b.restitution; }
+            if (b.x + b.r > w) { b.x = w - b.r; b.vx = -Math.abs(b.vx) * b.restitution; }
+
+            b.vx *= 0.999;
+
+            if (Math.abs(b.vx) > 0.5 || Math.abs(b.vy) > 0.5 || b.y + b.r < h - 1) moving = true;
+
+            ctx.beginPath();
+            ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+            ctx.fillStyle = b.color;
+            ctx.fill();
+            ctx.strokeStyle = colors.borderDefault;
+            ctx.lineWidth = 2;
+            ctx.stroke();
+          }
+
+          // Draw ground line
+          ctx.beginPath();
+          ctx.moveTo(0, h - 1);
+          ctx.lineTo(w, h - 1);
+          ctx.strokeStyle = colors.borderDefault + '40';
+          ctx.lineWidth = 2;
+          ctx.stroke();
+
+          if (!moving && balls.length > 0) deactivateAnimation('gravity');
+        });
+
+        observeCanvas(canvas.parentElement, 'gravity', init);
+        window.addEventListener('resize', () => { if (ctx) init(); });
+      })();
+
+      // ================================================================
+      //  3b. VERLET CLOTH
+      // ================================================================
+      (function() {
+        const canvas = document.getElementById('cloth-canvas');
+        if (!canvas) return;
+
+        let ctx, w, h;
+        const cols = 20, rows = 14;
+        const spacing = 18;
+        let points = [];
+        let sticks = [];
+        let dragPoint = null;
+        let mx = 0, my = 0, dragging = false;
+
+        function init() {
+          ({ ctx, w, h } = setupCanvas(canvas));
+          points = []; sticks = [];
+          const startX = (w - cols * spacing) / 2;
+          const startY = 20;
+
+          for (let y = 0; y < rows; y++) {
+            for (let x = 0; x < cols; x++) {
+              const px = startX + x * spacing;
+              const py = startY + y * spacing;
+              points.push({ x: px, y: py, oldX: px, oldY: py, pinned: y === 0 });
+            }
+          }
+
+          for (let y = 0; y < rows; y++) {
+            for (let x = 0; x < cols; x++) {
+              const i = y * cols + x;
+              if (x < cols - 1) sticks.push({ a: i, b: i + 1, len: spacing });
+              if (y < rows - 1) sticks.push({ a: i, b: i + cols, len: spacing });
+            }
+          }
+        }
+
+        canvas.addEventListener('pointerdown', (e) => {
+          const rect = canvas.getBoundingClientRect();
+          mx = e.clientX - rect.left;
+          my = e.clientY - rect.top;
+          dragging = true;
+          // Find nearest
+          let minDist = 30, best = null;
+          for (const p of points) {
+            const d = Math.sqrt((p.x - mx) ** 2 + (p.y - my) ** 2);
+            if (d < minDist) { minDist = d; best = p; }
+          }
+          dragPoint = best;
+        });
+        canvas.addEventListener('pointermove', (e) => {
+          const rect = canvas.getBoundingClientRect();
+          mx = e.clientX - rect.left;
+          my = e.clientY - rect.top;
+        });
+        canvas.addEventListener('pointerup', () => { dragging = false; dragPoint = null; });
+
+        registerAnimation('cloth', (dt) => {
+          // Verlet integration
+          const gravity = 600;
+          for (const p of points) {
+            if (p.pinned) continue;
+            const vx = p.x - p.oldX;
+            const vy = p.y - p.oldY;
+            p.oldX = p.x;
+            p.oldY = p.y;
+            p.x += vx * 0.99;
+            p.y += vy * 0.99 + gravity * dt * dt;
+          }
+
+          if (dragging && dragPoint && !dragPoint.pinned) {
+            dragPoint.x = mx;
+            dragPoint.y = my;
+          }
+
+          // Constraint satisfaction
+          for (let iter = 0; iter < 5; iter++) {
+            for (const s of sticks) {
+              const a = points[s.a];
+              const b = points[s.b];
+              const dx = b.x - a.x;
+              const dy = b.y - a.y;
+              const dist = Math.sqrt(dx * dx + dy * dy);
+              if (dist === 0) continue;
+              const diff = (dist - s.len) / dist * 0.5;
+              if (!a.pinned) { a.x += dx * diff; a.y += dy * diff; }
+              if (!b.pinned) { b.x -= dx * diff; b.y -= dy * diff; }
+            }
+          }
+
+          // Draw
+          ctx.clearRect(0, 0, w, h);
+          ctx.strokeStyle = colors.primary + '60';
+          ctx.lineWidth = 1;
+          for (const s of sticks) {
+            const a = points[s.a];
+            const b = points[s.b];
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.stroke();
+          }
+          for (const p of points) {
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.pinned ? 4 : 2, 0, Math.PI * 2);
+            ctx.fillStyle = p.pinned ? colors.danger : colors.primary;
+            ctx.fill();
+          }
+        });
+
+        observeCanvas(canvas.parentElement, 'cloth', init);
+        window.addEventListener('resize', () => { if (ctx) init(); });
+      })();
+
+      // ================================================================
+      //  4. FLIP CARD SHUFFLE
+      // ================================================================
+      (function() {
+        const grid = document.getElementById('flip-grid');
+        const btn = document.getElementById('flip-shuffle-btn');
+        if (!grid || !btn) return;
+
+        btn.addEventListener('click', () => {
+          const cards = [...grid.children];
+          // FIRST: record positions
+          const firstRects = cards.map(c => c.getBoundingClientRect());
+
+          // Shuffle DOM
+          for (let i = cards.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            grid.appendChild(cards[j]);
+          }
+
+          // LAST: get new positions
+          const shuffled = [...grid.children];
+          shuffled.forEach((card, i) => {
+            const oldIdx = cards.indexOf(card);
+            const first = firstRects[oldIdx];
+            const last = card.getBoundingClientRect();
+
+            // INVERT
+            const dx = first.left - last.left;
+            const dy = first.top - last.top;
+            card.style.transform = `translate(${dx}px, ${dy}px)`;
+            card.style.transition = 'none';
+
+            // PLAY
+            requestAnimationFrame(() => {
+              requestAnimationFrame(() => {
+                card.style.transition = 'transform 400ms cubic-bezier(0.22, 1, 0.36, 1)';
+                card.style.transform = '';
+                card.addEventListener('transitionend', () => {
+                  card.style.transition = '';
+                }, { once: true });
+              });
+            });
+          });
+        });
+      })();
+
+      // ================================================================
+      //  5. DRAGGABLE CARDS
+      // ================================================================
+      (function() {
+        const stage = document.getElementById('drag-stage');
+        if (!stage) return;
+
+        const cards = stage.querySelectorAll('.drag-card');
+        cards.forEach(card => {
+          let dragging = false;
+          let startX, startY, cardX, cardY;
+          let velX = 0, velY = 0, lastX = 0, lastY = 0, lastTime = 0;
+          let inertiaId = null;
+
+          card.addEventListener('pointerdown', (e) => {
+            e.preventDefault();
+            dragging = true;
+            card.setPointerCapture(e.pointerId);
+            card.style.cursor = 'grabbing';
+            card.style.zIndex = '10';
+            const rect = card.getBoundingClientRect();
+            const parentRect = stage.getBoundingClientRect();
+            cardX = rect.left - parentRect.left;
+            cardY = rect.top - parentRect.top;
+            startX = e.clientX - cardX;
+            startY = e.clientY - cardY;
+            lastX = e.clientX; lastY = e.clientY;
+            lastTime = performance.now();
+            velX = 0; velY = 0;
+            if (inertiaId) cancelAnimationFrame(inertiaId);
+          });
+
+          card.addEventListener('pointermove', (e) => {
+            if (!dragging) return;
+            const nx = e.clientX - startX;
+            const ny = e.clientY - startY;
+            card.style.left = nx + 'px';
+            card.style.top = ny + 'px';
+
+            const now = performance.now();
+            const dt = (now - lastTime) / 1000;
+            if (dt > 0) {
+              velX = (e.clientX - lastX) / dt;
+              velY = (e.clientY - lastY) / dt;
+            }
+            lastX = e.clientX; lastY = e.clientY; lastTime = now;
+          });
+
+          card.addEventListener('pointerup', () => {
+            if (!dragging) return;
+            dragging = false;
+            card.style.cursor = 'grab';
+            card.style.zIndex = '';
+
+            // Inertia
+            let ix = velX * 0.15;
+            let iy = velY * 0.15;
+            function inertia() {
+              ix *= 0.92;
+              iy *= 0.92;
+              const cl = parseFloat(card.style.left) || 0;
+              const ct = parseFloat(card.style.top) || 0;
+              card.style.left = (cl + ix) + 'px';
+              card.style.top = (ct + iy) + 'px';
+              if (Math.abs(ix) > 0.5 || Math.abs(iy) > 0.5) {
+                inertiaId = requestAnimationFrame(inertia);
+              }
+            }
+            if (Math.abs(ix) > 1 || Math.abs(iy) > 1) inertia();
+          });
+        });
+      })();
+
+      // ================================================================
+      //  6a. FLOW FIELD
+      // ================================================================
+      (function() {
+        const canvas = document.getElementById('flowfield-canvas');
+        if (!canvas) return;
+
+        let ctx, w, h;
+        const particles = [];
+        const COUNT = 300;
+        let time = 0;
+
+        // Simple Perlin-like noise using sin
+        function noise(x, y, t) {
+          return Math.sin(x * 0.02 + t * 0.3) * Math.cos(y * 0.02 - t * 0.2) +
+                 Math.sin(x * 0.01 - y * 0.01 + t * 0.1) * 0.5;
+        }
+
+        function init() {
+          ({ ctx, w, h } = setupCanvas(canvas));
+          particles.length = 0;
+          const palette = [colors.primary, colors.gold, colors.cyan, colors.green, colors.purple];
+          for (let i = 0; i < COUNT; i++) {
+            particles.push({
+              x: Math.random() * w,
+              y: Math.random() * h,
+              color: palette[i % palette.length] + '40',
+            });
+          }
+          ctx.fillStyle = colors.bgSubtle;
+          ctx.fillRect(0, 0, w, h);
+        }
+
+        registerAnimation('flowfield', (dt) => {
+          time += dt;
+          ctx.fillStyle = colors.bgSubtle + '08';
+          ctx.fillRect(0, 0, w, h);
+
+          for (const p of particles) {
+            const angle = noise(p.x, p.y, time) * Math.PI * 2;
+            p.x += Math.cos(angle) * 1.5;
+            p.y += Math.sin(angle) * 1.5;
+
+            if (p.x < 0 || p.x > w || p.y < 0 || p.y > h) {
+              p.x = Math.random() * w;
+              p.y = Math.random() * h;
+            }
+
+            ctx.fillStyle = p.color;
+            ctx.fillRect(p.x, p.y, 2, 2);
+          }
+        });
+
+        observeCanvas(canvas.parentElement, 'flowfield', init);
+        window.addEventListener('resize', () => { if (ctx) init(); });
+      })();
+
+      // ================================================================
+      //  6b. FRACTAL TREE
+      // ================================================================
+      (function() {
+        const canvas = document.getElementById('fractal-canvas');
+        const regrowBtn = document.getElementById('fractal-regrow');
+        if (!canvas) return;
+
+        let ctx, w, h;
+
+        function init() {
+          ({ ctx, w, h } = setupCanvas(canvas));
+          drawTree();
+        }
+
+        function drawTree() {
+          ctx.clearRect(0, 0, w, h);
+          const startX = w / 2;
+          const startY = h - 10;
+          const palette = [colors.green, colors.cyan, colors.primary, colors.gold, colors.purple];
+
+          function branch(x, y, angle, length, depth) {
+            if (depth > 10 || length < 3) return;
+            const endX = x + Math.cos(angle) * length;
+            const endY = y + Math.sin(angle) * length;
+
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            ctx.lineTo(endX, endY);
+            ctx.strokeStyle = palette[Math.min(depth, palette.length - 1)];
+            ctx.lineWidth = Math.max(1, 8 - depth);
+            ctx.stroke();
+
+            const spread = 0.4 + Math.random() * 0.3;
+            const shrink = 0.65 + Math.random() * 0.15;
+            branch(endX, endY, angle - spread, length * shrink, depth + 1);
+            branch(endX, endY, angle + spread, length * shrink, depth + 1);
+          }
+
+          branch(startX, startY, -Math.PI / 2, Math.min(h / 4, 80), 0);
+        }
+
+        if (regrowBtn) regrowBtn.addEventListener('click', drawTree);
+
+        observeCanvas(canvas.parentElement, 'fractal', init);
+        registerAnimation('fractal', () => {});
+        window.addEventListener('resize', () => { if (ctx) init(); });
+      })();
+
+      // ================================================================
+      //  7a. MAGNETIC BUTTONS
+      // ================================================================
+      (function() {
+        const stage = document.getElementById('magnetic-stage');
+        if (!stage) return;
+        const buttons = stage.querySelectorAll('.magnetic-btn');
+
+        stage.addEventListener('mousemove', (e) => {
+          buttons.forEach(btn => {
+            const rect = btn.getBoundingClientRect();
+            const cx = rect.left + rect.width / 2;
+            const cy = rect.top + rect.height / 2;
+            const dx = e.clientX - cx;
+            const dy = e.clientY - cy;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            const threshold = 100;
+            if (dist < threshold) {
+              const pull = (threshold - dist) / threshold;
+              btn.style.transform = `translate(${dx * pull * 0.4}px, ${dy * pull * 0.4}px)`;
+            } else {
+              btn.style.transform = '';
+            }
+          });
+        });
+
+        stage.addEventListener('mouseleave', () => {
+          buttons.forEach(btn => { btn.style.transform = ''; });
+        });
+      })();
+
+      // ================================================================
+      //  7b. TILT CARDS
+      // ================================================================
+      (function() {
+        document.querySelectorAll('.tilt-card').forEach(card => {
+          card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width - 0.5;
+            const y = (e.clientY - rect.top) / rect.height - 0.5;
+            card.style.transform = `perspective(500px) rotateY(${x * 20}deg) rotateX(${-y * 20}deg)`;
+            card.style.boxShadow = `${-x * 8}px ${y * 8}px 0 var(--border-default)`;
+          });
+          card.addEventListener('mouseleave', () => {
+            card.style.transform = '';
+            card.style.boxShadow = '';
+          });
+        });
+      })();
+
+      // ================================================================
+      //  7c. RIPPLE EFFECT
+      // ================================================================
+      (function() {
+        const stage = document.getElementById('ripple-stage');
+        if (!stage) return;
+
+        stage.addEventListener('click', (e) => {
+          const rect = stage.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          const ripple = document.createElement('div');
+          ripple.style.cssText = `
+            position:absolute;left:${x}px;top:${y}px;width:10px;height:10px;
+            border-radius:50%;border:2px solid var(--accent-primary);
+            transform:translate(-50%,-50%) scale(1);opacity:1;
+            pointer-events:none;
+          `;
+          stage.appendChild(ripple);
+          ripple.animate([
+            { transform: 'translate(-50%,-50%) scale(1)', opacity: 1 },
+            { transform: 'translate(-50%,-50%) scale(20)', opacity: 0 }
+          ], { duration: 600, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' }).onfinish = () => ripple.remove();
+        });
+      })();
+
+      // ================================================================
+      //  8a. SVG MORPH
+      // ================================================================
+      (function() {
+        const path = document.getElementById('morph-path');
+        const btn = document.getElementById('morph-toggle');
+        if (!path || !btn) return;
+
+        const shapes = [
+          'M100,20 C140,20 180,60 180,100 C180,140 140,180 100,180 C60,180 20,140 20,100 C20,60 60,20 100,20 Z',
+          'M100,10 L120,75 L190,75 L135,115 L155,180 L100,140 L45,180 L65,115 L10,75 L80,75 Z',
+          'M30,30 L170,30 L170,170 L30,170 Z',
+          'M100,20 C150,40 180,80 160,120 C140,160 110,180 80,160 C50,140 20,120 40,80 C60,40 80,20 100,20 Z',
+        ];
+        const colorList = ['var(--accent-primary)', 'var(--accent-gold)', 'var(--accent-cyan)', 'var(--accent-purple)'];
+        let shapeIdx = 0;
+
+        btn.addEventListener('click', () => {
+          shapeIdx = (shapeIdx + 1) % shapes.length;
+          path.style.transition = 'd 400ms cubic-bezier(0.22, 1, 0.36, 1), fill 400ms ease';
+          path.setAttribute('d', shapes[shapeIdx]);
+          path.setAttribute('fill', colorList[shapeIdx]);
+        });
+      })();
+
+      // ================================================================
+      //  8b. DRAWING ANIMATION
+      // ================================================================
+      (function() {
+        const drawPath = document.getElementById('draw-path');
+        const drawDot = document.getElementById('draw-dot');
+        const drawBtn = document.getElementById('draw-play');
+        if (!drawPath || !drawBtn) return;
+
+        drawBtn.addEventListener('click', () => {
+          const len = drawPath.getTotalLength();
+          drawPath.style.strokeDasharray = len;
+          drawPath.style.strokeDashoffset = len;
+          drawPath.style.transition = 'none';
+          if (drawDot) { drawDot.style.opacity = '1'; drawDot.style.transition = 'none'; }
+          void drawPath.offsetWidth;
+
+          drawPath.style.transition = `stroke-dashoffset 1.5s cubic-bezier(0.22, 1, 0.36, 1)`;
+          drawPath.style.strokeDashoffset = '0';
+
+          // Animate dot along path
+          if (drawDot) {
+            const start = performance.now();
+            const duration = 1500;
+            function moveDot(now) {
+              const t = Math.min((now - start) / duration, 1);
+              const eased = 1 - Math.pow(1 - t, 3);
+              const pt = drawPath.getPointAtLength(eased * len);
+              drawDot.setAttribute('cx', pt.x);
+              drawDot.setAttribute('cy', pt.y);
+              if (t < 1) requestAnimationFrame(moveDot);
+            }
+            requestAnimationFrame(moveDot);
+          }
+        });
+      })();
+
+      // ================================================================
+      //  8c. GOOEY BUTTON
+      // ================================================================
+      (function() {
+        const main = document.getElementById('gooey-main');
+        const blob1 = document.getElementById('gooey-blob-1');
+        const blob2 = document.getElementById('gooey-blob-2');
+        if (!main || !blob1 || !blob2) return;
+
+        main.addEventListener('mouseenter', () => {
+          blob1.style.transition = 'transform 0.4s ease, opacity 0.2s ease';
+          blob2.style.transition = 'transform 0.5s ease 0.05s, opacity 0.2s ease';
+          blob1.style.opacity = '1';
+          blob2.style.opacity = '1';
+          blob1.style.transform = 'translate(-30px, -20px)';
+          blob2.style.transform = 'translate(30px, -18px)';
+        });
+        main.addEventListener('mouseleave', () => {
+          blob1.style.transition = 'transform 0.3s ease, opacity 0.3s ease 0.1s';
+          blob2.style.transition = 'transform 0.3s ease, opacity 0.3s ease 0.1s';
+          blob1.style.transform = '';
+          blob2.style.transform = '';
+          blob1.style.opacity = '0';
+          blob2.style.opacity = '0';
+        });
+      })();
+
+      // ================================================================
+      //  9a. EMOJI RAIN
+      // ================================================================
+      (function() {
+        const canvas = document.getElementById('emoji-canvas');
+        const startBtn = document.getElementById('emoji-start');
+        if (!canvas) return;
+
+        let ctx, w, h;
+        const emojis = [];
+        const emojiChars = ['🎉', '✨', '🌟', '💖', '🔥', '🎨', '🌈', '💫', '🎪', '🦄'];
+
+        function init() {
+          ({ ctx, w, h } = setupCanvas(canvas));
+          emojis.length = 0;
+        }
+
+        function spawnBatch() {
+          for (let i = 0; i < 20; i++) {
+            emojis.push({
+              x: Math.random() * w,
+              y: -30 - Math.random() * 100,
+              vy: 40 + Math.random() * 80,
+              vx: (Math.random() - 0.5) * 30,
+              size: 16 + Math.random() * 20,
+              char: emojiChars[Math.floor(Math.random() * emojiChars.length)],
+              rotation: Math.random() * Math.PI * 2,
+              rotSpeed: (Math.random() - 0.5) * 3,
+            });
+          }
+          activateAnimation('emoji');
+        }
+
+        if (startBtn) startBtn.addEventListener('click', (e) => { e.stopPropagation(); spawnBatch(); });
+        canvas.addEventListener('click', spawnBatch);
+
+        registerAnimation('emoji', (dt) => {
+          ctx.clearRect(0, 0, w, h);
+          for (let i = emojis.length - 1; i >= 0; i--) {
+            const e = emojis[i];
+            e.y += e.vy * dt;
+            e.x += e.vx * dt;
+            e.vx += Math.sin(e.y * 0.02) * dt * 10;
+            e.rotation += e.rotSpeed * dt;
+
+            if (e.y > h + 40) { emojis.splice(i, 1); continue; }
+
+            ctx.save();
+            ctx.translate(e.x, e.y);
+            ctx.rotate(e.rotation);
+            ctx.font = `${e.size}px serif`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(e.char, 0, 0);
+            ctx.restore();
+          }
+          if (emojis.length === 0) deactivateAnimation('emoji');
+        });
+
+        observeCanvas(canvas.parentElement, 'emoji', init);
+        window.addEventListener('resize', () => { if (ctx) init(); });
+      })();
+
+      // ================================================================
+      //  9b. MATRIX RAIN
+      // ================================================================
+      (function() {
+        const canvas = document.getElementById('matrix-canvas');
+        if (!canvas) return;
+
+        let ctx, w, h;
+        const columns = [];
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%^&*()';
+        const fontSize = 14;
+
+        function init() {
+          ({ ctx, w, h } = setupCanvas(canvas));
+          columns.length = 0;
+          const colCount = Math.floor(w / fontSize);
+          for (let i = 0; i < colCount; i++) {
+            columns.push(Math.random() * h / fontSize);
+          }
+        }
+
+        registerAnimation('matrix', (dt) => {
+          ctx.fillStyle = 'rgba(20, 20, 20, 0.05)';
+          ctx.fillRect(0, 0, w, h);
+          ctx.font = `${fontSize}px JetBrains Mono, monospace`;
+
+          for (let i = 0; i < columns.length; i++) {
+            const char = chars[Math.floor(Math.random() * chars.length)];
+            const x = i * fontSize;
+            const y = columns[i] * fontSize;
+
+            ctx.fillStyle = colors.green;
+            ctx.globalAlpha = 0.9;
+            ctx.fillText(char, x, y);
+            ctx.globalAlpha = 1;
+
+            if (y > h && Math.random() > 0.975) {
+              columns[i] = 0;
+            }
+            columns[i] += 0.5;
+          }
+        });
+
+        observeCanvas(canvas.parentElement, 'matrix', init);
+        window.addEventListener('resize', () => { if (ctx) init(); });
+      })();
+
+      // ================================================================
+      //  9c. AURORA GRADIENT
+      // ================================================================
+      (function() {
+        const canvas = document.getElementById('aurora-canvas');
+        if (!canvas) return;
+
+        let ctx, w, h;
+        let time = 0;
+
+        function init() {
+          ({ ctx, w, h } = setupCanvas(canvas));
+        }
+
+        registerAnimation('aurora', (dt) => {
+          time += dt * 0.5;
+          ctx.clearRect(0, 0, w, h);
+
+          const palette = [
+            { color: colors.primary, x: w * (0.3 + Math.sin(time * 0.7) * 0.2), y: h * (0.3 + Math.cos(time * 0.5) * 0.2) },
+            { color: colors.gold, x: w * (0.7 + Math.cos(time * 0.6) * 0.2), y: h * (0.4 + Math.sin(time * 0.4) * 0.2) },
+            { color: colors.cyan, x: w * (0.5 + Math.sin(time * 0.8) * 0.3), y: h * (0.7 + Math.cos(time * 0.3) * 0.2) },
+            { color: colors.purple, x: w * (0.2 + Math.cos(time * 0.5) * 0.15), y: h * (0.6 + Math.sin(time * 0.6) * 0.15) },
+          ];
+
+          for (const blob of palette) {
+            const grad = ctx.createRadialGradient(blob.x, blob.y, 0, blob.x, blob.y, w * 0.4);
+            grad.addColorStop(0, blob.color + '60');
+            grad.addColorStop(1, blob.color + '00');
+            ctx.fillStyle = grad;
+            ctx.fillRect(0, 0, w, h);
+          }
+        });
+
+        observeCanvas(canvas.parentElement, 'aurora', init);
+        window.addEventListener('resize', () => { if (ctx) init(); });
+      })();
+
+      // ================================================================
+      //  10. COMBINED: SPRING + CONFETTI
+      // ================================================================
+      (function() {
+        const canvas = document.getElementById('combo-canvas');
+        const btn = document.getElementById('combo-btn');
+        if (!canvas || !btn) return;
+
+        let ctx, w, h;
+        const comboParticles = [];
+        const POOL = 150;
+        const btnState = { value: 1, velocity: 0, target: 1 };
+        let pressing = false;
+
+        function init() {
+          ({ ctx, w, h } = setupCanvas(canvas));
+          comboParticles.length = 0;
+          for (let i = 0; i < POOL; i++) {
+            comboParticles.push({ active: false, x: 0, y: 0, vx: 0, vy: 0, life: 0, maxLife: 0, color: '', r: 0, rotation: 0, rotSpeed: 0, shape: 0 });
+          }
+        }
+
+        function emitCombo() {
+          const palette = [colors.primary, colors.gold, colors.cyan, colors.danger, colors.green, colors.purple];
+          const cx = w / 2, cy = h / 2;
+          let count = 0;
+          for (const p of comboParticles) {
+            if (p.active || count >= 60) continue;
+            p.active = true;
+            p.x = cx; p.y = cy;
+            const angle = -Math.PI / 2 + (Math.random() - 0.5) * Math.PI;
+            const speed = 200 + Math.random() * 400;
+            p.vx = Math.cos(angle) * speed;
+            p.vy = Math.sin(angle) * speed;
+            p.r = 3 + Math.random() * 5;
+            p.color = palette[Math.floor(Math.random() * palette.length)];
+            p.life = 0; p.maxLife = 1 + Math.random() * 1.5;
+            p.rotation = Math.random() * Math.PI * 2;
+            p.rotSpeed = (Math.random() - 0.5) * 10;
+            p.shape = Math.floor(Math.random() * 3);
+            count++;
+          }
+        }
+
+        btn.addEventListener('pointerdown', () => {
+          pressing = true;
+          btnState.target = 0.88;
+          activateAnimation('combo');
+        });
+        btn.addEventListener('pointerup', () => {
+          pressing = false;
+          btnState.target = 1;
+          emitCombo();
+          activateAnimation('combo');
+        });
+        btn.addEventListener('pointerleave', () => {
+          if (pressing) { pressing = false; btnState.target = 1; }
+        });
+
+        registerAnimation('combo', (dt) => {
+          springStep(btnState, { stiffness: 300, damping: 15, mass: 1 }, dt);
+          btn.style.transform = `translate(-50%, -50%) scale(${btnState.value})`;
+
+          ctx.clearRect(0, 0, w, h);
+          let active = 0;
+          for (const p of comboParticles) {
+            if (!p.active) continue;
+            p.life += dt;
+            if (p.life > p.maxLife) { p.active = false; continue; }
+            active++;
+            p.vy += 400 * dt;
+            p.vx *= 0.99;
+            p.x += p.vx * dt;
+            p.y += p.vy * dt;
+            p.rotation += p.rotSpeed * dt;
+            const alpha = 1 - p.life / p.maxLife;
+            ctx.save();
+            ctx.translate(p.x, p.y);
+            ctx.rotate(p.rotation);
+            ctx.globalAlpha = alpha;
+            ctx.fillStyle = p.color;
+            if (p.shape === 0) ctx.fillRect(-p.r, -p.r / 3, p.r * 2, p.r * 0.66);
+            else if (p.shape === 1) { ctx.beginPath(); ctx.arc(0, 0, p.r / 2, 0, Math.PI * 2); ctx.fill(); }
+            else { ctx.beginPath(); ctx.moveTo(0, -p.r); ctx.lineTo(p.r * 0.7, p.r * 0.5); ctx.lineTo(-p.r * 0.7, p.r * 0.5); ctx.fill(); }
+            ctx.restore();
+          }
+
+          if (active === 0 && !pressing && Math.abs(btnState.value - 1) < 0.001) {
+            deactivateAnimation('combo');
+          }
+        });
+
+        observeCanvas(canvas.parentElement, 'combo', init);
+        window.addEventListener('resize', () => { if (ctx) init(); });
+      })();
 
     })();
   </script>
