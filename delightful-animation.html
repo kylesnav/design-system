@@ -703,8 +703,11 @@
       display: flex; flex-direction: column;
     }
     .demo-card-top {
-      display: flex; align-items: center; justify-content: space-between;
+      display: flex; align-items: center; gap: var(--space-2);
       margin-bottom: var(--space-2);
+    }
+    .demo-card-top .demo-card-tags {
+      margin-left: auto; margin-bottom: 0;
     }
     .demo-card-name {
       font-family: var(--font-mono); font-size: var(--ui-text-md);
@@ -989,7 +992,7 @@
           <div class="demo-card-body">
             <div class="demo-card-top">
               <span class="demo-card-name">spring-button</span>
-              <span class="tag">Spring</span>
+              <span class="demo-card-tags"><span class="tag">Spring</span></span>
             </div>
             <p class="demo-card-desc">Click to compress with spring physics. Release bounces back with overshoot.</p>
             <p class="demo-card-hint">Click or tap the button</p>
@@ -1004,7 +1007,7 @@
           <div class="demo-card-body">
             <div class="demo-card-top">
               <span class="demo-card-name">spring-chain</span>
-              <span class="tag">Spring</span>
+              <span class="demo-card-tags"><span class="tag">Spring</span></span>
             </div>
             <p class="demo-card-desc">Linked elements connected by springs. The leader follows the cursor, trailing nodes follow with cascading delay.</p>
             <p class="demo-card-hint">Move mouse over the canvas</p>
@@ -1019,8 +1022,7 @@
           <div class="demo-card-body">
             <div class="demo-card-top">
               <span class="demo-card-name">spring-playground</span>
-              <span class="tag">Spring</span>
-              <span class="tag">Interactive</span>
+              <span class="demo-card-tags"><span class="tag">Spring</span><span class="tag">Interactive</span></span>
             </div>
             <p class="demo-card-desc">Adjust stiffness, damping, and mass to see how spring parameters affect motion. Click the canvas to set a new target position.</p>
           </div>
@@ -1062,7 +1064,7 @@
           <div class="demo-card-body">
             <div class="demo-card-top">
               <span class="demo-card-name">confetti-cannon</span>
-              <span class="tag">Particles</span>
+              <span class="demo-card-tags"><span class="tag">Particles</span></span>
             </div>
             <p class="demo-card-desc">Click to launch a burst of confetti with gravity, rotation, and air resistance. Particles are pooled and recycled.</p>
             <p class="demo-card-hint">Click the Fire button or the canvas</p>
@@ -1077,7 +1079,7 @@
           <div class="demo-card-body">
             <div class="demo-card-top">
               <span class="demo-card-name">fireworks</span>
-              <span class="tag">Particles</span>
+              <span class="demo-card-tags"><span class="tag">Particles</span></span>
             </div>
             <p class="demo-card-desc">Multi-phase particles: a rocket launches up, then explodes into trailing sparks with color shifts.</p>
             <p class="demo-card-hint">Click anywhere on the canvas</p>
@@ -1092,8 +1094,7 @@
           <div class="demo-card-body">
             <div class="demo-card-top">
               <span class="demo-card-name">particle-text</span>
-              <span class="tag">Particles</span>
-              <span class="tag">Text</span>
+              <span class="demo-card-tags"><span class="tag">Particles</span><span class="tag">Text</span></span>
             </div>
             <p class="demo-card-desc">Text rendered as individual particles. Hover to scatter them; they spring back into place when you move away.</p>
             <p class="demo-card-hint">Hover over the text</p>
@@ -1108,7 +1109,7 @@
           <div class="demo-card-body">
             <div class="demo-card-top">
               <span class="demo-card-name">star-field</span>
-              <span class="tag">Particles</span>
+              <span class="demo-card-tags"><span class="tag">Particles</span></span>
             </div>
             <p class="demo-card-desc">Parallax star field with three depth layers. Stars streak past faster in the foreground for a warp-speed effect.</p>
             <p class="demo-card-hint">Move mouse to steer</p>
@@ -1136,7 +1137,7 @@
           <div class="demo-card-body">
             <div class="demo-card-top">
               <span class="demo-card-name">gravity-balls</span>
-              <span class="tag">Physics</span>
+              <span class="demo-card-tags"><span class="tag">Physics</span></span>
             </div>
             <p class="demo-card-desc">Click to drop balls that bounce with gravity and restitution. Each ball has a random size, color, and bounciness.</p>
             <p class="demo-card-hint">Click to drop balls</p>
@@ -1151,8 +1152,7 @@
           <div class="demo-card-body">
             <div class="demo-card-top">
               <span class="demo-card-name">verlet-cloth</span>
-              <span class="tag">Physics</span>
-              <span class="tag">Verlet</span>
+              <span class="demo-card-tags"><span class="tag">Physics</span><span class="tag">Verlet</span></span>
             </div>
             <p class="demo-card-desc">A grid of points connected by distance constraints, simulated with Verlet integration. Drag to interact with the cloth.</p>
             <p class="demo-card-hint">Click and drag on the cloth</p>
@@ -1240,8 +1240,7 @@
           <div class="demo-card-body">
             <div class="demo-card-top">
               <span class="demo-card-name">draggable-cards</span>
-              <span class="tag">Gesture</span>
-              <span class="tag">Inertia</span>
+              <span class="demo-card-tags"><span class="tag">Gesture</span><span class="tag">Inertia</span></span>
             </div>
             <p class="demo-card-desc">Drag cards with momentum. Release to see inertia carry the card forward, with spring-damped settling.</p>
             <p class="demo-card-hint">Drag the cards around</p>
@@ -1269,8 +1268,7 @@
           <div class="demo-card-body">
             <div class="demo-card-top">
               <span class="demo-card-name">flow-field</span>
-              <span class="tag">Generative</span>
-              <span class="tag">Noise</span>
+              <span class="demo-card-tags"><span class="tag">Generative</span><span class="tag">Noise</span></span>
             </div>
             <p class="demo-card-desc">Particles follow a Perlin noise flow field, creating organic, wind-like patterns colored by the token palette.</p>
             <p class="demo-card-hint">Watch the flow emerge</p>
@@ -1336,7 +1334,7 @@
           <div class="demo-card-body">
             <div class="demo-card-top">
               <span class="demo-card-name">magnetic-buttons</span>
-              <span class="tag">Cursor</span>
+              <span class="demo-card-tags"><span class="tag">Cursor</span></span>
             </div>
             <p class="demo-card-desc">Buttons that are attracted to your cursor when you hover nearby. The pull increases as you get closer.</p>
             <p class="demo-card-hint">Move cursor near the buttons</p>
@@ -1366,8 +1364,7 @@
           <div class="demo-card-body">
             <div class="demo-card-top">
               <span class="demo-card-name">tilt-cards</span>
-              <span class="tag">3D</span>
-              <span class="tag">Perspective</span>
+              <span class="demo-card-tags"><span class="tag">3D</span><span class="tag">Perspective</span></span>
             </div>
             <p class="demo-card-desc">Cards respond to mouse position with 3D perspective rotation. Move your cursor across the card surface.</p>
             <p class="demo-card-hint">Hover over the cards</p>
@@ -1382,7 +1379,7 @@
           <div class="demo-card-body">
             <div class="demo-card-top">
               <span class="demo-card-name">ripple-effect</span>
-              <span class="tag">Click</span>
+              <span class="demo-card-tags"><span class="tag">Click</span></span>
             </div>
             <p class="demo-card-desc">Material-style ripple effect on click. Ripple expands from click point with token-colored rings.</p>
             <p class="demo-card-hint">Click anywhere on the stage</p>
@@ -1463,7 +1460,7 @@
           <div class="demo-card-body">
             <div class="demo-card-top">
               <span class="demo-card-name">gooey-button</span>
-              <span class="tag">SVG Filter</span>
+              <span class="demo-card-tags"><span class="tag">SVG Filter</span></span>
             </div>
             <p class="demo-card-desc">SVG filter metaballs creating a liquid/gooey effect. Blobs merge and separate from the button on hover.</p>
             <p class="demo-card-hint">Hover over the button</p>
@@ -1492,7 +1489,7 @@
           <div class="demo-card-body">
             <div class="demo-card-top">
               <span class="demo-card-name">emoji-rain</span>
-              <span class="tag">Fun</span>
+              <span class="demo-card-tags"><span class="tag">Fun</span></span>
             </div>
             <p class="demo-card-desc">Cascading emojis with rotation, varying sizes, and gentle swaying. Pure celebration.</p>
             <p class="demo-card-hint">Click Rain! to start</p>
@@ -1507,8 +1504,7 @@
           <div class="demo-card-body">
             <div class="demo-card-top">
               <span class="demo-card-name">matrix-rain</span>
-              <span class="tag">Fun</span>
-              <span class="tag">Canvas</span>
+              <span class="demo-card-tags"><span class="tag">Fun</span><span class="tag">Canvas</span></span>
             </div>
             <p class="demo-card-desc">Digital character cascade in the style of The Matrix. Uses token green for an on-brand digital rain.</p>
             <p class="demo-card-hint">Watch the characters fall</p>
@@ -1523,8 +1519,7 @@
           <div class="demo-card-body">
             <div class="demo-card-top">
               <span class="demo-card-name">aurora-gradient</span>
-              <span class="tag">Generative</span>
-              <span class="tag">Gradient</span>
+              <span class="demo-card-tags"><span class="tag">Generative</span><span class="tag">Gradient</span></span>
             </div>
             <p class="demo-card-desc">Animated mesh gradients using token colors to create shifting aurora/nebula effects. Soft, dreamy, organic.</p>
             <p class="demo-card-hint">Watch the colors shift</p>
@@ -1560,9 +1555,7 @@
           <div class="demo-card-body">
             <div class="demo-card-top">
               <span class="demo-card-name">spring-confetti</span>
-              <span class="tag">Combined</span>
-              <span class="tag">Spring</span>
-              <span class="tag">Particles</span>
+              <span class="demo-card-tags"><span class="tag">Combined</span><span class="tag">Spring</span><span class="tag">Particles</span></span>
             </div>
             <p class="demo-card-desc">A spring-animated button that fires confetti on click. Combines the spring press effect with the particle cannon for a celebration moment.</p>
             <p class="demo-card-hint">Click Celebrate! for the full effect</p>
