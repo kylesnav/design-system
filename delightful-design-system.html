@@ -3274,105 +3274,6 @@
     }
 
     /* ==========================================================================
-       DATA VISUALIZATION
-       ========================================================================== */
-    .chart-wrapper {
-      background: var(--bg-surface);
-      border: 2px solid var(--border-default);
-      border-radius: var(--radius-lg);
-      padding: var(--space-6);
-    }
-
-    .chart-title {
-      font-size: 0.875rem;
-      font-weight: 600;
-      margin-bottom: var(--space-4);
-    }
-
-    .bar-chart {
-      display: flex;
-      gap: var(--space-3);
-      height: 160px;
-      padding-top: var(--space-4);
-    }
-
-    .bar-col {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-end;
-      gap: var(--space-1);
-      height: 100%;
-    }
-
-    .bar {
-      width: 100%;
-      border-radius: var(--radius-sm) var(--radius-sm) 0 0;
-      min-height: 4px;
-      transition: height var(--motion-deliberate) var(--ease-smooth);
-    }
-
-    .bar-label {
-      font-size: 0.625rem;
-      font-family: var(--font-mono);
-      color: var(--text-muted);
-    }
-
-    .kpi-card {
-      background: var(--bg-surface);
-      border: 2px solid var(--border-default);
-      border-radius: var(--radius-lg);
-      padding: var(--space-6);
-      border-top: 3px solid var(--accent-primary);
-    }
-
-    .kpi-value {
-      font-size: var(--step-3);
-      font-weight: 700;
-      letter-spacing: var(--tracking-tighter);
-      line-height: 1;
-      margin-bottom: var(--space-1);
-    }
-
-    .kpi-label {
-      font-size: 0.8125rem;
-      color: var(--text-secondary);
-    }
-
-    .kpi-change {
-      font-size: 0.75rem;
-      font-weight: 600;
-      margin-top: var(--space-2);
-    }
-
-    .kpi-up, .kpi-down {
-      /* Color set per-card via inline style to match card accent */
-    }
-
-    .donut-chart {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .sparkline {
-      display: inline-block;
-      vertical-align: middle;
-    }
-
-    /* Heatmap */
-    .heatmap {
-      display: grid;
-      gap: 2px;
-    }
-
-    .heat-cell {
-      border-radius: 2px;
-      aspect-ratio: 1;
-    }
-
-    /* ==========================================================================
        MOTION SECTION
        ========================================================================== */
     .easing-track {
@@ -4042,7 +3943,6 @@
         <li><a href="#spacing">Spacing</a></li>
         <li><a href="#components">Components</a></li>
         <li><a href="#icons">Icons</a></li>
-        <li><a href="#dataviz">Data Viz</a></li>
         <li><a href="#motion">Motion</a></li>
         <li><a href="#micro">Micro</a></li>
         <li><a href="#loading">Loading</a></li>
@@ -4221,18 +4121,7 @@
               <polyline points="20 6 9 17 4 12" />
             </svg></div>
         </a>
-        <a href="#dataviz" class="tile tile-pink anim-in anim-d7"><span class="tile-num">07</span>
-          <div class="tile-name">Data Visualization</div>
-          <div class="tile-desc">Charts, KPIs, heatmaps, sparklines</div>
-          <div class="tile-anim">
-            <div class="tile-anim-bar" style="width:6px;background:var(--accent-primary);height:60%"></div>
-            <div class="tile-anim-bar" style="width:6px;background:var(--accent-primary);height:80%"></div>
-            <div class="tile-anim-bar" style="width:6px;background:var(--accent-primary);height:45%"></div>
-            <div class="tile-anim-bar" style="width:6px;background:var(--accent-primary);height:90%"></div>
-            <div class="tile-anim-bar" style="width:6px;background:var(--accent-primary);height:70%"></div>
-          </div>
-        </a>
-        <a href="#motion" class="tile tile-gold anim-in anim-d8"><span class="tile-num">08</span>
+        <a href="#motion" class="tile tile-gold anim-in anim-d7"><span class="tile-num">07</span>
           <div class="tile-name">Motion & Easing</div>
           <div class="tile-desc">Durations, curves, spring physics</div>
           <div class="tile-anim">
@@ -4241,7 +4130,7 @@
             </div>
           </div>
         </a>
-        <a href="#micro" class="tile tile-cyan anim-in anim-d9"><span class="tile-num">09</span>
+        <a href="#micro" class="tile tile-cyan anim-in anim-d8"><span class="tile-num">08</span>
           <div class="tile-name">Micro-Interactions</div>
           <div class="tile-desc">Press, toggle, checkbox, shake, success</div>
           <div class="tile-anim">
@@ -4251,7 +4140,7 @@
             </div>
           </div>
         </a>
-        <a href="#loading" class="tile tile-pink anim-in anim-d10"><span class="tile-num">10</span>
+        <a href="#loading" class="tile tile-pink anim-in anim-d9"><span class="tile-num">09</span>
           <div class="tile-name">Loading & Transitions</div>
           <div class="tile-desc">Skeletons, page transitions, reveals</div>
           <div class="tile-anim">
@@ -4260,7 +4149,7 @@
             </div>
           </div>
         </a>
-        <a href="#overlays" class="tile tile-gold anim-in anim-d11"><span class="tile-num">11</span>
+        <a href="#overlays" class="tile tile-gold anim-in anim-d10"><span class="tile-num">10</span>
           <div class="tile-name">Overlays & Feedback</div>
           <div class="tile-desc">Toasts, modal, drawer, alerts</div>
           <div class="tile-anim">
@@ -4269,7 +4158,7 @@
             </div>
           </div>
         </a>
-        <a href="#signature" class="tile tile-cyan anim-in anim-d12"><span class="tile-num">12</span>
+        <a href="#signature" class="tile tile-cyan anim-in anim-d11"><span class="tile-num">11</span>
           <div class="tile-name">Signature Effects</div>
           <div class="tile-desc">Magnetic, tilt, spotlight, color shift</div>
           <div class="tile-anim">
@@ -5794,272 +5683,12 @@
     </section>
 
     <!-- ========================================================================
-     SECTION 7 — DATA VISUALIZATION
-     ======================================================================== -->
-    <section id="dataviz" class="ds-section scroll-reveal">
-      <div class="section-header">
-        <div class="section-overline overline-pink"><span class="status-dot"
-            style="background:var(--accent-primary)"></span> 07 — Data Visualization</div>
-        <h2 class="section-title">Charts, KPIs, and data patterns</h2>
-        <p class="section-desc">Purposeful data visualization using the design system's color tokens. Charts animate on
-          scroll entry.</p>
-      </div>
-
-      <div class="subsection">
-        <div class="subsection-label">KPI Cards</div>
-        <div class="grid-3">
-          <div class="kpi-card">
-            <div class="kpi-value">2,847</div>
-            <div class="kpi-label">Active Users</div>
-            <div class="kpi-change kpi-up" style="color:var(--accent-primary)">+12.3% from last month</div>
-          </div>
-          <div class="kpi-card" style="border-top-color:var(--accent-gold)">
-            <div class="kpi-value">94.2%</div>
-            <div class="kpi-label">Uptime</div>
-            <div class="kpi-change kpi-up" style="color:var(--accent-gold)">+0.8% from last quarter</div>
-          </div>
-          <div class="kpi-card" style="border-top-color:var(--accent-cyan)">
-            <div class="kpi-value">23ms</div>
-            <div class="kpi-label">Response Time</div>
-            <div class="kpi-change kpi-up" style="color:var(--accent-cyan)">4.2ms faster</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="subsection">
-        <div class="grid-2">
-          <div class="chart-wrapper">
-            <div class="chart-title">Revenue by Month</div>
-            <div class="bar-chart" id="bar-chart">
-              <div class="bar-col">
-                <div class="bar" style="height:55%;background:var(--accent-primary)"></div>
-                <div class="bar-label">Jan</div>
-              </div>
-              <div class="bar-col">
-                <div class="bar" style="height:72%;background:var(--accent-gold)"></div>
-                <div class="bar-label">Feb</div>
-              </div>
-              <div class="bar-col">
-                <div class="bar" style="height:61%;background:var(--accent-cyan)"></div>
-                <div class="bar-label">Mar</div>
-              </div>
-              <div class="bar-col">
-                <div class="bar" style="height:84%;background:var(--accent-primary)"></div>
-                <div class="bar-label">Apr</div>
-              </div>
-              <div class="bar-col">
-                <div class="bar" style="height:68%;background:var(--accent-gold)"></div>
-                <div class="bar-label">May</div>
-              </div>
-              <div class="bar-col">
-                <div class="bar" style="height:92%;background:var(--accent-cyan)"></div>
-                <div class="bar-label">Jun</div>
-              </div>
-            </div>
-          </div>
-          <div class="chart-wrapper">
-            <div class="chart-title">Component Adoption</div>
-            <div style="display:flex;align-items:center;justify-content:center;padding:var(--space-6)">
-              <svg width="160" height="160" viewBox="0 0 160 160">
-                <circle cx="80" cy="80" r="60" fill="none" stroke="var(--border-subtle)" stroke-width="20" />
-                <circle cx="80" cy="80" r="60" fill="none" stroke="var(--accent-primary)" stroke-width="20"
-                  stroke-dasharray="226 377" stroke-dashoffset="0" transform="rotate(-90 80 80)"
-                  stroke-linecap="round" />
-                <circle cx="80" cy="80" r="60" fill="none" stroke="var(--accent-gold)" stroke-width="20"
-                  stroke-dasharray="94 377" stroke-dashoffset="-226" transform="rotate(-90 80 80)"
-                  stroke-linecap="round" />
-                <circle cx="80" cy="80" r="60" fill="none" stroke="var(--accent-cyan)" stroke-width="20"
-                  stroke-dasharray="57 377" stroke-dashoffset="-320" transform="rotate(-90 80 80)"
-                  stroke-linecap="round" />
-                <text x="80" y="76" text-anchor="middle" font-family="var(--font-sans)" font-size="24" font-weight="700"
-                  fill="var(--text-primary)">86%</text>
-                <text x="80" y="96" text-anchor="middle" font-family="var(--font-sans)" font-size="11"
-                  fill="var(--text-muted)">adopted</text>
-              </svg>
-            </div>
-            <div class="flex-wrap-gap" style="justify-content:center;gap:var(--space-4);font-size:0.75rem">
-              <span><span class="status-dot" style="background:var(--accent-primary);margin-right:4px"></span>Buttons
-                60%</span>
-              <span><span class="status-dot" style="background:var(--accent-gold);margin-right:4px"></span>Cards
-                25%</span>
-              <span><span class="status-dot" style="background:var(--accent-cyan);margin-right:4px"></span>Other
-                15%</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="subsection">
-        <div class="subsection-label">Line Chart with Area Fill</div>
-        <div class="chart-wrapper">
-          <div class="chart-title">Performance Over Time</div>
-          <svg viewBox="0 0 600 200" width="100%" style="max-height:200px">
-            <defs>
-              <linearGradient id="area-fill" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="var(--accent-primary)" stop-opacity="0.25" />
-                <stop offset="100%" stop-color="var(--accent-primary)" stop-opacity="0.02" />
-              </linearGradient>
-            </defs>
-            <!-- Grid lines -->
-            <line x1="40" y1="20" x2="580" y2="20" stroke="var(--border-subtle)" stroke-width="0.5" />
-            <line x1="40" y1="60" x2="580" y2="60" stroke="var(--border-subtle)" stroke-width="0.5" />
-            <line x1="40" y1="100" x2="580" y2="100" stroke="var(--border-subtle)" stroke-width="0.5" />
-            <line x1="40" y1="140" x2="580" y2="140" stroke="var(--border-subtle)" stroke-width="0.5" />
-            <line x1="40" y1="180" x2="580" y2="180" stroke="var(--border-subtle)" stroke-width="0.5" />
-            <!-- Y-axis labels -->
-            <text x="32" y="24" text-anchor="end" font-family="var(--font-mono)" font-size="9"
-              fill="var(--text-muted)">100</text>
-            <text x="32" y="64" text-anchor="end" font-family="var(--font-mono)" font-size="9"
-              fill="var(--text-muted)">75</text>
-            <text x="32" y="104" text-anchor="end" font-family="var(--font-mono)" font-size="9"
-              fill="var(--text-muted)">50</text>
-            <text x="32" y="144" text-anchor="end" font-family="var(--font-mono)" font-size="9"
-              fill="var(--text-muted)">25</text>
-            <text x="32" y="184" text-anchor="end" font-family="var(--font-mono)" font-size="9"
-              fill="var(--text-muted)">0</text>
-            <!-- Area fill -->
-            <path d="M 40 140 L 130 100 L 220 120 L 310 60 L 400 80 L 490 40 L 580 30 L 580 180 L 40 180 Z"
-              fill="url(#area-fill)" id="line-area" />
-            <!-- Line -->
-            <polyline points="40,140 130,100 220,120 310,60 400,80 490,40 580,30" fill="none"
-              stroke="var(--accent-primary)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
-              id="line-path" style="stroke-dasharray:900;stroke-dashoffset:900" />
-            <!-- Data points -->
-            <circle cx="40" cy="140" r="3.5" fill="var(--bg-surface)" stroke="var(--accent-primary)" stroke-width="2" />
-            <circle cx="130" cy="100" r="3.5" fill="var(--bg-surface)" stroke="var(--accent-primary)" stroke-width="2" />
-            <circle cx="220" cy="120" r="3.5" fill="var(--bg-surface)" stroke="var(--accent-primary)" stroke-width="2" />
-            <circle cx="310" cy="60" r="3.5" fill="var(--bg-surface)" stroke="var(--accent-primary)" stroke-width="2" />
-            <circle cx="400" cy="80" r="3.5" fill="var(--bg-surface)" stroke="var(--accent-primary)" stroke-width="2" />
-            <circle cx="490" cy="40" r="3.5" fill="var(--bg-surface)" stroke="var(--accent-primary)" stroke-width="2" />
-            <circle cx="580" cy="30" r="3.5" fill="var(--bg-surface)" stroke="var(--accent-primary)" stroke-width="2" />
-            <!-- X-axis labels -->
-            <text x="40" y="196" text-anchor="middle" font-family="var(--font-mono)" font-size="9"
-              fill="var(--text-muted)">Mon</text>
-            <text x="130" y="196" text-anchor="middle" font-family="var(--font-mono)" font-size="9"
-              fill="var(--text-muted)">Tue</text>
-            <text x="220" y="196" text-anchor="middle" font-family="var(--font-mono)" font-size="9"
-              fill="var(--text-muted)">Wed</text>
-            <text x="310" y="196" text-anchor="middle" font-family="var(--font-mono)" font-size="9"
-              fill="var(--text-muted)">Thu</text>
-            <text x="400" y="196" text-anchor="middle" font-family="var(--font-mono)" font-size="9"
-              fill="var(--text-muted)">Fri</text>
-            <text x="490" y="196" text-anchor="middle" font-family="var(--font-mono)" font-size="9"
-              fill="var(--text-muted)">Sat</text>
-            <text x="580" y="196" text-anchor="middle" font-family="var(--font-mono)" font-size="9"
-              fill="var(--text-muted)">Sun</text>
-          </svg>
-        </div>
-      </div>
-
-      <div class="subsection">
-        <div class="subsection-label">Sparklines in Context</div>
-        <div class="table-wrap">
-          <table class="data-table">
-            <thead>
-              <tr>
-                <th>Metric</th>
-                <th>Trend (7d)</th>
-                <th>Current</th>
-                <th>Change</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td style="font-weight:550">Page Views</td>
-                <td><svg class="sparkline" width="80" height="24" viewBox="0 0 80 24">
-                    <polyline points="0,18 12,14 24,16 36,8 48,12 60,6 72,4 80,2" fill="none"
-                      stroke="var(--accent-primary)" stroke-width="1.5" stroke-linecap="round" />
-                  </svg></td>
-                <td class="mono">12,847</td>
-                <td><span class="kpi-up" style="font-size:0.75rem;font-weight:600">+14.2%</span></td>
-              </tr>
-              <tr>
-                <td style="font-weight:550">Avg Session</td>
-                <td><svg class="sparkline" width="80" height="24" viewBox="0 0 80 24">
-                    <polyline points="0,16 12,12 24,14 36,10 48,8 60,10 72,6 80,4" fill="none"
-                      stroke="var(--accent-gold)" stroke-width="1.5" stroke-linecap="round" />
-                  </svg></td>
-                <td class="mono">4m 32s</td>
-                <td><span class="kpi-up" style="font-size:0.75rem;font-weight:600">+8.7%</span></td>
-              </tr>
-              <tr>
-                <td style="font-weight:550">Conversions</td>
-                <td><svg class="sparkline" width="80" height="24" viewBox="0 0 80 24">
-                    <polyline points="0,14 12,16 24,10 36,12 48,6 60,8 72,4 80,6" fill="none"
-                      stroke="var(--accent-cyan)" stroke-width="1.5" stroke-linecap="round" />
-                  </svg></td>
-                <td class="mono">2.4%</td>
-                <td><span class="kpi-up" style="font-size:0.75rem;font-weight:600">+0.3%</span></td>
-              </tr>
-              <tr>
-                <td style="font-weight:550">Bounce Rate</td>
-                <td><svg class="sparkline" width="80" height="24" viewBox="0 0 80 24">
-                    <polyline points="0,8 12,10 24,6 36,14 48,12 60,16 72,18 80,20" fill="none"
-                      stroke="var(--accent-danger)" stroke-width="1.5" stroke-linecap="round" />
-                  </svg></td>
-                <td class="mono">34.8%</td>
-                <td><span class="kpi-down" style="font-size:0.75rem;font-weight:600">+2.1%</span></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <div class="subsection">
-        <div class="subsection-label">Color Palettes for Data</div>
-        <div class="grid-3" style="margin-bottom:var(--space-6)">
-          <div>
-            <div class="state-label" style="margin-bottom:var(--space-2)">Sequential (Pink)</div>
-            <div style="display:flex;border-radius:var(--radius-sm);overflow:hidden">
-              <div style="flex:1;height:32px;background:var(--primitive-pink-100)"></div>
-              <div style="flex:1;height:32px;background:var(--primitive-pink-200)"></div>
-              <div style="flex:1;height:32px;background:var(--primitive-pink-300)"></div>
-              <div style="flex:1;height:32px;background:var(--primitive-pink-400)"></div>
-              <div style="flex:1;height:32px;background:var(--primitive-pink-500)"></div>
-            </div>
-          </div>
-          <div>
-            <div class="state-label" style="margin-bottom:var(--space-2)">Categorical</div>
-            <div style="display:flex;border-radius:var(--radius-sm);overflow:hidden">
-              <div style="flex:1;height:32px;background:var(--accent-primary)"></div>
-              <div style="flex:1;height:32px;background:var(--accent-gold)"></div>
-              <div style="flex:1;height:32px;background:var(--accent-cyan)"></div>
-              <div style="flex:1;height:32px;background:var(--accent-green)"></div>
-              <div style="flex:1;height:32px;background:var(--accent-danger)"></div>
-              <div style="flex:1;height:32px;background:var(--primitive-pink-300)"></div>
-              <div style="flex:1;height:32px;background:var(--primitive-gold-300)"></div>
-              <div style="flex:1;height:32px;background:var(--primitive-cyan-300)"></div>
-            </div>
-          </div>
-          <div>
-            <div class="state-label" style="margin-bottom:var(--space-2)">Diverging (Red → Pink)</div>
-            <div style="display:flex;border-radius:var(--radius-sm);overflow:hidden">
-              <div style="flex:1;height:32px;background:var(--primitive-red-500)"></div>
-              <div style="flex:1;height:32px;background:var(--primitive-red-300)"></div>
-              <div style="flex:1;height:32px;background:var(--primitive-neutral-200)"></div>
-              <div style="flex:1;height:32px;background:var(--primitive-pink-300)"></div>
-              <div style="flex:1;height:32px;background:var(--primitive-pink-500)"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="subsection">
-        <div class="subsection-label">Heatmap — Weekly Activity</div>
-        <div class="chart-wrapper">
-          <div class="heatmap" id="heatmap" style="grid-template-columns:repeat(7,1fr);max-width:400px">
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ========================================================================
-     SECTION 8 — MOTION & EASING
+     SECTION 7 — MOTION & EASING
      ======================================================================== -->
     <section id="motion" class="ds-section scroll-reveal">
       <div class="section-header">
         <div class="section-overline overline-gold"><span class="status-dot"
-            style="background:var(--accent-gold)"></span> 08 — Motion & Easing</div>
+            style="background:var(--accent-gold)"></span> 07 — Motion & Easing</div>
         <h2 class="section-title">Duration and easing tokens</h2>
         <p class="section-desc">Default: no motion. Motion only for users who haven't opted out. Under 240ms for most
           interactions.</p>
@@ -6242,12 +5871,12 @@
     </section>
 
     <!-- ========================================================================
-     SECTION 9 — MICRO-INTERACTIONS
+     SECTION 8 — MICRO-INTERACTIONS
      ======================================================================== -->
     <section id="micro" class="ds-section scroll-reveal">
       <div class="section-header">
         <div class="section-overline overline-cyan"><span class="status-dot"
-            style="background:var(--accent-cyan)"></span> 09 — Micro-Interactions</div>
+            style="background:var(--accent-cyan)"></span> 08 — Micro-Interactions</div>
         <h2 class="section-title">Feel every interaction</h2>
         <p class="section-desc">Button press scale, toggle spring, checkbox draw, input focus glow, error shake, success
           feedback — all live and interactive below.</p>
@@ -6307,12 +5936,12 @@
     </section>
 
     <!-- ========================================================================
-     SECTION 10 — LOADING & TRANSITIONS
+     SECTION 9 — LOADING & TRANSITIONS
      ======================================================================== -->
     <section id="loading" class="ds-section scroll-reveal">
       <div class="section-header">
         <div class="section-overline overline-pink"><span class="status-dot"
-            style="background:var(--accent-primary)"></span> 10 — Loading & Transitions</div>
+            style="background:var(--accent-primary)"></span> 09 — Loading & Transitions</div>
         <h2 class="section-title">Skeleton loading and staggered reveals</h2>
         <p class="section-desc">Shimmer and pulse skeleton patterns for loading states. Staggered content reveals with
           spring physics.</p>
@@ -6457,12 +6086,12 @@
     </section>
 
     <!-- ========================================================================
-     SECTION 11 — OVERLAYS & FEEDBACK
+     SECTION 10 — OVERLAYS & FEEDBACK
      ======================================================================== -->
     <section id="overlays" class="ds-section scroll-reveal">
       <div class="section-header">
         <div class="section-overline overline-gold"><span class="status-dot"
-            style="background:var(--accent-gold)"></span> 11 — Overlays & Feedback</div>
+            style="background:var(--accent-gold)"></span> 10 — Overlays & Feedback</div>
         <h2 class="section-title">Toasts, modals, drawers, alerts</h2>
         <p class="section-desc">Spring-powered overlays with stack management, swipe-to-dismiss, and progress-based
           auto-dismiss.</p>
@@ -6655,12 +6284,12 @@
     </section>
 
     <!-- ========================================================================
-     SECTION 12 — SIGNATURE EFFECTS
+     SECTION 11 — SIGNATURE EFFECTS
      ======================================================================== -->
     <section id="signature" class="ds-section scroll-reveal">
       <div class="section-header">
         <div class="section-overline overline-cyan"><span class="status-dot"
-            style="background:var(--accent-cyan)"></span> 12 — Signature Effects</div>
+            style="background:var(--accent-cyan)"></span> 11 — Signature Effects</div>
         <h2 class="section-title">The last 2% of polish</h2>
         <p class="section-desc">Distinctive interactions that define the brand. Each effect pushes boundaries while
           staying tasteful.</p>
@@ -7573,21 +7202,6 @@
         ptCurrentPage = ptCurrentPage === 'a' ? 'b' : 'a';
       };
 
-      // === Line Chart Path Draw ===
-      const linePath = document.getElementById('line-path');
-      if (linePath && !prefersReduced) {
-        const lineObserver = new IntersectionObserver(entries => {
-          entries.forEach(e => {
-            if (e.isIntersecting) {
-              linePath.style.transition = 'stroke-dashoffset 1.2s cubic-bezier(0.22,1,0.36,1)';
-              linePath.style.strokeDashoffset = '0';
-              lineObserver.unobserve(e.target);
-            }
-          });
-        }, { threshold: 0.3 });
-        lineObserver.observe(linePath.closest('.chart-wrapper'));
-      }
-
       // === Command Palette ===
       const cmdpalPanel = document.getElementById('cmdpal-panel');
       const cmdpalInput = document.getElementById('cmdpal-input');
@@ -7701,19 +7315,6 @@
           row.classList.toggle('selected', isChecked);
         });
       };
-
-      // === Heatmap ===
-      const heatmap = document.getElementById('heatmap');
-      if (heatmap) {
-        const data = [3, 5, 2, 7, 4, 1, 6, 8, 3, 5, 2, 9, 4, 3, 1, 6, 8, 4, 2, 7, 5, 4, 2, 9, 5, 3, 8, 6, 7, 4, 1, 6, 8, 3, 2];
-        data.forEach(v => {
-          const cell = document.createElement('div');
-          cell.className = 'heat-cell';
-          cell.style.background = `oklch(0.560 0.280 350 / ${v / 10})`;
-          cell.style.height = '24px';
-          heatmap.appendChild(cell);
-        });
-      }
 
       // === Stepper Demo ===
       const stepperSteps = document.querySelectorAll('#stepper-track .stepper-step');
