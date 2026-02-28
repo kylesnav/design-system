@@ -1,43 +1,28 @@
 # iTerm2 — Delightful Theme
 
-iTerm2 color profile derived from the Delightful Design System.
+iTerm2 color profiles derived from the Delightful Design System.
 
 ![Delightful iTerm2 theme](screenshot.png)
 
 ## Contents
 
 ```
-Delightful.itermcolors        iTerm2 color profile — light (XML plist)
-Delightful-Dark.itermcolors   iTerm2 color profile — dark (XML plist)
+colors/
+  Delightful.itermcolors        Light color profile (XML plist)
+  Delightful-Dark.itermcolors   Dark color profile (XML plist)
+scripts/
+  generate-profiles.mjs         Generates profiles from hex palette
 ```
 
-## Quick Start
+## Regenerate Profiles
 
-The fastest way to set up everything (iTerm2 + Starship + zsh) is the setup script:
+If primitive token hex values change, regenerate the profiles:
 
 ```bash
-bash scripts/setup-terminal.sh
+node iterm2/scripts/generate-profiles.mjs
 ```
 
-It imports the color profile, maps Shift+Enter for Claude Code, installs Starship, and tells you about any manual steps. Or install manually:
-
-```bash
-# 1. Install Starship prompt
-brew install starship
-
-# 2. Copy Starship config
-cp shell/starship.toml ~/.config/starship.toml
-
-# 3. Add to ~/.zshrc (if not already present)
-eval "$(starship init zsh)"
-
-# 4. Import iTerm2 color profile (see below)
-
-# 5. Map Shift+Enter to newline (see Key Mappings below)
-#    Required for multi-line input in Claude Code.
-
-# 6. Restart iTerm2
-```
+The hex palette in the script matches the Ghostty theme files exactly — update one, update both.
 
 ## Install Color Profile
 
@@ -47,13 +32,13 @@ eval "$(starship init zsh)"
 2. Go to **Settings > Profiles > Colors**
 3. Click the **Color Presets...** dropdown (bottom right)
 4. Select **Import...**
-5. Navigate to `Delightful.itermcolors` and open it
-6. Click **Color Presets...** again and select **Delightful**
+5. Navigate to `colors/Delightful.itermcolors` (or `Delightful-Dark.itermcolors`) and open it
+6. Click **Color Presets...** again and select **Delightful** (or **Delightful-Dark**)
 
 ### Import via command line
 
 ```bash
-open Delightful.itermcolors
+open colors/Delightful.itermcolors
 ```
 
 This opens the file in iTerm2 and registers the color preset. Then select it in Settings > Profiles > Colors > Color Presets.
@@ -102,28 +87,28 @@ After applying the iTerm2 theme, run `/config` in Claude Code and set the theme 
 
 ## Token Mapping
 
-| Terminal Color | Design Token | Hex |
-|----------------|--------------------------|-----------|
-| Background | bg-page (light) | `#fdf8f3` |
-| Foreground | text-primary (light) | `#1b150f` |
-| Cursor | accent-primary (pink) | `#f600a3` |
-| Selection BG | accent-primary-subtle | `#ffe6f4` |
-| Black | neutral-950 | `#16100c` |
-| Red | red-400 | `#ed324b` |
-| Green | green-400 | `#22a448` |
-| Yellow | gold-400 | `#febf00` |
-| Blue | cyan-400 | `#00a6c0` |
-| Magenta | pink-400 | `#f600a3` |
-| Cyan | cyan-300 | `#17c0d6` |
-| White | neutral-100 | `#f6f1eb` |
-| Bright Black | neutral-600 | `#615d58` |
-| Bright Red | red-300 | `#ff6e74` |
-| Bright Green | green-300 | `#60c072` |
-| Bright Yellow | gold-300 | `#ffcb3f` |
-| Bright Blue | cyan-200 | `#88ddec` |
-| Bright Magenta | pink-300 | `#ff5cb8` |
-| Bright Cyan | cyan-200 | `#88ddec` |
-| Bright White | white | `#ffffff` |
+| Terminal Color | Design Token | Light Hex | Dark Hex |
+|----------------|--------------------------|-----------|-----------|
+| Background | bg-page | `#fdf8f3` | `#1e1a16` |
+| Foreground | text-primary | `#1b150f` | `#eee9e3` |
+| Cursor | accent-primary (pink) | `#f600a3` | `#ff4fa8` |
+| Selection BG | accent-primary-subtle | `#ffe6f4` | `#3d2235` |
+| Black | neutral-950 | `#16100c` | `#1e1a16` |
+| Red | red-400 | `#ed324b` | `#e8554c` |
+| Green | green-400 | `#22a448` | `#3aad5f` |
+| Yellow | gold-400 | `#febf00` | `#f5c526` |
+| Blue | cyan-400 | `#00a6c0` | `#5cb8d6` |
+| Magenta | pink-400 | `#f600a3` | `#ff4fa8` |
+| Cyan | cyan-300 | `#17c0d6` | `#5cb8d6` |
+| White | neutral-100 | `#f6f1eb` | `#eee9e3` |
+| Bright Black | neutral-600 | `#615d58` | `#615d58` |
+| Bright Red | red-300 | `#ff6e74` | `#ff6e74` |
+| Bright Green | green-300 | `#60c072` | `#60c072` |
+| Bright Yellow | gold-300 | `#ffcb3f` | `#ffcb3f` |
+| Bright Blue | cyan-200 | `#88ddec` | `#88ddec` |
+| Bright Magenta | pink-300 | `#ff5cb8` | `#ff7cc6` |
+| Bright Cyan | cyan-200 | `#88ddec` | `#88ddec` |
+| Bright White | white | `#ffffff` | `#ffffff` |
 
 Blue slots use the cyan hue at different lightness levels since Delightful has no dedicated blue.
 
