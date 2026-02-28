@@ -41,9 +41,15 @@ When `obsidian-theme/` is updated, copy **all** its files (`theme.css`, `manifes
 
 The VSCode theme lives only in this repo (`vscode-theme/`). Theme JSON files are generated from OKLCH tokens via `vscode-theme/scripts/generate-themes.mjs` (requires `culori`). If primitive or semantic token values change, regenerate the themes.
 
-## Ghostty
+## Ghostty External Repo Sync
 
-The Ghostty terminal theme lives only in this repo (`ghostty/`). There is no external sync repo. It contains hex color values derived from the OKLCH primitives — if primitive token values change, the hex mappings in `ghostty-theme` must be recalculated.
+The Ghostty themes live in two places:
+- `ghostty/` in this repo (development copy — themes + personal config + shaders)
+- `delightful-ghostty` repo (distribution copy — themes + README only)
+
+When `ghostty/themes/` or `ghostty/README.md` is updated, copy them to the `delightful-ghostty` repo and commit/push both repos. The personal `config` and `shaders/` are NOT synced — they stay in the monorepo only.
+
+The theme files (`themes/delightful-light`, `themes/delightful-dark`) contain color-only definitions installable via Ghostty's `theme =` directive. They contain hex color values derived from the OKLCH primitives — if primitive token values change, the hex mappings must be recalculated.
 
 ## iTerm2
 
