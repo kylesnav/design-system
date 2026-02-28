@@ -1,10 +1,10 @@
 # Delightful Design System
 
-A warm, neo-brutalist design system built on OKLCH color science. 3-tier token architecture (7 color families), 50+ components, full light/dark mode, @layer cascade architecture, native CSS nesting, container queries, a CSS motion system with 59 named animations, and a JS animation system with spring physics, FLIP transitions, particles, and gesture handling.
+A warm, neo-brutalist design system built on OKLCH color science. 3-tier token architecture (7 color families), 50+ components, full light/dark mode, @layer cascade architecture, native CSS nesting, container queries, a CSS motion system with 55+ named animations, and a JS animation system with spring physics, FLIP transitions, particles, and gesture handling.
 
 > **[Live Demo](https://kylesnav.github.io/delightful-design-system/delightful-design-system.html)** · **[Motion System](https://kylesnav.github.io/delightful-design-system/delightful-motion.html)** · **[Animation System](https://kylesnav.github.io/delightful-design-system/delightful-animation.html)** · **[Claude Code Plugin](https://github.com/kylesnav/delightful-claude-plugin)** · **[Obsidian Theme](https://github.com/kylesnav/obsidian-delightful)**
 
-![Delightful Design System — Light Mode](screenshots/design-system-light.png)
+![Delightful Design System](screenshots/preview.png)
 
 ## Ecosystem
 
@@ -47,13 +47,6 @@ Component     → Typography, spacing, radius, motion, button, toggle
 ```
 
 Components reference semantic tokens. Semantic tokens reference primitives. Nothing skips a tier.
-
-## Screenshots
-
-| Light Mode | Dark Mode |
-|:---:|:---:|
-| ![Light](screenshots/design-system-light.png) | ![Dark](screenshots/design-system-dark.png) |
-
 
 ## License
 

@@ -70,21 +70,21 @@ install_ghostty() {
   info "Ghostty config"
 
   if [[ -f "$config_file" ]]; then
-    if diff -q "$REPO_DIR/ghostty/ghostty-theme" "$config_file" &>/dev/null; then
+    if diff -q "$REPO_DIR/ghostty/config" "$config_file" &>/dev/null; then
       ok "Ghostty config already matches — skipping"
       return
     fi
     if confirm "Ghostty config exists at $config_file. Replace it?"; then
       cp "$config_file" "$config_file.backup.$(date +%s)"
       ok "Backed up existing config"
-      cp "$REPO_DIR/ghostty/ghostty-theme" "$config_file"
+      cp "$REPO_DIR/ghostty/config" "$config_file"
       ok "Ghostty config installed"
     else
       skip "Ghostty config — kept existing"
     fi
   else
     mkdir -p "$config_dir"
-    cp "$REPO_DIR/ghostty/ghostty-theme" "$config_file"
+    cp "$REPO_DIR/ghostty/config" "$config_file"
     ok "Ghostty config installed"
   fi
 
