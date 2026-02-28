@@ -10,3 +10,5 @@ playwright/.cache/
 color-audit.html
 verify-*.png
 version-history/
+sample.html
+.claude/settings.local.json
