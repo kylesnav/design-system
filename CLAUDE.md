@@ -45,11 +45,11 @@ The VSCode theme lives only in this repo (`vscode-theme/`). Theme JSON files are
 
 ## Ghostty External Repo Sync
 
-The Ghostty themes live in two places:
-- `ghostty/` in this repo (development copy — themes + personal config + shaders)
-- `delightful-ghostty` repo (distribution copy — themes + README only)
+The Ghostty config lives in two places:
+- `ghostty/` in this repo (development copy)
+- `delightful-ghostty` repo (distribution copy)
 
-When `ghostty/themes/` or `ghostty/README.md` is updated, copy them to the `delightful-ghostty` repo and commit/push both repos. The personal `config` and `shaders/` are NOT synced — they stay in the monorepo only.
+When any file in `ghostty/` is updated, copy **all** its contents (`themes/`, `config`, `shaders/`, `README.md`) to the `delightful-ghostty` repo and commit/push both repos.
 
 The theme files (`themes/delightful-light`, `themes/delightful-dark`) contain color-only definitions installable via Ghostty's `theme =` directive. They contain hex color values derived from the OKLCH primitives — if primitive token values change, the hex mappings must be recalculated.
 
@@ -58,7 +58,7 @@ The theme files (`themes/delightful-light`, `themes/delightful-dark`) contain co
 When asked to verify, check, or update distribution repos, diff these paths:
 - `claude-plugin/` vs `../delightful-claude-plugin/` (all contents)
 - `obsidian-theme/` vs `../obsidian-delightful/` (theme.css, manifest.json, README.md)
-- `ghostty/themes/` + `ghostty/README.md` vs `../delightful-ghostty/`
+- `ghostty/` vs `../delightful-ghostty/` (all contents)
 
 Report any files that differ. In sync mode, copy from source (this repo) to distribution and commit both.
 
