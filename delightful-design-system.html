@@ -414,26 +414,6 @@
         }
       }
 
-      @keyframes float {
-
-        0%,
-        100% {
-          transform: translate(0, 0);
-        }
-
-        25% {
-          transform: translate(5px, -8px);
-        }
-
-        50% {
-          transform: translate(-3px, -12px);
-        }
-
-        75% {
-          transform: translate(7px, -5px);
-        }
-      }
-
       @keyframes shimmer {
         0% {
           background-position: -200% 0;
@@ -672,20 +652,6 @@
         transition: background-color var(--motion-fast) var(--ease-out);
       }
 
-      .float-1 {
-        animation: float 9s ease-in-out infinite;
-      }
-
-      .float-2 {
-        animation: float 11s ease-in-out infinite reverse;
-        animation-delay: -4s;
-      }
-
-      .float-3 {
-        animation: float 13s ease-in-out infinite;
-        animation-delay: -7s;
-      }
-
       .feedback-enter {
         animation: scale-in var(--motion-fast) var(--ease-out) forwards;
       }
@@ -720,7 +686,7 @@
       top: 0;
       left: 0;
       right: 0;
-      height: 2px;
+      height: 3px;
       background: var(--accent-primary);
       transform-origin: left;
       transform: scaleX(0);
@@ -730,18 +696,14 @@
     @supports (animation-timeline: scroll()) {
       @media (prefers-reduced-motion: no-preference) {
         .scroll-progress {
-          animation: grow-bar linear;
+          animation: scroll-progress-fill linear;
           animation-timeline: scroll();
         }
 
-        @keyframes grow-bar {
-          from {
-            transform: scaleX(0);
-          }
-
-          to {
-            transform: scaleX(1);
-          }
+        @keyframes scroll-progress-fill {
+          0% { transform: scaleX(0); background-color: var(--accent-primary); }
+          99% { background-color: var(--accent-primary); }
+          100% { transform: scaleX(1); background-color: var(--accent-green); }
         }
 
         .scroll-reveal {
@@ -763,11 +725,8 @@
 
     .ds-section {
       padding: var(--space-20) 0;
-      border-bottom: 2px dashed var(--border-subtle);
-
-      &:last-of-type {
-        border-bottom: none;
-      }
+      content-visibility: auto;
+      contain-intrinsic-size: auto 500px; /* fallback; browser uses actual size after first render */
     }
 
     .section-header {
@@ -1224,6 +1183,16 @@
       }
     }
 
+    .nav-kbd {
+      font-size: var(--ui-text-xs); font-family: var(--font-sans);
+      padding: 2px var(--space-1); border-radius: 4px;
+      border: 2px solid var(--border-subtle); background: var(--bg-subtle);
+      color: var(--text-muted); cursor: pointer; white-space: nowrap;
+      transition: transform var(--motion-instant) linear, border-color var(--motion-fast) var(--ease-out);
+    }
+    .nav-kbd:hover { border-color: var(--border-default); }
+    .nav-kbd:active { transform: translateY(1px); }
+
     @media (max-width: 900px) {
       .nav-toggle-btn {
         display: flex;
@@ -1265,11 +1234,16 @@
       padding: var(--space-20) 0 var(--space-16);
       text-align: center;
       position: relative;
-      overflow: hidden;
+      overflow: visible;
       min-height: 100dvh;
       display: flex;
       flex-direction: column;
       justify-content: center;
+    }
+
+    .hero-divider {
+      width: 80px; height: 3px; margin: var(--space-8) auto var(--space-4);
+      background: var(--accent-primary); border-radius: 2px;
     }
 
     .hero-title-text {
@@ -1306,14 +1280,6 @@
       width: 12px;
       height: 12px;
       border-radius: var(--radius-full);
-    }
-
-    .floating-decor {
-      position: fixed;
-      pointer-events: none;
-      z-index: -1;
-      border-radius: var(--radius-full);
-      opacity: 0.25;
     }
 
     .tile-grid {
@@ -1703,12 +1669,36 @@
       align-items: center;
     }
 
+    /* Force state classes for static state demos */
+    .btn.force-hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    .btn-primary.force-hover { background: var(--accent-primary-hover); }
+
+    .btn.force-active {
+      transform: translate(2px, 2px);
+      box-shadow: 0 0 0 var(--text-primary);
+    }
+
+    .btn.force-focus {
+      outline: 2px solid var(--focus-ring);
+      outline-offset: 2px;
+    }
+
     .state-label {
       font-size: 0.625rem;
       font-family: var(--font-mono);
       color: var(--text-muted);
       text-transform: uppercase;
       letter-spacing: 0.05em;
+    }
+
+    .state-demo-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-2);
     }
 
     /* ==========================================================================
@@ -3727,6 +3717,68 @@
     }
 
     /* ==========================================================================
+       COMMAND PALETTE
+       ========================================================================== */
+    .cmd-palette-overlay {
+      position: fixed; inset: 0; z-index: var(--z-modal);
+      background: var(--overlay-bg);
+      display: none; align-items: flex-start; justify-content: center;
+      padding-top: 20vh;
+      opacity: 0;
+      transition: opacity 200ms var(--ease-out),
+                  display 200ms var(--ease-out) allow-discrete;
+    }
+    .cmd-palette-overlay.active {
+      display: flex; opacity: 1;
+      @starting-style { opacity: 0; }
+    }
+    .cmd-palette {
+      width: 100%; max-width: 520px;
+      background: var(--bg-elevated); border: 2px solid var(--border-default);
+      border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      transform: scale(0.95) translateY(-10px); opacity: 0;
+      transition: transform 240ms var(--ease-smooth),
+                  opacity 240ms var(--ease-smooth);
+    }
+    .cmd-palette-overlay.active .cmd-palette {
+      transform: scale(1) translateY(0); opacity: 1;
+      @starting-style {
+        transform: scale(0.95) translateY(-10px); opacity: 0;
+      }
+    }
+    .cmd-palette-input {
+      width: 100%; padding: var(--space-4) var(--space-6);
+      font-family: var(--font-sans); font-size: var(--step-0);
+      border: none; border-bottom: 2px solid var(--border-subtle);
+      background: transparent; color: var(--text-primary);
+      outline: none;
+    }
+    .cmd-palette-input::placeholder { color: var(--text-muted); }
+    .cmd-palette-list {
+      list-style: none; max-height: 320px; overflow-y: auto;
+      padding: var(--space-2) 0;
+    }
+    .cmd-palette-item {
+      padding: var(--space-2) var(--space-6);
+      font-size: var(--ui-text-md); color: var(--text-secondary);
+      cursor: pointer; display: flex; align-items: center; gap: var(--space-3);
+      transition: transform var(--motion-instant) linear, background var(--motion-fast) var(--ease-out), color var(--motion-fast) var(--ease-out);
+    }
+    .cmd-palette-item:hover,
+    .cmd-palette-item.active {
+      background: var(--bg-subtle); color: var(--text-primary);
+    }
+    .cmd-palette-item:active { transform: translateY(1px); }
+    .cmd-palette-item .cmd-section-dot {
+      width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
+    }
+    .cmd-palette-empty {
+      padding: var(--space-4) var(--space-6);
+      color: var(--text-muted); font-size: var(--ui-text-sm); text-align: center;
+    }
+
+    /* ==========================================================================
        TYPE TESTER
        ========================================================================== */
     .type-tester {
@@ -3915,14 +3967,6 @@
   <!-- Scroll Progress Bar -->
   <div class="scroll-progress" aria-hidden="true"></div>
 
-  <!-- Floating decorative dots -->
-  <div class="floating-decor float-1" style="width:8px;height:8px;background:var(--accent-primary);top:20%;left:5%"
-    aria-hidden="true"></div>
-  <div class="floating-decor float-2" style="width:6px;height:6px;background:var(--accent-gold);top:40%;right:8%"
-    aria-hidden="true"></div>
-  <div class="floating-decor float-3" style="width:10px;height:10px;background:var(--accent-cyan);top:65%;left:3%"
-    aria-hidden="true"></div>
-
   <!-- ========================================================================
      STICKY NAV
      ======================================================================== -->
@@ -3959,6 +4003,7 @@
             <line x1="3" y1="18" x2="21" y2="18" />
           </svg>
         </button>
+        <kbd class="nav-kbd" id="cmd-k-trigger" title="Quick navigation">&#8984;K</kbd>
         <button class="theme-btn" id="motion-toggle" aria-label="Toggle reduced motion" title="Toggle animations">
           <svg class="icon-motion-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
             stroke-linecap="round" stroke-linejoin="round">
@@ -4047,13 +4092,14 @@
      ======================================================================== -->
     <section id="landing" class="hero">
       <h1 class="hero-title-text" id="hero-headline">A design system that sparks joy</h1>
-      <p class="hero-subtitle anim-in anim-d6">Bold warmth. Confident color. Playful precision. Every token,
-        component, and interaction — built to delight.</p>
-      <div class="hero-dots anim-in anim-d8">
+      <div class="hero-dots anim-in anim-d6" style="margin-top:var(--space-4);margin-bottom:var(--space-4)">
         <span class="hero-dot" style="background:var(--accent-primary)"></span>
         <span class="hero-dot" style="background:var(--accent-gold)"></span>
         <span class="hero-dot" style="background:var(--accent-cyan)"></span>
       </div>
+      <p class="hero-subtitle anim-in anim-d6">Bold warmth. Confident color. Playful precision. Every token,
+        component, and interaction — built to delight.</p>
+      <div class="hero-divider anim-in anim-d8"></div>
 
       <div class="tile-grid">
         <a href="#philosophy" class="tile tile-pink anim-in anim-d1"><span class="tile-num">01</span>
@@ -5095,8 +5141,9 @@
       <!-- 5a. Buttons -->
       <div class="subsection">
         <h3 class="subsection-title">Buttons</h3>
+        <p class="subsection-desc">Buttons come in 8 color variants with 3 sizes. Each supports hover, active, focus, and disabled states with solid shadow micro-interactions.</p>
         <div class="subsection-label">Variants</div>
-        <div class="btn-row" style="margin-bottom:var(--space-6)">
+        <div class="btn-row">
           <button class="btn btn-md btn-primary">Primary</button>
           <button class="btn btn-md btn-danger">Danger</button>
           <button class="btn btn-md btn-gold">Highlight</button>
@@ -5106,13 +5153,18 @@
           <button class="btn btn-md btn-secondary">Secondary</button>
           <button class="btn btn-md btn-ghost">Ghost</button>
         </div>
+      </div>
+
+      <div class="subsection">
         <div class="subsection-label">Sizes</div>
-        <div class="btn-row" style="margin-bottom:var(--space-6)">
+        <div class="btn-row">
           <button class="btn btn-sm btn-primary">Small</button>
           <button class="btn btn-md btn-primary">Medium</button>
           <button class="btn btn-lg btn-primary">Large</button>
-          <button class="btn btn-md btn-primary" disabled>Disabled</button>
         </div>
+      </div>
+
+      <div class="subsection">
         <div class="subsection-label">Icon Buttons</div>
         <div class="btn-row">
           <button class="btn btn-icon btn-sm btn-primary"><svg viewBox="0 0 24 24" fill="none"
@@ -5131,7 +5183,10 @@
               <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
             </svg></button>
         </div>
-        <div class="subsection-label" style="margin-top:var(--space-6)">Loading State</div>
+      </div>
+
+      <div class="subsection">
+        <div class="subsection-label">Loading State</div>
         <div class="btn-row">
           <button class="btn btn-md btn-primary btn-loading">Saving</button>
           <button class="btn btn-md btn-secondary btn-loading">Loading</button>
@@ -5140,20 +5195,59 @@
         </div>
       </div>
 
+      <!-- Button States Demo -->
+      <div class="subsection">
+        <div class="subsection-label">Button States</div>
+        <p class="subsection-desc">Static demonstration of the five interactive states applied to the primary button variant.</p>
+        <div class="btn-row" style="gap:var(--space-6)">
+          <div class="state-demo-item">
+            <button class="btn btn-md btn-primary">Default</button>
+            <span class="state-label">Default</span>
+          </div>
+          <div class="state-demo-item">
+            <button class="btn btn-md btn-primary force-hover">Hover</button>
+            <span class="state-label">Hover</span>
+          </div>
+          <div class="state-demo-item">
+            <button class="btn btn-md btn-primary force-active">Active</button>
+            <span class="state-label">Active</span>
+          </div>
+          <div class="state-demo-item">
+            <button class="btn btn-md btn-primary force-focus">Focus</button>
+            <span class="state-label">Focus</span>
+          </div>
+          <div class="state-demo-item">
+            <button class="btn btn-md btn-primary" disabled>Disabled</button>
+            <span class="state-label">Disabled</span>
+          </div>
+        </div>
+      </div>
+
       <!-- 5b. Form Elements -->
       <div class="subsection">
         <h3 class="subsection-title">Form Elements</h3>
-        <div class="grid-2">
+        <p class="subsection-desc">Text inputs, selects, textareas, multi-select tags, and date pickers. Each supports default, focus, error, and disabled states.</p>
+      </div>
+
+      <div class="subsection">
+        <div class="subsection-label">Text Inputs</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-6);max-width:720px">
           <div class="form-group"><label class="form-label" for="form-fullname">Full name</label><input class="input" id="form-fullname" type="text"
               placeholder="Enter your name" value="Alex Morgan"></div>
           <div class="form-group"><label class="form-label" for="form-email">Email address</label><input class="input" id="form-email" type="email"
               placeholder="you@example.com"></div>
           <div class="form-group"><label class="form-label" for="error-input">Error state</label><input class="input input-error"
-              type="text" value="invalid@" id="error-input">
-            <div class="form-error-text">Please enter a valid email address</div>
+              type="text" value="invalid@" id="error-input" aria-invalid="true" aria-describedby="error-input-msg">
+            <div class="form-error-text" id="error-input-msg" role="alert">Please enter a valid email address</div>
           </div>
           <div class="form-group"><label class="form-label" for="form-disabled">Disabled</label><input class="input" id="form-disabled" type="text"
               value="Cannot edit" disabled></div>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <div class="subsection-label">Select, Date & Tags</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-6);max-width:720px">
           <div class="form-group"><label class="form-label" for="form-date">Date</label>
             <div class="input-icon-wrap">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -5165,7 +5259,18 @@
               <input class="input" id="form-date" type="text" placeholder="Select date" value="Oct 24, 2026">
             </div>
           </div>
-          <div class="form-group"><label class="form-label" for="form-tags">Tags</label>
+          <div class="form-group"><label class="form-label" for="form-project-type">Project type</label>
+            <div class="select-wrap"><select class="select" id="form-project-type">
+                <option>Web Application</option>
+                <option>Marketing Site</option>
+                <option>Dashboard</option>
+                <option>Mobile App</option>
+              </select><span class="select-arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <polyline points="6 9 12 15 18 9" />
+                </svg></span></div>
+          </div>
+          <div class="form-group" style="grid-column:1/-1"><label class="form-label" for="form-tags">Tags</label>
             <div class="multi-select">
               <span class="multi-select-tag">Design<button aria-label="Remove Design tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -5180,21 +5285,21 @@
               <input id="form-tags" type="text" placeholder="Add..." class="multi-select-input">
             </div>
           </div>
-          <div class="form-group"><label class="form-label" for="form-project-type">Project type</label>
-            <div class="select-wrap"><select class="select" id="form-project-type">
-                <option>Web Application</option>
-                <option>Marketing Site</option>
-                <option>Dashboard</option>
-                <option>Mobile App</option>
-              </select><span class="select-arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" stroke-width="2" aria-hidden="true">
-                  <polyline points="6 9 12 15 18 9" />
-                </svg></span></div>
-          </div>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <div class="subsection-label">Textarea</div>
+        <div style="max-width:720px">
           <div class="form-group"><label class="form-label" for="form-description">Description</label><textarea class="textarea" id="form-description"
               rows="3">A design system built with warm boldness and confident color.</textarea></div>
         </div>
-        <div style="display:flex;gap:var(--space-8);flex-wrap:wrap;margin-top:var(--space-6);align-items:center">
+      </div>
+
+      <div class="subsection">
+        <div class="subsection-label">Checkboxes, Radios & Toggle</div>
+        <p class="subsection-desc">Binary and grouped selection controls with accessible markup. Toggle uses a switch pattern with smooth knob animation.</p>
+        <div style="display:flex;gap:var(--space-8);flex-wrap:wrap;align-items:center">
           <label class="check-group"><input type="checkbox" class="sr-only" checked><span
               class="check-box" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="3" aria-hidden="true">
@@ -5210,10 +5315,15 @@
           <label class="check-group"><input type="radio" name="option-group" class="sr-only"><span
               class="radio-circle" aria-hidden="true"></span> Option B</label>
           <label class="toggle-group" style="display:flex;align-items:center;gap:var(--space-2)"><button class="toggle toggle-bg-anim" role="switch" aria-checked="true"
+              aria-label="Auto-save"
               onclick="this.setAttribute('aria-checked', this.getAttribute('aria-checked') === 'true' ? 'false' : 'true')"><span class="toggle-knob toggle-knob-anim" aria-hidden="true"></span></button><span
               style="font-size:0.875rem">Auto-save</span></label>
         </div>
-        <div class="slider-group" style="margin-top:var(--space-6)">
+      </div>
+
+      <div class="subsection">
+        <div class="subsection-label">Range Slider</div>
+        <div class="slider-group" style="max-width:480px">
           <div class="slider-header">
             <label class="form-label" for="form-volume">Volume</label>
             <span class="slider-value" id="form-volume-val">65</span>
@@ -5231,6 +5341,7 @@
       <!-- 5c. Cards -->
       <div class="subsection">
         <h3 class="subsection-title">Cards</h3>
+        <p class="subsection-desc">Three card variants: default, featured (pink accent), and featured-cyan. Interactive cards lift on hover with shadow escalation.</p>
         <div class="grid-3">
           <div class="card card-interactive">
             <div class="card-title">Design Tokens</div>
@@ -5254,6 +5365,7 @@
       <!-- 5d. Data Table -->
       <div class="subsection">
         <h3 class="subsection-title">Data Table</h3>
+        <p class="subsection-desc">Sortable, selectable data table with row highlighting. Click column headers to sort, checkboxes for bulk selection.</p>
         <div class="table-wrap">
           <table class="data-table" id="components-table">
             <thead>
@@ -5345,6 +5457,7 @@
       <!-- 5e. Badges -->
       <div class="subsection">
         <h3 class="subsection-title">Badges</h3>
+        <p class="subsection-desc">Status indicators in 6 color variants with optional dot prefix. Pop animation on mount for attention.</p>
         <div class="flex-wrap-gap">
           <span class="badge badge-pink badge-pop">Production</span>
           <span class="badge badge-gold badge-pop">Draft</span>
@@ -5360,6 +5473,7 @@
       <!-- 5f. Navigation -->
       <div class="subsection">
         <h3 class="subsection-title">Navigation</h3>
+        <p class="subsection-desc">Sidebar with icon items, horizontal tabs, breadcrumb trails, and numeric pagination. All patterns use active-state highlighting.</p>
         <div class="grid-2">
           <div>
             <div class="subsection-label">Sidebar</div>
@@ -5385,15 +5499,19 @@
           </div>
           <div>
             <div class="subsection-label">Tabs</div>
-            <div class="tabs" style="margin-bottom:var(--space-6)">
+            <div class="tabs">
               <button class="tab active">Overview</button><button class="tab">Components</button><button
                 class="tab">Tokens</button><button class="tab">Motion</button>
             </div>
+          </div>
+          <div>
             <div class="subsection-label">Breadcrumbs</div>
-            <div class="breadcrumbs" style="margin-bottom:var(--space-6)">
+            <div class="breadcrumbs">
               <a href="#">Home</a><span class="sep">/</span><a href="#">Design System</a><span class="sep">/</span><span
                 class="current">Components</span>
             </div>
+          </div>
+          <div>
             <div class="subsection-label">Pagination</div>
             <div class="pagination">
               <button class="page-btn">&laquo;</button>
@@ -5950,6 +6068,7 @@
 
       <div class="subsection">
         <div class="subsection-label">Skeleton Loading</div>
+        <p class="subsection-desc">Shimmer and pulse placeholder patterns for content loading states. Toggle between animation modes or load real content.</p>
         <div style="margin-bottom:var(--space-4)">
           <button class="btn btn-secondary btn-sm" id="skel-toggle">Toggle Shimmer / Pulse</button>
           <button class="btn btn-primary btn-sm" id="skel-load" style="margin-left:var(--space-2)">Load
@@ -6100,7 +6219,8 @@
 
       <div class="subsection">
         <div class="subsection-label">Toast Notifications</div>
-        <div class="btn-row" style="margin-bottom:var(--space-6)">
+        <p class="subsection-desc">Stackable notifications in four severity levels. Auto-dismiss with progress indicator, swipe to dismiss on touch.</p>
+        <div class="btn-row">
           <button class="btn btn-secondary btn-sm"
             onclick="showToast('success','Project saved','Your changes have been saved successfully.')">Success
             Toast</button>
@@ -6118,7 +6238,8 @@
 
       <div class="subsection">
         <div class="subsection-label">Modal & Drawer</div>
-        <div class="btn-row" style="margin-bottom:var(--space-6)">
+        <p class="subsection-desc">Spring-animated overlays using the native dialog element. Modal centers content with backdrop blur; drawer slides from the right edge.</p>
+        <div class="btn-row">
           <button class="btn btn-primary btn-sm" id="open-modal">Open Modal</button>
           <button class="btn btn-secondary btn-sm" id="open-drawer">Open Drawer</button>
         </div>
@@ -6671,116 +6792,13 @@
         Token</button><button class="btn btn-md btn-ghost" onclick="closeDrawer()">Cancel</button></div>
   </dialog>
 
-  <!-- Command Palette -->
-  <div class="modal-panel" id="cmdpal-panel" popover="auto"
-    style="max-width:520px;padding:0;margin-top:min(20vh,160px)">
-    <div
-      style="padding:var(--space-3) var(--space-4);border-bottom:2px solid var(--border-subtle);display:flex;align-items:center;gap:var(--space-2)">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2"
-        stroke-linecap="round">
-        <circle cx="11" cy="11" r="8" />
-        <line x1="21" y1="21" x2="16.65" y2="16.65" />
-      </svg>
-      <input type="text" id="cmdpal-input" placeholder="Search components, tokens, sections..."
-        style="flex:1;border:none;background:none;font-family:var(--font-sans);font-size:0.9375rem;color:var(--text-primary);outline:none"
-        autocomplete="off">
-      <kbd
-        style="padding:2px 6px;background:var(--bg-subtle);border:2px solid var(--border-default);border-radius:3px;font-family:var(--font-mono);font-size:0.625rem;color:var(--text-muted)">ESC</kbd>
-    </div>
-    <div style="padding:var(--space-2);max-height:320px;overflow-y:auto" id="cmdpal-results">
-      <div
-        style="padding:var(--space-1) var(--space-3);font-size:0.625rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-muted)">
-        Sections</div>
-      <div class="cmdpal-item" data-href="#philosophy"
-        style="padding:var(--space-2) var(--space-3);border-radius:var(--radius-sm);cursor:pointer;display:flex;align-items:center;gap:var(--space-3);font-size:0.875rem">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-          stroke-linecap="round">
-          <polygon
-            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-        </svg>
-        <span>Philosophy</span><span
-          style="margin-left:auto;font-size:0.6875rem;color:var(--text-muted);font-family:var(--font-mono)">01</span>
-      </div>
-      <div class="cmdpal-item" data-href="#color"
-        style="padding:var(--space-2) var(--space-3);border-radius:var(--radius-sm);cursor:pointer;display:flex;align-items:center;gap:var(--space-3);font-size:0.875rem">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-          stroke-linecap="round">
-          <circle cx="13.5" cy="6.5" r="0.5" />
-          <circle cx="17.5" cy="10.5" r="0.5" />
-          <circle cx="8.5" cy="7.5" r="0.5" />
-          <circle cx="6.5" cy="12.5" r="0.5" />
-          <path
-            d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z" />
-        </svg>
-        <span>Color System</span><span
-          style="margin-left:auto;font-size:0.6875rem;color:var(--text-muted);font-family:var(--font-mono)">02</span>
-      </div>
-      <div class="cmdpal-item" data-href="#typography"
-        style="padding:var(--space-2) var(--space-3);border-radius:var(--radius-sm);cursor:pointer;display:flex;align-items:center;gap:var(--space-3);font-size:0.875rem">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-          stroke-linecap="round">
-          <polyline points="4 7 4 4 20 4 20 7" />
-          <line x1="9" y1="20" x2="15" y2="20" />
-          <line x1="12" y1="4" x2="12" y2="20" />
-        </svg>
-        <span>Typography</span><span
-          style="margin-left:auto;font-size:0.6875rem;color:var(--text-muted);font-family:var(--font-mono)">03</span>
-      </div>
-      <div class="cmdpal-item" data-href="#components"
-        style="padding:var(--space-2) var(--space-3);border-radius:var(--radius-sm);cursor:pointer;display:flex;align-items:center;gap:var(--space-3);font-size:0.875rem">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-          stroke-linecap="round">
-          <rect x="3" y="3" width="7" height="7" />
-          <rect x="14" y="3" width="7" height="7" />
-          <rect x="3" y="14" width="7" height="7" />
-          <rect x="14" y="14" width="7" height="7" />
-        </svg>
-        <span>Components</span><span
-          style="margin-left:auto;font-size:0.6875rem;color:var(--text-muted);font-family:var(--font-mono)">05</span>
-      </div>
-      <div class="cmdpal-item" data-href="#signature"
-        style="padding:var(--space-2) var(--space-3);border-radius:var(--radius-sm);cursor:pointer;display:flex;align-items:center;gap:var(--space-3);font-size:0.875rem">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-          stroke-linecap="round">
-          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-        </svg>
-        <span>Signature Effects</span><span
-          style="margin-left:auto;font-size:0.6875rem;color:var(--text-muted);font-family:var(--font-mono)">12</span>
-      </div>
-      <div
-        style="padding:var(--space-1) var(--space-3);font-size:0.625rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-muted);margin-top:var(--space-2)">
-        Actions</div>
-      <div class="cmdpal-item" data-action="toggle-theme"
-        style="padding:var(--space-2) var(--space-3);border-radius:var(--radius-sm);cursor:pointer;display:flex;align-items:center;gap:var(--space-3);font-size:0.875rem">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-          stroke-linecap="round">
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-        </svg>
-        <span>Toggle Dark Mode</span>
-      </div>
-      <div class="cmdpal-item" data-action="scroll-top"
-        style="padding:var(--space-2) var(--space-3);border-radius:var(--radius-sm);cursor:pointer;display:flex;align-items:center;gap:var(--space-3);font-size:0.875rem">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-          stroke-linecap="round">
-          <polyline points="18 15 12 9 6 15" />
-        </svg>
-        <span>Back to Top</span>
-      </div>
+  <!-- Command palette -->
+  <div class="cmd-palette-overlay" id="cmd-palette-overlay">
+    <div class="cmd-palette" role="dialog" aria-label="Quick navigation">
+      <input class="cmd-palette-input" id="cmd-palette-input" type="text" placeholder="Jump to section..." autocomplete="off" role="combobox" aria-controls="cmd-palette-list" aria-autocomplete="list" aria-expanded="false" />
+      <ul class="cmd-palette-list" id="cmd-palette-list" role="listbox"></ul>
     </div>
   </div>
-
-  <style>
-    .cmdpal-item {
-      transition: transform var(--motion-instant) linear, background var(--motion-fast) var(--ease-out);
-    }
-    .cmdpal-item:hover,
-    .cmdpal-item.focused {
-      background: var(--bg-subtle);
-    }
-    .cmdpal-item:active {
-      transform: translateY(1px);
-    }
-  </style>
 
   <!-- Back to Top -->
   <button class="back-to-top" id="back-to-top" aria-label="Back to top">
@@ -6893,8 +6911,16 @@
 
       // === Back to Top ===
       const btt = document.getElementById('back-to-top');
-      window.addEventListener('scroll', () => { btt.classList.toggle('visible', window.scrollY > window.innerHeight); }, { passive: true });
-      btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+      const heroSection = document.querySelector('.hero');
+      if (btt && heroSection) {
+        const bttObserver = new IntersectionObserver(([entry]) => {
+          btt.classList.toggle('visible', !entry.isIntersecting);
+        }, { threshold: 0 });
+        bttObserver.observe(heroSection);
+        btt.addEventListener('click', () => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
 
       // === Click to Copy ===
       document.querySelectorAll('[data-copy]').forEach(el => {
@@ -7203,44 +7229,135 @@
         ptCurrentPage = ptCurrentPage === 'a' ? 'b' : 'a';
       };
 
-      // === Command Palette ===
-      const cmdpalPanel = document.getElementById('cmdpal-panel');
-      const cmdpalInput = document.getElementById('cmdpal-input');
-      const cmdpalItems = document.querySelectorAll('.cmdpal-item');
+      // =========================================================================
+      // COMMAND PALETTE
+      // =========================================================================
+      const cmdSections = [
+        { id: 'philosophy', label: 'Philosophy', color: 'var(--accent-primary)' },
+        { id: 'color', label: 'Color System', color: 'var(--accent-primary)' },
+        { id: 'typography', label: 'Typography', color: 'var(--accent-gold)' },
+        { id: 'spacing', label: 'Spacing & Layout', color: 'var(--accent-cyan)' },
+        { id: 'components', label: 'Components', color: 'var(--accent-green)' },
+        { id: 'icons', label: 'Iconography', color: 'var(--accent-purple)' },
+        { id: 'motion', label: 'Motion & Easing', color: 'var(--accent-danger)' },
+        { id: 'micro', label: 'Micro-Interactions', color: 'var(--accent-primary)' },
+        { id: 'loading', label: 'Loading & Transitions', color: 'var(--accent-gold)' },
+        { id: 'overlays', label: 'Overlays & Feedback', color: 'var(--accent-cyan)' },
+        { id: 'signature', label: 'Signature Effects', color: 'var(--accent-green)' },
+        { id: 'compositions', label: 'Compositions', color: 'var(--accent-purple)' },
+        { id: '_toggle-theme', label: 'Toggle Dark Mode', color: 'var(--accent-gold)', action: true },
+        { id: '_back-to-top', label: 'Back to Top', color: 'var(--text-muted)', action: true },
+      ];
+      const cmdOverlay = document.getElementById('cmd-palette-overlay');
+      const cmdInput = document.getElementById('cmd-palette-input');
+      const cmdList = document.getElementById('cmd-palette-list');
+      let cmdActiveIdx = 0;
 
-      function openCmdPal() {
-        cmdpalPanel.showPopover();
-        setTimeout(() => cmdpalInput.focus(), 50);
-      }
-      function closeCmdPal() {
-        cmdpalPanel.hidePopover();
-        cmdpalInput.value = '';
-        cmdpalItems.forEach(item => item.style.display = '');
-      }
-
-      document.getElementById('open-cmdpal').addEventListener('click', openCmdPal);
-      document.addEventListener('keydown', e => {
-        if ((e.metaKey || e.ctrlKey) && e.key === 'k') { e.preventDefault(); openCmdPal(); }
-        // Native popover="auto" handles light dismiss via Escape and backdrop click automatically.
-      });
-
-      cmdpalInput.addEventListener('input', () => {
-        const q = cmdpalInput.value.toLowerCase();
-        cmdpalItems.forEach(item => {
-          const text = item.textContent.toLowerCase();
-          item.style.display = text.includes(q) ? '' : 'none';
+      function renderCmdList(filter) {
+        const q = (filter || '').toLowerCase();
+        const filtered = cmdSections.filter(s => s.label.toLowerCase().includes(q) || s.id.toLowerCase().includes(q));
+        cmdList.innerHTML = '';
+        if (filtered.length === 0) {
+          const emptyLi = document.createElement('li');
+          emptyLi.className = 'cmd-palette-empty';
+          emptyLi.textContent = 'No sections found';
+          cmdList.appendChild(emptyLi);
+          cmdInput.setAttribute('aria-activedescendant', '');
+          return;
+        }
+        filtered.forEach((s, i) => {
+          const li = document.createElement('li');
+          li.className = 'cmd-palette-item' + (i === 0 ? ' active' : '');
+          li.id = 'cmd-option-' + s.id;
+          li.setAttribute('role', 'option');
+          li.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+          li.dataset.sectionId = s.id;
+          const dot = document.createElement('span');
+          dot.className = 'cmd-section-dot';
+          dot.style.background = s.color;
+          li.appendChild(dot);
+          li.appendChild(document.createTextNode(s.label));
+          li.addEventListener('click', () => navigateToSection(s.id));
+          li.addEventListener('mouseenter', () => {
+            cmdList.querySelectorAll('.cmd-palette-item').forEach(el => el.classList.remove('active'));
+            li.classList.add('active');
+            cmdActiveIdx = i;
+          });
+          cmdList.appendChild(li);
         });
+        cmdActiveIdx = 0;
+        cmdInput.setAttribute('aria-activedescendant', filtered.length > 0 ? 'cmd-option-' + filtered[0].id : '');
+      }
+
+      function openCmdPalette() {
+        cmdOverlay.classList.add('active');
+        cmdInput.value = '';
+        cmdInput.setAttribute('aria-expanded', 'true');
+        renderCmdList('');
+        requestAnimationFrame(() => requestAnimationFrame(() => cmdInput.focus()));
+      }
+
+      function closeCmdPalette() {
+        cmdOverlay.classList.remove('active');
+        cmdInput.value = '';
+        cmdInput.setAttribute('aria-expanded', 'false');
+      }
+
+      function navigateToSection(id) {
+        closeCmdPalette();
+        if (id === '_toggle-theme') {
+          document.getElementById('theme-toggle').click();
+          return;
+        }
+        if (id === '_back-to-top') {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          return;
+        }
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }
+
+      cmdInput.addEventListener('input', () => renderCmdList(cmdInput.value));
+      cmdInput.addEventListener('keydown', (e) => {
+        const items = cmdList.querySelectorAll('.cmd-palette-item');
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          cmdActiveIdx = Math.min(cmdActiveIdx + 1, items.length - 1);
+          items.forEach((el, i) => { el.classList.toggle('active', i === cmdActiveIdx); el.setAttribute('aria-selected', i === cmdActiveIdx ? 'true' : 'false'); });
+          items[cmdActiveIdx]?.scrollIntoView({ block: 'nearest' });
+          cmdInput.setAttribute('aria-activedescendant', items[cmdActiveIdx]?.id || '');
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          cmdActiveIdx = Math.max(cmdActiveIdx - 1, 0);
+          items.forEach((el, i) => { el.classList.toggle('active', i === cmdActiveIdx); el.setAttribute('aria-selected', i === cmdActiveIdx ? 'true' : 'false'); });
+          items[cmdActiveIdx]?.scrollIntoView({ block: 'nearest' });
+          cmdInput.setAttribute('aria-activedescendant', items[cmdActiveIdx]?.id || '');
+        } else if (e.key === 'Enter') {
+          e.preventDefault();
+          const active = items[cmdActiveIdx];
+          if (active) navigateToSection(active.dataset.sectionId);
+        } else if (e.key === 'Escape') {
+          closeCmdPalette();
+        }
       });
 
-      cmdpalItems.forEach(item => {
-        item.addEventListener('click', () => {
-          const href = item.getAttribute('data-href');
-          if (href) { window.location.href = href; closeCmdPal(); }
-          const action = item.getAttribute('data-action');
-          if (action === 'toggle-theme') { themeBtn.click(); closeCmdPal(); }
-          if (action === 'scroll-top') { btt.click(); closeCmdPal(); }
-        });
+      cmdOverlay.addEventListener('click', (e) => {
+        if (e.target === cmdOverlay) closeCmdPalette();
       });
+
+      document.addEventListener('keydown', (e) => {
+        if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+          e.preventDefault();
+          if (cmdOverlay.classList.contains('active')) {
+            closeCmdPalette();
+          } else {
+            openCmdPalette();
+          }
+        }
+      });
+
+      document.getElementById('cmd-k-trigger').addEventListener('click', openCmdPalette);
+      document.getElementById('open-cmdpal').addEventListener('click', openCmdPalette);
 
       // === Interactive Data Table ===
       window.sortTable = function (tableId, colIndex) {
