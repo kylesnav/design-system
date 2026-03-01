@@ -1,82 +1,50 @@
-# Ghostty — Delightful Theme
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="screenshots/Ghostty-Dark.png" />
+    <source media="(prefers-color-scheme: light)" srcset="screenshots/Ghostty-Light.png" />
+    <img src="screenshots/Ghostty-Light.png" width="600" alt="Ghostty — Delightful" />
+  </picture>
+</p>
 
-Color themes and personal config for Ghostty, derived from the Delightful Design System.
+<h1 align="center">Delightful for Ghostty</h1>
 
-## Contents
+<p align="center">
+  Warm terminal colors derived from the <a href="https://github.com/kylesnav/delightful-design-system">Delightful Design System</a>.
+</p>
 
-```
-themes/
-  delightful-light    Color-only theme (installable via Ghostty's theme system)
-  delightful-dark     Color-only dark variant
-config                Personal config (fonts, keybinds, window — references theme)
-shaders/              Optional GLSL shaders (vignette, bloom)
-```
+---
 
-See also [`shell/`](../shell/) for the shared Starship prompt and zsh config.
+## Theme
 
-## Install Themes
+The color theme is portable — install it on any Ghostty setup.
 
-Copy the theme files to Ghostty's theme directory:
+### Install
+
+Copy the theme files into Ghostty's theme directory:
 
 ```bash
-# macOS / Linux
 mkdir -p ~/.config/ghostty/themes
 cp themes/delightful-light themes/delightful-dark ~/.config/ghostty/themes/
 ```
 
-Then add to your Ghostty config:
+Then set your theme in `~/.config/ghostty/config`:
 
 ```
 theme = delightful-light
 ```
 
-Or for dark mode:
+Or `delightful-dark` for dark mode.
 
-```
-theme = delightful-dark
-```
+### Color Mapping
 
-## Install Full Config (optional)
+All colors map to Delightful Design System tokens. Blue slots use the cyan hue at different lightness levels since Delightful has no dedicated blue. Bright yellow reuses normal yellow in light mode for legibility on the cream background.
 
-If you want the complete Delightful experience (fonts, keybinds, shaders):
+<details>
+<summary><strong>Full token mapping</strong></summary>
 
-```bash
-# macOS
-cp config ~/Library/Application\ Support/com.mitchellh.ghostty/config
+<br>
 
-# Linux
-cp config ~/.config/ghostty/config
-```
-
-Or use the setup script which handles Ghostty + Starship + zsh:
-
-```bash
-bash scripts/setup-terminal.sh
-```
-
-## Shaders (optional)
-
-Copy the shader files and uncomment the `custom-shader` lines in your config:
-
-```bash
-# macOS
-cp shaders/*.glsl ~/Library/Application\ Support/com.mitchellh.ghostty/shaders/
-
-# Linux
-cp shaders/*.glsl ~/.config/ghostty/shaders/
-```
-
-## Claude Code
-
-After applying the theme, run `/config` in Claude Code and set the theme to **light-ansi**. This makes Claude Code inherit the Delightful palette from your terminal.
-
-## Quick Terminal
-
-`Option+Space` opens a centered floating terminal from anywhere on macOS. The session persists between toggles — open it, type `cc` to start Claude Code, then toggle it away.
-
-## Token Mapping
-
-| Terminal Color | Design Token | Light Hex | Dark Hex |
+| Terminal Color | Design Token | Light | Dark |
 |----------------|--------------------------|-----------|-----------|
 | Background | bg-page | `#fdf8f3` | `#1e1a16` |
 | Foreground | text-primary | `#1b150f` | `#eee9e3` |
@@ -91,13 +59,50 @@ After applying the theme, run `/config` in Claude Code and set the theme to **li
 | Cyan | cyan-300 | `#17c0d6` | `#5cb8d6` |
 | White | neutral-100 | `#f6f1eb` | `#eee9e3` |
 
-Blue slots use the cyan hue at different lightness levels since Delightful has no dedicated blue.
-Bright yellow reuses the normal yellow in light mode to preserve legibility on the cream background.
+</details>
 
-## References
+## Full Experience
 
-| Tool | Repo | Docs |
-|------|------|------|
-| Ghostty | [ghostty-org/ghostty](https://github.com/ghostty-org/ghostty) | [ghostty.org/docs](https://ghostty.org/docs) |
-| Claude Code | [anthropics/claude-code](https://github.com/anthropics/claude-code) | [docs.anthropic.com](https://docs.anthropic.com/en/docs/claude-code) |
-| JetBrains Mono | [JetBrains/JetBrainsMono](https://github.com/JetBrains/JetBrainsMono) | [jetbrains.com/lp/mono](https://www.jetbrains.com/lp/mono/) |
+The included config file goes beyond colors — fonts, keybinds, window chrome, shaders, and a quick terminal for AI coding. This is opinionated and personal.
+
+### Config
+
+```bash
+# macOS
+cp config ~/Library/Application\ Support/com.mitchellh.ghostty/config
+
+# Linux
+cp config ~/.config/ghostty/config
+```
+
+Includes:
+- **JetBrains Mono** font at 13px
+- **Quick Terminal** — `Option+Space` opens a centered floating terminal from anywhere on macOS. The session persists between toggles — open it, type `cc` to start Claude Code, then toggle it away.
+- Minimal window chrome, no tabs, no title bar
+
+### Shaders
+
+Optional GLSL post-processing effects (vignette, bloom):
+
+```bash
+# macOS
+cp shaders/*.glsl ~/Library/Application\ Support/com.mitchellh.ghostty/shaders/
+
+# Linux
+cp shaders/*.glsl ~/.config/ghostty/shaders/
+```
+
+Uncomment the `custom-shader` lines in your config to enable.
+
+### Claude Code
+
+After applying the theme, run `/config` in Claude Code and set the theme to **light-ansi** or **dark-ansi** (matching your terminal theme). Claude Code inherits the Delightful palette from your terminal.
+
+## Related
+
+- [`shell/`](../shell/) — Starship prompt and zsh config (works with any terminal)
+- [`iterm2/`](../iterm2/) — iTerm2 color profiles using the same palette
+
+## License
+
+[MIT](LICENSE)

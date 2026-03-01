@@ -4,6 +4,43 @@ All notable changes to the Delightful Design System are documented in this file.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/). Versions follow [Semantic Versioning](https://semver.org/).
 
+## [0.6.0] — 2026-03-01
+
+### Added
+
+- **Light and dark preview showcases** — `preview-light.html` and `preview-dark.html` for quick visual reference
+- **Component preview poster** and VS Code example screenshots
+- **Platform screenshots** for Ghostty, iTerm2, and Obsidian (light + dark)
+- **Per-package screenshots** in each package directory for distribution repo sync
+- **iTerm2 profile generation script** (`iterm2/scripts/generate-profiles.mjs`) and color profiles moved to `colors/`
+- **iTerm2 documentation** — font recommendations, tmux integration settings, dual-mode color switching
+- **iTerm2 smart-open** setup added to shell docs
+- **Distribution repo sync documentation** — all 6 sync relationships documented
+- **Codex and Gemini CLI aliases** in zshrc-snippet (`x`, `xx`, `g`, `gg`, and resume variants)
+- **LICENSE files** added to vscode-theme, ghostty, iterm2, and shell packages
+- **Per-package .gitignore files** for all 6 packages
+
+### Changed
+
+- **Monorepo README rewritten** with ecosystem table and comprehensive documentation (KS-13)
+- **Monorepo polished** for external visitors (KS-6)
+- **Ghostty package restructured** — split into installable themes + personal config
+- **iTerm2 light preset renamed** to Delightful-Light with dual-mode docs
+- Added 'joyful' to design system description
+- Updated zshrc-snippet with improved clear reliability
+- Simplified CLAUDE.md — split automated/manual propagation, trimmed conventions
+- Removed Data Visualization section (unused)
+- Removed personal name from demos
+
+### Fixed
+
+- **Obsidian theme** reviewed and fixed for submission compliance (KS-1)
+- **Ghostty theme** — improved contrast and blue/cyan consistency (KS-2)
+- **Terminal themes** — fixed blue/cyan identity across Ghostty and iTerm2 (KS-3)
+- **VS Code theme** — fixed ANSI palette and promoted syntax tokens to semantic layer
+- **ANSI yellow** — restored on-brand gold across monorepo (light mode)
+- **Stepper shadow** fix in preview showcases
+
 ## [0.5.0] — 2026-02-27
 
 ### Fixed

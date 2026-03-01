@@ -177,7 +177,7 @@ install_iterm2() {
   fi
 
   manual "Restart iTerm2 to apply changes"
-  manual "In Claude Code: run /config and set theme to 'light-ansi' to inherit terminal colors"
+  manual "In Claude Code: run /config and set theme to 'light-ansi' or 'dark-ansi' to inherit terminal colors"
 }
 
 # --- Shell (Starship + Zsh) ---
