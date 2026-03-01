@@ -11,6 +11,7 @@ Source of truth: `delightful-design-system.html`
 - `obsidian-theme/theme.css`
 - `delightful-motion.html`
 - `delightful-animation.html`
+- `delightful-color.html`
 
 **Manual** — update these yourself if tokens or patterns changed:
 - `claude-plugin/themes/tailwind/delightful-preset.js`

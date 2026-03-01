@@ -21,6 +21,7 @@
   <a href="https://kylesnav.github.io/delightful-design-system/delightful-design-system.html">Live Demo</a> ·
   <a href="https://kylesnav.github.io/delightful-design-system/delightful-motion.html">Motion</a> ·
   <a href="https://kylesnav.github.io/delightful-design-system/delightful-animation.html">Animation</a> ·
+  <a href="https://kylesnav.github.io/delightful-design-system/delightful-color.html">Color</a> ·
   <a href="#ports">Ports</a> ·
   <a href="#palette">Palette</a> ·
   <a href="#development">Development</a>
@@ -39,6 +40,12 @@ Delightful is a design system that takes color seriously. Every value flows thro
 50+ components built on a 3-tier OKLCH token architecture — 7 primitive color families feeding into semantic tokens for light and dark mode, feeding into component tokens. Neo-brutalist aesthetic with solid shadows, 2px borders, and bold type. Nothing skips a tier.
 
 **[Browse the design system →](https://kylesnav.github.io/delightful-design-system/delightful-design-system.html)**
+
+### Color
+
+Deep-dive into the 3-tier OKLCH color architecture — 7 primitive families, semantic token mapping for light and dark mode, and component token binding. Interactive palette explorer with copy-to-clipboard.
+
+**[Explore the color system →](https://kylesnav.github.io/delightful-design-system/delightful-color.html)**
 
 ### Motion
 
