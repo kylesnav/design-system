@@ -154,6 +154,33 @@ install_iterm2() {
     fi
   fi
 
+  # smart-open for Semantic History
+  local smart_open_src="$REPO_DIR/shell/smart-open"
+  local smart_open_dest="$HOME/.local/bin/smart-open"
+
+  if [[ -f "$smart_open_src" ]]; then
+    if confirm "Install smart-open for Cmd+click file routing?"; then
+      mkdir -p "$(dirname "$smart_open_dest")"
+      if [[ -f "$smart_open_dest" ]]; then
+        if diff -q "$smart_open_src" "$smart_open_dest" &>/dev/null; then
+          ok "smart-open already matches — skipping"
+        else
+          cp "$smart_open_dest" "$smart_open_dest.backup.$(date +%s)"
+          ok "Backed up existing smart-open"
+          cp "$smart_open_src" "$smart_open_dest"
+          chmod +x "$smart_open_dest"
+          ok "smart-open installed to $smart_open_dest"
+          manual "In iTerm2: Settings > Profiles > Advanced > Semantic History > Run command... > \"$smart_open_dest\" \"\\1\" \"\\2\" \"\\5\""
+        fi
+      else
+        cp "$smart_open_src" "$smart_open_dest"
+        chmod +x "$smart_open_dest"
+        ok "smart-open installed to $smart_open_dest"
+        manual "In iTerm2: Settings > Profiles > Advanced > Semantic History > Run command... > \"$smart_open_dest\" \"\\1\" \"\\2\" \"\\5\""
+      fi
+    fi
+  fi
+
   manual "Restart iTerm2 to apply changes"
   manual "In Claude Code: run /config and set theme to 'light-ansi' to inherit terminal colors"
 }
