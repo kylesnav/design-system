@@ -35,9 +35,9 @@ Delightful is a design system that takes color seriously. Every value flows thro
 
 ## Core Systems
 
-### Color
+### Design System
 
-7 primitive color families at 5 stops each, feeding into semantic tokens for light and dark mode, feeding into component tokens. All OKLCH. Nothing skips a tier.
+50+ components built on a 3-tier OKLCH token architecture — 7 primitive color families feeding into semantic tokens for light and dark mode, feeding into component tokens. Neo-brutalist aesthetic with solid shadows, 2px borders, and bold type. Nothing skips a tier.
 
 **[Browse the design system →](https://kylesnav.github.io/delightful-design-system/delightful-design-system.html)**
 
