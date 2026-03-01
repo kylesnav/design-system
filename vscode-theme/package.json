@@ -4,6 +4,9 @@
   "description": "A warm, neo-brutalist color theme from the Delightful Design System",
   "version": "0.5.0",
   "publisher": "kylesnav",
+  "author": {
+    "name": "Kyle Snavely"
+  },
   "license": "MIT",
   "engines": {
     "vscode": "^1.80.0"
@@ -17,8 +20,16 @@
     "warm",
     "neo-brutalist",
     "oklch",
-    "delightful"
+    "delightful",
+    "light-theme",
+    "dark-theme",
+    "design-system"
   ],
+  "icon": "icon.png",
+  "galleryBanner": {
+    "color": "#fdf8f3",
+    "theme": "light"
+  },
   "contributes": {
     "themes": [
       {
@@ -36,5 +47,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/kylesnav/delightful-design-system"
+  },
+  "homepage": "https://github.com/kylesnav/delightful-design-system",
+  "bugs": {
+    "url": "https://github.com/kylesnav/delightful-design-system/issues"
   }
 }
