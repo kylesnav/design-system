@@ -8,12 +8,12 @@ A warm, neo-brutalist theme for [Obsidian](https://obsidian.md) based on the Del
 
 - **Warm color palette** — OKLCH-based neutrals with a subtle warm tint (hue 70), never cold gray
 - **Neo-brutalist aesthetic** — Solid offset shadows, 2px borders, and generous radii on modals, menus, buttons, callouts, code blocks, and tables
-- **Inter + JetBrains Mono** — Variable font weights with tight letter-spacing on headings and Inter's alternate character variants (`cv02`, `cv03`, `cv04`, `cv11`)
+- **System typography** — Uses native UI and monospace stacks for reliable rendering without external font downloads
 - **Full light & dark mode** — Carefully tuned for both, with warm dark backgrounds and adjusted accent brightness
 - **6 accent colors** — Pink (default), Danger, Gold, Cyan, Green, and Purple, switchable via Style Settings
 - **Button micro-interactions** — Lift on hover, flatten on press
 - **Pill-shaped tags** — Rounded with accent-tinted backgrounds
-- **Fluid heading scale** — 2.488em down to 1em with decreasing variable-font weights (800 to 600)
+- **Fluid heading scale** — 2.488em down to 1em with decreasing heading weights (800 to 600)
 - **Per-type callout colors** — 12 callout types with semantically matched colors (cyan for info, green for success, red for danger, gold for tips, purple for examples, etc.)
 - **16 custom checkboxes** — Alternative task types: cancelled, important, question, forwarded, scheduled, star, info, idea, pro, con, bookmark, location, fire, up, down, win
 - **Full graph view theming** — Color-coded nodes for tags (gold), attachments (cyan), unresolved (dimmed), with accent-colored focus and highlight states
@@ -63,9 +63,9 @@ This theme is a translation of the [Delightful Design System](https://github.com
 
 ### Typography
 
-- **Interface & text**: Inter (variable, 100-900)
-- **Code**: JetBrains Mono (variable, 100-800)
-- **Headings**: Tight tracking (-0.03em for h1-h2, -0.02em for h3-h4), heavy weights, compressed line-height
+- **Interface & text**: Native UI stack (`system-ui`, `-apple-system`, `BlinkMacSystemFont`, `"Segoe UI"`, sans-serif)
+- **Code**: Native monospace stack (`ui-monospace`, `"SF Mono"`, `"Cascadia Code"`, `"Segoe UI Mono"`, monospace)
+- **Headings**: Tight tracking (-0.03em for h1-h2, -0.02em for h3-h4), strong weights, compressed line-height
 
 ## License
 
