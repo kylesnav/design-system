@@ -3984,7 +3984,7 @@
     }
     .arch-connector-line {
       width: 2px; height: 100%;
-      border-left: 2px dashed var(--border-subtle);
+      border-left: 2px solid var(--border-subtle);
     }
     .arch-connector-label {
       position: absolute; left: 50%; transform: translateX(-50%);
@@ -4063,7 +4063,7 @@
        ========================================================================== */
     .state-toggle-bar { display: flex; gap: var(--space-2); flex-wrap: wrap; margin-bottom: var(--space-4); }
     .input.force-hover { border-color: var(--border-strong); }
-    .input.force-focus { outline: 3px solid var(--focus-ring); outline-offset: 2px; }
+    .input.force-focus { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
     .input.force-active { border-color: var(--accent-primary); }
     .card-interactive.force-hover { transform: translate(-4px, -4px); box-shadow: var(--shadow-lg); }
 
@@ -5124,6 +5124,7 @@
               </select></label>
           </div>
           <div class="type-tester-preview" contenteditable="true" id="tt-preview"
+            role="textbox" aria-label="Type tester preview" aria-multiline="true"
             style="font-size:var(--step-0);font-weight:400">The quick brown fox jumps over the lazy dog</div>
         </div>
       </div>
@@ -7451,6 +7452,7 @@
           btn.dataset.family = family.key;
           btn.style.background = 'var(--primitive-' + family.key + '-400)';
           btn.textContent = family.key.slice(0, 2).toUpperCase();
+          btn.setAttribute('aria-label', family.name);
           btn.setAttribute('aria-pressed', family.key === 'pink' ? 'true' : 'false');
           btn.addEventListener('click', () => renderArchitecture(family.key));
           btns.appendChild(btn);
@@ -7463,7 +7465,7 @@
         pre.addEventListener('click', function () {
           navigator.clipboard.writeText(pre.textContent).then(function () {
             showToast('success', 'Copied', 'CSS variables copied to clipboard');
-          });
+          }).catch(function () {});
         });
       });
 
