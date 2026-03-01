@@ -8,7 +8,8 @@ A warm, neo-brutalist design system built on OKLCH color science. 3-tier token a
 
 > **[Live Demo](https://kylesnav.github.io/delightful-design-system/delightful-design-system.html)** · **[Motion System](https://kylesnav.github.io/delightful-design-system/delightful-motion.html)** · **[Animation System](https://kylesnav.github.io/delightful-design-system/delightful-animation.html)** · **[Claude Code Plugin](https://github.com/kylesnav/delightful-claude-plugin)** · **[Obsidian Theme](https://github.com/kylesnav/obsidian-delightful)**
 
-![Delightful Design System](screenshots/preview.png)
+![Delightful Design System — Light](screenshots/preview-light.png)
+![Delightful Design System — Dark](screenshots/preview-dark.png)
 
 ## Quick Start
 
