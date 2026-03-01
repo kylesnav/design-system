@@ -1,79 +1,321 @@
-# Delightful Design System
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="screenshots/Delightful-Dark.png" />
+    <source media="(prefers-color-scheme: light)" srcset="screenshots/Delightful-Light.png" />
+    <img src="screenshots/Delightful-Light.png" width="700" alt="Delightful Design System" />
+  </picture>
+</p>
 
-[![Version](https://img.shields.io/github/v/tag/kylesnav/delightful-design-system?label=version&style=flat-square)](https://github.com/kylesnav/delightful-design-system/releases)
-[![License](https://img.shields.io/github/license/kylesnav/delightful-design-system?style=flat-square)](LICENSE)
-[![VS Code Marketplace](https://img.shields.io/visual-studio-marketplace/v/kylesnav.delightful-theme?style=flat-square&label=vscode)](https://marketplace.visualstudio.com/items?itemName=kylesnav.delightful-theme)
+<h1 align="center">Delightful</h1>
 
-A warm, joyful, neo-brutalist design system built on OKLCH color science. 3-tier token architecture (7 color families), 50+ components, full light/dark mode, @layer cascade architecture, native CSS nesting, container queries, a CSS motion system with 55+ named animations, and a JS animation system with spring physics, FLIP transitions, particles, and gesture handling.
+<p align="center">
+  A warm, joyful design system built on OKLCH color science.
+</p>
 
-> **[Live Demo](https://kylesnav.github.io/delightful-design-system/delightful-design-system.html)** · **[Motion System](https://kylesnav.github.io/delightful-design-system/delightful-motion.html)** · **[Animation System](https://kylesnav.github.io/delightful-design-system/delightful-animation.html)** · **[Claude Code Plugin](https://github.com/kylesnav/delightful-claude-plugin)** · **[Obsidian Theme](https://github.com/kylesnav/obsidian-delightful)**
+<p align="center">
+  <a href="https://github.com/kylesnav/delightful-design-system/releases"><img src="https://img.shields.io/github/v/tag/kylesnav/delightful-design-system?label=version&style=flat&color=f600a3&labelColor=fdf8f3" alt="Version" /></a>
+  <a href="LICENSE"><img src="https://img.shields.io/github/license/kylesnav/delightful-design-system?style=flat&color=00a6c0&labelColor=fdf8f3" alt="License" /></a>
+  <a href="https://marketplace.visualstudio.com/items?itemName=kylesnav.delightful-theme"><img src="https://img.shields.io/visual-studio-marketplace/v/kylesnav.delightful-theme?label=vscode&style=flat&color=22a448&labelColor=fdf8f3" alt="VS Code" /></a>
+</p>
 
-![Delightful Design System — Light](screenshots/preview-light.png)
-![Delightful Design System — Dark](screenshots/preview-dark.png)
+<p align="center">
+  <a href="https://kylesnav.github.io/delightful-design-system/delightful-design-system.html">Live Demo</a> ·
+  <a href="https://kylesnav.github.io/delightful-design-system/delightful-motion.html">Motion</a> ·
+  <a href="https://kylesnav.github.io/delightful-design-system/delightful-animation.html">Animation</a> ·
+  <a href="#ports">Ports</a> ·
+  <a href="#palette">Palette</a> ·
+  <a href="#development">Development</a>
+</p>
 
-## Quick Start
+---
 
-**Try a theme:**
+## What is Delightful?
 
-- **Claude Code** — `claude plugin install kylesnav/delightful-claude-plugin`
-- **VS Code** — search "Delightful" in the Extensions panel, or `ext install kylesnav.delightful-theme`
-- **Terminal** — `bash scripts/setup-terminal.sh` (installs Ghostty, iTerm2, and Starship themes)
+Delightful is a design system that takes color seriously. Every value flows through a 3-tier OKLCH token architecture — 7 color families tuned for perceptual uniformity, not eyeballed hex codes. Neo-brutalist aesthetics (solid shadows, 2px borders, bold type) meet spring-physics motion and warm cream backgrounds that never feel cold. Light and dark modes, both designed from scratch.
 
-**Use the tokens in your project:** copy [`claude-plugin/themes/css/delightful-tokens.css`](claude-plugin/themes/css/delightful-tokens.css) into your project and reference the CSS custom properties.
+## Core Systems
 
-## Ecosystem
+### Color
 
-| Tool | Install | Description |
-|------|---------|-------------|
-| **[Claude Code Plugin](claude-plugin/)** | [`delightful-claude-plugin`](https://github.com/kylesnav/delightful-claude-plugin) | Skills and agents for building and refactoring UI with Delightful. Includes CSS tokens, a Tailwind preset, and Figma/Style Dictionary tokens. |
-| **[VSCode Theme](vscode-theme/)** | [`delightful-theme`](https://marketplace.visualstudio.com/items?itemName=kylesnav.delightful-theme) | Light and dark color themes for Visual Studio Code, generated from OKLCH tokens. |
-| **[Obsidian Theme](obsidian-theme/)** | [`obsidian-delightful`](https://github.com/kylesnav/obsidian-delightful) | A full Obsidian theme translating the design system's tokens and visual language into the editor. |
-| **[Ghostty Theme](ghostty/)** | [`delightful-ghostty`](https://github.com/kylesnav/delightful-ghostty) | A Ghostty terminal theme with optional GLSL shaders. |
-| **[iTerm2 Theme](iterm2/)** | [`delightful-iterm2`](https://github.com/kylesnav/delightful-iterm2) | An iTerm2 color profile using the Delightful palette. |
-| **[Shell Config](shell/)** | [`delightful-shell`](https://github.com/kylesnav/delightful-shell) | Starship prompt and zsh config using Delightful colors. Works with any terminal. |
-| **[Motion System](delightful-motion.html)** | — | 59 named CSS animations across 10 categories with live interactive demos. |
-| **[Animation System](delightful-animation.html)** | — | JS-powered animations: spring physics, FLIP transitions, particles, SVG morphing, and gestures. |
+7 primitive color families at 5 stops each, feeding into semantic tokens for light and dark mode, feeding into component tokens. All OKLCH. Nothing skips a tier.
 
-## Terminal Setup
+**[Browse the design system →](https://kylesnav.github.io/delightful-design-system/delightful-design-system.html)**
 
-A single script installs the Ghostty theme, iTerm2 profile + key mappings, Starship prompt, and zsh config. It detects which terminals you have, skips what's already configured, and prints any manual steps at the end.
+### Motion
+
+59 named CSS animations across 10 categories — entrances, exits, attention-seekers, morphs, reveals, bounces, loading indicators, micro-interactions, text effects, and decorative. All respect `prefers-reduced-motion`.
+
+**[See the motion demos →](https://kylesnav.github.io/delightful-design-system/delightful-motion.html)**
+
+### Animation
+
+JS-powered spring physics, FLIP layout transitions, particle systems, SVG morphing, gesture handling, and generative art. 23 interactive demos with `linear()` spring easing custom properties.
+
+**[Play with animations →](https://kylesnav.github.io/delightful-design-system/delightful-animation.html)**
+
+## Palette
+
+7 families, each with 5 stops in OKLCH. Warm hues throughout — no cold grays.
+
+| Family | Role | Hue | Stops |
+|--------|------|-----|-------|
+| **Neutral** | Backgrounds, text, borders | 60–70 | 14 (0–950) |
+| **Pink** | Primary brand, actions | 350 | 5 (100–500) |
+| **Red** | Danger, errors | 20 | 5 (100–500) |
+| **Gold** | Warning, highlights | 85 | 5 (100–500) |
+| **Cyan** | Tertiary, info | 210 | 5 (100–500) |
+| **Green** | Success, confirmations | 148 | 5 (100–500) |
+| **Purple** | Creative, special | 300 | 5 (100–500) |
+
+<details>
+<summary><strong>Light mode primitives</strong></summary>
+
+<br>
+
+**Neutral** — warm grays, never cold
+
+| Stop | OKLCH |
+|------|-------|
+| 0 | `oklch(1.00 0.000 0)` |
+| 25 | `oklch(0.988 0.006 70)` |
+| 50 | `oklch(0.980 0.008 70)` |
+| 100 | `oklch(0.960 0.010 70)` |
+| 150 | `oklch(0.940 0.012 70)` |
+| 200 | `oklch(0.920 0.012 70)` |
+| 300 | `oklch(0.860 0.014 70)` |
+| 400 | `oklch(0.750 0.014 70)` |
+| 500 | `oklch(0.600 0.012 70)` |
+| 600 | `oklch(0.480 0.010 70)` |
+| 700 | `oklch(0.350 0.010 70)` |
+| 800 | `oklch(0.250 0.012 60)` |
+| 900 | `oklch(0.180 0.012 60)` |
+| 950 | `oklch(0.140 0.012 60)` |
+
+**Pink** — primary brand
+
+| Stop | OKLCH |
+|------|-------|
+| 100 | `oklch(0.920 0.060 350)` |
+| 200 | `oklch(0.840 0.140 350)` |
+| 300 | `oklch(0.720 0.220 350)` |
+| 400 | `oklch(0.640 0.270 350)` |
+| 500 | `oklch(0.560 0.280 350)` |
+
+**Red** — danger
+
+| Stop | OKLCH |
+|------|-------|
+| 100 | `oklch(0.930 0.050 20)` |
+| 200 | `oklch(0.850 0.110 20)` |
+| 300 | `oklch(0.720 0.180 20)` |
+| 400 | `oklch(0.620 0.220 20)` |
+| 500 | `oklch(0.540 0.230 20)` |
+
+**Gold** — warning, highlights
+
+| Stop | OKLCH |
+|------|-------|
+| 100 | `oklch(0.960 0.050 85)` |
+| 200 | `oklch(0.920 0.110 85)` |
+| 300 | `oklch(0.870 0.160 85)` |
+| 400 | `oklch(0.840 0.175 85)` |
+| 500 | `oklch(0.820 0.165 84)` |
+
+**Cyan** — tertiary, info
+
+| Stop | OKLCH |
+|------|-------|
+| 100 | `oklch(0.930 0.038 210)` |
+| 200 | `oklch(0.850 0.085 210)` |
+| 300 | `oklch(0.740 0.125 210)` |
+| 400 | `oklch(0.650 0.148 210)` |
+| 500 | `oklch(0.570 0.155 210)` |
+
+**Green** — success
+
+| Stop | OKLCH |
+|------|-------|
+| 100 | `oklch(0.930 0.042 148)` |
+| 200 | `oklch(0.840 0.095 148)` |
+| 300 | `oklch(0.730 0.145 148)` |
+| 400 | `oklch(0.630 0.170 148)` |
+| 500 | `oklch(0.540 0.165 148)` |
+
+**Purple** — creative
+
+| Stop | OKLCH |
+|------|-------|
+| 100 | `oklch(0.940 0.040 300)` |
+| 200 | `oklch(0.860 0.080 300)` |
+| 300 | `oklch(0.720 0.160 300)` |
+| 400 | `oklch(0.640 0.220 300)` |
+| 500 | `oklch(0.560 0.260 300)` |
+
+</details>
+
+<details>
+<summary><strong>Dark mode semantic accents</strong></summary>
+
+<br>
+
+Dark backgrounds use warm amber hue (65) instead of cold black. Accents are brightened for readability.
+
+| Token | Light | Dark |
+|-------|-------|------|
+| `--bg-page` | `oklch(0.982 0.008 70)` | `oklch(0.140 0.014 65)` |
+| `--bg-surface` | `oklch(0.995 0.004 70)` | `oklch(0.165 0.015 65)` |
+| `--bg-elevated` | `oklch(1.00 0.00 0)` | `oklch(0.190 0.015 65)` |
+| `--text-primary` | `oklch(0.200 0.015 60)` | `oklch(0.935 0.008 70)` |
+| `--accent-primary` | `oklch(0.640 0.270 350)` | `oklch(0.700 0.230 350)` |
+| `--accent-danger` | `oklch(0.620 0.220 20)` | `oklch(0.660 0.200 20)` |
+| `--accent-gold` | `oklch(0.840 0.175 85)` | `oklch(0.840 0.170 85)` |
+| `--accent-cyan` | `oklch(0.650 0.148 210)` | `oklch(0.720 0.140 210)` |
+| `--accent-green` | `oklch(0.630 0.170 148)` | `oklch(0.680 0.155 148)` |
+| `--accent-purple` | `oklch(0.640 0.220 300)` | `oklch(0.700 0.200 300)` |
+
+</details>
+
+## Ports
+
+<table>
+<tr>
+<td align="center" width="50%">
+
+**VS Code**
+
+<a href="https://marketplace.visualstudio.com/items?itemName=kylesnav.delightful-theme">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="screenshots/VSCode-Dark.png" />
+  <img src="screenshots/VSCode-Light.png" width="400" alt="VS Code — Delightful" />
+</picture>
+</a>
+
+`ext install kylesnav.delightful-theme`
+
+[Source](vscode-theme/) · [Marketplace](https://marketplace.visualstudio.com/items?itemName=kylesnav.delightful-theme)
+
+</td>
+<td align="center" width="50%">
+
+**Obsidian**
+
+<a href="https://github.com/kylesnav/obsidian-delightful">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="screenshots/Obsidian-Dark.png" />
+  <img src="screenshots/Obsidian-Light.png" width="400" alt="Obsidian — Delightful" />
+</picture>
+</a>
+
+Search "Delightful" in Obsidian appearance settings
+
+[Source](obsidian-theme/) · [Repo](https://github.com/kylesnav/obsidian-delightful)
+
+</td>
+</tr>
+<tr>
+<td align="center">
+
+**Ghostty**
+
+<a href="https://github.com/kylesnav/delightful-ghostty">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="screenshots/Ghostty-Dark.png" />
+  <img src="screenshots/Ghostty-Light.png" width="400" alt="Ghostty — Delightful" />
+</picture>
+</a>
+
+[Source](ghostty/) · [Repo](https://github.com/kylesnav/delightful-ghostty)
+
+</td>
+<td align="center">
+
+**iTerm2**
+
+<a href="https://github.com/kylesnav/delightful-iterm2">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="screenshots/iTerm2-Dark.png" />
+  <img src="screenshots/iTerm2-Light.png" width="400" alt="iTerm2 — Delightful" />
+</picture>
+</a>
+
+[Source](iterm2/) · [Repo](https://github.com/kylesnav/delightful-iterm2)
+
+</td>
+</tr>
+<tr>
+<td align="center">
+
+**Claude Code**
+
+`claude plugin install kylesnav/delightful-claude-plugin`
+
+Skills, agents, CSS tokens, Tailwind preset, Figma tokens.
+
+[Source](claude-plugin/) · [Repo](https://github.com/kylesnav/delightful-claude-plugin)
+
+</td>
+<td align="center">
+
+**Shell / Starship**
+
+`bash scripts/setup-terminal.sh`
+
+Starship prompt, zsh config, smart-open.
+
+[Source](shell/) · [Repo](https://github.com/kylesnav/delightful-shell)
+
+</td>
+</tr>
+</table>
+
+## Repo Structure
+
+```
+delightful-design-system/
+├── delightful-design-system.html   # Source of truth — all tokens and components
+├── delightful-motion.html          # 59 CSS animations
+├── delightful-animation.html       # JS spring physics, FLIP, particles
+├── claude-plugin/                  # Claude Code plugin (skills, agents, tokens)
+├── vscode-theme/                   # VS Code extension
+├── obsidian-theme/                 # Obsidian theme
+├── ghostty/                        # Ghostty terminal theme + shaders
+├── iterm2/                         # iTerm2 color profiles
+├── shell/                          # Starship prompt + zsh config
+├── scripts/                        # sync-tokens, bump-version, setup-terminal
+├── screenshots/                    # Platform screenshots (light + dark)
+└── tests/                          # Playwright visual regression + token consistency
+```
+
+## Development
+
+### Source of truth
+
+`delightful-design-system.html` contains every primitive, semantic, and component token. Edit tokens there, then propagate.
+
+### Propagation
+
+After changing tokens in the source HTML:
+
+1. `npm run sync` — auto-updates CSS tokens, Obsidian theme, motion/animation HTML
+2. `cd vscode-theme/scripts && node generate-themes.mjs` — regenerates VS Code themes
+3. Manually update: Tailwind preset, Figma tokens, reference docs, agents, skills
+
+### Versioning
 
 ```bash
-bash scripts/setup-terminal.sh
+npm run bump 0.6.0
 ```
 
-Or in Claude Code, just ask: *"run the terminal setup script"*
+Updates all 6 version files and creates a git tag. Never update versions manually.
 
-See [ghostty/](ghostty/), [iterm2/](iterm2/), and [shell/](shell/) for individual install instructions.
+### Testing
 
-## Design Principles
-
-- **Warm clarity** — Cream backgrounds, near-black text, generous whitespace
-- **Surgical color** — Pink for actions, red for danger, gold for highlights, cyan for coolness, green for success, purple for creative
-- **Neo-brutalist** — 2px borders, solid shadows (zero blur), bold typography
-- **Systematic** — Every value comes from a token. No magic numbers.
-
-## Token Architecture
-
-```
-Primitives (7 families × 5 stops)
-├── neutral                     ┐
-├── pink      (primary)         │
-├── red       (danger)          │  Raw OKLCH color scales
-├── gold      (warning)         │
-├── cyan      (tertiary)        │
-├── green     (success)         │
-└── purple    (creative)        ┘
-        ↓
-Semantic (light/dark mode)
-    bg · text · accent · border · shadow
-        ↓
-Component
-    typography · spacing · radius · motion · button · toggle
+```bash
+npx playwright test
 ```
 
-Components reference semantic tokens. Semantic tokens reference primitives. Nothing skips a tier.
+Visual regression, token consistency, press behavior, animation, terminal theme, and color audit tests.
 
 ## License
 
-MIT
+[MIT](LICENSE)
