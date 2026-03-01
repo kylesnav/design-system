@@ -9,6 +9,9 @@ test.describe('Press Interaction System', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto(fileUrl);
     await page.waitForLoadState('networkidle');
+    // Disable content-visibility: auto for test reliability — headless Chromium
+    // doesn't resolve :hover styles on descendants inside content-visibility sections
+    await page.addStyleTag({ content: '.ds-section { content-visibility: visible; }' });
   });
 
   test('base .btn shadow is shadow-sm (2px 2px)', async ({ page }) => {

@@ -414,26 +414,6 @@
         }
       }
 
-      @keyframes float {
-
-        0%,
-        100% {
-          transform: translate(0, 0);
-        }
-
-        25% {
-          transform: translate(5px, -8px);
-        }
-
-        50% {
-          transform: translate(-3px, -12px);
-        }
-
-        75% {
-          transform: translate(7px, -5px);
-        }
-      }
-
       @keyframes shimmer {
         0% {
           background-position: -200% 0;
@@ -672,20 +652,6 @@
         transition: background-color var(--motion-fast) var(--ease-out);
       }
 
-      .float-1 {
-        animation: float 9s ease-in-out infinite;
-      }
-
-      .float-2 {
-        animation: float 11s ease-in-out infinite reverse;
-        animation-delay: -4s;
-      }
-
-      .float-3 {
-        animation: float 13s ease-in-out infinite;
-        animation-delay: -7s;
-      }
-
       .feedback-enter {
         animation: scale-in var(--motion-fast) var(--ease-out) forwards;
       }
@@ -759,11 +725,8 @@
 
     .ds-section {
       padding: var(--space-20) 0;
-      border-bottom: 2px dashed var(--border-subtle);
-
-      &:last-of-type {
-        border-bottom: none;
-      }
+      content-visibility: auto;
+      contain-intrinsic-size: auto 500px; /* fallback; browser uses actual size after first render */
     }
 
     .section-header {
@@ -1317,14 +1280,6 @@
       width: 12px;
       height: 12px;
       border-radius: var(--radius-full);
-    }
-
-    .floating-decor {
-      position: fixed;
-      pointer-events: none;
-      z-index: -1;
-      border-radius: var(--radius-full);
-      opacity: 0.25;
     }
 
     .tile-grid {
@@ -3987,14 +3942,6 @@
 
   <!-- Scroll Progress Bar -->
   <div class="scroll-progress" aria-hidden="true"></div>
-
-  <!-- Floating decorative dots -->
-  <div class="floating-decor float-1" style="width:8px;height:8px;background:var(--accent-primary);top:20%;left:5%"
-    aria-hidden="true"></div>
-  <div class="floating-decor float-2" style="width:6px;height:6px;background:var(--accent-gold);top:40%;right:8%"
-    aria-hidden="true"></div>
-  <div class="floating-decor float-3" style="width:10px;height:10px;background:var(--accent-cyan);top:65%;left:3%"
-    aria-hidden="true"></div>
 
   <!-- ========================================================================
      STICKY NAV
