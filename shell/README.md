@@ -85,11 +85,20 @@ Two-line prompt using Delightful accent colors:
 | `CORRECT` | Spell correction for mistyped commands |
 | History | 50k entries, shared across sessions, no duplicates |
 | Tab completion | Case-insensitive, menu-selectable |
-| `c` | Alias for `claude` |
-| `cc` | Alias for `claude --dangerously-skip-permissions` |
-| `cr` | Alias for `claude --resume` |
+| `c` | `claude` |
+| `cc` | `claude --dangerously-skip-permissions` |
+| `cr` | `claude --resume` |
+| `ccr` | `claude --dangerously-skip-permissions --resume` |
+| `x` | `codex` |
+| `xx` | `codex --full-auto` |
+| `xr` | `codex resume` |
+| `xxr` | `codex --full-auto resume` |
+| `g` | `gemini` |
+| `gg` | `gemini --yolo` |
+| `gr` | `gemini --resume latest` |
+| `ggr` | `gemini --yolo --resume latest` |
 
-All aliases clear the command line before launching.
+All aliases clear the visible screen (preserving scrollback) before launching.
 
 Tip: `touch ~/.hushlogin` to suppress the macOS "Last login" message.
 
@@ -116,7 +125,7 @@ Supports relative paths resolved against the working directory and line number p
 | Starship prompt | Yes | Yes | Any terminal with Starship support |
 | Zsh defaults | Yes | Yes | Any zsh shell |
 | Quick terminal hook | Yes (1.3+) | No | No |
-| Claude Code aliases | Yes | Yes | Any terminal |
+| AI CLI aliases | Yes | Yes | Any terminal |
 | smart-open (Cmd+click) | No | Yes | No |
 
 The Starship prompt and zsh config are terminal-agnostic. The quick terminal hook is Ghostty-specific (uses `GHOSTTY_QUICK_TERMINAL`). smart-open is iTerm2-specific (uses Semantic History).
@@ -132,3 +141,5 @@ After applying the terminal theme and Starship prompt, run `/config` in Claude C
 | Starship | [starship/starship](https://github.com/starship/starship) | [starship.rs](https://starship.rs) |
 | Zsh | [zsh-users/zsh](https://github.com/zsh-users/zsh) | [zsh.sourceforge.io](https://zsh.sourceforge.io/Doc/) |
 | Claude Code | [anthropics/claude-code](https://github.com/anthropics/claude-code) | [docs.anthropic.com](https://docs.anthropic.com/en/docs/claude-code) |
+| Codex | [openai/codex](https://github.com/openai/codex) | [codex.openai.com](https://codex.openai.com) |
+| Gemini CLI | [google-gemini/gemini-cli](https://github.com/google-gemini/gemini-cli) | [geminicli.com](https://geminicli.com) |
