@@ -18,10 +18,10 @@
 </p>
 
 <p align="center">
-  <a href="https://kylesnav.github.io/delightful-design-system/delightful-design-system.html">Live Demo</a> ·
+  <a href="https://kylesnav.github.io/delightful-design-system/delightful-design-system.html">Design</a> ·
+  <a href="https://kylesnav.github.io/delightful-design-system/delightful-color.html">Color</a> ·
   <a href="https://kylesnav.github.io/delightful-design-system/delightful-motion.html">Motion</a> ·
   <a href="https://kylesnav.github.io/delightful-design-system/delightful-animation.html">Animation</a> ·
-  <a href="https://kylesnav.github.io/delightful-design-system/delightful-color.html">Color</a> ·
   <a href="#ports">Ports</a> ·
   <a href="#palette">Palette</a> ·
   <a href="#development">Development</a>
@@ -275,6 +275,7 @@ Starship prompt, zsh config, smart-open.
 ```
 delightful-design-system/
 ├── delightful-design-system.html   # Source of truth — all tokens and components
+├── delightful-color.html           # OKLCH color architecture deep-dive
 ├── delightful-motion.html          # 59 CSS animations
 ├── delightful-animation.html       # JS spring physics, FLIP, particles
 ├── claude-plugin/                  # Claude Code plugin (skills, agents, tokens)
