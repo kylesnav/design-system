@@ -33,3 +33,4 @@ zstyle ':completion:*' list-colors ''
 alias c='printf "\033[1A\033[2K" && claude'
 alias cc='printf "\033[1A\033[2K" && claude --dangerously-skip-permissions'
 alias cr='printf "\033[1A\033[2K" && claude --resume'
+
