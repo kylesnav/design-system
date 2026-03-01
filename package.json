@@ -1,6 +1,6 @@
 {
   "name": "delightful-design-system",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "private": true,
   "description": "A warm, neo-brutalist design system built on OKLCH color science. 3-tier token architecture, 50+ components, full light/dark mode, CSS motion system, and JS animation system.",
   "scripts": {

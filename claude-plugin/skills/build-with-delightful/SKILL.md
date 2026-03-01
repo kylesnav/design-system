@@ -4,7 +4,7 @@ description: Build new web projects and UI using the Delightful design system. U
 allowed-tools: "Bash WebFetch"
 metadata:
   author: Delightful Design System
-  version: 0.5.0
+  version: 0.6.0
   tags: [design-system, css, neo-brutalist, oklch, ui]
 ---
 

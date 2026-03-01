@@ -1,6 +1,6 @@
 {
   "name": "delightful-design-system",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Neo-brutalist design system with oklch colors, 3-tier tokens, 50+ components, and a complete motion system. Includes skills for building new UI and refactoring existing projects.",
   "author": {
     "name": "Kyle S"
