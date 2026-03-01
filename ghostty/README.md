@@ -85,13 +85,14 @@ After applying the theme, run `/config` in Claude Code and set the theme to **li
 | Black | neutral-950 | `#16100c` | `#1e1a16` |
 | Red | red-400 | `#ed324b` | `#e8554c` |
 | Green | green-400 | `#22a448` | `#3aad5f` |
-| Yellow | gold-400 | `#febf00` | `#f5c526` |
-| Blue | cyan-400 | `#00a6c0` | `#5cb8d6` |
+| Yellow | gold-500 | `#c67e00` | `#f5c526` |
+| Blue | cyan-400 | `#00a6c0` | `#00a6c0` |
 | Magenta | pink-400 | `#f600a3` | `#ff4fa8` |
 | Cyan | cyan-300 | `#17c0d6` | `#5cb8d6` |
 | White | neutral-100 | `#f6f1eb` | `#eee9e3` |
 
 Blue slots use the cyan hue at different lightness levels since Delightful has no dedicated blue.
+Bright yellow reuses the normal yellow in light mode to preserve legibility on the cream background.
 
 ## References
 

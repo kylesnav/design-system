@@ -96,21 +96,22 @@ After applying the iTerm2 theme, run `/config` in Claude Code and set the theme 
 | Black | neutral-950 | `#16100c` | `#1e1a16` |
 | Red | red-400 | `#ed324b` | `#e8554c` |
 | Green | green-400 | `#22a448` | `#3aad5f` |
-| Yellow | gold-400 | `#febf00` | `#f5c526` |
-| Blue | cyan-400 | `#00a6c0` | `#5cb8d6` |
+| Yellow | gold-500 | `#c67e00` | `#f5c526` |
+| Blue | cyan-400 | `#00a6c0` | `#00a6c0` |
 | Magenta | pink-400 | `#f600a3` | `#ff4fa8` |
 | Cyan | cyan-300 | `#17c0d6` | `#5cb8d6` |
 | White | neutral-100 | `#f6f1eb` | `#eee9e3` |
 | Bright Black | neutral-600 | `#615d58` | `#615d58` |
 | Bright Red | red-300 | `#ff6e74` | `#ff6e74` |
 | Bright Green | green-300 | `#60c072` | `#60c072` |
-| Bright Yellow | gold-300 | `#ffcb3f` | `#ffcb3f` |
+| Bright Yellow | gold-500 | `#c67e00` | `#ffcb3f` |
 | Bright Blue | cyan-200 | `#88ddec` | `#88ddec` |
 | Bright Magenta | pink-300 | `#ff5cb8` | `#ff7cc6` |
 | Bright Cyan | cyan-200 | `#88ddec` | `#88ddec` |
 | Bright White | white | `#ffffff` | `#ffffff` |
 
 Blue slots use the cyan hue at different lightness levels since Delightful has no dedicated blue.
+Bright yellow reuses the normal yellow in light mode to preserve legibility on the cream background.
 
 ## References
 

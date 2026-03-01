@@ -27,7 +27,7 @@ const light = {
     "#16100c", // 0  black
     "#ed324b", // 1  red
     "#22a448", // 2  green
-    "#febf00", // 3  yellow
+    "#c67e00", // 3  yellow
     "#00a6c0", // 4  blue (cyan-400)
     "#f600a3", // 5  magenta
     "#17c0d6", // 6  cyan
@@ -35,7 +35,7 @@ const light = {
     "#615d58", // 8  bright black
     "#ff6e74", // 9  bright red
     "#60c072", // 10 bright green
-    "#ffcb3f", // 11 bright yellow
+    "#c67e00", // 11 bright yellow (kept equal to normal for light-mode contrast)
     "#88ddec", // 12 bright blue (cyan-200)
     "#ff5cb8", // 13 bright magenta
     "#88ddec", // 14 bright cyan
@@ -54,7 +54,7 @@ const dark = {
     "#e8554c", // 1  red
     "#3aad5f", // 2  green
     "#f5c526", // 3  yellow
-    "#5cb8d6", // 4  blue (cyan-400)
+    "#00a6c0", // 4  blue (cyan-400)
     "#ff4fa8", // 5  magenta
     "#5cb8d6", // 6  cyan
     "#eee9e3", // 7  white
