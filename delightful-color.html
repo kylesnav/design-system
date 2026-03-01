@@ -1,0 +1,1851 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Delightful — Color System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet" />
+
+  <style>
+    /* Cascade layer order — earlier layers have lower priority */
+    @layer reset, primitives, semantic, component, utilities;
+
+    /* ==========================================================================
+       TIER 1 — PRIMITIVES
+       Raw oklch values. Named by scale, no semantic meaning.
+       ========================================================================== */
+    @layer primitives {
+    :root {
+      --primitive-neutral-0: oklch(1.00 0.000 0);
+      --primitive-neutral-25: oklch(0.988 0.006 70);
+      --primitive-neutral-50: oklch(0.980 0.008 70);
+      --primitive-neutral-100: oklch(0.960 0.010 70);
+      --primitive-neutral-150: oklch(0.940 0.012 70);
+      --primitive-neutral-200: oklch(0.920 0.012 70);
+      --primitive-neutral-300: oklch(0.860 0.014 70);
+      --primitive-neutral-400: oklch(0.750 0.014 70);
+      --primitive-neutral-500: oklch(0.600 0.012 70);
+      --primitive-neutral-600: oklch(0.480 0.010 70);
+      --primitive-neutral-700: oklch(0.350 0.010 70);
+      --primitive-neutral-800: oklch(0.250 0.012 60);
+      --primitive-neutral-900: oklch(0.180 0.012 60);
+      --primitive-neutral-950: oklch(0.140 0.012 60);
+
+      --primitive-pink-100: oklch(0.920 0.060 350);
+      --primitive-pink-200: oklch(0.840 0.140 350);
+      --primitive-pink-300: oklch(0.720 0.220 350);
+      --primitive-pink-400: oklch(0.640 0.270 350);
+      --primitive-pink-500: oklch(0.560 0.280 350);
+
+      --primitive-red-100: oklch(0.930 0.050 20);
+      --primitive-red-200: oklch(0.850 0.110 20);
+      --primitive-red-300: oklch(0.720 0.180 20);
+      --primitive-red-400: oklch(0.620 0.220 20);
+      --primitive-red-500: oklch(0.540 0.230 20);
+
+      --primitive-gold-100: oklch(0.960 0.050 85);
+      --primitive-gold-200: oklch(0.920 0.110 85);
+      --primitive-gold-300: oklch(0.870 0.160 85);
+      --primitive-gold-400: oklch(0.840 0.175 85);
+      --primitive-gold-500: oklch(0.820 0.165 84);
+
+      /* Cyan-blue (tertiary brand — hue 210) */
+      --primitive-cyan-100: oklch(0.930 0.038 210);
+      --primitive-cyan-200: oklch(0.850 0.085 210);
+      --primitive-cyan-300: oklch(0.740 0.125 210);
+      --primitive-cyan-400: oklch(0.650 0.148 210);
+      --primitive-cyan-500: oklch(0.570 0.155 210);
+
+      /* Green (success/safe semantic — hue 148) */
+      --primitive-green-100: oklch(0.930 0.042 148);
+      --primitive-green-200: oklch(0.840 0.095 148);
+      --primitive-green-300: oklch(0.730 0.145 148);
+      --primitive-green-400: oklch(0.630 0.170 148);
+      --primitive-green-500: oklch(0.540 0.165 148);
+
+      /* Purple/Violet (hue 300) */
+      --primitive-purple-100: oklch(0.940 0.040 300);
+      --primitive-purple-200: oklch(0.860 0.080 300);
+      --primitive-purple-300: oklch(0.720 0.160 300);
+      --primitive-purple-400: oklch(0.640 0.220 300);
+      --primitive-purple-500: oklch(0.560 0.260 300);
+    }
+    } /* end @layer primitives */
+
+    /* ==========================================================================
+       TIER 2 — SEMANTIC TOKENS (Light) - V3 NEO-BRUTALIST
+       ========================================================================== */
+    @layer semantic {
+    :root,
+    [data-theme="light"] {
+      --bg-page: oklch(0.982 0.008 70);
+      /* Warm cream from code-editor palette */
+      --bg-surface: oklch(0.995 0.004 70);
+      --bg-elevated: oklch(1.00 0.00 0);
+      --bg-subtle: oklch(0.965 0.012 70);
+      --bg-muted: oklch(0.948 0.014 70);
+
+      --text-primary: oklch(0.200 0.015 60);
+      --text-secondary: oklch(0.420 0.015 60);
+      --text-muted: oklch(0.560 0.012 60);
+      --text-on-accent: oklch(1.00 0.000 0);
+      --text-on-gold: oklch(0.220 0.020 70);
+
+      --border-default: var(--text-primary);
+      --border-strong: var(--text-primary);
+      --border-subtle: oklch(0.820 0.015 70);
+
+      /* Vibrant Accents — Warm Palette */
+      --accent-primary: oklch(0.640 0.270 350);
+      /* Hot pink / fuchsia */
+      --accent-primary-hover: oklch(0.580 0.280 350);
+      --accent-primary-subtle: oklch(0.955 0.040 350);
+      --accent-primary-text: oklch(0.560 0.270 350);
+
+      --accent-danger: oklch(0.620 0.220 20);
+      /* Warm red for danger */
+      --accent-danger-hover: oklch(0.570 0.230 20);
+      --accent-danger-subtle: oklch(0.950 0.040 20);
+      --accent-danger-text: oklch(0.570 0.220 20);
+
+      --accent-gold: oklch(0.840 0.175 85);
+      /* Warm gold */
+      --accent-gold-hover: oklch(0.820 0.165 84);
+      --accent-gold-subtle: oklch(0.965 0.060 85);
+      --accent-gold-text: oklch(0.560 0.170 85);
+
+      --accent-cyan: oklch(0.650 0.148 210);
+      /* Cyan-blue (tertiary brand) */
+      --accent-cyan-hover: oklch(0.600 0.150 210);
+      --accent-cyan-subtle: oklch(0.945 0.030 210);
+      --accent-cyan-text: oklch(0.560 0.148 210);
+
+      --accent-green: oklch(0.630 0.170 148);
+      /* Green (success/safe) */
+      --accent-green-hover: oklch(0.580 0.165 148);
+      --accent-green-subtle: oklch(0.945 0.035 148);
+      --accent-green-text: oklch(0.520 0.170 148);
+
+      --accent-purple: oklch(0.640 0.220 300);
+      /* Purple/Violet */
+      --accent-purple-hover: oklch(0.580 0.230 300);
+      --accent-purple-subtle: oklch(0.950 0.035 300);
+      --accent-purple-text: oklch(0.560 0.230 300);
+
+      --status-info: var(--accent-primary);
+      --status-error: var(--accent-danger);
+      --status-warning: var(--accent-gold);
+      --status-success: var(--accent-green);
+
+      --focus-ring: var(--accent-primary);
+      --overlay-bg: oklch(0.200 0.015 60 / 0.30);
+
+      /* Neo-Brutalist Solid Shadows */
+      --shadow-sm: 2px 2px 0 var(--text-primary);
+      --shadow-md: 4px 4px 0 var(--text-primary);
+      --shadow-lg: 8px 8px 0 var(--text-primary);
+      --shadow-pink: 4px 4px 0 var(--accent-primary);
+      --shadow-danger: 4px 4px 0 var(--accent-danger);
+      --shadow-gold: 4px 4px 0 var(--accent-gold);
+      --shadow-cyan: 4px 4px 0 var(--accent-cyan);
+      --shadow-green: 4px 4px 0 var(--accent-green);
+      --shadow-purple: 4px 4px 0 var(--accent-purple);
+    }
+
+    /* ==========================================================================
+       TIER 2 — SEMANTIC TOKENS (Dark)
+       ========================================================================== */
+    [data-theme="dark"] {
+      /* Warm dark backgrounds — hue 65 for amber-tinted darkness */
+      --bg-page: oklch(0.140 0.014 65);
+      --bg-surface: oklch(0.165 0.015 65);
+      --bg-elevated: oklch(0.190 0.015 65);
+      --bg-subtle: oklch(0.210 0.015 65);
+      --bg-muted: oklch(0.180 0.013 65);
+
+      --text-primary: oklch(0.935 0.008 70);
+      --text-secondary: oklch(0.690 0.012 70);
+      --text-muted: oklch(0.540 0.010 70);
+      --text-on-accent: oklch(1.00 0.000 0);
+      --text-on-gold: oklch(0.140 0.014 65);
+
+      --border-default: oklch(0.550 0.010 65);
+      /* Muted for structure — use --border-strong for emphasis */
+      --border-strong: var(--text-primary);
+      --border-subtle: oklch(0.330 0.015 65);
+
+      --accent-primary: oklch(0.700 0.230 350);
+      --accent-primary-hover: oklch(0.740 0.220 350);
+      --accent-primary-subtle: oklch(0.250 0.065 350);
+      --accent-primary-text: oklch(0.750 0.210 350);
+
+      --accent-danger: oklch(0.660 0.200 20);
+      --accent-danger-hover: oklch(0.700 0.190 20);
+      --accent-danger-subtle: oklch(0.250 0.055 20);
+      --accent-danger-text: oklch(0.720 0.180 20);
+
+      --accent-gold: oklch(0.840 0.170 85);
+      --accent-gold-hover: oklch(0.870 0.155 84);
+      --accent-gold-subtle: oklch(0.260 0.065 85);
+      --accent-gold-text: oklch(0.870 0.155 85);
+
+      --accent-cyan: oklch(0.720 0.140 210);
+      --accent-cyan-hover: oklch(0.760 0.130 210);
+      --accent-cyan-subtle: oklch(0.250 0.045 210);
+      --accent-cyan-text: oklch(0.780 0.130 210);
+
+      --accent-green: oklch(0.680 0.155 148);
+      --accent-green-hover: oklch(0.720 0.145 148);
+      --accent-green-subtle: oklch(0.250 0.048 148);
+      --accent-green-text: oklch(0.740 0.145 148);
+
+      --accent-purple: oklch(0.700 0.200 300);
+      --accent-purple-hover: oklch(0.740 0.190 300);
+      --accent-purple-subtle: oklch(0.250 0.055 300);
+      --accent-purple-text: oklch(0.760 0.180 300);
+
+      --status-info: var(--accent-primary);
+      --status-error: var(--accent-danger);
+      --status-warning: var(--accent-gold);
+      --status-success: var(--accent-green);
+
+      --focus-ring: oklch(0.700 0.230 350);
+      --overlay-bg: oklch(0 0 0 / 0.60);
+
+      /* Neo-Brutalist Solid Shadows — Warm Inverted (cream on dark = visible 3D) */
+      --shadow-sm: 2px 2px 0 oklch(0.92 0.010 65);
+      --shadow-md: 4px 4px 0 oklch(0.92 0.010 65);
+      --shadow-lg: 8px 8px 0 oklch(0.92 0.010 65);
+      --shadow-pink: 4px 4px 0 var(--accent-primary);
+      --shadow-danger: 4px 4px 0 var(--accent-danger);
+      --shadow-gold: 4px 4px 0 var(--accent-gold);
+      --shadow-cyan: 4px 4px 0 var(--accent-cyan);
+      --shadow-green: 4px 4px 0 var(--accent-green);
+      --shadow-purple: 4px 4px 0 var(--accent-purple);
+    }
+    } /* end @layer semantic */
+
+    /* ==========================================================================
+       TIER 3 — COMPONENT TOKENS + TYPOGRAPHY + SPACING + MOTION
+       ========================================================================== */
+    @layer component {
+    :root {
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Code', monospace;
+
+      --step--2: clamp(0.694rem, 0.650rem + 0.22vi, 0.8rem);
+      --step--1: clamp(0.833rem, 0.775rem + 0.29vi, 1rem);
+      --step-0: clamp(1rem, 0.913rem + 0.43vi, 1.25rem);
+      --step-1: clamp(1.2rem, 1.074rem + 0.63vi, 1.5625rem);
+      --step-2: clamp(1.44rem, 1.261rem + 0.89vi, 1.953rem);
+      --step-3: clamp(1.728rem, 1.480rem + 1.24vi, 2.441rem);
+      --step-4: clamp(2.074rem, 1.734rem + 1.70vi, 3.052rem);
+      --step-5: clamp(2.488rem, 2.028rem + 2.30vi, 3.815rem);
+
+      --tracking-tight: -0.02em;
+      --tracking-tighter: -0.03em;
+      --tracking-tightest: -0.04em;
+
+      --leading-none: 1.0;
+      --leading-tight: 1.15;
+      --leading-snug: 1.3;
+      --leading-normal: 1.55;
+      --leading-relaxed: 1.65;
+
+      /* UI Text Scale (fixed, non-fluid — for controls) */
+      --ui-text-2xs: 0.6875rem;   /* 11px — badges, table headers */
+      --ui-text-xs:  0.75rem;     /* 12px — captions, hints, form errors */
+      --ui-text-sm:  0.8125rem;   /* 13px — sidebar, breadcrumbs, small buttons */
+      --ui-text-md:  0.875rem;    /* 14px — inputs, selects, tabs */
+      --ui-text-lg:  0.9375rem;   /* 15px — medium buttons */
+      --ui-text-xl:  1.0625rem;   /* 17px — large buttons */
+
+      --space-1: 4px;
+      --space-1-5: 6px;
+      --space-2: 8px;
+      --space-3: 12px;
+      --space-4: 16px;
+      --space-5: 20px;
+      --space-6: 24px;
+      --space-8: 32px;
+      --space-10: 40px;
+      --space-12: 48px;
+      --space-16: 64px;
+      --space-20: 80px;
+
+      --radius-sm: 10px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --radius-xl: 32px;
+      --radius-full: 9999px;
+
+      /* Control Heights */
+      --control-sm: 32px;
+      --control-md: 36px;
+      --control-lg: 44px;
+      --control-xl: 56px;
+
+      --motion-instant: 100ms;
+      --motion-fast: 160ms;
+      --motion-base: 240ms;
+      --motion-slow: 360ms;
+      --motion-deliberate: 500ms;
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+      --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+      --ease-slam: cubic-bezier(0.55, 0.06, 0.68, 0.19);
+      --ease-elastic: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      /* Spring easings — true multi-oscillation curves via linear() */
+      --ease-spring-gentle: linear(
+        0, 0.006, 0.025 2.8%, 0.101 6.1%, 0.539 18.9%,
+        0.721 25.3%, 0.849 31.5%, 0.937 38.1%, 0.968 41.8%,
+        0.991 45.7%, 1.006 50%, 1.015 55%, 1.017 63.9%,
+        1.001 85.9%, 1
+      );
+      --ease-spring-bouncy: linear(
+        0, 0.004, 0.016, 0.035, 0.063 9.1%,
+        0.141, 0.25, 0.391, 0.563, 0.765, 1,
+        0.891, 0.813 45.5%, 0.785, 0.766, 0.754, 0.75,
+        0.754, 0.766, 0.785, 0.813 63.6%, 0.891, 1 72.7%,
+        0.973, 0.953, 0.941, 0.938, 0.941, 0.953, 0.973, 1,
+        0.988, 0.984, 0.988, 1
+      );
+
+      --btn-primary-bg: var(--accent-primary);
+      --btn-primary-text: var(--text-on-accent);
+      --btn-danger-bg: var(--accent-danger);
+      --btn-danger-text: var(--text-on-accent);
+      --btn-gold-bg: var(--accent-gold);
+      --btn-gold-text: var(--text-on-gold);
+      --btn-cyan-bg: var(--accent-cyan);
+      --btn-cyan-text: var(--text-on-accent);
+      --btn-green-bg: var(--accent-green);
+      --btn-green-text: var(--text-on-accent);
+      --btn-purple-bg: var(--accent-purple);
+      --btn-purple-text: var(--text-on-accent);
+      --btn-gap: var(--space-1-5);
+
+      --badge-py: 2px;
+      --badge-px: 10px;
+
+      --toggle-off-bg: var(--primitive-neutral-300);
+      --toggle-on-bg: var(--accent-primary);
+      --toggle-knob: var(--primitive-neutral-0);
+
+      /* Z-Index Scale */
+      --z-base: 1;
+      --z-sticky: 100;
+      --z-fixed: 200;
+      --z-overlay: 300;
+      --z-modal: 1000;
+      --z-toast: 1100;
+      --z-tooltip: 1500;
+
+      /* Container Widths */
+      --container-sm: 640px;
+      --container-md: 960px;
+      --container-lg: 1200px;
+    }
+    } /* end @layer component (tokens) */
+
+    /* ==========================================================================
+       RESET & BASE
+       ========================================================================== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 72px; interpolate-size: allow-keywords; }
+    body {
+      font-family: var(--font-sans);
+      font-size: var(--step-0);
+      line-height: var(--leading-normal);
+      color: var(--text-primary);
+      background: var(--bg-page);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+      overflow-x: clip;
+    }
+    :focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+
+    /* ==========================================================================
+       SCROLL PROGRESS BAR
+       ========================================================================== */
+    .scroll-progress {
+      position: fixed; top: 0; left: 0; right: 0; height: 3px;
+      background: var(--accent-primary); transform-origin: left;
+      z-index: var(--z-overlay);
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      @supports (animation-timeline: scroll()) {
+        .scroll-progress {
+          transform: scaleX(0);
+          animation: scroll-progress-fill linear both;
+          animation-timeline: scroll();
+        }
+        @keyframes scroll-progress-fill {
+          0% { transform: scaleX(0); background-color: var(--accent-primary); }
+          99% { background-color: var(--accent-primary); }
+          100% { transform: scaleX(1); background-color: var(--accent-green); }
+        }
+      }
+    }
+
+    /* ==========================================================================
+       NAV
+       ========================================================================== */
+    .topnav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: var(--z-fixed);
+      background: oklch(0.995 0.004 70 / 0.88);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-bottom: 2px solid var(--border-subtle);
+    }
+    [data-theme="dark"] .topnav {
+      background: oklch(0.165 0.015 65 / 0.88);
+    }
+    .topnav-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center;
+      padding: var(--space-3) var(--space-6); gap: var(--space-4);
+    }
+    .topnav-brand {
+      display: flex; align-items: center; gap: var(--space-2);
+      font-weight: 900; font-size: var(--step-1); letter-spacing: var(--tracking-tight);
+      white-space: nowrap; text-decoration: none; color: var(--text-primary);
+    }
+    .brand-dots { display: flex; gap: 4px; }
+    .brand-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+    .nav-links {
+      display: flex; gap: var(--space-1); list-style: none;
+      overflow-x: auto; flex: 1; scrollbar-width: none;
+    }
+    .nav-links::-webkit-scrollbar { display: none; }
+    .nav-links a {
+      font-size: var(--ui-text-sm); font-weight: 600; color: var(--text-secondary);
+      text-decoration: none; padding: var(--space-1) var(--space-2);
+      border-radius: var(--radius-sm); white-space: nowrap;
+      transition: transform var(--motion-instant) linear, color var(--motion-fast) var(--ease-out), background var(--motion-fast) var(--ease-out);
+    }
+    .nav-links a:hover { color: var(--text-primary); background: var(--bg-subtle); }
+    .nav-links a:active { transform: translateY(1px); }
+    .nav-right { display: flex; gap: var(--space-2); align-items: center; }
+    .nav-btn {
+      width: 36px; height: 36px; border-radius: var(--radius-sm);
+      border: 2px solid var(--border-default); background: var(--bg-surface);
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      color: var(--text-primary); text-decoration: none;
+      transition: transform var(--motion-instant) linear, box-shadow var(--motion-instant) linear,
+                  border-color var(--motion-fast) var(--ease-out);
+      box-shadow: var(--shadow-sm);
+    }
+    .nav-btn:hover { transform: translateY(-1px); box-shadow: var(--shadow-sm); border-color: var(--border-strong); }
+    .nav-btn:active { transform: translateY(1px); box-shadow: none; }
+    .nav-btn svg { width: 18px; height: 18px; }
+    .nav-kbd {
+      font-size: var(--ui-text-xs); font-family: var(--font-sans);
+      padding: 2px var(--space-1); border-radius: 4px;
+      border: 1px solid var(--border-subtle); background: var(--bg-subtle);
+      color: var(--text-muted); cursor: pointer; white-space: nowrap;
+      transition: transform var(--motion-instant) linear, border-color var(--motion-fast) var(--ease-out);
+    }
+    .nav-kbd:hover { border-color: var(--border-default); }
+    .nav-kbd:active { transform: translateY(1px); }
+    .icon-sun { display: none; } .icon-moon { display: none; } .icon-monitor { display: none; }
+    [data-theme="light"] .icon-sun { display: block; }
+    [data-theme="dark"] .icon-moon { display: block; }
+    [data-theme-mode="system"] .icon-sun, [data-theme-mode="system"] .icon-moon { display: none !important; }
+    [data-theme-mode="system"] .icon-monitor { display: block; }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .topnav-inner { padding: var(--space-3) var(--space-4); }
+    }
+
+    /* ==========================================================================
+       PAGE LAYOUT
+       ========================================================================== */
+    .page-wrap {
+      max-width: 1200px; margin: 0 auto;
+      padding: calc(56px + var(--space-8)) var(--space-6) var(--space-20);
+    }
+
+    /* ==========================================================================
+       FOOTER
+       ========================================================================== */
+    .ds-footer {
+      text-align: center; padding: var(--space-12) var(--space-6);
+      color: var(--text-secondary); border-top: 2px dashed var(--border-subtle);
+    }
+    .ds-footer a {
+      color: var(--accent-primary-text); text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .ds-footer a:hover { color: var(--accent-primary); }
+
+    /* ==========================================================================
+       BACK TO TOP
+       ========================================================================== */
+    .back-to-top {
+      position: fixed; bottom: var(--space-6); right: var(--space-6);
+      z-index: var(--z-fixed); width: 44px; height: 44px;
+      border-radius: var(--radius-sm); border: 2px solid var(--border-default);
+      background: var(--bg-elevated); color: var(--text-primary);
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      box-shadow: var(--shadow-md);
+      opacity: 0; pointer-events: none;
+      transition: opacity var(--motion-base) var(--ease-out), transform var(--motion-instant) linear,
+                  box-shadow var(--motion-instant) linear;
+    }
+    .back-to-top.visible { opacity: 1; pointer-events: auto; }
+    .back-to-top:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+    .back-to-top:active { transform: translateY(1px); box-shadow: none; }
+    .back-to-top svg { width: 20px; height: 20px; }
+
+    /* ==========================================================================
+       VIEW TRANSITIONS — Theme toggle crossfade
+       ========================================================================== */
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+      animation-duration: 240ms;
+    }
+
+    /* ==========================================================================
+       COMMAND PALETTE
+       ========================================================================== */
+    .cmd-palette-overlay {
+      position: fixed; inset: 0; z-index: var(--z-modal);
+      background: var(--overlay-bg);
+      display: none; align-items: flex-start; justify-content: center;
+      padding-top: 20vh;
+      opacity: 0;
+      transition: opacity 200ms var(--ease-out),
+                  display 200ms var(--ease-out) allow-discrete;
+    }
+    .cmd-palette-overlay.active {
+      display: flex; opacity: 1;
+      @starting-style { opacity: 0; }
+    }
+    .cmd-palette {
+      width: 100%; max-width: 520px;
+      background: var(--bg-elevated); border: 2px solid var(--border-default);
+      border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      transform: scale(0.95) translateY(-10px); opacity: 0;
+      transition: transform 240ms var(--ease-smooth),
+                  opacity 240ms var(--ease-smooth);
+    }
+    .cmd-palette-overlay.active .cmd-palette {
+      transform: scale(1) translateY(0); opacity: 1;
+      @starting-style {
+        transform: scale(0.95) translateY(-10px); opacity: 0;
+      }
+    }
+    .cmd-palette-input {
+      width: 100%; padding: var(--space-4) var(--space-6);
+      font-family: var(--font-sans); font-size: var(--step-0);
+      border: none; border-bottom: 2px solid var(--border-subtle);
+      background: transparent; color: var(--text-primary);
+      outline: none;
+    }
+    .cmd-palette-input::placeholder { color: var(--text-muted); }
+    .cmd-palette-list {
+      list-style: none; max-height: 320px; overflow-y: auto;
+      padding: var(--space-2) 0;
+    }
+    .cmd-palette-item {
+      padding: var(--space-2) var(--space-6);
+      font-size: var(--ui-text-md); color: var(--text-secondary);
+      cursor: pointer; display: flex; align-items: center; gap: var(--space-3);
+      transition: transform var(--motion-instant) linear, background var(--motion-fast) var(--ease-out), color var(--motion-fast) var(--ease-out);
+    }
+    .cmd-palette-item:hover,
+    .cmd-palette-item.active {
+      background: var(--bg-subtle); color: var(--text-primary);
+    }
+    .cmd-palette-item:active { transform: translateY(1px); }
+    .cmd-palette-item .cmd-section-dot {
+      width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
+    }
+    .cmd-palette-empty {
+      padding: var(--space-4) var(--space-6);
+      color: var(--text-muted); font-size: var(--ui-text-sm); text-align: center;
+    }
+
+    /* ==========================================================================
+       TOAST
+       ========================================================================== */
+    .toast-container {
+      position: fixed; bottom: var(--space-6); right: var(--space-6);
+      display: flex; flex-direction: column-reverse; gap: var(--space-3);
+      z-index: var(--z-toast); pointer-events: none;
+    }
+    .toast {
+      background: var(--bg-elevated); border: 2px solid var(--border-default);
+      border-radius: var(--radius-sm); box-shadow: var(--shadow-md);
+      padding: var(--space-3) var(--space-4); pointer-events: auto;
+      font-size: var(--ui-text-sm); font-weight: 600;
+      font-family: var(--font-mono);
+      min-width: 200px; max-width: 360px;
+      opacity: 0; transform: translateY(8px);
+      animation: toast-in 240ms var(--ease-out) forwards;
+    }
+    @keyframes toast-in {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .toast-value {
+      font-weight: 400; color: var(--text-secondary);
+      margin-top: 2px; word-break: break-all;
+    }
+
+    /* ==========================================================================
+       HERO
+       ========================================================================== */
+    .hero {
+      text-align: center; padding: var(--space-16) 0 var(--space-12);
+    }
+    .hero-title {
+      font-size: var(--step-5); font-weight: 900;
+      letter-spacing: var(--tracking-tightest);
+      line-height: var(--leading-none);
+      margin-bottom: var(--space-4);
+    }
+    .hero-subtitle {
+      font-size: var(--step-1); color: var(--text-secondary);
+      max-width: 640px; margin: 0 auto var(--space-6);
+      line-height: var(--leading-snug);
+    }
+    .hero-crosslink {
+      margin-top: var(--space-2); font-size: var(--ui-text-sm); color: var(--text-muted);
+    }
+    .hero-crosslink a {
+      color: var(--accent-primary-text); text-decoration: underline; text-underline-offset: 2px;
+    }
+    .hero-dots {
+      display: flex; justify-content: center; gap: var(--space-3);
+      margin-top: var(--space-4);
+    }
+    .hero-dot {
+      width: 12px; height: 12px; border-radius: 50%;
+      border: 2px solid var(--border-default);
+    }
+    .hero-cta {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      margin-top: var(--space-6);
+      padding: var(--space-3) var(--space-6);
+      font-family: var(--font-sans); font-size: var(--ui-text-md); font-weight: 700;
+      color: var(--text-on-accent); background: var(--accent-primary);
+      border: 2px solid var(--border-default); border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-md); cursor: pointer; text-decoration: none;
+      transition: transform var(--motion-instant) var(--ease-out),
+                  box-shadow var(--motion-instant) linear;
+    }
+    .hero-cta:hover { transform: translate(-2px, -2px); box-shadow: var(--shadow-lg); }
+    .hero-cta:active { transform: translate(2px, 2px); box-shadow: 0 0 0 var(--text-primary); }
+    .hero-cta svg { width: 16px; height: 16px; }
+
+    /* Hero color preview — 7 color dots */
+    .hero-color-strip {
+      display: flex; justify-content: center; gap: var(--space-2);
+      margin-top: var(--space-8);
+    }
+    .hero-color-dot {
+      width: 32px; height: 32px; border-radius: var(--radius-sm);
+      border: 2px solid var(--border-default);
+      box-shadow: var(--shadow-sm);
+      transition: transform var(--motion-fast) var(--ease-bounce);
+    }
+    .hero-color-dot:hover { transform: translateY(-4px) scale(1.1); }
+
+    /* ==========================================================================
+       SECTION LAYOUT
+       ========================================================================== */
+    .color-section {
+      margin-bottom: var(--space-16);
+      padding-bottom: var(--space-16);
+      border-bottom: 2px dashed var(--border-subtle);
+      content-visibility: auto;
+      contain-intrinsic-size: auto 500px;
+    }
+    .color-section:last-of-type {
+      border-bottom: none;
+    }
+    .section-header {
+      margin-bottom: var(--space-8);
+    }
+    .section-overline {
+      font-size: var(--ui-text-xs); font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--text-muted); margin-bottom: var(--space-2);
+      display: flex; align-items: center; gap: var(--space-2);
+    }
+    .status-dot {
+      width: 8px; height: 8px; border-radius: 50%; display: inline-block;
+    }
+    .section-title {
+      font-size: var(--step-3); font-weight: 800;
+      letter-spacing: var(--tracking-tight);
+      line-height: var(--leading-tight);
+    }
+    .section-desc {
+      font-size: var(--step--1); color: var(--text-secondary);
+      margin-top: var(--space-2); max-width: 640px;
+      line-height: var(--leading-normal);
+    }
+    .subsection {
+      margin-top: var(--space-8);
+    }
+    .subsection-label {
+      font-size: var(--ui-text-xs); font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.06em;
+      color: var(--text-muted); margin-bottom: var(--space-3);
+    }
+
+    /* ==========================================================================
+       SWATCH CARDS — accent families
+       ========================================================================== */
+    .family-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-8);
+    }
+    @media (max-width: 768px) {
+      .family-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 480px) {
+      .family-grid { grid-template-columns: 1fr; }
+    }
+    .family-group {
+      display: flex; flex-direction: column; gap: var(--space-3);
+    }
+    .family-label {
+      font-size: var(--ui-text-sm); font-weight: 700;
+      color: var(--text-primary);
+      display: flex; align-items: center; gap: var(--space-2);
+    }
+    .family-label-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      border: 2px solid var(--border-default);
+    }
+    .family-label-hue {
+      font-weight: 400; color: var(--text-muted);
+      font-family: var(--font-mono); font-size: var(--ui-text-xs);
+    }
+    .swatch {
+      border: 2px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      overflow: hidden; cursor: pointer;
+      transition: transform var(--motion-fast) var(--ease-out),
+                  box-shadow var(--motion-fast) var(--ease-out),
+                  border-color var(--motion-fast) var(--ease-out);
+    }
+    .swatch:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+      border-color: var(--border-default);
+    }
+    .swatch:active { transform: translateY(0); box-shadow: none; }
+    .swatch-color {
+      height: 64px;
+    }
+    .swatch-info {
+      padding: var(--space-2) var(--space-3);
+    }
+    .swatch-name {
+      font-size: var(--ui-text-2xs); font-weight: 600;
+      color: var(--text-primary); font-family: var(--font-mono);
+    }
+    .swatch-val {
+      font-size: 0.625rem; font-family: var(--font-mono);
+      color: var(--text-muted); word-break: break-all;
+      margin-top: 1px;
+    }
+    .swatch-lch {
+      font-size: 0.5625rem; font-family: var(--font-mono);
+      color: var(--text-muted); margin-top: 1px;
+    }
+
+    /* ==========================================================================
+       NEUTRAL ROW — horizontal strip
+       ========================================================================== */
+    .swatch-row {
+      display: flex;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 2px solid var(--border-subtle);
+    }
+    .swatch-row-cell {
+      flex: 1; height: 56px;
+      display: flex; align-items: flex-end; justify-content: center;
+      padding-bottom: 6px;
+      font-size: 0.5625rem; font-family: var(--font-mono); font-weight: 500;
+      cursor: pointer;
+      transition: opacity var(--motion-fast) var(--ease-out);
+    }
+    .swatch-row:hover .swatch-row-cell { opacity: 0.7; }
+    .swatch-row-cell:hover { opacity: 1 !important; }
+    @media (max-width: 640px) {
+      .swatch-row { flex-wrap: wrap; }
+      .swatch-row-cell { flex: 0 0 calc(100% / 7); height: 40px; font-size: 0.5rem; }
+    }
+
+    /* ==========================================================================
+       ARCHITECTURE — 3-tier stacked visualization
+       ========================================================================== */
+    .arch-stack {
+      display: flex; flex-direction: column; gap: 0;
+    }
+    .arch-tier {
+      background: var(--bg-surface);
+      border: 2px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: var(--space-6);
+      position: relative;
+    }
+    .arch-tier + .arch-connector + .arch-tier {
+      margin-top: 0;
+    }
+    .arch-tier-header {
+      margin-bottom: var(--space-4);
+    }
+    .arch-tier-label {
+      font-size: var(--ui-text-xs); font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.06em;
+      display: flex; align-items: center; gap: var(--space-2);
+    }
+    .arch-tier-label-num {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 20px; height: 20px; border-radius: 50%;
+      font-size: 0.625rem; font-weight: 800; color: var(--text-on-accent);
+    }
+    .arch-tier-desc {
+      font-size: var(--ui-text-xs); color: var(--text-muted);
+      margin-top: var(--space-1);
+    }
+    .arch-family-btns {
+      display: flex; gap: var(--space-2); flex-wrap: wrap;
+    }
+    .arch-family-btn {
+      width: 44px; height: 44px; border-radius: var(--radius-sm);
+      border: 2px solid var(--border-subtle); cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: var(--ui-text-2xs); font-family: var(--font-mono); font-weight: 600;
+      color: var(--text-on-accent);
+      transition: transform var(--motion-fast) var(--ease-out),
+                  box-shadow var(--motion-fast) var(--ease-out),
+                  border-color var(--motion-fast) var(--ease-out);
+    }
+    .arch-family-btn:hover {
+      transform: translateY(-2px); box-shadow: var(--shadow-sm);
+    }
+    .arch-family-btn:active { transform: translateY(0); box-shadow: none; }
+    .arch-family-btn[aria-pressed="true"] {
+      border-color: var(--border-strong);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    /* Connector between tiers */
+    .arch-connector {
+      display: flex; align-items: center; justify-content: center;
+      height: 40px; position: relative;
+    }
+    .arch-connector-line {
+      width: 2px; height: 100%;
+      border-left: 2px dashed var(--border-subtle);
+    }
+    .arch-connector-label {
+      position: absolute; left: 50%; transform: translateX(-50%);
+      font-size: var(--ui-text-2xs); font-weight: 600;
+      color: var(--text-muted); background: var(--bg-page);
+      padding: 0 var(--space-2);
+    }
+
+    /* Token trace rows */
+    .arch-token-list {
+      display: flex; flex-direction: column; gap: var(--space-2);
+    }
+    .arch-token-row {
+      display: flex; align-items: center; gap: var(--space-3);
+      padding: var(--space-2) var(--space-3);
+      background: var(--bg-subtle);
+      border-radius: var(--radius-sm);
+      font-size: var(--ui-text-xs); font-family: var(--font-mono);
+      transition: opacity var(--motion-fast) var(--ease-out);
+    }
+    .arch-token-dot {
+      width: 16px; height: 16px; border-radius: 4px;
+      border: 2px solid var(--border-subtle); flex-shrink: 0;
+    }
+    .arch-token-name {
+      font-weight: 600; color: var(--text-primary);
+    }
+    .arch-token-value {
+      color: var(--text-muted); margin-left: auto;
+    }
+    .arch-token-usage {
+      color: var(--text-muted); font-family: var(--font-sans);
+      font-style: italic;
+    }
+
+    /* Live component previews */
+    .arch-preview-row {
+      display: flex; align-items: center; gap: var(--space-3);
+      margin-top: var(--space-3);
+    }
+    .arch-preview-btn {
+      padding: var(--space-2) var(--space-4);
+      font-family: var(--font-sans); font-size: var(--ui-text-sm); font-weight: 700;
+      border: 2px solid var(--border-default); border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-sm); cursor: default;
+    }
+    .arch-preview-badge {
+      display: inline-flex; padding: var(--badge-py) var(--badge-px);
+      font-size: var(--ui-text-2xs); font-weight: 700;
+      border-radius: var(--radius-full); border: 2px solid var(--border-default);
+    }
+
+    /* ==========================================================================
+       SEMANTIC TABLE
+       ========================================================================== */
+    .semantic-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: var(--space-6);
+    }
+    @media (max-width: 768px) {
+      .semantic-grid { grid-template-columns: 1fr; }
+    }
+    .semantic-group {
+      background: var(--bg-surface);
+      border: 2px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    .semantic-group-header {
+      padding: var(--space-3) var(--space-4);
+      font-size: var(--ui-text-xs); font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.06em;
+      color: var(--text-muted);
+      border-bottom: 2px solid var(--border-subtle);
+      background: var(--bg-subtle);
+    }
+    .semantic-row {
+      display: flex; align-items: center; gap: var(--space-3);
+      padding: var(--space-2) var(--space-4);
+      border-bottom: 1px solid var(--border-subtle);
+      font-size: var(--ui-text-xs); font-family: var(--font-mono);
+      cursor: pointer;
+      transition: background var(--motion-fast) var(--ease-out);
+    }
+    .semantic-row:last-child { border-bottom: none; }
+    .semantic-row:hover { background: var(--bg-subtle); }
+    .semantic-dot {
+      width: 14px; height: 14px; border-radius: 4px;
+      border: 2px solid var(--border-subtle); flex-shrink: 0;
+    }
+    .semantic-name {
+      font-weight: 600; color: var(--text-primary); flex: 1; min-width: 0;
+    }
+    .semantic-val {
+      color: var(--text-muted); text-align: right;
+      font-size: 0.625rem;
+    }
+
+    /* ==========================================================================
+       COMPONENT TOKENS
+       ========================================================================== */
+    .component-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-4);
+    }
+    @media (max-width: 768px) {
+      .component-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 480px) {
+      .component-grid { grid-template-columns: 1fr; }
+    }
+    .component-card {
+      background: var(--bg-surface);
+      border: 2px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: var(--space-4);
+      display: flex; flex-direction: column; gap: var(--space-3);
+    }
+    .component-card-label {
+      font-size: var(--ui-text-2xs); font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.06em;
+      color: var(--text-muted);
+    }
+    .component-preview {
+      display: flex; align-items: center; gap: var(--space-2);
+      flex-wrap: wrap;
+    }
+    .component-btn {
+      padding: var(--space-2) var(--space-4);
+      font-family: var(--font-sans); font-size: var(--ui-text-sm); font-weight: 700;
+      border: 2px solid var(--border-default); border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-sm); cursor: default;
+    }
+    .component-badge {
+      display: inline-flex; padding: var(--badge-py) var(--badge-px);
+      font-size: var(--ui-text-2xs); font-weight: 700;
+      border-radius: var(--radius-full); border: 2px solid var(--border-default);
+    }
+    .component-token-list {
+      display: flex; flex-direction: column; gap: 2px;
+    }
+    .component-token {
+      font-size: 0.5625rem; font-family: var(--font-mono);
+      color: var(--text-muted);
+    }
+    .component-token strong {
+      color: var(--text-primary); font-weight: 600;
+    }
+
+    /* ==========================================================================
+       ENTRANCE ANIMATIONS
+       ========================================================================== */
+    .anim-in {
+      opacity: 0; transform: translateY(16px);
+      animation: anim-fade-in 600ms var(--ease-out) forwards;
+    }
+    @keyframes anim-fade-in {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .anim-d1 { animation-delay: 80ms; }
+    .anim-d2 { animation-delay: 160ms; }
+    .anim-d3 { animation-delay: 240ms; }
+    .anim-d4 { animation-delay: 320ms; }
+    .anim-d5 { animation-delay: 400ms; }
+    .anim-d6 { animation-delay: 480ms; }
+    .anim-d7 { animation-delay: 560ms; }
+    @media (prefers-reduced-motion: reduce) {
+      .anim-in { opacity: 1; transform: none; animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="scroll-progress" aria-hidden="true"></div>
+
+  <!-- NAV -->
+  <nav class="topnav" role="navigation" aria-label="Color system navigation">
+    <div class="topnav-inner">
+      <a href="#" class="topnav-brand">
+        <span class="brand-dots">
+          <span class="brand-dot" style="background:var(--accent-primary)"></span>
+          <span class="brand-dot" style="background:var(--accent-gold)"></span>
+          <span class="brand-dot" style="background:var(--accent-cyan)"></span>
+        </span>
+        Delightful Color
+      </a>
+      <ul class="nav-links">
+        <li><a href="#palette">Palette</a></li>
+        <li><a href="#neutral">Neutral</a></li>
+        <li><a href="#architecture">Architecture</a></li>
+        <li><a href="#semantic">Semantic</a></li>
+        <li><a href="#component">Component</a></li>
+      </ul>
+      <div class="nav-right">
+        <kbd class="nav-kbd" id="cmd-k-trigger" title="Quick navigation">&#8984;K</kbd>
+        <a href="delightful-design-system.html" class="nav-btn" aria-label="Design System" title="Design System">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        </a>
+        <button class="nav-btn" id="theme-toggle" aria-label="Toggle theme (light / dark / system)">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+          <svg class="icon-monitor" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="page-wrap">
+
+    <!-- HERO -->
+    <section class="hero anim-in">
+      <h1 class="hero-title">Delightful Color</h1>
+      <p class="hero-subtitle anim-in anim-d3">Every value in OKLCH. Perceptually uniform, wide-gamut, designed not eyeballed.</p>
+      <p class="hero-crosslink anim-in anim-d4">Part of the <a href="delightful-design-system.html">Delightful Design System</a> &middot; <a href="delightful-motion.html">Motion</a></p>
+      <div class="hero-dots anim-in anim-d5">
+        <span class="hero-dot" style="background:var(--accent-primary)"></span>
+        <span class="hero-dot" style="background:var(--accent-gold)"></span>
+        <span class="hero-dot" style="background:var(--accent-cyan)"></span>
+      </div>
+      <a href="#palette" class="hero-cta anim-in anim-d6">Explore 44 colors <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      <div class="hero-color-strip anim-in anim-d7">
+        <div class="hero-color-dot" style="background:var(--primitive-pink-400)"></div>
+        <div class="hero-color-dot" style="background:var(--primitive-red-400)"></div>
+        <div class="hero-color-dot" style="background:var(--primitive-gold-400)"></div>
+        <div class="hero-color-dot" style="background:var(--primitive-cyan-400)"></div>
+        <div class="hero-color-dot" style="background:var(--primitive-green-400)"></div>
+        <div class="hero-color-dot" style="background:var(--primitive-purple-400)"></div>
+        <div class="hero-color-dot" style="background:var(--primitive-neutral-500)"></div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         SECTION 1: PALETTE EXPLORER
+         ================================================================ -->
+    <section id="palette" class="color-section anim-in anim-d4">
+      <div class="section-header">
+        <div class="section-overline"><span class="status-dot" style="background:var(--accent-primary)"></span> Palette Explorer</div>
+        <h2 class="section-title">6 families, 30 swatches</h2>
+        <p class="section-desc">The complete accent primitive scale. 6 families tuned for perceptual uniformity with consistent hue angles. Click any swatch to copy its OKLCH value.</p>
+      </div>
+
+      <div class="family-grid" id="family-grid"></div>
+    </section>
+
+    <!-- ================================================================
+         SECTION 2: NEUTRAL SCALE
+         ================================================================ -->
+    <section id="neutral" class="color-section anim-in">
+      <div class="section-header">
+        <div class="section-overline"><span class="status-dot" style="background:var(--accent-gold)"></span> Neutral Scale</div>
+        <h2 class="section-title">14 stops, warm grays</h2>
+        <p class="section-desc">The backbone of the system. Hue 60-70 keeps grays warm — no cold blue tint anywhere. Click to copy.</p>
+      </div>
+
+      <div class="swatch-row" id="neutral-row"></div>
+    </section>
+
+    <!-- ================================================================
+         SECTION 3: TOKEN ARCHITECTURE
+         ================================================================ -->
+    <section id="architecture" class="color-section anim-in">
+      <div class="section-header">
+        <div class="section-overline"><span class="status-dot" style="background:var(--accent-cyan)"></span> Token Architecture</div>
+        <h2 class="section-title">3 tiers, zero shortcuts</h2>
+        <p class="section-desc">Color flows through 3 tiers. Primitives name the raw value. Semantic tokens give it meaning. Component tokens bind it to UI. Nothing skips a tier.</p>
+      </div>
+
+      <div class="arch-stack" id="arch-stack">
+        <!-- Tier 1 -->
+        <div class="arch-tier">
+          <div class="arch-tier-header">
+            <div class="arch-tier-label">
+              <span class="arch-tier-label-num" style="background:var(--accent-primary)">1</span>
+              Primitives
+            </div>
+            <div class="arch-tier-desc">Raw OKLCH values. Named by family and lightness. No semantic meaning.</div>
+          </div>
+          <div class="arch-family-btns" id="arch-family-btns"></div>
+        </div>
+
+        <!-- Connector 1→2 -->
+        <div class="arch-connector">
+          <div class="arch-connector-line"></div>
+          <span class="arch-connector-label">maps to</span>
+        </div>
+
+        <!-- Tier 2 -->
+        <div class="arch-tier">
+          <div class="arch-tier-header">
+            <div class="arch-tier-label">
+              <span class="arch-tier-label-num" style="background:var(--accent-gold)">2</span>
+              Semantic
+            </div>
+            <div class="arch-tier-desc">Theme-aware. Light and dark values hand-tuned independently.</div>
+          </div>
+          <div class="arch-token-list" id="arch-semantic-list"></div>
+        </div>
+
+        <!-- Connector 2→3 -->
+        <div class="arch-connector">
+          <div class="arch-connector-line"></div>
+          <span class="arch-connector-label">used by</span>
+        </div>
+
+        <!-- Tier 3 -->
+        <div class="arch-tier">
+          <div class="arch-tier-header">
+            <div class="arch-tier-label">
+              <span class="arch-tier-label-num" style="background:var(--accent-cyan)">3</span>
+              Component
+            </div>
+            <div class="arch-tier-desc">UI-specific. Buttons, badges, toggles. Always reference semantic tokens.</div>
+          </div>
+          <div class="arch-token-list" id="arch-component-list"></div>
+          <div class="arch-preview-row" id="arch-preview"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         SECTION 4: SEMANTIC MAPPING
+         ================================================================ -->
+    <section id="semantic" class="color-section anim-in">
+      <div class="section-header">
+        <div class="section-overline"><span class="status-dot" style="background:var(--accent-green)"></span> Semantic Mapping</div>
+        <h2 class="section-title">Meaning, not coordinates</h2>
+        <p class="section-desc">Semantic tokens map primitives to intent. Every token has a light and dark value — both hand-tuned, not generated. Click to copy the token name.</p>
+      </div>
+
+      <div class="semantic-grid" id="semantic-grid"></div>
+    </section>
+
+    <!-- ================================================================
+         SECTION 5: COMPONENT TOKENS
+         ================================================================ -->
+    <section id="component" class="color-section anim-in">
+      <div class="section-header">
+        <div class="section-overline"><span class="status-dot" style="background:var(--accent-purple)"></span> Component Tokens</div>
+        <h2 class="section-title">UI-bound values</h2>
+        <p class="section-desc">The final tier. Component tokens reference semantic tokens and never touch primitives directly. Buttons, badges, toggles — each gets exactly the tokens it needs.</p>
+      </div>
+
+      <div class="component-grid" id="component-grid"></div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="ds-footer">
+      <div class="hero-dots" style="margin-bottom:var(--space-4)">
+        <span class="hero-dot" style="background:var(--accent-primary);width:8px;height:8px"></span>
+        <span class="hero-dot" style="background:var(--accent-gold);width:8px;height:8px"></span>
+        <span class="hero-dot" style="background:var(--accent-cyan);width:8px;height:8px"></span>
+      </div>
+      <p><strong>Delightful</strong> — Color System</p>
+      <p style="margin-top:var(--space-2)">Part of the <a href="delightful-design-system.html">Delightful Design System</a></p>
+    </footer>
+
+  </div><!-- .page-wrap -->
+
+  <!-- Back to top -->
+  <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+
+  <!-- Command palette -->
+  <div class="cmd-palette-overlay" id="cmd-palette-overlay">
+    <div class="cmd-palette" role="dialog" aria-label="Quick navigation">
+      <input class="cmd-palette-input" id="cmd-palette-input" type="text" placeholder="Jump to section..." autocomplete="off" />
+      <ul class="cmd-palette-list" id="cmd-palette-list" role="listbox"></ul>
+    </div>
+  </div>
+
+  <!-- Toast container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <script>
+    /* ==========================================================================
+       DELIGHTFUL COLOR — Interactive JavaScript
+       ========================================================================== */
+
+    const html = document.documentElement;
+
+    // =========================================================================
+    // DATA — all color families, tokens, and architecture mappings
+    // =========================================================================
+
+    const accentFamilies = [
+      {
+        name: 'Pink', key: 'pink', hue: 350, role: 'Primary brand, actions',
+        stops: [
+          { stop: 100, value: 'oklch(0.920 0.060 350)' },
+          { stop: 200, value: 'oklch(0.840 0.140 350)' },
+          { stop: 300, value: 'oklch(0.720 0.220 350)' },
+          { stop: 400, value: 'oklch(0.640 0.270 350)' },
+          { stop: 500, value: 'oklch(0.560 0.280 350)' },
+        ]
+      },
+      {
+        name: 'Red', key: 'red', hue: 20, role: 'Danger, errors',
+        stops: [
+          { stop: 100, value: 'oklch(0.930 0.050 20)' },
+          { stop: 200, value: 'oklch(0.850 0.110 20)' },
+          { stop: 300, value: 'oklch(0.720 0.180 20)' },
+          { stop: 400, value: 'oklch(0.620 0.220 20)' },
+          { stop: 500, value: 'oklch(0.540 0.230 20)' },
+        ]
+      },
+      {
+        name: 'Gold', key: 'gold', hue: 85, role: 'Warning, highlights',
+        stops: [
+          { stop: 100, value: 'oklch(0.960 0.050 85)' },
+          { stop: 200, value: 'oklch(0.920 0.110 85)' },
+          { stop: 300, value: 'oklch(0.870 0.160 85)' },
+          { stop: 400, value: 'oklch(0.840 0.175 85)' },
+          { stop: 500, value: 'oklch(0.820 0.165 84)' },
+        ]
+      },
+      {
+        name: 'Cyan', key: 'cyan', hue: 210, role: 'Tertiary, info',
+        stops: [
+          { stop: 100, value: 'oklch(0.930 0.038 210)' },
+          { stop: 200, value: 'oklch(0.850 0.085 210)' },
+          { stop: 300, value: 'oklch(0.740 0.125 210)' },
+          { stop: 400, value: 'oklch(0.650 0.148 210)' },
+          { stop: 500, value: 'oklch(0.570 0.155 210)' },
+        ]
+      },
+      {
+        name: 'Green', key: 'green', hue: 148, role: 'Success',
+        stops: [
+          { stop: 100, value: 'oklch(0.930 0.042 148)' },
+          { stop: 200, value: 'oklch(0.840 0.095 148)' },
+          { stop: 300, value: 'oklch(0.730 0.145 148)' },
+          { stop: 400, value: 'oklch(0.630 0.170 148)' },
+          { stop: 500, value: 'oklch(0.540 0.165 148)' },
+        ]
+      },
+      {
+        name: 'Purple', key: 'purple', hue: 300, role: 'Creative, special',
+        stops: [
+          { stop: 100, value: 'oklch(0.940 0.040 300)' },
+          { stop: 200, value: 'oklch(0.860 0.080 300)' },
+          { stop: 300, value: 'oklch(0.720 0.160 300)' },
+          { stop: 400, value: 'oklch(0.640 0.220 300)' },
+          { stop: 500, value: 'oklch(0.560 0.260 300)' },
+        ]
+      }
+    ];
+
+    const neutralStops = [
+      { stop: '0', value: 'oklch(1.00 0.000 0)', light: true },
+      { stop: '25', value: 'oklch(0.988 0.006 70)', light: true },
+      { stop: '50', value: 'oklch(0.980 0.008 70)', light: true },
+      { stop: '100', value: 'oklch(0.960 0.010 70)', light: true },
+      { stop: '150', value: 'oklch(0.940 0.012 70)', light: true },
+      { stop: '200', value: 'oklch(0.920 0.012 70)', light: true },
+      { stop: '300', value: 'oklch(0.860 0.014 70)', light: true },
+      { stop: '400', value: 'oklch(0.750 0.014 70)', light: false },
+      { stop: '500', value: 'oklch(0.600 0.012 70)', light: false },
+      { stop: '600', value: 'oklch(0.480 0.010 70)', light: false },
+      { stop: '700', value: 'oklch(0.350 0.010 70)', light: false },
+      { stop: '800', value: 'oklch(0.250 0.012 60)', light: false },
+      { stop: '900', value: 'oklch(0.180 0.012 60)', light: false },
+      { stop: '950', value: 'oklch(0.140 0.012 60)', light: false },
+    ];
+
+    const archData = {
+      pink: {
+        semantic: [
+          { token: '--accent-primary', light: 'oklch(0.640 0.270 350)', dark: 'oklch(0.700 0.230 350)', usage: 'Primary brand, CTAs' },
+          { token: '--accent-primary-hover', light: 'oklch(0.580 0.280 350)', dark: 'oklch(0.740 0.220 350)', usage: 'Hover state' },
+          { token: '--accent-primary-subtle', light: 'oklch(0.955 0.040 350)', dark: 'oklch(0.250 0.065 350)', usage: 'Light tint bg' },
+          { token: '--accent-primary-text', light: 'oklch(0.560 0.270 350)', dark: 'oklch(0.750 0.210 350)', usage: 'Colored text' },
+        ],
+        component: [
+          { token: '--btn-primary-bg', ref: 'var(--accent-primary)', usage: 'Button bg' },
+          { token: '--btn-primary-text', ref: 'var(--text-on-accent)', usage: 'Button text' },
+          { token: '--shadow-pink', ref: '4px 4px 0 var(--accent-primary)', usage: 'Colored shadow' },
+        ]
+      },
+      red: {
+        semantic: [
+          { token: '--accent-danger', light: 'oklch(0.620 0.220 20)', dark: 'oklch(0.660 0.200 20)', usage: 'Errors, destructive' },
+          { token: '--accent-danger-hover', light: 'oklch(0.570 0.230 20)', dark: 'oklch(0.700 0.190 20)', usage: 'Hover state' },
+          { token: '--accent-danger-subtle', light: 'oklch(0.950 0.040 20)', dark: 'oklch(0.250 0.055 20)', usage: 'Light tint bg' },
+          { token: '--accent-danger-text', light: 'oklch(0.570 0.220 20)', dark: 'oklch(0.720 0.180 20)', usage: 'Colored text' },
+        ],
+        component: [
+          { token: '--btn-danger-bg', ref: 'var(--accent-danger)', usage: 'Button bg' },
+          { token: '--btn-danger-text', ref: 'var(--text-on-accent)', usage: 'Button text' },
+          { token: '--shadow-danger', ref: '4px 4px 0 var(--accent-danger)', usage: 'Colored shadow' },
+        ]
+      },
+      gold: {
+        semantic: [
+          { token: '--accent-gold', light: 'oklch(0.840 0.175 85)', dark: 'oklch(0.840 0.170 85)', usage: 'Warnings, highlights' },
+          { token: '--accent-gold-hover', light: 'oklch(0.820 0.165 84)', dark: 'oklch(0.870 0.155 84)', usage: 'Hover state' },
+          { token: '--accent-gold-subtle', light: 'oklch(0.965 0.060 85)', dark: 'oklch(0.260 0.065 85)', usage: 'Light tint bg' },
+          { token: '--accent-gold-text', light: 'oklch(0.560 0.170 85)', dark: 'oklch(0.870 0.155 85)', usage: 'Colored text' },
+        ],
+        component: [
+          { token: '--btn-gold-bg', ref: 'var(--accent-gold)', usage: 'Button bg' },
+          { token: '--btn-gold-text', ref: 'var(--text-on-gold)', usage: 'Button text' },
+          { token: '--shadow-gold', ref: '4px 4px 0 var(--accent-gold)', usage: 'Colored shadow' },
+        ]
+      },
+      cyan: {
+        semantic: [
+          { token: '--accent-cyan', light: 'oklch(0.650 0.148 210)', dark: 'oklch(0.720 0.140 210)', usage: 'Info, tertiary' },
+          { token: '--accent-cyan-hover', light: 'oklch(0.600 0.150 210)', dark: 'oklch(0.760 0.130 210)', usage: 'Hover state' },
+          { token: '--accent-cyan-subtle', light: 'oklch(0.945 0.030 210)', dark: 'oklch(0.250 0.045 210)', usage: 'Light tint bg' },
+          { token: '--accent-cyan-text', light: 'oklch(0.560 0.148 210)', dark: 'oklch(0.780 0.130 210)', usage: 'Colored text' },
+        ],
+        component: [
+          { token: '--btn-cyan-bg', ref: 'var(--accent-cyan)', usage: 'Button bg' },
+          { token: '--btn-cyan-text', ref: 'var(--text-on-accent)', usage: 'Button text' },
+          { token: '--shadow-cyan', ref: '4px 4px 0 var(--accent-cyan)', usage: 'Colored shadow' },
+        ]
+      },
+      green: {
+        semantic: [
+          { token: '--accent-green', light: 'oklch(0.630 0.170 148)', dark: 'oklch(0.680 0.155 148)', usage: 'Success, safe' },
+          { token: '--accent-green-hover', light: 'oklch(0.580 0.165 148)', dark: 'oklch(0.720 0.145 148)', usage: 'Hover state' },
+          { token: '--accent-green-subtle', light: 'oklch(0.945 0.035 148)', dark: 'oklch(0.250 0.048 148)', usage: 'Light tint bg' },
+          { token: '--accent-green-text', light: 'oklch(0.520 0.170 148)', dark: 'oklch(0.740 0.145 148)', usage: 'Colored text' },
+        ],
+        component: [
+          { token: '--btn-green-bg', ref: 'var(--accent-green)', usage: 'Button bg' },
+          { token: '--btn-green-text', ref: 'var(--text-on-accent)', usage: 'Button text' },
+          { token: '--shadow-green', ref: '4px 4px 0 var(--accent-green)', usage: 'Colored shadow' },
+        ]
+      },
+      purple: {
+        semantic: [
+          { token: '--accent-purple', light: 'oklch(0.640 0.220 300)', dark: 'oklch(0.700 0.200 300)', usage: 'Creative, special' },
+          { token: '--accent-purple-hover', light: 'oklch(0.580 0.230 300)', dark: 'oklch(0.740 0.190 300)', usage: 'Hover state' },
+          { token: '--accent-purple-subtle', light: 'oklch(0.950 0.035 300)', dark: 'oklch(0.250 0.055 300)', usage: 'Light tint bg' },
+          { token: '--accent-purple-text', light: 'oklch(0.560 0.230 300)', dark: 'oklch(0.760 0.180 300)', usage: 'Colored text' },
+        ],
+        component: [
+          { token: '--btn-purple-bg', ref: 'var(--accent-purple)', usage: 'Button bg' },
+          { token: '--btn-purple-text', ref: 'var(--text-on-accent)', usage: 'Button text' },
+          { token: '--shadow-purple', ref: '4px 4px 0 var(--accent-purple)', usage: 'Colored shadow' },
+        ]
+      }
+    };
+
+    const semanticGroups = [
+      {
+        label: 'Backgrounds',
+        tokens: [
+          { name: '--bg-page', light: 'oklch(0.982 0.008 70)', dark: 'oklch(0.140 0.014 65)' },
+          { name: '--bg-surface', light: 'oklch(0.995 0.004 70)', dark: 'oklch(0.165 0.015 65)' },
+          { name: '--bg-elevated', light: 'oklch(1.00 0.00 0)', dark: 'oklch(0.190 0.015 65)' },
+          { name: '--bg-subtle', light: 'oklch(0.965 0.012 70)', dark: 'oklch(0.210 0.015 65)' },
+          { name: '--bg-muted', light: 'oklch(0.948 0.014 70)', dark: 'oklch(0.180 0.013 65)' },
+        ]
+      },
+      {
+        label: 'Text',
+        tokens: [
+          { name: '--text-primary', light: 'oklch(0.200 0.015 60)', dark: 'oklch(0.935 0.008 70)' },
+          { name: '--text-secondary', light: 'oklch(0.420 0.015 60)', dark: 'oklch(0.690 0.012 70)' },
+          { name: '--text-muted', light: 'oklch(0.560 0.012 60)', dark: 'oklch(0.540 0.010 70)' },
+          { name: '--text-on-accent', light: 'oklch(1.00 0.000 0)', dark: 'oklch(1.00 0.000 0)' },
+          { name: '--text-on-gold', light: 'oklch(0.220 0.020 70)', dark: 'oklch(0.140 0.014 65)' },
+        ]
+      },
+      {
+        label: 'Borders',
+        tokens: [
+          { name: '--border-default', light: 'var(--text-primary)', dark: 'oklch(0.550 0.010 65)' },
+          { name: '--border-strong', light: 'var(--text-primary)', dark: 'var(--text-primary)' },
+          { name: '--border-subtle', light: 'oklch(0.820 0.015 70)', dark: 'oklch(0.330 0.015 65)' },
+        ]
+      },
+      {
+        label: 'Shadows',
+        tokens: [
+          { name: '--shadow-sm', light: '2px 2px 0 var(--text-primary)', dark: '2px 2px 0 oklch(0.92 0.010 65)' },
+          { name: '--shadow-md', light: '4px 4px 0 var(--text-primary)', dark: '4px 4px 0 oklch(0.92 0.010 65)' },
+          { name: '--shadow-lg', light: '8px 8px 0 var(--text-primary)', dark: '8px 8px 0 oklch(0.92 0.010 65)' },
+        ]
+      }
+    ];
+
+    const componentTokens = [
+      {
+        label: 'Primary Button',
+        family: 'pink',
+        tokens: [
+          { name: '--btn-primary-bg', value: 'var(--accent-primary)' },
+          { name: '--btn-primary-text', value: 'var(--text-on-accent)' },
+        ]
+      },
+      {
+        label: 'Danger Button',
+        family: 'red',
+        tokens: [
+          { name: '--btn-danger-bg', value: 'var(--accent-danger)' },
+          { name: '--btn-danger-text', value: 'var(--text-on-accent)' },
+        ]
+      },
+      {
+        label: 'Gold Button',
+        family: 'gold',
+        tokens: [
+          { name: '--btn-gold-bg', value: 'var(--accent-gold)' },
+          { name: '--btn-gold-text', value: 'var(--text-on-gold)' },
+        ]
+      },
+      {
+        label: 'Cyan Button',
+        family: 'cyan',
+        tokens: [
+          { name: '--btn-cyan-bg', value: 'var(--accent-cyan)' },
+          { name: '--btn-cyan-text', value: 'var(--text-on-accent)' },
+        ]
+      },
+      {
+        label: 'Green Button',
+        family: 'green',
+        tokens: [
+          { name: '--btn-green-bg', value: 'var(--accent-green)' },
+          { name: '--btn-green-text', value: 'var(--text-on-accent)' },
+        ]
+      },
+      {
+        label: 'Purple Button',
+        family: 'purple',
+        tokens: [
+          { name: '--btn-purple-bg', value: 'var(--accent-purple)' },
+          { name: '--btn-purple-text', value: 'var(--text-on-accent)' },
+        ]
+      },
+    ];
+
+    // =========================================================================
+    // HELPERS
+    // =========================================================================
+
+    function parseOKLCH(str) {
+      const m = str.match(/oklch\(\s*([\d.]+)\s+([\d.]+)\s+([\d.]+)/);
+      if (!m) return null;
+      return { l: parseFloat(m[1]), c: parseFloat(m[2]), h: parseFloat(m[3]) };
+    }
+
+    function showToast(value) {
+      const container = document.getElementById('toast-container');
+      if (container.children.length >= 3) container.children[0].remove();
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.innerHTML = '<strong>Copied</strong><div class="toast-value">' + escapeHTML(value) + '</div>';
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateX(40px)';
+        toast.style.transition = 'opacity 200ms ease, transform 200ms ease';
+        setTimeout(() => toast.remove(), 200);
+      }, 2500);
+    }
+
+    function escapeHTML(str) {
+      const d = document.createElement('div');
+      d.textContent = str;
+      return d.innerHTML;
+    }
+
+    function copyValue(value) {
+      navigator.clipboard.writeText(value).then(() => showToast(value)).catch(() => {});
+    }
+
+    // =========================================================================
+    // RENDER — Section 1: Palette Explorer
+    // =========================================================================
+
+    (function renderPalette() {
+      const grid = document.getElementById('family-grid');
+      accentFamilies.forEach(family => {
+        const group = document.createElement('div');
+        group.className = 'family-group';
+        group.innerHTML = '<div class="family-label"><span class="family-label-dot" style="background:var(--primitive-' + family.key + '-400)"></span>' +
+          family.name + ' <span class="family-label-hue">H ' + family.hue + '\u00b0</span></div>';
+        family.stops.forEach(s => {
+          const parsed = parseOKLCH(s.value);
+          const swatch = document.createElement('div');
+          swatch.className = 'swatch';
+          swatch.setAttribute('data-copy', s.value);
+          swatch.addEventListener('click', () => copyValue(s.value));
+          swatch.innerHTML =
+            '<div class="swatch-color" style="background:var(--primitive-' + family.key + '-' + s.stop + ')"></div>' +
+            '<div class="swatch-info">' +
+              '<div class="swatch-name">' + family.key + '-' + s.stop + '</div>' +
+              '<div class="swatch-val">' + s.value + '</div>' +
+              (parsed ? '<div class="swatch-lch">L ' + parsed.l.toFixed(3) + ' &middot; C ' + parsed.c.toFixed(3) + ' &middot; H ' + parsed.h + '</div>' : '') +
+            '</div>';
+          group.appendChild(swatch);
+        });
+        grid.appendChild(group);
+      });
+    })();
+
+    // =========================================================================
+    // RENDER — Section 2: Neutral Scale
+    // =========================================================================
+
+    (function renderNeutral() {
+      const row = document.getElementById('neutral-row');
+      neutralStops.forEach(s => {
+        const cell = document.createElement('div');
+        cell.className = 'swatch-row-cell';
+        cell.style.background = 'var(--primitive-neutral-' + s.stop + ')';
+        cell.style.color = s.light ? 'var(--primitive-neutral-600)' : 'var(--primitive-neutral-0)';
+        cell.setAttribute('data-copy', s.value);
+        cell.textContent = s.stop;
+        cell.addEventListener('click', () => copyValue(s.value));
+        row.appendChild(cell);
+      });
+    })();
+
+    // =========================================================================
+    // RENDER — Section 3: Architecture
+    // =========================================================================
+
+    let activeFamily = 'pink';
+
+    function renderArchitecture(familyKey) {
+      activeFamily = familyKey;
+      const data = archData[familyKey];
+      const family = accentFamilies.find(f => f.key === familyKey);
+
+      // Update button states
+      document.querySelectorAll('.arch-family-btn').forEach(btn => {
+        btn.setAttribute('aria-pressed', btn.dataset.family === familyKey ? 'true' : 'false');
+      });
+
+      // Tier 2: Semantic
+      const semanticList = document.getElementById('arch-semantic-list');
+      const isDark = html.getAttribute('data-theme') === 'dark';
+      semanticList.innerHTML = data.semantic.map(t => {
+        const val = isDark ? t.dark : t.light;
+        return '<div class="arch-token-row">' +
+          '<div class="arch-token-dot" style="background:' + val + '"></div>' +
+          '<span class="arch-token-name">' + t.token + '</span>' +
+          '<span class="arch-token-usage">' + t.usage + '</span>' +
+          '<span class="arch-token-value">' + val + '</span>' +
+        '</div>';
+      }).join('');
+
+      // Tier 3: Component
+      const componentList = document.getElementById('arch-component-list');
+      componentList.innerHTML = data.component.map(t =>
+        '<div class="arch-token-row">' +
+          '<span class="arch-token-name">' + t.token + '</span>' +
+          '<span class="arch-token-usage">' + t.usage + '</span>' +
+          '<span class="arch-token-value">' + t.ref + '</span>' +
+        '</div>'
+      ).join('');
+
+      // Preview
+      const preview = document.getElementById('arch-preview');
+      const btnBg = 'var(--btn-' + (familyKey === 'pink' ? 'primary' : familyKey === 'red' ? 'danger' : familyKey) + '-bg)';
+      const btnText = 'var(--btn-' + (familyKey === 'pink' ? 'primary' : familyKey === 'red' ? 'danger' : familyKey) + '-text)';
+      const shadowVar = 'var(--shadow-' + (familyKey === 'red' ? 'danger' : familyKey === 'pink' ? 'pink' : familyKey) + ')';
+      preview.innerHTML =
+        '<span class="arch-preview-btn" style="background:' + btnBg + ';color:' + btnText + ';box-shadow:' + shadowVar + '">' + family.name + ' Button</span>' +
+        '<span class="arch-preview-badge" style="background:var(--accent-' + (familyKey === 'pink' ? 'primary' : familyKey === 'red' ? 'danger' : familyKey) + '-subtle);color:var(--accent-' + (familyKey === 'pink' ? 'primary' : familyKey === 'red' ? 'danger' : familyKey) + '-text)">' + family.name + '</span>';
+    }
+
+    (function initArchitecture() {
+      const btns = document.getElementById('arch-family-btns');
+      accentFamilies.forEach(family => {
+        const btn = document.createElement('button');
+        btn.className = 'arch-family-btn';
+        btn.dataset.family = family.key;
+        btn.style.background = 'var(--primitive-' + family.key + '-400)';
+        btn.textContent = family.key.slice(0, 2).toUpperCase();
+        btn.setAttribute('aria-pressed', family.key === 'pink' ? 'true' : 'false');
+        btn.addEventListener('click', () => renderArchitecture(family.key));
+        btns.appendChild(btn);
+      });
+      renderArchitecture('pink');
+    })();
+
+    // =========================================================================
+    // RENDER — Section 4: Semantic Mapping
+    // =========================================================================
+
+    (function renderSemantic() {
+      const grid = document.getElementById('semantic-grid');
+      semanticGroups.forEach(group => {
+        const el = document.createElement('div');
+        el.className = 'semantic-group';
+        el.innerHTML = '<div class="semantic-group-header">' + group.label + '</div>';
+        group.tokens.forEach(t => {
+          const row = document.createElement('div');
+          row.className = 'semantic-row';
+          row.addEventListener('click', () => copyValue(t.name));
+
+          const isColor = t.light.startsWith('oklch') || t.light.startsWith('var(');
+          row.innerHTML =
+            (isColor ? '<div class="semantic-dot" style="background:' + t.light + '"></div>' : '<div class="semantic-dot" style="background:var(--bg-muted)"></div>') +
+            '<span class="semantic-name">' + t.name + '</span>' +
+            '<span class="semantic-val">' + t.light + '</span>';
+          el.appendChild(row);
+        });
+        grid.appendChild(el);
+      });
+    })();
+
+    // =========================================================================
+    // RENDER — Section 5: Component Tokens
+    // =========================================================================
+
+    (function renderComponents() {
+      const grid = document.getElementById('component-grid');
+      componentTokens.forEach(comp => {
+        const family = comp.family;
+        const accentKey = family === 'pink' ? 'primary' : family === 'red' ? 'danger' : family;
+        const card = document.createElement('div');
+        card.className = 'component-card';
+        card.innerHTML =
+          '<div class="component-card-label">' + comp.label + '</div>' +
+          '<div class="component-preview">' +
+            '<span class="component-btn" style="background:var(--btn-' + (family === 'pink' ? 'primary' : family === 'red' ? 'danger' : family) + '-bg);color:var(--btn-' + (family === 'pink' ? 'primary' : family === 'red' ? 'danger' : family) + '-text);box-shadow:var(--shadow-' + (family === 'red' ? 'danger' : family === 'pink' ? 'pink' : family) + ')">' + comp.label.replace(' Button', '') + '</span>' +
+            '<span class="component-badge" style="background:var(--accent-' + accentKey + '-subtle);color:var(--accent-' + accentKey + '-text)">Badge</span>' +
+          '</div>' +
+          '<div class="component-token-list">' +
+            comp.tokens.map(t => '<div class="component-token"><strong>' + t.name + '</strong>: ' + t.value + '</div>').join('') +
+          '</div>';
+        grid.appendChild(card);
+      });
+    })();
+
+    // =========================================================================
+    // THEME TOGGLE (3-way: light → dark → system)
+    // =========================================================================
+
+    const prefersDarkMq = window.matchMedia('(prefers-color-scheme: dark)');
+    const savedMode = localStorage.getItem('delightful-theme-mode') || localStorage.getItem('delightful-theme') || 'system';
+
+    function applyThemeMode(mode) {
+      if (mode === 'system') {
+        html.setAttribute('data-theme', prefersDarkMq.matches ? 'dark' : 'light');
+        html.setAttribute('data-theme-mode', 'system');
+        localStorage.setItem('delightful-theme-mode', 'system');
+        localStorage.removeItem('delightful-theme');
+      } else {
+        html.setAttribute('data-theme', mode);
+        html.removeAttribute('data-theme-mode');
+        localStorage.setItem('delightful-theme-mode', mode);
+        localStorage.setItem('delightful-theme', mode);
+      }
+      // Re-render architecture section for correct light/dark values
+      renderArchitecture(activeFamily);
+    }
+
+    applyThemeMode(savedMode === 'light' || savedMode === 'dark' ? savedMode : 'system');
+
+    prefersDarkMq.addEventListener('change', () => {
+      if (html.getAttribute('data-theme-mode') === 'system') {
+        html.setAttribute('data-theme', prefersDarkMq.matches ? 'dark' : 'light');
+        renderArchitecture(activeFamily);
+      }
+    });
+
+    document.getElementById('theme-toggle').addEventListener('click', () => {
+      const current = localStorage.getItem('delightful-theme-mode') || 'system';
+      const next = current === 'light' ? 'dark' : current === 'dark' ? 'system' : 'light';
+      if (document.startViewTransition) {
+        document.startViewTransition(() => applyThemeMode(next));
+      } else {
+        applyThemeMode(next);
+      }
+    });
+
+    // =========================================================================
+    // BACK TO TOP
+    // =========================================================================
+
+    const backToTop = document.getElementById('back-to-top');
+    const heroSection = document.querySelector('.hero');
+    if (backToTop && heroSection) {
+      const observer = new IntersectionObserver(([entry]) => {
+        backToTop.classList.toggle('visible', !entry.isIntersecting);
+      }, { threshold: 0 });
+      observer.observe(heroSection);
+      backToTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    // =========================================================================
+    // COMMAND PALETTE
+    // =========================================================================
+
+    const cmdSections = [
+      { id: 'palette', label: 'Palette Explorer', color: 'var(--accent-primary)' },
+      { id: 'neutral', label: 'Neutral Scale', color: 'var(--accent-gold)' },
+      { id: 'architecture', label: 'Token Architecture', color: 'var(--accent-cyan)' },
+      { id: 'semantic', label: 'Semantic Mapping', color: 'var(--accent-green)' },
+      { id: 'component', label: 'Component Tokens', color: 'var(--accent-purple)' },
+    ];
+    const cmdOverlay = document.getElementById('cmd-palette-overlay');
+    const cmdInput = document.getElementById('cmd-palette-input');
+    const cmdList = document.getElementById('cmd-palette-list');
+    let cmdActiveIdx = 0;
+
+    function renderCmdList(filter) {
+      const q = (filter || '').toLowerCase();
+      const filtered = cmdSections.filter(s => s.label.toLowerCase().includes(q) || s.id.toLowerCase().includes(q));
+      cmdList.innerHTML = '';
+      if (filtered.length === 0) {
+        cmdList.innerHTML = '<li class="cmd-palette-empty">No sections found</li>';
+        return;
+      }
+      filtered.forEach((s, i) => {
+        const li = document.createElement('li');
+        li.className = 'cmd-palette-item' + (i === 0 ? ' active' : '');
+        li.setAttribute('role', 'option');
+        li.dataset.sectionId = s.id;
+        li.innerHTML = '<span class="cmd-section-dot" style="background:' + s.color + '"></span>' + s.label;
+        li.addEventListener('click', () => navigateToSection(s.id));
+        li.addEventListener('mouseenter', () => {
+          cmdList.querySelectorAll('.cmd-palette-item').forEach(el => el.classList.remove('active'));
+          li.classList.add('active');
+          cmdActiveIdx = i;
+        });
+        cmdList.appendChild(li);
+      });
+      cmdActiveIdx = 0;
+    }
+
+    function openCmdPalette() {
+      cmdOverlay.classList.add('active');
+      cmdInput.value = '';
+      renderCmdList('');
+      requestAnimationFrame(() => requestAnimationFrame(() => cmdInput.focus()));
+    }
+
+    function closeCmdPalette() {
+      cmdOverlay.classList.remove('active');
+      cmdInput.value = '';
+    }
+
+    function navigateToSection(id) {
+      closeCmdPalette();
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    cmdInput.addEventListener('input', () => renderCmdList(cmdInput.value));
+    cmdInput.addEventListener('keydown', (e) => {
+      const items = cmdList.querySelectorAll('.cmd-palette-item');
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        cmdActiveIdx = Math.min(cmdActiveIdx + 1, items.length - 1);
+        items.forEach((el, i) => el.classList.toggle('active', i === cmdActiveIdx));
+        items[cmdActiveIdx]?.scrollIntoView({ block: 'nearest' });
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        cmdActiveIdx = Math.max(cmdActiveIdx - 1, 0);
+        items.forEach((el, i) => el.classList.toggle('active', i === cmdActiveIdx));
+        items[cmdActiveIdx]?.scrollIntoView({ block: 'nearest' });
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        const active = items[cmdActiveIdx];
+        if (active) navigateToSection(active.dataset.sectionId);
+      } else if (e.key === 'Escape') {
+        closeCmdPalette();
+      }
+    });
+
+    cmdOverlay.addEventListener('click', (e) => {
+      if (e.target === cmdOverlay) closeCmdPalette();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        if (cmdOverlay.classList.contains('active')) {
+          closeCmdPalette();
+        } else {
+          openCmdPalette();
+        }
+      }
+    });
+
+    document.getElementById('cmd-k-trigger').addEventListener('click', openCmdPalette);
+  </script>
+</body>
+</html>

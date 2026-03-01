@@ -11,6 +11,7 @@ const CSS_TOKENS_FILE = path.join(ROOT_DIR, 'claude-plugin/themes/css/delightful
 const OBSIDIAN_THEME_FILE = path.join(ROOT_DIR, 'obsidian-theme/theme.css');
 const MOTION_FILE = path.join(ROOT_DIR, 'delightful-motion.html');
 const ANIMATION_FILE = path.join(ROOT_DIR, 'delightful-animation.html');
+const COLOR_FILE = path.join(ROOT_DIR, 'delightful-color.html');
 
 // --- Helper Functions ---
 function readFile(filePath) {
@@ -231,6 +232,9 @@ function run() {
 
   // 4. Animation HTML (companion doc — sync token blocks only)
   syncCompanionHTML(htmlContent, ANIMATION_FILE, 'delightful-animation.html');
+
+  // 5. Color HTML (companion doc — sync token blocks only)
+  syncCompanionHTML(htmlContent, COLOR_FILE, 'delightful-color.html');
 
   console.log('\nToken sync complete!');
 }
