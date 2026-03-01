@@ -146,6 +146,16 @@ const light = {
   accentPurpleHover:  'oklch(0.580 0.230 300)',
   accentPurpleSubtle: 'oklch(0.950 0.035 300)',
   accentPurpleText:   'oklch(0.560 0.230 300)',
+
+  // Syntax highlighting (light mode derives from semantic accent tokens
+  // except property which needs a distinct value for readability)
+  syntaxKeyword:  'oklch(0.560 0.270 350)',  // = accentPrimaryText
+  syntaxString:   'oklch(0.560 0.170 85)',   // = accentGoldText
+  syntaxFunction: 'oklch(0.560 0.148 210)',  // = accentCyanText
+  syntaxComment:  'oklch(0.560 0.012 60)',   // = textMuted
+  syntaxNumber:   'oklch(0.520 0.170 148)',  // = accentGreenText
+  syntaxOperator: 'oklch(0.420 0.015 60)',   // = textSecondary
+  syntaxProperty: 'oklch(0.480 0.180 350)',
 };
 
 const dark = {
@@ -192,68 +202,67 @@ const dark = {
   accentPurpleHover:  'oklch(0.740 0.190 300)',
   accentPurpleSubtle: 'oklch(0.250 0.055 300)',
   accentPurpleText:   'oklch(0.760 0.180 300)',
+
+  // Syntax highlighting (dark mode — tuned for dark backgrounds,
+  // from delightful-design-system.html:2792-2798)
+  syntaxKeyword:  'oklch(0.750 0.200 350)',
+  syntaxString:   'oklch(0.870 0.160 85)',
+  syntaxFunction: 'oklch(0.750 0.130 210)',
+  syntaxComment:  'oklch(0.550 0.010 60)',
+  syntaxNumber:   'oklch(0.800 0.140 148)',
+  syntaxOperator: 'oklch(0.700 0.000 0)',
+  syntaxProperty: 'oklch(0.780 0.100 350)',
 };
 
-// Canonical syntax colors from delightful-design-system.html:2792-2798
-// Designed for dark backgrounds
-const syntaxDark = {
-  keyword:  'oklch(0.750 0.200 350)',
-  string:   'oklch(0.870 0.160 85)',
-  function: 'oklch(0.750 0.130 210)',
-  comment:  'oklch(0.550 0.010 60)',
-  number:   'oklch(0.800 0.140 148)',
-  operator: 'oklch(0.700 0.000 0)',
-  property: 'oklch(0.780 0.100 350)',
+// Terminal ANSI palettes.
+// Light stays aligned with the terminal themes; dark keeps blue and cyan distinct
+// in VS Code so standard ANSI output remains easier to scan.
+// brightBlue and brightCyan are still identical by design.
+const ansiLight = {
+  black:         '#16100c',
+  red:           '#ed324b',
+  green:         '#22a448',
+  yellow:        '#c67e00',
+  blue:          '#00a6c0',
+  magenta:       '#f600a3',
+  cyan:          '#17c0d6',
+  white:         '#f6f1eb',
+  brightBlack:   '#615d58',
+  brightRed:     '#ff6e74',
+  brightGreen:   '#60c072',
+  brightYellow:  '#c67e00',
+  brightBlue:    '#88ddec',
+  brightMagenta: '#ff5cb8',
+  brightCyan:    '#88ddec',
+  brightWhite:   '#ffffff',
 };
 
-// Terminal ANSI palettes — aligned to Ghostty's light/dark themes.
-const ansi = {
-  light: {
-    black:         '#16100c',
-    red:           '#ed324b',
-    green:         '#22a448',
-    yellow:        '#c67e00',
-    blue:          '#00a6c0',
-    magenta:       '#f600a3',
-    cyan:          '#17c0d6',
-    white:         '#f6f1eb',
-    brightBlack:   '#615d58',
-    brightRed:     '#ff6e74',
-    brightGreen:   '#60c072',
-    brightYellow:  '#c67e00',
-    brightBlue:    '#88ddec',
-    brightMagenta: '#ff5cb8',
-    brightCyan:    '#cceff6',
-    brightWhite:   '#ffffff',
-  },
-  dark: {
-    black:         '#1e1a16',
-    red:           '#e8554c',
-    green:         '#3aad5f',
-    yellow:        '#f5c526',
-    blue:          '#00a6c0',
-    magenta:       '#ff4fa8',
-    cyan:          '#5cb8d6',
-    white:         '#eee9e3',
-    brightBlack:   '#615d58',
-    brightRed:     '#ff6e74',
-    brightGreen:   '#60c072',
-    brightYellow:  '#ffcb3f',
-    brightBlue:    '#88ddec',
-    brightMagenta: '#ff7cc6',
-    brightCyan:    '#cceff6',
-    brightWhite:   '#ffffff',
-  },
+const ansiDark = {
+  black:         '#1e1a16',
+  red:           '#e8554c',
+  green:         '#3aad5f',
+  yellow:        '#f5c526',
+  blue:          '#00a6c0',
+  magenta:       '#ff4fa8',
+  cyan:          '#5cb8d6',
+  white:         '#eee9e3',
+  brightBlack:   '#615d58',
+  brightRed:     '#ff6e74',
+  brightGreen:   '#60c072',
+  brightYellow:  '#ffcb3f',
+  brightBlue:    '#88ddec',
+  brightMagenta: '#ff7cc6',
+  brightCyan:    '#88ddec',
+  brightWhite:   '#ffffff',
 };
 
 // ---------------------------------------------------------------------------
 // Build workbench colors
 // ---------------------------------------------------------------------------
 
-function buildColors(t) {
+function buildColors(t, ansiPalette) {
   const h = (s) => toHex(s);
   const ha = (s, a) => toHexAlpha(s, a);
-  const terminalAnsi = t === light ? ansi.light : ansi.dark;
 
   return {
     // Global
@@ -493,22 +502,22 @@ function buildColors(t) {
     'terminal.foreground': h(t.textPrimary),
     'terminal.border': h(t.borderSubtle),
     'terminal.selectionBackground': ha(t.accentPrimarySubtle, 0.8),
-    'terminal.ansiBlack': terminalAnsi.black,
-    'terminal.ansiRed': terminalAnsi.red,
-    'terminal.ansiGreen': terminalAnsi.green,
-    'terminal.ansiYellow': terminalAnsi.yellow,
-    'terminal.ansiBlue': terminalAnsi.blue,
-    'terminal.ansiMagenta': terminalAnsi.magenta,
-    'terminal.ansiCyan': terminalAnsi.cyan,
-    'terminal.ansiWhite': terminalAnsi.white,
-    'terminal.ansiBrightBlack': terminalAnsi.brightBlack,
-    'terminal.ansiBrightRed': terminalAnsi.brightRed,
-    'terminal.ansiBrightGreen': terminalAnsi.brightGreen,
-    'terminal.ansiBrightYellow': terminalAnsi.brightYellow,
-    'terminal.ansiBrightBlue': terminalAnsi.brightBlue,
-    'terminal.ansiBrightMagenta': terminalAnsi.brightMagenta,
-    'terminal.ansiBrightCyan': terminalAnsi.brightCyan,
-    'terminal.ansiBrightWhite': terminalAnsi.brightWhite,
+    'terminal.ansiBlack': ansiPalette.black,
+    'terminal.ansiRed': ansiPalette.red,
+    'terminal.ansiGreen': ansiPalette.green,
+    'terminal.ansiYellow': ansiPalette.yellow,
+    'terminal.ansiBlue': ansiPalette.blue,
+    'terminal.ansiMagenta': ansiPalette.magenta,
+    'terminal.ansiCyan': ansiPalette.cyan,
+    'terminal.ansiWhite': ansiPalette.white,
+    'terminal.ansiBrightBlack': ansiPalette.brightBlack,
+    'terminal.ansiBrightRed': ansiPalette.brightRed,
+    'terminal.ansiBrightGreen': ansiPalette.brightGreen,
+    'terminal.ansiBrightYellow': ansiPalette.brightYellow,
+    'terminal.ansiBrightBlue': ansiPalette.brightBlue,
+    'terminal.ansiBrightMagenta': ansiPalette.brightMagenta,
+    'terminal.ansiBrightCyan': ansiPalette.brightCyan,
+    'terminal.ansiBrightWhite': ansiPalette.brightWhite,
     'terminalCursor.foreground': h(t.accentPrimary),
     'terminalCommandDecoration.defaultBackground': h(t.textMuted),
     'terminalCommandDecoration.successBackground': h(t.accentGreen),
@@ -714,7 +723,7 @@ function buildLightTokenColors(t) {
     {
       name: 'Properties',
       scope: ['variable.other.property', 'support.type.property-name', 'meta.object-literal.key'],
-      settings: { foreground: toHex('oklch(0.480 0.180 350)') },
+      settings: { foreground: h(t.syntaxProperty) },
     },
     {
       name: 'Parameters',
@@ -801,27 +810,27 @@ function buildDarkTokenColors(t) {
     {
       name: 'Comments',
       scope: ['comment', 'punctuation.definition.comment'],
-      settings: { foreground: h(syntaxDark.comment), fontStyle: 'italic' },
+      settings: { foreground: h(t.syntaxComment), fontStyle: 'italic' },
     },
     {
       name: 'Keywords',
       scope: ['keyword', 'keyword.control', 'storage.type', 'storage.modifier'],
-      settings: { foreground: h(syntaxDark.keyword) },
+      settings: { foreground: h(t.syntaxKeyword) },
     },
     {
       name: 'Operators',
       scope: ['keyword.operator', 'keyword.operator.assignment', 'keyword.operator.arithmetic'],
-      settings: { foreground: h(syntaxDark.operator) },
+      settings: { foreground: h(t.syntaxOperator) },
     },
     {
       name: 'Strings',
       scope: ['string', 'string.template', 'string.quoted'],
-      settings: { foreground: h(syntaxDark.string) },
+      settings: { foreground: h(t.syntaxString) },
     },
     {
       name: 'Numbers',
       scope: ['constant.numeric'],
-      settings: { foreground: h(syntaxDark.number) },
+      settings: { foreground: h(t.syntaxNumber) },
     },
     {
       name: 'Constants',
@@ -836,7 +845,7 @@ function buildDarkTokenColors(t) {
     {
       name: 'Functions',
       scope: ['entity.name.function', 'support.function', 'meta.function-call'],
-      settings: { foreground: h(syntaxDark.function) },
+      settings: { foreground: h(t.syntaxFunction) },
     },
     {
       name: 'Types and classes',
@@ -851,7 +860,7 @@ function buildDarkTokenColors(t) {
     {
       name: 'Properties',
       scope: ['variable.other.property', 'support.type.property-name', 'meta.object-literal.key'],
-      settings: { foreground: h(syntaxDark.property) },
+      settings: { foreground: h(t.syntaxProperty) },
     },
     {
       name: 'Parameters',
@@ -861,22 +870,22 @@ function buildDarkTokenColors(t) {
     {
       name: 'Tags (HTML/JSX)',
       scope: ['entity.name.tag'],
-      settings: { foreground: h(syntaxDark.keyword) },
+      settings: { foreground: h(t.syntaxKeyword) },
     },
     {
       name: 'Attributes (HTML)',
       scope: ['entity.other.attribute-name'],
-      settings: { foreground: h(syntaxDark.string) },
+      settings: { foreground: h(t.syntaxString) },
     },
     {
       name: 'CSS property names',
       scope: ['support.type.property-name.css', 'support.type.property-name.scss'],
-      settings: { foreground: h(syntaxDark.function) },
+      settings: { foreground: h(t.syntaxFunction) },
     },
     {
       name: 'CSS values',
       scope: ['support.constant.property-value', 'support.constant.color'],
-      settings: { foreground: h(syntaxDark.number) },
+      settings: { foreground: h(t.syntaxNumber) },
     },
     {
       name: 'Regex',
@@ -926,7 +935,7 @@ function buildDarkTokenColors(t) {
     {
       name: 'JSON property name',
       scope: ['support.type.property-name.json'],
-      settings: { foreground: h(syntaxDark.function) },
+      settings: { foreground: h(t.syntaxFunction) },
     },
   ];
 }
@@ -941,10 +950,8 @@ function buildSemanticTokenColors(t) {
   return {
     'variable.readonly': h(t.accentDangerText),
     'parameter': { foreground: h(t.textPrimary), italic: true },
-    'property.declaration': h(t === light
-      ? 'oklch(0.480 0.180 350)'
-      : syntaxDark.property),
-    'function.declaration': { foreground: h(t === light ? t.accentCyanText : syntaxDark.function), bold: true },
+    'property.declaration': h(t.syntaxProperty),
+    'function.declaration': { foreground: h(t.syntaxFunction), bold: true },
     'type': h(t === light ? t.accentCyan : t.accentCyanText),
     'interface': h(t === light ? t.accentCyan : t.accentCyanText),
     'enum': h(t === light ? t.accentCyan : t.accentCyanText),
@@ -959,7 +966,7 @@ function buildSemanticTokenColors(t) {
 
 function generateTheme(name, type, tokens) {
   const isLight = type === 'light';
-  const colors = buildColors(tokens);
+  const colors = buildColors(tokens, isLight ? ansiLight : ansiDark);
   const tokenColors = isLight ? buildLightTokenColors(tokens) : buildDarkTokenColors(tokens);
   const semanticTokenColors = buildSemanticTokenColors(tokens);
 
