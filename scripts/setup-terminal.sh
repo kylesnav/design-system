@@ -168,14 +168,16 @@ install_iterm2() {
           cp "$smart_open_dest" "$smart_open_dest.backup.$(date +%s)"
           ok "Backed up existing smart-open"
           cp "$smart_open_src" "$smart_open_dest"
+          chmod +x "$smart_open_dest"
           ok "smart-open installed to $smart_open_dest"
+          manual "In iTerm2: Settings > Profiles > Advanced > Semantic History > Run command... > \"$smart_open_dest\" \"\\1\" \"\\2\" \"\\5\""
         fi
       else
         cp "$smart_open_src" "$smart_open_dest"
+        chmod +x "$smart_open_dest"
         ok "smart-open installed to $smart_open_dest"
+        manual "In iTerm2: Settings > Profiles > Advanced > Semantic History > Run command... > \"$smart_open_dest\" \"\\1\" \"\\2\" \"\\5\""
       fi
-      chmod +x "$smart_open_dest"
-      manual "In iTerm2: Settings > Profiles > Advanced > Semantic History > Run command... > \"$smart_open_dest\" \"\\1\" \"\\2\" \"\\5\""
     fi
   fi
 
