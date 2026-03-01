@@ -34,7 +34,6 @@ const springTokens = [
 const motionTokens = [
   '--motion-instant',
   '--motion-fast',
-  '--motion-normal',
   '--motion-base',
   '--motion-slow',
 ];
