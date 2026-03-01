@@ -27,7 +27,7 @@ const light = {
     "#16100c", // 0  black
     "#ed324b", // 1  red
     "#22a448", // 2  green
-    "#c67e00", // 3  yellow
+    "#febf00", // 3  yellow (gold-400)
     "#00a6c0", // 4  blue (cyan-400)
     "#f600a3", // 5  magenta
     "#17c0d6", // 6  cyan
@@ -35,7 +35,7 @@ const light = {
     "#615d58", // 8  bright black
     "#ff6e74", // 9  bright red
     "#60c072", // 10 bright green
-    "#c67e00", // 11 bright yellow (kept equal to normal for light-mode contrast)
+    "#ffcb3f", // 11 bright yellow (gold-300)
     "#88ddec", // 12 bright blue (cyan-200)
     "#ff5cb8", // 13 bright magenta
     "#88ddec", // 14 bright cyan
