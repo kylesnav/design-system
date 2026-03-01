@@ -3921,6 +3921,150 @@
     .accordion-squish.accordion-open {
       grid-template-rows: 1fr;
     }
+    /* ==========================================================================
+       ARCHITECTURE — 3-tier stacked visualization
+       ========================================================================== */
+    .arch-stack {
+      display: flex; flex-direction: column; gap: 0;
+    }
+    .arch-tier {
+      background: var(--bg-surface);
+      border: 2px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: var(--space-6);
+      position: relative;
+    }
+    .arch-tier + .arch-connector + .arch-tier {
+      margin-top: 0;
+    }
+    .arch-tier-header {
+      margin-bottom: var(--space-4);
+    }
+    .arch-tier-label {
+      font-size: var(--ui-text-xs); font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.06em;
+      display: flex; align-items: center; gap: var(--space-2);
+    }
+    .arch-tier-label-num {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 20px; height: 20px; border-radius: 50%;
+      font-size: 0.625rem; font-weight: 800; color: var(--text-on-accent);
+    }
+    .arch-tier-desc {
+      font-size: var(--ui-text-xs); color: var(--text-muted);
+      margin-top: var(--space-1);
+    }
+    .arch-family-btns {
+      display: flex; gap: var(--space-2); flex-wrap: wrap;
+    }
+    .arch-family-btn {
+      width: 44px; height: 44px; border-radius: var(--radius-sm);
+      border: 2px solid var(--border-subtle); cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: var(--ui-text-2xs); font-family: var(--font-mono); font-weight: 600;
+      color: var(--text-on-accent);
+      transition: transform var(--motion-fast) var(--ease-out),
+                  box-shadow var(--motion-fast) var(--ease-out),
+                  border-color var(--motion-fast) var(--ease-out);
+    }
+    .arch-family-btn:hover {
+      transform: translateY(-2px); box-shadow: var(--shadow-sm);
+    }
+    .arch-family-btn:active { transform: translateY(0); box-shadow: none; }
+    .arch-family-btn[aria-pressed="true"] {
+      border-color: var(--border-strong);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    /* Connector between tiers */
+    .arch-connector {
+      display: flex; align-items: center; justify-content: center;
+      height: 40px; position: relative;
+    }
+    .arch-connector-line {
+      width: 2px; height: 100%;
+      border-left: 2px dashed var(--border-subtle);
+    }
+    .arch-connector-label {
+      position: absolute; left: 50%; transform: translateX(-50%);
+      font-size: var(--ui-text-2xs); font-weight: 600;
+      color: var(--text-muted); background: var(--bg-page);
+      padding: 0 var(--space-2);
+    }
+
+    /* Token trace rows */
+    .arch-token-list {
+      display: flex; flex-direction: column; gap: var(--space-2);
+    }
+    .arch-token-row {
+      display: flex; align-items: center; gap: var(--space-3);
+      padding: var(--space-2) var(--space-3);
+      background: var(--bg-subtle);
+      border-radius: var(--radius-sm);
+      font-size: var(--ui-text-xs); font-family: var(--font-mono);
+      transition: opacity var(--motion-fast) var(--ease-out);
+    }
+    .arch-token-dot {
+      width: 16px; height: 16px; border-radius: 4px;
+      border: 2px solid var(--border-subtle); flex-shrink: 0;
+    }
+    .arch-token-name {
+      font-weight: 600; color: var(--text-primary);
+    }
+    .arch-token-value {
+      color: var(--text-muted); margin-left: auto;
+    }
+    .arch-token-usage {
+      color: var(--text-muted); font-family: var(--font-sans);
+      font-style: italic;
+    }
+
+    /* Live component previews */
+    .arch-preview-row {
+      display: flex; align-items: center; gap: var(--space-3);
+      margin-top: var(--space-3);
+    }
+    .arch-preview-btn {
+      padding: var(--space-2) var(--space-4);
+      font-family: var(--font-sans); font-size: var(--ui-text-sm); font-weight: 700;
+      border: 2px solid var(--border-default); border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-sm); cursor: default;
+    }
+    .arch-preview-badge {
+      display: inline-flex; padding: var(--badge-py) var(--badge-px);
+      font-size: var(--ui-text-2xs); font-weight: 700;
+      border-radius: var(--radius-full); border: 2px solid var(--border-default);
+    }
+
+    /* ==========================================================================
+       CODE SNIPPETS — Collapsible CSS variable blocks
+       ========================================================================== */
+    .code-snippet { margin-top: var(--space-4); }
+    .code-snippet summary {
+      font-size: var(--ui-text-xs); font-weight: 600;
+      color: var(--text-muted); cursor: pointer;
+      padding: var(--space-2) 0;
+    }
+    .code-snippet pre {
+      position: relative; cursor: pointer;
+      margin: 0; padding: var(--space-3) var(--space-4);
+      background: var(--bg-subtle); border-radius: var(--radius-sm);
+      font-family: var(--font-mono); font-size: var(--ui-text-xs);
+      line-height: 1.6; overflow-x: auto;
+      border: 2px solid var(--border-subtle);
+    }
+    .code-snippet pre:hover {
+      border-color: var(--border-strong);
+    }
+
+    /* ==========================================================================
+       FORCE STATE CLASSES — Inputs & Cards
+       ========================================================================== */
+    .input.force-hover { border-color: var(--border-strong); }
+    .input.force-focus { outline: 3px solid var(--focus-ring); outline-offset: 2px; }
+    .card-interactive.force-hover { transform: translate(-4px, -4px); box-shadow: var(--shadow-lg); }
+
     } /* end @layer component */
 
     /* ==========================================================================
@@ -4774,6 +4918,52 @@
       </div>
 
       <div class="subsection">
+        <div class="subsection-label">Token Architecture</div>
+        <p class="subsection-desc">Click a color family to trace its journey from raw OKLCH primitives through semantic mapping to component tokens.</p>
+        <div class="arch-stack" id="arch-stack">
+          <div class="arch-tier">
+            <div class="arch-tier-header">
+              <div class="arch-tier-label">
+                <span class="arch-tier-label-num" style="background:var(--accent-primary)">1</span>
+                Primitives
+              </div>
+              <div class="arch-tier-desc">Raw OKLCH values. Named by family and lightness. No semantic meaning.</div>
+            </div>
+            <div class="arch-family-btns" id="arch-family-btns"></div>
+          </div>
+          <div class="arch-connector">
+            <div class="arch-connector-line"></div>
+            <span class="arch-connector-label">maps to</span>
+          </div>
+          <div class="arch-tier">
+            <div class="arch-tier-header">
+              <div class="arch-tier-label">
+                <span class="arch-tier-label-num" style="background:var(--accent-gold)">2</span>
+                Semantic
+              </div>
+              <div class="arch-tier-desc">Theme-aware. Light and dark values hand-tuned independently.</div>
+            </div>
+            <div class="arch-token-list" id="arch-semantic-list"></div>
+          </div>
+          <div class="arch-connector">
+            <div class="arch-connector-line"></div>
+            <span class="arch-connector-label">used by</span>
+          </div>
+          <div class="arch-tier">
+            <div class="arch-tier-header">
+              <div class="arch-tier-label">
+                <span class="arch-tier-label-num" style="background:var(--accent-cyan)">3</span>
+                Component
+              </div>
+              <div class="arch-tier-desc">UI-specific. Buttons, badges, toggles. Always reference semantic tokens.</div>
+            </div>
+            <div class="arch-token-list" id="arch-component-list"></div>
+            <div class="arch-preview-row" id="arch-preview"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection">
         <div class="subsection-label">Contrast Checker</div>
         <div class="contrast-checker" id="contrast-checker">
           <label>Background<select id="cc-bg">
@@ -4907,6 +5097,12 @@
       <div class="subsection">
         <div class="subsection-label">Live Type Tester</div>
         <div class="type-tester">
+          <div class="flex gap-2 flex-wrap" style="margin-bottom:var(--space-4)">
+            <button class="btn btn-sm btn-secondary" onclick="setTypePreset('headline')">Headline</button>
+            <button class="btn btn-sm btn-secondary" onclick="setTypePreset('body')">Body Copy</button>
+            <button class="btn btn-sm btn-secondary" onclick="setTypePreset('label')">UI Label</button>
+            <button class="btn btn-sm btn-secondary" onclick="setTypePreset('code')">Code Comment</button>
+          </div>
           <div class="type-tester-controls">
             <label>Weight <input type="range" class="range" min="100" max="900" value="400" step="10" id="tt-weight"
                 style="width:120px"></label>
@@ -5156,6 +5352,21 @@
       </div>
 
       <div class="subsection">
+        <div class="subsection-label">Interactive State Toggle</div>
+        <p class="subsection-desc">Use the controls below to apply forced states to the demo button.</p>
+        <div class="state-toggle-bar" data-target="state-demo-btn">
+          <button class="btn btn-sm btn-secondary" data-state="default" aria-pressed="true">Default</button>
+          <button class="btn btn-sm btn-secondary" data-state="hover">Hover</button>
+          <button class="btn btn-sm btn-secondary" data-state="active">Active</button>
+          <button class="btn btn-sm btn-secondary" data-state="focus">Focus</button>
+          <button class="btn btn-sm btn-secondary" data-state="disabled">Disabled</button>
+        </div>
+        <div style="margin-top:var(--space-4)">
+          <button class="btn btn-md btn-primary" id="state-demo-btn">Interactive Demo</button>
+        </div>
+      </div>
+
+      <div class="subsection">
         <div class="subsection-label">Sizes</div>
         <div class="btn-row">
           <button class="btn btn-sm btn-primary">Small</button>
@@ -5221,12 +5432,39 @@
             <span class="state-label">Disabled</span>
           </div>
         </div>
+        <details class="code-snippet">
+          <summary>Button CSS Variables</summary>
+          <pre>/* Button tokens */
+--btn-py: var(--space-2);
+--btn-px: var(--space-5);
+--btn-gap: var(--space-2);
+--btn-primary-bg: var(--accent-primary);
+--btn-primary-text: var(--text-on-accent);
+--btn-danger-bg: var(--accent-danger);
+--btn-danger-text: var(--text-on-accent);
+--btn-gold-bg: var(--accent-gold);
+--btn-gold-text: var(--text-on-gold);</pre>
+        </details>
       </div>
 
       <!-- 5b. Form Elements -->
       <div class="subsection">
         <h3 class="subsection-title">Form Elements</h3>
         <p class="subsection-desc">Text inputs, selects, textareas, multi-select tags, and date pickers. Each supports default, focus, error, and disabled states.</p>
+      </div>
+
+      <div class="subsection">
+        <div class="subsection-label">Input State Toggle</div>
+        <p class="subsection-desc">Toggle forced states on the demo input below.</p>
+        <div class="state-toggle-bar" data-target="state-demo-input">
+          <button class="btn btn-sm btn-secondary" data-state="default" aria-pressed="true">Default</button>
+          <button class="btn btn-sm btn-secondary" data-state="hover">Hover</button>
+          <button class="btn btn-sm btn-secondary" data-state="focus">Focus</button>
+          <button class="btn btn-sm btn-secondary" data-state="disabled">Disabled</button>
+        </div>
+        <div style="margin-top:var(--space-4);max-width:360px">
+          <input class="input" id="state-demo-input" type="text" placeholder="Interactive input demo" value="Type here...">
+        </div>
       </div>
 
       <div class="subsection">
@@ -5338,6 +5576,23 @@
         </div>
       </div>
 
+      <div class="subsection">
+        <details class="code-snippet">
+          <summary>Form Element CSS Variables</summary>
+          <pre>/* Input tokens */
+--input-py: var(--space-2);
+--input-px: var(--space-3);
+--input-radius: var(--radius-sm);
+--input-border: var(--border-default);
+--input-bg: var(--bg-elevated);
+--input-focus-ring: var(--focus-ring);
+
+/* Error state */
+--input-error-border: var(--accent-danger);
+--input-error-text: var(--accent-danger-text);</pre>
+        </details>
+      </div>
+
       <!-- 5c. Cards -->
       <div class="subsection">
         <h3 class="subsection-title">Cards</h3>
@@ -5360,6 +5615,18 @@
             <div class="card-meta">10 prototypes · Stable</div>
           </div>
         </div>
+        <details class="code-snippet">
+          <summary>Card CSS Variables</summary>
+          <pre>/* Card tokens */
+--card-padding: var(--space-6);
+--card-radius: var(--radius-md);
+--card-bg: var(--bg-surface);
+--card-border: var(--border-default);
+--card-shadow: var(--shadow-md);
+--card-shadow-hover: var(--shadow-lg);
+--card-featured-bg: var(--accent-primary-subtle);
+--card-featured-border: var(--accent-primary);</pre>
+        </details>
       </div>
 
       <!-- 5d. Data Table -->
@@ -5468,6 +5735,18 @@
           <span class="badge badge-pink badge-pop"><span class="status-dot"
               style="background:var(--accent-primary);margin-right:2px"></span> With Dot</span>
         </div>
+        <details class="code-snippet">
+          <summary>Badge CSS Variables</summary>
+          <pre>/* Badge tokens */
+--badge-py: var(--space-1);
+--badge-px: var(--space-3);
+--badge-radius: var(--radius-full);
+--badge-font-size: var(--ui-text-2xs);
+--badge-pink-bg: var(--accent-primary-subtle);
+--badge-pink-text: var(--accent-primary-text);
+--badge-gold-bg: var(--accent-gold-subtle);
+--badge-gold-text: var(--accent-gold-text);</pre>
+        </details>
       </div>
 
       <!-- 5f. Navigation -->
@@ -6842,6 +7121,7 @@
       prefersDarkMq.addEventListener('change', () => {
         if (html.getAttribute('data-theme-mode') === 'system') {
           html.setAttribute('data-theme', prefersDarkMq.matches ? 'dark' : 'light');
+          if (typeof renderArchitecture === 'function') renderArchitecture(activeFamily || 'pink');
         }
       });
 
@@ -6849,6 +7129,7 @@
         const current = localStorage.getItem('delightful-theme-mode') || 'system';
         const next = current === 'light' ? 'dark' : current === 'dark' ? 'system' : 'light';
         applyThemeMode(next);
+        if (typeof renderArchitecture === 'function') renderArchitecture(activeFamily || 'pink');
       });
 
       // === Motion Toggle ===
@@ -6999,6 +7280,203 @@
       ttWeight.addEventListener('input', () => ttPreview.style.fontWeight = ttWeight.value);
       ttSize.addEventListener('change', () => ttPreview.style.fontSize = ttSize.value);
       ttTracking.addEventListener('change', () => ttPreview.style.letterSpacing = ttTracking.value);
+
+      // === Type Tester Presets ===
+      window.setTypePreset = function (preset) {
+        const presets = {
+          headline: { weight: 800, size: 'var(--step-4)', tracking: '-0.04em', text: 'A design system that sparks joy' },
+          body: { weight: 400, size: 'var(--step-0)', tracking: 'normal', text: 'Delightful uses OKLCH color science to create perceptually uniform palettes across six accent families.' },
+          label: { weight: 600, size: 'var(--step--1)', tracking: '-0.02em', text: 'Save Changes' },
+          code: { weight: 400, size: 'var(--step--1)', tracking: 'normal', text: '// Token architecture: primitives \u2192 semantic \u2192 component' },
+        };
+        const p = presets[preset];
+        ttWeight.value = p.weight;
+        ttSize.value = p.size;
+        ttTracking.value = p.tracking;
+        ttPreview.style.fontWeight = p.weight;
+        ttPreview.style.fontSize = p.size;
+        ttPreview.style.letterSpacing = p.tracking;
+        ttPreview.textContent = p.text;
+      };
+
+      // === Token Architecture Visualization ===
+      const archFamilies = [
+        { key: 'pink', name: 'Pink', hue: 350 },
+        { key: 'red', name: 'Red', hue: 20 },
+        { key: 'gold', name: 'Gold', hue: 85 },
+        { key: 'cyan', name: 'Cyan', hue: 210 },
+        { key: 'green', name: 'Green', hue: 148 },
+        { key: 'purple', name: 'Purple', hue: 300 },
+      ];
+
+      const archData = {
+        pink: {
+          semantic: [
+            { token: '--accent-primary', light: 'oklch(0.640 0.270 350)', dark: 'oklch(0.700 0.230 350)', usage: 'Primary brand, CTAs' },
+            { token: '--accent-primary-hover', light: 'oklch(0.580 0.280 350)', dark: 'oklch(0.740 0.220 350)', usage: 'Hover state' },
+            { token: '--accent-primary-subtle', light: 'oklch(0.955 0.040 350)', dark: 'oklch(0.250 0.065 350)', usage: 'Light tint bg' },
+            { token: '--accent-primary-text', light: 'oklch(0.560 0.270 350)', dark: 'oklch(0.750 0.210 350)', usage: 'Colored text' },
+          ],
+          component: [
+            { token: '--btn-primary-bg', ref: 'var(--accent-primary)', usage: 'Button bg' },
+            { token: '--btn-primary-text', ref: 'var(--text-on-accent)', usage: 'Button text' },
+            { token: '--shadow-pink', ref: '4px 4px 0 var(--accent-primary)', usage: 'Colored shadow' },
+          ]
+        },
+        red: {
+          semantic: [
+            { token: '--accent-danger', light: 'oklch(0.620 0.220 20)', dark: 'oklch(0.660 0.200 20)', usage: 'Errors, destructive' },
+            { token: '--accent-danger-hover', light: 'oklch(0.570 0.230 20)', dark: 'oklch(0.700 0.190 20)', usage: 'Hover state' },
+            { token: '--accent-danger-subtle', light: 'oklch(0.950 0.040 20)', dark: 'oklch(0.250 0.055 20)', usage: 'Light tint bg' },
+            { token: '--accent-danger-text', light: 'oklch(0.570 0.220 20)', dark: 'oklch(0.720 0.180 20)', usage: 'Colored text' },
+          ],
+          component: [
+            { token: '--btn-danger-bg', ref: 'var(--accent-danger)', usage: 'Button bg' },
+            { token: '--btn-danger-text', ref: 'var(--text-on-accent)', usage: 'Button text' },
+            { token: '--shadow-danger', ref: '4px 4px 0 var(--accent-danger)', usage: 'Colored shadow' },
+          ]
+        },
+        gold: {
+          semantic: [
+            { token: '--accent-gold', light: 'oklch(0.840 0.175 85)', dark: 'oklch(0.840 0.170 85)', usage: 'Warnings, highlights' },
+            { token: '--accent-gold-hover', light: 'oklch(0.820 0.165 84)', dark: 'oklch(0.870 0.155 84)', usage: 'Hover state' },
+            { token: '--accent-gold-subtle', light: 'oklch(0.965 0.060 85)', dark: 'oklch(0.260 0.065 85)', usage: 'Light tint bg' },
+            { token: '--accent-gold-text', light: 'oklch(0.560 0.170 85)', dark: 'oklch(0.870 0.155 85)', usage: 'Colored text' },
+          ],
+          component: [
+            { token: '--btn-gold-bg', ref: 'var(--accent-gold)', usage: 'Button bg' },
+            { token: '--btn-gold-text', ref: 'var(--text-on-gold)', usage: 'Button text' },
+            { token: '--shadow-gold', ref: '4px 4px 0 var(--accent-gold)', usage: 'Colored shadow' },
+          ]
+        },
+        cyan: {
+          semantic: [
+            { token: '--accent-cyan', light: 'oklch(0.650 0.148 210)', dark: 'oklch(0.720 0.140 210)', usage: 'Info, tertiary' },
+            { token: '--accent-cyan-hover', light: 'oklch(0.600 0.150 210)', dark: 'oklch(0.760 0.130 210)', usage: 'Hover state' },
+            { token: '--accent-cyan-subtle', light: 'oklch(0.945 0.030 210)', dark: 'oklch(0.250 0.045 210)', usage: 'Light tint bg' },
+            { token: '--accent-cyan-text', light: 'oklch(0.560 0.148 210)', dark: 'oklch(0.780 0.130 210)', usage: 'Colored text' },
+          ],
+          component: [
+            { token: '--btn-cyan-bg', ref: 'var(--accent-cyan)', usage: 'Button bg' },
+            { token: '--btn-cyan-text', ref: 'var(--text-on-accent)', usage: 'Button text' },
+            { token: '--shadow-cyan', ref: '4px 4px 0 var(--accent-cyan)', usage: 'Colored shadow' },
+          ]
+        },
+        green: {
+          semantic: [
+            { token: '--accent-green', light: 'oklch(0.630 0.170 148)', dark: 'oklch(0.680 0.155 148)', usage: 'Success, safe' },
+            { token: '--accent-green-hover', light: 'oklch(0.580 0.165 148)', dark: 'oklch(0.720 0.145 148)', usage: 'Hover state' },
+            { token: '--accent-green-subtle', light: 'oklch(0.945 0.035 148)', dark: 'oklch(0.250 0.048 148)', usage: 'Light tint bg' },
+            { token: '--accent-green-text', light: 'oklch(0.520 0.170 148)', dark: 'oklch(0.740 0.145 148)', usage: 'Colored text' },
+          ],
+          component: [
+            { token: '--btn-green-bg', ref: 'var(--accent-green)', usage: 'Button bg' },
+            { token: '--btn-green-text', ref: 'var(--text-on-accent)', usage: 'Button text' },
+            { token: '--shadow-green', ref: '4px 4px 0 var(--accent-green)', usage: 'Colored shadow' },
+          ]
+        },
+        purple: {
+          semantic: [
+            { token: '--accent-purple', light: 'oklch(0.640 0.220 300)', dark: 'oklch(0.700 0.200 300)', usage: 'Creative, special' },
+            { token: '--accent-purple-hover', light: 'oklch(0.580 0.230 300)', dark: 'oklch(0.740 0.190 300)', usage: 'Hover state' },
+            { token: '--accent-purple-subtle', light: 'oklch(0.950 0.035 300)', dark: 'oklch(0.250 0.055 300)', usage: 'Light tint bg' },
+            { token: '--accent-purple-text', light: 'oklch(0.560 0.230 300)', dark: 'oklch(0.760 0.180 300)', usage: 'Colored text' },
+          ],
+          component: [
+            { token: '--btn-purple-bg', ref: 'var(--accent-purple)', usage: 'Button bg' },
+            { token: '--btn-purple-text', ref: 'var(--text-on-accent)', usage: 'Button text' },
+            { token: '--shadow-purple', ref: '4px 4px 0 var(--accent-purple)', usage: 'Colored shadow' },
+          ]
+        }
+      };
+
+      let activeFamily = 'pink';
+
+      function renderArchitecture(familyKey) {
+        activeFamily = familyKey;
+        const data = archData[familyKey];
+        const family = archFamilies.find(f => f.key === familyKey);
+
+        // Update button states
+        document.querySelectorAll('.arch-family-btn').forEach(btn => {
+          btn.setAttribute('aria-pressed', btn.dataset.family === familyKey ? 'true' : 'false');
+        });
+
+        // Tier 2: Semantic
+        const semanticList = document.getElementById('arch-semantic-list');
+        const isDark = html.getAttribute('data-theme') === 'dark';
+        semanticList.innerHTML = data.semantic.map(t => {
+          const val = isDark ? t.dark : t.light;
+          return '<div class="arch-token-row">' +
+            '<div class="arch-token-dot" style="background:' + val + '"></div>' +
+            '<span class="arch-token-name">' + t.token + '</span>' +
+            '<span class="arch-token-usage">' + t.usage + '</span>' +
+            '<span class="arch-token-value">' + val + '</span>' +
+          '</div>';
+        }).join('');
+
+        // Tier 3: Component
+        const componentList = document.getElementById('arch-component-list');
+        componentList.innerHTML = data.component.map(t =>
+          '<div class="arch-token-row">' +
+            '<span class="arch-token-name">' + t.token + '</span>' +
+            '<span class="arch-token-usage">' + t.usage + '</span>' +
+            '<span class="arch-token-value">' + t.ref + '</span>' +
+          '</div>'
+        ).join('');
+
+        // Preview
+        const preview = document.getElementById('arch-preview');
+        const btnBg = 'var(--btn-' + (familyKey === 'pink' ? 'primary' : familyKey === 'red' ? 'danger' : familyKey) + '-bg)';
+        const btnText = 'var(--btn-' + (familyKey === 'pink' ? 'primary' : familyKey === 'red' ? 'danger' : familyKey) + '-text)';
+        const shadowVar = 'var(--shadow-' + (familyKey === 'red' ? 'danger' : familyKey === 'pink' ? 'pink' : familyKey) + ')';
+        preview.innerHTML =
+          '<span class="arch-preview-btn" style="background:' + btnBg + ';color:' + btnText + ';box-shadow:' + shadowVar + '">' + family.name + ' Button</span>' +
+          '<span class="arch-preview-badge" style="background:var(--accent-' + (familyKey === 'pink' ? 'primary' : familyKey === 'red' ? 'danger' : familyKey) + '-subtle);color:var(--accent-' + (familyKey === 'pink' ? 'primary' : familyKey === 'red' ? 'danger' : familyKey) + '-text)">' + family.name + '</span>';
+      }
+
+      (function initArchitecture() {
+        const btns = document.getElementById('arch-family-btns');
+        if (!btns) return;
+        archFamilies.forEach(family => {
+          const btn = document.createElement('button');
+          btn.className = 'arch-family-btn';
+          btn.dataset.family = family.key;
+          btn.style.background = 'var(--primitive-' + family.key + '-400)';
+          btn.textContent = family.key.slice(0, 2).toUpperCase();
+          btn.setAttribute('aria-pressed', family.key === 'pink' ? 'true' : 'false');
+          btn.addEventListener('click', () => renderArchitecture(family.key));
+          btns.appendChild(btn);
+        });
+        renderArchitecture('pink');
+      })();
+
+      // === Code Snippet Click-to-Copy ===
+      document.querySelectorAll('.code-snippet pre').forEach(function (pre) {
+        pre.addEventListener('click', function () {
+          navigator.clipboard.writeText(pre.textContent).then(function () {
+            showToast('success', 'Copied', 'CSS variables copied to clipboard');
+          });
+        });
+      });
+
+      // === Per-Component State Toggles ===
+      document.querySelectorAll('.state-toggle-bar').forEach(function (bar) {
+        bar.addEventListener('click', function (e) {
+          var btn = e.target.closest('[data-state]');
+          if (!btn) return;
+          var state = btn.dataset.state;
+          var targetId = bar.dataset.target;
+          var target = document.getElementById(targetId);
+          if (!target) return;
+          bar.querySelectorAll('[data-state]').forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
+          btn.setAttribute('aria-pressed', 'true');
+          target.className = target.className.replace(/force-\w+/g, '').trim();
+          if (state !== 'default') target.classList.add('force-' + state);
+          if (state === 'disabled') target.setAttribute('disabled', '');
+          else target.removeAttribute('disabled');
+        });
+      });
 
       // === Grid Layout Switcher ===
       window.setGrid = function (cols) {
