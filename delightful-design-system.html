@@ -934,7 +934,7 @@
 
       .hero {
         min-height: auto;
-        padding: var(--space-12) 0 var(--space-10);
+        padding: var(--space-12) var(--space-4) var(--space-10);
       }
 
       .table-wrap {
@@ -994,7 +994,7 @@
 
       .hero {
         min-height: auto;
-        padding: var(--space-8) 0 var(--space-6);
+        padding: var(--space-8) var(--space-3) var(--space-6);
       }
 
       .swatch-row {
@@ -1172,8 +1172,14 @@
     }
 
     .nav-kbd {
+      appearance: none;
+      -webkit-appearance: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       font-size: var(--ui-text-xs);
       font-family: var(--font-sans);
+      line-height: 1;
       padding: 2px var(--space-1);
       border-radius: 4px;
       border: 1px solid var(--border-subtle);
@@ -1186,6 +1192,11 @@
 
     .nav-kbd:hover {
       border-color: var(--border-default);
+    }
+
+    .nav-kbd:focus-visible {
+      outline: 2px solid var(--accent-primary);
+      outline-offset: 2px;
     }
 
     .nav-kbd:active {
@@ -4116,7 +4127,9 @@
         <li><a href="delightful-color.html" style="color:var(--accent-cyan)">Color ↗</a></li>
       </ul>
       <div class="topnav-right">
-        <kbd class="nav-kbd" id="cmd-k-trigger" title="Quick navigation">⌘K</kbd>
+        <button type="button" class="nav-kbd" id="cmd-k-trigger" title="Quick navigation"
+          aria-label="Open quick navigation" aria-haspopup="dialog" aria-controls="cmd-palette"
+          aria-expanded="false"><span aria-hidden="true">⌘K</span></button>
         <button class="nav-toggle-btn" id="nav-toggle" aria-label="Toggle navigation">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <line x1="3" y1="6" x2="21" y2="6" />
@@ -6841,10 +6854,10 @@
   </dialog>
 
   <!-- Command Palette (overlay-based) -->
-  <div class="cmd-palette-overlay" id="cmd-palette-overlay">
-    <div class="cmd-palette" role="dialog" aria-modal="true" aria-label="Quick navigation">
+  <div class="cmd-palette-overlay" id="cmd-palette-overlay" aria-hidden="true">
+    <div class="cmd-palette" id="cmd-palette" role="dialog" aria-modal="true" aria-label="Quick navigation">
       <input class="cmd-palette-input" id="cmd-palette-input"
-             type="text" placeholder="Jump to section…" autocomplete="off" />
+             type="text" placeholder="Jump to section…" autocomplete="off" aria-controls="cmd-palette-list" />
       <ul class="cmd-palette-list" id="cmd-palette-list" role="listbox"></ul>
     </div>
   </div>
@@ -7297,9 +7310,29 @@
       ];
 
       const cmdOverlay = document.getElementById('cmd-palette-overlay');
+      const cmdTrigger = document.getElementById('cmd-k-trigger');
       const cmdInput   = document.getElementById('cmd-palette-input');
       const cmdList    = document.getElementById('cmd-palette-list');
       let cmdActiveIdx = 0;
+      let cmdPreviousFocus = null;
+
+      function getCmdItems() {
+        return Array.from(cmdList.querySelectorAll('.cmd-palette-item'));
+      }
+
+      function syncCmdActiveState() {
+        const items = getCmdItems();
+        const active = items[cmdActiveIdx];
+
+        items.forEach((el, i) => {
+          const isActive = i === cmdActiveIdx;
+          el.classList.toggle('active', isActive);
+          el.setAttribute('aria-selected', String(isActive));
+        });
+
+        if (active) cmdInput.setAttribute('aria-activedescendant', active.id);
+        else cmdInput.removeAttribute('aria-activedescendant');
+      }
 
       function renderCmdList(filter) {
         const q = (filter || '').toLowerCase();
@@ -7313,6 +7346,7 @@
         cmdList.innerHTML = '';
 
         if (filteredSections.length === 0 && filteredActions.length === 0) {
+          cmdInput.removeAttribute('aria-activedescendant');
           cmdList.innerHTML = '<li class="cmd-palette-empty">No results found</li>';
           return;
         }
@@ -7324,9 +7358,10 @@
           groupHeader.setAttribute('role', 'presentation');
           cmdList.appendChild(groupHeader);
 
-          filteredSections.forEach((s, i) => {
+          filteredSections.forEach((s) => {
             const li = document.createElement('li');
-            li.className = 'cmd-palette-item' + (i === 0 ? ' active' : '');
+            li.className = 'cmd-palette-item';
+            li.id = 'cmd-option-section-' + s.id;
             li.setAttribute('role', 'option');
             li.dataset.sectionId = s.id;
             li.innerHTML = '<span class="cmd-section-dot" style="background:' + s.color + '"></span>' + s.label;
@@ -7343,10 +7378,10 @@
           groupHeader.setAttribute('role', 'presentation');
           cmdList.appendChild(groupHeader);
 
-          filteredActions.forEach((a, i) => {
+          filteredActions.forEach((a) => {
             const li = document.createElement('li');
-            const isFirst = filteredSections.length === 0 && i === 0;
-            li.className = 'cmd-palette-item' + (isFirst ? ' active' : '');
+            li.className = 'cmd-palette-item';
+            li.id = 'cmd-option-action-' + a.action;
             li.setAttribute('role', 'option');
             li.dataset.action = a.action;
             li.innerHTML = '<span class="cmd-section-dot" style="background:var(--text-muted)"></span>' + a.label;
@@ -7357,26 +7392,36 @@
         }
 
         cmdActiveIdx = 0;
+        syncCmdActiveState();
       }
 
       function setCmdActive(li) {
-        const items = cmdList.querySelectorAll('.cmd-palette-item');
-        items.forEach((el, i) => {
-          el.classList.toggle('active', el === li);
-          if (el === li) cmdActiveIdx = i;
-        });
+        const nextIdx = getCmdItems().indexOf(li);
+        if (nextIdx === -1) return;
+        cmdActiveIdx = nextIdx;
+        syncCmdActiveState();
       }
 
       function openCmdPalette() {
+        if (cmdOverlay.classList.contains('active')) return;
+        cmdPreviousFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
         cmdOverlay.classList.add('active');
+        cmdOverlay.setAttribute('aria-hidden', 'false');
+        cmdTrigger.setAttribute('aria-expanded', 'true');
         cmdInput.value = '';
         renderCmdList('');
         requestAnimationFrame(() => requestAnimationFrame(() => cmdInput.focus()));
       }
 
       function closeCmdPalette() {
+        if (!cmdOverlay.classList.contains('active')) return;
         cmdOverlay.classList.remove('active');
+        cmdOverlay.setAttribute('aria-hidden', 'true');
+        cmdTrigger.setAttribute('aria-expanded', 'false');
         cmdInput.value = '';
+        cmdInput.removeAttribute('aria-activedescendant');
+        if (cmdPreviousFocus && cmdPreviousFocus.isConnected) cmdPreviousFocus.focus();
+        cmdPreviousFocus = null;
       }
 
       function navigateCmdSection(id) {
@@ -7396,16 +7441,16 @@
 
       // Keyboard navigation
       cmdInput.addEventListener('keydown', (e) => {
-        const items = cmdList.querySelectorAll('.cmd-palette-item');
+        const items = getCmdItems();
         if (e.key === 'ArrowDown') {
           e.preventDefault();
           cmdActiveIdx = Math.min(cmdActiveIdx + 1, items.length - 1);
-          items.forEach((el, i) => el.classList.toggle('active', i === cmdActiveIdx));
+          syncCmdActiveState();
           items[cmdActiveIdx]?.scrollIntoView({ block: 'nearest' });
         } else if (e.key === 'ArrowUp') {
           e.preventDefault();
           cmdActiveIdx = Math.max(cmdActiveIdx - 1, 0);
-          items.forEach((el, i) => el.classList.toggle('active', i === cmdActiveIdx));
+          syncCmdActiveState();
           items[cmdActiveIdx]?.scrollIntoView({ block: 'nearest' });
         } else if (e.key === 'Enter') {
           e.preventDefault();
@@ -7416,8 +7461,15 @@
             if (sectionId) navigateCmdSection(sectionId);
             else if (action) executeCmdAction(action);
           }
-        } else if (e.key === 'Escape') {
-          closeCmdPalette();
+        }
+      });
+
+      cmdOverlay.addEventListener('keydown', (e) => {
+        if (!cmdOverlay.classList.contains('active')) return;
+
+        if (e.key === 'Tab') {
+          e.preventDefault();
+          cmdInput.focus();
         }
       });
 
@@ -7428,15 +7480,18 @@
 
       // Global Cmd+K / Ctrl+K toggle
       document.addEventListener('keydown', (e) => {
-        if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
           e.preventDefault();
           if (cmdOverlay.classList.contains('active')) closeCmdPalette();
           else openCmdPalette();
+        } else if (e.key === 'Escape' && cmdOverlay.classList.contains('active')) {
+          e.preventDefault();
+          closeCmdPalette();
         }
       });
 
       // Nav badge click + demo button
-      document.getElementById('cmd-k-trigger').addEventListener('click', openCmdPalette);
+      cmdTrigger.addEventListener('click', openCmdPalette);
       document.getElementById('open-cmdpal').addEventListener('click', openCmdPalette);
 
       // === Interactive Data Table ===
