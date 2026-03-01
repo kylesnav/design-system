@@ -38,7 +38,7 @@ const light = {
     "#ffcb3f", // 11 bright yellow
     "#88ddec", // 12 bright blue (cyan-200)
     "#ff5cb8", // 13 bright magenta
-    "#88ddec", // 14 bright cyan
+    "#cceff6", // 14 bright cyan (cyan-100)
     "#ffffff", // 15 bright white
   ],
 };
@@ -56,7 +56,7 @@ const dark = {
     "#f5c526", // 3  yellow
     "#5cb8d6", // 4  blue (cyan-400)
     "#ff4fa8", // 5  magenta
-    "#5cb8d6", // 6  cyan
+    "#55cee1", // 6  cyan (adjusted cyan-300)
     "#eee9e3", // 7  white
     "#615d58", // 8  bright black
     "#ff6e74", // 9  bright red
@@ -64,7 +64,7 @@ const dark = {
     "#ffcb3f", // 11 bright yellow
     "#88ddec", // 12 bright blue (cyan-200)
     "#ff7cc6", // 13 bright magenta
-    "#88ddec", // 14 bright cyan
+    "#cceff6", // 14 bright cyan (cyan-100)
     "#ffffff", // 15 bright white
   ],
 };
