@@ -1,6 +1,6 @@
 # Delightful Design System
 
-Monorepo for the Delightful design system, and various themes and plugins that can use it. You are building a joyful, delightful design system. It should be extremely cutting edge, use /frontend-design as needed.
+Monorepo for the Delightful design system, and various themes and plugins that can use it. You are building a joyful, delightful design system.
 
 ## Change Propagation
 
@@ -21,44 +21,6 @@ If token names, values, or component patterns changed, also update:
 - `claude-plugin/skills/build-with-delightful/SKILL.md`
 - `claude-plugin/skills/refactor-with-delightful/SKILL.md`
 
-> **Note:** The auditor agent now reads `reference/design-system.md` at runtime for token mappings, so only its violation checks and allowed exceptions need manual updates — not the mapping tables.
-
-## Claude Plugin External Repo Sync
-
-The Claude Code plugin lives in two places:
-- `claude-plugin/` in this repo (development copy)
-- `delightful-claude-plugin` repo (distribution copy — installable via `claude plugin install`)
-
-When any file in `claude-plugin/` is updated, copy **all** its contents to the `delightful-claude-plugin` repo and commit/push both repos.
-
-## Obsidian External Repo Sync
-
-The Obsidian theme lives in two places:
-- `obsidian-theme/` in this repo (development copy)
-- `obsidian-delightful` repo (distribution copy)
-
-When any file in `obsidian-theme/` is updated, copy **all** its contents to the `obsidian-delightful` repo and commit/push both repos.
-
-## VSCode External Repo Sync
-
-The VSCode theme lives in two places:
-- `vscode-theme/` in this repo (development copy)
-- `delightful-vscode` repo (distribution copy — published to VS Code Marketplace as `kylesnav.delightful-theme`)
-
-Theme JSON files are generated from OKLCH tokens via `vscode-theme/scripts/generate-themes.mjs` (requires `culori`). If primitive or semantic token values change, regenerate the themes, then sync to the distribution repo.
-
-The distribution repo adds marketplace-specific files (`icon.png`, `galleryBanner` in package.json) that don't exist in the monorepo source. When syncing, preserve these additions.
-
-## Ghostty External Repo Sync
-
-The Ghostty config lives in two places:
-- `ghostty/` in this repo (development copy)
-- `delightful-ghostty` repo (distribution copy)
-
-When any file in `ghostty/` is updated, copy **all** its contents to the `delightful-ghostty` repo and commit/push both repos.
-
-The theme files (`themes/delightful-light`, `themes/delightful-dark`) contain color-only definitions installable via Ghostty's `theme =` directive. They contain hex color values derived from the OKLCH primitives — if primitive token values change, the hex mappings must be recalculated.
-
 ## Sync Verification
 
 When asked to verify, check, or update distribution repos, diff these paths:
@@ -69,37 +31,7 @@ When asked to verify, check, or update distribution repos, diff these paths:
 - `shell/` vs `../delightful-shell/` (all contents)
 - `vscode-theme/` vs `../delightful-vscode/` (all contents, excluding marketplace-specific files)
 
-Report any files that differ. In sync mode, copy from source (this repo) to distribution and commit both.
-
-## iTerm2 External Repo Sync
-
-The iTerm2 color profiles live in two places:
-- `iterm2/` in this repo (development copy)
-- `delightful-iterm2` repo (distribution copy)
-
-When any file in `iterm2/` is updated, copy **all** its contents to the `delightful-iterm2` repo and commit/push both repos.
-
-The `.itermcolors` files contain the same hex color values as the Ghostty theme converted to RGB floats — if primitive token values change, regenerate via `cd iterm2/scripts && node generate-profiles.mjs`.
-
-## Shell External Repo Sync
-
-The shared shell config lives in two places:
-- `shell/` in this repo (development copy)
-- `delightful-shell` repo (distribution copy)
-
-When any file in `shell/` is updated, copy **all** its contents to the `delightful-shell` repo and commit/push both repos.
-
-The `starship.toml` contains hex color values derived from the OKLCH primitives — if accent hex values change, it must be updated manually.
-
-## Motion System
-
-`delightful-motion.html` is a self-contained showcase of the motion system. It duplicates the token block from the source of truth. When motion tokens change in `delightful-design-system.html`, the token block in `delightful-motion.html` must be manually synced.
-
-The motion file is NOT a derivative in the same way as CSS/Tailwind/Figma exports. It's a companion document with its own animations, demos, and interactive features. However, its token values must always match the source of truth.
-
-## Animation System
-
-`delightful-animation.html` is a self-contained showcase of JS-powered animations (spring physics, timeline/FLIP, particles, gestures). Like the motion file, it duplicates the token block from the source of truth and must be kept in sync. It sits above the CSS Motion System — CSS animations handle transitions, JS handles physics-based and interactive animations.
+Report any files that differ. In sync mode, copy from source (this repo) to distribution and commit both. You may need to check for other packages and add them here.
 
 ## Versioning
 
@@ -119,20 +51,6 @@ When bumping the version, update **all 6 files** and create a matching git tag:
 After updating all files, commit and tag: `git tag vX.Y.Z`.
 
 Never set versions independently — all 6 files must always match.
-
-## Release Process
-
-When performing a release, spawn a 3-agent team:
-
-1. **Token-sync agent** — Validates all derivatives are in sync with `delightful-design-system.html` (the 8 files in Change Propagation)
-2. **Test agent** — Runs the full test suite and visual regression checks
-3. **Distribution-sync agent** — Diffs and syncs to all distribution repos (claude-plugin → delightful-claude-plugin, obsidian-theme → obsidian-delightful, ghostty → delightful-ghostty, iterm2 → delightful-iterm2, shell → delightful-shell, vscode-theme → delightful-vscode)
-
-All three run in parallel. The release commit and tag happen only after all three pass.
-
-## Linear
-
-Update your own sub-issue to **In Progress** / **In Review** as you work. Never update parent issues, other sub-issues, or mark anything Done.
 
 ## Conventions
 
