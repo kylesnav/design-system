@@ -123,7 +123,9 @@ Or apply via command line:
 
 ```bash
 /usr/libexec/PlistBuddy -c "Add ':New Bookmarks:0:Keyboard Map:0xd-0x20000-0x24' dict" ~/Library/Preferences/com.googlecode.iterm2.plist 2>/dev/null
+/usr/libexec/PlistBuddy -c "Add ':New Bookmarks:0:Keyboard Map:0xd-0x20000-0x24:Action' integer 11" ~/Library/Preferences/com.googlecode.iterm2.plist 2>/dev/null || \
 /usr/libexec/PlistBuddy -c "Set ':New Bookmarks:0:Keyboard Map:0xd-0x20000-0x24:Action' 11" ~/Library/Preferences/com.googlecode.iterm2.plist
+/usr/libexec/PlistBuddy -c "Add ':New Bookmarks:0:Keyboard Map:0xd-0x20000-0x24:Text' string 0a" ~/Library/Preferences/com.googlecode.iterm2.plist 2>/dev/null || \
 /usr/libexec/PlistBuddy -c "Set ':New Bookmarks:0:Keyboard Map:0xd-0x20000-0x24:Text' 0a" ~/Library/Preferences/com.googlecode.iterm2.plist
 ```
 
@@ -140,7 +142,7 @@ After applying the theme, run `/config` in Claude Code and set the theme to **li
 If token hex values change, regenerate the profiles:
 
 ```bash
-node iterm2/scripts/generate-profiles.mjs
+node scripts/generate-profiles.mjs
 ```
 
 The hex palette matches the Ghostty theme files exactly — update one, update both.

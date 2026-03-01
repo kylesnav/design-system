@@ -21,7 +21,7 @@
 The setup script installs everything at once (Starship prompt, zsh config, terminal theme):
 
 ```bash
-bash scripts/setup-terminal.sh
+bash ../scripts/setup-terminal.sh
 ```
 
 Or install each piece manually:
