@@ -129,7 +129,7 @@ ${entries.join("\n")}
 // ── Write files ──────────────────────────────────────────────────────
 
 const profiles = [
-  { name: "Delightful.itermcolors", palette: light },
+  { name: "Delightful-Light.itermcolors", palette: light },
   { name: "Delightful-Dark.itermcolors", palette: dark },
 ];
 

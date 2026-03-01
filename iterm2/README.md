@@ -8,10 +8,10 @@ iTerm2 color profiles derived from the Delightful Design System.
 
 ```
 colors/
-  Delightful.itermcolors        Light color profile (XML plist)
-  Delightful-Dark.itermcolors   Dark color profile (XML plist)
+  Delightful-Light.itermcolors   Light color profile (XML plist)
+  Delightful-Dark.itermcolors    Dark color profile (XML plist)
 scripts/
-  generate-profiles.mjs         Generates profiles from hex palette
+  generate-profiles.mjs          Generates profiles from hex palette
 ```
 
 ## Regenerate Profiles
@@ -24,24 +24,27 @@ node iterm2/scripts/generate-profiles.mjs
 
 The hex palette in the script matches the Ghostty theme files exactly — update one, update both.
 
-## Install Color Profile
+## Install Color Profiles
 
-### Import via iTerm2 Settings
-
-1. Open iTerm2
-2. Go to **Settings > Profiles > Colors**
-3. Click the **Color Presets...** dropdown (bottom right)
-4. Select **Import...**
-5. Navigate to `colors/Delightful.itermcolors` (or `Delightful-Dark.itermcolors`) and open it
-6. Click **Color Presets...** again and select **Delightful** (or **Delightful-Dark**)
-
-### Import via command line
+### 1. Import both presets
 
 ```bash
-open colors/Delightful.itermcolors
+open colors/Delightful-Light.itermcolors
+open colors/Delightful-Dark.itermcolors
 ```
 
-This opens the file in iTerm2 and registers the color preset. Then select it in Settings > Profiles > Colors > Color Presets.
+Or import manually: **Settings > Profiles > Colors > Color Presets... > Import...** and select both files.
+
+### 2. Enable automatic light/dark switching
+
+1. Go to **Settings > Profiles > Colors**
+2. Check **"Use separate colors for light and dark mode"**
+3. Set **Editing** to **Light Mode**
+4. Click **Color Presets...** and select **Delightful-Light** → **Update Light Mode Only**
+5. Set **Editing** to **Dark Mode**
+6. Click **Color Presets...** and select **Delightful-Dark** → **Update Dark Mode Only**
+
+iTerm2 will now switch between light and dark colors automatically when macOS changes appearance.
 
 ## Recommended iTerm2 Settings
 

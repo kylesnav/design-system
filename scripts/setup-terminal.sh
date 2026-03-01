@@ -106,23 +106,18 @@ install_ghostty() {
 install_iterm2() {
   info "iTerm2 config"
 
-  # Color profile
-  local profile_src="$REPO_DIR/iterm2/Delightful.itermcolors"
-  if [[ -f "$profile_src" ]]; then
-    if confirm "Import Delightful color profile into iTerm2?"; then
-      open "$profile_src"
-      ok "Color profile opened in iTerm2 — select it in Settings > Profiles > Colors > Color Presets"
-      manual "In iTerm2: Settings > Profiles > Colors > Color Presets > select 'Delightful'"
-    fi
-  fi
-
-  # Dark variant
-  local dark_src="$REPO_DIR/iterm2/Delightful-Dark.itermcolors"
-  if [[ -f "$dark_src" ]]; then
-    if confirm "Also import Delightful Dark color profile?"; then
+  # Color profiles (light + dark)
+  local light_src="$REPO_DIR/iterm2/colors/Delightful-Light.itermcolors"
+  local dark_src="$REPO_DIR/iterm2/colors/Delightful-Dark.itermcolors"
+  if [[ -f "$light_src" && -f "$dark_src" ]]; then
+    if confirm "Import Delightful color profiles into iTerm2?"; then
+      open "$light_src"
       open "$dark_src"
-      ok "Dark color profile opened in iTerm2"
-      manual "In iTerm2: Settings > Profiles > Colors > Color Presets > select 'Delightful-Dark' (if you want dark mode)"
+      ok "Both color profiles opened in iTerm2"
+      manual "In iTerm2: Settings > Profiles > Colors:"
+      manual "  1. Check 'Use separate colors for light and dark mode'"
+      manual "  2. Editing: Light Mode → Color Presets → Delightful-Light → Update Light Mode Only"
+      manual "  3. Editing: Dark Mode → Color Presets → Delightful-Dark → Update Dark Mode Only"
     fi
   fi
 
