@@ -396,6 +396,12 @@
           99% { background-color: var(--accent-primary); }
           100% { transform: scaleX(1); background-color: var(--accent-green); }
         }
+
+        .scroll-reveal {
+          animation: fadeInUp linear both;
+          animation-timeline: view();
+          animation-range: entry 0% entry 35%;
+        }
       }
     }
 
@@ -403,9 +409,9 @@
        NAV
        ========================================================================== */
     .topnav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: var(--z-fixed);
+      position: sticky; top: 0; z-index: var(--z-fixed);
       background: oklch(0.995 0.004 70 / 0.88);
-      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
       border-bottom: 2px solid var(--border-subtle);
     }
     [data-theme="dark"] .topnav {
@@ -413,58 +419,83 @@
     }
     .topnav-inner {
       max-width: 1200px; margin: 0 auto;
-      display: flex; align-items: center;
-      padding: var(--space-3) var(--space-6); gap: var(--space-4);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: var(--space-3) var(--space-8); gap: var(--space-4);
     }
-    .topnav-brand {
-      display: flex; align-items: center; gap: var(--space-2);
-      font-weight: 900; font-size: var(--step-1); letter-spacing: var(--tracking-tight);
-      white-space: nowrap; text-decoration: none; color: var(--text-primary);
+    .brand-dots { display: flex; gap: 3px; }
+    .brand-dot { width: 7px; height: 7px; border-radius: var(--radius-full); }
+    .topnav-links {
+      display: flex; align-items: center; gap: var(--space-1); list-style: none;
+      overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none;
     }
-    .brand-dots { display: flex; gap: 4px; }
-    .brand-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
-    .nav-links {
-      display: flex; gap: var(--space-1); list-style: none;
-      overflow-x: auto; flex: 1; scrollbar-width: none;
-    }
-    .nav-links::-webkit-scrollbar { display: none; }
-    .nav-links a {
-      font-size: var(--ui-text-sm); font-weight: 600; color: var(--text-secondary);
-      text-decoration: none; padding: var(--space-1) var(--space-2);
+    .topnav-links::-webkit-scrollbar { display: none; }
+    .topnav-links a {
+      font-size: 0.8125rem; font-weight: 500; color: var(--text-secondary);
+      text-decoration: none; padding: var(--space-1) var(--space-3);
       border-radius: var(--radius-sm); white-space: nowrap;
       transition: transform var(--motion-instant) linear, color var(--motion-fast) var(--ease-out), background var(--motion-fast) var(--ease-out);
     }
-    .nav-links a:hover { color: var(--text-primary); background: var(--bg-subtle); }
-    .nav-links a:active { transform: translateY(1px); }
-    .nav-right { display: flex; gap: var(--space-2); align-items: center; }
-    .nav-btn {
-      width: 36px; height: 36px; border-radius: var(--radius-sm);
+    .topnav-links a:hover, .topnav-links a.active { color: var(--text-primary); background: var(--bg-subtle); }
+    .topnav-links a:active { transform: translateY(1px); }
+    .topnav-right { display: flex; gap: var(--space-3); align-items: center; flex-shrink: 0; }
+    .topnav-btn {
+      width: 34px; height: 34px; border-radius: var(--radius-sm);
       border: 2px solid var(--border-default); background: var(--bg-surface);
       cursor: pointer; display: flex; align-items: center; justify-content: center;
-      color: var(--text-primary); text-decoration: none;
+      color: var(--text-primary);
       transition: transform var(--motion-instant) linear, box-shadow var(--motion-instant) linear,
-                  border-color var(--motion-fast) var(--ease-out);
-      box-shadow: var(--shadow-sm);
+                  background var(--motion-fast) var(--ease-out), border-color var(--motion-fast) var(--ease-out);
     }
-    .nav-btn:hover { transform: translateY(-1px); box-shadow: var(--shadow-sm); border-color: var(--border-strong); }
-    .nav-btn:active { transform: translateY(1px); box-shadow: none; }
-    .nav-btn svg { width: 18px; height: 18px; }
-    .nav-kbd {
+    .topnav-btn:hover { background: var(--bg-subtle); border-color: var(--border-strong); transform: translateY(-1px); }
+    .topnav-btn:active { background: var(--bg-muted); transform: translateY(1px); }
+    .topnav-btn svg { width: 16px; height: 16px; }
+    .topnav-kbd {
       font-size: var(--ui-text-xs); font-family: var(--font-sans);
       padding: 2px var(--space-1); border-radius: 4px;
-      border: 1px solid var(--border-subtle); background: var(--bg-subtle);
+      border: 2px solid var(--border-subtle); background: var(--bg-subtle);
       color: var(--text-muted); cursor: pointer; white-space: nowrap;
       transition: transform var(--motion-instant) linear, border-color var(--motion-fast) var(--ease-out);
     }
-    .nav-kbd:hover { border-color: var(--border-default); }
-    .nav-kbd:active { transform: translateY(1px); }
-    .icon-sun { display: none; } .icon-moon { display: none; } .icon-monitor { display: none; }
+    .topnav-kbd:hover { border-color: var(--border-default); }
+    .topnav-kbd:active { transform: translateY(1px); }
+    .icon-sun { display: none; } .icon-moon { display: none; }
     [data-theme="light"] .icon-sun { display: block; }
     [data-theme="dark"] .icon-moon { display: block; }
-    [data-theme-mode="system"] .icon-sun, [data-theme-mode="system"] .icon-moon { display: none !important; }
-    [data-theme-mode="system"] .icon-monitor { display: block; }
-    @media (max-width: 768px) {
-      .nav-links { display: none; }
+
+    /* Brand dropdown */
+    .topnav-brand-wrap { position: relative; }
+    .topnav-brand {
+      display: flex; align-items: center; gap: var(--space-2);
+      font-weight: 720; font-size: var(--step-0); letter-spacing: var(--tracking-tight);
+      color: var(--text-primary);
+      background: none; border: none; cursor: pointer; padding: 0; font-family: inherit;
+    }
+    .brand-chevron { width: 12px; height: 12px; transition: transform var(--motion-fast) var(--ease-out); }
+    .topnav-brand[aria-expanded="true"] .brand-chevron { transform: rotate(180deg); }
+    .brand-dropdown {
+      display: none; position: absolute; top: calc(100% + var(--space-3)); left: 0;
+      min-width: 200px; background: var(--bg-surface);
+      border: 2px solid var(--text-primary); border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-md); padding: var(--space-2); z-index: var(--z-overlay);
+      flex-direction: column; gap: 2px;
+    }
+    @keyframes scale-in { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+    .brand-dropdown.open { display: flex; animation: scale-in var(--motion-fast) var(--ease-bounce); }
+    .brand-dropdown-item {
+      display: flex; align-items: center; gap: var(--space-2);
+      padding: var(--space-2) var(--space-3); border-radius: var(--radius-sm);
+      font-size: var(--ui-text-sm); font-weight: 600; color: var(--text-secondary);
+      text-decoration: none; transition: background var(--motion-fast) var(--ease-out), color var(--motion-fast) var(--ease-out);
+    }
+    .brand-dropdown-item:hover { background: var(--bg-subtle); color: var(--text-primary); }
+    .brand-dropdown-item.active { color: var(--accent-gold); font-weight: 700; }
+    .brand-dropdown-dot { width: 8px; height: 8px; border-radius: var(--radius-full); flex-shrink: 0; }
+    .brand-dropdown-sep { height: 2px; background: var(--border-subtle); margin: var(--space-1) 0; }
+    .brand-dropdown-github { color: var(--text-muted); gap: var(--space-2); }
+    .brand-dropdown-github svg { flex-shrink: 0; }
+
+    @media (max-width: 900px) {
+      .topnav-links { display: none; }
       .topnav-inner { padding: var(--space-3) var(--space-4); }
     }
 
@@ -473,7 +504,7 @@
        ========================================================================== */
     .page-wrap {
       max-width: 1200px; margin: 0 auto;
-      padding: calc(56px + var(--space-8)) var(--space-6) var(--space-20);
+      padding: 0 var(--space-6) var(--space-20);
     }
 
     /* ==========================================================================
@@ -493,20 +524,20 @@
        BACK TO TOP
        ========================================================================== */
     .back-to-top {
-      position: fixed; bottom: var(--space-6); right: var(--space-6);
-      z-index: var(--z-fixed); width: 44px; height: 44px;
-      border-radius: var(--radius-sm); border: 2px solid var(--border-default);
-      background: var(--bg-elevated); color: var(--text-primary);
+      position: fixed; bottom: var(--space-8); right: var(--space-6);
+      z-index: 100; width: 44px; height: 44px;
+      border-radius: var(--radius-full); border: 2px solid var(--border-default);
+      background: var(--bg-surface); color: var(--text-primary);
       cursor: pointer; display: flex; align-items: center; justify-content: center;
-      box-shadow: var(--shadow-md);
+      box-shadow: var(--shadow-sm);
       opacity: 0; pointer-events: none;
-      transition: opacity var(--motion-base) var(--ease-out), transform var(--motion-instant) linear,
+      transition: opacity var(--motion-fast) var(--ease-out), transform var(--motion-instant) linear,
                   box-shadow var(--motion-instant) linear;
     }
     .back-to-top.visible { opacity: 1; pointer-events: auto; }
-    .back-to-top:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+    .back-to-top:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
     .back-to-top:active { transform: translateY(1px); box-shadow: none; }
-    .back-to-top svg { width: 20px; height: 20px; }
+    .back-to-top svg { width: 18px; height: 18px; }
 
     /* ==========================================================================
        VIEW TRANSITIONS — Theme toggle crossfade
@@ -611,22 +642,26 @@
       text-align: center; padding: var(--space-16) 0 var(--space-12);
     }
     .hero-title {
-      font-size: var(--step-5); font-weight: 900;
+      font-size: var(--step-5); font-weight: 800;
       letter-spacing: var(--tracking-tightest);
       line-height: var(--leading-none);
-      margin-bottom: var(--space-4);
+      margin-bottom: var(--space-6);
+      text-wrap: balance;
     }
+    .hero-keyword {
+      color: var(--keyword-color, var(--accent-primary));
+      text-decoration: underline;
+      text-decoration-thickness: 3px;
+      text-underline-offset: 4px;
+      text-decoration-color: var(--keyword-color, var(--accent-primary));
+      transition: text-decoration-color var(--motion-fast) var(--ease-out);
+    }
+    .hero-keyword:hover { text-decoration-color: transparent; }
     .hero-subtitle {
       font-size: var(--step-1); color: var(--text-secondary);
-      max-width: 640px; margin: 0 auto var(--space-6);
-      line-height: var(--leading-snug);
-    }
-    .hero-crosslink {
-      font-size: var(--ui-text-xs); color: var(--text-muted);
-      margin-bottom: 0;
-    }
-    .hero-crosslink a {
-      color: var(--accent-primary-text); text-decoration: underline; text-underline-offset: 2px;
+      max-width: 560px; margin: 0 auto var(--space-6);
+      line-height: var(--leading-normal);
+      text-wrap: pretty;
     }
     .hero-dots {
       display: flex; justify-content: center; gap: var(--space-3);
@@ -675,14 +710,20 @@
       border-bottom: none;
     }
     .section-header {
-      margin-bottom: var(--space-8);
+      margin-bottom: var(--space-12);
     }
     .section-overline {
-      font-size: var(--ui-text-xs); font-weight: 700;
+      font-size: 0.6875rem; font-weight: 600;
       text-transform: uppercase; letter-spacing: 0.08em;
-      color: var(--text-muted); margin-bottom: var(--space-2);
-      display: flex; align-items: center; gap: var(--space-2);
+      margin-bottom: var(--space-2);
+      display: inline-flex; align-items: center; gap: var(--space-2);
     }
+    .overline-pink { color: var(--accent-primary); }
+    .overline-red { color: var(--accent-danger); }
+    .overline-gold { color: var(--accent-gold); }
+    .overline-cyan { color: var(--accent-cyan); }
+    .overline-green { color: var(--accent-green); }
+    .overline-purple { color: var(--accent-purple); }
     .status-dot {
       width: 8px; height: 8px; border-radius: 50%; display: inline-block;
     }
@@ -1009,6 +1050,10 @@
     /* ==========================================================================
        ENTRANCE ANIMATIONS
        ========================================================================== */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
     .anim-in {
       opacity: 0; transform: translateY(16px);
       animation: anim-fade-in 600ms var(--ease-out) forwards;
@@ -1034,33 +1079,46 @@
   <!-- NAV -->
   <nav class="topnav" role="navigation" aria-label="Color system navigation">
     <div class="topnav-inner">
-      <a href="#" class="topnav-brand">
-        <span class="brand-dots">
-          <span class="brand-dot" style="background:var(--accent-primary)"></span>
-          <span class="brand-dot" style="background:var(--accent-gold)"></span>
-          <span class="brand-dot" style="background:var(--accent-cyan)"></span>
-        </span>
-        Delightful Color
-      </a>
-      <ul class="nav-links">
+      <div class="topnav-brand-wrap">
+        <button class="topnav-brand" id="brand-trigger" aria-expanded="false" aria-haspopup="true" aria-controls="brand-dropdown">
+          <span class="brand-dots">
+            <span class="brand-dot" style="background:var(--accent-primary)"></span>
+            <span class="brand-dot" style="background:var(--accent-gold)"></span>
+            <span class="brand-dot" style="background:var(--accent-cyan)"></span>
+          </span>
+          <span class="brand-label">Color</span>
+          <svg class="brand-chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 5 6 8 9 5"/></svg>
+        </button>
+        <div class="brand-dropdown" id="brand-dropdown" role="menu">
+          <a href="delightful-design-system.html" class="brand-dropdown-item" role="menuitem" data-page="design">
+            <span class="brand-dropdown-dot" style="background:var(--accent-primary)"></span>Design
+          </a>
+          <a href="delightful-color.html" class="brand-dropdown-item active" role="menuitem" data-page="color">
+            <span class="brand-dropdown-dot" style="background:var(--accent-gold)"></span>Color
+          </a>
+          <a href="delightful-motion.html" class="brand-dropdown-item" role="menuitem" data-page="motion">
+            <span class="brand-dropdown-dot" style="background:var(--accent-cyan)"></span>Motion
+          </a>
+          <a href="delightful-animation.html" class="brand-dropdown-item" role="menuitem" data-page="animation">
+            <span class="brand-dropdown-dot" style="background:var(--accent-green)"></span>Animation
+          </a>
+          <div class="brand-dropdown-sep"></div>
+          <a href="https://github.com/kylesnav/delightful-design-system" target="_blank" rel="noopener noreferrer" class="brand-dropdown-item brand-dropdown-github" role="menuitem">
+            <svg viewBox="0 0 16 16" fill="currentColor" width="14" height="14"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+      <ul class="topnav-links">
         <li><a href="#palette">Palette</a></li>
         <li><a href="#neutral">Neutral</a></li>
         <li><a href="#architecture">Architecture</a></li>
         <li><a href="#semantic">Semantic</a></li>
         <li><a href="#component">Component</a></li>
       </ul>
-      <div class="nav-right">
-        <kbd class="nav-kbd" id="cmd-k-trigger" title="Quick navigation">&#8984;K</kbd>
-        <a href="delightful-design-system.html" class="nav-btn" aria-label="Design System" title="Design System">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
-        </a>
-        <a href="delightful-motion.html" class="nav-btn" aria-label="Motion System" title="Motion System">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14"/><polyline points="12 5 19 12 12 19"/></svg>
-        </a>
-        <a href="delightful-animation.html" class="nav-btn" aria-label="Animation System" title="Animation System">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 2a10 10 0 0 1 0 20 10 10 0 0 1 0-20"/><path d="M2 12h4"/><path d="M18 12h4"/></svg>
-        </a>
-        <button class="nav-btn" id="theme-toggle" aria-label="Toggle theme (light / dark / system)">
+      <div class="topnav-right">
+        <kbd class="topnav-kbd" id="cmd-k-trigger" title="Quick navigation">&#8984;K</kbd>
+        <button class="topnav-btn" id="theme-toggle" aria-label="Toggle theme">
           <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
             <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
@@ -1069,9 +1127,6 @@
           </svg>
           <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-          </svg>
-          <svg class="icon-monitor" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
           </svg>
         </button>
       </div>
@@ -1082,11 +1137,10 @@
 
     <!-- HERO -->
     <section class="hero anim-in">
-      <h1 class="hero-title">Delightful Color</h1>
+      <h1 class="hero-title">A <a href="https://github.com/kylesnav/delightful-design-system" class="hero-keyword" style="--keyword-color:var(--accent-gold)" target="_blank" rel="noopener noreferrer">color</a> <a href="https://github.com/kylesnav/delightful-design-system" class="hero-keyword" style="--keyword-color:var(--accent-gold)" target="_blank" rel="noopener noreferrer">system</a> that sparks joy</h1>
       <p class="hero-subtitle anim-in anim-d3">Every value in OKLCH. Perceptually uniform, wide-gamut, designed not eyeballed.</p>
       <a href="#palette" class="hero-cta anim-in anim-d4">Explore 44 colors <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
-      <p class="hero-crosslink anim-in anim-d5">Part of the <a href="delightful-design-system.html">Delightful Design System</a> &middot; <a href="delightful-motion.html">Motion</a> &middot; <a href="delightful-animation.html">Animation</a></p>
-      <div class="hero-color-strip anim-in anim-d6">
+      <div class="hero-color-strip anim-in anim-d5">
         <div class="hero-color-dot" style="background:var(--primitive-pink-400)"></div>
         <div class="hero-color-dot" style="background:var(--primitive-red-400)"></div>
         <div class="hero-color-dot" style="background:var(--primitive-gold-400)"></div>
@@ -1100,9 +1154,9 @@
     <!-- ================================================================
          SECTION 1: PALETTE EXPLORER
          ================================================================ -->
-    <section id="palette" class="color-section anim-in anim-d4">
+    <section id="palette" class="color-section scroll-reveal">
       <div class="section-header">
-        <div class="section-overline"><span class="status-dot" style="background:var(--accent-primary)"></span> Palette Explorer</div>
+        <div class="section-overline overline-pink"><span class="status-dot" style="background:var(--accent-primary)"></span> 01 — Palette Explorer</div>
         <h2 class="section-title">6 families, 30 swatches</h2>
         <p class="section-desc">The complete accent primitive scale. 6 families tuned for perceptual uniformity with consistent hue angles. Click any swatch to copy its OKLCH value.</p>
       </div>
@@ -1113,9 +1167,9 @@
     <!-- ================================================================
          SECTION 2: NEUTRAL SCALE
          ================================================================ -->
-    <section id="neutral" class="color-section anim-in">
+    <section id="neutral" class="color-section scroll-reveal">
       <div class="section-header">
-        <div class="section-overline"><span class="status-dot" style="background:var(--accent-gold)"></span> Neutral Scale</div>
+        <div class="section-overline overline-gold"><span class="status-dot" style="background:var(--accent-gold)"></span> 02 — Neutral Scale</div>
         <h2 class="section-title">14 stops, warm grays</h2>
         <p class="section-desc">The backbone of the system. Hue 60-70 keeps grays warm — no cold blue tint anywhere. Click to copy.</p>
       </div>
@@ -1126,9 +1180,9 @@
     <!-- ================================================================
          SECTION 3: TOKEN ARCHITECTURE
          ================================================================ -->
-    <section id="architecture" class="color-section anim-in">
+    <section id="architecture" class="color-section scroll-reveal">
       <div class="section-header">
-        <div class="section-overline"><span class="status-dot" style="background:var(--accent-cyan)"></span> Token Architecture</div>
+        <div class="section-overline overline-cyan"><span class="status-dot" style="background:var(--accent-cyan)"></span> 03 — Token Architecture</div>
         <h2 class="section-title">3 tiers, zero shortcuts</h2>
         <p class="section-desc">Color flows through 3 tiers. Primitives name the raw value. Semantic tokens give it meaning. Component tokens bind it to UI. Nothing skips a tier.</p>
       </div>
@@ -1188,9 +1242,9 @@
     <!-- ================================================================
          SECTION 4: SEMANTIC MAPPING
          ================================================================ -->
-    <section id="semantic" class="color-section anim-in">
+    <section id="semantic" class="color-section scroll-reveal">
       <div class="section-header">
-        <div class="section-overline"><span class="status-dot" style="background:var(--accent-green)"></span> Semantic Mapping</div>
+        <div class="section-overline overline-green"><span class="status-dot" style="background:var(--accent-green)"></span> 04 — Semantic Mapping</div>
         <h2 class="section-title">Meaning, not coordinates</h2>
         <p class="section-desc">Semantic tokens map primitives to intent. Every token has a light and dark value — both hand-tuned, not generated. Click to copy the token name.</p>
       </div>
@@ -1201,9 +1255,9 @@
     <!-- ================================================================
          SECTION 5: COMPONENT TOKENS
          ================================================================ -->
-    <section id="component" class="color-section anim-in">
+    <section id="component" class="color-section scroll-reveal">
       <div class="section-header">
-        <div class="section-overline"><span class="status-dot" style="background:var(--accent-purple)"></span> Component Tokens</div>
+        <div class="section-overline overline-purple"><span class="status-dot" style="background:var(--accent-purple)"></span> 05 — Component Tokens</div>
         <h2 class="section-title">UI-bound values</h2>
         <p class="section-desc">The final tier. Component tokens reference semantic tokens and never touch primitives directly. Buttons, badges, toggles — each gets exactly the tokens it needs.</p>
       </div>
@@ -1224,9 +1278,30 @@
 
   </div><!-- .page-wrap -->
 
+  <!-- Repo Icon Sidebar -->
+  <aside class="repo-sidebar" aria-label="Project links">
+    <a href="https://github.com/kylesnav/delightful-design-system" target="_blank" rel="noopener noreferrer" class="repo-sidebar-btn" data-tooltip="GitHub"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a>
+    <a href="https://github.com/kylesnav/delightful-claude-plugin" target="_blank" rel="noopener noreferrer" class="repo-sidebar-btn" data-tooltip="Claude Code"><svg viewBox="0 0 24 24" fill="currentColor"><path d="m4.7144 15.9555 4.7174-2.6471.079-.2307-.079-.1275h-.2307l-.7893-.0486-2.6956-.0729-2.3375-.0971-2.2646-.1214-.5707-.1215-.5343-.7042.0546-.3522.4797-.3218.686.0608 1.5179.1032 2.2767.1578 1.6514.0972 2.4468.255h.3886l.0546-.1579-.1336-.0971-.1032-.0972L6.973 9.8356l-2.55-1.6879-1.3356-.9714-.7225-.4918-.3643-.4614-.1578-1.0078.6557-.7225.8803.0607.2246.0607.8925.686 1.9064 1.4754 2.4893 1.8336.3643.3035.1457-.1032.0182-.0728-.164-.2733-1.3539-2.4467-1.445-2.4893-.6435-1.032-.17-.6194c-.0607-.255-.1032-.4674-.1032-.7285L6.287.1335 6.6997 0l.9957.1336.419.3642.6192 1.4147 1.0018 2.2282 1.5543 3.0296.4553.8985.2429.8318.091.255h.1579v-.1457l.1275-1.706.2368-2.0947.2307-2.6957.0789-.7589.3764-.9107.7468-.4918.5828.2793.4797.686-.0668.4433-.2853 1.8517-.5586 2.9021-.3643 1.9429h.2125l.2429-.2429.9835-1.3053 1.6514-2.0643.7286-.8196.85-.9046.5464-.4311h1.0321l.759 1.1293-.34 1.1657-1.0625 1.3478-.8804 1.1414-1.2628 1.7-.7893 1.36.0729.1093.1882-.0183 2.8535-.607 1.5421-.2794 1.8396-.3157.8318.3886.091.3946-.3278.8075-1.967.4857-2.3072.4614-3.4364.8136-.0425.0304.0486.0607 1.5482.1457.6618.0364h1.621l3.0175.2247.7892.522.4736.6376-.079.4857-1.2142.6193-1.6393-.3886-3.825-.9107-1.3113-.3279h-.1822v.1093l1.0929 1.0686 2.0035 1.8092 2.5075 2.3314.1275.5768-.3218.4554-.34-.0486-2.2039-1.6575-.85-.7468-1.9246-1.621h-.1275v.17l.4432.6496 2.3436 3.5214.1214 1.0807-.17.3521-.6071.2125-.6679-.1214-1.3721-1.9246L14.38 17.959l-1.1414-1.9428-.1397.079-.674 7.2552-.3156.3703-.7286.2793-.6071-.4614-.3218-.7468.3218-1.4753.3886-1.9246.3157-1.53.2853-1.9004.17-.6314-.0121-.0425-.1397.0182-1.4328 1.9672-2.1796 2.9446-1.7243 1.8456-.4128.164-.7164-.3704.0667-.6618.4008-.5889 2.386-3.0357 1.4389-1.882.929-1.0868-.0062-.1579h-.0546l-6.3385 4.1164-1.1293.1457-.4857-.4554.0608-.7467.2307-.2429 1.9064-1.3114Z"/></svg></a>
+    <a href="https://github.com/kylesnav/obsidian-delightful" target="_blank" rel="noopener noreferrer" class="repo-sidebar-btn" data-tooltip="Obsidian"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.355 18.538a68.967 68.959 0 0 0 1.858-2.954.81.81 0 0 0-.062-.9c-.516-.685-1.504-2.075-2.042-3.362-.553-1.321-.636-3.375-.64-4.377a1.707 1.707 0 0 0-.358-1.05l-3.198-4.064a3.744 3.744 0 0 1-.076.543c-.106.503-.307 1.004-.536 1.5-.134.29-.29.6-.446.914l-.31.626c-.516 1.068-.997 2.227-1.132 3.59-.124 1.26.046 2.73.815 4.481.128.011.257.025.386.044a6.363 6.363 0 0 1 3.326 1.505c.916.79 1.744 1.922 2.415 3.5zM8.199 22.569c.073.012.146.02.22.02.78.024 2.095.092 3.16.29.87.16 2.593.64 4.01 1.055 1.083.316 2.198-.548 2.355-1.664.114-.814.33-1.735.725-2.58l-.01.005c-.67-1.87-1.522-3.078-2.416-3.849a5.295 5.295 0 0 0-2.778-1.257c-1.54-.216-2.952.19-3.84.45.532 2.218.368 4.829-1.425 7.531zM5.533 9.938c-.023.1-.056.197-.098.29L2.82 16.059a1.602 1.602 0 0 0 .313 1.772l4.116 4.24c2.103-3.101 1.796-6.02.836-8.3-.728-1.73-1.832-3.081-2.55-3.831zM9.32 14.01c.615-.183 1.606-.465 2.745-.534-.683-1.725-.848-3.233-.716-4.577.154-1.552.7-2.847 1.235-3.95.113-.235.223-.454.328-.664.149-.297.288-.577.419-.86.217-.47.379-.885.46-1.27.08-.38.08-.72-.014-1.043-.095-.325-.297-.675-.68-1.06a1.6 1.6 0 0 0-1.475.36l-4.95 4.452a1.602 1.602 0 0 0-.513.952l-.427 2.83c.672.59 2.328 2.316 3.335 4.711.09.21.175.43.253.653z"/></svg></a>
+    <a href="https://github.com/kylesnav/delightful-vscode" target="_blank" rel="noopener noreferrer" class="repo-sidebar-btn" data-tooltip="VS Code"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.8 1.4L21.2 3.6C21.7 3.8 22 4.3 22 4.9V19.1C22 19.7 21.7 20.2 21.2 20.4L16.8 22.6C16.5 22.8 16.1 22.7 15.8 22.5L7.3 15L3.7 17.8C3.3 18.1 2.7 18.1 2.4 17.7L1 16.2C0.7 15.8 0.7 15.2 1.1 14.9L4.2 12L1.1 9.1C0.7 8.8 0.7 8.2 1 7.8L2.4 6.3C2.7 5.9 3.3 5.9 3.7 6.2L7.3 9L15.8 1.5C16.1 1.3 16.5 1.2 16.8 1.4ZM16.5 7.6L10.5 12L16.5 16.4V7.6Z"/></svg></a>
+    <a href="https://github.com/kylesnav/delightful-iterm2" target="_blank" rel="noopener noreferrer" class="repo-sidebar-btn" data-tooltip="iTerm2"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 5.359v13.282A5.36 5.36 0 0 1 18.641 24H5.359A5.36 5.36 0 0 1 0 18.641V5.359A5.36 5.36 0 0 1 5.359 0h13.282A5.36 5.36 0 0 1 24 5.359m-.932-.233A4.196 4.196 0 0 0 18.874.932H5.126A4.196 4.196 0 0 0 .932 5.126v13.748a4.196 4.196 0 0 0 4.194 4.194h13.748a4.196 4.196 0 0 0 4.194-4.194zm-.816.233v13.282a3.613 3.613 0 0 1-3.611 3.611H5.359a3.613 3.613 0 0 1-3.611-3.611V5.359a3.613 3.613 0 0 1 3.611-3.611h13.282a3.613 3.613 0 0 1 3.611 3.611M8.854 4.194v6.495h.962V4.194zM5.483 9.493v1.085h.597V9.48q.283-.037.508-.133.373-.165.575-.448.208-.284.208-.649a.9.9 0 0 0-.171-.568 1.4 1.4 0 0 0-.426-.388 3 3 0 0 0-.544-.261 32 32 0 0 0-.545-.209 1.8 1.8 0 0 1-.426-.216q-.164-.12-.164-.284 0-.223.179-.351.18-.126.485-.127.344 0 .575.105.239.105.5.298l.433-.5a2.3 2.3 0 0 0-.605-.433 1.6 1.6 0 0 0-.582-.159v-.968h-.597v.978a2 2 0 0 0-.477.127 1.2 1.2 0 0 0-.545.411q-.194.268-.194.634 0 .335.164.56.164.224.418.38a4 4 0 0 0 .552.262q.291.104.545.209.261.104.425.238a.39.39 0 0 1 .165.321q0 .225-.187.359-.18.134-.537.134-.381 0-.717-.134a4.4 4.4 0 0 1-.649-.351l-.388.589q.209.173.477.306.276.135.575.217.191.046.373.064"/></svg></a>
+    <a href="https://github.com/kylesnav/delightful-ghostty" target="_blank" rel="noopener noreferrer" class="repo-sidebar-btn" data-tooltip="Ghostty"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C6.7 0 2.4 4.3 2.4 9.6v11.146c0 1.772 1.45 3.267 3.222 3.254a3.18 3.18 0 0 0 1.955-.686 1.96 1.96 0 0 1 2.444 0 3.18 3.18 0 0 0 1.976.686c.75 0 1.436-.257 1.98-.686.715-.563 1.71-.587 2.419-.018.59.476 1.355.743 2.182.699 1.705-.094 3.022-1.537 3.022-3.244V9.601C21.6 4.3 17.302 0 12 0M6.069 6.562a1 1 0 0 1 .46.131l3.578 2.065v.002a.974.974 0 0 1 0 1.687L6.53 12.512a.975.975 0 0 1-.976-1.687L7.67 9.602 5.553 8.38a.975.975 0 0 1 .515-1.818m7.438 2.063h4.7a.975.975 0 1 1 0 1.95h-4.7a.975.975 0 0 1 0-1.95"/></svg></a>
+    <a href="https://github.com/kylesnav/delightful-shell" target="_blank" rel="noopener noreferrer" class="repo-sidebar-btn" data-tooltip="Shell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg></a>
+  </aside>
+  <style>
+    .repo-sidebar { position:fixed; right:var(--space-4); top:80px; z-index:var(--z-sticky); display:flex; flex-direction:column; gap:2px; background:var(--bg-surface); border:2px solid var(--text-primary); border-radius:var(--radius-sm); box-shadow:var(--shadow-md); padding:var(--space-1); }
+    .repo-sidebar-btn { width:32px; height:32px; display:flex; align-items:center; justify-content:center; border-radius:var(--radius-sm); color:var(--text-primary); text-decoration:none; opacity:0.5; transition:opacity var(--motion-fast) var(--ease-out),transform var(--motion-instant) linear,background var(--motion-fast) var(--ease-out); position:relative; }
+    .repo-sidebar-btn:hover { opacity:1; transform:translateY(-1px); background:var(--bg-subtle); }
+    .repo-sidebar-btn:active { transform:translateY(1px); }
+    .repo-sidebar-btn svg { width:16px; height:16px; }
+    .repo-sidebar-btn[data-tooltip]::before { content:attr(data-tooltip); position:absolute; right:calc(100% + var(--space-2)); top:50%; transform:translateY(-50%); padding:2px var(--space-2); background:var(--bg-elevated); border:2px solid var(--text-primary); border-radius:var(--radius-sm); box-shadow:var(--shadow-sm); font-size:var(--ui-text-xs); font-weight:600; white-space:nowrap; opacity:0; pointer-events:none; transition:opacity var(--motion-fast) var(--ease-out); }
+    .repo-sidebar-btn:hover[data-tooltip]::before { opacity:1; }
+    @media (max-width: 900px) { .repo-sidebar { display:none; } }
+  </style>
+
   <!-- Back to top -->
   <button class="back-to-top" id="back-to-top" aria-label="Back to top">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="18 15 12 9 6 15"/></svg>
   </button>
 
   <!-- Command palette -->
@@ -1700,44 +1775,62 @@
     })();
 
     // =========================================================================
-    // THEME TOGGLE (3-way: light → dark → system)
+    // THEME TOGGLE (2-state: light ↔ dark)
     // =========================================================================
 
     const prefersDarkMq = window.matchMedia('(prefers-color-scheme: dark)');
-    const savedMode = localStorage.getItem('delightful-theme-mode') || localStorage.getItem('delightful-theme') || 'system';
+    const savedTheme = localStorage.getItem('delightful-theme');
+    if (localStorage.getItem('delightful-theme-mode')) localStorage.removeItem('delightful-theme-mode');
 
-    function applyThemeMode(mode) {
-      if (mode === 'system') {
-        html.setAttribute('data-theme', prefersDarkMq.matches ? 'dark' : 'light');
-        html.setAttribute('data-theme-mode', 'system');
-        localStorage.setItem('delightful-theme-mode', 'system');
-        localStorage.removeItem('delightful-theme');
-      } else {
-        html.setAttribute('data-theme', mode);
-        html.removeAttribute('data-theme-mode');
-        localStorage.setItem('delightful-theme-mode', mode);
-        localStorage.setItem('delightful-theme', mode);
-      }
-      // Re-render architecture section for correct light/dark values
+    function applyTheme(theme) {
+      html.setAttribute('data-theme', theme);
+      html.removeAttribute('data-theme-mode');
+      localStorage.setItem('delightful-theme', theme);
       renderArchitecture(activeFamily);
     }
 
-    applyThemeMode(savedMode === 'light' || savedMode === 'dark' ? savedMode : 'system');
+    const initialTheme = (savedTheme === 'light' || savedTheme === 'dark')
+      ? savedTheme : (prefersDarkMq.matches ? 'dark' : 'light');
+    applyTheme(initialTheme);
 
-    prefersDarkMq.addEventListener('change', () => {
-      if (html.getAttribute('data-theme-mode') === 'system') {
-        html.setAttribute('data-theme', prefersDarkMq.matches ? 'dark' : 'light');
-        renderArchitecture(activeFamily);
+    prefersDarkMq.addEventListener('change', (e) => {
+      if (!localStorage.getItem('delightful-theme')) {
+        applyTheme(e.matches ? 'dark' : 'light');
       }
     });
 
     document.getElementById('theme-toggle').addEventListener('click', () => {
-      const current = localStorage.getItem('delightful-theme-mode') || 'system';
-      const next = current === 'light' ? 'dark' : current === 'dark' ? 'system' : 'light';
+      const current = html.getAttribute('data-theme');
+      const next = current === 'light' ? 'dark' : 'light';
       if (document.startViewTransition) {
-        document.startViewTransition(() => applyThemeMode(next));
+        document.startViewTransition(() => applyTheme(next));
       } else {
-        applyThemeMode(next);
+        applyTheme(next);
+      }
+    });
+
+    // =========================================================================
+    // BRAND DROPDOWN
+    // =========================================================================
+
+    const brandTrigger = document.getElementById('brand-trigger');
+    const brandDropdown = document.getElementById('brand-dropdown');
+    brandTrigger.addEventListener('click', () => {
+      const isOpen = brandTrigger.getAttribute('aria-expanded') === 'true';
+      brandTrigger.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+      brandDropdown.classList.toggle('open', !isOpen);
+    });
+    document.addEventListener('click', (e) => {
+      if (!brandTrigger.contains(e.target) && !brandDropdown.contains(e.target)) {
+        brandTrigger.setAttribute('aria-expanded', 'false');
+        brandDropdown.classList.remove('open');
+      }
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && brandTrigger.getAttribute('aria-expanded') === 'true') {
+        brandTrigger.setAttribute('aria-expanded', 'false');
+        brandDropdown.classList.remove('open');
+        brandTrigger.focus();
       }
     });
 
