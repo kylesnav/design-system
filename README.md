@@ -68,7 +68,7 @@ JS-powered spring physics, FLIP layout transitions, particle systems, SVG morphi
 | **Neutral** | Backgrounds, text, borders | 60–70 | 14 (0–950) |
 | **Pink** | Primary brand, actions | 350 | 5 (100–500) |
 | **Red** | Danger, errors | 20 | 5 (100–500) |
-| **Gold** | Warning, highlights | 85 | 5 (100–500) |
+| **Gold** | Warning, highlights | 78 | 5 (100–500) |
 | **Cyan** | Tertiary, info | 210 | 5 (100–500) |
 | **Green** | Success, confirmations | 148 | 5 (100–500) |
 | **Purple** | Creative, special | 300 | 5 (100–500) |
@@ -121,11 +121,11 @@ JS-powered spring physics, FLIP layout transitions, particle systems, SVG morphi
 
 | Stop | OKLCH |
 |------|-------|
-| 100 | `oklch(0.960 0.050 85)` |
-| 200 | `oklch(0.920 0.110 85)` |
-| 300 | `oklch(0.870 0.160 85)` |
+| 100 | `oklch(0.960 0.055 85)` |
+| 200 | `oklch(0.920 0.115 85)` |
+| 300 | `oklch(0.870 0.165 85)` |
 | 400 | `oklch(0.840 0.175 85)` |
-| 500 | `oklch(0.820 0.165 84)` |
+| 500 | `oklch(0.820 0.170 85)` |
 
 **Cyan** — tertiary, info
 

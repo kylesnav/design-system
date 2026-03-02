@@ -96,8 +96,8 @@
       --text-on-accent: oklch(1.00 0.000 0);
       --text-on-gold: oklch(0.220 0.020 70);
 
-      --border-default: var(--text-primary);
-      --border-strong: var(--text-primary);
+      --border-default: oklch(0.340 0.025 60);
+      --border-strong: oklch(0.250 0.020 60);
       --border-subtle: oklch(0.820 0.015 70);
 
       /* Vibrant Accents — Warm Palette */
@@ -114,7 +114,7 @@
       --accent-danger-text: oklch(0.570 0.220 20);
 
       --accent-gold: oklch(0.840 0.175 85);
-      /* Warm gold */
+      /* Bright gold — highlight accent */
       --accent-gold-hover: oklch(0.820 0.165 84);
       --accent-gold-subtle: oklch(0.965 0.060 85);
       --accent-gold-text: oklch(0.560 0.170 85);
@@ -146,9 +146,9 @@
       --overlay-bg: oklch(0.200 0.015 60 / 0.30);
 
       /* Neo-Brutalist Solid Shadows */
-      --shadow-sm: 2px 2px 0 var(--text-primary);
-      --shadow-md: 4px 4px 0 var(--text-primary);
-      --shadow-lg: 8px 8px 0 var(--text-primary);
+      --shadow-sm: 2px 2px 0 var(--border-default);
+      --shadow-md: 4px 4px 0 var(--border-default);
+      --shadow-lg: 8px 8px 0 var(--border-default);
       --shadow-pink: 4px 4px 0 var(--accent-primary);
       --shadow-danger: 4px 4px 0 var(--accent-danger);
       --shadow-gold: 4px 4px 0 var(--accent-gold);
@@ -350,6 +350,14 @@
       --container-sm: 640px;
       --container-md: 960px;
       --container-lg: 1200px;
+
+      /* Data Visualization Palette — 6 distinct chart colors from accent families */
+      --chart-1: var(--accent-primary);
+      --chart-2: var(--accent-gold);
+      --chart-3: var(--accent-cyan);
+      --chart-4: var(--accent-green);
+      --chart-5: var(--accent-purple);
+      --chart-6: var(--accent-danger);
     }
     } /* end @layer component (tokens) */
 
@@ -365,11 +373,11 @@
       color: var(--text-primary);
       background: var(--bg-page);
       -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
+      -moz-osx-font-smoothing: auto;
       font-feature-settings: "cv02", "cv03", "cv04", "cv11";
       overflow-x: clip;
     }
-    :focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+    :focus-visible { outline: 2px solid var(--focus-ring); outline-offset: -2px; }
 
     /* ==========================================================================
        SCROLL PROGRESS BAR
@@ -378,6 +386,10 @@
       position: fixed; top: 0; left: 0; right: 0; height: 3px;
       background: var(--accent-primary); transform-origin: left;
       z-index: var(--z-overlay);
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
     }
     @media (prefers-reduced-motion: no-preference) {
       @supports (animation-timeline: scroll()) {
@@ -391,6 +403,12 @@
           99% { background-color: var(--accent-primary); }
           100% { transform: scaleX(1); background-color: var(--accent-green); }
         }
+
+        .scroll-reveal {
+          animation: fadeInUp linear both;
+          animation-timeline: view();
+          animation-range: entry 0% entry 35%;
+        }
       }
     }
 
@@ -398,9 +416,9 @@
        NAV
        ========================================================================== */
     .topnav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: var(--z-fixed);
+      position: sticky; top: 0; z-index: var(--z-fixed);
       background: oklch(0.995 0.004 70 / 0.88);
-      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
       border-bottom: 2px solid var(--border-subtle);
     }
     [data-theme="dark"] .topnav {
@@ -408,57 +426,82 @@
     }
     .topnav-inner {
       max-width: 1200px; margin: 0 auto;
-      display: flex; align-items: center;
-      padding: var(--space-3) var(--space-6); gap: var(--space-4);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: var(--space-3) var(--space-8); gap: var(--space-4);
     }
+    /* Brand dropdown */
+    .topnav-brand-wrap { position: relative; }
     .topnav-brand {
       display: flex; align-items: center; gap: var(--space-2);
-      font-weight: 900; font-size: var(--step-1); letter-spacing: var(--tracking-tight);
-      white-space: nowrap; text-decoration: none; color: var(--text-primary);
+      font-weight: 720; font-size: var(--step-0); letter-spacing: var(--tracking-tight);
+      color: var(--text-primary);
+      background: none; border: none; cursor: pointer; padding: 0; font-family: inherit;
     }
-    .brand-dots { display: flex; gap: 4px; }
-    .brand-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
-    .nav-links {
-      display: flex; gap: var(--space-1); list-style: none;
-      overflow-x: auto; flex: 1; scrollbar-width: none;
+    .brand-chevron { width: 12px; height: 12px; transition: transform var(--motion-fast) var(--ease-out); }
+    .topnav-brand[aria-expanded="true"] .brand-chevron { transform: rotate(180deg); }
+    .brand-dropdown {
+      display: none; position: absolute; top: calc(100% + var(--space-3)); left: 0;
+      min-width: 200px; background: var(--bg-surface);
+      border: 2px solid var(--text-primary); border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-md); padding: var(--space-2); z-index: var(--z-overlay);
+      flex-direction: column; gap: 2px;
     }
-    .nav-links::-webkit-scrollbar { display: none; }
-    .nav-links a {
+    @keyframes scale-in { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+    .brand-dropdown.open { display: flex; animation: scale-in var(--motion-fast) var(--ease-bounce); }
+    .brand-dropdown-item {
+      display: flex; align-items: center; gap: var(--space-2);
+      padding: var(--space-2) var(--space-3); border-radius: var(--radius-sm);
       font-size: var(--ui-text-sm); font-weight: 600; color: var(--text-secondary);
-      text-decoration: none; padding: var(--space-1) var(--space-2);
+      text-decoration: none; transition: background var(--motion-fast) var(--ease-out), color var(--motion-fast) var(--ease-out);
+    }
+    .brand-dropdown-item:hover { background: var(--bg-subtle); color: var(--text-primary); }
+    .brand-dropdown-item.active { color: var(--accent-green); font-weight: 700; }
+    .brand-dropdown-dot { width: 8px; height: 8px; border-radius: var(--radius-full); flex-shrink: 0; }
+    .brand-dropdown-sep { height: 2px; background: var(--border-subtle); margin: var(--space-1) 0; }
+    .brand-dropdown-github { color: var(--text-muted); gap: var(--space-2); }
+    .brand-dropdown-github svg { flex-shrink: 0; }
+    .brand-dots { display: flex; gap: 3px; }
+    .brand-dot { width: 7px; height: 7px; border-radius: var(--radius-full); }
+    .topnav-links {
+      display: flex; align-items: center; gap: var(--space-1); list-style: none;
+      overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none;
+    }
+    .topnav-links::-webkit-scrollbar { display: none; }
+    .topnav-links a {
+      font-size: 0.8125rem; font-weight: 500; color: var(--text-secondary);
+      text-decoration: none; padding: var(--space-1) var(--space-3);
       border-radius: var(--radius-sm); white-space: nowrap;
       transition: transform var(--motion-instant) linear, color var(--motion-fast) var(--ease-out), background var(--motion-fast) var(--ease-out);
     }
-    .nav-links a:hover { color: var(--text-primary); background: var(--bg-subtle); }
-    .nav-links a:active { transform: translateY(1px); }
-    .nav-right { display: flex; gap: var(--space-2); align-items: center; }
-    .nav-btn {
-      width: 36px; height: 36px; border-radius: var(--radius-sm);
+    .topnav-links a:hover, .topnav-links a.active { color: var(--text-primary); background: var(--bg-subtle); }
+    .topnav-links a:active { transform: translateY(1px); }
+    .topnav-right { display: flex; gap: var(--space-3); align-items: center; flex-shrink: 0; }
+    .topnav-btn {
+      width: 34px; height: 34px; border-radius: var(--radius-sm);
       border: 2px solid var(--border-default); background: var(--bg-surface);
       cursor: pointer; display: flex; align-items: center; justify-content: center;
-      color: var(--text-primary); text-decoration: none;
+      color: var(--text-primary);
       transition: transform var(--motion-instant) linear, box-shadow var(--motion-instant) linear,
-                  background var(--motion-fast) var(--ease-out);
+                  background var(--motion-fast) var(--ease-out), border-color var(--motion-fast) var(--ease-out);
     }
-    .nav-btn:hover { transform: translateY(-1px); background: var(--bg-subtle); }
-    .nav-btn:active { transform: translateY(1px); }
-    .nav-btn svg { width: 18px; height: 18px; }
-    .nav-kbd {
+    .topnav-btn:hover { background: var(--bg-subtle); border-color: var(--border-strong); transform: translateY(-1px); }
+    .topnav-btn:active { background: var(--bg-muted); transform: translateY(1px); }
+    .topnav-btn svg { width: 16px; height: 16px; }
+    .topnav-kbd {
       font-size: var(--ui-text-xs); font-family: var(--font-sans);
       padding: 2px var(--space-1); border-radius: 4px;
-      border: 1px solid var(--border-subtle); background: var(--bg-subtle);
+      border: 2px solid var(--border-subtle); background: var(--bg-subtle);
       color: var(--text-muted); cursor: pointer; white-space: nowrap;
       transition: transform var(--motion-instant) linear, border-color var(--motion-fast) var(--ease-out);
     }
-    .nav-kbd:hover { border-color: var(--border-default); }
-    .nav-kbd:active { transform: translateY(1px); }
-    .icon-sun { display: none; } .icon-moon { display: none; } .icon-monitor { display: none; }
+    .topnav-kbd:hover { border-color: var(--border-default); }
+    .topnav-kbd:active { transform: translateY(1px); }
+    .icon-sun { display: none; } .icon-moon { display: none; }
     [data-theme="light"] .icon-sun { display: block; }
     [data-theme="dark"] .icon-moon { display: block; }
-    [data-theme-mode="system"] .icon-sun, [data-theme-mode="system"] .icon-moon { display: none !important; }
-    [data-theme-mode="system"] .icon-monitor { display: block; }
-    @media (max-width: 768px) {
-      .nav-links { display: none; }
+
+    @media (max-width: 900px) {
+      .topnav-links { display: none; }
       .topnav-inner { padding: var(--space-3) var(--space-4); }
     }
 
@@ -467,14 +510,14 @@
        ========================================================================== */
     .page-wrap {
       max-width: 1200px; margin: 0 auto;
-      padding: calc(56px + var(--space-8)) var(--space-6) var(--space-20);
+      padding: 0 var(--space-6) var(--space-20);
     }
 
     /* ==========================================================================
        HERO
        ========================================================================== */
     .hero {
-      text-align: center; padding: var(--space-8) 0 var(--space-12);
+      text-align: center; padding: var(--space-16) 0 var(--space-12);
       position: relative;
     }
     .hero-canvas-wrap {
@@ -497,62 +540,80 @@
       pointer-events: none; opacity: 0.8;
     }
     .hero-title {
-      font-size: var(--step-5); font-weight: 900;
+      font-size: var(--step-5); font-weight: 800;
       letter-spacing: var(--tracking-tightest);
       line-height: var(--leading-none);
-      margin-bottom: var(--space-4);
+      margin-bottom: var(--space-6);
+      text-wrap: balance;
     }
+    .hero-keyword {
+      color: var(--keyword-color, var(--accent-primary));
+      text-decoration: underline;
+      text-decoration-thickness: 3px;
+      text-underline-offset: 4px;
+      text-decoration-color: var(--keyword-color, var(--accent-primary));
+      transition: text-decoration-color var(--motion-fast) var(--ease-out);
+    }
+    .hero-keyword:hover { text-decoration-color: transparent; }
     .hero-subtitle {
       font-size: var(--step-1); color: var(--text-secondary);
-      max-width: 640px; margin: 0 auto var(--space-4);
-      line-height: var(--leading-snug);
-    }
-    .hero-crosslink {
-      font-size: var(--ui-text-sm); color: var(--text-muted);
-      margin-bottom: var(--space-4);
-    }
-    .hero-crosslink a {
-      color: var(--accent-primary-text); text-decoration: underline;
-      text-underline-offset: 2px;
+      max-width: 560px; margin: 0 auto var(--space-6);
+      line-height: var(--leading-normal);
+      text-wrap: pretty;
     }
     .hero-dots {
       display: flex; justify-content: center; gap: var(--space-3);
     }
     .hero-dot {
-      width: 12px; height: 12px; border-radius: 50%;
-      border: 2px solid var(--border-default);
+      width: 12px; height: 12px; border-radius: var(--radius-full);
     }
+    .hero-cta {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      margin-top: var(--space-6);
+      padding: var(--space-3) var(--space-6);
+      font-family: var(--font-sans); font-size: var(--ui-text-md); font-weight: 700;
+      color: var(--text-on-accent); background: var(--accent-primary);
+      border: 2px solid var(--border-default); border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-md); text-decoration: none;
+      transition: transform var(--motion-fast) var(--ease-bounce), box-shadow var(--motion-fast) var(--ease-bounce);
+    }
+    .hero-cta:hover { transform: translate(-2px, -2px); box-shadow: var(--shadow-lg); }
+    .hero-cta:active { transform: translate(2px, 2px); box-shadow: 0 0 0 var(--text-primary); }
+    .hero-cta svg { width: 16px; height: 16px; }
 
     /* ==========================================================================
        SECTION LAYOUT
        ========================================================================== */
-    .anim-section {
-      margin-bottom: var(--space-16);
-      padding-bottom: var(--space-16);
-      border-bottom: 2px dashed var(--border-subtle);
-      content-visibility: auto;
-      contain-intrinsic-size: auto 600px;
+    .ds-section {
+      padding: var(--space-20) 0;
     }
-    .anim-section:last-of-type { border-bottom: none; }
-    .section-header { margin-bottom: var(--space-8); }
+    .section-header { margin-bottom: var(--space-12); }
     .section-overline {
-      font-size: var(--ui-text-xs); font-weight: 700;
+      font-size: 0.6875rem; font-weight: 600;
       text-transform: uppercase; letter-spacing: 0.08em;
-      color: var(--text-muted); margin-bottom: var(--space-2);
-      display: flex; align-items: center; gap: var(--space-2);
+      margin-bottom: var(--space-2);
+      display: inline-flex; align-items: center; gap: var(--space-2);
     }
+    .overline-pink { color: var(--accent-primary); }
+    .overline-red { color: var(--accent-danger); }
+    .overline-gold { color: var(--accent-gold); }
+    .overline-cyan { color: var(--accent-cyan); }
+    .overline-green { color: var(--accent-green); }
+    .overline-purple { color: var(--accent-purple); }
     .status-dot {
       width: 8px; height: 8px; border-radius: 50%; display: inline-block;
     }
     .section-title {
       font-size: var(--step-3); font-weight: 800;
-      letter-spacing: var(--tracking-tight);
+      letter-spacing: var(--tracking-tighter);
       line-height: var(--leading-tight);
-      margin-bottom: var(--space-2);
+      margin-bottom: var(--space-3);
+      text-wrap: balance;
     }
     .section-desc {
       font-size: var(--step-0); color: var(--text-secondary);
-      max-width: 640px; line-height: var(--leading-normal);
+      max-width: 640px; line-height: var(--leading-relaxed);
+      text-wrap: pretty;
     }
 
     /* ==========================================================================
@@ -562,6 +623,30 @@
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(min(340px, 100%), 1fr));
       gap: var(--space-6);
+    }
+    .demo-grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-6);
+      container-type: inline-size;
+    }
+    .demo-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-6);
+      container-type: inline-size;
+    }
+    @container (max-width: 780px) {
+      .demo-grid-3 { grid-template-columns: repeat(2, 1fr); }
+    }
+    @container (max-width: 540px) {
+      .demo-grid-2,
+      .demo-grid-3 { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .ds-section { padding: var(--space-10) 0; }
+      .demo-grid-2,
+      .demo-grid-3 { grid-template-columns: 1fr; }
     }
     .demo-card {
       background: var(--bg-surface);
@@ -660,6 +745,378 @@
     }
 
     /* ==========================================================================
+       COMPONENT CLASSES
+       ========================================================================== */
+
+    /* Toggle switch */
+    .anim-toggle {
+      width: 56px; height: 30px; border-radius: var(--radius-full);
+      background: var(--toggle-off-bg);
+      border: 2px solid var(--border-default); box-shadow: var(--shadow-sm);
+      position: relative; cursor: pointer; flex-shrink: 0; padding: 0; transition: none;
+    }
+    .anim-toggle-knob {
+      position: absolute; top: 2px; left: 2px;
+      width: 22px; height: 22px; border-radius: 50%;
+      background: var(--toggle-knob);
+      border: 2px solid var(--border-default);
+      box-shadow: 1px 1px 0 var(--border-default);
+      display: block; will-change: transform;
+    }
+    .anim-toggle-group {
+      display: flex; flex-direction: column; align-items: center; gap: var(--space-2);
+    }
+    .anim-toggle-label {
+      font-size: var(--ui-text-xs); color: var(--text-muted); font-weight: 600;
+    }
+
+    /* Accordion */
+    .sacc-panel {
+      border: 2px solid var(--border-default); border-radius: var(--radius-sm);
+      overflow: hidden; background: var(--bg-surface);
+    }
+    .sacc-header {
+      width: 100%; display: flex; align-items: center; gap: var(--space-3);
+      padding: var(--space-3) var(--space-4); background: none;
+      border: none; cursor: pointer; font-family: var(--font-sans);
+      font-size: var(--ui-text-md); font-weight: 700;
+      color: var(--text-primary); text-align: left;
+    }
+    .sacc-body { height: 0; overflow: hidden; }
+    .sacc-inner {
+      padding: var(--space-3) var(--space-4); font-size: var(--ui-text-sm);
+      color: var(--text-secondary); line-height: var(--leading-normal);
+    }
+    .sacc-chevron {
+      margin-left: auto; font-size: var(--ui-text-xs); transition: none;
+    }
+    .sacc-dot {
+      width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+    }
+
+    /* Color chip cards (FLIP, filter, elastic scroll) */
+    .color-chip {
+      display: flex; align-items: center; justify-content: center;
+      border: 2px solid; border-radius: var(--radius-sm);
+      font-weight: 700; cursor: default;
+    }
+    .color-chip--lg { height: 80px; font-size: var(--step-1); font-weight: 800; }
+    .color-chip--sm { height: 70px; font-size: var(--ui-text-xs); }
+    .color-chip--scroll { flex-shrink: 0; width: 120px; height: 80px; font-size: var(--ui-text-xs); }
+    [data-accent="pink"] { background: var(--accent-primary-subtle); border-color: var(--accent-primary); color: var(--accent-primary-text); }
+    [data-accent="gold"] { background: var(--accent-gold-subtle); border-color: var(--accent-gold); color: var(--accent-gold-text); }
+    [data-accent="cyan"] { background: var(--accent-cyan-subtle); border-color: var(--accent-cyan); color: var(--accent-cyan-text); }
+    [data-accent="green"] { background: var(--accent-green-subtle); border-color: var(--accent-green); color: var(--accent-green-text); }
+    [data-accent="purple"] { background: var(--accent-purple-subtle); border-color: var(--accent-purple); color: var(--accent-purple-text); }
+    [data-accent="danger"] { background: var(--accent-danger-subtle); border-color: var(--accent-danger); color: var(--accent-danger-text); }
+
+    /* Drag cards */
+    .drag-card {
+      position: absolute; width: 100px; height: 140px;
+      border: 2px solid; border-radius: var(--radius-md);
+      box-shadow: var(--shadow-md); display: flex; align-items: center;
+      justify-content: center; font-weight: 800; font-size: var(--step-2);
+      cursor: grab; user-select: none; touch-action: none;
+    }
+
+    /* Swipe notification cards */
+    .swipe-card {
+      display: flex; align-items: center; gap: var(--space-3);
+      padding: var(--space-3) var(--space-4); background: var(--bg-elevated);
+      border: 2px solid var(--border-default); border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-sm); cursor: grab; touch-action: none;
+      user-select: none; font-size: var(--ui-text-sm); font-weight: 600;
+    }
+
+    /* Reorder list items */
+    .reorder-item {
+      display: flex; align-items: center; gap: var(--space-3);
+      padding: var(--space-2) var(--space-3); border: 2px solid;
+      border-radius: var(--radius-sm); font-weight: 700; font-size: var(--ui-text-sm);
+    }
+    .reorder-item-label { flex: 1; }
+    .reorder-btn { padding: 2px 8px; font-size: 10px; }
+
+    /* Magnetic buttons */
+    .magnetic-btn {
+      padding: var(--space-3) var(--space-8); font-family: var(--font-sans);
+      font-size: var(--ui-text-md); font-weight: 700;
+      border: 2px solid var(--border-default); border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-md); cursor: pointer;
+      transition: transform 0.2s ease-out;
+    }
+
+    /* Spotlight cards */
+    .spotlight-wrap {
+      width: 160px; height: 120px; position: relative;
+      border: 2px solid; border-radius: var(--radius-md);
+      box-shadow: var(--shadow-md); display: flex; align-items: center;
+      justify-content: center; font-weight: 800; overflow: hidden; cursor: default;
+    }
+    .spotlight-overlay {
+      position: absolute; inset: 0; pointer-events: none; border-radius: inherit;
+    }
+
+    /* Badge icon buttons */
+    .badge-icon-btn {
+      position: relative; width: 52px; height: 52px;
+      border-radius: var(--radius-sm); border: 2px solid var(--border-default);
+      cursor: pointer; display: flex; align-items: center;
+      justify-content: center; font-size: 20px; box-shadow: var(--shadow-sm);
+    }
+    .badge-count {
+      position: absolute; top: -6px; right: -6px;
+      min-width: 20px; height: 20px; border-radius: var(--radius-full);
+      color: var(--text-on-accent); font-size: 11px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      border: 2px solid var(--bg-surface); transform: scale(0);
+    }
+
+    /* Drag sort items */
+    .sds-item {
+      display: flex; align-items: center; gap: var(--space-3);
+      padding: var(--space-3) var(--space-4); border: 2px solid;
+      border-radius: var(--radius-sm); font-weight: 700;
+      font-size: var(--ui-text-sm); user-select: none;
+    }
+    .sds-handle {
+      cursor: grab; font-size: var(--ui-text-lg);
+      color: var(--text-muted); touch-action: none;
+    }
+
+    /* Combo celebrate button */
+    .combo-btn {
+      position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+      width: 200px; height: 64px; display: flex; align-items: center; justify-content: center;
+      background: var(--accent-primary); color: var(--text-on-accent);
+      border: 2px solid var(--border-default); border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-lg); font-weight: 800; font-size: var(--ui-text-lg);
+      cursor: pointer; user-select: none; z-index: 2;
+    }
+
+    /* Toast */
+    .toast-item {
+      display: flex; align-items: center; gap: var(--space-3);
+      padding: var(--space-3) var(--space-4);
+      background: var(--bg-elevated); border: 2px solid var(--border-default);
+      border-radius: var(--radius-sm); box-shadow: var(--shadow-sm);
+      margin-bottom: var(--space-2);
+      font-size: var(--ui-text-sm); font-weight: 600;
+    }
+    .toast-close {
+      background: none; border: none; cursor: pointer;
+      color: var(--text-muted); font-size: var(--ui-text-lg); padding: 0 var(--space-1);
+    }
+
+    /* Spring button demo */
+    .spring-btn-el {
+      width: 160px; height: 56px; display: flex; align-items: center; justify-content: center;
+      background: var(--accent-primary); color: var(--text-on-accent);
+      border: 2px solid var(--border-default); border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-md); font-weight: 700; font-size: var(--ui-text-md);
+      user-select: none; pointer-events: none;
+    }
+
+    /* Elastic scroll glow */
+    .elastic-glow {
+      position: absolute; top: 0; bottom: 0; width: 40px;
+      opacity: 0; pointer-events: none; z-index: 2; transition: opacity 100ms;
+    }
+    .elastic-glow--left { left: 0; background: linear-gradient(to right, var(--accent-primary), transparent); }
+    .elastic-glow--right { right: 0; background: linear-gradient(to left, var(--accent-primary), transparent); }
+
+    /* Inline code */
+    .code-inline {
+      font-family: var(--font-mono); font-size: var(--ui-text-xs);
+      background: var(--bg-muted); padding: 1px 4px; border-radius: 4px;
+    }
+
+    /* Entrance animation helpers */
+    .anim-in {
+      opacity: 0;
+      transform: translateY(16px);
+      animation: fadeInUp 0.6s var(--ease-smooth) forwards;
+    }
+    .anim-d2 { animation-delay: 0.1s; }
+    .anim-d3 { animation-delay: 0.2s; }
+    .anim-d4 { animation-delay: 0.3s; }
+
+    /* ==========================================================================
+       SIGNATURE EFFECTS — BLUR FOCUS
+       ========================================================================== */
+    .blur-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3);
+      width: 100%; max-width: 320px;
+    }
+    .blur-card {
+      background: var(--bg-surface);
+      border: 2px solid var(--border-default);
+      border-top: 4px solid var(--accent-primary);
+      border-radius: var(--radius-sm);
+      padding: var(--space-3);
+      text-align: center;
+      transition: filter var(--motion-base) var(--ease-smooth),
+                  opacity var(--motion-base) var(--ease-smooth),
+                  transform var(--motion-fast) var(--ease-out);
+    }
+    .blur-card-label {
+      font-size: var(--ui-text-sm); font-weight: 700;
+      color: var(--text-primary);
+    }
+    .blur-grid:hover .blur-card {
+      filter: blur(3px); opacity: 0.5;
+    }
+    .blur-grid:hover .blur-card:hover {
+      filter: none; opacity: 1;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* ==========================================================================
+       SIGNATURE EFFECTS — 3D TILT
+       ========================================================================== */
+    .tilt-card {
+      width: 160px; height: 100px;
+      background: var(--bg-surface);
+      border: 2px solid var(--border-default);
+      border-top: 4px solid var(--accent-primary);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-md);
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+      cursor: pointer;
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+    .tilt-shine {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, oklch(1 0 0 / 0.15), transparent 60%);
+      pointer-events: none;
+      transition: opacity var(--motion-fast) var(--ease-out);
+    }
+
+    /* ==========================================================================
+       SIGNATURE EFFECTS — HUE SHIFT
+       ========================================================================== */
+    @property --sig-hue {
+      syntax: '<number>';
+      inherits: false;
+      initial-value: 350;
+    }
+    .hue-shift-demo {
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hue-shift-text {
+      font-size: var(--step-3); font-weight: 900;
+      letter-spacing: var(--tracking-tighter);
+      color: oklch(0.64 0.27 var(--sig-hue));
+      animation: hue-cycle 4s linear infinite;
+    }
+    @keyframes hue-cycle {
+      from { --sig-hue: 350; }
+      to { --sig-hue: 710; }
+    }
+    .hue-shift-paused .hue-shift-text {
+      animation-play-state: paused;
+    }
+
+    /* ==========================================================================
+       LOADING — SKELETON
+       ========================================================================== */
+    .skel-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-3); width: 100%;
+    }
+    @media (max-width: 640px) {
+      .skel-grid { grid-template-columns: 1fr; }
+    }
+    .skel-card {
+      background: var(--bg-surface);
+      border: 2px solid var(--border-default);
+      border-radius: var(--radius-sm);
+      padding: var(--space-3);
+    }
+    .skel {
+      border-radius: var(--radius-sm);
+      background: var(--bg-muted);
+    }
+    .skel-heading {
+      height: 14px; width: 60%; margin-bottom: var(--space-2);
+    }
+    .skel-text {
+      height: 10px; width: 100%; margin-bottom: var(--space-1);
+    }
+    .skel-shimmer {
+      background: linear-gradient(90deg, var(--bg-muted) 25%, var(--bg-subtle) 50%, var(--bg-muted) 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s ease-in-out infinite;
+    }
+    .skel-pulse {
+      animation: skel-pulse 1.5s ease-in-out infinite;
+    }
+    @keyframes shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+    @keyframes skel-pulse {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 1; }
+    }
+    .skel-loaded .skel-card {
+      opacity: 0; transform: translateY(8px);
+    }
+    .skel-reveal .skel-card {
+      opacity: 1; transform: translateY(0);
+      transition: opacity 300ms var(--ease-smooth), transform 300ms var(--ease-smooth);
+    }
+
+    /* ==========================================================================
+       LOADING — PAGE TRANSITIONS
+       ========================================================================== */
+    .pt-frame {
+      position: relative; width: 100%; height: 100%;
+      min-height: 200px;
+    }
+    .pt-page {
+      position: absolute; inset: 0;
+      padding: var(--space-4);
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .pt-page-hidden {
+      opacity: 0; transform: translateX(100%);
+      pointer-events: none;
+    }
+
+    /* ==========================================================================
+       LOADING — JS STAGGER
+       ========================================================================== */
+    .js-stagger-columns {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-3); width: 100%;
+    }
+    @media (max-width: 640px) {
+      .js-stagger-columns { grid-template-columns: 1fr; }
+    }
+    .js-stagger-label {
+      font-size: var(--ui-text-2xs); font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.04em;
+      color: var(--text-muted); margin-bottom: var(--space-2);
+    }
+    .js-stagger-label span {
+      font-family: var(--font-mono); color: var(--accent-primary-text);
+    }
+    .js-stagger-item {
+      background: var(--bg-surface);
+      border: 2px solid var(--border-default);
+      border-radius: var(--radius-sm);
+      padding: var(--space-1) var(--space-2);
+      font-size: var(--ui-text-xs); font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: var(--space-1);
+    }
+
+    /* ==========================================================================
        FOOTER
        ========================================================================== */
     .ds-footer {
@@ -676,19 +1133,20 @@
        BACK TO TOP
        ========================================================================== */
     .back-to-top {
-      position: fixed; bottom: var(--space-6); right: var(--space-6);
-      z-index: var(--z-fixed); width: 44px; height: 44px;
-      border-radius: var(--radius-sm); border: 2px solid var(--border-default);
-      background: var(--bg-elevated); color: var(--text-primary);
+      position: fixed; bottom: var(--space-8); right: var(--space-6);
+      z-index: 100; width: 44px; height: 44px;
+      border-radius: var(--radius-full); border: 2px solid var(--border-default);
+      background: var(--bg-surface); color: var(--text-primary);
       cursor: pointer; display: flex; align-items: center; justify-content: center;
       box-shadow: var(--shadow-sm);
       opacity: 0; pointer-events: none;
-      transition: opacity var(--motion-fast) var(--ease-out), transform var(--motion-instant) linear, box-shadow var(--motion-instant) linear;
+      transition: opacity var(--motion-fast) var(--ease-out), transform var(--motion-instant) linear,
+                  box-shadow var(--motion-instant) linear;
     }
     .back-to-top.visible { opacity: 1; pointer-events: auto; }
     .back-to-top:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
     .back-to-top:active { transform: translateY(1px); box-shadow: none; }
-    .back-to-top svg { width: 20px; height: 20px; }
+    .back-to-top svg { width: 18px; height: 18px; }
 
     /* View transitions */
     ::view-transition-old(root),
@@ -787,33 +1245,40 @@
   <!-- NAV -->
   <nav class="topnav" role="navigation" aria-label="Animation system navigation">
     <div class="topnav-inner">
-      <a href="#" class="topnav-brand">
-        <span class="brand-dots">
-          <span class="brand-dot" style="background:var(--accent-primary)"></span>
-          <span class="brand-dot" style="background:var(--accent-gold)"></span>
-          <span class="brand-dot" style="background:var(--accent-cyan)"></span>
-        </span>
-        Delightful Animation
-      </a>
-      <ul class="nav-links">
+      <div class="topnav-brand-wrap">
+        <button class="topnav-brand" id="brand-trigger" aria-expanded="false" aria-haspopup="true" aria-controls="brand-dropdown">
+          <span class="brand-dots">
+            <span class="brand-dot" style="background:var(--accent-primary)"></span>
+            <span class="brand-dot" style="background:var(--accent-gold)"></span>
+            <span class="brand-dot" style="background:var(--accent-cyan)"></span>
+          </span>
+          <span class="brand-label">Animation</span>
+          <svg class="brand-chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 5 6 8 9 5"/></svg>
+        </button>
+        <div class="brand-dropdown" id="brand-dropdown" role="menu">
+          <a href="delightful-design-system.html" class="brand-dropdown-item" role="menuitem" data-page="design"><span class="brand-dropdown-dot" style="background:var(--accent-primary)"></span>Design</a>
+          <a href="delightful-color.html" class="brand-dropdown-item" role="menuitem" data-page="color"><span class="brand-dropdown-dot" style="background:var(--accent-gold)"></span>Color</a>
+          <a href="delightful-motion.html" class="brand-dropdown-item" role="menuitem" data-page="motion"><span class="brand-dropdown-dot" style="background:var(--accent-cyan)"></span>Motion</a>
+          <a href="delightful-animation.html" class="brand-dropdown-item active" role="menuitem" data-page="animation"><span class="brand-dropdown-dot" style="background:var(--accent-green)"></span>Animation</a>
+          <div class="brand-dropdown-sep"></div>
+          <a href="https://github.com/kylesnav/delightful-design-system" target="_blank" rel="noopener noreferrer" class="brand-dropdown-item brand-dropdown-github" role="menuitem">
+            <svg viewBox="0 0 16 16" fill="currentColor" width="14" height="14"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+      <ul class="topnav-links">
         <li><a href="#springs">Springs</a></li>
         <li><a href="#particles">Particles</a></li>
         <li><a href="#flip">FLIP</a></li>
         <li><a href="#gestures">Gestures</a></li>
-        <li><a href="#cursor">Cursor</a></li>
         <li><a href="#generative">Generative</a></li>
+        <li><a href="#loading">Loading</a></li>
         <li><a href="#components">Components</a></li>
-        <li><a href="#combined">Combined</a></li>
       </ul>
-      <div class="nav-right">
-        <kbd class="nav-kbd" id="cmd-k-trigger" title="Quick navigation">&#8984;K</kbd>
-        <a href="delightful-design-system.html" class="nav-btn" aria-label="Design System" title="Design System">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
-        </a>
-        <a href="delightful-motion.html" class="nav-btn" aria-label="Motion System" title="Motion System">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14"/><polyline points="12 5 19 12 12 19"/></svg>
-        </a>
-        <button class="nav-btn" id="theme-toggle" aria-label="Toggle theme (light / dark / system)">
+      <div class="topnav-right">
+        <kbd class="topnav-kbd" id="cmd-k-trigger" title="Quick navigation">&#8984;K</kbd>
+        <button class="topnav-btn" id="theme-toggle" aria-label="Toggle theme">
           <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
             <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
@@ -822,9 +1287,6 @@
           </svg>
           <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-          </svg>
-          <svg class="icon-monitor" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
           </svg>
         </button>
       </div>
@@ -835,26 +1297,21 @@
 
     <!-- HERO -->
     <section class="hero">
-      <div class="hero-canvas-wrap" role="img" aria-label="Interactive particle constellation with 60 colorful particles connected by spring-physics lines. Particles respond to mouse movement and clicks.">
+      <h1 class="hero-title anim-in">An <a href="https://github.com/kylesnav/delightful-design-system" class="hero-keyword" style="--keyword-color:var(--accent-green)" target="_blank" rel="noopener noreferrer">animation system</a> that sparks joy</h1>
+      <p class="hero-subtitle anim-in anim-d2">Spring physics, particle systems, generative art, and interactive playgrounds — all vanilla JS, all token-driven.</p>
+      <a href="#springs" class="hero-cta anim-in anim-d3">Explore 7 categories <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      <div class="hero-canvas-wrap" role="img" aria-label="Interactive particle constellation with 60 colorful particles connected by spring-physics lines. Particles respond to mouse movement and clicks." style="margin-top:var(--space-8)">
         <canvas class="hero-canvas" id="hero-canvas" aria-hidden="true"></canvas>
         <span class="hero-canvas-hint">Move mouse or touch to interact</span>
-      </div>
-      <h1 class="hero-title">Delightful Animation</h1>
-      <p class="hero-subtitle">Spring physics, particle systems, generative art, and interactive playgrounds — all vanilla JS, all token-driven.</p>
-      <p class="hero-crosslink">Part of the <a href="delightful-design-system.html">Delightful Design System</a> &middot; <a href="delightful-motion.html">Motion</a> &middot; <a href="delightful-color.html">Color</a></p>
-      <div class="hero-dots">
-        <span class="hero-dot" style="background:var(--accent-primary)"></span>
-        <span class="hero-dot" style="background:var(--accent-gold)"></span>
-        <span class="hero-dot" style="background:var(--accent-cyan)"></span>
       </div>
     </section>
 
     <!-- ================================================================
          1. SPRING PHYSICS
          ================================================================ -->
-    <section id="springs" class="anim-section">
+    <section id="springs" class="ds-section scroll-reveal">
       <div class="section-header">
-        <div class="section-overline"><span class="status-dot" style="background:var(--accent-primary)"></span> Category 01</div>
+        <div class="section-overline overline-pink"><span class="status-dot" style="background:var(--accent-primary)"></span> 01 — Spring Physics</div>
         <h2 class="section-title">Spring Physics</h2>
         <p class="section-desc">Damped harmonic oscillators bring natural, organic motion to UI elements. Press, drag, and tweak parameters in real time.</p>
       </div>
@@ -863,13 +1320,7 @@
         <!-- Spring Button -->
         <div class="demo-card">
           <div class="demo-card-stage" id="spring-btn-stage" style="cursor:pointer" tabindex="0" role="button" aria-label="Spring button demo. Press Space or Enter to activate.">
-            <div id="spring-btn-el" style="
-              width:160px;height:56px;display:flex;align-items:center;justify-content:center;
-              background:var(--accent-primary);color:var(--text-on-accent);
-              border:2px solid var(--border-default);border-radius:var(--radius-sm);
-              box-shadow:var(--shadow-md);font-weight:700;font-size:var(--ui-text-md);
-              user-select:none;pointer-events:none;
-            ">Press Me</div>
+            <div id="spring-btn-el" class="spring-btn-el">Press Me</div>
           </div>
           <div class="demo-card-body">
             <div class="demo-card-top">
@@ -927,29 +1378,29 @@
         <!-- Spring Toggle -->
         <div class="demo-card">
           <div class="demo-card-stage" id="spring-toggle-stage" style="display:flex;gap:var(--space-8);align-items:center;justify-content:center;padding:var(--space-8)">
-            <div style="display:flex;flex-direction:column;align-items:center;gap:var(--space-2)">
-              <button id="spring-toggle-0" role="switch" aria-checked="false" aria-label="Notifications toggle" style="width:56px;height:30px;border-radius:var(--radius-full);background:var(--primitive-neutral-300);border:2px solid var(--border-default);box-shadow:var(--shadow-sm);position:relative;cursor:pointer;flex-shrink:0;padding:0;transition:none;">
-                <span style="position:absolute;top:2px;left:2px;width:22px;height:22px;border-radius:50%;background:var(--primitive-neutral-0);border:2px solid var(--border-default);box-shadow:1px 1px 0 var(--border-default);display:block;will-change:transform;"></span>
+            <div class="anim-toggle-group">
+              <button id="spring-toggle-0" class="anim-toggle" role="switch" aria-checked="false" aria-label="Notifications toggle">
+                <span class="anim-toggle-knob"></span>
               </button>
-              <span style="font-size:var(--ui-text-xs);color:var(--text-muted);font-weight:600">Alerts</span>
+              <span class="anim-toggle-label">Alerts</span>
             </div>
-            <div style="display:flex;flex-direction:column;align-items:center;gap:var(--space-2)">
-              <button id="spring-toggle-1" role="switch" aria-checked="true" aria-label="Sync toggle" style="width:56px;height:30px;border-radius:var(--radius-full);background:var(--accent-green);border:2px solid var(--border-default);box-shadow:var(--shadow-sm);position:relative;cursor:pointer;flex-shrink:0;padding:0;transition:none;">
-                <span style="position:absolute;top:2px;left:2px;width:22px;height:22px;border-radius:50%;background:var(--primitive-neutral-0);border:2px solid var(--border-default);box-shadow:1px 1px 0 var(--border-default);display:block;will-change:transform;transform:translateX(26px);"></span>
+            <div class="anim-toggle-group">
+              <button id="spring-toggle-1" class="anim-toggle" role="switch" aria-checked="true" aria-label="Sync toggle" style="background:var(--accent-green)">
+                <span class="anim-toggle-knob" style="transform:translateX(26px)"></span>
               </button>
-              <span style="font-size:var(--ui-text-xs);color:var(--text-muted);font-weight:600">Sync</span>
+              <span class="anim-toggle-label">Sync</span>
             </div>
-            <div style="display:flex;flex-direction:column;align-items:center;gap:var(--space-2)">
-              <button id="spring-toggle-2" role="switch" aria-checked="false" aria-label="Dark mode toggle" style="width:56px;height:30px;border-radius:var(--radius-full);background:var(--primitive-neutral-300);border:2px solid var(--border-default);box-shadow:var(--shadow-sm);position:relative;cursor:pointer;flex-shrink:0;padding:0;transition:none;">
-                <span style="position:absolute;top:2px;left:2px;width:22px;height:22px;border-radius:50%;background:var(--primitive-neutral-0);border:2px solid var(--border-default);box-shadow:1px 1px 0 var(--border-default);display:block;will-change:transform;"></span>
+            <div class="anim-toggle-group">
+              <button id="spring-toggle-2" class="anim-toggle" role="switch" aria-checked="false" aria-label="Dark mode toggle">
+                <span class="anim-toggle-knob"></span>
               </button>
-              <span style="font-size:var(--ui-text-xs);color:var(--text-muted);font-weight:600">Dark</span>
+              <span class="anim-toggle-label">Dark</span>
             </div>
-            <div style="display:flex;flex-direction:column;align-items:center;gap:var(--space-2)">
-              <button id="spring-toggle-3" role="switch" aria-checked="true" aria-label="AI features toggle" style="width:56px;height:30px;border-radius:var(--radius-full);background:var(--accent-purple);border:2px solid var(--border-default);box-shadow:var(--shadow-sm);position:relative;cursor:pointer;flex-shrink:0;padding:0;transition:none;">
-                <span style="position:absolute;top:2px;left:2px;width:22px;height:22px;border-radius:50%;background:var(--primitive-neutral-0);border:2px solid var(--border-default);box-shadow:1px 1px 0 var(--border-default);display:block;will-change:transform;transform:translateX(26px);"></span>
+            <div class="anim-toggle-group">
+              <button id="spring-toggle-3" class="anim-toggle" role="switch" aria-checked="true" aria-label="AI features toggle" style="background:var(--accent-purple)">
+                <span class="anim-toggle-knob" style="transform:translateX(26px)"></span>
               </button>
-              <span style="font-size:var(--ui-text-xs);color:var(--text-muted);font-weight:600">AI</span>
+              <span class="anim-toggle-label">AI</span>
             </div>
           </div>
           <div class="demo-card-body">
@@ -966,51 +1417,51 @@
         <div class="demo-card demo-card-wide">
           <div class="demo-card-stage" style="min-height:auto;padding:var(--space-4)">
             <div id="spring-accordion" style="width:100%;display:flex;flex-direction:column;gap:var(--space-2)">
-              <div class="sacc-panel" style="border:2px solid var(--border-default);border-radius:var(--radius-sm);overflow:hidden;background:var(--bg-surface)">
-                <button class="sacc-header" aria-expanded="false" style="width:100%;display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-4);background:var(--accent-primary-subtle);border:none;cursor:pointer;font-family:var(--font-sans);font-size:var(--ui-text-md);font-weight:700;color:var(--text-primary);text-align:left">
-                  <span style="width:8px;height:8px;border-radius:50%;background:var(--accent-primary);flex-shrink:0"></span>
+              <div class="sacc-panel">
+                <button class="sacc-header" aria-expanded="false" style="background:var(--accent-primary-subtle)">
+                  <span class="sacc-dot" style="background:var(--accent-primary)"></span>
                   Spring Physics
-                  <span class="sacc-chevron" style="margin-left:auto;font-size:var(--ui-text-xs);transition:none">&#9660;</span>
+                  <span class="sacc-chevron">&#9660;</span>
                 </button>
-                <div class="sacc-body" style="height:0;overflow:hidden">
-                  <div class="sacc-inner" style="padding:var(--space-3) var(--space-4);font-size:var(--ui-text-sm);color:var(--text-secondary);line-height:var(--leading-normal)">
-                    Damped harmonic oscillators bring natural, organic motion. Every interactive element uses <code style="font-family:var(--font-mono);background:var(--bg-muted);padding:1px 4px;border-radius:4px">springStep()</code> for physically grounded animation.
+                <div class="sacc-body">
+                  <div class="sacc-inner">
+                    Damped harmonic oscillators bring natural, organic motion. Every interactive element uses <code class="code-inline">springStep()</code> for physically grounded animation.
                   </div>
                 </div>
               </div>
-              <div class="sacc-panel" style="border:2px solid var(--border-default);border-radius:var(--radius-sm);overflow:hidden;background:var(--bg-surface)">
-                <button class="sacc-header" aria-expanded="false" style="width:100%;display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-4);background:var(--accent-gold-subtle);border:none;cursor:pointer;font-family:var(--font-sans);font-size:var(--ui-text-md);font-weight:700;color:var(--text-primary);text-align:left">
-                  <span style="width:8px;height:8px;border-radius:50%;background:var(--accent-gold);flex-shrink:0"></span>
+              <div class="sacc-panel">
+                <button class="sacc-header" aria-expanded="false" style="background:var(--accent-gold-subtle)">
+                  <span class="sacc-dot" style="background:var(--accent-gold)"></span>
                   Token Architecture
-                  <span class="sacc-chevron" style="margin-left:auto;font-size:var(--ui-text-xs);transition:none">&#9660;</span>
+                  <span class="sacc-chevron">&#9660;</span>
                 </button>
-                <div class="sacc-body" style="height:0;overflow:hidden">
-                  <div class="sacc-inner" style="padding:var(--space-3) var(--space-4);font-size:var(--ui-text-sm);color:var(--text-secondary);line-height:var(--leading-normal)">
+                <div class="sacc-body">
+                  <div class="sacc-inner">
                     Three-tier token system: Primitives define raw OKLCH values, Semantic tokens map to meaning, Component tokens style specific UI elements. Never skip a tier.
                   </div>
                 </div>
               </div>
-              <div class="sacc-panel" style="border:2px solid var(--border-default);border-radius:var(--radius-sm);overflow:hidden;background:var(--bg-surface)">
-                <button class="sacc-header" aria-expanded="false" style="width:100%;display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-4);background:var(--accent-cyan-subtle);border:none;cursor:pointer;font-family:var(--font-sans);font-size:var(--ui-text-md);font-weight:700;color:var(--text-primary);text-align:left">
-                  <span style="width:8px;height:8px;border-radius:50%;background:var(--accent-cyan);flex-shrink:0"></span>
+              <div class="sacc-panel">
+                <button class="sacc-header" aria-expanded="false" style="background:var(--accent-cyan-subtle)">
+                  <span class="sacc-dot" style="background:var(--accent-cyan)"></span>
                   Neo-Brutalist Style
-                  <span class="sacc-chevron" style="margin-left:auto;font-size:var(--ui-text-xs);transition:none">&#9660;</span>
+                  <span class="sacc-chevron">&#9660;</span>
                 </button>
-                <div class="sacc-body" style="height:0;overflow:hidden">
-                  <div class="sacc-inner" style="padding:var(--space-3) var(--space-4);font-size:var(--ui-text-sm);color:var(--text-secondary);line-height:var(--leading-normal)">
+                <div class="sacc-body">
+                  <div class="sacc-inner">
                     Solid shadows (zero blur), 2px borders, bold typography, and high-contrast color. No gradients on UI elements — flat fills with hard edges.
                   </div>
                 </div>
               </div>
-              <div class="sacc-panel" style="border:2px solid var(--border-default);border-radius:var(--radius-sm);overflow:hidden;background:var(--bg-surface)">
-                <button class="sacc-header" aria-expanded="false" style="width:100%;display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-4);background:var(--accent-purple-subtle);border:none;cursor:pointer;font-family:var(--font-sans);font-size:var(--ui-text-md);font-weight:700;color:var(--text-primary);text-align:left">
-                  <span style="width:8px;height:8px;border-radius:50%;background:var(--accent-purple);flex-shrink:0"></span>
+              <div class="sacc-panel">
+                <button class="sacc-header" aria-expanded="false" style="background:var(--accent-purple-subtle)">
+                  <span class="sacc-dot" style="background:var(--accent-purple)"></span>
                   Reduced Motion
-                  <span class="sacc-chevron" style="margin-left:auto;font-size:var(--ui-text-xs);transition:none">&#9660;</span>
+                  <span class="sacc-chevron">&#9660;</span>
                 </button>
-                <div class="sacc-body" style="height:0;overflow:hidden">
-                  <div class="sacc-inner" style="padding:var(--space-3) var(--space-4);font-size:var(--ui-text-sm);color:var(--text-secondary);line-height:var(--leading-normal)">
-                    When <code style="font-family:var(--font-mono);background:var(--bg-muted);padding:1px 4px;border-radius:4px">prefers-reduced-motion</code> is active, all spring animations snap instantly to their targets. Every demo respects this preference.
+                <div class="sacc-body">
+                  <div class="sacc-inner">
+                    When <code class="code-inline">prefers-reduced-motion</code> is active, all spring animations snap instantly to their targets. Every demo respects this preference.
                   </div>
                 </div>
               </div>
@@ -1031,9 +1482,9 @@
     <!-- ================================================================
          2. PARTICLE SYSTEMS
          ================================================================ -->
-    <section id="particles" class="anim-section">
+    <section id="particles" class="ds-section scroll-reveal">
       <div class="section-header">
-        <div class="section-overline"><span class="status-dot" style="background:var(--accent-gold)"></span> Category 02</div>
+        <div class="section-overline overline-gold"><span class="status-dot" style="background:var(--accent-gold)"></span> 02 — Particle Systems</div>
         <h2 class="section-title">Particle Systems</h2>
         <p class="section-desc">Object-pooled particle engines for confetti, fireworks, and token-colored bubbles. All running at 60fps with recycled particles.</p>
       </div>
@@ -1090,9 +1541,9 @@
     <!-- ================================================================
          3. FLIP & LAYOUT
          ================================================================ -->
-    <section id="flip" class="anim-section">
+    <section id="flip" class="ds-section scroll-reveal">
       <div class="section-header">
-        <div class="section-overline"><span class="status-dot" style="background:var(--accent-green)"></span> Category 03</div>
+        <div class="section-overline overline-green"><span class="status-dot" style="background:var(--accent-green)"></span> 03 — FLIP Animations</div>
         <h2 class="section-title">FLIP &amp; Layout Animation</h2>
         <p class="section-desc">First-Last-Invert-Play technique for smooth layout transitions. Elements animate from where they were to where they are.</p>
       </div>
@@ -1102,14 +1553,14 @@
         <div class="demo-card demo-card-wide">
           <div class="demo-card-stage" style="min-height:auto;padding:var(--space-6)">
             <div id="flip-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:var(--space-3);width:100%">
-              <div class="flip-card" data-id="1" style="height:80px;background:var(--accent-primary-subtle);border:2px solid var(--accent-primary);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:var(--step-1);color:var(--accent-primary-text);cursor:default">1</div>
-              <div class="flip-card" data-id="2" style="height:80px;background:var(--accent-gold-subtle);border:2px solid var(--accent-gold);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:var(--step-1);color:var(--accent-gold-text);cursor:default">2</div>
-              <div class="flip-card" data-id="3" style="height:80px;background:var(--accent-cyan-subtle);border:2px solid var(--accent-cyan);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:var(--step-1);color:var(--accent-cyan-text);cursor:default">3</div>
-              <div class="flip-card" data-id="4" style="height:80px;background:var(--accent-danger-subtle);border:2px solid var(--accent-danger);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:var(--step-1);color:var(--accent-danger-text);cursor:default">4</div>
-              <div class="flip-card" data-id="5" style="height:80px;background:var(--accent-green-subtle);border:2px solid var(--accent-green);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:var(--step-1);color:var(--accent-green-text);cursor:default">5</div>
-              <div class="flip-card" data-id="6" style="height:80px;background:var(--accent-purple-subtle);border:2px solid var(--accent-purple);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:var(--step-1);color:var(--accent-purple-text);cursor:default">6</div>
-              <div class="flip-card" data-id="7" style="height:80px;background:var(--accent-primary-subtle);border:2px solid var(--accent-primary);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:var(--step-1);color:var(--accent-primary-text);cursor:default">7</div>
-              <div class="flip-card" data-id="8" style="height:80px;background:var(--accent-gold-subtle);border:2px solid var(--accent-gold);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:var(--step-1);color:var(--accent-gold-text);cursor:default">8</div>
+              <div class="flip-card color-chip color-chip--lg" data-id="1" data-accent="pink">1</div>
+              <div class="flip-card color-chip color-chip--lg" data-id="2" data-accent="gold">2</div>
+              <div class="flip-card color-chip color-chip--lg" data-id="3" data-accent="cyan">3</div>
+              <div class="flip-card color-chip color-chip--lg" data-id="4" data-accent="danger">4</div>
+              <div class="flip-card color-chip color-chip--lg" data-id="5" data-accent="green">5</div>
+              <div class="flip-card color-chip color-chip--lg" data-id="6" data-accent="purple">6</div>
+              <div class="flip-card color-chip color-chip--lg" data-id="7" data-accent="pink">7</div>
+              <div class="flip-card color-chip color-chip--lg" data-id="8" data-accent="gold">8</div>
             </div>
           </div>
           <div class="demo-card-body">
@@ -1127,27 +1578,27 @@
           <div class="demo-card-stage" style="min-height:auto;padding:var(--space-4)">
             <div style="width:100%">
               <div id="filter-btns" style="display:flex;gap:var(--space-2);flex-wrap:wrap;margin-bottom:var(--space-4)">
-                <button data-filter="all" class="demo-btn active" style="font-size:var(--ui-text-xs)">All</button>
-                <button data-filter="pink" class="demo-btn demo-btn-secondary" style="font-size:var(--ui-text-xs)">Pink</button>
-                <button data-filter="gold" class="demo-btn demo-btn-secondary" style="font-size:var(--ui-text-xs)">Gold</button>
-                <button data-filter="cyan" class="demo-btn demo-btn-secondary" style="font-size:var(--ui-text-xs)">Cyan</button>
-                <button data-filter="green" class="demo-btn demo-btn-secondary" style="font-size:var(--ui-text-xs)">Green</button>
-                <button data-filter="purple" class="demo-btn demo-btn-secondary" style="font-size:var(--ui-text-xs)">Purple</button>
-                <button data-filter="danger" class="demo-btn demo-btn-secondary" style="font-size:var(--ui-text-xs)">Red</button>
+                <button data-filter="all" class="demo-btn active">All</button>
+                <button data-filter="pink" class="demo-btn demo-btn-secondary">Pink</button>
+                <button data-filter="gold" class="demo-btn demo-btn-secondary">Gold</button>
+                <button data-filter="cyan" class="demo-btn demo-btn-secondary">Cyan</button>
+                <button data-filter="green" class="demo-btn demo-btn-secondary">Green</button>
+                <button data-filter="purple" class="demo-btn demo-btn-secondary">Purple</button>
+                <button data-filter="danger" class="demo-btn demo-btn-secondary">Red</button>
               </div>
               <div id="filter-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(70px,1fr));gap:var(--space-3)">
-                <div data-color="pink" style="height:70px;background:var(--accent-primary-subtle);border:2px solid var(--accent-primary);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:var(--ui-text-xs);color:var(--accent-primary-text)">Pink</div>
-                <div data-color="gold" style="height:70px;background:var(--accent-gold-subtle);border:2px solid var(--accent-gold);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:var(--ui-text-xs);color:var(--accent-gold-text)">Gold</div>
-                <div data-color="cyan" style="height:70px;background:var(--accent-cyan-subtle);border:2px solid var(--accent-cyan);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:var(--ui-text-xs);color:var(--accent-cyan-text)">Cyan</div>
-                <div data-color="green" style="height:70px;background:var(--accent-green-subtle);border:2px solid var(--accent-green);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:var(--ui-text-xs);color:var(--accent-green-text)">Green</div>
-                <div data-color="purple" style="height:70px;background:var(--accent-purple-subtle);border:2px solid var(--accent-purple);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:var(--ui-text-xs);color:var(--accent-purple-text)">Purple</div>
-                <div data-color="danger" style="height:70px;background:var(--accent-danger-subtle);border:2px solid var(--accent-danger);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:var(--ui-text-xs);color:var(--accent-danger-text)">Red</div>
-                <div data-color="pink" style="height:70px;background:var(--accent-primary-subtle);border:2px solid var(--accent-primary);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:var(--ui-text-xs);color:var(--accent-primary-text)">Pink</div>
-                <div data-color="gold" style="height:70px;background:var(--accent-gold-subtle);border:2px solid var(--accent-gold);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:var(--ui-text-xs);color:var(--accent-gold-text)">Gold</div>
-                <div data-color="cyan" style="height:70px;background:var(--accent-cyan-subtle);border:2px solid var(--accent-cyan);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:var(--ui-text-xs);color:var(--accent-cyan-text)">Cyan</div>
-                <div data-color="green" style="height:70px;background:var(--accent-green-subtle);border:2px solid var(--accent-green);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:var(--ui-text-xs);color:var(--accent-green-text)">Green</div>
-                <div data-color="purple" style="height:70px;background:var(--accent-purple-subtle);border:2px solid var(--accent-purple);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:var(--ui-text-xs);color:var(--accent-purple-text)">Purple</div>
-                <div data-color="danger" style="height:70px;background:var(--accent-danger-subtle);border:2px solid var(--accent-danger);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:var(--ui-text-xs);color:var(--accent-danger-text)">Red</div>
+                <div class="color-chip color-chip--sm" data-color="pink" data-accent="pink">Pink</div>
+                <div class="color-chip color-chip--sm" data-color="gold" data-accent="gold">Gold</div>
+                <div class="color-chip color-chip--sm" data-color="cyan" data-accent="cyan">Cyan</div>
+                <div class="color-chip color-chip--sm" data-color="green" data-accent="green">Green</div>
+                <div class="color-chip color-chip--sm" data-color="purple" data-accent="purple">Purple</div>
+                <div class="color-chip color-chip--sm" data-color="danger" data-accent="danger">Red</div>
+                <div class="color-chip color-chip--sm" data-color="pink" data-accent="pink">Pink</div>
+                <div class="color-chip color-chip--sm" data-color="gold" data-accent="gold">Gold</div>
+                <div class="color-chip color-chip--sm" data-color="cyan" data-accent="cyan">Cyan</div>
+                <div class="color-chip color-chip--sm" data-color="green" data-accent="green">Green</div>
+                <div class="color-chip color-chip--sm" data-color="purple" data-accent="purple">Purple</div>
+                <div class="color-chip color-chip--sm" data-color="danger" data-accent="danger">Red</div>
               </div>
             </div>
           </div>
@@ -1166,30 +1617,30 @@
           <div class="demo-card-stage" style="min-height:auto;padding:var(--space-4)">
             <div style="width:100%;max-width:400px">
               <div id="reorder-list" style="display:flex;flex-direction:column;gap:var(--space-2)">
-                <div class="reorder-item" style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-2) var(--space-3);background:var(--accent-green-subtle);border:2px solid var(--accent-green);border-radius:var(--radius-sm);font-weight:700;font-size:var(--ui-text-sm)">
-                  <span style="color:var(--accent-green-text);flex:1">Emerald</span>
-                  <button class="reorder-up demo-btn demo-btn-secondary" style="padding:2px 8px;font-size:10px">&#9650;</button>
-                  <button class="reorder-down demo-btn demo-btn-secondary" style="padding:2px 8px;font-size:10px">&#9660;</button>
+                <div class="reorder-item" style="background:var(--accent-green-subtle);border-color:var(--accent-green)">
+                  <span class="reorder-item-label" style="color:var(--accent-green-text)">Emerald</span>
+                  <button class="reorder-up demo-btn demo-btn-secondary reorder-btn">&#9650;</button>
+                  <button class="reorder-down demo-btn demo-btn-secondary reorder-btn">&#9660;</button>
                 </div>
-                <div class="reorder-item" style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-2) var(--space-3);background:var(--accent-gold-subtle);border:2px solid var(--accent-gold);border-radius:var(--radius-sm);font-weight:700;font-size:var(--ui-text-sm)">
-                  <span style="color:var(--accent-gold-text);flex:1">Amber</span>
-                  <button class="reorder-up demo-btn demo-btn-secondary" style="padding:2px 8px;font-size:10px">&#9650;</button>
-                  <button class="reorder-down demo-btn demo-btn-secondary" style="padding:2px 8px;font-size:10px">&#9660;</button>
+                <div class="reorder-item" style="background:var(--accent-gold-subtle);border-color:var(--accent-gold)">
+                  <span class="reorder-item-label" style="color:var(--accent-gold-text)">Amber</span>
+                  <button class="reorder-up demo-btn demo-btn-secondary reorder-btn">&#9650;</button>
+                  <button class="reorder-down demo-btn demo-btn-secondary reorder-btn">&#9660;</button>
                 </div>
-                <div class="reorder-item" style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-2) var(--space-3);background:var(--accent-danger-subtle);border:2px solid var(--accent-danger);border-radius:var(--radius-sm);font-weight:700;font-size:var(--ui-text-sm)">
-                  <span style="color:var(--accent-danger-text);flex:1">Coral</span>
-                  <button class="reorder-up demo-btn demo-btn-secondary" style="padding:2px 8px;font-size:10px">&#9650;</button>
-                  <button class="reorder-down demo-btn demo-btn-secondary" style="padding:2px 8px;font-size:10px">&#9660;</button>
+                <div class="reorder-item" style="background:var(--accent-danger-subtle);border-color:var(--accent-danger)">
+                  <span class="reorder-item-label" style="color:var(--accent-danger-text)">Coral</span>
+                  <button class="reorder-up demo-btn demo-btn-secondary reorder-btn">&#9650;</button>
+                  <button class="reorder-down demo-btn demo-btn-secondary reorder-btn">&#9660;</button>
                 </div>
-                <div class="reorder-item" style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-2) var(--space-3);background:var(--accent-cyan-subtle);border:2px solid var(--accent-cyan);border-radius:var(--radius-sm);font-weight:700;font-size:var(--ui-text-sm)">
-                  <span style="color:var(--accent-cyan-text);flex:1">Sapphire</span>
-                  <button class="reorder-up demo-btn demo-btn-secondary" style="padding:2px 8px;font-size:10px">&#9650;</button>
-                  <button class="reorder-down demo-btn demo-btn-secondary" style="padding:2px 8px;font-size:10px">&#9660;</button>
+                <div class="reorder-item" style="background:var(--accent-cyan-subtle);border-color:var(--accent-cyan)">
+                  <span class="reorder-item-label" style="color:var(--accent-cyan-text)">Sapphire</span>
+                  <button class="reorder-up demo-btn demo-btn-secondary reorder-btn">&#9650;</button>
+                  <button class="reorder-down demo-btn demo-btn-secondary reorder-btn">&#9660;</button>
                 </div>
-                <div class="reorder-item" style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-2) var(--space-3);background:var(--accent-purple-subtle);border:2px solid var(--accent-purple);border-radius:var(--radius-sm);font-weight:700;font-size:var(--ui-text-sm)">
-                  <span style="color:var(--accent-purple-text);flex:1">Orchid</span>
-                  <button class="reorder-up demo-btn demo-btn-secondary" style="padding:2px 8px;font-size:10px">&#9650;</button>
-                  <button class="reorder-down demo-btn demo-btn-secondary" style="padding:2px 8px;font-size:10px">&#9660;</button>
+                <div class="reorder-item" style="background:var(--accent-purple-subtle);border-color:var(--accent-purple)">
+                  <span class="reorder-item-label" style="color:var(--accent-purple-text)">Orchid</span>
+                  <button class="reorder-up demo-btn demo-btn-secondary reorder-btn">&#9650;</button>
+                  <button class="reorder-down demo-btn demo-btn-secondary reorder-btn">&#9660;</button>
                 </div>
               </div>
             </div>
@@ -1207,143 +1658,22 @@
     </section>
 
     <!-- ================================================================
-         4. GESTURES & DRAG
+         04. GESTURES & INTERACTION
          ================================================================ -->
-    <section id="gestures" class="anim-section">
+    <section id="gestures" class="ds-section scroll-reveal">
       <div class="section-header">
-        <div class="section-overline"><span class="status-dot" style="background:var(--accent-primary)"></span> Category 04</div>
-        <h2 class="section-title">Gestures &amp; Drag</h2>
-        <p class="section-desc">Unified pointer event handling for drag with inertia, swipe-to-dismiss, and elastic overscroll.</p>
+        <div class="section-overline overline-pink"><span class="status-dot" style="background:var(--accent-primary)"></span> 04 — Gestures &amp; Interaction</div>
+        <h2 class="section-title">Gestures &amp; Interaction</h2>
+        <p class="section-desc">Drag with inertia, swipe-to-dismiss, elastic overscroll, magnetic buttons, spotlight effects, and spring-physics cursor trails.</p>
       </div>
 
-      <div class="demo-grid">
-        <!-- Draggable Cards -->
-        <div class="demo-card demo-card-wide">
-          <div class="demo-card-stage" id="drag-stage" style="min-height:260px;cursor:grab">
-            <div class="drag-card" style="
-              position:absolute;left:60px;top:40px;width:100px;height:140px;
-              background:var(--accent-primary-subtle);border:2px solid var(--accent-primary);
-              border-radius:var(--radius-md);box-shadow:var(--shadow-md);
-              display:flex;align-items:center;justify-content:center;
-              font-weight:800;font-size:var(--step-2);color:var(--accent-primary-text);
-              cursor:grab;user-select:none;touch-action:none;
-            ">A</div>
-            <div class="drag-card" style="
-              position:absolute;left:200px;top:60px;width:100px;height:140px;
-              background:var(--accent-gold-subtle);border:2px solid var(--accent-gold);
-              border-radius:var(--radius-md);box-shadow:var(--shadow-md);
-              display:flex;align-items:center;justify-content:center;
-              font-weight:800;font-size:var(--step-2);color:var(--accent-gold-text);
-              cursor:grab;user-select:none;touch-action:none;
-            ">B</div>
-            <div class="drag-card" style="
-              position:absolute;left:340px;top:30px;width:100px;height:140px;
-              background:var(--accent-cyan-subtle);border:2px solid var(--accent-cyan);
-              border-radius:var(--radius-md);box-shadow:var(--shadow-md);
-              display:flex;align-items:center;justify-content:center;
-              font-weight:800;font-size:var(--step-2);color:var(--accent-cyan-text);
-              cursor:grab;user-select:none;touch-action:none;
-            ">C</div>
-          </div>
-          <div class="demo-card-body">
-            <div class="demo-card-top">
-              <span class="demo-card-name">draggable-cards</span>
-              <span class="demo-card-tags"><span class="tag">Gesture</span><span class="tag">Inertia</span></span>
-            </div>
-            <p class="demo-card-desc">Drag cards with momentum. Release to see inertia carry the card forward, with spring-damped settling.</p>
-            <p class="demo-card-hint">Drag the cards around</p>
-          </div>
-        </div>
-
-        <!-- Swipe Dismiss -->
-        <div class="demo-card demo-card-wide">
-          <div class="demo-card-stage" style="min-height:auto;padding:var(--space-4)">
-            <div style="width:100%;max-width:360px">
-              <div id="swipe-dismiss-stack" style="display:flex;flex-direction:column;gap:var(--space-2)">
-                <div class="swipe-card" style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-4);background:var(--bg-elevated);border:2px solid var(--border-default);border-radius:var(--radius-sm);box-shadow:var(--shadow-sm);border-left:4px solid var(--accent-primary);cursor:grab;touch-action:none;user-select:none;font-size:var(--ui-text-sm);font-weight:600">New message from Alex</div>
-                <div class="swipe-card" style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-4);background:var(--bg-elevated);border:2px solid var(--border-default);border-radius:var(--radius-sm);box-shadow:var(--shadow-sm);border-left:4px solid var(--accent-green);cursor:grab;touch-action:none;user-select:none;font-size:var(--ui-text-sm);font-weight:600">Task complete: Deploy v2</div>
-                <div class="swipe-card" style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-4);background:var(--bg-elevated);border:2px solid var(--border-default);border-radius:var(--radius-sm);box-shadow:var(--shadow-sm);border-left:4px solid var(--accent-gold);cursor:grab;touch-action:none;user-select:none;font-size:var(--ui-text-sm);font-weight:600">Warning: Storage 90% full</div>
-                <div class="swipe-card" style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-4);background:var(--bg-elevated);border:2px solid var(--border-default);border-radius:var(--radius-sm);box-shadow:var(--shadow-sm);border-left:4px solid var(--accent-danger);cursor:grab;touch-action:none;user-select:none;font-size:var(--ui-text-sm);font-weight:600">Error alert: Build failed</div>
-                <div class="swipe-card" style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-4);background:var(--bg-elevated);border:2px solid var(--border-default);border-radius:var(--radius-sm);box-shadow:var(--shadow-sm);border-left:4px solid var(--accent-purple);cursor:grab;touch-action:none;user-select:none;font-size:var(--ui-text-sm);font-weight:600">Update ready: v3.0</div>
-              </div>
-            </div>
-          </div>
-          <div class="demo-card-body">
-            <div class="demo-card-top">
-              <span class="demo-card-name">swipe-dismiss</span>
-              <button class="demo-btn" id="swipe-reset-btn">Reset</button>
-            </div>
-            <p class="demo-card-desc">Swipe notification cards horizontally to dismiss. Past the threshold, the card flings off and remaining cards FLIP upward.</p>
-            <p class="demo-card-hint">Drag a card left or right to dismiss</p>
-          </div>
-        </div>
-
-        <!-- Elastic Scroll -->
-        <div class="demo-card demo-card-wide">
-          <div class="demo-card-stage" style="min-height:auto;padding:var(--space-4);position:relative">
-            <div id="elastic-glow-left" style="position:absolute;left:0;top:0;bottom:0;width:40px;background:linear-gradient(to right,var(--accent-primary),transparent);opacity:0;pointer-events:none;z-index:2;transition:opacity 100ms"></div>
-            <div id="elastic-glow-right" style="position:absolute;right:0;top:0;bottom:0;width:40px;background:linear-gradient(to left,var(--accent-primary),transparent);opacity:0;pointer-events:none;z-index:2;transition:opacity 100ms"></div>
-            <div id="elastic-inner" style="display:flex;gap:var(--space-3);overflow-x:hidden;cursor:grab;touch-action:none;padding:var(--space-2) 0;will-change:transform">
-              <div style="flex-shrink:0;width:120px;height:80px;background:var(--accent-primary-subtle);border:2px solid var(--accent-primary);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:var(--ui-text-xs);color:var(--accent-primary-text)">Pink</div>
-              <div style="flex-shrink:0;width:120px;height:80px;background:var(--accent-gold-subtle);border:2px solid var(--accent-gold);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:var(--ui-text-xs);color:var(--accent-gold-text)">Gold</div>
-              <div style="flex-shrink:0;width:120px;height:80px;background:var(--accent-cyan-subtle);border:2px solid var(--accent-cyan);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:var(--ui-text-xs);color:var(--accent-cyan-text)">Cyan</div>
-              <div style="flex-shrink:0;width:120px;height:80px;background:var(--accent-green-subtle);border:2px solid var(--accent-green);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:var(--ui-text-xs);color:var(--accent-green-text)">Green</div>
-              <div style="flex-shrink:0;width:120px;height:80px;background:var(--accent-purple-subtle);border:2px solid var(--accent-purple);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:var(--ui-text-xs);color:var(--accent-purple-text)">Purple</div>
-              <div style="flex-shrink:0;width:120px;height:80px;background:var(--accent-danger-subtle);border:2px solid var(--accent-danger);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:var(--ui-text-xs);color:var(--accent-danger-text)">Red</div>
-              <div style="flex-shrink:0;width:120px;height:80px;background:var(--accent-primary-subtle);border:2px solid var(--accent-primary);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:var(--ui-text-xs);color:var(--accent-primary-text)">Pink 2</div>
-              <div style="flex-shrink:0;width:120px;height:80px;background:var(--accent-gold-subtle);border:2px solid var(--accent-gold);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:var(--ui-text-xs);color:var(--accent-gold-text)">Gold 2</div>
-            </div>
-          </div>
-          <div class="demo-card-body">
-            <div class="demo-card-top">
-              <span class="demo-card-name">elastic-scroll</span>
-              <span class="demo-card-tags"><span class="tag">Gesture</span><span class="tag">Spring</span></span>
-            </div>
-            <p class="demo-card-desc">Horizontally scrollable strip with elastic overscroll. Drag past the edge for a rubber-band effect with spring snap-back and edge glow.</p>
-            <p class="demo-card-hint">Drag horizontally, pull past the edge</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================================================================
-         5. CURSOR & INTERACTIVE
-         ================================================================ -->
-    <section id="cursor" class="anim-section">
-      <div class="section-header">
-        <div class="section-overline"><span class="status-dot" style="background:var(--accent-gold)"></span> Category 05</div>
-        <h2 class="section-title">Cursor &amp; Interactive</h2>
-        <p class="section-desc">Magnetic buttons, spotlight effects, and spring-physics cursor trails that respond to your every move.</p>
-      </div>
-
-      <div class="demo-grid">
+      <div class="demo-grid-3">
         <!-- Magnetic Buttons -->
         <div class="demo-card">
           <div class="demo-card-stage" id="magnetic-stage" style="display:flex;gap:var(--space-6);flex-wrap:wrap;justify-content:center">
-            <button class="magnetic-btn" style="
-              padding:var(--space-3) var(--space-8);font-family:var(--font-sans);
-              font-size:var(--ui-text-md);font-weight:700;
-              background:var(--accent-primary);color:var(--text-on-accent);
-              border:2px solid var(--border-default);border-radius:var(--radius-sm);
-              box-shadow:var(--shadow-md);cursor:pointer;
-              transition:transform 0.2s ease-out;
-            ">Hover Me</button>
-            <button class="magnetic-btn" style="
-              padding:var(--space-3) var(--space-8);font-family:var(--font-sans);
-              font-size:var(--ui-text-md);font-weight:700;
-              background:var(--accent-gold);color:var(--text-on-gold);
-              border:2px solid var(--border-default);border-radius:var(--radius-sm);
-              box-shadow:var(--shadow-md);cursor:pointer;
-              transition:transform 0.2s ease-out;
-            ">Attract</button>
-            <button class="magnetic-btn" style="
-              padding:var(--space-3) var(--space-8);font-family:var(--font-sans);
-              font-size:var(--ui-text-md);font-weight:700;
-              background:var(--accent-cyan);color:var(--text-on-accent);
-              border:2px solid var(--border-default);border-radius:var(--radius-sm);
-              box-shadow:var(--shadow-md);cursor:pointer;
-              transition:transform 0.2s ease-out;
-            ">Magnetic</button>
+            <button class="magnetic-btn" style="background:var(--accent-primary);color:var(--text-on-accent)">Hover Me</button>
+            <button class="magnetic-btn" style="background:var(--accent-gold);color:var(--text-on-gold)">Attract</button>
+            <button class="magnetic-btn" style="background:var(--accent-cyan);color:var(--text-on-accent)">Magnetic</button>
           </div>
           <div class="demo-card-body">
             <div class="demo-card-top">
@@ -1358,20 +1688,8 @@
         <!-- Spotlight Card -->
         <div class="demo-card">
           <div class="demo-card-stage" style="display:flex;gap:var(--space-4);flex-wrap:wrap;justify-content:center;padding:var(--space-6)">
-            <div class="spotlight-wrap" data-accent-r="200" data-accent-g="80" data-accent-b="180" style="
-              width:160px;height:120px;position:relative;
-              background:var(--accent-primary-subtle);border:2px solid var(--accent-primary);
-              border-radius:var(--radius-md);box-shadow:var(--shadow-md);
-              display:flex;align-items:center;justify-content:center;
-              font-weight:800;color:var(--accent-primary-text);overflow:hidden;cursor:default;
-            "><div class="spotlight-overlay" style="position:absolute;inset:0;pointer-events:none;border-radius:inherit"></div>Hover</div>
-            <div class="spotlight-wrap" data-accent-r="100" data-accent-g="160" data-accent-b="220" style="
-              width:160px;height:120px;position:relative;
-              background:var(--accent-cyan-subtle);border:2px solid var(--accent-cyan);
-              border-radius:var(--radius-md);box-shadow:var(--shadow-md);
-              display:flex;align-items:center;justify-content:center;
-              font-weight:800;color:var(--accent-cyan-text);overflow:hidden;cursor:default;
-            "><div class="spotlight-overlay" style="position:absolute;inset:0;pointer-events:none;border-radius:inherit"></div>Glow</div>
+            <div class="spotlight-wrap" data-accent="pink" data-accent-r="200" data-accent-g="80" data-accent-b="180"><div class="spotlight-overlay"></div>Hover</div>
+            <div class="spotlight-wrap" data-accent="cyan" data-accent-r="100" data-accent-g="160" data-accent-b="220"><div class="spotlight-overlay"></div>Glow</div>
           </div>
           <div class="demo-card-body">
             <div class="demo-card-top">
@@ -1398,19 +1716,87 @@
           </div>
         </div>
       </div>
+
+      <div class="demo-grid" style="margin-top:var(--space-6)">
+        <!-- Draggable Cards -->
+        <div class="demo-card demo-card-wide">
+          <div class="demo-card-stage" id="drag-stage" style="min-height:260px;cursor:grab">
+            <div class="drag-card" data-accent="pink" style="left:60px;top:40px">A</div>
+            <div class="drag-card" data-accent="gold" style="left:200px;top:60px">B</div>
+            <div class="drag-card" data-accent="cyan" style="left:340px;top:30px">C</div>
+          </div>
+          <div class="demo-card-body">
+            <div class="demo-card-top">
+              <span class="demo-card-name">draggable-cards</span>
+              <span class="demo-card-tags"><span class="tag">Gesture</span><span class="tag">Inertia</span></span>
+            </div>
+            <p class="demo-card-desc">Drag cards with momentum. Release to see inertia carry the card forward, with spring-damped settling.</p>
+            <p class="demo-card-hint">Drag the cards around</p>
+          </div>
+        </div>
+
+        <!-- Swipe Dismiss -->
+        <div class="demo-card demo-card-wide">
+          <div class="demo-card-stage" style="min-height:auto;padding:var(--space-4)">
+            <div style="width:100%;max-width:360px">
+              <div id="swipe-dismiss-stack" style="display:flex;flex-direction:column;gap:var(--space-2)">
+                <div class="swipe-card" style="border-left-color:var(--accent-primary)">New message from Alex</div>
+                <div class="swipe-card" style="border-left-color:var(--accent-green)">Task complete: Deploy v2</div>
+                <div class="swipe-card" style="border-left-color:var(--accent-gold)">Warning: Storage 90% full</div>
+                <div class="swipe-card" style="border-left-color:var(--accent-danger)">Error alert: Build failed</div>
+                <div class="swipe-card" style="border-left-color:var(--accent-purple)">Update ready: v3.0</div>
+              </div>
+            </div>
+          </div>
+          <div class="demo-card-body">
+            <div class="demo-card-top">
+              <span class="demo-card-name">swipe-dismiss</span>
+              <button class="demo-btn" id="swipe-reset-btn">Reset</button>
+            </div>
+            <p class="demo-card-desc">Swipe notification cards horizontally to dismiss. Past the threshold, the card flings off and remaining cards FLIP upward.</p>
+            <p class="demo-card-hint">Drag a card left or right to dismiss</p>
+          </div>
+        </div>
+
+        <!-- Elastic Scroll -->
+        <div class="demo-card demo-card-wide">
+          <div class="demo-card-stage" style="min-height:auto;padding:var(--space-4);position:relative">
+            <div id="elastic-glow-left" class="elastic-glow elastic-glow--left"></div>
+            <div id="elastic-glow-right" class="elastic-glow elastic-glow--right"></div>
+            <div id="elastic-inner" style="display:flex;gap:var(--space-3);overflow-x:hidden;cursor:grab;touch-action:none;padding:var(--space-2) 0;will-change:transform">
+              <div class="color-chip color-chip--scroll" data-accent="pink">Pink</div>
+              <div class="color-chip color-chip--scroll" data-accent="gold">Gold</div>
+              <div class="color-chip color-chip--scroll" data-accent="cyan">Cyan</div>
+              <div class="color-chip color-chip--scroll" data-accent="green">Green</div>
+              <div class="color-chip color-chip--scroll" data-accent="purple">Purple</div>
+              <div class="color-chip color-chip--scroll" data-accent="danger">Red</div>
+              <div class="color-chip color-chip--scroll" data-accent="pink">Pink 2</div>
+              <div class="color-chip color-chip--scroll" data-accent="gold">Gold 2</div>
+            </div>
+          </div>
+          <div class="demo-card-body">
+            <div class="demo-card-top">
+              <span class="demo-card-name">elastic-scroll</span>
+              <span class="demo-card-tags"><span class="tag">Gesture</span><span class="tag">Spring</span></span>
+            </div>
+            <p class="demo-card-desc">Horizontally scrollable strip with elastic overscroll. Drag past the edge for a rubber-band effect with spring snap-back and edge glow.</p>
+            <p class="demo-card-hint">Drag horizontally, pull past the edge</p>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- ================================================================
-         6. GENERATIVE ART
+         05. GENERATIVE & VISUAL EFFECTS
          ================================================================ -->
-    <section id="generative" class="anim-section">
+    <section id="generative" class="ds-section scroll-reveal">
       <div class="section-header">
-        <div class="section-overline"><span class="status-dot" style="background:var(--accent-purple)"></span> Category 06</div>
-        <h2 class="section-title">Generative Art</h2>
-        <p class="section-desc">Algorithmic visuals driven by noise, flow fields, and spring-physics wave propagation. Unique every time, always on-brand.</p>
+        <div class="section-overline overline-purple"><span class="status-dot" style="background:var(--accent-purple)"></span> 05 — Generative &amp; Visual Effects</div>
+        <h2 class="section-title">Generative &amp; Visual Effects</h2>
+        <p class="section-desc">Algorithmic visuals driven by noise, flow fields, and spring-physics wave propagation. Plus signature interactions: blur, depth, and color shifting.</p>
       </div>
 
-      <div class="demo-grid">
+      <div class="demo-grid-3">
         <!-- Flow Field -->
         <div class="demo-card">
           <div class="demo-card-stage" style="min-height:280px">
@@ -1426,7 +1812,7 @@
           </div>
         </div>
 
-        <!-- Aurora Gradient (relocated from Splashy) -->
+        <!-- Aurora Gradient -->
         <div class="demo-card">
           <div class="demo-card-stage" style="min-height:240px">
             <canvas id="aurora-canvas" aria-label="Aurora gradient: animated mesh gradients creating nebula-like effects"></canvas>
@@ -1456,19 +1842,209 @@
           </div>
         </div>
       </div>
+
+      <div class="demo-grid-3" style="margin-top:var(--space-6)">
+        <!-- Blur Focus Grid -->
+        <div class="demo-card">
+          <div class="demo-card-stage" style="min-height:220px;padding:var(--space-4)">
+            <div class="blur-grid">
+              <div class="blur-card" style="border-top-color:var(--accent-primary)">
+                <div class="blur-card-label">Pink</div>
+              </div>
+              <div class="blur-card" style="border-top-color:var(--accent-gold)">
+                <div class="blur-card-label">Gold</div>
+              </div>
+              <div class="blur-card" style="border-top-color:var(--accent-cyan)">
+                <div class="blur-card-label">Cyan</div>
+              </div>
+              <div class="blur-card" style="border-top-color:var(--accent-green)">
+                <div class="blur-card-label">Green</div>
+              </div>
+            </div>
+          </div>
+          <div class="demo-card-body">
+            <div class="demo-card-top">
+              <span class="demo-card-name">Blur Focus</span>
+              <div class="demo-card-tags"><span class="tag">css</span></div>
+            </div>
+            <p class="demo-card-desc">Pure CSS: hovering one card blurs and dims its siblings. Creates visual hierarchy through focus.</p>
+          </div>
+        </div>
+
+        <!-- 3D Perspective Tilt -->
+        <div class="demo-card">
+          <div class="demo-card-stage" style="min-height:220px;perspective:800px">
+            <div class="tilt-card" id="tilt-card-1" style="border-top-color:var(--accent-primary)">
+              <div class="tilt-shine"></div>
+              <span style="font-weight:700;font-size:var(--ui-text-md);position:relative;z-index:1">Tilt me</span>
+            </div>
+          </div>
+          <div class="demo-card-body">
+            <div class="demo-card-top">
+              <span class="demo-card-name">3D Tilt</span>
+              <div class="demo-card-tags"><span class="tag">js</span><span class="tag">spring</span></div>
+            </div>
+            <p class="demo-card-desc">Mouse-tracked perspective rotation with spring interpolation. Shine overlay follows cursor position.</p>
+          </div>
+        </div>
+
+        <!-- @property Color Shift -->
+        <div class="demo-card">
+          <div class="demo-card-stage" style="min-height:220px">
+            <div class="hue-shift-demo" id="hue-shift-demo">
+              <span class="hue-shift-text">Delightful</span>
+            </div>
+          </div>
+          <div class="demo-card-body">
+            <div class="demo-card-top">
+              <span class="demo-card-name">Color Shift</span>
+              <div class="demo-card-tags"><span class="tag">css</span><span class="tag">@property</span></div>
+            </div>
+            <p class="demo-card-desc">CSS <code class="code-inline">@property</code> hue cycling through all 6 accent families. Play/pause toggle.</p>
+            <div style="margin-top:auto;padding-top:var(--space-2)">
+              <button class="demo-btn" id="hue-shift-toggle">Pause</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- ================================================================
-         7. COMPONENT SHOWCASE
+         06. LOADING & TRANSITIONS
          ================================================================ -->
-    <section id="components" class="anim-section">
+    <section id="loading" class="ds-section scroll-reveal">
       <div class="section-header">
-        <div class="section-overline"><span class="status-dot" style="background:var(--accent-cyan)"></span> Category 07</div>
-        <h2 class="section-title">Component Showcase</h2>
-        <p class="section-desc">Real design system components brought to life with spring physics. Toast notifications, badge counters, and more.</p>
+        <div class="section-overline overline-cyan"><span class="status-dot" style="background:var(--accent-cyan)"></span> 06 — Loading States</div>
+        <h2 class="section-title">Loading &amp; Transitions</h2>
+        <p class="section-desc">Skeleton placeholders, page transitions, and staggered reveals — the patterns that make waiting feel purposeful.</p>
       </div>
 
       <div class="demo-grid">
+        <!-- Skeleton Loading -->
+        <div class="demo-card demo-card-wide">
+          <div class="demo-card-stage" style="min-height:180px;padding:var(--space-4);align-items:stretch">
+            <div class="skel-grid" id="skel-grid">
+              <div class="skel-card" id="skel-card-1">
+                <div class="skel skel-shimmer skel-heading"></div>
+                <div class="skel skel-shimmer skel-text"></div>
+                <div class="skel skel-shimmer skel-text" style="width:75%"></div>
+              </div>
+              <div class="skel-card" id="skel-card-2">
+                <div class="skel skel-shimmer skel-heading"></div>
+                <div class="skel skel-shimmer skel-text"></div>
+                <div class="skel skel-shimmer skel-text" style="width:85%"></div>
+              </div>
+              <div class="skel-card" id="skel-card-3">
+                <div class="skel skel-shimmer skel-heading"></div>
+                <div class="skel skel-shimmer skel-text"></div>
+                <div class="skel skel-shimmer skel-text" style="width:65%"></div>
+              </div>
+            </div>
+          </div>
+          <div class="demo-card-body">
+            <div class="demo-card-top">
+              <span class="demo-card-name">Skeleton Loading</span>
+              <div class="demo-card-tags"><span class="tag">css</span><span class="tag">transition</span></div>
+            </div>
+            <p class="demo-card-desc">Shimmer and pulse placeholder patterns. Toggle modes or load real content with staggered reveal.</p>
+            <div style="display:flex;gap:var(--space-2);margin-top:auto;padding-top:var(--space-2)">
+              <button class="demo-btn demo-btn-secondary" id="skel-toggle">Shimmer / Pulse</button>
+              <button class="demo-btn" id="skel-load">Load Content</button>
+              <button class="demo-btn demo-btn-secondary" id="skel-reset" hidden>Reset</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Page Transitions -->
+        <div class="demo-card">
+          <div class="demo-card-stage" style="min-height:220px;padding:0;overflow:hidden">
+            <div class="pt-frame" id="pt-frame">
+              <div class="pt-page" id="pt-page-a">
+                <div style="font-weight:700;font-size:var(--ui-text-md);margin-bottom:var(--space-2)">Dashboard</div>
+                <div style="font-size:var(--ui-text-sm);color:var(--text-secondary);margin-bottom:var(--space-3)">View metrics and activity.</div>
+                <div style="display:flex;gap:var(--space-2)">
+                  <div style="flex:1;height:28px;background:var(--accent-primary-subtle);border-radius:var(--radius-sm)"></div>
+                  <div style="flex:1;height:28px;background:var(--accent-gold-subtle);border-radius:var(--radius-sm)"></div>
+                  <div style="flex:1;height:28px;background:var(--accent-cyan-subtle);border-radius:var(--radius-sm)"></div>
+                </div>
+              </div>
+              <div class="pt-page pt-page-hidden" id="pt-page-b">
+                <div style="font-weight:700;font-size:var(--ui-text-md);margin-bottom:var(--space-2)">Settings</div>
+                <div style="font-size:var(--ui-text-sm);color:var(--text-secondary);margin-bottom:var(--space-3)">Manage your preferences.</div>
+                <div style="display:flex;flex-direction:column;gap:var(--space-2)">
+                  <div style="height:10px;background:var(--bg-muted);border-radius:var(--radius-sm);width:80%"></div>
+                  <div style="height:10px;background:var(--bg-muted);border-radius:var(--radius-sm);width:60%"></div>
+                  <div style="height:10px;background:var(--bg-muted);border-radius:var(--radius-sm);width:70%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="demo-card-body">
+            <div class="demo-card-top">
+              <span class="demo-card-name">Page Transitions</span>
+              <div class="demo-card-tags"><span class="tag">js</span></div>
+            </div>
+            <p class="demo-card-desc">Crossfade and slide transitions in a contained frame. Production use: CSS View Transitions API.</p>
+            <div style="display:flex;gap:var(--space-2);margin-top:auto;padding-top:var(--space-2)">
+              <button class="demo-btn demo-btn-secondary" id="pt-crossfade">Crossfade</button>
+              <button class="demo-btn demo-btn-secondary" id="pt-slide-left">Slide L</button>
+              <button class="demo-btn demo-btn-secondary" id="pt-slide-right">Slide R</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Staggered Entry (JS spring solver) -->
+        <div class="demo-card">
+          <div class="demo-card-stage" style="min-height:220px;padding:var(--space-4);align-items:stretch">
+            <div class="js-stagger-columns" id="js-stagger-area">
+              <div class="js-stagger-col" data-spring="snappy">
+                <div class="js-stagger-label">Snappy <span>(500/30)</span></div>
+                <div class="js-stagger-item">Analytics</div>
+                <div class="js-stagger-item">Reports</div>
+                <div class="js-stagger-item">Settings</div>
+                <div class="js-stagger-item">Profile</div>
+              </div>
+              <div class="js-stagger-col" data-spring="standard">
+                <div class="js-stagger-label">Standard <span>(400/35)</span></div>
+                <div class="js-stagger-item">Analytics</div>
+                <div class="js-stagger-item">Reports</div>
+                <div class="js-stagger-item">Settings</div>
+                <div class="js-stagger-item">Profile</div>
+              </div>
+              <div class="js-stagger-col" data-spring="gentle">
+                <div class="js-stagger-label">Gentle <span>(300/28)</span></div>
+                <div class="js-stagger-item">Analytics</div>
+                <div class="js-stagger-item">Reports</div>
+                <div class="js-stagger-item">Settings</div>
+                <div class="js-stagger-item">Profile</div>
+              </div>
+            </div>
+          </div>
+          <div class="demo-card-body">
+            <div class="demo-card-top">
+              <span class="demo-card-name">Spring Stagger</span>
+              <div class="demo-card-tags"><span class="tag">js</span><span class="tag">spring</span></div>
+            </div>
+            <p class="demo-card-desc">JS <code class="code-inline">springStep()</code> solver drives stagger — the physics complement to motion.html's CSS easing version.</p>
+            <div style="margin-top:auto;padding-top:var(--space-2)">
+              <button class="demo-btn" id="js-stagger-replay">Replay</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         07. COMPONENT PATTERNS
+         ================================================================ -->
+    <section id="components" class="ds-section scroll-reveal">
+      <div class="section-header">
+        <div class="section-overline overline-green"><span class="status-dot" style="background:var(--accent-green)"></span> 07 — Component Patterns</div>
+        <h2 class="section-title">Component Patterns</h2>
+        <p class="section-desc">Real design system components brought to life with spring physics. Toast notifications, badge counters, celebration moments, and drag-sortable lists.</p>
+      </div>
+
+      <div class="demo-grid-2">
         <!-- Toast Stack -->
         <div class="demo-card">
           <div class="demo-card-stage" style="min-height:280px;padding:var(--space-4);align-items:flex-start;justify-content:flex-end;flex-direction:column">
@@ -1489,17 +2065,17 @@
         <div class="demo-card">
           <div class="demo-card-stage" style="padding:var(--space-8)">
             <div id="badge-counter-wrap" style="display:flex;gap:var(--space-8);align-items:center">
-              <button class="badge-icon-btn" data-badge-id="bell" style="position:relative;width:52px;height:52px;border-radius:var(--radius-sm);border:2px solid var(--border-default);background:var(--accent-primary-subtle);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:var(--shadow-sm)">
+              <button class="badge-icon-btn" data-badge-id="bell" style="background:var(--accent-primary-subtle)">
                 &#128276;
-                <span class="badge-count" style="position:absolute;top:-6px;right:-6px;min-width:20px;height:20px;border-radius:var(--radius-full);background:var(--accent-primary);color:var(--text-on-accent);font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;border:2px solid var(--bg-surface);transform:scale(0)">0</span>
+                <span class="badge-count" style="background:var(--accent-primary)">0</span>
               </button>
-              <button class="badge-icon-btn" data-badge-id="msg" style="position:relative;width:52px;height:52px;border-radius:var(--radius-sm);border:2px solid var(--border-default);background:var(--accent-cyan-subtle);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:var(--shadow-sm)">
+              <button class="badge-icon-btn" data-badge-id="msg" style="background:var(--accent-cyan-subtle)">
                 &#128172;
-                <span class="badge-count" style="position:absolute;top:-6px;right:-6px;min-width:20px;height:20px;border-radius:var(--radius-full);background:var(--accent-cyan);color:var(--text-on-accent);font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;border:2px solid var(--bg-surface);transform:scale(0)">0</span>
+                <span class="badge-count" style="background:var(--accent-cyan)">0</span>
               </button>
-              <button class="badge-icon-btn" data-badge-id="heart" style="position:relative;width:52px;height:52px;border-radius:var(--radius-sm);border:2px solid var(--border-default);background:var(--accent-purple-subtle);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:var(--shadow-sm)">
+              <button class="badge-icon-btn" data-badge-id="heart" style="background:var(--accent-purple-subtle)">
                 &#10084;
-                <span class="badge-count" style="position:absolute;top:-6px;right:-6px;min-width:20px;height:20px;border-radius:var(--radius-full);background:var(--accent-purple);color:var(--text-on-accent);font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;border:2px solid var(--bg-surface);transform:scale(0)">0</span>
+                <span class="badge-count" style="background:var(--accent-purple)">0</span>
               </button>
             </div>
           </div>
@@ -1513,31 +2089,13 @@
           </div>
         </div>
       </div>
-    </section>
 
-    <!-- ================================================================
-         8. COMBINED & ADVANCED
-         ================================================================ -->
-    <section id="combined" class="anim-section">
-      <div class="section-header">
-        <div class="section-overline"><span class="status-dot" style="background:var(--accent-green)"></span> Category 08</div>
-        <h2 class="section-title">Combined &amp; Advanced</h2>
-        <p class="section-desc">Multiple animation systems working in concert. The grand finale that showcases what token-driven JS animation can do.</p>
-      </div>
-
-      <div class="demo-grid">
+      <div class="demo-grid" style="margin-top:var(--space-6)">
         <!-- Spring + Confetti -->
         <div class="demo-card demo-card-wide">
           <div class="demo-card-stage" style="min-height:280px">
             <canvas id="combo-canvas" aria-label="Combined demo: spring button that fires confetti on click"></canvas>
-            <div id="combo-btn" style="
-              position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
-              width:200px;height:64px;display:flex;align-items:center;justify-content:center;
-              background:var(--accent-primary);color:var(--text-on-accent);
-              border:2px solid var(--border-default);border-radius:var(--radius-sm);
-              box-shadow:var(--shadow-lg);font-weight:800;font-size:var(--ui-text-lg);
-              cursor:pointer;user-select:none;z-index:2;
-            ">Celebrate!</div>
+            <div id="combo-btn" class="combo-btn">Celebrate!</div>
           </div>
           <div class="demo-card-body">
             <div class="demo-card-top">
@@ -1554,30 +2112,12 @@
           <div class="demo-card-stage" style="min-height:auto;padding:var(--space-4)">
             <div style="width:100%;max-width:400px">
               <div id="spring-drag-sort-list" style="display:flex;flex-direction:column;gap:var(--space-2)">
-                <div class="sds-item" style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-4);background:var(--accent-primary-subtle);border:2px solid var(--accent-primary);border-radius:var(--radius-sm);font-weight:700;font-size:var(--ui-text-sm);color:var(--accent-primary-text);user-select:none">
-                  <span class="sds-handle" style="cursor:grab;font-size:var(--ui-text-lg);color:var(--text-muted);touch-action:none">&#8801;</span>
-                  <span>Cherry</span>
-                </div>
-                <div class="sds-item" style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-4);background:var(--accent-gold-subtle);border:2px solid var(--accent-gold);border-radius:var(--radius-sm);font-weight:700;font-size:var(--ui-text-sm);color:var(--accent-gold-text);user-select:none">
-                  <span class="sds-handle" style="cursor:grab;font-size:var(--ui-text-lg);color:var(--text-muted);touch-action:none">&#8801;</span>
-                  <span>Amber</span>
-                </div>
-                <div class="sds-item" style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-4);background:var(--accent-cyan-subtle);border:2px solid var(--accent-cyan);border-radius:var(--radius-sm);font-weight:700;font-size:var(--ui-text-sm);color:var(--accent-cyan-text);user-select:none">
-                  <span class="sds-handle" style="cursor:grab;font-size:var(--ui-text-lg);color:var(--text-muted);touch-action:none">&#8801;</span>
-                  <span>Ocean</span>
-                </div>
-                <div class="sds-item" style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-4);background:var(--accent-green-subtle);border:2px solid var(--accent-green);border-radius:var(--radius-sm);font-weight:700;font-size:var(--ui-text-sm);color:var(--accent-green-text);user-select:none">
-                  <span class="sds-handle" style="cursor:grab;font-size:var(--ui-text-lg);color:var(--text-muted);touch-action:none">&#8801;</span>
-                  <span>Sage</span>
-                </div>
-                <div class="sds-item" style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-4);background:var(--accent-purple-subtle);border:2px solid var(--accent-purple);border-radius:var(--radius-sm);font-weight:700;font-size:var(--ui-text-sm);color:var(--accent-purple-text);user-select:none">
-                  <span class="sds-handle" style="cursor:grab;font-size:var(--ui-text-lg);color:var(--text-muted);touch-action:none">&#8801;</span>
-                  <span>Plum</span>
-                </div>
-                <div class="sds-item" style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-4);background:var(--accent-danger-subtle);border:2px solid var(--accent-danger);border-radius:var(--radius-sm);font-weight:700;font-size:var(--ui-text-sm);color:var(--accent-danger-text);user-select:none">
-                  <span class="sds-handle" style="cursor:grab;font-size:var(--ui-text-lg);color:var(--text-muted);touch-action:none">&#8801;</span>
-                  <span>Sunset</span>
-                </div>
+                <div class="sds-item" data-accent="pink"><span class="sds-handle">&#8801;</span><span>Cherry</span></div>
+                <div class="sds-item" data-accent="gold"><span class="sds-handle">&#8801;</span><span>Amber</span></div>
+                <div class="sds-item" data-accent="cyan"><span class="sds-handle">&#8801;</span><span>Ocean</span></div>
+                <div class="sds-item" data-accent="green"><span class="sds-handle">&#8801;</span><span>Sage</span></div>
+                <div class="sds-item" data-accent="purple"><span class="sds-handle">&#8801;</span><span>Plum</span></div>
+                <div class="sds-item" data-accent="danger"><span class="sds-handle">&#8801;</span><span>Sunset</span></div>
               </div>
             </div>
           </div>
@@ -1606,9 +2146,30 @@
 
   </div><!-- .page-wrap -->
 
+  <!-- Repo Icon Sidebar -->
+  <aside class="repo-sidebar" aria-label="Platform support">
+    <a class="repo-sidebar-btn" role="img" aria-label="GitHub" data-tooltip="GitHub"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a>
+    <a class="repo-sidebar-btn" role="img" aria-label="Claude Code" data-tooltip="Claude Code"><svg viewBox="0 0 24 24" fill="currentColor"><path d="m4.7144 15.9555 4.7174-2.6471.079-.2307-.079-.1275h-.2307l-.7893-.0486-2.6956-.0729-2.3375-.0971-2.2646-.1214-.5707-.1215-.5343-.7042.0546-.3522.4797-.3218.686.0608 1.5179.1032 2.2767.1578 1.6514.0972 2.4468.255h.3886l.0546-.1579-.1336-.0971-.1032-.0972L6.973 9.8356l-2.55-1.6879-1.3356-.9714-.7225-.4918-.3643-.4614-.1578-1.0078.6557-.7225.8803.0607.2246.0607.8925.686 1.9064 1.4754 2.4893 1.8336.3643.3035.1457-.1032.0182-.0728-.164-.2733-1.3539-2.4467-1.445-2.4893-.6435-1.032-.17-.6194c-.0607-.255-.1032-.4674-.1032-.7285L6.287.1335 6.6997 0l.9957.1336.419.3642.6192 1.4147 1.0018 2.2282 1.5543 3.0296.4553.8985.2429.8318.091.255h.1579v-.1457l.1275-1.706.2368-2.0947.2307-2.6957.0789-.7589.3764-.9107.7468-.4918.5828.2793.4797.686-.0668.4433-.2853 1.8517-.5586 2.9021-.3643 1.9429h.2125l.2429-.2429.9835-1.3053 1.6514-2.0643.7286-.8196.85-.9046.5464-.4311h1.0321l.759 1.1293-.34 1.1657-1.0625 1.3478-.8804 1.1414-1.2628 1.7-.7893 1.36.0729.1093.1882-.0183 2.8535-.607 1.5421-.2794 1.8396-.3157.8318.3886.091.3946-.3278.8075-1.967.4857-2.3072.4614-3.4364.8136-.0425.0304.0486.0607 1.5482.1457.6618.0364h1.621l3.0175.2247.7892.522.4736.6376-.079.4857-1.2142.6193-1.6393-.3886-3.825-.9107-1.3113-.3279h-.1822v.1093l1.0929 1.0686 2.0035 1.8092 2.5075 2.3314.1275.5768-.3218.4554-.34-.0486-2.2039-1.6575-.85-.7468-1.9246-1.621h-.1275v.17l.4432.6496 2.3436 3.5214.1214 1.0807-.17.3521-.6071.2125-.6679-.1214-1.3721-1.9246L14.38 17.959l-1.1414-1.9428-.1397.079-.674 7.2552-.3156.3703-.7286.2793-.6071-.4614-.3218-.7468.3218-1.4753.3886-1.9246.3157-1.53.2853-1.9004.17-.6314-.0121-.0425-.1397.0182-1.4328 1.9672-2.1796 2.9446-1.7243 1.8456-.4128.164-.7164-.3704.0667-.6618.4008-.5889 2.386-3.0357 1.4389-1.882.929-1.0868-.0062-.1579h-.0546l-6.3385 4.1164-1.1293.1457-.4857-.4554.0608-.7467.2307-.2429 1.9064-1.3114Z"/></svg></a>
+    <a class="repo-sidebar-btn" role="img" aria-label="Obsidian" data-tooltip="Obsidian"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.355 18.538a68.967 68.959 0 0 0 1.858-2.954.81.81 0 0 0-.062-.9c-.516-.685-1.504-2.075-2.042-3.362-.553-1.321-.636-3.375-.64-4.377a1.707 1.707 0 0 0-.358-1.05l-3.198-4.064a3.744 3.744 0 0 1-.076.543c-.106.503-.307 1.004-.536 1.5-.134.29-.29.6-.446.914l-.31.626c-.516 1.068-.997 2.227-1.132 3.59-.124 1.26.046 2.73.815 4.481.128.011.257.025.386.044a6.363 6.363 0 0 1 3.326 1.505c.916.79 1.744 1.922 2.415 3.5zM8.199 22.569c.073.012.146.02.22.02.78.024 2.095.092 3.16.29.87.16 2.593.64 4.01 1.055 1.083.316 2.198-.548 2.355-1.664.114-.814.33-1.735.725-2.58l-.01.005c-.67-1.87-1.522-3.078-2.416-3.849a5.295 5.295 0 0 0-2.778-1.257c-1.54-.216-2.952.19-3.84.45.532 2.218.368 4.829-1.425 7.531zM5.533 9.938c-.023.1-.056.197-.098.29L2.82 16.059a1.602 1.602 0 0 0 .313 1.772l4.116 4.24c2.103-3.101 1.796-6.02.836-8.3-.728-1.73-1.832-3.081-2.55-3.831zM9.32 14.01c.615-.183 1.606-.465 2.745-.534-.683-1.725-.848-3.233-.716-4.577.154-1.552.7-2.847 1.235-3.95.113-.235.223-.454.328-.664.149-.297.288-.577.419-.86.217-.47.379-.885.46-1.27.08-.38.08-.72-.014-1.043-.095-.325-.297-.675-.68-1.06a1.6 1.6 0 0 0-1.475.36l-4.95 4.452a1.602 1.602 0 0 0-.513.952l-.427 2.83c.672.59 2.328 2.316 3.335 4.711.09.21.175.43.253.653z"/></svg></a>
+    <a class="repo-sidebar-btn" role="img" aria-label="VS Code" data-tooltip="VS Code"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.8 1.4L21.2 3.6C21.7 3.8 22 4.3 22 4.9V19.1C22 19.7 21.7 20.2 21.2 20.4L16.8 22.6C16.5 22.8 16.1 22.7 15.8 22.5L7.3 15L3.7 17.8C3.3 18.1 2.7 18.1 2.4 17.7L1 16.2C0.7 15.8 0.7 15.2 1.1 14.9L4.2 12L1.1 9.1C0.7 8.8 0.7 8.2 1 7.8L2.4 6.3C2.7 5.9 3.3 5.9 3.7 6.2L7.3 9L15.8 1.5C16.1 1.3 16.5 1.2 16.8 1.4ZM16.5 7.6L10.5 12L16.5 16.4V7.6Z"/></svg></a>
+    <a class="repo-sidebar-btn" role="img" aria-label="Sublime Text" data-tooltip="Sublime Text"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 5.359v13.282A5.36 5.36 0 0 1 18.641 24H5.359A5.36 5.36 0 0 1 0 18.641V5.359A5.36 5.36 0 0 1 5.359 0h13.282A5.36 5.36 0 0 1 24 5.359m-.932-.233A4.196 4.196 0 0 0 18.874.932H5.126A4.196 4.196 0 0 0 .932 5.126v13.748a4.196 4.196 0 0 0 4.194 4.194h13.748a4.196 4.196 0 0 0 4.194-4.194zm-.816.233v13.282a3.613 3.613 0 0 1-3.611 3.611H5.359a3.613 3.613 0 0 1-3.611-3.611V5.359a3.613 3.613 0 0 1 3.611-3.611h13.282a3.613 3.613 0 0 1 3.611 3.611M8.854 4.194v6.495h.962V4.194zM5.483 9.493v1.085h.597V9.48q.283-.037.508-.133.373-.165.575-.448.208-.284.208-.649a.9.9 0 0 0-.171-.568 1.4 1.4 0 0 0-.426-.388 3 3 0 0 0-.544-.261 32 32 0 0 0-.545-.209 1.8 1.8 0 0 1-.426-.216q-.164-.12-.164-.284 0-.223.179-.351.18-.126.485-.127.344 0 .575.105.239.105.5.298l.433-.5a2.3 2.3 0 0 0-.605-.433 1.6 1.6 0 0 0-.582-.159v-.968h-.597v.978a2 2 0 0 0-.477.127 1.2 1.2 0 0 0-.545.411q-.194.268-.194.634 0 .335.164.56.164.224.418.38a4 4 0 0 0 .552.262q.291.104.545.209.261.104.425.238a.39.39 0 0 1 .165.321q0 .225-.187.359-.18.134-.537.134-.381 0-.717-.134a4.4 4.4 0 0 1-.649-.351l-.388.589q.209.173.477.306.276.135.575.217.191.046.373.064"/></svg></a>
+    <a class="repo-sidebar-btn" role="img" aria-label="Ghostty" data-tooltip="Ghostty"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C6.7 0 2.4 4.3 2.4 9.6v11.146c0 1.772 1.45 3.267 3.222 3.254a3.18 3.18 0 0 0 1.955-.686 1.96 1.96 0 0 1 2.444 0 3.18 3.18 0 0 0 1.976.686c.75 0 1.436-.257 1.98-.686.715-.563 1.71-.587 2.419-.018.59.476 1.355.743 2.182.699 1.705-.094 3.022-1.537 3.022-3.244V9.601C21.6 4.3 17.302 0 12 0M6.069 6.562a1 1 0 0 1 .46.131l3.578 2.065v.002a.974.974 0 0 1 0 1.687L6.53 12.512a.975.975 0 0 1-.976-1.687L7.67 9.602 5.553 8.38a.975.975 0 0 1 .515-1.818m7.438 2.063h4.7a.975.975 0 1 1 0 1.95h-4.7a.975.975 0 0 1 0-1.95"/></svg></a>
+    <a class="repo-sidebar-btn" role="img" aria-label="Terminal" data-tooltip="Terminal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg></a>
+  </aside>
+  <style>
+    .repo-sidebar { position:fixed; right:var(--space-4); top:80px; z-index:var(--z-sticky); display:flex; flex-direction:column; gap:2px; background:var(--bg-surface); border:2px solid var(--text-primary); border-radius:var(--radius-sm); box-shadow:var(--shadow-md); padding:var(--space-1); }
+    .repo-sidebar-btn { width:32px; height:32px; display:flex; align-items:center; justify-content:center; border-radius:var(--radius-sm); color:var(--text-primary); text-decoration:none; opacity:0.5; transition:opacity var(--motion-fast) var(--ease-out),transform var(--motion-instant) linear,background var(--motion-fast) var(--ease-out); position:relative; }
+    .repo-sidebar-btn:hover { opacity:1; transform:translateY(-1px); background:var(--bg-subtle); }
+    .repo-sidebar-btn:active { transform:translateY(1px); }
+    .repo-sidebar-btn svg { width:16px; height:16px; }
+    .repo-sidebar-btn[data-tooltip]::before { content:attr(data-tooltip); position:absolute; right:calc(100% + var(--space-2)); top:50%; transform:translateY(-50%); padding:2px var(--space-2); background:var(--bg-elevated); border:2px solid var(--text-primary); border-radius:var(--radius-sm); box-shadow:var(--shadow-sm); font-size:var(--ui-text-xs); font-weight:600; white-space:nowrap; opacity:0; pointer-events:none; transition:opacity var(--motion-fast) var(--ease-out); }
+    .repo-sidebar-btn:hover[data-tooltip]::before { opacity:1; }
+    @media (max-width: 900px) { .repo-sidebar { display:none; } }
+  </style>
+
   <!-- Back to top -->
   <button class="back-to-top" id="back-to-top" aria-label="Back to top">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="18 15 12 9 6 15"/></svg>
   </button>
 
   <!-- Command palette -->
@@ -1696,41 +2257,58 @@
 
       let colors = getTokenColors();
 
-      // ---- Theme toggle (3-way: light -> dark -> system) ----
+      // ---- Theme toggle (2-state: light ↔ dark) ----
       const prefersDarkMq = window.matchMedia('(prefers-color-scheme: dark)');
-      const savedMode = localStorage.getItem('delightful-theme-mode') || localStorage.getItem('delightful-theme') || 'system';
+      const savedTheme = localStorage.getItem('delightful-theme');
+      if (localStorage.getItem('delightful-theme-mode')) localStorage.removeItem('delightful-theme-mode');
 
-      function applyThemeMode(mode) {
-        if (mode === 'system') {
-          html.setAttribute('data-theme', prefersDarkMq.matches ? 'dark' : 'light');
-          html.setAttribute('data-theme-mode', 'system');
-          localStorage.setItem('delightful-theme-mode', 'system');
-          localStorage.removeItem('delightful-theme');
-        } else {
-          html.setAttribute('data-theme', mode);
-          html.removeAttribute('data-theme-mode');
-          localStorage.setItem('delightful-theme-mode', mode);
-          localStorage.setItem('delightful-theme', mode);
-        }
+      function applyTheme(theme, persist = false) {
+        html.setAttribute('data-theme', theme);
+        html.removeAttribute('data-theme-mode');
+        if (persist) localStorage.setItem('delightful-theme', theme);
         colors = getTokenColors();
       }
 
-      applyThemeMode(savedMode === 'light' || savedMode === 'dark' ? savedMode : 'system');
+      const initialTheme = (savedTheme === 'light' || savedTheme === 'dark')
+        ? savedTheme : (prefersDarkMq.matches ? 'dark' : 'light');
+      applyTheme(initialTheme);
 
-      prefersDarkMq.addEventListener('change', () => {
-        if (html.getAttribute('data-theme-mode') === 'system') {
-          html.setAttribute('data-theme', prefersDarkMq.matches ? 'dark' : 'light');
-          colors = getTokenColors();
+      prefersDarkMq.addEventListener('change', (e) => {
+        const storedTheme = localStorage.getItem('delightful-theme');
+        if (storedTheme !== 'light' && storedTheme !== 'dark') {
+          applyTheme(e.matches ? 'dark' : 'light');
         }
       });
 
       document.getElementById('theme-toggle').addEventListener('click', () => {
-        const current = localStorage.getItem('delightful-theme-mode') || 'system';
-        const next = current === 'light' ? 'dark' : current === 'dark' ? 'system' : 'light';
+        const current = html.getAttribute('data-theme');
+        const next = current === 'light' ? 'dark' : 'light';
         if (document.startViewTransition) {
-          document.startViewTransition(() => applyThemeMode(next));
+          document.startViewTransition(() => applyTheme(next, true));
         } else {
-          applyThemeMode(next);
+          applyTheme(next, true);
+        }
+      });
+
+      // ---- Brand Dropdown ----
+      const brandTrigger = document.getElementById('brand-trigger');
+      const brandDropdown = document.getElementById('brand-dropdown');
+      brandTrigger.addEventListener('click', () => {
+        const isOpen = brandTrigger.getAttribute('aria-expanded') === 'true';
+        brandTrigger.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+        brandDropdown.classList.toggle('open', !isOpen);
+      });
+      document.addEventListener('click', (e) => {
+        if (!brandTrigger.contains(e.target) && !brandDropdown.contains(e.target)) {
+          brandTrigger.setAttribute('aria-expanded', 'false');
+          brandDropdown.classList.remove('open');
+        }
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && brandTrigger.getAttribute('aria-expanded') === 'true') {
+          brandTrigger.setAttribute('aria-expanded', 'false');
+          brandDropdown.classList.remove('open');
+          brandTrigger.focus();
         }
       });
 
@@ -1750,11 +2328,10 @@
         { id: 'springs', label: 'Spring Physics', color: 'var(--accent-primary)' },
         { id: 'particles', label: 'Particle Systems', color: 'var(--accent-gold)' },
         { id: 'flip', label: 'FLIP & Layout', color: 'var(--accent-green)' },
-        { id: 'gestures', label: 'Gestures & Drag', color: 'var(--accent-primary)' },
-        { id: 'cursor', label: 'Cursor & Interactive', color: 'var(--accent-gold)' },
-        { id: 'generative', label: 'Generative Art', color: 'var(--accent-purple)' },
-        { id: 'components', label: 'Component Showcase', color: 'var(--accent-cyan)' },
-        { id: 'combined', label: 'Combined & Advanced', color: 'var(--accent-green)' },
+        { id: 'gestures', label: 'Gestures & Interaction', color: 'var(--accent-primary)' },
+        { id: 'generative', label: 'Generative & Visual Effects', color: 'var(--accent-purple)' },
+        { id: 'loading', label: 'Loading & Transitions', color: 'var(--accent-cyan)' },
+        { id: 'components', label: 'Component Patterns', color: 'var(--accent-green)' },
       ];
       const cmdOverlay = document.getElementById('cmd-palette-overlay');
       const cmdInput = document.getElementById('cmd-palette-input');
@@ -1796,11 +2373,12 @@
         cmdOverlay.classList.add('active');
         cmdInput.value = '';
         renderCmdList('');
-        setTimeout(() => cmdInput.focus(), 50);
+        requestAnimationFrame(() => requestAnimationFrame(() => cmdInput.focus()));
       }
 
       function closeCmdPalette() {
         cmdOverlay.classList.remove('active');
+        cmdInput.value = '';
       }
 
       document.getElementById('cmd-k-trigger').addEventListener('click', openCmdPalette);
@@ -2001,7 +2579,6 @@
       const animations = new Map();
       let globalAnimId = null;
       const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
       function registerAnimation(key, updateFn) {
         animations.set(key, { update: updateFn, active: false });
@@ -2082,6 +2659,117 @@
       }
 
       // ================================================================
+      //  SHARED: Spring presets
+      // ================================================================
+      const SPRING_PRESETS = {
+        button:   { stiffness: 300, damping: 15, mass: 1 },
+        toggle:   { stiffness: 380, damping: 18, mass: 1 },
+        open:     { stiffness: 260, damping: 20, mass: 1 },
+        close:    { stiffness: 320, damping: 28, mass: 1 },
+        bounce:   { stiffness: 200, damping: 14, mass: 1 },
+        wave:     { stiffness: 300, damping: 12, mass: 1 },
+        elastic:  { stiffness: 300, damping: 22, mass: 1 },
+        tilt:     { stiffness: 200, damping: 20, mass: 1 },
+        badge:    { stiffness: 400, damping: 16, mass: 1 },
+        snappy:   { stiffness: 500, damping: 30, mass: 1 },
+        standard: { stiffness: 400, damping: 35, mass: 1 },
+        gentle:   { stiffness: 300, damping: 28, mass: 1 },
+        chain:    { stiffness: 120, damping: 12, mass: 1 },
+      };
+
+      // ================================================================
+      //  SHARED: FLIP animation helper
+      // ================================================================
+      function flipAnimate(elements, firstRects, options = {}) {
+        const { duration = 400, easing = 'cubic-bezier(0.22, 1, 0.36, 1)' } = options;
+        elements.forEach((el, i) => {
+          const first = firstRects instanceof Map ? firstRects.get(el) : firstRects[i];
+          if (!first) return;
+          const last = el.getBoundingClientRect();
+          const dx = first.left - last.left;
+          const dy = first.top - last.top;
+          if (Math.abs(dx) < 1 && Math.abs(dy) < 1) return;
+          el.style.transform = `translate(${dx}px, ${dy}px)`;
+          el.style.transition = 'none';
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              el.style.transition = `transform ${duration}ms ${easing}`;
+              el.style.transform = '';
+              el.addEventListener('transitionend', () => { el.style.transition = ''; }, { once: true });
+            });
+          });
+        });
+      }
+
+      // ================================================================
+      //  SHARED: Accent color palette helper
+      // ================================================================
+      function getAccentPalette() {
+        return [colors.primary, colors.gold, colors.cyan, colors.danger, colors.green, colors.purple];
+      }
+
+      // ================================================================
+      //  SHARED: Confetti particle pool
+      // ================================================================
+      function createConfettiPool(size) {
+        const pool = [];
+        for (let i = 0; i < size; i++) {
+          pool.push({ active: false, x: 0, y: 0, vx: 0, vy: 0, r: 0, color: '', life: 0, maxLife: 0, rotation: 0, rotSpeed: 0, shape: 0 });
+        }
+        return pool;
+      }
+
+      function emitConfetti(pool, cx, cy, count, opts = {}) {
+        const { spread = 1.2, speedMin = 200, speedMax = 600, lifeMin = 1, lifeMax = 2.5 } = opts;
+        const palette = getAccentPalette();
+        let emitted = 0;
+        for (const p of pool) {
+          if (p.active || emitted >= count) continue;
+          p.active = true;
+          p.x = cx; p.y = cy;
+          const angle = -Math.PI / 2 + (Math.random() - 0.5) * spread;
+          const speed = speedMin + Math.random() * (speedMax - speedMin);
+          p.vx = Math.cos(angle) * speed;
+          p.vy = Math.sin(angle) * speed;
+          p.r = 3 + Math.random() * 5;
+          p.color = palette[Math.floor(Math.random() * palette.length)];
+          p.life = 0;
+          p.maxLife = lifeMin + Math.random() * (lifeMax - lifeMin);
+          p.rotation = Math.random() * Math.PI * 2;
+          p.rotSpeed = (Math.random() - 0.5) * 10;
+          p.shape = Math.floor(Math.random() * 3);
+          emitted++;
+        }
+        return emitted;
+      }
+
+      function renderConfetti(ctx, pool, dt, w, h) {
+        let active = 0;
+        for (const p of pool) {
+          if (!p.active) continue;
+          p.life += dt;
+          if (p.life > p.maxLife) { p.active = false; continue; }
+          active++;
+          p.vy += 400 * dt;
+          p.vx *= 0.99;
+          p.x += p.vx * dt;
+          p.y += p.vy * dt;
+          p.rotation += p.rotSpeed * dt;
+          const alpha = 1 - p.life / p.maxLife;
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate(p.rotation);
+          ctx.globalAlpha = alpha;
+          ctx.fillStyle = p.color;
+          if (p.shape === 0) ctx.fillRect(-p.r, -p.r / 3, p.r * 2, p.r * 0.66);
+          else if (p.shape === 1) { ctx.beginPath(); ctx.arc(0, 0, p.r / 2, 0, Math.PI * 2); ctx.fill(); }
+          else { ctx.beginPath(); ctx.moveTo(0, -p.r); ctx.lineTo(p.r * 0.7, p.r * 0.5); ctx.lineTo(-p.r * 0.7, p.r * 0.5); ctx.fill(); }
+          ctx.restore();
+        }
+        return active;
+      }
+
+      // ================================================================
       //  1. SPRING BUTTON
       // ================================================================
       (function() {
@@ -2090,11 +2778,12 @@
         if (!stage || !el) return;
 
         const state = { value: 1, velocity: 0, target: 1 };
-        const config = { stiffness: 300, damping: 15, mass: 1 };
+        const config = SPRING_PRESETS.button;
         let pressing = false;
 
         registerAnimation('spring-btn', (dt) => {
-          springStep(state, config, dt);
+          if (reducedMotion) { state.value = state.target; state.velocity = 0; }
+          else { springStep(state, config, dt); }
           el.style.transform = `scale(${state.value})`;
           if (Math.abs(state.value - state.target) < 0.001 && Math.abs(state.velocity) < 0.01) {
             state.value = state.target;
@@ -2316,40 +3005,15 @@
         if (!canvas) return;
 
         let ctx, w, h;
-        const POOL_SIZE = 200;
-        const pool = [];
-        let activeCount = 0;
+        let pool = [];
 
         function init() {
           ({ ctx, w, h } = setupCanvas(canvas));
-          pool.length = 0;
-          activeCount = 0;
-          for (let i = 0; i < POOL_SIZE; i++) {
-            pool.push({ active: false, x: 0, y: 0, vx: 0, vy: 0, r: 0, color: '', life: 0, maxLife: 0, rotation: 0, rotSpeed: 0, shape: 0 });
-          }
+          pool = createConfettiPool(200);
         }
 
         function emit(cx, cy, count) {
-          const palette = [colors.primary, colors.gold, colors.cyan, colors.danger, colors.green, colors.purple];
-          for (let i = 0; i < count && activeCount < POOL_SIZE; i++) {
-            const p = pool.find(pp => !pp.active);
-            if (!p) break;
-            p.active = true;
-            p.x = cx;
-            p.y = cy;
-            const angle = -Math.PI / 2 + (Math.random() - 0.5) * 1.2;
-            const speed = 200 + Math.random() * 400;
-            p.vx = Math.cos(angle) * speed;
-            p.vy = Math.sin(angle) * speed;
-            p.r = 3 + Math.random() * 5;
-            p.color = palette[Math.floor(Math.random() * palette.length)];
-            p.life = 0;
-            p.maxLife = 1.5 + Math.random() * 1.5;
-            p.rotation = Math.random() * Math.PI * 2;
-            p.rotSpeed = (Math.random() - 0.5) * 10;
-            p.shape = Math.floor(Math.random() * 3);
-            activeCount++;
-          }
+          emitConfetti(pool, cx, cy, count, { lifeMin: 1.5, lifeMax: 3 });
           activateAnimation('confetti');
         }
 
@@ -2361,35 +3025,7 @@
 
         registerAnimation('confetti', (dt) => {
           ctx.clearRect(0, 0, w, h);
-          activeCount = 0;
-          for (const p of pool) {
-            if (!p.active) continue;
-            p.life += dt;
-            if (p.life > p.maxLife) { p.active = false; continue; }
-            activeCount++;
-            p.vy += 400 * dt; // gravity
-            p.vx *= 0.99;
-            p.x += p.vx * dt;
-            p.y += p.vy * dt;
-            p.rotation += p.rotSpeed * dt;
-            const alpha = 1 - p.life / p.maxLife;
-            ctx.save();
-            ctx.translate(p.x, p.y);
-            ctx.rotate(p.rotation);
-            ctx.globalAlpha = alpha;
-            ctx.fillStyle = p.color;
-            if (p.shape === 0) {
-              ctx.fillRect(-p.r, -p.r / 3, p.r * 2, p.r * 0.66);
-            } else if (p.shape === 1) {
-              ctx.beginPath(); ctx.arc(0, 0, p.r / 2, 0, Math.PI * 2); ctx.fill();
-            } else {
-              ctx.beginPath();
-              ctx.moveTo(0, -p.r); ctx.lineTo(p.r * 0.7, p.r * 0.5); ctx.lineTo(-p.r * 0.7, p.r * 0.5);
-              ctx.fill();
-            }
-            ctx.restore();
-          }
-          if (activeCount === 0) deactivateAnimation('confetti');
+          if (renderConfetti(ctx, pool, dt, w, h) === 0) deactivateAnimation('confetti');
         });
 
         observeCanvas(canvas.parentElement, 'confetti', init);
@@ -2485,39 +3121,15 @@
 
         btn.addEventListener('click', () => {
           const cards = [...grid.children];
-          // FIRST: record positions
-          const firstRects = cards.map(c => c.getBoundingClientRect());
+          const firstRects = new Map(cards.map(c => [c, c.getBoundingClientRect()]));
 
-          // Shuffle DOM
+          // Fisher-Yates shuffle
           for (let i = cards.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             grid.appendChild(cards[j]);
           }
 
-          // LAST: get new positions
-          const shuffled = [...grid.children];
-          shuffled.forEach((card, i) => {
-            const oldIdx = cards.indexOf(card);
-            const first = firstRects[oldIdx];
-            const last = card.getBoundingClientRect();
-
-            // INVERT
-            const dx = first.left - last.left;
-            const dy = first.top - last.top;
-            card.style.transform = `translate(${dx}px, ${dy}px)`;
-            card.style.transition = 'none';
-
-            // PLAY
-            requestAnimationFrame(() => {
-              requestAnimationFrame(() => {
-                card.style.transition = 'transform 400ms cubic-bezier(0.22, 1, 0.36, 1)';
-                card.style.transform = '';
-                card.addEventListener('transitionend', () => {
-                  card.style.transition = '';
-                }, { once: true });
-              });
-            });
-          });
+          flipAnimate([...grid.children], firstRects);
         });
       })();
 
@@ -2575,7 +3187,8 @@
             card.style.cursor = 'grab';
             card.style.zIndex = '';
 
-            // Inertia
+            // Inertia (skip when reduced motion)
+            if (reducedMotion) return;
             let ix = velX * 0.15;
             let iy = velY * 0.15;
             function inertia() {
@@ -2657,7 +3270,7 @@
       // ================================================================
       (function() {
         const stage = document.getElementById('magnetic-stage');
-        if (!stage) return;
+        if (!stage || reducedMotion) return;
         const buttons = stage.querySelectorAll('.magnetic-btn');
 
         stage.addEventListener('mousemove', (e) => {
@@ -2682,9 +3295,6 @@
           buttons.forEach(btn => { btn.style.transform = ''; });
         });
       })();
-
-
-
 
 
       // ================================================================
@@ -2737,7 +3347,7 @@
           { id: 'spring-toggle-3', onColor: 'var(--accent-purple)',   off: true  },
         ];
         const OFF_BG = 'var(--primitive-neutral-300)';
-        const springConfig = { stiffness: 380, damping: 18, mass: 1 };
+        const springConfig = SPRING_PRESETS.toggle;
         const toggles = configs.map((cfg, i) => {
           const el = document.getElementById(cfg.id);
           if (!el) return null;
@@ -2775,8 +3385,8 @@
         const accordion = document.getElementById('spring-accordion');
         if (!accordion) return;
         const panels = Array.from(accordion.querySelectorAll('.sacc-panel'));
-        const SPRING_OPEN = { stiffness: 260, damping: 20, mass: 1 };
-        const SPRING_CLOSE = { stiffness: 320, damping: 28, mass: 1 };
+        const SPRING_OPEN = SPRING_PRESETS.open;
+        const SPRING_CLOSE = SPRING_PRESETS.close;
         const states = panels.map((panel, i) => {
           const header = panel.querySelector('.sacc-header');
           const body = panel.querySelector('.sacc-body');
@@ -2901,7 +3511,7 @@
           }
         });
 
-        const springCfg = { stiffness: 200, damping: 14, mass: 1 };
+        const springCfg = SPRING_PRESETS.bounce;
 
         registerAnimation('token-bubbles', (dt) => {
           ctx.clearRect(0, 0, w, h);
@@ -3024,7 +3634,7 @@
           autoTimer = 0;
         });
 
-        const springCfg = { stiffness: 300, damping: 12, mass: 1 };
+        const springCfg = SPRING_PRESETS.wave;
 
         registerAnimation('token-wave', (dt) => {
           ctx.clearRect(0, 0, w, h);
@@ -3075,40 +3685,23 @@
           btns.querySelectorAll('[data-filter]').forEach(b => b.classList.toggle('active', b === btn));
 
           const cards = [...grid.children];
-          const firstRects = new Map();
-          cards.forEach(c => firstRects.set(c, c.getBoundingClientRect()));
+          const firstRects = new Map(cards.map(c => [c, c.getBoundingClientRect()]));
 
+          const visible = [];
           cards.forEach(c => {
             if (filter === 'all' || c.dataset.color === filter) {
               c.style.display = '';
               c.style.transform = '';
               c.style.opacity = '';
+              visible.push(c);
             } else {
               c.style.transform = 'scale(0)';
               c.style.opacity = '0';
+              setTimeout(() => { c.style.display = 'none'; }, 400);
             }
           });
 
-          requestAnimationFrame(() => {
-            cards.forEach(c => {
-              if (c.style.transform === 'scale(0)') {
-                setTimeout(() => { c.style.display = 'none'; }, 400);
-                return;
-              }
-              const first = firstRects.get(c);
-              const last = c.getBoundingClientRect();
-              const dx = first.left - last.left;
-              const dy = first.top - last.top;
-              if (Math.abs(dx) < 1 && Math.abs(dy) < 1) return;
-              c.style.transform = `translate(${dx}px, ${dy}px)`;
-              c.style.transition = 'none';
-              requestAnimationFrame(() => {
-                c.style.transition = 'transform 400ms cubic-bezier(0.22, 1, 0.36, 1), opacity 400ms ease';
-                c.style.transform = '';
-                c.addEventListener('transitionend', () => { c.style.transition = ''; }, { once: true });
-              });
-            });
-          });
+          requestAnimationFrame(() => flipAnimate(visible, firstRects));
         });
 
         // Set initial active
@@ -3131,29 +3724,12 @@
           if (swapIdx < 0 || swapIdx >= items.length) return;
 
           const other = items[swapIdx];
-          const firstA = item.getBoundingClientRect();
-          const firstB = other.getBoundingClientRect();
+          const rects = new Map([[item, item.getBoundingClientRect()], [other, other.getBoundingClientRect()]]);
 
           if (direction === -1) list.insertBefore(item, other);
           else list.insertBefore(other, item);
 
-          [
-            [item, firstA],
-            [other, firstB],
-          ].forEach(([el, first]) => {
-            const last = el.getBoundingClientRect();
-            const dx = first.left - last.left;
-            const dy = first.top - last.top;
-            el.style.transform = `translate(${dx}px, ${dy}px)`;
-            el.style.transition = 'none';
-            requestAnimationFrame(() => {
-              requestAnimationFrame(() => {
-                el.style.transition = 'transform 380ms cubic-bezier(0.22, 1, 0.36, 1)';
-                el.style.transform = '';
-                el.addEventListener('transitionend', () => { el.style.transition = ''; }, { once: true });
-              });
-            });
-          });
+          flipAnimate([item, other], rects, { duration: 380 });
         }
 
         list.addEventListener('click', (e) => {
@@ -3167,26 +3743,10 @@
         if (sortBtn) {
           sortBtn.addEventListener('click', () => {
             const items = [...list.children];
-            const firstRects = items.map(el => el.getBoundingClientRect());
+            const firstRects = new Map(items.map(el => [el, el.getBoundingClientRect()]));
             items.sort((a, b) => a.textContent.localeCompare(b.textContent));
             items.forEach(el => list.appendChild(el));
-            items.forEach((el, i) => {
-              const last = el.getBoundingClientRect();
-              const dx = firstRects[items.indexOf(el) !== -1 ? [...list.children].indexOf(el) : i];
-              const first = firstRects[[...document.querySelectorAll('.reorder-item')].indexOf(el)] || firstRects[i];
-              if (!first) return;
-              const ddx = firstRects[i].left - last.left;
-              const ddy = firstRects[i].top - last.top;
-              el.style.transform = `translate(${ddx}px, ${ddy}px)`;
-              el.style.transition = 'none';
-              requestAnimationFrame(() => {
-                requestAnimationFrame(() => {
-                  el.style.transition = 'transform 380ms cubic-bezier(0.22, 1, 0.36, 1)';
-                  el.style.transform = '';
-                  el.addEventListener('transitionend', () => { el.style.transition = ''; }, { once: true });
-                });
-              });
-            });
+            flipAnimate(items, firstRects, { duration: 380 });
           });
         }
       })();
@@ -3226,32 +3786,22 @@
               if (!dragging) return;
               dragging = false;
               if (Math.abs(offsetX) > 120) {
-                const dir = offsetX > 0 ? 1 : -1;
-                card.style.transition = 'transform 300ms ease-out, opacity 300ms ease-out';
-                card.style.transform = `translateX(${dir * 600}px) rotate(${dir * 30}deg)`;
-                card.style.opacity = '0';
-                card.addEventListener('transitionend', () => {
-                  const remaining = [...stack.querySelectorAll('.swipe-card')];
-                  const rects = remaining.map(c => c.getBoundingClientRect());
+                if (reducedMotion) {
                   card.remove();
-                  remaining.filter(c => c !== card).forEach((c, i) => {
-                    const newRect = c.getBoundingClientRect();
-                    const oldRect = rects[remaining.indexOf(c)];
-                    if (!oldRect) return;
-                    const dy = oldRect.top - newRect.top;
-                    if (Math.abs(dy) < 1) return;
-                    c.style.transform = `translateY(${dy}px)`;
-                    c.style.transition = 'none';
-                    requestAnimationFrame(() => {
-                      requestAnimationFrame(() => {
-                        c.style.transition = 'transform 300ms cubic-bezier(0.22, 1, 0.36, 1)';
-                        c.style.transform = '';
-                      });
-                    });
-                  });
-                }, { once: true });
+                } else {
+                  const dir = offsetX > 0 ? 1 : -1;
+                  card.style.transition = 'transform 300ms ease-out, opacity 300ms ease-out';
+                  card.style.transform = `translateX(${dir * 600}px) rotate(${dir * 30}deg)`;
+                  card.style.opacity = '0';
+                  card.addEventListener('transitionend', () => {
+                    const remaining = [...stack.querySelectorAll('.swipe-card')].filter(c => c !== card);
+                    const rects = new Map(remaining.map(c => [c, c.getBoundingClientRect()]));
+                    card.remove();
+                    flipAnimate(remaining, rects, { duration: 300 });
+                  }, { once: true });
+                }
               } else {
-                card.style.transition = 'transform 300ms cubic-bezier(0.22, 1, 0.36, 1), opacity 300ms ease';
+                card.style.transition = reducedMotion ? 'none' : 'transform 300ms cubic-bezier(0.22, 1, 0.36, 1), opacity 300ms ease';
                 card.style.transform = '';
                 card.style.opacity = '';
               }
@@ -3280,7 +3830,7 @@
         let dragging = false, startX = 0, scrollStart = 0;
         let overscroll = 0;
         const springState = { value: 0, velocity: 0, target: 0 };
-        const springCfg = { stiffness: 300, damping: 22, mass: 1 };
+        const springCfg = SPRING_PRESETS.elastic;
         const MAX_OVER = 120;
 
         inner.addEventListener('pointerdown', (e) => {
@@ -3335,7 +3885,8 @@
         });
 
         registerAnimation('elastic-scroll', (dt) => {
-          springStep(springState, springCfg, dt);
+          if (reducedMotion) { springState.value = springState.target; springState.velocity = 0; }
+          else { springStep(springState, springCfg, dt); }
           inner.style.transform = `translateX(${springState.value}px)`;
           const absVal = Math.abs(springState.value);
           if (glowL) glowL.style.opacity = springState.value > 0 ? Math.min(1, absVal / 60) : '0';
@@ -3489,38 +4040,18 @@
 
           const toast = document.createElement('div');
           toast.className = 'toast-item';
-          toast.style.cssText = `
-            display:flex;align-items:center;gap:var(--space-3);
-            padding:var(--space-3) var(--space-4);
-            background:var(--bg-elevated);border:2px solid var(--border-default);
-            border-radius:var(--radius-sm);box-shadow:var(--shadow-sm);
-            border-left:4px solid var(--accent-${type.accent});
-            transform:translateX(120%);opacity:0;
-            margin-bottom:var(--space-2);
-            font-size:var(--ui-text-sm);font-weight:600;
-          `;
+          toast.style.borderLeft = `4px solid var(--accent-${type.accent})`;
+          toast.style.transform = 'translateX(120%)';
+          toast.style.opacity = '0';
           toast.innerHTML = `
             <span style="font-size:var(--ui-text-lg)">${type.icon}</span>
             <span style="flex:1">${type.label}</span>
-            <button class="toast-close" style="background:none;border:none;cursor:pointer;color:var(--text-muted);font-size:var(--ui-text-lg);padding:0 var(--space-1)">\u00D7</button>
+            <button class="toast-close">\u00D7</button>
           `;
           container.appendChild(toast);
 
           // FLIP existing
-          existing.forEach((el, i) => {
-            const newRect = el.getBoundingClientRect();
-            const dy = firstRects[i].top - newRect.top;
-            if (Math.abs(dy) > 1) {
-              el.style.transform = `translateY(${dy}px)`;
-              el.style.transition = 'none';
-              requestAnimationFrame(() => {
-                requestAnimationFrame(() => {
-                  el.style.transition = 'transform 300ms cubic-bezier(0.22, 1, 0.36, 1)';
-                  el.style.transform = '';
-                });
-              });
-            }
-          });
+          flipAnimate(existing, firstRects, { duration: 300 });
 
           // Spring in
           requestAnimationFrame(() => {
@@ -3547,20 +4078,7 @@
           toast.style.opacity = '0';
           toast.addEventListener('transitionend', () => {
             toast.remove();
-            remaining.forEach((el, i) => {
-              const newRect = el.getBoundingClientRect();
-              const dy = firstRects[i].top - newRect.top;
-              if (Math.abs(dy) > 1) {
-                el.style.transform = `translateY(${dy}px)`;
-                el.style.transition = 'none';
-                requestAnimationFrame(() => {
-                  requestAnimationFrame(() => {
-                    el.style.transition = 'transform 300ms cubic-bezier(0.22, 1, 0.36, 1)';
-                    el.style.transform = '';
-                  });
-                });
-              }
-            });
+            flipAnimate(remaining, firstRects, { duration: 300 });
           }, { once: true });
         }
 
@@ -3575,7 +4093,7 @@
         if (!wrap) return;
         const btns = wrap.querySelectorAll('.badge-icon-btn');
         const clearBtn = document.getElementById('badge-clear-btn');
-        const springCfg = { stiffness: 400, damping: 16, mass: 1 };
+        const springCfg = SPRING_PRESETS.badge;
 
         btns.forEach(btn => {
           const badge = btn.querySelector('.badge-count');
@@ -3697,24 +4215,8 @@
           dragItem.style.zIndex = '';
           dragItem.style.position = '';
 
-          const updatedItems = getItems();
-          updatedItems.forEach((el, i) => {
-            const last = el.getBoundingClientRect();
-            const origIdx = items.indexOf(el);
-            if (origIdx === -1) return;
-            const first = firstRects[origIdx];
-            const dy = first.top - last.top;
-            if (Math.abs(dy) < 1) return;
-            el.style.transform = `translateY(${dy}px)`;
-            el.style.transition = 'none';
-            requestAnimationFrame(() => {
-              requestAnimationFrame(() => {
-                el.style.transition = 'transform 350ms cubic-bezier(0.34, 1.56, 0.64, 1)';
-                el.style.transform = '';
-                el.addEventListener('transitionend', () => { el.style.transition = ''; }, { once: true });
-              });
-            });
-          });
+          const rects = new Map(items.map(el => [el, firstRects[items.indexOf(el)]]));
+          flipAnimate(getItems(), rects, { duration: 350, easing: 'cubic-bezier(0.34, 1.56, 0.64, 1)' });
 
           dragItem = null;
         });
@@ -3729,39 +4231,13 @@
         if (!canvas || !btn) return;
 
         let ctx, w, h;
-        const comboParticles = [];
-        const POOL = 150;
+        let pool = [];
         const btnState = { value: 1, velocity: 0, target: 1 };
         let pressing = false;
 
         function init() {
           ({ ctx, w, h } = setupCanvas(canvas));
-          comboParticles.length = 0;
-          for (let i = 0; i < POOL; i++) {
-            comboParticles.push({ active: false, x: 0, y: 0, vx: 0, vy: 0, life: 0, maxLife: 0, color: '', r: 0, rotation: 0, rotSpeed: 0, shape: 0 });
-          }
-        }
-
-        function emitCombo() {
-          const palette = [colors.primary, colors.gold, colors.cyan, colors.danger, colors.green, colors.purple];
-          const cx = w / 2, cy = h / 2;
-          let count = 0;
-          for (const p of comboParticles) {
-            if (p.active || count >= 60) continue;
-            p.active = true;
-            p.x = cx; p.y = cy;
-            const angle = -Math.PI / 2 + (Math.random() - 0.5) * Math.PI;
-            const speed = 200 + Math.random() * 400;
-            p.vx = Math.cos(angle) * speed;
-            p.vy = Math.sin(angle) * speed;
-            p.r = 3 + Math.random() * 5;
-            p.color = palette[Math.floor(Math.random() * palette.length)];
-            p.life = 0; p.maxLife = 1 + Math.random() * 1.5;
-            p.rotation = Math.random() * Math.PI * 2;
-            p.rotSpeed = (Math.random() - 0.5) * 10;
-            p.shape = Math.floor(Math.random() * 3);
-            count++;
-          }
+          pool = createConfettiPool(150);
         }
 
         btn.addEventListener('pointerdown', () => {
@@ -3772,7 +4248,7 @@
         btn.addEventListener('pointerup', () => {
           pressing = false;
           btnState.target = 1;
-          emitCombo();
+          emitConfetti(pool, w / 2, h / 2, 60, { spread: Math.PI });
           activateAnimation('combo');
         });
         btn.addEventListener('pointerleave', () => {
@@ -3780,32 +4256,12 @@
         });
 
         registerAnimation('combo', (dt) => {
-          springStep(btnState, { stiffness: 300, damping: 15, mass: 1 }, dt);
+          if (reducedMotion) { btnState.value = btnState.target; btnState.velocity = 0; }
+          else { springStep(btnState, SPRING_PRESETS.button, dt); }
           btn.style.transform = `translate(-50%, -50%) scale(${btnState.value})`;
 
           ctx.clearRect(0, 0, w, h);
-          let active = 0;
-          for (const p of comboParticles) {
-            if (!p.active) continue;
-            p.life += dt;
-            if (p.life > p.maxLife) { p.active = false; continue; }
-            active++;
-            p.vy += 400 * dt;
-            p.vx *= 0.99;
-            p.x += p.vx * dt;
-            p.y += p.vy * dt;
-            p.rotation += p.rotSpeed * dt;
-            const alpha = 1 - p.life / p.maxLife;
-            ctx.save();
-            ctx.translate(p.x, p.y);
-            ctx.rotate(p.rotation);
-            ctx.globalAlpha = alpha;
-            ctx.fillStyle = p.color;
-            if (p.shape === 0) ctx.fillRect(-p.r, -p.r / 3, p.r * 2, p.r * 0.66);
-            else if (p.shape === 1) { ctx.beginPath(); ctx.arc(0, 0, p.r / 2, 0, Math.PI * 2); ctx.fill(); }
-            else { ctx.beginPath(); ctx.moveTo(0, -p.r); ctx.lineTo(p.r * 0.7, p.r * 0.5); ctx.lineTo(-p.r * 0.7, p.r * 0.5); ctx.fill(); }
-            ctx.restore();
-          }
+          const active = renderConfetti(ctx, pool, dt, w, h);
 
           if (active === 0 && !pressing && Math.abs(btnState.value - 1) < 0.001) {
             deactivateAnimation('combo');
@@ -3814,6 +4270,270 @@
 
         observeCanvas(canvas.parentElement, 'combo', init);
         window.addEventListener('resize', () => { if (ctx) init(); });
+      })();
+
+      // ================================================================
+      //  8. LOADING — SKELETON
+      // ================================================================
+      (function() {
+        const grid = document.getElementById('skel-grid');
+        const toggleBtn = document.getElementById('skel-toggle');
+        const loadBtn = document.getElementById('skel-load');
+        const resetBtn = document.getElementById('skel-reset');
+        if (!grid || !toggleBtn || !loadBtn) return;
+
+        let isShimmer = true;
+        let loaded = false;
+
+        toggleBtn.addEventListener('click', () => {
+          if (loaded) return;
+          isShimmer = !isShimmer;
+          grid.querySelectorAll('.skel').forEach(el => {
+            el.classList.toggle('skel-shimmer', isShimmer);
+            el.classList.toggle('skel-pulse', !isShimmer);
+          });
+        });
+
+        loadBtn.addEventListener('click', () => {
+          if (loaded) return;
+          loaded = true;
+          grid.classList.add('skel-loaded');
+          // Replace skeleton content with real content
+          const cards = grid.querySelectorAll('.skel-card');
+          const content = [
+            { title: 'Analytics', desc: 'Real-time metrics and insights.' },
+            { title: 'Reports', desc: 'Weekly summaries and trends.' },
+            { title: 'Settings', desc: 'Customize your workspace.' },
+          ];
+          setTimeout(() => {
+            cards.forEach((card, i) => {
+              const c = content[i] || content[0];
+              card.innerHTML = `<div style="font-weight:700;font-size:var(--ui-text-sm);margin-bottom:var(--space-1)">${c.title}</div><div style="font-size:var(--ui-text-xs);color:var(--text-secondary)">${c.desc}</div>`;
+            });
+            grid.classList.add('skel-reveal');
+            cards.forEach((card, i) => {
+              card.style.transitionDelay = `${i * 80}ms`;
+            });
+            if (resetBtn) resetBtn.hidden = false;
+            loadBtn.hidden = true;
+          }, 300);
+        });
+
+        if (resetBtn) {
+          resetBtn.addEventListener('click', () => {
+            loaded = false;
+            grid.classList.remove('skel-loaded', 'skel-reveal');
+            const cards = grid.querySelectorAll('.skel-card');
+            cards.forEach((card, i) => {
+              card.style.transitionDelay = '';
+              const cls = isShimmer ? 'skel-shimmer' : 'skel-pulse';
+              card.innerHTML = `
+                <div class="skel ${cls} skel-heading"></div>
+                <div class="skel ${cls} skel-text"></div>
+                <div class="skel ${cls} skel-text" style="width:${[75,85,65][i]}%"></div>
+              `;
+            });
+            resetBtn.hidden = true;
+            loadBtn.hidden = false;
+          });
+        }
+      })();
+
+      // ================================================================
+      //  8. LOADING — PAGE TRANSITIONS
+      // ================================================================
+      (function() {
+        const pageA = document.getElementById('pt-page-a');
+        const pageB = document.getElementById('pt-page-b');
+        if (!pageA || !pageB) return;
+
+        let showingA = true;
+        let animating = false;
+
+        function pageTransition(type) {
+          if (animating) return;
+          animating = true;
+          const from = showingA ? pageA : pageB;
+          const to = showingA ? pageB : pageA;
+
+          const dur = reducedMotion ? 1 : 400;
+          const easing = 'cubic-bezier(0.22, 1, 0.36, 1)';
+
+          if (type === 'crossfade') {
+            to.style.transform = 'none';
+            to.style.pointerEvents = 'auto';
+            from.animate([{ opacity: 1 }, { opacity: 0 }], { duration: dur, easing, fill: 'forwards' });
+            to.animate([{ opacity: 0 }, { opacity: 1 }], { duration: dur, easing, fill: 'forwards' });
+          } else {
+            const dir = type === 'slide-left' ? -1 : 1;
+            to.style.pointerEvents = 'auto';
+            from.animate([
+              { transform: 'translateX(0)', opacity: 1 },
+              { transform: `translateX(${-dir * 100}%)`, opacity: 0 },
+            ], { duration: dur, easing, fill: 'forwards' });
+            to.animate([
+              { transform: `translateX(${dir * 100}%)`, opacity: 0 },
+              { transform: 'translateX(0)', opacity: 1 },
+            ], { duration: dur, easing, fill: 'forwards' });
+          }
+
+          from.style.pointerEvents = 'none';
+          showingA = !showingA;
+          setTimeout(() => { animating = false; }, dur);
+        }
+
+        document.getElementById('pt-crossfade')?.addEventListener('click', () => pageTransition('crossfade'));
+        document.getElementById('pt-slide-left')?.addEventListener('click', () => pageTransition('slide-left'));
+        document.getElementById('pt-slide-right')?.addEventListener('click', () => pageTransition('slide-right'));
+      })();
+
+      // ================================================================
+      //  8. LOADING — JS SPRING STAGGER
+      // ================================================================
+      (function() {
+        const area = document.getElementById('js-stagger-area');
+        const replayBtn = document.getElementById('js-stagger-replay');
+        if (!area) return;
+
+        const configs = {
+          snappy:   { ...SPRING_PRESETS.snappy, delay: 30 },
+          standard: { ...SPRING_PRESETS.standard, delay: 50 },
+          gentle:   { ...SPRING_PRESETS.gentle, delay: 80 },
+        };
+
+        let activeTimeouts = [];
+        let activeRafs = [];
+
+        function playSpringStagger() {
+          // Cancel any in-flight animations
+          activeTimeouts.forEach(id => clearTimeout(id));
+          activeRafs.forEach(id => cancelAnimationFrame(id));
+          activeTimeouts = [];
+          activeRafs = [];
+
+          if (reducedMotion) {
+            area.querySelectorAll('.js-stagger-item').forEach(el => {
+              el.style.opacity = '1'; el.style.transform = 'none';
+            });
+            return;
+          }
+
+          area.querySelectorAll('.js-stagger-col').forEach(col => {
+            const cfg = configs[col.dataset.spring];
+            if (!cfg) return;
+            const items = col.querySelectorAll('.js-stagger-item');
+
+            items.forEach((item, i) => {
+              item.style.opacity = '0';
+              item.style.transform = 'translateY(16px)';
+
+              const tid = setTimeout(() => {
+                const state = { value: 0, velocity: 0, target: 1 };
+                const opState = { value: 0, velocity: 0, target: 1 };
+                let last = performance.now();
+
+                function tick(now) {
+                  const dt = Math.min((now - last) / 1000, 0.05);
+                  last = now;
+                  springStep(state, cfg, dt);
+                  springStep(opState, { stiffness: cfg.stiffness * 1.5, damping: cfg.damping * 2, mass: 1 }, dt);
+
+                  item.style.transform = `translateY(${(1 - state.value) * 16}px)`;
+                  item.style.opacity = Math.min(1, opState.value);
+
+                  if (Math.abs(state.value - 1) > 0.001 || Math.abs(state.velocity) > 0.01) {
+                    const rid = requestAnimationFrame(tick);
+                    activeRafs.push(rid);
+                  } else {
+                    item.style.transform = 'none';
+                    item.style.opacity = '1';
+                  }
+                }
+                const rid = requestAnimationFrame(tick);
+                activeRafs.push(rid);
+              }, i * cfg.delay);
+              activeTimeouts.push(tid);
+            });
+          });
+        }
+
+        // Auto-play on scroll
+        const obs = new IntersectionObserver(([e]) => {
+          if (e.isIntersecting) {
+            playSpringStagger();
+            obs.disconnect();
+          }
+        }, { threshold: 0.3 });
+        obs.observe(area);
+
+        if (replayBtn) {
+          replayBtn.addEventListener('click', playSpringStagger);
+        }
+      })();
+
+      // ================================================================
+      //  7. SIGNATURE EFFECTS — 3D TILT
+      // ================================================================
+      (function() {
+        const card = document.getElementById('tilt-card-1');
+        if (!card) return;
+        const shine = card.querySelector('.tilt-shine');
+
+        const rotX = { value: 0, velocity: 0, target: 0 };
+        const rotY = { value: 0, velocity: 0, target: 0 };
+        const tiltCfg = SPRING_PRESETS.tilt;
+
+        card.addEventListener('mousemove', (e) => {
+          if (reducedMotion) return;
+          const rect = card.getBoundingClientRect();
+          const x = (e.clientX - rect.left) / rect.width - 0.5;
+          const y = (e.clientY - rect.top) / rect.height - 0.5;
+          rotY.target = x * 30;
+          rotX.target = -y * 30;
+          if (shine) {
+            shine.style.background = `linear-gradient(${135 + x * 60}deg, oklch(1 0 0 / ${0.1 + Math.abs(x) * 0.15}), transparent 60%)`;
+          }
+          activateAnimation('tilt');
+        });
+
+        card.addEventListener('mouseleave', () => {
+          rotX.target = 0;
+          rotY.target = 0;
+          activateAnimation('tilt');
+        });
+
+        registerAnimation('tilt', (dt) => {
+          springStep(rotX, tiltCfg, dt);
+          springStep(rotY, tiltCfg, dt);
+          card.style.transform = `rotateX(${rotX.value}deg) rotateY(${rotY.value}deg)`;
+          if (Math.abs(rotX.value - rotX.target) < 0.1 &&
+              Math.abs(rotY.value - rotY.target) < 0.1 &&
+              Math.abs(rotX.velocity) < 0.1 &&
+              Math.abs(rotY.velocity) < 0.1) {
+            deactivateAnimation('tilt');
+          }
+        });
+      })();
+
+      // ================================================================
+      //  7. SIGNATURE EFFECTS — HUE SHIFT TOGGLE
+      // ================================================================
+      (function() {
+        const demo = document.getElementById('hue-shift-demo');
+        const btn = document.getElementById('hue-shift-toggle');
+        if (!demo || !btn) return;
+
+        let paused = false;
+        btn.addEventListener('click', () => {
+          paused = !paused;
+          demo.classList.toggle('hue-shift-paused', paused);
+          btn.textContent = paused ? 'Play' : 'Pause';
+        });
+
+        if (reducedMotion) {
+          demo.classList.add('hue-shift-paused');
+          btn.textContent = 'Play';
+        }
       })();
 
     })();

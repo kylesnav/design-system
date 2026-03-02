@@ -2,7 +2,7 @@
   "name": "delightful-theme",
   "displayName": "Delightful",
   "description": "A warm, neo-brutalist color theme from the Delightful Design System",
-  "version": "0.6.0",
+  "version": "0.6.5",
   "publisher": "kylesnav",
   "author": {
     "name": "Kyle Snavely"
@@ -51,5 +51,8 @@
   "homepage": "https://github.com/kylesnav/delightful-design-system",
   "bugs": {
     "url": "https://github.com/kylesnav/delightful-design-system/issues"
+  },
+  "devDependencies": {
+    "culori": "^4.0.2"
   }
 }

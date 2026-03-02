@@ -82,8 +82,8 @@
   --text-on-accent: oklch(1.00 0.000 0);
   --text-on-gold: oklch(0.220 0.020 70);
 
-  --border-default: var(--text-primary);
-  --border-strong: var(--text-primary);
+  --border-default: oklch(0.340 0.025 60);
+  --border-strong: oklch(0.250 0.020 60);
   --border-subtle: oklch(0.820 0.015 70);
 
   /* Vibrant Accents — Warm Palette */
@@ -100,7 +100,7 @@
   --accent-danger-text: oklch(0.570 0.220 20);
 
   --accent-gold: oklch(0.840 0.175 85);
-  /* Warm gold */
+  /* Bright gold — highlight accent */
   --accent-gold-hover: oklch(0.820 0.165 84);
   --accent-gold-subtle: oklch(0.965 0.060 85);
   --accent-gold-text: oklch(0.560 0.170 85);
@@ -132,9 +132,9 @@
   --overlay-bg: oklch(0.200 0.015 60 / 0.30);
 
   /* Neo-Brutalist Solid Shadows */
-  --shadow-sm: 2px 2px 0 var(--text-primary);
-  --shadow-md: 4px 4px 0 var(--text-primary);
-  --shadow-lg: 8px 8px 0 var(--text-primary);
+  --shadow-sm: 2px 2px 0 var(--border-default);
+  --shadow-md: 4px 4px 0 var(--border-default);
+  --shadow-lg: 8px 8px 0 var(--border-default);
   --shadow-pink: 4px 4px 0 var(--accent-primary);
   --shadow-danger: 4px 4px 0 var(--accent-danger);
   --shadow-gold: 4px 4px 0 var(--accent-gold);
@@ -334,4 +334,12 @@
       --container-sm: 640px;
       --container-md: 960px;
       --container-lg: 1200px;
+
+      /* Data Visualization Palette — 6 distinct chart colors from accent families */
+      --chart-1: var(--accent-primary);
+      --chart-2: var(--accent-gold);
+      --chart-3: var(--accent-cyan);
+      --chart-4: var(--accent-green);
+      --chart-5: var(--accent-purple);
+      --chart-6: var(--accent-danger);
 }

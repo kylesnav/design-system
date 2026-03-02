@@ -4,6 +4,34 @@ All notable changes to the Delightful Design System are documented in this file.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/). Versions follow [Semantic Versioning](https://semver.org/).
 
+## [0.6.5] — 2026-03-01
+
+### Added
+
+- **Command palette** — `Cmd+K` overlay with section navigation, theme toggle, and back-to-top actions; full ARIA combobox pattern with keyboard navigation
+- **Scroll progress bar** — 3px pink-to-green gradient bar at page top using `animation-timeline: scroll()`
+- **Back-to-top button** — IntersectionObserver-driven visibility toggle (replaces scroll listener)
+- **Token architecture visualization** — interactive 3-tier display (Primitives → Semantic → Component) ported from `delightful-color.html` with 6 color family picker buttons and live component preview
+- **Type tester presets** — Headline, Body Copy, UI Label, and Code Comment buttons with appropriate weight/size/tracking
+- **Copyable CSS variable snippets** — collapsible `<details>` blocks after buttons, forms, cards, and badges with click-to-copy and toast feedback
+- **Per-component state toggles** — Default/Hover/Active/Focus/Disabled toggle bars for buttons, inputs, and cards using `.force-*` CSS classes
+- **Button states demo** — static force-state classes (`.force-hover`, `.force-active`, `.force-focus`) mirroring real pseudo-class styles
+- **`content-visibility: auto`** on all `.ds-section` elements for scroll performance
+
+### Changed
+
+- **Hero section** upgraded — editorial layout with inline pink dots, pink divider, `overflow: visible`, `⌘K` badge on nav
+- **Section layout cleaned** — removed dashed borders from `.ds-section`, removed floating decorative dots, added `contain-intrinsic-size` for layout stability
+- **Component audit** — all component categories wrapped in `.subsection` divs with labels and descriptions; form elements split into 5 subsections with wider 2-column grid
+- **Accessibility improvements** — `aria-invalid` + `aria-describedby` on error inputs, `aria-label` on toggle switches and arch family buttons, `role=textbox` on type tester preview
+
+### Fixed
+
+- Nav keyboard badge border corrected to 2px (was 1px)
+- Primitive token leak (`--primitive-red-400`) replaced with `var(--accent-danger)` semantic token in command palette
+- `innerHTML` injection replaced with DOM API (`createElement`/`appendChild`) in command palette rendering
+- `window.openCmdPalette` global leak removed
+
 ## [0.6.0] — 2026-03-01
 
 ### Added

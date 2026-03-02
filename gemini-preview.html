@@ -1,0 +1,2525 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Delightful — Gemini Preview</title>
+  <meta name="description" content="Animation playground showcasing Gemini proposals: joy-stamp-in, liquid-paint-splash, magnetic-nav-pill, and brutalist-shape-burst." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet" />
+
+  <style>
+    @layer reset, primitives, semantic, component, utilities;
+
+    /* ======================================================================
+       TIER 1 — PRIMITIVES
+       ====================================================================== */
+    @layer primitives {
+    :root {
+      --primitive-neutral-0: oklch(1.00 0.000 0);
+      --primitive-neutral-25: oklch(0.988 0.006 70);
+      --primitive-neutral-50: oklch(0.980 0.008 70);
+      --primitive-neutral-100: oklch(0.960 0.010 70);
+      --primitive-neutral-150: oklch(0.940 0.012 70);
+      --primitive-neutral-200: oklch(0.920 0.012 70);
+      --primitive-neutral-300: oklch(0.860 0.014 70);
+      --primitive-neutral-400: oklch(0.750 0.014 70);
+      --primitive-neutral-500: oklch(0.600 0.012 70);
+      --primitive-neutral-600: oklch(0.480 0.010 70);
+      --primitive-neutral-700: oklch(0.350 0.010 70);
+      --primitive-neutral-800: oklch(0.250 0.012 60);
+      --primitive-neutral-900: oklch(0.180 0.012 60);
+      --primitive-neutral-950: oklch(0.140 0.012 60);
+      --primitive-pink-100: oklch(0.920 0.060 350);
+      --primitive-pink-200: oklch(0.840 0.140 350);
+      --primitive-pink-300: oklch(0.720 0.220 350);
+      --primitive-pink-400: oklch(0.640 0.270 350);
+      --primitive-pink-500: oklch(0.560 0.280 350);
+      --primitive-red-100: oklch(0.930 0.050 20);
+      --primitive-red-200: oklch(0.850 0.110 20);
+      --primitive-red-300: oklch(0.720 0.180 20);
+      --primitive-red-400: oklch(0.620 0.220 20);
+      --primitive-red-500: oklch(0.540 0.230 20);
+      --primitive-gold-100: oklch(0.960 0.050 85);
+      --primitive-gold-200: oklch(0.920 0.110 85);
+      --primitive-gold-300: oklch(0.870 0.160 85);
+      --primitive-gold-400: oklch(0.840 0.175 85);
+      --primitive-gold-500: oklch(0.820 0.165 84);
+      --primitive-cyan-100: oklch(0.930 0.038 210);
+      --primitive-cyan-200: oklch(0.850 0.085 210);
+      --primitive-cyan-300: oklch(0.740 0.125 210);
+      --primitive-cyan-400: oklch(0.650 0.148 210);
+      --primitive-cyan-500: oklch(0.570 0.155 210);
+      --primitive-green-100: oklch(0.930 0.042 148);
+      --primitive-green-200: oklch(0.840 0.095 148);
+      --primitive-green-300: oklch(0.730 0.145 148);
+      --primitive-green-400: oklch(0.630 0.170 148);
+      --primitive-green-500: oklch(0.540 0.165 148);
+      --primitive-purple-100: oklch(0.940 0.040 300);
+      --primitive-purple-200: oklch(0.860 0.080 300);
+      --primitive-purple-300: oklch(0.720 0.160 300);
+      --primitive-purple-400: oklch(0.640 0.220 300);
+      --primitive-purple-500: oklch(0.560 0.260 300);
+    }
+    } /* end @layer primitives */
+
+    /* ======================================================================
+       TIER 2 — SEMANTIC TOKENS (Light)
+       ====================================================================== */
+    @layer semantic {
+    :root,
+    [data-theme="light"] {
+      --bg-page: oklch(0.982 0.008 70);
+      --bg-surface: oklch(0.995 0.004 70);
+      --bg-elevated: oklch(1.00 0.00 0);
+      --bg-subtle: oklch(0.965 0.012 70);
+      --bg-muted: oklch(0.948 0.014 70);
+      --text-primary: oklch(0.200 0.015 60);
+      --text-secondary: oklch(0.420 0.015 60);
+      --text-muted: oklch(0.560 0.012 60);
+      --text-on-accent: oklch(1.00 0.000 0);
+      --text-on-gold: oklch(0.220 0.020 70);
+      --border-default: oklch(0.340 0.025 60);
+      --border-strong: oklch(0.250 0.020 60);
+      --border-subtle: oklch(0.820 0.015 70);
+      --accent-primary: oklch(0.640 0.270 350);
+      --accent-primary-hover: oklch(0.580 0.280 350);
+      --accent-primary-subtle: oklch(0.955 0.040 350);
+      --accent-primary-text: oklch(0.560 0.270 350);
+      --accent-danger: oklch(0.620 0.220 20);
+      --accent-danger-hover: oklch(0.570 0.230 20);
+      --accent-danger-subtle: oklch(0.950 0.040 20);
+      --accent-danger-text: oklch(0.570 0.220 20);
+      --accent-gold: oklch(0.840 0.175 85);
+      --accent-gold-hover: oklch(0.820 0.165 84);
+      --accent-gold-subtle: oklch(0.965 0.060 85);
+      --accent-gold-text: oklch(0.560 0.170 85);
+      --accent-cyan: oklch(0.650 0.148 210);
+      --accent-cyan-hover: oklch(0.600 0.150 210);
+      --accent-cyan-subtle: oklch(0.945 0.030 210);
+      --accent-cyan-text: oklch(0.560 0.148 210);
+      --accent-green: oklch(0.630 0.170 148);
+      --accent-green-hover: oklch(0.580 0.165 148);
+      --accent-green-subtle: oklch(0.945 0.035 148);
+      --accent-green-text: oklch(0.520 0.170 148);
+      --accent-purple: oklch(0.640 0.220 300);
+      --accent-purple-hover: oklch(0.580 0.230 300);
+      --accent-purple-subtle: oklch(0.950 0.035 300);
+      --accent-purple-text: oklch(0.560 0.230 300);
+      --status-info: var(--accent-primary);
+      --status-error: var(--accent-danger);
+      --status-warning: var(--accent-gold);
+      --status-success: var(--accent-green);
+      --focus-ring: var(--accent-primary);
+      --overlay-bg: oklch(0.200 0.015 60 / 0.30);
+      --shadow-sm: 2px 2px 0 var(--border-default);
+      --shadow-md: 4px 4px 0 var(--border-default);
+      --shadow-lg: 8px 8px 0 var(--border-default);
+      --shadow-pink: 4px 4px 0 var(--accent-primary);
+      --shadow-danger: 4px 4px 0 var(--accent-danger);
+      --shadow-gold: 4px 4px 0 var(--accent-gold);
+      --shadow-cyan: 4px 4px 0 var(--accent-cyan);
+      --shadow-green: 4px 4px 0 var(--accent-green);
+      --shadow-purple: 4px 4px 0 var(--accent-purple);
+    }
+
+    /* SEMANTIC TOKENS (Dark) */
+    [data-theme="dark"] {
+      --bg-page: oklch(0.140 0.014 65);
+      --bg-surface: oklch(0.165 0.015 65);
+      --bg-elevated: oklch(0.190 0.015 65);
+      --bg-subtle: oklch(0.210 0.015 65);
+      --bg-muted: oklch(0.180 0.013 65);
+      --text-primary: oklch(0.935 0.008 70);
+      --text-secondary: oklch(0.690 0.012 70);
+      --text-muted: oklch(0.540 0.010 70);
+      --text-on-accent: oklch(1.00 0.000 0);
+      --text-on-gold: oklch(0.140 0.014 65);
+      --border-default: oklch(0.550 0.010 65);
+      --border-strong: var(--text-primary);
+      --border-subtle: oklch(0.330 0.015 65);
+      --accent-primary: oklch(0.700 0.230 350);
+      --accent-primary-hover: oklch(0.740 0.220 350);
+      --accent-primary-subtle: oklch(0.250 0.065 350);
+      --accent-primary-text: oklch(0.750 0.210 350);
+      --accent-danger: oklch(0.660 0.200 20);
+      --accent-danger-hover: oklch(0.700 0.190 20);
+      --accent-danger-subtle: oklch(0.250 0.055 20);
+      --accent-danger-text: oklch(0.720 0.180 20);
+      --accent-gold: oklch(0.840 0.170 85);
+      --accent-gold-hover: oklch(0.870 0.155 84);
+      --accent-gold-subtle: oklch(0.260 0.065 85);
+      --accent-gold-text: oklch(0.870 0.155 85);
+      --accent-cyan: oklch(0.720 0.140 210);
+      --accent-cyan-hover: oklch(0.760 0.130 210);
+      --accent-cyan-subtle: oklch(0.250 0.045 210);
+      --accent-cyan-text: oklch(0.780 0.130 210);
+      --accent-green: oklch(0.680 0.155 148);
+      --accent-green-hover: oklch(0.720 0.145 148);
+      --accent-green-subtle: oklch(0.250 0.048 148);
+      --accent-green-text: oklch(0.740 0.145 148);
+      --accent-purple: oklch(0.700 0.200 300);
+      --accent-purple-hover: oklch(0.740 0.190 300);
+      --accent-purple-subtle: oklch(0.250 0.055 300);
+      --accent-purple-text: oklch(0.760 0.180 300);
+      --status-info: var(--accent-primary);
+      --status-error: var(--accent-danger);
+      --status-warning: var(--accent-gold);
+      --status-success: var(--accent-green);
+      --focus-ring: oklch(0.700 0.230 350);
+      --overlay-bg: oklch(0 0 0 / 0.60);
+      --shadow-sm: 2px 2px 0 oklch(0.92 0.010 65);
+      --shadow-md: 4px 4px 0 oklch(0.92 0.010 65);
+      --shadow-lg: 8px 8px 0 oklch(0.92 0.010 65);
+      --shadow-pink: 4px 4px 0 var(--accent-primary);
+      --shadow-danger: 4px 4px 0 var(--accent-danger);
+      --shadow-gold: 4px 4px 0 var(--accent-gold);
+      --shadow-cyan: 4px 4px 0 var(--accent-cyan);
+      --shadow-green: 4px 4px 0 var(--accent-green);
+      --shadow-purple: 4px 4px 0 var(--accent-purple);
+    }
+    } /* end @layer semantic */
+
+    /* ======================================================================
+       TIER 3 — COMPONENT TOKENS
+       ====================================================================== */
+    @layer component {
+    :root {
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Code', monospace;
+      --step--2: clamp(0.694rem, 0.650rem + 0.22vi, 0.8rem);
+      --step--1: clamp(0.833rem, 0.775rem + 0.29vi, 1rem);
+      --step-0: clamp(1rem, 0.913rem + 0.43vi, 1.25rem);
+      --step-1: clamp(1.2rem, 1.074rem + 0.63vi, 1.5625rem);
+      --step-2: clamp(1.44rem, 1.261rem + 0.89vi, 1.953rem);
+      --step-3: clamp(1.728rem, 1.480rem + 1.24vi, 2.441rem);
+      --step-4: clamp(2.074rem, 1.734rem + 1.70vi, 3.052rem);
+      --step-5: clamp(2.488rem, 2.028rem + 2.30vi, 3.815rem);
+      --tracking-tight: -0.02em;
+      --tracking-tighter: -0.03em;
+      --tracking-tightest: -0.04em;
+      --leading-none: 1.0;
+      --leading-tight: 1.15;
+      --leading-snug: 1.3;
+      --leading-normal: 1.55;
+      --leading-relaxed: 1.65;
+      --ui-text-2xs: 0.6875rem;
+      --ui-text-xs: 0.75rem;
+      --ui-text-sm: 0.8125rem;
+      --ui-text-md: 0.875rem;
+      --ui-text-lg: 0.9375rem;
+      --ui-text-xl: 1.0625rem;
+      --space-1: 4px; --space-1-5: 6px; --space-2: 8px; --space-3: 12px;
+      --space-4: 16px; --space-5: 20px; --space-6: 24px; --space-8: 32px;
+      --space-10: 40px; --space-12: 48px; --space-16: 64px; --space-20: 80px;
+      --radius-sm: 10px; --radius-md: 16px; --radius-lg: 24px; --radius-xl: 32px; --radius-full: 9999px;
+      --control-sm: 32px; --control-md: 36px; --control-lg: 44px; --control-xl: 56px;
+      --motion-instant: 100ms; --motion-fast: 160ms; --motion-base: 240ms;
+      --motion-slow: 360ms; --motion-deliberate: 500ms;
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+      --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+      --ease-slam: cubic-bezier(0.55, 0.06, 0.68, 0.19);
+      --ease-elastic: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      --ease-spring-gentle: linear(0, 0.006, 0.025 2.8%, 0.101 6.1%, 0.539 18.9%, 0.721 25.3%, 0.849 31.5%, 0.937 38.1%, 0.968 41.8%, 0.991 45.7%, 1.006 50%, 1.015 55%, 1.017 63.9%, 1.001 85.9%, 1);
+      --ease-spring-bouncy: linear(0, 0.004, 0.016, 0.035, 0.063 9.1%, 0.141, 0.25, 0.391, 0.563, 0.765, 1, 0.891, 0.813 45.5%, 0.785, 0.766, 0.754, 0.75, 0.754, 0.766, 0.785, 0.813 63.6%, 0.891, 1 72.7%, 0.973, 0.953, 0.941, 0.938, 0.941, 0.953, 0.973, 1, 0.988, 0.984, 0.988, 1);
+      --z-base: 1; --z-sticky: 100; --z-fixed: 200; --z-overlay: 300;
+      --z-modal: 1000; --z-toast: 1100; --z-tooltip: 1500;
+      --container-sm: 640px; --container-md: 960px; --container-lg: 1200px;
+
+      /* Data Visualization Palette */
+      --chart-1: var(--accent-primary);
+      --chart-2: var(--accent-gold);
+      --chart-3: var(--accent-cyan);
+      --chart-4: var(--accent-green);
+      --chart-5: var(--accent-purple);
+      --chart-6: var(--accent-danger);
+
+      --btn-primary-bg: var(--accent-primary);
+      --btn-primary-text: var(--text-on-accent);
+      --btn-danger-bg: var(--accent-danger);
+      --btn-danger-text: var(--text-on-accent);
+      --btn-gold-bg: var(--accent-gold);
+      --btn-gold-text: var(--text-on-gold);
+      --btn-cyan-bg: var(--accent-cyan);
+      --btn-cyan-text: var(--text-on-accent);
+      --btn-green-bg: var(--accent-green);
+      --btn-green-text: var(--text-on-accent);
+      --btn-purple-bg: var(--accent-purple);
+      --btn-purple-text: var(--text-on-accent);
+      --btn-gap: var(--space-1-5);
+
+      --badge-py: 2px;
+      --badge-px: 10px;
+
+      --toggle-off-bg: var(--primitive-neutral-300);
+      --toggle-on-bg: var(--accent-primary);
+      --toggle-knob: var(--primitive-neutral-0);
+    }
+    } /* end @layer component */
+
+    /* ======================================================================
+       RESET & BASE
+       ====================================================================== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 72px; interpolate-size: allow-keywords; }
+    body {
+      font-family: var(--font-sans);
+      font-size: var(--step-0);
+      line-height: var(--leading-normal);
+      color: var(--text-primary);
+      background: var(--bg-page);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+      overflow-x: clip;
+    }
+    :focus-visible { outline: 2px solid var(--focus-ring); outline-offset: -2px; }
+
+    /* ======================================================================
+       SCROLL PROGRESS
+       ====================================================================== */
+    .scroll-progress {
+      position: fixed; top: 0; left: 0; right: 0; height: 3px;
+      background: var(--accent-primary); transform-origin: left;
+      z-index: var(--z-overlay);
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      @supports (animation-timeline: scroll()) {
+        .scroll-progress {
+          transform: scaleX(0);
+          animation: scroll-progress-fill linear both;
+          animation-timeline: scroll();
+        }
+        @keyframes scroll-progress-fill {
+          0% { transform: scaleX(0); background-color: var(--accent-primary); }
+          99% { background-color: var(--accent-primary); }
+          100% { transform: scaleX(1); background-color: var(--accent-green); }
+        }
+      }
+    }
+
+    /* ======================================================================
+       NAV
+       ====================================================================== */
+    .topnav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: var(--z-fixed);
+      background: oklch(0.995 0.004 70 / 0.88);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-bottom: 2px solid var(--border-subtle);
+    }
+    [data-theme="dark"] .topnav { background: oklch(0.165 0.015 65 / 0.88); }
+    .topnav-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center;
+      padding: var(--space-3) var(--space-6); gap: var(--space-4);
+    }
+    .topnav-brand {
+      display: flex; align-items: center; gap: var(--space-2);
+      font-weight: 900; font-size: var(--step-1); letter-spacing: var(--tracking-tight);
+      white-space: nowrap; text-decoration: none; color: var(--text-primary);
+    }
+    .brand-dots { display: flex; gap: 4px; }
+    .brand-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+    .nav-links {
+      display: flex; gap: var(--space-1); list-style: none;
+      overflow-x: auto; flex: 1; scrollbar-width: none;
+    }
+    .nav-links::-webkit-scrollbar { display: none; }
+    .nav-links a {
+      font-size: var(--ui-text-sm); font-weight: 600; color: var(--text-secondary);
+      text-decoration: none; padding: var(--space-1) var(--space-2);
+      border-radius: var(--radius-sm); white-space: nowrap;
+      transition: transform var(--motion-instant) linear, color var(--motion-fast) var(--ease-out), background var(--motion-fast) var(--ease-out);
+    }
+    .nav-links a:hover { color: var(--text-primary); background: var(--bg-subtle); }
+    .nav-links a:active { transform: translateY(1px); }
+    .nav-right { display: flex; gap: var(--space-2); align-items: center; }
+    .nav-btn {
+      width: 36px; height: 36px; border-radius: var(--radius-sm);
+      border: 2px solid var(--border-default); background: var(--bg-surface);
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      color: var(--text-primary); text-decoration: none;
+      transition: transform var(--motion-instant) linear, box-shadow var(--motion-instant) linear,
+                  border-color var(--motion-fast) var(--ease-out);
+      box-shadow: var(--shadow-sm);
+    }
+    .nav-btn:hover { transform: translateY(-1px); box-shadow: var(--shadow-sm); border-color: var(--border-strong); }
+    .nav-btn:active { transform: translateY(1px); box-shadow: none; }
+    .nav-btn svg { width: 18px; height: 18px; }
+    .nav-kbd {
+      font-size: var(--ui-text-xs); font-family: var(--font-sans);
+      padding: 2px var(--space-1); border-radius: 4px;
+      border: 1px solid var(--border-subtle); background: var(--bg-subtle);
+      color: var(--text-muted); cursor: pointer; white-space: nowrap;
+      transition: transform var(--motion-instant) linear, border-color var(--motion-fast) var(--ease-out);
+    }
+    .nav-kbd:hover { border-color: var(--border-default); }
+    .nav-kbd:active { transform: translateY(1px); }
+    .icon-sun { display: none; } .icon-moon { display: none; } .icon-monitor { display: none; }
+    [data-theme="light"] .icon-sun { display: block; }
+    [data-theme="dark"] .icon-moon { display: block; }
+    [data-theme-mode="system"] .icon-sun, [data-theme-mode="system"] .icon-moon { display: none !important; }
+    [data-theme-mode="system"] .icon-monitor { display: block; }
+    .icon-motion-on { display: block; } .icon-motion-off { display: none; }
+    [data-reduced-motion="true"] .icon-motion-on { display: none; }
+    [data-reduced-motion="true"] .icon-motion-off { display: block; }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .topnav-inner { padding: var(--space-3) var(--space-4); }
+    }
+
+    /* ======================================================================
+       PAGE LAYOUT
+       ====================================================================== */
+    .page-wrap {
+      max-width: 1200px; margin: 0 auto;
+      padding: calc(56px + var(--space-8)) var(--space-6) var(--space-20);
+    }
+
+    /* ======================================================================
+       VIEW TRANSITIONS
+       ====================================================================== */
+    ::view-transition-old(root),
+    ::view-transition-new(root) { animation-duration: 240ms; }
+
+    /* ======================================================================
+       COMMAND PALETTE
+       ====================================================================== */
+    .cmd-palette-overlay {
+      position: fixed; inset: 0; z-index: var(--z-modal);
+      background: var(--overlay-bg);
+      display: none; align-items: flex-start; justify-content: center;
+      padding-top: 20vh; opacity: 0;
+      transition: opacity 200ms var(--ease-out), display 200ms var(--ease-out) allow-discrete;
+    }
+    .cmd-palette-overlay.active {
+      display: flex; opacity: 1;
+      @starting-style { opacity: 0; }
+    }
+    .cmd-palette {
+      width: 100%; max-width: 520px;
+      background: var(--bg-elevated); border: 2px solid var(--border-default);
+      border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      transform: scale(0.95) translateY(-10px); opacity: 0;
+      transition: transform 240ms var(--ease-smooth), opacity 240ms var(--ease-smooth);
+    }
+    .cmd-palette-overlay.active .cmd-palette {
+      transform: scale(1) translateY(0); opacity: 1;
+      @starting-style { transform: scale(0.95) translateY(-10px); opacity: 0; }
+    }
+    .cmd-palette-input {
+      width: 100%; padding: var(--space-4) var(--space-6);
+      font-family: var(--font-sans); font-size: var(--step-0);
+      border: none; border-bottom: 2px solid var(--border-subtle);
+      background: transparent; color: var(--text-primary); outline: none;
+    }
+    .cmd-palette-input::placeholder { color: var(--text-muted); }
+    .cmd-palette-list {
+      list-style: none; max-height: 320px; overflow-y: auto;
+      padding: var(--space-2) 0;
+    }
+    .cmd-palette-item {
+      padding: var(--space-2) var(--space-6);
+      font-size: var(--ui-text-md); color: var(--text-secondary);
+      cursor: pointer; display: flex; align-items: center; gap: var(--space-3);
+      transition: transform var(--motion-instant) linear, background var(--motion-fast) var(--ease-out), color var(--motion-fast) var(--ease-out);
+    }
+    .cmd-palette-item:hover,
+    .cmd-palette-item.active { background: var(--bg-subtle); color: var(--text-primary); }
+    .cmd-palette-item:active { transform: translateY(1px); }
+    .cmd-palette-item .cmd-section-dot {
+      width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
+    }
+    .cmd-palette-empty {
+      padding: var(--space-4) var(--space-6);
+      color: var(--text-muted); font-size: var(--ui-text-sm); text-align: center;
+    }
+
+    /* ======================================================================
+       HERO
+       ====================================================================== */
+    .hero {
+      text-align: center; padding: var(--space-8) 0 var(--space-12);
+      position: relative;
+    }
+    .hero-stage {
+      position: relative; width: 100%; min-height: 280px;
+      margin-bottom: var(--space-6);
+      border: 2px solid var(--border-default);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden; background: var(--bg-subtle);
+      display: flex; align-items: center; justify-content: center;
+      padding: var(--space-8);
+    }
+    .hero-stamp-text {
+      font-size: var(--step-5); font-weight: 900;
+      letter-spacing: var(--tracking-tightest);
+      line-height: var(--leading-none);
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 0.3em;
+    }
+    .hero-stamp-text .word {
+      display: inline-block;
+      opacity: 0; transform: translateY(12px); filter: blur(4px);
+      transition: opacity var(--motion-base) var(--ease-smooth),
+                  transform var(--motion-base) var(--ease-smooth),
+                  filter var(--motion-base) var(--ease-smooth);
+    }
+    .hero-stamp-text .word.visible {
+      opacity: 1; transform: translateY(0); filter: blur(0);
+    }
+    .hero-stamp-text .word.joy-stamp {
+      transition: none;
+    }
+    .hero-stamp-text .word.joy-stamp.visible {
+      animation: joy-stamp-in 600ms var(--ease-spring-bouncy) both;
+      color: var(--accent-primary);
+    }
+    .liquid-pool {
+      position: absolute; border-radius: 50%; pointer-events: none;
+      opacity: 0; filter: blur(50px);
+    }
+    .liquid-blob, .liquid-drip {
+      position: absolute; border-radius: 50%; pointer-events: none;
+    }
+    .hero-title {
+      font-size: var(--step-5); font-weight: 900;
+      letter-spacing: var(--tracking-tightest);
+      line-height: var(--leading-none);
+      margin-bottom: var(--space-4);
+    }
+    .hero-subtitle {
+      font-size: var(--step-1); color: var(--text-secondary);
+      max-width: 640px; margin: 0 auto var(--space-4);
+      line-height: var(--leading-snug);
+    }
+    .hero-crosslink {
+      font-size: var(--ui-text-xs); color: var(--text-muted);
+      margin-bottom: 0;
+    }
+    .hero-crosslink a {
+      color: var(--accent-primary-text); text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .hero-crosslink a:hover { color: var(--accent-primary); }
+
+    /* ======================================================================
+       REPLAY BUTTON
+       ====================================================================== */
+    .replay-btn {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      margin-top: var(--space-4);
+      padding: var(--space-2) var(--space-4);
+      font-family: var(--font-sans); font-size: var(--ui-text-sm); font-weight: 700;
+      color: var(--text-on-accent); background: var(--accent-primary);
+      border: 2px solid var(--border-default); border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-sm); cursor: pointer; text-decoration: none;
+      transition: transform var(--motion-instant) var(--ease-out),
+                  box-shadow var(--motion-instant) linear;
+    }
+    .replay-btn:hover { transform: translate(-2px, -2px); box-shadow: var(--shadow-md); }
+    .replay-btn:active { transform: translate(2px, 2px); box-shadow: 0 0 0 var(--text-primary); }
+    .replay-btn svg { width: 14px; height: 14px; }
+
+    /* ======================================================================
+       SECTION LAYOUT
+       ====================================================================== */
+    .gp-section {
+      margin-bottom: var(--space-16);
+      padding-bottom: var(--space-16);
+      border-bottom: 2px dashed var(--border-subtle);
+      contain-intrinsic-size: auto 600px;
+    }
+    .gp-section:last-of-type { border-bottom: none; }
+    .section-header { margin-bottom: var(--space-8); }
+    .section-overline {
+      font-size: var(--ui-text-xs); font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--text-muted); margin-bottom: var(--space-2);
+      display: flex; align-items: center; gap: var(--space-2);
+    }
+    .status-dot {
+      width: 8px; height: 8px; border-radius: 50%; display: inline-block;
+    }
+    .section-title {
+      font-size: var(--step-3); font-weight: 800;
+      letter-spacing: var(--tracking-tight);
+      line-height: var(--leading-tight);
+      margin-bottom: var(--space-2);
+    }
+    .section-desc {
+      font-size: var(--step-0); color: var(--text-secondary);
+      max-width: 640px; line-height: var(--leading-normal);
+    }
+
+    /* ======================================================================
+       PROPOSAL CARDS
+       ====================================================================== */
+    .proposal-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(480px, 100%), 1fr));
+      gap: var(--space-6);
+    }
+    .proposal-card {
+      background: var(--bg-surface);
+      border: 2px solid var(--border-default);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-md);
+      overflow: hidden; display: flex; flex-direction: column;
+      position: relative;
+    }
+    .proposal-badge {
+      position: absolute; top: var(--space-3); left: var(--space-3);
+      background: var(--accent-primary); color: var(--text-on-accent);
+      border-radius: var(--radius-full); border: 2px solid var(--border-default);
+      font-size: var(--ui-text-xs); font-weight: 800;
+      padding: 2px 12px; z-index: var(--z-base);
+    }
+    .proposal-stage {
+      padding: var(--space-8) var(--space-6);
+      display: flex; align-items: center; justify-content: center;
+      background: var(--bg-subtle);
+      border-bottom: 2px solid var(--border-subtle);
+      min-height: 280px; position: relative; overflow: hidden;
+    }
+    .proposal-body {
+      padding: var(--space-4); flex: 1;
+      display: flex; flex-direction: column;
+    }
+    .proposal-body-top {
+      display: flex; align-items: center; gap: var(--space-2);
+      margin-bottom: var(--space-2);
+    }
+    .proposal-name {
+      font-family: var(--font-mono); font-size: var(--ui-text-md);
+      font-weight: 700; color: var(--text-primary);
+    }
+    .proposal-desc {
+      font-size: var(--ui-text-sm); color: var(--text-secondary);
+      line-height: var(--leading-normal); margin-bottom: var(--space-3);
+    }
+    .proposal-meta {
+      font-family: var(--font-mono); font-size: var(--ui-text-xs);
+      color: var(--text-muted); margin-bottom: var(--space-3);
+    }
+    .tag {
+      font-size: var(--ui-text-2xs); font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.04em;
+      padding: 2px 10px; border: 2px solid var(--border-default);
+      border-radius: var(--radius-full); color: var(--text-secondary);
+    }
+    .tags { display: flex; gap: var(--space-1); flex-wrap: wrap; margin-bottom: var(--space-3); }
+    .play-btn {
+      background: var(--accent-primary); color: var(--text-on-accent);
+      border: 2px solid var(--border-default); border-radius: var(--radius-sm);
+      font-family: var(--font-sans); font-size: var(--ui-text-xs);
+      font-weight: 700; padding: var(--space-1) var(--space-3);
+      cursor: pointer; white-space: nowrap;
+      transition: transform var(--motion-instant) linear, box-shadow var(--motion-instant) linear;
+    }
+    .play-btn:hover { box-shadow: var(--shadow-md); transform: translate(-2px, -2px); }
+    .play-btn:active { box-shadow: 0 0 0 var(--text-primary); transform: translate(2px, 2px); }
+
+    /* Code toggle */
+    .code-toggle-btn {
+      background: none; border: none; cursor: pointer;
+      font-family: var(--font-mono); font-size: var(--ui-text-xs);
+      font-weight: 600; color: var(--accent-primary-text);
+      padding: var(--space-2) 0; margin-top: auto; text-align: left;
+    }
+    .code-toggle-btn:hover { text-decoration: underline; }
+    .proposal-code, .motion-card-code {
+      border-top: 2px solid var(--border-subtle);
+      padding: var(--space-3) var(--space-4);
+      background: var(--bg-subtle); position: relative;
+    }
+    .proposal-code pre, .motion-card-code pre {
+      font-family: var(--font-mono); font-size: var(--ui-text-xs);
+      line-height: var(--leading-relaxed); color: var(--text-primary);
+      overflow-x: auto; white-space: pre; margin: 0;
+    }
+    .copy-btn {
+      position: absolute; top: var(--space-2); right: var(--space-3);
+      background: var(--bg-surface); border: 2px solid var(--border-default);
+      border-radius: var(--radius-sm); font-family: var(--font-mono);
+      font-size: var(--ui-text-2xs); font-weight: 700; cursor: pointer;
+      padding: 2px 8px; color: var(--text-primary);
+    }
+    .copy-btn:hover { box-shadow: var(--shadow-sm); }
+
+    /* Magnetic pill nav demo */
+    .mag-nav {
+      display: flex; gap: var(--space-1); position: relative;
+      padding: var(--space-2); background: var(--bg-surface);
+      border: 2px solid var(--border-default); border-radius: var(--radius-sm);
+    }
+    .mag-nav a {
+      padding: var(--space-2) var(--space-3);
+      font-size: var(--ui-text-sm); font-weight: 600;
+      color: var(--text-secondary); text-decoration: none;
+      position: relative; z-index: 2; border-radius: var(--radius-sm);
+      transition: color var(--motion-fast) var(--ease-out);
+    }
+    .mag-nav a:hover { color: var(--text-primary); }
+    .mag-pill {
+      position: absolute; top: 0; left: 0;
+      background: var(--accent-primary-subtle);
+      border: 2px solid var(--accent-primary);
+      border-radius: var(--radius-sm);
+      pointer-events: none; z-index: 1;
+      opacity: 0;
+      transition: transform var(--motion-base) var(--ease-spring-gentle),
+                  width var(--motion-base) var(--ease-spring-gentle),
+                  height var(--motion-base) var(--ease-spring-gentle),
+                  opacity var(--motion-fast) var(--ease-out);
+    }
+    .mag-pill.active { opacity: 1; }
+
+    /* ======================================================================
+       VARIATION SECTION
+       ====================================================================== */
+    .variation-group {
+      margin-bottom: var(--space-8);
+    }
+    .variation-group-header {
+      font-size: var(--step-1); font-weight: 800;
+      letter-spacing: var(--tracking-tight);
+      margin-bottom: var(--space-4);
+    }
+    .variation-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-4);
+    }
+    @media (max-width: 768px) {
+      .variation-strip { grid-template-columns: 1fr; }
+    }
+    .variation-card {
+      background: var(--bg-surface);
+      border: 2px solid var(--border-default);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden; display: flex; flex-direction: column;
+    }
+    .variation-card-stage {
+      padding: var(--space-4);
+      display: flex; align-items: center; justify-content: center;
+      background: var(--bg-subtle);
+      border-bottom: 2px solid var(--border-subtle);
+      min-height: 160px; position: relative; overflow: hidden;
+    }
+    .variation-card-body {
+      padding: var(--space-3); flex: 1;
+      display: flex; flex-direction: column;
+    }
+    .variation-card-top {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: var(--space-1);
+    }
+    .variation-card-name {
+      font-family: var(--font-mono); font-size: var(--ui-text-sm); font-weight: 700;
+    }
+    .intensity-badge {
+      font-size: var(--ui-text-2xs); font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.04em;
+      padding: 2px 10px; border-radius: var(--radius-full);
+      border: 2px solid var(--border-default);
+    }
+    .intensity-low { background: var(--bg-muted); }
+    .intensity-medium { background: var(--accent-gold-subtle); }
+    .intensity-drastic {
+      background: var(--accent-primary-subtle);
+      border-color: var(--accent-primary);
+      box-shadow: var(--shadow-pink);
+    }
+    .variation-card-desc {
+      font-size: var(--ui-text-xs); color: var(--text-secondary);
+      line-height: var(--leading-normal);
+    }
+
+    /* ======================================================================
+       LIBRARY SECTION (motion-card format)
+       ====================================================================== */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
+      gap: var(--space-6);
+    }
+    .comparison-group { margin-bottom: var(--space-8); }
+    .comparison-label {
+      font-size: var(--ui-text-sm); font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.06em;
+      color: var(--text-muted); margin-bottom: var(--space-4);
+    }
+    .motion-card {
+      background: var(--bg-surface);
+      border: 2px solid var(--border-default);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-md);
+      overflow: hidden; display: flex; flex-direction: column;
+    }
+    .motion-card-demo {
+      padding: var(--space-8) var(--space-6);
+      display: flex; align-items: center; justify-content: center;
+      background: var(--bg-subtle);
+      border-bottom: 2px solid var(--border-subtle);
+      min-height: 140px; position: relative; overflow: hidden;
+    }
+    .demo-element {
+      width: 80px; height: 56px;
+      background: var(--bg-surface);
+      border: 2px solid var(--border-default);
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-sm);
+      display: flex; align-items: center; justify-content: center;
+      font-size: var(--ui-text-sm); font-weight: 700;
+      color: var(--text-primary);
+    }
+    .demo-element-wide { width: 120px; height: 56px; }
+    .demo-element-text {
+      width: auto; height: auto; background: none; border: none;
+      box-shadow: none; border-radius: 0;
+      font-size: var(--step-1); font-weight: 800;
+    }
+    .motion-card-body {
+      padding: var(--space-4) var(--space-4) var(--space-3);
+      flex: 1; display: flex; flex-direction: column;
+    }
+    .motion-card-top {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: var(--space-2);
+    }
+    .motion-card-name {
+      font-family: var(--font-mono); font-size: var(--ui-text-md);
+      font-weight: 700; color: var(--text-primary);
+    }
+    .motion-card-desc {
+      font-size: var(--ui-text-sm); color: var(--text-secondary);
+      line-height: var(--leading-normal); margin-bottom: var(--space-3);
+    }
+    .motion-card-meta {
+      font-family: var(--font-mono); font-size: var(--ui-text-xs);
+      color: var(--text-muted); margin-bottom: var(--space-3);
+    }
+
+    /* ======================================================================
+       PLAYGROUND
+       ====================================================================== */
+    .playground-wrap {
+      display: flex; gap: 0;
+      border: 2px solid var(--border-default);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-md);
+      overflow: hidden; min-height: 400px;
+      background: var(--bg-surface);
+    }
+    .playground-controls {
+      width: 300px; flex-shrink: 0;
+      padding: var(--space-4);
+      border-right: 2px solid var(--border-subtle);
+      display: flex; flex-direction: column; gap: var(--space-4);
+      background: var(--bg-surface);
+    }
+    .playground-controls label {
+      font-size: var(--ui-text-sm); font-weight: 700;
+      color: var(--text-primary); display: block;
+      margin-bottom: var(--space-1);
+    }
+    .playground-controls select {
+      width: 100%; padding: var(--space-2) var(--space-3);
+      font-family: var(--font-mono); font-size: var(--ui-text-sm);
+      border: 2px solid var(--border-default);
+      border-radius: var(--radius-sm);
+      background: var(--bg-elevated); color: var(--text-primary);
+      cursor: pointer;
+    }
+    .playground-stage {
+      flex: 1; display: flex; align-items: center; justify-content: center;
+      background: var(--bg-subtle); position: relative; overflow: hidden;
+    }
+    .playground-element {
+      width: 120px; height: 56px;
+      background: var(--bg-elevated);
+      border: 2px solid var(--border-default);
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-md);
+      display: flex; align-items: center; justify-content: center;
+      font-size: var(--ui-text-md); font-weight: 700;
+      color: var(--text-primary);
+    }
+    .preview-btn {
+      background: var(--accent-primary); color: var(--text-on-accent);
+      border: 2px solid var(--border-default); border-radius: var(--radius-sm);
+      font-family: var(--font-sans); font-size: var(--ui-text-sm);
+      font-weight: 700; padding: var(--space-2) var(--space-4);
+      cursor: pointer; width: 100%;
+      transition: transform var(--motion-instant) linear, box-shadow var(--motion-instant) linear;
+    }
+    .preview-btn:hover { box-shadow: var(--shadow-md); transform: translate(-2px, -2px); }
+    .preview-btn:active { box-shadow: 0 0 0 var(--text-primary); transform: translate(2px, 2px); }
+    @media (max-width: 768px) {
+      .playground-wrap { flex-direction: column; }
+      .playground-controls {
+        width: 100%; border-right: none;
+        border-bottom: 2px solid var(--border-subtle);
+      }
+      .playground-stage { min-height: 300px; }
+    }
+
+    /* ======================================================================
+       FOOTER
+       ====================================================================== */
+    .ds-footer {
+      text-align: center; padding: var(--space-12) var(--space-6);
+      color: var(--text-secondary); border-top: 2px dashed var(--border-subtle);
+    }
+    .ds-footer a {
+      color: var(--accent-primary-text); text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .ds-footer a:hover { color: var(--accent-primary); }
+
+    /* ======================================================================
+       BACK TO TOP
+       ====================================================================== */
+    .back-to-top {
+      position: fixed; bottom: var(--space-6); right: var(--space-6);
+      z-index: var(--z-fixed); width: 44px; height: 44px;
+      border-radius: var(--radius-sm); border: 2px solid var(--border-default);
+      background: var(--bg-elevated); color: var(--text-primary);
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      box-shadow: var(--shadow-md);
+      opacity: 0; pointer-events: none;
+      transition: opacity var(--motion-base) var(--ease-out), transform var(--motion-instant) linear,
+                  box-shadow var(--motion-instant) linear;
+    }
+    .back-to-top.visible { opacity: 1; pointer-events: auto; }
+    .back-to-top:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+    .back-to-top:active { transform: translateY(1px); box-shadow: none; }
+    .back-to-top svg { width: 20px; height: 20px; }
+
+    /* ======================================================================
+       KEYFRAMES — inside reduced motion guard
+       ====================================================================== */
+    @media (prefers-reduced-motion: no-preference) {
+      @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(16px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      .anim-in { opacity: 0; animation: fadeInUp 0.5s var(--ease-smooth) both; }
+      .anim-d1 { animation-delay: 0.06s; }
+      .anim-d2 { animation-delay: 0.12s; }
+      .anim-d3 { animation-delay: 0.18s; }
+      .anim-d4 { animation-delay: 0.24s; }
+      .anim-d5 { animation-delay: 0.30s; }
+      .anim-d6 { animation-delay: 0.36s; }
+
+      /* Gemini: Joy Stamp-In */
+      @keyframes joy-stamp-in {
+        0% { opacity: 0; filter: blur(8px); transform: scale(1.5) translateY(-12px) rotate(-6deg); }
+        35% { opacity: 1; filter: blur(0px); }
+        60% { transform: scale(0.92) translateY(3px) rotate(1.5deg); }
+        78% { transform: scale(1.04) translateY(-1px) rotate(-0.5deg); }
+        100% { opacity: 1; filter: blur(0px); transform: scale(1) translateY(0) rotate(0deg); }
+      }
+
+      /* Gemini: Liquid particles */
+      @keyframes liquid-pool-expand {
+        0% { transform: scale(0); opacity: 0; }
+        20% { opacity: 0.25; }
+        50% { transform: scale(1.2); opacity: 0.2; }
+        100% { transform: scale(1.8); opacity: 0; }
+      }
+      @keyframes liquid-blob-arc {
+        0% { transform: translate(0,0) scale(1); opacity: 0.7; }
+        50% { opacity: 0.5; }
+        100% { transform: translate(var(--tx),var(--ty)) scale(0.15); opacity: 0; }
+      }
+      @keyframes liquid-drip-arc {
+        0% { transform: translate(0,0) scale(1); opacity: 0.8; }
+        30% { transform: translate(calc(var(--dx) * 0.5), calc(var(--dy) * 0.3 - 20px)) scale(1.1); opacity: 0.7; }
+        60% { transform: translate(var(--dx), var(--dy)) scale(0.6); opacity: 0.4; }
+        100% { transform: translate(calc(var(--dx) * 1.2), calc(var(--dy) + 15px)) scale(0.1); opacity: 0; }
+      }
+
+      /* Gemini: Brutal burst */
+      @keyframes brutal-burst-spin {
+        0% { transform: translate(0,0) scale(1) rotate(0deg); opacity: 1; }
+        60% { opacity: 0.8; }
+        100% { transform: translate(var(--bx),var(--by)) scale(0) rotate(var(--br)); opacity: 0; }
+      }
+
+      /* Variations */
+      @keyframes word-fade-drift {
+        0% { opacity: 0; transform: translateY(8px); }
+        100% { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes word-slam-cascade {
+        0% { transform: translateY(-100px) rotate(10deg) scale(1.7); opacity: 0; }
+        45% { opacity: 1; }
+        70% { transform: translateY(6px) rotate(-1.5deg) scale(0.94); }
+        85% { transform: translateY(-2px) rotate(0.5deg) scale(1.02); }
+        100% { transform: translateY(0) rotate(0deg) scale(1); opacity: 1; }
+      }
+      @keyframes screen-shake {
+        0%, 100% { transform: translateX(0); }
+        20% { transform: translateX(-6px); }
+        40% { transform: translateX(5px); }
+        60% { transform: translateX(-3px); }
+        80% { transform: translateX(2px); }
+      }
+
+      /* New concepts */
+      @keyframes ink-splatter {
+        0% { clip-path: circle(0% at var(--ox,50%) var(--oy,50%)); opacity: 1; }
+        70% { clip-path: circle(120% at var(--ox,50%) var(--oy,50%)); opacity: 1; }
+        100% { clip-path: circle(120% at var(--ox,50%) var(--oy,50%)); opacity: 0; }
+      }
+      @keyframes gravity-cascade {
+        0% { transform: translateY(-120%) scaleY(1.3); opacity: 0; }
+        30% { opacity: 1; }
+        60% { transform: translateY(10px) scaleY(0.85); }
+        75% { transform: translateY(-4px) scaleY(1.05); }
+        100% { transform: translateY(0) scaleY(1); opacity: 1; }
+      }
+      @keyframes elastic-morph {
+        0% { border-radius: var(--radius-sm); transform: scaleX(1) scaleY(1); }
+        25% { border-radius: var(--radius-full); transform: scaleX(0.6) scaleY(1.4); }
+        50% { border-radius: var(--radius-full); transform: scaleX(1.2) scaleY(0.8); }
+        75% { border-radius: var(--radius-md); transform: scaleX(0.95) scaleY(1.05); }
+        100% { border-radius: var(--radius-sm); transform: scaleX(1) scaleY(1); }
+      }
+
+      /* Existing library */
+      @keyframes stamp-in {
+        0% { transform: scale(1.4) translateY(-20px); box-shadow: 0 0 0 transparent; opacity: 0; }
+        60% { opacity: 1; }
+        100% { transform: scale(1) translateY(0); box-shadow: var(--shadow-md); opacity: 1; }
+      }
+      @keyframes drop-in {
+        0% { transform: translateY(-60px) rotate(2deg); opacity: 0; }
+        50% { opacity: 1; }
+        100% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      }
+      @keyframes pop-stamp {
+        0% { transform: scale(0); border-radius: 50%; opacity: 0; }
+        60% { transform: scale(1.15); opacity: 1; }
+        100% { transform: scale(1); border-radius: var(--radius-md); opacity: 1; }
+      }
+      @keyframes text-stamp {
+        0% { transform: translateY(-20px); opacity: 0; }
+        100% { transform: translateY(0); opacity: 1; }
+      }
+      @keyframes ripple-stamp {
+        0% { transform: scale(0); opacity: 1; }
+        100% { transform: scale(4); opacity: 0; }
+      }
+      @keyframes confirm-thud {
+        0% { transform: scale(0); background-color: var(--accent-green-subtle); opacity: 0; }
+        50% { transform: scale(1.1); opacity: 1; }
+        70% { transform: scale(0.95); }
+        100% { transform: scale(1); opacity: 1; }
+      }
+      @keyframes spotlight {
+        0% { box-shadow: var(--shadow-md); }
+        50% { box-shadow: 0 0 0 6px var(--accent-primary); }
+        100% { box-shadow: var(--shadow-md); }
+      }
+      @keyframes spring-snap {
+        0% { transform: translateX(-100px); }
+        40% { transform: translateX(8px); }
+        60% { transform: translateX(-4px); }
+        80% { transform: translateX(2px); }
+        100% { transform: translateX(0); }
+      }
+      @keyframes rubber-band {
+        0% { transform: scaleX(1) scaleY(1); }
+        25% { transform: scaleX(1.3) scaleY(0.8); }
+        50% { transform: scaleX(0.85) scaleY(1.15); }
+        75% { transform: scaleX(1.05) scaleY(0.95); }
+        100% { transform: scaleX(1) scaleY(1); }
+      }
+      @keyframes morph-expand {
+        0% { border-radius: 50%; transform: scale(0.5); opacity: 0; }
+        50% { opacity: 1; }
+        100% { border-radius: var(--radius-md); transform: scale(1); opacity: 1; }
+      }
+      @keyframes error-jolt {
+        0% { transform: translateX(0); background-color: transparent; }
+        20% { transform: translateX(8px); background-color: var(--accent-danger-subtle); }
+        40% { transform: translateX(-8px); background-color: transparent; }
+        60% { transform: translateX(4px); }
+        80% { transform: translateX(-2px); }
+        100% { transform: translateX(0); }
+      }
+      @keyframes knock {
+        0% { transform: translateX(0); }
+        15% { transform: translateX(12px); }
+        30% { transform: translateX(-10px); }
+        50% { transform: translateX(6px); }
+        70% { transform: translateX(-3px); }
+        85% { transform: translateX(1px); }
+        100% { transform: translateX(0); }
+      }
+      @keyframes wiggle {
+        0% { transform: rotate(0deg); }
+        15% { transform: rotate(3deg); }
+        30% { transform: rotate(-3deg); }
+        50% { transform: rotate(2deg); }
+        70% { transform: rotate(-1deg); }
+        100% { transform: rotate(0deg); }
+      }
+      @keyframes gravity-fall {
+        0% { transform: translateY(0) rotate(0deg); box-shadow: var(--shadow-md); opacity: 1; }
+        30% { box-shadow: var(--shadow-lg); }
+        100% { transform: translateY(300px) rotate(12deg); box-shadow: none; opacity: 0; }
+      }
+      @keyframes idle-bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-4px); }
+      }
+      @keyframes pendulum {
+        0% { transform: rotate(0deg); }
+        25% { transform: rotate(3deg); }
+        50% { transform: rotate(0deg); }
+        75% { transform: rotate(-3deg); }
+        100% { transform: rotate(0deg); }
+      }
+    } /* end prefers-reduced-motion: no-preference */
+
+    /* ======================================================================
+       REDUCED MOTION — 3-layer defense
+       ====================================================================== */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .anim-in { opacity: 1; }
+    }
+    [data-reduced-motion="true"] *,
+    [data-reduced-motion="true"] *::before,
+    [data-reduced-motion="true"] *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+
+    /* SR only */
+    .sr-only {
+      position: absolute; width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0;
+    }
+
+    /* Print */
+    @media print {
+      .topnav, .back-to-top, .cmd-palette-overlay, .scroll-progress { display: none; }
+      body { background: oklch(1.00 0 0); color: oklch(0 0 0); }
+      .proposal-card, .motion-card, .variation-card { break-inside: avoid; box-shadow: none; border: 1px solid oklch(0.80 0 0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="scroll-progress" aria-hidden="true"></div>
+
+  <!-- NAV -->
+  <nav class="topnav" role="navigation" aria-label="Gemini preview navigation">
+    <div class="topnav-inner">
+      <a href="#" class="topnav-brand">
+        <span class="brand-dots">
+          <span class="brand-dot" style="background:var(--accent-primary)"></span>
+          <span class="brand-dot" style="background:var(--accent-gold)"></span>
+          <span class="brand-dot" style="background:var(--accent-cyan)"></span>
+        </span>
+        Delightful Gemini Preview
+      </a>
+      <ul class="nav-links">
+        <li><a href="#proposals">Proposals</a></li>
+        <li><a href="#variations">Variations</a></li>
+        <li><a href="#library">Library</a></li>
+        <li><a href="#playground">Playground</a></li>
+      </ul>
+      <div class="nav-right">
+        <kbd class="nav-kbd" id="cmd-k-trigger" title="Quick navigation">&#8984;K</kbd>
+        <button class="nav-btn" id="motion-toggle" aria-label="Toggle reduced motion">
+          <svg class="icon-motion-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14"/><polyline points="12 5 19 12 12 19"/></svg>
+          <svg class="icon-motion-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <button class="nav-btn" id="theme-toggle" aria-label="Toggle theme (light / dark / system)">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+          <svg class="icon-monitor" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+          </svg>
+        </button>
+        <a href="delightful-design-system.html" class="nav-btn" aria-label="Design System" title="Design System">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="page-wrap">
+
+    <!-- HERO -->
+    <section class="hero" id="hero">
+      <div class="hero-stage" id="hero-stage">
+        <div class="hero-stamp-text" id="hero-stamp-text">
+          <span class="word">Design</span>
+          <span class="word">with</span>
+          <span class="word joy-stamp">joy</span>
+        </div>
+      </div>
+      <h1 class="hero-title">Gemini Preview</h1>
+      <p class="hero-subtitle">Four new animation proposals for Delightful. Each one explored at three intensity levels, compared against the existing library, and combined in a live playground.</p>
+      <p class="hero-crosslink">Part of the <a href="delightful-design-system.html">Delightful Design System</a> &middot; <a href="delightful-motion.html">Motion</a> &middot; <a href="delightful-animation.html">Animation</a> &middot; <a href="delightful-color.html">Color</a></p>
+      <button class="replay-btn" id="hero-replay" aria-label="Replay hero animation">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+        Replay
+      </button>
+    </section>
+
+    <!-- ================================================================
+         SECTION 1: GEMINI PROPOSALS
+         ================================================================ -->
+    <section id="proposals" class="gp-section">
+      <div class="section-header">
+        <div class="section-overline"><span class="status-dot" style="background:var(--accent-primary)"></span> Section 01</div>
+        <h2 class="section-title">Gemini Proposals</h2>
+        <p class="section-desc">Four new animation concepts designed to bring extra delight and personality to the Delightful system.</p>
+      </div>
+
+      <div class="proposal-grid">
+
+        <!-- Proposal 1: joy-stamp-in -->
+        <div class="proposal-card" data-proposal="joy-stamp-in">
+          <span class="proposal-badge">01</span>
+          <div class="proposal-stage" id="proposal-stage-1">
+            <div class="hero-stamp-text" id="proposal-text-1" style="font-size:var(--step-3)">
+              <span class="word">Hello</span>
+              <span class="word joy-stamp">World</span>
+            </div>
+          </div>
+          <div class="proposal-body">
+            <div class="proposal-body-top">
+              <span class="proposal-name">joy-stamp-in</span>
+              <button class="play-btn" data-play="proposal-1">Play</button>
+            </div>
+            <div class="tags"><span class="tag">Entrance</span><span class="tag">Text</span><span class="tag">Gemini</span></div>
+            <p class="proposal-desc">Words appear sequentially with staggered timing. The final word lands with a heavy stamp — scale overshoot, rotation, blur dissolve, and bounce settle.</p>
+            <p class="proposal-meta">600ms &middot; ease-spring-bouncy</p>
+            <button class="code-toggle-btn" data-code="proposal-code-1">Show code</button>
+          </div>
+          <div class="proposal-code" id="proposal-code-1" hidden>
+            <pre><code>@keyframes joy-stamp-in {
+  0% { opacity: 0; filter: blur(8px); transform: scale(1.4) rotate(-6deg); }
+  40% { opacity: 1; filter: blur(0); }
+  65% { transform: scale(0.94) rotate(1deg); }
+  80% { transform: scale(1.03) rotate(-0.5deg); }
+  100% { opacity: 1; filter: blur(0); transform: scale(1) rotate(0); }
+}</code></pre>
+            <button class="copy-btn">Copy</button>
+          </div>
+        </div>
+
+        <!-- Proposal 2: liquid-paint-splash -->
+        <div class="proposal-card" data-proposal="liquid-paint-splash">
+          <span class="proposal-badge">02</span>
+          <div class="proposal-stage" id="proposal-stage-2">
+            <div class="demo-element demo-element-wide" style="position:relative;z-index:2">Splash</div>
+          </div>
+          <div class="proposal-body">
+            <div class="proposal-body-top">
+              <span class="proposal-name">liquid-paint-splash</span>
+              <button class="play-btn" data-play="proposal-2">Play</button>
+            </div>
+            <div class="tags"><span class="tag">Feedback</span><span class="tag">Particles</span><span class="tag">Gemini</span></div>
+            <p class="proposal-desc">Three color pools with mix-blend-mode expand and settle, accompanied by 25 particles — blobs arcing outward and drips falling with gravity.</p>
+            <p class="proposal-meta">800ms &middot; 3 pools + 25 particles</p>
+            <button class="code-toggle-btn" data-code="proposal-code-2">Show code</button>
+          </div>
+          <div class="proposal-code" id="proposal-code-2" hidden>
+            <pre><code>@keyframes liquid-pool-expand {
+  0% { transform: scale(0); opacity: 0; }
+  30% { opacity: 0.5; }
+  60% { transform: scale(1.15); opacity: 0.6; }
+  80% { transform: scale(0.95); }
+  100% { transform: scale(1); opacity: 0.45; }
+}
+@keyframes liquid-blob-arc {
+  0% { transform: translate(0,0) scale(1); opacity: 1; }
+  60% { opacity: 0.8; }
+  100% { transform: translate(var(--tx),var(--ty)) scale(0.2); opacity: 0; }
+}</code></pre>
+            <button class="copy-btn">Copy</button>
+          </div>
+        </div>
+
+        <!-- Proposal 3: magnetic-nav-pill -->
+        <div class="proposal-card" data-proposal="magnetic-nav-pill">
+          <span class="proposal-badge">03</span>
+          <div class="proposal-stage" id="proposal-stage-3">
+            <div class="mag-nav" id="mag-nav-demo">
+              <div class="mag-pill" id="mag-pill-demo"></div>
+              <a href="#" onclick="return false">Home</a>
+              <a href="#" onclick="return false">About</a>
+              <a href="#" onclick="return false">Work</a>
+              <a href="#" onclick="return false">Blog</a>
+              <a href="#" onclick="return false">Contact</a>
+            </div>
+          </div>
+          <div class="proposal-body">
+            <div class="proposal-body-top">
+              <span class="proposal-name">magnetic-nav-pill</span>
+              <button class="play-btn" data-play="proposal-3">Play</button>
+            </div>
+            <div class="tags"><span class="tag">Navigation</span><span class="tag">Spring</span><span class="tag">Gemini</span></div>
+            <p class="proposal-desc">An absolute-positioned pill element follows hovered navigation links with spring easing, creating a magnetic highlight effect.</p>
+            <p class="proposal-meta">240ms &middot; ease-spring-gentle</p>
+            <button class="code-toggle-btn" data-code="proposal-code-3">Show code</button>
+          </div>
+          <div class="proposal-code" id="proposal-code-3" hidden>
+            <pre><code>.mag-pill {
+  transition: transform var(--motion-base) var(--ease-spring-gentle),
+              width var(--motion-base) var(--ease-spring-gentle),
+              height var(--motion-base) var(--ease-spring-gentle);
+}
+// JS: on mouseenter, measure link rect, move pill</code></pre>
+            <button class="copy-btn">Copy</button>
+          </div>
+        </div>
+
+        <!-- Proposal 4: brutalist-shape-burst -->
+        <div class="proposal-card" data-proposal="brutalist-shape-burst">
+          <span class="proposal-badge">04</span>
+          <div class="proposal-stage" id="proposal-stage-4">
+            <button class="play-btn" id="burst-trigger" style="font-size:var(--ui-text-md);padding:var(--space-2) var(--space-5)">Click me!</button>
+          </div>
+          <div class="proposal-body">
+            <div class="proposal-body-top">
+              <span class="proposal-name">brutalist-shape-burst</span>
+              <button class="play-btn" data-play="proposal-4">Play</button>
+            </div>
+            <div class="tags"><span class="tag">Feedback</span><span class="tag">Particles</span><span class="tag">Gemini</span></div>
+            <p class="proposal-desc">Clicking spawns 12 circle and square particles that burst outward from the click point with rotation and fade.</p>
+            <p class="proposal-meta">600ms &middot; 12 particles</p>
+            <button class="code-toggle-btn" data-code="proposal-code-4">Show code</button>
+          </div>
+          <div class="proposal-code" id="proposal-code-4" hidden>
+            <pre><code>@keyframes brutal-burst-spin {
+  0% { transform: translate(0,0) scale(1) rotate(0); opacity: 1; }
+  60% { opacity: 0.8; }
+  100% { transform: translate(var(--bx),var(--by)) scale(0) rotate(var(--br)); opacity: 0; }
+}</code></pre>
+            <button class="copy-btn">Copy</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================================================================
+         SECTION 2: VARIATIONS
+         ================================================================ -->
+    <section id="variations" class="gp-section">
+      <div class="section-header">
+        <div class="section-overline"><span class="status-dot" style="background:var(--accent-gold)"></span> Section 02</div>
+        <h2 class="section-title">Variations</h2>
+        <p class="section-desc">Each proposal explored at three intensity levels — Low, Medium (the Gemini proposal), and Drastic.</p>
+      </div>
+
+      <!-- Joy Stamp-In Variations -->
+      <div class="variation-group">
+        <h3 class="variation-group-header">Joy Stamp-In</h3>
+        <div class="variation-strip">
+          <div class="variation-card" data-variation="stamp-low">
+            <div class="variation-card-stage" id="var-stamp-low-stage">
+              <div class="hero-stamp-text" style="font-size:var(--step-1)">
+                <span class="word">Fade</span>
+                <span class="word">Drift</span>
+              </div>
+            </div>
+            <div class="variation-card-body">
+              <div class="variation-card-top">
+                <span class="variation-card-name">Fade Drift</span>
+                <span class="intensity-badge intensity-low">Low</span>
+              </div>
+              <p class="variation-card-desc">Opacity + 8px translateY, no scale, 160ms ease-smooth</p>
+              <button class="play-btn" data-play="var-stamp-low" style="margin-top:var(--space-2);align-self:flex-start">Play</button>
+            </div>
+          </div>
+          <div class="variation-card" data-variation="stamp-medium">
+            <div class="variation-card-stage" id="var-stamp-med-stage">
+              <div class="hero-stamp-text" style="font-size:var(--step-1)">
+                <span class="word">Joy</span>
+                <span class="word joy-stamp">Stamp</span>
+              </div>
+            </div>
+            <div class="variation-card-body">
+              <div class="variation-card-top">
+                <span class="variation-card-name">Joy Stamp-In</span>
+                <span class="intensity-badge intensity-medium">Medium</span>
+              </div>
+              <p class="variation-card-desc">The Gemini proposal — scale(1.4), blur, rotate bounce</p>
+              <button class="play-btn" data-play="var-stamp-med" style="margin-top:var(--space-2);align-self:flex-start">Play</button>
+            </div>
+          </div>
+          <div class="variation-card" data-variation="stamp-drastic">
+            <div class="variation-card-stage" id="var-stamp-drastic-stage">
+              <div class="hero-stamp-text" style="font-size:var(--step-1)">
+                <span class="word">Slam</span>
+                <span class="word">Cascade</span>
+              </div>
+            </div>
+            <div class="variation-card-body">
+              <div class="variation-card-top">
+                <span class="variation-card-name">Slam Cascade</span>
+                <span class="intensity-badge intensity-drastic">Drastic</span>
+              </div>
+              <p class="variation-card-desc">translateY(-80px) + rotate(8deg) + scale(1.6) with screen-shake</p>
+              <button class="play-btn" data-play="var-stamp-drastic" style="margin-top:var(--space-2);align-self:flex-start">Play</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Liquid Paint Splash Variations -->
+      <div class="variation-group">
+        <h3 class="variation-group-header">Liquid Paint Splash</h3>
+        <div class="variation-strip">
+          <div class="variation-card" data-variation="splash-low">
+            <div class="variation-card-stage" id="var-splash-low-stage">
+              <div class="demo-element" style="position:relative;z-index:2">Ink</div>
+            </div>
+            <div class="variation-card-body">
+              <div class="variation-card-top">
+                <span class="variation-card-name">Ink Bleed</span>
+                <span class="intensity-badge intensity-low">Low</span>
+              </div>
+              <p class="variation-card-desc">3 pools only, no particles, low opacity</p>
+              <button class="play-btn" data-play="var-splash-low" style="margin-top:var(--space-2);align-self:flex-start">Play</button>
+            </div>
+          </div>
+          <div class="variation-card" data-variation="splash-medium">
+            <div class="variation-card-stage" id="var-splash-med-stage">
+              <div class="demo-element" style="position:relative;z-index:2">Splash</div>
+            </div>
+            <div class="variation-card-body">
+              <div class="variation-card-top">
+                <span class="variation-card-name">Liquid Splash</span>
+                <span class="intensity-badge intensity-medium">Medium</span>
+              </div>
+              <p class="variation-card-desc">The Gemini proposal — 3 pools + 25 particles</p>
+              <button class="play-btn" data-play="var-splash-med" style="margin-top:var(--space-2);align-self:flex-start">Play</button>
+            </div>
+          </div>
+          <div class="variation-card" data-variation="splash-drastic">
+            <div class="variation-card-stage" id="var-splash-drastic-stage">
+              <div class="demo-element" style="position:relative;z-index:2">Burst</div>
+            </div>
+            <div class="variation-card-body">
+              <div class="variation-card-top">
+                <span class="variation-card-name">Chromatic Burst</span>
+                <span class="intensity-badge intensity-drastic">Drastic</span>
+              </div>
+              <p class="variation-card-desc">40 particles, pools pulse, extra squash-stretch</p>
+              <button class="play-btn" data-play="var-splash-drastic" style="margin-top:var(--space-2);align-self:flex-start">Play</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Magnetic Nav Pill Variations -->
+      <div class="variation-group">
+        <h3 class="variation-group-header">Magnetic Nav Pill</h3>
+        <div class="variation-strip">
+          <div class="variation-card" data-variation="pill-low">
+            <div class="variation-card-stage" id="var-pill-low-stage">
+              <nav style="display:flex;gap:var(--space-3)">
+                <a href="#" onclick="return false" class="underline-link" style="font-size:var(--ui-text-sm);font-weight:600;color:var(--text-secondary);text-decoration:none;border-bottom:2px solid transparent;padding-bottom:2px;transition:border-color var(--motion-fast) var(--ease-out)">Home</a>
+                <a href="#" onclick="return false" class="underline-link" style="font-size:var(--ui-text-sm);font-weight:600;color:var(--text-secondary);text-decoration:none;border-bottom:2px solid transparent;padding-bottom:2px;transition:border-color var(--motion-fast) var(--ease-out)">About</a>
+                <a href="#" onclick="return false" class="underline-link" style="font-size:var(--ui-text-sm);font-weight:600;color:var(--text-secondary);text-decoration:none;border-bottom:2px solid transparent;padding-bottom:2px;transition:border-color var(--motion-fast) var(--ease-out)">Work</a>
+              </nav>
+            </div>
+            <div class="variation-card-body">
+              <div class="variation-card-top">
+                <span class="variation-card-name">Fade Underline</span>
+                <span class="intensity-badge intensity-low">Low</span>
+              </div>
+              <p class="variation-card-desc">border-bottom scaleX transition on hover</p>
+            </div>
+          </div>
+          <div class="variation-card" data-variation="pill-medium">
+            <div class="variation-card-stage" id="var-pill-med-stage">
+              <div class="mag-nav" id="mag-nav-var">
+                <div class="mag-pill" id="mag-pill-var"></div>
+                <a href="#" onclick="return false">Home</a>
+                <a href="#" onclick="return false">About</a>
+                <a href="#" onclick="return false">Work</a>
+              </div>
+            </div>
+            <div class="variation-card-body">
+              <div class="variation-card-top">
+                <span class="variation-card-name">Magnetic Pill</span>
+                <span class="intensity-badge intensity-medium">Medium</span>
+              </div>
+              <p class="variation-card-desc">The Gemini proposal — pill follows hovered links</p>
+            </div>
+          </div>
+          <div class="variation-card" data-variation="pill-drastic">
+            <div class="variation-card-stage" id="var-pill-drastic-stage">
+              <div class="mag-nav" id="mag-nav-drastic" style="gap:0">
+                <div class="mag-pill" id="mag-pill-drastic" style="background:var(--accent-primary);border-color:var(--border-default)"></div>
+                <a href="#" onclick="return false" style="color:var(--text-primary)">Home</a>
+                <a href="#" onclick="return false" style="color:var(--text-primary)">About</a>
+                <a href="#" onclick="return false" style="color:var(--text-primary)">Work</a>
+              </div>
+            </div>
+            <div class="variation-card-body">
+              <div class="variation-card-top">
+                <span class="variation-card-name">Elastic Morph</span>
+                <span class="intensity-badge intensity-drastic">Drastic</span>
+              </div>
+              <p class="variation-card-desc">Pill squashes during movement with accent-primary bg</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Brutalist Shape Burst Variations -->
+      <div class="variation-group">
+        <h3 class="variation-group-header">Brutalist Shape Burst</h3>
+        <div class="variation-strip">
+          <div class="variation-card" data-variation="burst-low">
+            <div class="variation-card-stage" id="var-burst-low-stage">
+              <button class="play-btn" data-play="var-burst-low" style="font-size:var(--ui-text-md);padding:var(--space-2) var(--space-4)">Ripple</button>
+            </div>
+            <div class="variation-card-body">
+              <div class="variation-card-top">
+                <span class="variation-card-name">Soft Ripple</span>
+                <span class="intensity-badge intensity-low">Low</span>
+              </div>
+              <p class="variation-card-desc">Single ripple ring expanding outward</p>
+            </div>
+          </div>
+          <div class="variation-card" data-variation="burst-medium">
+            <div class="variation-card-stage" id="var-burst-med-stage">
+              <button class="play-btn" data-play="var-burst-med" style="font-size:var(--ui-text-md);padding:var(--space-2) var(--space-4)">Burst</button>
+            </div>
+            <div class="variation-card-body">
+              <div class="variation-card-top">
+                <span class="variation-card-name">Shape Burst</span>
+                <span class="intensity-badge intensity-medium">Medium</span>
+              </div>
+              <p class="variation-card-desc">The Gemini proposal — 12 particles</p>
+            </div>
+          </div>
+          <div class="variation-card" data-variation="burst-drastic">
+            <div class="variation-card-stage" id="var-burst-drastic-stage">
+              <button class="play-btn" data-play="var-burst-drastic" style="font-size:var(--ui-text-md);padding:var(--space-2) var(--space-4)">Mega!</button>
+            </div>
+            <div class="variation-card-body">
+              <div class="variation-card-top">
+                <span class="variation-card-name">Mega Burst</span>
+                <span class="intensity-badge intensity-drastic">Drastic</span>
+              </div>
+              <p class="variation-card-desc">20 particles, 3 colors, ghost copies</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         SECTION 3: EXISTING LIBRARY
+         ================================================================ -->
+    <section id="library" class="gp-section">
+      <div class="section-header">
+        <div class="section-overline"><span class="status-dot" style="background:var(--accent-cyan)"></span> Section 03</div>
+        <h2 class="section-title">Existing Library</h2>
+        <p class="section-desc">Curated existing animations grouped as comparisons to the Gemini proposals.</p>
+      </div>
+
+      <!-- vs. Stamp-In -->
+      <div class="comparison-group">
+        <h4 class="comparison-label">vs. Joy Stamp-In</h4>
+        <div class="card-grid">
+          <div class="motion-card" data-animation="stamp-in">
+            <div class="motion-card-demo"><div class="demo-element">Stamp</div></div>
+            <div class="motion-card-body">
+              <div class="motion-card-top"><span class="motion-card-name">stamp-in</span><button class="play-btn" data-play="lib">Play</button></div>
+              <p class="motion-card-desc">Scale overshoot with shadow pop</p>
+              <p class="motion-card-meta">360ms &middot; ease-bounce</p>
+            </div>
+          </div>
+          <div class="motion-card" data-animation="pop-stamp">
+            <div class="motion-card-demo"><div class="demo-element">Pop</div></div>
+            <div class="motion-card-body">
+              <div class="motion-card-top"><span class="motion-card-name">pop-stamp</span><button class="play-btn" data-play="lib">Play</button></div>
+              <p class="motion-card-desc">Circle to rounded rectangle morph</p>
+              <p class="motion-card-meta">360ms &middot; ease-bounce</p>
+            </div>
+          </div>
+          <div class="motion-card" data-animation="drop-in">
+            <div class="motion-card-demo"><div class="demo-element">Drop</div></div>
+            <div class="motion-card-body">
+              <div class="motion-card-top"><span class="motion-card-name">drop-in</span><button class="play-btn" data-play="lib">Play</button></div>
+              <p class="motion-card-desc">Falls from above with slight rotation</p>
+              <p class="motion-card-meta">360ms &middot; ease-bounce</p>
+            </div>
+          </div>
+          <div class="motion-card" data-animation="text-stamp">
+            <div class="motion-card-demo"><div class="demo-element-text">Text</div></div>
+            <div class="motion-card-body">
+              <div class="motion-card-top"><span class="motion-card-name">text-stamp</span><button class="play-btn" data-play="lib">Play</button></div>
+              <p class="motion-card-desc">Characters drop in sequentially</p>
+              <p class="motion-card-meta">300ms &middot; ease-out</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- vs. Splash -->
+      <div class="comparison-group">
+        <h4 class="comparison-label">vs. Liquid Paint Splash</h4>
+        <div class="card-grid">
+          <div class="motion-card" data-animation="ripple-stamp">
+            <div class="motion-card-demo"><div class="demo-element" style="position:relative;overflow:hidden">Ripple</div></div>
+            <div class="motion-card-body">
+              <div class="motion-card-top"><span class="motion-card-name">ripple-stamp</span><button class="play-btn" data-play="lib">Play</button></div>
+              <p class="motion-card-desc">Expanding circle ripple from center</p>
+              <p class="motion-card-meta">600ms &middot; ease-out</p>
+            </div>
+          </div>
+          <div class="motion-card" data-animation="confirm-thud">
+            <div class="motion-card-demo"><div class="demo-element" style="background:var(--accent-green-subtle);border-color:var(--accent-green)">OK</div></div>
+            <div class="motion-card-body">
+              <div class="motion-card-top"><span class="motion-card-name">confirm-thud</span><button class="play-btn" data-play="lib">Play</button></div>
+              <p class="motion-card-desc">Scale bounce with color flash</p>
+              <p class="motion-card-meta">400ms &middot; ease-bounce</p>
+            </div>
+          </div>
+          <div class="motion-card" data-animation="spotlight">
+            <div class="motion-card-demo"><div class="demo-element">Spot</div></div>
+            <div class="motion-card-body">
+              <div class="motion-card-top"><span class="motion-card-name">spotlight</span><button class="play-btn" data-play="lib">Play</button></div>
+              <p class="motion-card-desc">Shadow pulses to ring highlight</p>
+              <p class="motion-card-meta">500ms &middot; ease-smooth</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- vs. Pill -->
+      <div class="comparison-group">
+        <h4 class="comparison-label">vs. Magnetic Nav Pill</h4>
+        <div class="card-grid">
+          <div class="motion-card" data-animation="spring-snap">
+            <div class="motion-card-demo"><div class="demo-element">Snap</div></div>
+            <div class="motion-card-body">
+              <div class="motion-card-top"><span class="motion-card-name">spring-snap</span><button class="play-btn" data-play="lib">Play</button></div>
+              <p class="motion-card-desc">Overshoots target then settles</p>
+              <p class="motion-card-meta">400ms &middot; ease-spring-gentle</p>
+            </div>
+          </div>
+          <div class="motion-card" data-animation="rubber-band">
+            <div class="motion-card-demo"><div class="demo-element">Band</div></div>
+            <div class="motion-card-body">
+              <div class="motion-card-top"><span class="motion-card-name">rubber-band</span><button class="play-btn" data-play="lib">Play</button></div>
+              <p class="motion-card-desc">Squash-stretch oscillation</p>
+              <p class="motion-card-meta">500ms &middot; ease-bounce</p>
+            </div>
+          </div>
+          <div class="motion-card" data-animation="morph-expand">
+            <div class="motion-card-demo"><div class="demo-element">Morph</div></div>
+            <div class="motion-card-body">
+              <div class="motion-card-top"><span class="motion-card-name">morph-expand</span><button class="play-btn" data-play="lib">Play</button></div>
+              <p class="motion-card-desc">Circle to rectangle shape shift</p>
+              <p class="motion-card-meta">400ms &middot; ease-smooth</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- vs. Burst -->
+      <div class="comparison-group">
+        <h4 class="comparison-label">vs. Brutalist Shape Burst</h4>
+        <div class="card-grid">
+          <div class="motion-card" data-animation="error-jolt">
+            <div class="motion-card-demo"><div class="demo-element" style="background:var(--accent-danger-subtle);border-color:var(--accent-danger)">ERR</div></div>
+            <div class="motion-card-body">
+              <div class="motion-card-top"><span class="motion-card-name">error-jolt</span><button class="play-btn" data-play="lib">Play</button></div>
+              <p class="motion-card-desc">Horizontal shake with danger flash</p>
+              <p class="motion-card-meta">500ms &middot; linear</p>
+            </div>
+          </div>
+          <div class="motion-card" data-animation="knock">
+            <div class="motion-card-demo"><div class="demo-element">Knock</div></div>
+            <div class="motion-card-body">
+              <div class="motion-card-top"><span class="motion-card-name">knock</span><button class="play-btn" data-play="lib">Play</button></div>
+              <p class="motion-card-desc">Decaying horizontal oscillation</p>
+              <p class="motion-card-meta">400ms &middot; linear</p>
+            </div>
+          </div>
+          <div class="motion-card" data-animation="wiggle">
+            <div class="motion-card-demo"><div class="demo-element">Wiggle</div></div>
+            <div class="motion-card-body">
+              <div class="motion-card-top"><span class="motion-card-name">wiggle</span><button class="play-btn" data-play="lib">Play</button></div>
+              <p class="motion-card-desc">Rotational oscillation</p>
+              <p class="motion-card-meta">500ms &middot; ease-out</p>
+            </div>
+          </div>
+          <div class="motion-card" data-animation="gravity-fall">
+            <div class="motion-card-demo"><div class="demo-element">Fall</div></div>
+            <div class="motion-card-body">
+              <div class="motion-card-top"><span class="motion-card-name">gravity-fall</span><button class="play-btn" data-play="lib">Play</button></div>
+              <p class="motion-card-desc">Falls off screen with rotation</p>
+              <p class="motion-card-meta">600ms &middot; ease-slam</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         SECTION 4: PLAYGROUND
+         ================================================================ -->
+    <section id="playground" class="gp-section">
+      <div class="section-header">
+        <div class="section-overline"><span class="status-dot" style="background:var(--accent-green)"></span> Section 04</div>
+        <h2 class="section-title">Playground</h2>
+        <p class="section-desc">Combine entrance, attention, and exit animations into a sequence. Pick from existing and Gemini animations.</p>
+      </div>
+
+      <div class="playground-wrap">
+        <div class="playground-controls">
+          <div>
+            <label for="pg-entrance">Entrance</label>
+            <select id="pg-entrance">
+              <option value="">-- none --</option>
+              <optgroup label="Gemini">
+                <option value="joy-stamp-in" selected>joy-stamp-in</option>
+                <option value="gravity-cascade">gravity-cascade</option>
+              </optgroup>
+              <optgroup label="Existing">
+                <option value="stamp-in">stamp-in</option>
+                <option value="drop-in">drop-in</option>
+                <option value="pop-stamp">pop-stamp</option>
+                <option value="spring-snap">spring-snap</option>
+                <option value="morph-expand">morph-expand</option>
+              </optgroup>
+            </select>
+          </div>
+          <div>
+            <label for="pg-attention">Attention <span style="color:var(--text-muted);font-weight:400">(optional)</span></label>
+            <select id="pg-attention">
+              <option value="" selected>-- none --</option>
+              <optgroup label="Gemini">
+                <option value="elastic-morph">elastic-morph</option>
+              </optgroup>
+              <optgroup label="Existing">
+                <option value="knock">knock</option>
+                <option value="wiggle">wiggle</option>
+                <option value="spotlight">spotlight</option>
+                <option value="rubber-band">rubber-band</option>
+                <option value="error-jolt">error-jolt</option>
+              </optgroup>
+            </select>
+          </div>
+          <div>
+            <label for="pg-exit">Exit <span style="color:var(--text-muted);font-weight:400">(optional)</span></label>
+            <select id="pg-exit">
+              <option value="" selected>-- none --</option>
+              <optgroup label="Existing">
+                <option value="gravity-fall">gravity-fall</option>
+              </optgroup>
+            </select>
+          </div>
+          <button class="preview-btn" id="pg-preview">Preview Sequence</button>
+        </div>
+        <div class="playground-stage" id="pg-stage">
+          <div class="playground-element" id="pg-element">Demo</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="ds-footer">
+      <div class="hero-dots" style="margin-bottom:var(--space-4)">
+        <span class="hero-dot" style="background:var(--accent-primary);width:8px;height:8px"></span>
+        <span class="hero-dot" style="background:var(--accent-gold);width:8px;height:8px"></span>
+        <span class="hero-dot" style="background:var(--accent-cyan);width:8px;height:8px"></span>
+      </div>
+      <p><strong>Delightful</strong> — Gemini Preview</p>
+      <p style="margin-top:var(--space-2)">Part of the <a href="delightful-design-system.html">Delightful Design System</a> &middot; <a href="delightful-motion.html">Motion</a> &middot; <a href="delightful-animation.html">Animation</a></p>
+    </footer>
+
+  </div><!-- .page-wrap -->
+
+  <!-- Back to top -->
+  <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+
+  <!-- Command palette -->
+  <div class="cmd-palette-overlay" id="cmd-palette-overlay">
+    <div class="cmd-palette" role="dialog" aria-label="Quick navigation">
+      <input class="cmd-palette-input" id="cmd-palette-input" type="text" placeholder="Jump to section..." autocomplete="off" />
+      <ul class="cmd-palette-list" id="cmd-palette-list" role="listbox"></ul>
+    </div>
+  </div>
+
+  <script>
+  (function() {
+    'use strict';
+
+    const html = document.documentElement;
+    const prefersReduced = () =>
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+      html.getAttribute('data-reduced-motion') === 'true';
+
+    /* ==================================================================
+       THEME TOGGLE (3-way: light -> dark -> system)
+       ================================================================== */
+    const prefersDarkMq = window.matchMedia('(prefers-color-scheme: dark)');
+    const savedMode = localStorage.getItem('delightful-theme-mode') || localStorage.getItem('delightful-theme') || 'system';
+
+    function applyThemeMode(mode) {
+      if (mode === 'system') {
+        html.setAttribute('data-theme', prefersDarkMq.matches ? 'dark' : 'light');
+        html.setAttribute('data-theme-mode', 'system');
+        localStorage.setItem('delightful-theme-mode', 'system');
+        localStorage.removeItem('delightful-theme');
+      } else {
+        html.setAttribute('data-theme', mode);
+        html.removeAttribute('data-theme-mode');
+        localStorage.setItem('delightful-theme-mode', mode);
+        localStorage.setItem('delightful-theme', mode);
+      }
+    }
+
+    applyThemeMode(savedMode === 'light' || savedMode === 'dark' ? savedMode : 'system');
+
+    prefersDarkMq.addEventListener('change', function() {
+      if (html.getAttribute('data-theme-mode') === 'system') {
+        html.setAttribute('data-theme', prefersDarkMq.matches ? 'dark' : 'light');
+      }
+    });
+
+    document.getElementById('theme-toggle').addEventListener('click', function() {
+      var current = localStorage.getItem('delightful-theme-mode') || 'system';
+      var next = current === 'light' ? 'dark' : current === 'dark' ? 'system' : 'light';
+      if (document.startViewTransition) {
+        document.startViewTransition(function() { applyThemeMode(next); });
+      } else {
+        applyThemeMode(next);
+      }
+    });
+
+    /* ==================================================================
+       MOTION TOGGLE
+       ================================================================== */
+    document.getElementById('motion-toggle').addEventListener('click', function() {
+      var current = html.getAttribute('data-reduced-motion') === 'true';
+      html.setAttribute('data-reduced-motion', current ? 'false' : 'true');
+    });
+
+    /* ==================================================================
+       BACK TO TOP
+       ================================================================== */
+    var backToTop = document.getElementById('back-to-top');
+    var heroSection = document.querySelector('.hero');
+    if (backToTop && heroSection) {
+      var observer = new IntersectionObserver(function(entries) {
+        backToTop.classList.toggle('visible', !entries[0].isIntersecting);
+      }, { threshold: 0 });
+      observer.observe(heroSection);
+      backToTop.addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    /* ==================================================================
+       COMMAND PALETTE
+       ================================================================== */
+    var cmdSections = [
+      { id: 'proposals', label: 'Gemini Proposals', color: 'var(--accent-primary)' },
+      { id: 'variations', label: 'Variations', color: 'var(--accent-gold)' },
+      { id: 'library', label: 'Existing Library', color: 'var(--accent-cyan)' },
+      { id: 'playground', label: 'Playground', color: 'var(--accent-green)' }
+    ];
+    var cmdOverlay = document.getElementById('cmd-palette-overlay');
+    var cmdInput = document.getElementById('cmd-palette-input');
+    var cmdList = document.getElementById('cmd-palette-list');
+    var cmdActiveIdx = 0;
+
+    function renderCmdList(filter) {
+      var q = (filter || '').toLowerCase();
+      var filtered = cmdSections.filter(function(s) {
+        return s.label.toLowerCase().includes(q) || s.id.toLowerCase().includes(q);
+      });
+      cmdList.innerHTML = '';
+      if (filtered.length === 0) {
+        cmdList.innerHTML = '<li class="cmd-palette-empty">No sections found</li>';
+        return;
+      }
+      filtered.forEach(function(s, i) {
+        var li = document.createElement('li');
+        li.className = 'cmd-palette-item' + (i === 0 ? ' active' : '');
+        li.setAttribute('role', 'option');
+        li.dataset.sectionId = s.id;
+        li.innerHTML = '<span class="cmd-section-dot" style="background:' + s.color + '"></span>' + s.label;
+        li.addEventListener('click', function() { navigateToSection(s.id); });
+        li.addEventListener('mouseenter', function() {
+          cmdList.querySelectorAll('.cmd-palette-item').forEach(function(el) { el.classList.remove('active'); });
+          li.classList.add('active');
+          cmdActiveIdx = i;
+        });
+        cmdList.appendChild(li);
+      });
+      cmdActiveIdx = 0;
+    }
+
+    function openCmdPalette() {
+      cmdOverlay.classList.add('active');
+      cmdInput.value = '';
+      renderCmdList('');
+      requestAnimationFrame(function() { requestAnimationFrame(function() { cmdInput.focus(); }); });
+    }
+
+    function closeCmdPalette() {
+      cmdOverlay.classList.remove('active');
+      cmdInput.value = '';
+    }
+
+    function navigateToSection(id) {
+      closeCmdPalette();
+      var el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    cmdInput.addEventListener('input', function() { renderCmdList(cmdInput.value); });
+    cmdInput.addEventListener('keydown', function(e) {
+      var items = cmdList.querySelectorAll('.cmd-palette-item');
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        cmdActiveIdx = Math.min(cmdActiveIdx + 1, items.length - 1);
+        items.forEach(function(el, i) { el.classList.toggle('active', i === cmdActiveIdx); });
+        if (items[cmdActiveIdx]) items[cmdActiveIdx].scrollIntoView({ block: 'nearest' });
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        cmdActiveIdx = Math.max(cmdActiveIdx - 1, 0);
+        items.forEach(function(el, i) { el.classList.toggle('active', i === cmdActiveIdx); });
+        if (items[cmdActiveIdx]) items[cmdActiveIdx].scrollIntoView({ block: 'nearest' });
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        var active = items[cmdActiveIdx];
+        if (active) navigateToSection(active.dataset.sectionId);
+      } else if (e.key === 'Escape') {
+        closeCmdPalette();
+      }
+    });
+
+    cmdOverlay.addEventListener('click', function(e) {
+      if (e.target === cmdOverlay) closeCmdPalette();
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        if (cmdOverlay.classList.contains('active')) closeCmdPalette();
+        else openCmdPalette();
+      }
+    });
+
+    document.getElementById('cmd-k-trigger').addEventListener('click', openCmdPalette);
+
+    /* ==================================================================
+       HERO STAMP SEQUENCE
+       ================================================================== */
+    function playStampSequence(container, onComplete) {
+      if (prefersReduced()) {
+        container.querySelectorAll('.word').forEach(function(w) { w.classList.add('visible'); });
+        if (onComplete) onComplete();
+        return;
+      }
+      var words = container.querySelectorAll('.word');
+      words.forEach(function(w) { w.classList.remove('visible'); w.style.animation = ''; });
+      void container.offsetWidth;
+
+      words.forEach(function(w, i) {
+        var delay = 200 + i * 80;
+        setTimeout(function() {
+          w.classList.add('visible');
+        }, delay);
+      });
+
+      // Fire liquid splash when joy word lands
+      var joyWord = container.querySelector('.word.joy-stamp');
+      if (joyWord) {
+        var joyDelay = 200 + (words.length - 1) * 80 + 250;
+        setTimeout(function() {
+          var splashContainer = container.offsetParent || container;
+          fireLiquidSplash(splashContainer, joyWord, { biasAngle: -Math.PI/6, biasSpread: Math.PI/2, maxDist: 55 });
+          if (onComplete) onComplete();
+        }, joyDelay);
+      } else {
+        if (onComplete) {
+          var totalDelay = 200 + (words.length - 1) * 80 + 400;
+          setTimeout(onComplete, totalDelay);
+        }
+      }
+    }
+
+    function replayHero() {
+      var container = document.getElementById('hero-stage');
+      playStampSequence(container.querySelector('.hero-stamp-text'));
+    }
+
+    document.getElementById('hero-replay').addEventListener('click', function() {
+      replayHero();
+    });
+
+    window.addEventListener('DOMContentLoaded', function() {
+      setTimeout(function() {
+        var heroText = document.getElementById('hero-stamp-text');
+        if (heroText) playStampSequence(heroText);
+      }, 300);
+    });
+
+    /* ==================================================================
+       LIQUID PAINT SPLASH
+       ================================================================== */
+    function fireLiquidSplash(container, target, config) {
+      if (prefersReduced()) return;
+      config = config || {};
+      var poolCount = config.poolCount || 3;
+      var blobCount = config.blobCount || 15;
+      var dripCount = config.dripCount || 10;
+      var maxDist = config.maxDist || 80;
+      // biasAngle: direction particles favor (radians, 0=right, -π/2=up)
+      // biasSpread: half-cone width (π/4 = 45deg each side = 90deg total cone)
+      var biasAngle = config.biasAngle;
+      var biasSpread = config.biasSpread != null ? config.biasSpread : Math.PI;
+      var hasBias = biasAngle != null;
+      function biasedAngle() {
+        if (!hasBias) return Math.random() * Math.PI * 2;
+        return biasAngle + (Math.random() - 0.5) * biasSpread;
+      }
+      var totalParticles = blobCount + dripCount;
+
+      var rect = target.getBoundingClientRect();
+      var cRect = container.getBoundingClientRect();
+      var cx = rect.left + rect.width / 2 - cRect.left;
+      var cy = rect.top + rect.height / 2 - cRect.top;
+
+      var poolColors = [
+        'oklch(0.85 0.12 350)',  /* soft pink */
+        'oklch(0.90 0.10 85)',   /* soft gold */
+        'oklch(0.85 0.08 210)'   /* soft cyan */
+      ];
+      var particleColors = [
+        'var(--accent-primary)', 'var(--accent-gold)', 'var(--accent-cyan)'
+      ];
+
+      // Pools
+      for (var p = 0; p < poolCount; p++) {
+        var pool = document.createElement('div');
+        pool.className = 'liquid-pool';
+        var size = 60 + Math.random() * 80;
+        pool.style.cssText =
+          'width:' + size + 'px;height:' + size + 'px;' +
+          'left:' + (cx - size/2 + (hasBias ? Math.cos(biasAngle)*20 : 0) + (Math.random()-0.5)*40) + 'px;' +
+          'top:' + (cy - size/2 + (hasBias ? Math.sin(biasAngle)*15 : 0) + (Math.random()-0.5)*30) + 'px;' +
+          'background:' + poolColors[p % poolColors.length] + ';' +
+          'animation:liquid-pool-expand 800ms var(--ease-smooth) both;' +
+          'animation-delay:' + (p * 60) + 'ms;';
+        container.appendChild(pool);
+        (function(el) {
+          setTimeout(function() { if (el.parentNode) el.parentNode.removeChild(el); }, 1600);
+        })(pool);
+      }
+
+      // Blobs
+      for (var b = 0; b < blobCount; b++) {
+        var blob = document.createElement('div');
+        blob.className = 'liquid-blob';
+        var bSize = 4 + Math.random() * 10;
+        var angle = biasedAngle();
+        var dist = maxDist * 0.3 + Math.random() * maxDist * 0.7;
+        var tx = Math.cos(angle) * dist;
+        var ty = Math.sin(angle) * dist;
+        blob.style.cssText =
+          'width:' + bSize + 'px;height:' + bSize + 'px;' +
+          'left:' + (cx - bSize/2) + 'px;top:' + (cy - bSize/2) + 'px;' +
+          'background:' + particleColors[b % particleColors.length] + ';' +
+          'border-radius:50%;' +
+          '--tx:' + tx + 'px;--ty:' + ty + 'px;' +
+          'animation:liquid-blob-arc ' + (500 + Math.random()*300) + 'ms var(--ease-out) both;' +
+          'animation-delay:' + (Math.random()*150) + 'ms;';
+        container.appendChild(blob);
+        (function(el) {
+          setTimeout(function() { if (el.parentNode) el.parentNode.removeChild(el); }, 1600);
+        })(blob);
+      }
+
+      // Drips — arc outward in all directions (joyful spray, not sad drip)
+      for (var d = 0; d < dripCount; d++) {
+        var drip = document.createElement('div');
+        drip.className = 'liquid-drip';
+        var dSize = 3 + Math.random() * 6;
+        var dAngle = biasedAngle();
+        var dDist = 30 + Math.random() * 60;
+        var dx = Math.cos(dAngle) * dDist;
+        var dy = Math.sin(dAngle) * dDist;
+        drip.style.cssText =
+          'width:' + dSize + 'px;height:' + (dSize * 1.3) + 'px;' +
+          'left:' + (cx - dSize/2) + 'px;top:' + (cy - dSize/2) + 'px;' +
+          'background:' + particleColors[d % particleColors.length] + ';' +
+          'border-radius:50%;' +
+          '--dx:' + dx + 'px;--dy:' + dy + 'px;' +
+          'animation:liquid-drip-arc ' + (400 + Math.random()*400) + 'ms var(--ease-out) both;' +
+          'animation-delay:' + (50 + Math.random()*150) + 'ms;';
+        container.appendChild(drip);
+        (function(el) {
+          setTimeout(function() { if (el.parentNode) el.parentNode.removeChild(el); }, 1600);
+        })(drip);
+      }
+    }
+
+    /* ==================================================================
+       BRUTALIST SHAPE BURST
+       ================================================================== */
+    function spawnBurst(container, x, y, config) {
+      if (prefersReduced()) return;
+      config = config || {};
+      var count = config.count || 12;
+      var colors = config.colors || ['var(--accent-primary)'];
+      var maxDist = config.maxDist || 80;
+      var duration = config.duration || 600;
+
+      var cRect = container.getBoundingClientRect();
+      var cx = x - cRect.left;
+      var cy = y - cRect.top;
+
+      var sizeClasses = [[4,8],[8,14],[14,20]]; // small, medium, large
+      for (var i = 0; i < count; i++) {
+        var particle = document.createElement('div');
+        var sc = sizeClasses[i % 3];
+        var size = sc[0] + Math.random() * (sc[1] - sc[0]);
+        var angle = (i / count) * Math.PI * 2 + (Math.random()-0.5)*0.5;
+        var dist = maxDist * (0.5 + Math.random()*0.5);
+        var bx = Math.cos(angle) * dist;
+        var by = Math.sin(angle) * dist;
+        var br = (Math.random()-0.5) * 720;
+        var isSquare = Math.random() > 0.5;
+        var isOutline = Math.random() > 0.65;
+        var delay = (i / count) * 80; // stagger cascade 0-80ms
+
+        particle.style.cssText =
+          'position:absolute;pointer-events:none;' +
+          'width:' + size + 'px;height:' + size + 'px;' +
+          'left:' + (cx - size/2) + 'px;top:' + (cy - size/2) + 'px;' +
+          'background:' + (isOutline ? 'transparent' : colors[i % colors.length]) + ';' +
+          'border:2px solid ' + (isOutline ? colors[i % colors.length] : 'var(--border-default)') + ';' +
+          'border-radius:' + (isSquare ? 'var(--radius-sm)' : '50%') + ';' +
+          '--bx:' + bx + 'px;--by:' + by + 'px;--br:' + br + 'deg;' +
+          'animation:brutal-burst-spin ' + duration + 'ms var(--ease-out) both;' +
+          'animation-delay:' + delay + 'ms;';
+        container.appendChild(particle);
+        (function(el) {
+          setTimeout(function() { if (el.parentNode) el.parentNode.removeChild(el); }, duration + 200);
+        })(particle);
+      }
+
+      // Ghost copies for drastic variant
+      if (config.ghosts) {
+        for (var g = 0; g < 3; g++) {
+          var ghost = document.createElement('div');
+          ghost.style.cssText =
+            'position:absolute;pointer-events:none;' +
+            'width:20px;height:20px;' +
+            'left:' + (cx - 10) + 'px;top:' + (cy - 10) + 'px;' +
+            'border:2px solid var(--accent-primary);border-radius:50%;' +
+            'animation:ripple-stamp 600ms var(--ease-out) both;' +
+            'animation-delay:' + (g * 100) + 'ms;opacity:0.5;';
+          container.appendChild(ghost);
+          (function(el) {
+            setTimeout(function() { if (el.parentNode) el.parentNode.removeChild(el); }, 1000);
+          })(ghost);
+        }
+      }
+    }
+
+    /* ==================================================================
+       MAGNETIC NAV PILL
+       ================================================================== */
+    function initMagneticPill(navEl, pillEl, drastic) {
+      var links = navEl.querySelectorAll('a');
+
+      links.forEach(function(link) {
+        link.addEventListener('mouseenter', function() {
+          var navRect = navEl.getBoundingClientRect();
+          var linkRect = link.getBoundingClientRect();
+          pillEl.style.width = linkRect.width + 'px';
+          pillEl.style.height = linkRect.height + 'px';
+          pillEl.style.transform = 'translate(' + (linkRect.left - navRect.left) + 'px, ' + (linkRect.top - navRect.top) + 'px)';
+          pillEl.classList.add('active');
+
+          if (drastic) {
+            pillEl.style.animation = 'elastic-morph 400ms var(--ease-spring-bouncy)';
+            pillEl.addEventListener('animationend', function() {
+              pillEl.style.animation = '';
+            }, { once: true });
+          }
+        });
+      });
+
+      navEl.addEventListener('mouseleave', function() {
+        pillEl.classList.remove('active');
+      });
+    }
+
+    // Init main demo pill
+    initMagneticPill(
+      document.getElementById('mag-nav-demo'),
+      document.getElementById('mag-pill-demo')
+    );
+
+    // Init variation pills
+    var varNav = document.getElementById('mag-nav-var');
+    var varPill = document.getElementById('mag-pill-var');
+    if (varNav && varPill) initMagneticPill(varNav, varPill);
+
+    var drasticNav = document.getElementById('mag-nav-drastic');
+    var drasticPill = document.getElementById('mag-pill-drastic');
+    if (drasticNav && drasticPill) initMagneticPill(drasticNav, drasticPill, true);
+
+    // Underline link hover for low-intensity variation
+    document.querySelectorAll('.underline-link').forEach(function(link) {
+      link.addEventListener('mouseenter', function() {
+        link.style.borderBottomColor = 'var(--accent-primary)';
+        link.style.color = 'var(--text-primary)';
+      });
+      link.addEventListener('mouseleave', function() {
+        link.style.borderBottomColor = 'transparent';
+        link.style.color = 'var(--text-secondary)';
+      });
+    });
+
+    /* ==================================================================
+       BURST TRIGGER (Proposal 4 interactive stage)
+       ================================================================== */
+    var burstTrigger = document.getElementById('burst-trigger');
+    if (burstTrigger) {
+      burstTrigger.addEventListener('click', function(e) {
+        var stage = document.getElementById('proposal-stage-4');
+        spawnBurst(stage, e.clientX, e.clientY, { count: 12, colors: ['var(--accent-primary)', 'var(--accent-gold)', 'var(--accent-cyan)'] });
+      });
+    }
+
+    /* ==================================================================
+       PLAY BUTTONS — Proposals
+       ================================================================== */
+    function replayProposal1() {
+      var text = document.getElementById('proposal-text-1');
+      if (text) playStampSequence(text);
+    }
+
+    function replayProposal2() {
+      var stage = document.getElementById('proposal-stage-2');
+      var target = stage.querySelector('.demo-element');
+      if (stage && target) fireLiquidSplash(stage, target);
+    }
+
+    function replayProposal3() {
+      // Simulate hover sequence on magnetic nav
+      var nav = document.getElementById('mag-nav-demo');
+      var pill = document.getElementById('mag-pill-demo');
+      var links = nav.querySelectorAll('a');
+      links.forEach(function(link, i) {
+        setTimeout(function() {
+          link.dispatchEvent(new MouseEvent('mouseenter', { bubbles: true }));
+        }, i * 300);
+      });
+      setTimeout(function() {
+        nav.dispatchEvent(new MouseEvent('mouseleave', { bubbles: true }));
+      }, links.length * 300 + 500);
+    }
+
+    function replayProposal4() {
+      var stage = document.getElementById('proposal-stage-4');
+      var btn = document.getElementById('burst-trigger');
+      var rect = btn.getBoundingClientRect();
+      spawnBurst(stage, rect.left + rect.width/2, rect.top + rect.height/2, {
+        count: 12,
+        colors: ['var(--accent-primary)', 'var(--accent-gold)', 'var(--accent-cyan)']
+      });
+    }
+
+    /* ==================================================================
+       PLAY BUTTONS — Generic handler
+       ================================================================== */
+    document.querySelectorAll('[data-play]').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        var playId = btn.dataset.play;
+
+        // Proposal plays
+        if (playId === 'proposal-1') { replayProposal1(); return; }
+        if (playId === 'proposal-2') { replayProposal2(); return; }
+        if (playId === 'proposal-3') { replayProposal3(); return; }
+        if (playId === 'proposal-4') { replayProposal4(); return; }
+
+        // Variation plays — stamp
+        if (playId === 'var-stamp-low') {
+          var stage = document.getElementById('var-stamp-low-stage');
+          var words = stage.querySelectorAll('.word');
+          words.forEach(function(w) { w.classList.remove('visible'); w.style.animation = ''; });
+          void stage.offsetWidth;
+          words.forEach(function(w, i) {
+            setTimeout(function() {
+              w.style.animation = 'word-fade-drift 160ms var(--ease-smooth) both';
+              w.classList.add('visible');
+            }, 100 + i * 60);
+          });
+          return;
+        }
+        if (playId === 'var-stamp-med') {
+          var stageM = document.getElementById('var-stamp-med-stage');
+          playStampSequence(stageM.querySelector('.hero-stamp-text'));
+          return;
+        }
+        if (playId === 'var-stamp-drastic') {
+          var stageD = document.getElementById('var-stamp-drastic-stage');
+          var wordsD = stageD.querySelectorAll('.word');
+          wordsD.forEach(function(w) { w.style.animation = ''; w.style.opacity = '0'; });
+          void stageD.offsetWidth;
+          wordsD.forEach(function(w, i) {
+            setTimeout(function() {
+              w.style.animation = 'word-slam-cascade 500ms var(--ease-bounce) both';
+              w.style.opacity = '1';
+            }, 100 + i * 120);
+          });
+          // Screen shake
+          setTimeout(function() {
+            stageD.style.animation = 'screen-shake 300ms linear';
+            stageD.addEventListener('animationend', function() {
+              stageD.style.animation = '';
+            }, { once: true });
+          }, 100 + wordsD.length * 120);
+          return;
+        }
+
+        // Variation plays — splash
+        if (playId === 'var-splash-low') {
+          var sLow = document.getElementById('var-splash-low-stage');
+          var tLow = sLow.querySelector('.demo-element');
+          fireLiquidSplash(sLow, tLow, { poolCount: 3, blobCount: 0, dripCount: 0 });
+          return;
+        }
+        if (playId === 'var-splash-med') {
+          var sMed = document.getElementById('var-splash-med-stage');
+          var tMed = sMed.querySelector('.demo-element');
+          fireLiquidSplash(sMed, tMed);
+          return;
+        }
+        if (playId === 'var-splash-drastic') {
+          var sDra = document.getElementById('var-splash-drastic-stage');
+          var tDra = sDra.querySelector('.demo-element');
+          fireLiquidSplash(sDra, tDra, { poolCount: 3, blobCount: 40, dripCount: 15, maxDist: 140 });
+          return;
+        }
+
+        // Variation plays — burst
+        if (playId === 'var-burst-low') {
+          var bLow = btn.closest('.variation-card-stage') || document.getElementById('var-burst-low-stage');
+          var bRect = btn.getBoundingClientRect();
+          // Single ripple
+          var ripple = document.createElement('div');
+          ripple.style.cssText =
+            'position:absolute;pointer-events:none;' +
+            'width:20px;height:20px;border-radius:50%;' +
+            'left:' + (bRect.left + bRect.width/2 - bLow.getBoundingClientRect().left - 10) + 'px;' +
+            'top:' + (bRect.top + bRect.height/2 - bLow.getBoundingClientRect().top - 10) + 'px;' +
+            'border:2px solid var(--accent-primary);' +
+            'animation:ripple-stamp 600ms var(--ease-out) both;';
+          bLow.appendChild(ripple);
+          setTimeout(function() { if (ripple.parentNode) ripple.parentNode.removeChild(ripple); }, 800);
+          return;
+        }
+        if (playId === 'var-burst-med') {
+          var bMed = document.getElementById('var-burst-med-stage');
+          var bMRect = btn.getBoundingClientRect();
+          spawnBurst(bMed, bMRect.left + bMRect.width/2, bMRect.top + bMRect.height/2, {
+            count: 12, colors: ['var(--accent-primary)']
+          });
+          return;
+        }
+        if (playId === 'var-burst-drastic') {
+          var bDra = document.getElementById('var-burst-drastic-stage');
+          var bDRect = btn.getBoundingClientRect();
+          spawnBurst(bDra, bDRect.left + bDRect.width/2, bDRect.top + bDRect.height/2, {
+            count: 20,
+            colors: ['var(--accent-primary)', 'var(--accent-gold)', 'var(--accent-cyan)'],
+            maxDist: 100,
+            ghosts: true
+          });
+          return;
+        }
+
+        // Library card plays
+        if (playId === 'lib') {
+          var card = btn.closest('.motion-card');
+          if (!card) return;
+          var animName = card.dataset.animation;
+          var demos = card.querySelectorAll('.demo-element, .demo-element-text');
+          demos.forEach(function(el) {
+            var cls = 'anim-' + animName;
+            el.style.animation = '';
+            void el.offsetWidth;
+
+            var animMap = {
+              'stamp-in': 'stamp-in 360ms var(--ease-bounce) both',
+              'pop-stamp': 'pop-stamp 360ms var(--ease-bounce) both',
+              'drop-in': 'drop-in 360ms var(--ease-bounce) both',
+              'text-stamp': 'text-stamp 300ms var(--ease-out) both',
+              'ripple-stamp': 'ripple-stamp 600ms var(--ease-out) both',
+              'confirm-thud': 'confirm-thud 400ms var(--ease-bounce) both',
+              'spotlight': 'spotlight 500ms var(--ease-smooth) both',
+              'spring-snap': 'spring-snap 400ms var(--ease-spring-gentle) both',
+              'rubber-band': 'rubber-band 500ms var(--ease-bounce) both',
+              'morph-expand': 'morph-expand 400ms var(--ease-smooth) both',
+              'error-jolt': 'error-jolt 500ms linear both',
+              'knock': 'knock 400ms linear both',
+              'wiggle': 'wiggle 500ms var(--ease-out) both',
+              'gravity-fall': 'gravity-fall 600ms var(--ease-slam) both'
+            };
+
+            el.style.animation = animMap[animName] || animName + ' 400ms var(--ease-out) both';
+            el.addEventListener('animationend', function handler() {
+              // Reset gravity-fall
+              if (animName === 'gravity-fall') {
+                setTimeout(function() {
+                  el.style.animation = '';
+                  el.style.opacity = '1';
+                  el.style.transform = '';
+                }, 500);
+              } else {
+                el.style.animation = '';
+              }
+              el.removeEventListener('animationend', handler);
+            });
+          });
+          return;
+        }
+      });
+    });
+
+    /* ==================================================================
+       CODE TOGGLE + COPY
+       ================================================================== */
+    document.querySelectorAll('.code-toggle-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var codeId = btn.dataset.code;
+        var codeEl = document.getElementById(codeId);
+        if (!codeEl) return;
+        var isHidden = codeEl.hidden;
+        codeEl.hidden = !isHidden;
+        btn.textContent = isHidden ? 'Hide code' : 'Show code';
+      });
+    });
+
+    document.querySelectorAll('.copy-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var pre = btn.closest('.proposal-code, .motion-card-code');
+        if (!pre) return;
+        var code = pre.querySelector('code');
+        if (!code) return;
+        navigator.clipboard.writeText(code.textContent).then(function() {
+          btn.textContent = 'Copied!';
+          setTimeout(function() { btn.textContent = 'Copy'; }, 1500);
+        });
+      });
+    });
+
+    /* ==================================================================
+       PLAYGROUND
+       ================================================================== */
+    var pgPreview = document.getElementById('pg-preview');
+    var pgElement = document.getElementById('pg-element');
+
+    var pgAnimMap = {
+      'joy-stamp-in': 'joy-stamp-in 600ms var(--ease-spring-bouncy) both',
+      'gravity-cascade': 'gravity-cascade 500ms var(--ease-bounce) both',
+      'stamp-in': 'stamp-in 360ms var(--ease-bounce) both',
+      'drop-in': 'drop-in 360ms var(--ease-bounce) both',
+      'pop-stamp': 'pop-stamp 360ms var(--ease-bounce) both',
+      'spring-snap': 'spring-snap 400ms var(--ease-spring-gentle) both',
+      'morph-expand': 'morph-expand 400ms var(--ease-smooth) both',
+      'elastic-morph': 'elastic-morph 600ms var(--ease-spring-bouncy) both',
+      'knock': 'knock 400ms linear both',
+      'wiggle': 'wiggle 500ms var(--ease-out) both',
+      'spotlight': 'spotlight 500ms var(--ease-smooth) both',
+      'rubber-band': 'rubber-band 500ms var(--ease-bounce) both',
+      'error-jolt': 'error-jolt 500ms linear both',
+      'gravity-fall': 'gravity-fall 600ms var(--ease-slam) both'
+    };
+
+    pgPreview.addEventListener('click', function() {
+      var entrance = document.getElementById('pg-entrance').value;
+      var attention = document.getElementById('pg-attention').value;
+      var exit = document.getElementById('pg-exit').value;
+
+      // Reset
+      pgElement.style.animation = '';
+      pgElement.style.opacity = '1';
+      pgElement.style.transform = '';
+      void pgElement.offsetWidth;
+
+      var steps = [];
+      if (entrance) steps.push(entrance);
+      if (attention) steps.push(attention);
+      if (exit) steps.push(exit);
+
+      function playStep(index) {
+        if (index >= steps.length) return;
+        var anim = steps[index];
+        pgElement.style.animation = '';
+        void pgElement.offsetWidth;
+        pgElement.style.animation = pgAnimMap[anim] || anim + ' 400ms var(--ease-out) both';
+        pgElement.addEventListener('animationend', function handler() {
+          pgElement.removeEventListener('animationend', handler);
+          if (anim === 'gravity-fall') {
+            setTimeout(function() {
+              pgElement.style.animation = '';
+              pgElement.style.opacity = '1';
+              pgElement.style.transform = '';
+            }, 800);
+            return;
+          }
+          // Wait a beat then play next step
+          if (index + 1 < steps.length) {
+            setTimeout(function() { playStep(index + 1); }, 300);
+          }
+        });
+      }
+      playStep(0);
+    });
+
+  })();
+  </script>
+</body>
+</html>

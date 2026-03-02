@@ -97,7 +97,7 @@ Raw oklch values. Named by scale, no semantic meaning. **Never use directly in c
 **Backgrounds:**
 | Token | Value |
 |---|---|
-| `--bg-page` | `oklch(0.982 0.008 70)` — warm cream |
+| `--bg-page` | `oklch(0.982 0.008 70)` — warm peach cream |
 | `--bg-surface` | `oklch(0.995 0.004 70)` |
 | `--bg-elevated` | `oklch(1.00 0.00 0)` |
 | `--bg-subtle` | `oklch(0.965 0.012 70)` |
@@ -115,8 +115,8 @@ Raw oklch values. Named by scale, no semantic meaning. **Never use directly in c
 **Borders:**
 | Token | Value |
 |---|---|
-| `--border-default` | `var(--text-primary)` |
-| `--border-strong` | `var(--text-primary)` |
+| `--border-default` | `oklch(0.340 0.025 60)` |
+| `--border-strong` | `oklch(0.250 0.020 60)` |
 | `--border-subtle` | `oklch(0.820 0.015 70)` |
 
 Note: In dark mode, `--border-default` is muted (`oklch(0.550 0.010 65)`) to reduce visual noise. Use `--border-strong` for intentional emphasis.
@@ -142,9 +142,9 @@ Note: In dark mode, `--border-default` is muted (`oklch(0.550 0.010 65)`) to red
 **Shadows (solid, no blur — neo-brutalist):**
 | Token | Value |
 |---|---|
-| `--shadow-sm` | `2px 2px 0 var(--text-primary)` |
-| `--shadow-md` | `4px 4px 0 var(--text-primary)` |
-| `--shadow-lg` | `8px 8px 0 var(--text-primary)` |
+| `--shadow-sm` | `2px 2px 0 var(--border-default)` |
+| `--shadow-md` | `4px 4px 0 var(--border-default)` |
+| `--shadow-lg` | `8px 8px 0 var(--border-default)` |
 | `--shadow-pink` | `4px 4px 0 var(--accent-primary)` |
 | `--shadow-danger` | `4px 4px 0 var(--accent-danger)` |
 | `--shadow-gold` | `4px 4px 0 var(--accent-gold)` |
@@ -170,7 +170,7 @@ Note: In dark mode, `--border-default` is muted (`oklch(0.550 0.010 65)`) to red
 | `--text-secondary` | `oklch(0.690 0.012 70)` |
 | `--text-muted` | `oklch(0.540 0.010 70)` |
 | `--text-on-accent` | `oklch(1.00 0.000 0)` |
-| `--text-on-gold` | `oklch(0.140 0.014 65)` |
+| `--text-on-gold` | `oklch(0.160 0.014 65)` |
 
 **Borders:**
 | Token | Value |

@@ -145,7 +145,7 @@
     "statusBar.foreground": "#a09a94",
     "statusBar.border": "#3b342d",
     "statusBar.debuggingBackground": "#fdc010",
-    "statusBar.debuggingForeground": "#0d0804",
+    "statusBar.debuggingForeground": "#120c07",
     "statusBar.noFolderBackground": "#16100c",
     "statusBar.noFolderForeground": "#a09a94",
     "statusBarItem.hoverBackground": "#ede9e41a",
@@ -155,7 +155,7 @@
     "statusBarItem.errorBackground": "#f44f5d",
     "statusBarItem.errorForeground": "#ffffff",
     "statusBarItem.warningBackground": "#fdc010",
-    "statusBarItem.warningForeground": "#0d0804",
+    "statusBarItem.warningForeground": "#120c07",
     "statusBarItem.prominentBackground": "#ff4fb2",
     "statusBarItem.prominentForeground": "#ffffff",
     "button.background": "#ff4fb2",
@@ -366,7 +366,7 @@
         "string.quoted"
       ],
       "settings": {
-        "foreground": "#ffcc5a"
+        "foreground": "#ffcc59"
       }
     },
     {
@@ -467,7 +467,7 @@
         "entity.other.attribute-name"
       ],
       "settings": {
-        "foreground": "#ffcc5a"
+        "foreground": "#ffcc59"
       }
     },
     {

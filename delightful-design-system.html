@@ -96,8 +96,8 @@
       --text-on-accent: oklch(1.00 0.000 0);
       --text-on-gold: oklch(0.220 0.020 70);
 
-      --border-default: var(--text-primary);
-      --border-strong: var(--text-primary);
+      --border-default: oklch(0.340 0.025 60);
+      --border-strong: oklch(0.250 0.020 60);
       --border-subtle: oklch(0.820 0.015 70);
 
       /* Vibrant Accents — Warm Palette */
@@ -114,7 +114,7 @@
       --accent-danger-text: oklch(0.570 0.220 20);
 
       --accent-gold: oklch(0.840 0.175 85);
-      /* Warm gold */
+      /* Bright gold — highlight accent */
       --accent-gold-hover: oklch(0.820 0.165 84);
       --accent-gold-subtle: oklch(0.965 0.060 85);
       --accent-gold-text: oklch(0.560 0.170 85);
@@ -146,9 +146,9 @@
       --overlay-bg: oklch(0.200 0.015 60 / 0.30);
 
       /* Neo-Brutalist Solid Shadows */
-      --shadow-sm: 2px 2px 0 var(--text-primary);
-      --shadow-md: 4px 4px 0 var(--text-primary);
-      --shadow-lg: 8px 8px 0 var(--text-primary);
+      --shadow-sm: 2px 2px 0 var(--border-default);
+      --shadow-md: 4px 4px 0 var(--border-default);
+      --shadow-lg: 8px 8px 0 var(--border-default);
       --shadow-pink: 4px 4px 0 var(--accent-primary);
       --shadow-danger: 4px 4px 0 var(--accent-danger);
       --shadow-gold: 4px 4px 0 var(--accent-gold);
@@ -350,6 +350,14 @@
       --container-sm: 640px;
       --container-md: 960px;
       --container-lg: 1200px;
+
+      /* Data Visualization Palette — 6 distinct chart colors from accent families */
+      --chart-1: var(--accent-primary);
+      --chart-2: var(--accent-gold);
+      --chart-3: var(--accent-cyan);
+      --chart-4: var(--accent-green);
+      --chart-5: var(--accent-purple);
+      --chart-6: var(--accent-danger);
     }
     } /* end @layer component (tokens) */
 
@@ -377,13 +385,13 @@
       color: var(--text-primary);
       background: var(--bg-page);
       -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
+      -moz-osx-font-smoothing: auto;
       font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     }
 
     :focus-visible {
       outline: 2px solid var(--focus-ring);
-      outline-offset: 2px;
+      outline-offset: -2px;
     }
     } /* end @layer reset */
 
@@ -411,26 +419,6 @@
 
         to {
           opacity: 1;
-        }
-      }
-
-      @keyframes float {
-
-        0%,
-        100% {
-          transform: translate(0, 0);
-        }
-
-        25% {
-          transform: translate(5px, -8px);
-        }
-
-        50% {
-          transform: translate(-3px, -12px);
-        }
-
-        75% {
-          transform: translate(7px, -5px);
         }
       }
 
@@ -672,20 +660,6 @@
         transition: background-color var(--motion-fast) var(--ease-out);
       }
 
-      .float-1 {
-        animation: float 9s ease-in-out infinite;
-      }
-
-      .float-2 {
-        animation: float 11s ease-in-out infinite reverse;
-        animation-delay: -4s;
-      }
-
-      .float-3 {
-        animation: float 13s ease-in-out infinite;
-        animation-delay: -7s;
-      }
-
       .feedback-enter {
         animation: scale-in var(--motion-fast) var(--ease-out) forwards;
       }
@@ -720,7 +694,7 @@
       top: 0;
       left: 0;
       right: 0;
-      height: 2px;
+      height: 3px;
       background: var(--accent-primary);
       transform-origin: left;
       transform: scaleX(0);
@@ -730,18 +704,14 @@
     @supports (animation-timeline: scroll()) {
       @media (prefers-reduced-motion: no-preference) {
         .scroll-progress {
-          animation: grow-bar linear;
+          animation: scroll-progress-fill linear;
           animation-timeline: scroll();
         }
 
-        @keyframes grow-bar {
-          from {
-            transform: scaleX(0);
-          }
-
-          to {
-            transform: scaleX(1);
-          }
+        @keyframes scroll-progress-fill {
+          0% { transform: scaleX(0); background-color: var(--accent-primary); }
+          99% { background-color: var(--accent-primary); }
+          100% { transform: scaleX(1); background-color: var(--accent-green); }
         }
 
         .scroll-reveal {
@@ -763,11 +733,6 @@
 
     .ds-section {
       padding: var(--space-20) 0;
-      border-bottom: 2px dashed var(--border-subtle);
-
-      &:last-of-type {
-        border-bottom: none;
-      }
     }
 
     .section-header {
@@ -811,6 +776,7 @@
       letter-spacing: var(--tracking-tighter);
       line-height: var(--leading-tight);
       margin-bottom: var(--space-3);
+      text-wrap: balance;
     }
 
     .section-desc {
@@ -818,6 +784,7 @@
       color: var(--text-secondary);
       max-width: 640px;
       line-height: var(--leading-relaxed);
+      text-wrap: pretty;
     }
 
     .subsection {
@@ -859,6 +826,8 @@
       grid-template-columns: repeat(3, 1fr);
       gap: var(--space-6);
       container-type: inline-size;
+      padding-right: 10px;
+      padding-bottom: 10px;
     }
 
     .grid-4 {
@@ -866,6 +835,8 @@
       grid-template-columns: repeat(4, 1fr);
       gap: var(--space-4);
       container-type: inline-size;
+      padding-right: 10px;
+      padding-bottom: 10px;
     }
 
     /* Container query responsive grids — adapt to container, not viewport */
@@ -890,7 +861,7 @@
     .grid-4:has(.card-interactive:hover) .card:not(:hover) {
       opacity: 0.7;
       transform: translate(2px, 2px);
-      box-shadow: 0 0 0 var(--text-primary);
+      box-shadow: 0 0 0 var(--border-default);
       filter: grayscale(0.8);
     }
 
@@ -953,23 +924,6 @@
         padding: var(--space-3) var(--space-4);
       }
 
-      .tilt-container {
-        perspective: none;
-      }
-
-      .tilt-card {
-        transform: none !important;
-      }
-
-      .tilt-title,
-      .tilt-desc,
-      .tilt-badge {
-        transform: none;
-      }
-
-      .spotlight-panel {
-        height: 220px;
-      }
     }
 
     @media (max-width: 480px) {
@@ -1007,9 +961,6 @@
         justify-content: center;
       }
 
-      .spotlight-panel {
-        height: 180px;
-      }
 
       .section-header {
         margin-bottom: var(--space-6);
@@ -1100,17 +1051,6 @@
       gap: var(--space-4);
     }
 
-    .topnav-brand {
-      font-weight: 720;
-      font-size: var(--step-0);
-      color: var(--text-primary);
-      letter-spacing: var(--tracking-tight);
-      display: flex;
-      align-items: center;
-      gap: var(--space-2);
-      text-decoration: none;
-    }
-
     .brand-dots {
       display: flex;
       gap: 3px;
@@ -1164,7 +1104,7 @@
       flex-shrink: 0;
     }
 
-    .theme-btn {
+    .topnav-btn {
       width: 34px;
       height: 34px;
       display: flex;
@@ -1195,7 +1135,7 @@
       }
     }
 
-    .nav-toggle-btn {
+    .topnav-toggle {
       display: none;
       width: 34px;
       height: 34px;
@@ -1224,8 +1164,18 @@
       }
     }
 
+    .topnav-kbd {
+      font-size: var(--ui-text-xs); font-family: var(--font-sans);
+      padding: 2px var(--space-1); border-radius: 4px;
+      border: 2px solid var(--border-subtle); background: var(--bg-subtle);
+      color: var(--text-muted); cursor: pointer; white-space: nowrap;
+      transition: transform var(--motion-instant) linear, border-color var(--motion-fast) var(--ease-out);
+    }
+    .topnav-kbd:hover { border-color: var(--border-default); }
+    .topnav-kbd:active { transform: translateY(1px); }
+
     @media (max-width: 900px) {
-      .nav-toggle-btn {
+      .topnav-toggle {
         display: flex;
       }
 
@@ -1265,34 +1215,48 @@
       padding: var(--space-20) 0 var(--space-16);
       text-align: center;
       position: relative;
-      overflow: hidden;
+      overflow: visible;
       min-height: 100dvh;
       display: flex;
       flex-direction: column;
       justify-content: center;
     }
 
-    .hero-title-text {
+    .hero-title {
       font-size: var(--step-5);
       font-weight: 800;
       letter-spacing: var(--tracking-tightest);
       line-height: var(--leading-none);
       margin-bottom: var(--space-6);
+      text-wrap: balance;
+    }
 
-      & .word {
-        display: inline-block;
-        opacity: 0;
-        filter: blur(4px);
-        transform: translateY(16px);
-      }
+    .hero-title .word {
+      display: inline-block;
+      opacity: 0;
+      filter: blur(4px);
+      transform: translateY(16px);
+    }
+
+    .hero-keyword {
+      color: var(--keyword-color, var(--accent-primary));
+      text-decoration: underline;
+      text-decoration-thickness: 3px;
+      text-underline-offset: 4px;
+      text-decoration-color: var(--keyword-color, var(--accent-primary));
+      transition: text-decoration-color var(--motion-fast) var(--ease-out);
+    }
+    .hero-keyword:hover {
+      text-decoration-color: transparent;
     }
 
     .hero-subtitle {
       font-size: var(--step-1);
       color: var(--text-secondary);
       max-width: 560px;
-      margin: 0 auto var(--space-4);
+      margin: 0 auto var(--space-10);
       line-height: var(--leading-normal);
+      text-wrap: pretty;
     }
 
     .hero-dots {
@@ -1308,14 +1272,6 @@
       border-radius: var(--radius-full);
     }
 
-    .floating-decor {
-      position: fixed;
-      pointer-events: none;
-      z-index: -1;
-      border-radius: var(--radius-full);
-      opacity: 0.25;
-    }
-
     .tile-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -1327,7 +1283,7 @@
     .tile-grid:has(.tile:hover) .tile:not(:hover) {
       opacity: 0.7;
       transform: translate(2px, 2px);
-      box-shadow: 0 0 0 var(--text-primary);
+      box-shadow: 0 0 0 var(--border-default);
       filter: grayscale(0.8);
     }
 
@@ -1366,7 +1322,7 @@
 
       &:active {
         transform: translate(2px, 2px);
-        box-shadow: 0 0 0 var(--text-primary);
+        box-shadow: 0 0 0 var(--border-default);
       }
     }
 
@@ -1455,7 +1411,7 @@
     }
 
     .swatch {
-      border: 2px solid var(--border-subtle);
+      border: 2px solid var(--text-primary);
       border-radius: var(--radius-md);
       overflow: hidden;
       background: var(--bg-surface);
@@ -1465,14 +1421,14 @@
                   border-color var(--motion-fast) var(--ease-out);
 
       &:hover {
-        border-color: var(--border-strong);
+        border-color: var(--text-primary);
         transform: translate(-2px, -2px);
         box-shadow: var(--shadow-md);
       }
 
       &:active {
         transform: translate(2px, 2px);
-        box-shadow: 0 0 0 var(--text-primary);
+        box-shadow: 0 0 0 var(--border-default);
       }
     }
 
@@ -1503,7 +1459,7 @@
       display: flex;
       border-radius: var(--radius-md);
       overflow: hidden;
-      border: 2px solid var(--border-subtle);
+      border: 2px solid var(--text-primary);
     }
 
     .swatch-row-cell {
@@ -1599,7 +1555,7 @@
       gap: var(--btn-gap);
       font-family: var(--font-sans);
       font-weight: 700;
-      border: 2px solid var(--text-primary);
+      border: 2px solid var(--border-default);
       cursor: pointer;
       border-radius: var(--radius-md);
       white-space: nowrap;
@@ -1614,7 +1570,7 @@
 
       &:active {
         transform: translate(2px, 2px);
-        box-shadow: 0 0 0 var(--text-primary);
+        box-shadow: 0 0 0 var(--border-default);
       }
 
       &:disabled {
@@ -1687,7 +1643,7 @@
 
     .btn-secondary.btn-loading::after,
     .btn-ghost.btn-loading::after {
-      border-color: var(--text-primary);
+      border-color: var(--border-default);
       border-right-color: transparent;
     }
 
@@ -1703,12 +1659,36 @@
       align-items: center;
     }
 
+    /* Force state classes for static state demos */
+    .btn.force-hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    .btn-primary.force-hover { background: var(--accent-primary-hover); }
+
+    .btn.force-active {
+      transform: translate(2px, 2px);
+      box-shadow: 0 0 0 var(--border-default);
+    }
+
+    .btn.force-focus {
+      outline: 2px solid var(--focus-ring);
+      outline-offset: -2px;
+    }
+
     .state-label {
       font-size: 0.625rem;
       font-family: var(--font-mono);
       color: var(--text-muted);
       text-transform: uppercase;
       letter-spacing: 0.05em;
+    }
+
+    .state-demo-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-2);
     }
 
     /* ==========================================================================
@@ -1744,10 +1724,10 @@
       font-size: var(--ui-text-md);
       color: var(--text-primary);
       background: var(--bg-surface);
-      border: 2px solid var(--text-primary);
+      border: 2px solid var(--border-default);
       border-radius: var(--radius-sm);
       transition: border-color var(--motion-fast) var(--ease-out), box-shadow var(--motion-instant) linear;
-      box-shadow: 2px 2px 0 var(--text-primary);
+      box-shadow: var(--shadow-sm);
 
       &::placeholder {
         color: var(--text-muted);
@@ -1766,7 +1746,8 @@
       }
     }
 
-    .input-error {
+    .input-error,
+    .input:user-invalid {
       border-color: var(--accent-danger);
 
       &:focus {
@@ -1780,15 +1761,16 @@
       min-height: 80px;
       padding: var(--space-3);
       resize: vertical;
+      field-sizing: content;
       font-family: var(--font-sans);
       font-size: 0.875rem;
       color: var(--text-primary);
       background: var(--bg-surface);
-      border: 2px solid var(--text-primary);
+      border: 2px solid var(--border-default);
       border-radius: var(--radius-sm);
       line-height: 1.5;
       transition: border-color var(--motion-fast) var(--ease-out), box-shadow var(--motion-instant) linear;
-      box-shadow: 2px 2px 0 var(--text-primary);
+      box-shadow: var(--shadow-sm);
 
       &:focus {
         outline: none;
@@ -1810,11 +1792,11 @@
       font-size: var(--ui-text-md);
       color: var(--text-primary);
       background: var(--bg-surface);
-      border: 2px solid var(--text-primary);
+      border: 2px solid var(--border-default);
       border-radius: var(--radius-sm);
       cursor: pointer;
       transition: border-color var(--motion-fast) var(--ease-out), box-shadow var(--motion-instant) linear;
-      box-shadow: 2px 2px 0 var(--text-primary);
+      box-shadow: var(--shadow-sm);
 
       &:focus {
         outline: none;
@@ -1847,11 +1829,11 @@
       min-height: var(--control-md);
       padding: var(--space-1-5) var(--space-3);
       background: var(--bg-surface);
-      border: 2px solid var(--text-primary);
+      border: 2px solid var(--border-default);
       border-radius: var(--radius-sm);
       align-items: center;
       transition: border-color var(--motion-fast) var(--ease-out), box-shadow var(--motion-instant) linear;
-      box-shadow: 2px 2px 0 var(--text-primary);
+      box-shadow: var(--shadow-sm);
 
       &:focus-within {
         border-color: var(--accent-primary);
@@ -1933,7 +1915,7 @@
     .radio-circle {
       width: 18px;
       height: 18px;
-      border: 1.5px solid var(--border-strong);
+      border: 2px solid var(--border-strong);
       background: var(--bg-surface);
       display: flex;
       align-items: center;
@@ -1978,7 +1960,7 @@
       &:focus-visible + .check-box,
       &:focus-visible + .radio-circle {
         outline: 2px solid var(--accent-primary);
-        outline-offset: 2px;
+        outline-offset: -2px;
       }
     }
 
@@ -2065,6 +2047,22 @@
         border: 2px solid var(--bg-surface);
         box-shadow: 0 1px 4px oklch(0 0 0 / 0.15);
       }
+
+      &::-moz-range-thumb {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: var(--accent-primary);
+        cursor: pointer;
+        border: 2px solid var(--bg-surface);
+        box-shadow: 0 1px 4px oklch(0 0 0 / 0.15);
+      }
+
+      &::-moz-range-track {
+        height: 4px;
+        border-radius: var(--radius-full);
+        background: var(--border-default);
+      }
     }
 
     .slider-group {
@@ -2125,7 +2123,7 @@
 
       &:active {
         transform: translate(2px, 2px);
-        box-shadow: 0 0 0 var(--text-primary);
+        box-shadow: 0 0 0 var(--border-default);
       }
     }
 
@@ -2314,7 +2312,7 @@
 
     .table-header-gold th {
       background: var(--accent-gold-subtle);
-      color: var(--accent-gold);
+      color: var(--accent-gold-text);
       border-bottom-color: var(--accent-gold);
     }
 
@@ -2355,7 +2353,7 @@
 
     .badge-gold {
       background: var(--accent-gold-subtle);
-      color: var(--accent-gold);
+      color: var(--accent-gold-text);
     }
 
     .badge-cyan {
@@ -2371,6 +2369,167 @@
     .badge-purple {
       background: var(--accent-purple-subtle);
       color: var(--accent-purple);
+    }
+
+    /* Notification badge — overlay count on avatars/icons */
+    .notification-badge {
+      position: relative;
+      display: inline-flex;
+    }
+
+    .notification-badge-count {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      min-width: 18px;
+      height: 18px;
+      padding: 0 5px;
+      border-radius: var(--radius-full);
+      background: var(--accent-danger);
+      color: var(--text-on-accent);
+      font-size: 0.625rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid var(--bg-surface);
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ==========================================================================
+       DIVIDER / SEPARATOR
+       ========================================================================== */
+    .divider {
+      border: none;
+      border-top: 2px solid var(--border-subtle);
+      margin: var(--space-6) 0;
+    }
+
+    .divider-strong {
+      border-top-color: var(--border-default);
+    }
+
+    .divider-with-text {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      color: var(--text-muted);
+      font-size: var(--ui-text-xs);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+
+      &::before,
+      &::after {
+        content: '';
+        flex: 1;
+        border-top: 2px solid var(--border-subtle);
+      }
+    }
+
+    /* ==========================================================================
+       SEGMENTED CONTROL
+       ========================================================================== */
+    .segmented-control {
+      display: inline-flex;
+      background: var(--bg-surface);
+      border: 2px solid var(--border-default);
+      border-radius: var(--radius-full);
+      padding: 3px;
+      gap: 0;
+      width: fit-content;
+    }
+
+    .segmented-control-item {
+      padding: var(--space-2) var(--space-5);
+      border-radius: var(--radius-full);
+      font-size: var(--ui-text-sm);
+      font-weight: 600;
+      font-family: var(--font-sans);
+      color: var(--text-muted);
+      background: transparent;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: color var(--motion-fast) var(--ease-out),
+                  background var(--motion-fast) var(--ease-out),
+                  border-color var(--motion-fast) var(--ease-out);
+
+      &:hover {
+        color: var(--text-primary);
+        background: var(--bg-subtle);
+      }
+
+      &[aria-pressed="true"],
+      &.active {
+        background: var(--text-primary);
+        color: var(--bg-surface);
+        border-color: var(--text-primary);
+        font-weight: 700;
+      }
+    }
+
+    /* ==========================================================================
+       DROPDOWN MENU
+       ========================================================================== */
+    .dropdown-menu {
+      background: var(--bg-surface);
+      border: 2px solid var(--border-default);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-md);
+      padding: var(--space-1);
+      min-width: 200px;
+      position: absolute;
+      z-index: var(--z-overlay);
+    }
+
+    .dropdown-menu[popover] {
+      margin: 0;
+      inset: unset;
+    }
+
+    .dropdown-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-3);
+      border-radius: calc(var(--radius-md) - 4px);
+      font-size: var(--ui-text-sm);
+      color: var(--text-primary);
+      background: none;
+      border: none;
+      width: 100%;
+      text-align: left;
+      cursor: pointer;
+      transition: background var(--motion-fast) var(--ease-out);
+
+      &:hover,
+      &[data-active="true"] {
+        background: var(--bg-subtle);
+      }
+
+      &[data-danger="true"] {
+        color: var(--accent-danger);
+
+        &:hover {
+          background: var(--accent-danger-subtle);
+        }
+      }
+    }
+
+    .dropdown-separator {
+      border: none;
+      border-top: 2px solid var(--border-subtle);
+      margin: var(--space-1) 0;
+    }
+
+    .dropdown-label {
+      padding: var(--space-2) var(--space-3) var(--space-1);
+      font-size: var(--ui-text-2xs);
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-muted);
     }
 
     /* ==========================================================================
@@ -2802,7 +2961,7 @@
 
     .alert-gold {
       background: var(--accent-gold-subtle);
-      color: var(--accent-gold);
+      color: var(--accent-gold-text);
       border-color: var(--accent-gold);
       box-shadow: var(--shadow-gold);
     }
@@ -2921,7 +3080,7 @@
 
       & .avatar {
         margin-left: -8px;
-        box-shadow: 0 0 0 2px var(--bg-surface);
+        border-width: 3px;
 
         &:first-child {
           margin-left: 0;
@@ -3437,170 +3596,6 @@
     /* ==========================================================================
        SIGNATURE EFFECTS
        ========================================================================== */
-    .tilt-container {
-      perspective: 800px;
-    }
-
-    .tilt-card {
-      padding: var(--space-8);
-      background: var(--bg-surface);
-      border: 2px solid var(--border-default);
-      border-radius: var(--radius-lg);
-      transform-style: preserve-3d;
-      will-change: transform;
-      cursor: default;
-    }
-
-    .tilt-title {
-      font-size: 1.5rem;
-      font-weight: 650;
-      letter-spacing: var(--tracking-tighter);
-      transform: translateZ(40px);
-      margin-bottom: var(--space-2);
-    }
-
-    .tilt-desc {
-      font-size: 0.9375rem;
-      color: var(--text-secondary);
-      line-height: 1.6;
-      transform: translateZ(20px);
-      margin-bottom: var(--space-4);
-    }
-
-    .tilt-badge {
-      display: inline-block;
-      padding: var(--space-1) var(--space-3);
-      font-size: 0.75rem;
-      font-weight: 600;
-      background: var(--accent-primary);
-      color: var(--text-on-accent);
-      border-radius: var(--radius-full);
-      transform: translateZ(60px);
-    }
-
-    @property --hue-1 {
-      syntax: "<number>";
-      inherits: false;
-      initial-value: 350;
-    }
-
-    @property --hue-2 {
-      syntax: "<number>";
-      inherits: false;
-      initial-value: 350;
-    }
-
-    @property --hue-3 {
-      syntax: "<number>";
-      inherits: false;
-      initial-value: 350;
-    }
-
-    .color-pills {
-      display: flex;
-      gap: var(--space-3);
-      flex-wrap: wrap;
-    }
-
-    .color-pill {
-      padding: var(--space-2) var(--space-6);
-      font-family: var(--font-sans);
-      font-size: 0.9375rem;
-      font-weight: 600;
-      color: oklch(0.995 0.002 70);
-      border: none;
-      border-radius: var(--radius-full);
-      cursor: pointer;
-      box-shadow: var(--shadow-sm);
-      transition: transform var(--motion-instant) linear, box-shadow var(--motion-instant) linear;
-
-      &:hover {
-        transform: translateY(-2px);
-        box-shadow: var(--shadow-md);
-      }
-
-      &:active {
-        transform: translate(2px, 2px);
-        box-shadow: 0 0 0 var(--text-primary);
-      }
-    }
-
-    @supports (background: oklch(0.6 0.24 var(--hue-1))) {
-      @media (prefers-reduced-motion: no-preference) {
-        .color-pill-1 {
-          background: oklch(0.60 0.24 var(--hue-1));
-          transition: --hue-1 var(--motion-slow) var(--ease-out);
-        }
-
-        .color-pill-1:hover {
-          --hue-1: 80;
-        }
-
-        .color-pill-2 {
-          background: oklch(0.60 0.24 var(--hue-2));
-          transition: --hue-2 var(--motion-slow) var(--ease-out);
-        }
-
-        .color-pill-2:hover {
-          --hue-2: 20;
-        }
-
-        .color-pill-3 {
-          background: oklch(0.60 0.24 var(--hue-3));
-          transition: --hue-3 var(--motion-slow) var(--ease-out);
-        }
-
-        .color-pill-3:hover {
-          --hue-3: 210;
-        }
-      }
-    }
-
-    @supports not (background: oklch(0.6 0.24 var(--hue-1))) {
-      .color-pill {
-        background: var(--accent-primary);
-      }
-
-      .color-pill:hover {
-        background: var(--accent-primary-hover);
-      }
-    }
-
-    .spotlight-panel {
-      position: relative;
-      overflow: hidden;
-      background: oklch(0.140 0.012 60);
-      border-radius: var(--radius-lg);
-      height: 280px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: crosshair;
-    }
-
-    .spotlight-text {
-      position: relative;
-      z-index: 1;
-      font-size: 1.125rem;
-      font-weight: 500;
-      color: oklch(0.45 0.006 60);
-      text-align: center;
-    }
-
-    .spotlight-dots {
-      position: absolute;
-      inset: 0;
-      background-image: radial-gradient(circle, oklch(0.25 0.005 350) 1px, transparent 1px);
-      background-size: 24px 24px;
-      opacity: 0.5;
-    }
-
-    .spotlight-gradient {
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(600px circle at 50% 50%, oklch(0.35 0.06 350), oklch(0.140 0.012 60));
-    }
-
     .magnetic-zone {
       display: inline-block;
       position: relative;
@@ -3727,6 +3722,76 @@
     }
 
     /* ==========================================================================
+       VIEW TRANSITIONS — Theme toggle crossfade
+       ========================================================================== */
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+      animation-duration: 240ms;
+    }
+
+    /* ==========================================================================
+       COMMAND PALETTE
+       ========================================================================== */
+    .cmd-palette-overlay {
+      position: fixed; inset: 0; z-index: var(--z-modal);
+      background: var(--overlay-bg);
+      display: none; align-items: flex-start; justify-content: center;
+      padding-top: 20vh;
+      opacity: 0;
+      transition: opacity 200ms var(--ease-out),
+                  display 200ms var(--ease-out) allow-discrete;
+    }
+    .cmd-palette-overlay.active {
+      display: flex; opacity: 1;
+      @starting-style { opacity: 0; }
+    }
+    .cmd-palette {
+      width: 100%; max-width: 520px;
+      background: var(--bg-elevated); border: 2px solid var(--border-default);
+      border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      transform: scale(0.95) translateY(-10px); opacity: 0;
+      transition: transform 240ms var(--ease-smooth),
+                  opacity 240ms var(--ease-smooth);
+    }
+    .cmd-palette-overlay.active .cmd-palette {
+      transform: scale(1) translateY(0); opacity: 1;
+      @starting-style {
+        transform: scale(0.95) translateY(-10px); opacity: 0;
+      }
+    }
+    .cmd-palette-input {
+      width: 100%; padding: var(--space-4) var(--space-6);
+      font-family: var(--font-sans); font-size: var(--step-0);
+      border: none; border-bottom: 2px solid var(--border-subtle);
+      background: transparent; color: var(--text-primary);
+      outline: none;
+    }
+    .cmd-palette-input::placeholder { color: var(--text-muted); }
+    .cmd-palette-list {
+      list-style: none; max-height: 320px; overflow-y: auto;
+      padding: var(--space-2) 0;
+    }
+    .cmd-palette-item {
+      padding: var(--space-2) var(--space-6);
+      font-size: var(--ui-text-md); color: var(--text-secondary);
+      cursor: pointer; display: flex; align-items: center; gap: var(--space-3);
+      transition: transform var(--motion-instant) linear, background var(--motion-fast) var(--ease-out), color var(--motion-fast) var(--ease-out);
+    }
+    .cmd-palette-item:hover,
+    .cmd-palette-item.active {
+      background: var(--bg-subtle); color: var(--text-primary);
+    }
+    .cmd-palette-item:active { transform: translateY(1px); }
+    .cmd-palette-item .cmd-section-dot {
+      width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
+    }
+    .cmd-palette-empty {
+      padding: var(--space-4) var(--space-6);
+      color: var(--text-muted); font-size: var(--ui-text-sm); text-align: center;
+    }
+
+    /* ==========================================================================
        TYPE TESTER
        ========================================================================== */
     .type-tester {
@@ -3806,7 +3871,7 @@
       height: 20px;
       margin-left: -10px;
       margin-top: -10px;
-      border: 3px solid var(--text-primary);
+      border: 3px solid var(--border-strong);
       border-radius: 50%;
       pointer-events: none;
       animation: ripple-anim 0.5s var(--ease-out) forwards;
@@ -3869,6 +3934,151 @@
     .accordion-squish.accordion-open {
       grid-template-rows: 1fr;
     }
+    /* ==========================================================================
+       ARCHITECTURE — 3-tier stacked visualization
+       ========================================================================== */
+    .arch-stack {
+      display: flex; flex-direction: column; gap: 0;
+    }
+    .arch-tier {
+      background: var(--bg-surface);
+      border: 2px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: var(--space-6);
+      position: relative;
+    }
+    .arch-tier + .arch-connector + .arch-tier {
+      margin-top: 0;
+    }
+    .arch-tier-header {
+      margin-bottom: var(--space-4);
+    }
+    .arch-tier-label {
+      font-size: var(--ui-text-xs); font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.06em;
+      display: flex; align-items: center; gap: var(--space-2);
+    }
+    .arch-tier-label-num {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 20px; height: 20px; border-radius: 50%;
+      font-size: 0.625rem; font-weight: 800; color: var(--text-on-accent);
+    }
+    .arch-tier-desc {
+      font-size: var(--ui-text-xs); color: var(--text-muted);
+      margin-top: var(--space-1);
+    }
+    .arch-family-btns {
+      display: flex; gap: var(--space-2); flex-wrap: wrap;
+    }
+    .arch-family-btn {
+      width: 44px; height: 44px; border-radius: var(--radius-sm);
+      border: 2px solid transparent; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: var(--ui-text-2xs); font-family: var(--font-mono); font-weight: 600;
+      color: var(--text-on-accent);
+      transition: transform var(--motion-fast) var(--ease-out),
+                  box-shadow var(--motion-fast) var(--ease-out);
+    }
+    .arch-family-btn:hover {
+      transform: translateY(-2px); box-shadow: var(--shadow-sm);
+    }
+    .arch-family-btn:active { transform: translateY(0); box-shadow: none; }
+    .arch-family-btn[aria-pressed="true"] {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+      border: 3px solid var(--border-default);
+    }
+
+    /* Connector between tiers */
+    .arch-connector {
+      display: flex; align-items: center; justify-content: center;
+      height: 40px; position: relative;
+    }
+    .arch-connector-line {
+      width: 2px; height: 100%;
+      border-left: 2px solid var(--border-subtle);
+    }
+    .arch-connector-label {
+      position: absolute; left: 50%; transform: translateX(-50%);
+      font-size: var(--ui-text-2xs); font-weight: 600;
+      color: var(--text-muted); background: var(--bg-page);
+      padding: 0 var(--space-2);
+    }
+
+    /* Token trace rows */
+    .arch-token-list {
+      display: flex; flex-direction: column; gap: var(--space-2);
+    }
+    .arch-token-row {
+      display: flex; align-items: center; gap: var(--space-3);
+      padding: var(--space-2) var(--space-3);
+      background: var(--bg-subtle);
+      border-radius: var(--radius-sm);
+      font-size: var(--ui-text-xs); font-family: var(--font-mono);
+      transition: opacity var(--motion-fast) var(--ease-out);
+    }
+    .arch-token-dot {
+      width: 16px; height: 16px; border-radius: 4px;
+      border: 2px solid var(--border-subtle); flex-shrink: 0;
+    }
+    .arch-token-name {
+      font-weight: 600; color: var(--text-primary);
+    }
+    .arch-token-value {
+      color: var(--text-muted); margin-left: auto;
+    }
+    .arch-token-usage {
+      color: var(--text-muted); font-family: var(--font-sans);
+      font-style: italic;
+    }
+
+    /* Live component previews */
+    .arch-preview-row {
+      display: flex; align-items: center; gap: var(--space-3);
+      margin-top: var(--space-3);
+    }
+    .arch-preview-btn {
+      padding: var(--space-2) var(--space-4);
+      font-family: var(--font-sans); font-size: var(--ui-text-sm); font-weight: 700;
+      border: 2px solid var(--border-default); border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-sm); cursor: default;
+    }
+    .arch-preview-badge {
+      display: inline-flex; padding: var(--badge-py) var(--badge-px);
+      font-size: var(--ui-text-2xs); font-weight: 700;
+      border-radius: var(--radius-full); border: 2px solid var(--border-default);
+    }
+
+    /* ==========================================================================
+       CODE SNIPPETS — Collapsible CSS variable blocks
+       ========================================================================== */
+    .code-snippet { margin-top: var(--space-4); }
+    .code-snippet summary {
+      font-size: var(--ui-text-xs); font-weight: 600;
+      color: var(--text-muted); cursor: pointer;
+      padding: var(--space-2) 0;
+    }
+    .code-snippet pre {
+      position: relative; cursor: pointer;
+      margin: 0; padding: var(--space-3) var(--space-4);
+      background: var(--bg-subtle); border-radius: var(--radius-sm);
+      font-family: var(--font-mono); font-size: var(--ui-text-xs);
+      line-height: 1.6; overflow-x: auto;
+      border: 2px solid var(--border-subtle);
+    }
+    .code-snippet pre:hover {
+      border-color: var(--border-strong);
+    }
+
+    /* ==========================================================================
+       FORCE STATE CLASSES — Inputs & Cards
+       ========================================================================== */
+    .state-toggle-bar { display: flex; gap: var(--space-2); flex-wrap: wrap; margin-bottom: var(--space-4); }
+    .input.force-hover { border-color: var(--border-strong); }
+    .input.force-focus { outline: 2px solid var(--focus-ring); outline-offset: -2px; }
+    .input.force-active { border-color: var(--accent-primary); }
+    .card-interactive.force-hover { transform: translate(-4px, -4px); box-shadow: var(--shadow-lg); }
+
     } /* end @layer component */
 
     /* ==========================================================================
@@ -3910,32 +4120,46 @@
 <body>
 
   <!-- Skip Navigation -->
-  <a href="#color" class="skip-link">Skip to content</a>
+  <a href="#landing" class="skip-link">Skip to content</a>
 
   <!-- Scroll Progress Bar -->
   <div class="scroll-progress" aria-hidden="true"></div>
-
-  <!-- Floating decorative dots -->
-  <div class="floating-decor float-1" style="width:8px;height:8px;background:var(--accent-primary);top:20%;left:5%"
-    aria-hidden="true"></div>
-  <div class="floating-decor float-2" style="width:6px;height:6px;background:var(--accent-gold);top:40%;right:8%"
-    aria-hidden="true"></div>
-  <div class="floating-decor float-3" style="width:10px;height:10px;background:var(--accent-cyan);top:65%;left:3%"
-    aria-hidden="true"></div>
 
   <!-- ========================================================================
      STICKY NAV
      ======================================================================== -->
   <nav class="topnav" role="navigation" aria-label="Main navigation">
     <div class="topnav-inner">
-      <a href="#landing" class="topnav-brand">
-        <span class="brand-dots">
-          <span class="brand-dot" style="background:var(--accent-primary)"></span>
-          <span class="brand-dot" style="background:var(--accent-gold)"></span>
-          <span class="brand-dot" style="background:var(--accent-cyan)"></span>
-        </span>
-        Delightful
-      </a>
+      <div class="topnav-brand-wrap">
+        <button class="topnav-brand" id="brand-trigger" aria-expanded="false" aria-haspopup="true" aria-controls="brand-dropdown">
+          <span class="brand-dots">
+            <span class="brand-dot" style="background:var(--accent-primary)"></span>
+            <span class="brand-dot" style="background:var(--accent-gold)"></span>
+            <span class="brand-dot" style="background:var(--accent-cyan)"></span>
+          </span>
+          <span class="brand-label">Design</span>
+          <svg class="brand-chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 5 6 8 9 5"/></svg>
+        </button>
+        <div class="brand-dropdown" id="brand-dropdown" role="menu">
+          <a href="delightful-design-system.html" class="brand-dropdown-item active" role="menuitem" data-page="design">
+            <span class="brand-dropdown-dot" style="background:var(--accent-primary)"></span>Design
+          </a>
+          <a href="delightful-color.html" class="brand-dropdown-item" role="menuitem" data-page="color">
+            <span class="brand-dropdown-dot" style="background:var(--accent-gold)"></span>Color
+          </a>
+          <a href="delightful-motion.html" class="brand-dropdown-item" role="menuitem" data-page="motion">
+            <span class="brand-dropdown-dot" style="background:var(--accent-cyan)"></span>Motion
+          </a>
+          <a href="delightful-animation.html" class="brand-dropdown-item" role="menuitem" data-page="animation">
+            <span class="brand-dropdown-dot" style="background:var(--accent-green)"></span>Animation
+          </a>
+          <div class="brand-dropdown-sep"></div>
+          <a href="https://github.com/kylesnav/delightful-design-system" target="_blank" rel="noopener noreferrer" class="brand-dropdown-item brand-dropdown-github" role="menuitem">
+            <svg viewBox="0 0 16 16" fill="currentColor" width="14" height="14"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+            GitHub
+          </a>
+        </div>
+      </div>
       <ul class="topnav-links" id="nav-links">
         <li><a href="#philosophy">Philosophy</a></li>
         <li><a href="#color">Color</a></li>
@@ -3948,29 +4172,17 @@
         <li><a href="#loading">Loading</a></li>
         <li><a href="#overlays">Overlays</a></li>
         <li><a href="#signature">Signature</a></li>
-        <li><a href="delightful-motion.html" style="color:var(--accent-gold)">Motion ↗</a></li>
-        <li><a href="delightful-color.html" style="color:var(--accent-cyan)">Color ↗</a></li>
       </ul>
       <div class="topnav-right">
-        <button class="nav-toggle-btn" id="nav-toggle" aria-label="Toggle navigation">
+        <button class="topnav-toggle" id="nav-toggle" aria-label="Toggle navigation">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <line x1="3" y1="6" x2="21" y2="6" />
             <line x1="3" y1="12" x2="21" y2="12" />
             <line x1="3" y1="18" x2="21" y2="18" />
           </svg>
         </button>
-        <button class="theme-btn" id="motion-toggle" aria-label="Toggle reduced motion" title="Toggle animations">
-          <svg class="icon-motion-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <polygon points="5 3 19 12 5 21 5 3" />
-          </svg>
-          <svg class="icon-motion-pause" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <rect x="6" y="4" width="4" height="16" />
-            <rect x="14" y="4" width="4" height="16" />
-          </svg>
-        </button>
-        <button class="theme-btn" id="theme-toggle" aria-label="Toggle theme (light / dark / system)">
+        <kbd class="topnav-kbd" id="cmd-k-trigger" title="Quick navigation">&#8984;K</kbd>
+        <button class="topnav-btn" id="theme-toggle" aria-label="Toggle theme">
           <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
             stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="5" />
@@ -3987,57 +4199,104 @@
             stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
           </svg>
-          <svg class="icon-monitor" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
-            <line x1="8" y1="21" x2="16" y2="21" />
-            <line x1="12" y1="17" x2="12" y2="21" />
-          </svg>
         </button>
       </div>
     </div>
   </nav>
 
   <style>
+    @layer component {
     .icon-sun { display: none; }
     .icon-moon { display: none; }
-    .icon-monitor { display: none; }
 
-    /* Light mode: show sun */
     [data-theme="light"] .icon-sun { display: block; }
-
-    /* Dark mode: show moon */
     [data-theme="dark"] .icon-moon { display: block; }
 
-    /* System mode: show monitor */
-    [data-theme-mode="system"] .icon-sun,
-    [data-theme-mode="system"] .icon-moon { display: none !important; }
-    [data-theme-mode="system"] .icon-monitor { display: block; }
-
-    .icon-motion-play {
+    /* Brand dropdown */
+    .topnav-brand-wrap {
+      position: relative;
+    }
+    .topnav-brand {
+      font-weight: 720;
+      font-size: var(--step-0);
+      color: var(--text-primary);
+      letter-spacing: var(--tracking-tight);
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      font-family: inherit;
+    }
+    .brand-chevron {
+      width: 12px;
+      height: 12px;
+      transition: transform var(--motion-fast) var(--ease-out);
+    }
+    .topnav-brand[aria-expanded="true"] .brand-chevron {
+      transform: rotate(180deg);
+    }
+    .brand-dropdown {
       display: none;
+      position: absolute;
+      top: calc(100% + var(--space-3));
+      left: 0;
+      min-width: 200px;
+      background: var(--bg-surface);
+      border: 2px solid var(--text-primary);
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-md);
+      padding: var(--space-2);
+      z-index: var(--z-overlay);
+      flex-direction: column;
+      gap: 2px;
+    }
+    .brand-dropdown.open {
+      display: flex;
+      animation: scale-in var(--motion-fast) var(--ease-bounce);
+    }
+    .brand-dropdown-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-3);
+      border-radius: var(--radius-sm);
+      font-size: var(--ui-text-sm);
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: background var(--motion-fast) var(--ease-out), color var(--motion-fast) var(--ease-out);
+    }
+    .brand-dropdown-item:hover {
+      background: var(--bg-subtle);
+      color: var(--text-primary);
+    }
+    .brand-dropdown-item.active {
+      color: var(--accent-primary);
+      font-weight: 700;
+    }
+    .brand-dropdown-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: var(--radius-full);
+      flex-shrink: 0;
+    }
+    .brand-dropdown-sep {
+      height: 2px;
+      background: var(--border-subtle);
+      margin: var(--space-1) 0;
+    }
+    .brand-dropdown-github {
+      color: var(--text-muted);
+      gap: var(--space-2);
+    }
+    .brand-dropdown-github svg {
+      flex-shrink: 0;
     }
 
-    .icon-motion-pause {
-      display: block;
-    }
-
-    [data-reduced-motion="reduce"] .icon-motion-play {
-      display: block;
-    }
-
-    [data-reduced-motion="reduce"] .icon-motion-pause {
-      display: none;
-    }
-
-    [data-reduced-motion="reduce"] *,
-    [data-reduced-motion="reduce"] *::before,
-    [data-reduced-motion="reduce"] *::after {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-      scroll-behavior: auto !important;
-    }
+    } /* end @layer component */
   </style>
 
   <div class="page-wrap">
@@ -4046,24 +4305,15 @@
      SECTION 0 — LANDING HERO
      ======================================================================== -->
     <section id="landing" class="hero">
-      <h1 class="hero-title-text" id="hero-headline">A design system that sparks joy</h1>
-<p class="hero-subtitle anim-in anim-d6">Bold warmth. Confident color. Playful precision. Every token,
-  component, and interaction — built to delight.
-  <a href="https://github.com/kylesnav/delightful-design-system" target="_blank" rel="noopener noreferrer"
-     style="display: inline-flex; align-items: center; vertical-align: baseline; margin-left: 0.35em; color: oklch(0.640 0.270 350); transition: color 0.2s ease, transform 0.2s ease;"
-     onmouseover="this.style.color='oklch(0.560 0.280 350)'; this.style.transform='scale(1.15)'"
-     onmouseout="this.style.color='oklch(0.640 0.270 350)'; this.style.transform='scale(1)'">
-    <svg height="1.1em" width="1.1em" viewBox="0 0 16 16" fill="currentColor" aria-label="View on GitHub" role="img" style="vertical-align: -0.15em;">
-      <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
-    </svg>
-  </a>
-</p>
-      <div class="hero-dots anim-in anim-d8">
+      <h1 class="hero-title anim-in" id="hero-headline">A <a href="https://github.com/kylesnav/delightful-design-system" class="hero-keyword" style="--keyword-color:var(--accent-primary)" target="_blank" rel="noopener noreferrer">design system</a> that sparks joy</h1>
+      <div class="hero-dots anim-in anim-d3" style="margin-top:var(--space-4);margin-bottom:var(--space-4)">
         <span class="hero-dot" style="background:var(--accent-primary)"></span>
         <span class="hero-dot" style="background:var(--accent-gold)"></span>
         <span class="hero-dot" style="background:var(--accent-cyan)"></span>
       </div>
-
+      <p class="hero-subtitle anim-in anim-d4">Bold warmth. Confident color. Playful precision. Every token,
+        component, and interaction — built to delight.
+      </p>
       <div class="tile-grid">
         <a href="#philosophy" class="tile tile-pink anim-in anim-d1"><span class="tile-num">01</span>
           <div class="tile-name">Philosophy</div>
@@ -4170,7 +4420,7 @@
         </a>
         <a href="#signature" class="tile tile-cyan anim-in anim-d11"><span class="tile-num">11</span>
           <div class="tile-name">Signature Effects</div>
-          <div class="tile-desc">Magnetic, tilt, spotlight, color shift</div>
+          <div class="tile-desc">Blur focus, magnetic button</div>
           <div class="tile-anim">
             <div
               style="width:10px;height:10px;border-radius:50%;background:var(--accent-primary);opacity:0.6;filter:blur(2px)">
@@ -4397,7 +4647,7 @@
             </div>
           </div>
           <div>
-            <div class="subsection-label" style="margin-bottom:var(--space-2)">Gold — Highlight (80°)</div>
+            <div class="subsection-label" style="margin-bottom:var(--space-2)">Gold — Highlight (85°)</div>
             <div class="swatch" data-copy="oklch(0.960 0.050 85)">
               <div class="swatch-color" style="background:var(--primitive-gold-100)"></div>
               <div class="swatch-info">
@@ -4737,6 +4987,52 @@
       </div>
 
       <div class="subsection">
+        <div class="subsection-label">Token Architecture</div>
+        <p class="subsection-desc">Click a color family to trace its journey from raw OKLCH primitives through semantic mapping to component tokens.</p>
+        <div class="arch-stack" id="arch-stack">
+          <div class="arch-tier">
+            <div class="arch-tier-header">
+              <div class="arch-tier-label">
+                <span class="arch-tier-label-num" style="background:var(--accent-primary)">1</span>
+                Primitives
+              </div>
+              <div class="arch-tier-desc">Raw OKLCH values. Named by family and lightness. No semantic meaning.</div>
+            </div>
+            <div class="arch-family-btns" id="arch-family-btns"></div>
+          </div>
+          <div class="arch-connector">
+            <div class="arch-connector-line"></div>
+            <span class="arch-connector-label">maps to</span>
+          </div>
+          <div class="arch-tier">
+            <div class="arch-tier-header">
+              <div class="arch-tier-label">
+                <span class="arch-tier-label-num" style="background:var(--accent-gold)">2</span>
+                Semantic
+              </div>
+              <div class="arch-tier-desc">Theme-aware. Light and dark values hand-tuned independently.</div>
+            </div>
+            <div class="arch-token-list" id="arch-semantic-list"></div>
+          </div>
+          <div class="arch-connector">
+            <div class="arch-connector-line"></div>
+            <span class="arch-connector-label">used by</span>
+          </div>
+          <div class="arch-tier">
+            <div class="arch-tier-header">
+              <div class="arch-tier-label">
+                <span class="arch-tier-label-num" style="background:var(--accent-cyan)">3</span>
+                Component
+              </div>
+              <div class="arch-tier-desc">UI-specific. Buttons, badges, toggles. Always reference semantic tokens.</div>
+            </div>
+            <div class="arch-token-list" id="arch-component-list"></div>
+            <div class="arch-preview-row" id="arch-preview"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection">
         <div class="subsection-label">Contrast Checker</div>
         <div class="contrast-checker" id="contrast-checker">
           <label>Background<select id="cc-bg">
@@ -4870,6 +5166,12 @@
       <div class="subsection">
         <div class="subsection-label">Live Type Tester</div>
         <div class="type-tester">
+          <div class="flex gap-2 flex-wrap" style="margin-bottom:var(--space-4)">
+            <button class="btn btn-sm btn-secondary" onclick="setTypePreset('headline')">Headline</button>
+            <button class="btn btn-sm btn-secondary" onclick="setTypePreset('body')">Body Copy</button>
+            <button class="btn btn-sm btn-secondary" onclick="setTypePreset('label')">UI Label</button>
+            <button class="btn btn-sm btn-secondary" onclick="setTypePreset('code')">Code Comment</button>
+          </div>
           <div class="type-tester-controls">
             <label>Weight <input type="range" class="range" min="100" max="900" value="400" step="10" id="tt-weight"
                 style="width:120px"></label>
@@ -4889,6 +5191,7 @@
               </select></label>
           </div>
           <div class="type-tester-preview" contenteditable="true" id="tt-preview"
+            role="textbox" aria-label="Type tester preview" aria-multiline="true"
             style="font-size:var(--step-0);font-weight:400">The quick brown fox jumps over the lazy dog</div>
         </div>
       </div>
@@ -5104,8 +5407,9 @@
       <!-- 5a. Buttons -->
       <div class="subsection">
         <h3 class="subsection-title">Buttons</h3>
+        <p class="subsection-desc">Buttons come in 8 color variants with 3 sizes. Each supports hover, active, focus, and disabled states with solid shadow micro-interactions.</p>
         <div class="subsection-label">Variants</div>
-        <div class="btn-row" style="margin-bottom:var(--space-6)">
+        <div class="btn-row">
           <button class="btn btn-md btn-primary">Primary</button>
           <button class="btn btn-md btn-danger">Danger</button>
           <button class="btn btn-md btn-gold">Highlight</button>
@@ -5115,13 +5419,33 @@
           <button class="btn btn-md btn-secondary">Secondary</button>
           <button class="btn btn-md btn-ghost">Ghost</button>
         </div>
+      </div>
+
+      <div class="subsection">
+        <div class="subsection-label">Interactive State Toggle</div>
+        <p class="subsection-desc">Use the controls below to apply forced states to the demo button.</p>
+        <div class="state-toggle-bar" data-target="state-demo-btn">
+          <button class="btn btn-sm btn-secondary" data-state="default" aria-pressed="true">Default</button>
+          <button class="btn btn-sm btn-secondary" data-state="hover">Hover</button>
+          <button class="btn btn-sm btn-secondary" data-state="active">Active</button>
+          <button class="btn btn-sm btn-secondary" data-state="focus">Focus</button>
+          <button class="btn btn-sm btn-secondary" data-state="disabled">Disabled</button>
+        </div>
+        <div style="margin-top:var(--space-4)">
+          <button class="btn btn-md btn-primary" id="state-demo-btn">Interactive Demo</button>
+        </div>
+      </div>
+
+      <div class="subsection">
         <div class="subsection-label">Sizes</div>
-        <div class="btn-row" style="margin-bottom:var(--space-6)">
+        <div class="btn-row">
           <button class="btn btn-sm btn-primary">Small</button>
           <button class="btn btn-md btn-primary">Medium</button>
           <button class="btn btn-lg btn-primary">Large</button>
-          <button class="btn btn-md btn-primary" disabled>Disabled</button>
         </div>
+      </div>
+
+      <div class="subsection">
         <div class="subsection-label">Icon Buttons</div>
         <div class="btn-row">
           <button class="btn btn-icon btn-sm btn-primary"><svg viewBox="0 0 24 24" fill="none"
@@ -5140,7 +5464,10 @@
               <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
             </svg></button>
         </div>
-        <div class="subsection-label" style="margin-top:var(--space-6)">Loading State</div>
+      </div>
+
+      <div class="subsection">
+        <div class="subsection-label">Loading State</div>
         <div class="btn-row">
           <button class="btn btn-md btn-primary btn-loading">Saving</button>
           <button class="btn btn-md btn-secondary btn-loading">Loading</button>
@@ -5149,20 +5476,87 @@
         </div>
       </div>
 
+      <!-- Button States Demo -->
+      <div class="subsection">
+        <div class="subsection-label">Button States</div>
+        <p class="subsection-desc">Static demonstration of the five interactive states applied to the primary button variant.</p>
+        <div class="btn-row" style="gap:var(--space-6)">
+          <div class="state-demo-item">
+            <button class="btn btn-md btn-primary">Default</button>
+            <span class="state-label">Default</span>
+          </div>
+          <div class="state-demo-item">
+            <button class="btn btn-md btn-primary force-hover">Hover</button>
+            <span class="state-label">Hover</span>
+          </div>
+          <div class="state-demo-item">
+            <button class="btn btn-md btn-primary force-active">Active</button>
+            <span class="state-label">Active</span>
+          </div>
+          <div class="state-demo-item">
+            <button class="btn btn-md btn-primary force-focus">Focus</button>
+            <span class="state-label">Focus</span>
+          </div>
+          <div class="state-demo-item">
+            <button class="btn btn-md btn-primary" disabled>Disabled</button>
+            <span class="state-label">Disabled</span>
+          </div>
+        </div>
+        <details class="code-snippet">
+          <summary>Button CSS Variables</summary>
+          <pre>/* Button tokens */
+--btn-py: var(--space-2);
+--btn-px: var(--space-5);
+--btn-gap: var(--space-2);
+--btn-primary-bg: var(--accent-primary);
+--btn-primary-text: var(--text-on-accent);
+--btn-danger-bg: var(--accent-danger);
+--btn-danger-text: var(--text-on-accent);
+--btn-gold-bg: var(--accent-gold);
+--btn-gold-text: var(--text-on-gold);</pre>
+        </details>
+      </div>
+
       <!-- 5b. Form Elements -->
       <div class="subsection">
         <h3 class="subsection-title">Form Elements</h3>
-        <div class="grid-2">
+        <p class="subsection-desc">Text inputs, selects, textareas, multi-select tags, and date pickers. Each supports default, focus, error, and disabled states.</p>
+      </div>
+
+      <div class="subsection">
+        <div class="subsection-label">Input State Toggle</div>
+        <p class="subsection-desc">Toggle forced states on the demo input below.</p>
+        <div class="state-toggle-bar" data-target="state-demo-input">
+          <button class="btn btn-sm btn-secondary" data-state="default" aria-pressed="true">Default</button>
+          <button class="btn btn-sm btn-secondary" data-state="hover">Hover</button>
+          <button class="btn btn-sm btn-secondary" data-state="active">Active</button>
+          <button class="btn btn-sm btn-secondary" data-state="focus">Focus</button>
+          <button class="btn btn-sm btn-secondary" data-state="disabled">Disabled</button>
+        </div>
+        <div style="margin-top:var(--space-4);max-width:360px">
+          <input class="input" id="state-demo-input" type="text" placeholder="Interactive input demo" value="Type here...">
+        </div>
+      </div>
+
+      <div class="subsection">
+        <div class="subsection-label">Text Inputs</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-6);max-width:720px">
           <div class="form-group"><label class="form-label" for="form-fullname">Full name</label><input class="input" id="form-fullname" type="text"
               placeholder="Enter your name" value="Alex Morgan"></div>
           <div class="form-group"><label class="form-label" for="form-email">Email address</label><input class="input" id="form-email" type="email"
               placeholder="you@example.com"></div>
           <div class="form-group"><label class="form-label" for="error-input">Error state</label><input class="input input-error"
-              type="text" value="invalid@" id="error-input">
-            <div class="form-error-text">Please enter a valid email address</div>
+              type="text" value="invalid@" id="error-input" aria-invalid="true" aria-describedby="error-input-msg">
+            <div class="form-error-text" id="error-input-msg" role="alert">Please enter a valid email address</div>
           </div>
           <div class="form-group"><label class="form-label" for="form-disabled">Disabled</label><input class="input" id="form-disabled" type="text"
               value="Cannot edit" disabled></div>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <div class="subsection-label">Select, Date & Tags</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-6);max-width:720px">
           <div class="form-group"><label class="form-label" for="form-date">Date</label>
             <div class="input-icon-wrap">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -5174,7 +5568,18 @@
               <input class="input" id="form-date" type="text" placeholder="Select date" value="Oct 24, 2026">
             </div>
           </div>
-          <div class="form-group"><label class="form-label" for="form-tags">Tags</label>
+          <div class="form-group"><label class="form-label" for="form-project-type">Project type</label>
+            <div class="select-wrap"><select class="select" id="form-project-type">
+                <option>Web Application</option>
+                <option>Marketing Site</option>
+                <option>Dashboard</option>
+                <option>Mobile App</option>
+              </select><span class="select-arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <polyline points="6 9 12 15 18 9" />
+                </svg></span></div>
+          </div>
+          <div class="form-group" style="grid-column:1/-1"><label class="form-label" for="form-tags">Tags</label>
             <div class="multi-select">
               <span class="multi-select-tag">Design<button aria-label="Remove Design tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -5189,21 +5594,21 @@
               <input id="form-tags" type="text" placeholder="Add..." class="multi-select-input">
             </div>
           </div>
-          <div class="form-group"><label class="form-label" for="form-project-type">Project type</label>
-            <div class="select-wrap"><select class="select" id="form-project-type">
-                <option>Web Application</option>
-                <option>Marketing Site</option>
-                <option>Dashboard</option>
-                <option>Mobile App</option>
-              </select><span class="select-arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" stroke-width="2" aria-hidden="true">
-                  <polyline points="6 9 12 15 18 9" />
-                </svg></span></div>
-          </div>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <div class="subsection-label">Textarea</div>
+        <div style="max-width:720px">
           <div class="form-group"><label class="form-label" for="form-description">Description</label><textarea class="textarea" id="form-description"
               rows="3">A design system built with warm boldness and confident color.</textarea></div>
         </div>
-        <div style="display:flex;gap:var(--space-8);flex-wrap:wrap;margin-top:var(--space-6);align-items:center">
+      </div>
+
+      <div class="subsection">
+        <div class="subsection-label">Checkboxes, Radios & Toggle</div>
+        <p class="subsection-desc">Binary and grouped selection controls with accessible markup. Toggle uses a switch pattern with smooth knob animation.</p>
+        <div style="display:flex;gap:var(--space-8);flex-wrap:wrap;align-items:center">
           <label class="check-group"><input type="checkbox" class="sr-only" checked><span
               class="check-box" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="3" aria-hidden="true">
@@ -5219,10 +5624,15 @@
           <label class="check-group"><input type="radio" name="option-group" class="sr-only"><span
               class="radio-circle" aria-hidden="true"></span> Option B</label>
           <label class="toggle-group" style="display:flex;align-items:center;gap:var(--space-2)"><button class="toggle toggle-bg-anim" role="switch" aria-checked="true"
+              aria-label="Auto-save"
               onclick="this.setAttribute('aria-checked', this.getAttribute('aria-checked') === 'true' ? 'false' : 'true')"><span class="toggle-knob toggle-knob-anim" aria-hidden="true"></span></button><span
               style="font-size:0.875rem">Auto-save</span></label>
         </div>
-        <div class="slider-group" style="margin-top:var(--space-6)">
+      </div>
+
+      <div class="subsection">
+        <div class="subsection-label">Range Slider</div>
+        <div class="slider-group" style="max-width:480px">
           <div class="slider-header">
             <label class="form-label" for="form-volume">Volume</label>
             <span class="slider-value" id="form-volume-val">65</span>
@@ -5237,11 +5647,33 @@
         </div>
       </div>
 
+      <div class="subsection">
+        <details class="code-snippet">
+          <summary>Form Element CSS Variables</summary>
+          <pre>/* Input tokens */
+--input-py: var(--space-2);
+--input-px: var(--space-3);
+--input-radius: var(--radius-sm);
+--input-border: var(--border-default);
+--input-bg: var(--bg-elevated);
+--input-focus-ring: var(--focus-ring);
+
+/* Error state */
+--input-error-border: var(--accent-danger);
+--input-error-text: var(--accent-danger-text);</pre>
+        </details>
+      </div>
+
       <!-- 5c. Cards -->
       <div class="subsection">
         <h3 class="subsection-title">Cards</h3>
+        <p class="subsection-desc">Three card variants: default, featured (pink accent), and featured-cyan. Interactive cards lift on hover with shadow escalation.</p>
+        <div class="state-toggle-bar" data-target="state-demo-card">
+          <button class="btn btn-sm btn-secondary" data-state="default" aria-pressed="true">Default</button>
+          <button class="btn btn-sm btn-secondary" data-state="hover">Hover</button>
+        </div>
         <div class="grid-3">
-          <div class="card card-interactive">
+          <div class="card card-interactive" id="state-demo-card">
             <div class="card-title">Design Tokens</div>
             <div class="card-desc">Centralized design decisions expressed as data — colors, typography, spacing, motion.
             </div>
@@ -5258,11 +5690,24 @@
             <div class="card-meta">10 prototypes · Stable</div>
           </div>
         </div>
+        <details class="code-snippet">
+          <summary>Card CSS Variables</summary>
+          <pre>/* Card tokens */
+--card-padding: var(--space-6);
+--card-radius: var(--radius-md);
+--card-bg: var(--bg-surface);
+--card-border: var(--border-default);
+--card-shadow: var(--shadow-md);
+--card-shadow-hover: var(--shadow-lg);
+--card-featured-bg: var(--accent-primary-subtle);
+--card-featured-border: var(--accent-primary);</pre>
+        </details>
       </div>
 
       <!-- 5d. Data Table -->
       <div class="subsection">
         <h3 class="subsection-title">Data Table</h3>
+        <p class="subsection-desc">Sortable, selectable data table with row highlighting. Click column headers to sort, checkboxes for bulk selection.</p>
         <div class="table-wrap">
           <table class="data-table" id="components-table">
             <thead>
@@ -5354,6 +5799,7 @@
       <!-- 5e. Badges -->
       <div class="subsection">
         <h3 class="subsection-title">Badges</h3>
+        <p class="subsection-desc">Status indicators in 6 color variants with optional dot prefix. Pop animation on mount for attention.</p>
         <div class="flex-wrap-gap">
           <span class="badge badge-pink badge-pop">Production</span>
           <span class="badge badge-gold badge-pop">Draft</span>
@@ -5364,11 +5810,97 @@
           <span class="badge badge-pink badge-pop"><span class="status-dot"
               style="background:var(--accent-primary);margin-right:2px"></span> With Dot</span>
         </div>
+        <details class="code-snippet">
+          <summary>Badge CSS Variables</summary>
+          <pre>/* Badge tokens */
+--badge-py: var(--space-1);
+--badge-px: var(--space-3);
+--badge-radius: var(--radius-full);
+--badge-font-size: var(--ui-text-2xs);
+--badge-pink-bg: var(--accent-primary-subtle);
+--badge-pink-text: var(--accent-primary-text);
+--badge-gold-bg: var(--accent-gold-subtle);
+--badge-gold-text: var(--accent-gold-text);</pre>
+        </details>
       </div>
 
-      <!-- 5f. Navigation -->
+      <!-- 5f. Divider / Separator -->
+      <div class="subsection">
+        <div class="subsection-label">Divider</div>
+        <p class="subsection-desc">Horizontal rules for separating content sections. Strong and subtle variants, plus a text-inset option for labeled breaks.</p>
+        <div style="max-width:480px">
+          <p style="font-size:var(--ui-text-sm);color:var(--text-secondary)">Content above the divider</p>
+          <hr class="divider">
+          <p style="font-size:var(--ui-text-sm);color:var(--text-secondary)">Subtle divider (default)</p>
+          <hr class="divider divider-strong">
+          <p style="font-size:var(--ui-text-sm);color:var(--text-secondary)">Strong divider</p>
+          <div class="divider-with-text">or continue with</div>
+          <p style="font-size:var(--ui-text-sm);color:var(--text-secondary)">Divider with inline text</p>
+        </div>
+      </div>
+
+      <!-- 5g. Segmented Control -->
+      <div class="subsection">
+        <div class="subsection-label">Segmented Control</div>
+        <p class="subsection-desc">Mode-switching control for toggling between mutually exclusive views. Distinct from tabs — used for filtering or display mode, not navigating between content panels.</p>
+        <div style="display:flex;flex-direction:column;gap:var(--space-6)">
+          <div class="segmented-control" role="group" aria-label="View mode">
+            <button class="segmented-control-item" aria-pressed="true" onclick="this.parentElement.querySelectorAll('.segmented-control-item').forEach(b=>b.setAttribute('aria-pressed','false'));this.setAttribute('aria-pressed','true')">Grid</button>
+            <button class="segmented-control-item" aria-pressed="false" onclick="this.parentElement.querySelectorAll('.segmented-control-item').forEach(b=>b.setAttribute('aria-pressed','false'));this.setAttribute('aria-pressed','true')">List</button>
+            <button class="segmented-control-item" aria-pressed="false" onclick="this.parentElement.querySelectorAll('.segmented-control-item').forEach(b=>b.setAttribute('aria-pressed','false'));this.setAttribute('aria-pressed','true')">Table</button>
+          </div>
+          <div class="segmented-control" role="group" aria-label="Time range">
+            <button class="segmented-control-item" aria-pressed="false" onclick="this.parentElement.querySelectorAll('.segmented-control-item').forEach(b=>b.setAttribute('aria-pressed','false'));this.setAttribute('aria-pressed','true')">Day</button>
+            <button class="segmented-control-item" aria-pressed="true" onclick="this.parentElement.querySelectorAll('.segmented-control-item').forEach(b=>b.setAttribute('aria-pressed','false'));this.setAttribute('aria-pressed','true')">Week</button>
+            <button class="segmented-control-item" aria-pressed="false" onclick="this.parentElement.querySelectorAll('.segmented-control-item').forEach(b=>b.setAttribute('aria-pressed','false'));this.setAttribute('aria-pressed','true')">Month</button>
+            <button class="segmented-control-item" aria-pressed="false" onclick="this.parentElement.querySelectorAll('.segmented-control-item').forEach(b=>b.setAttribute('aria-pressed','false'));this.setAttribute('aria-pressed','true')">Year</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5h. Notification Badge -->
+      <div class="subsection">
+        <div class="subsection-label">Notification Badge</div>
+        <p class="subsection-desc">Count overlay for avatars and icon buttons. Uses danger red for urgency, tabular-nums for stable width as counts change.</p>
+        <div style="display:flex;gap:var(--space-8);align-items:center;flex-wrap:wrap">
+          <div class="notification-badge">
+            <div class="avatar avatar-md avatar-pink">AM</div>
+            <span class="notification-badge-count">3</span>
+          </div>
+          <div class="notification-badge">
+            <div class="avatar avatar-md avatar-cyan">JD</div>
+            <span class="notification-badge-count">12</span>
+          </div>
+          <div class="notification-badge">
+            <button class="btn btn-sm btn-icon btn-secondary" style="width:var(--control-md);height:var(--control-md)" aria-label="Notifications">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            </button>
+            <span class="notification-badge-count">5</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5i. Dropdown Menu -->
+      <div class="subsection">
+        <div class="subsection-label">Dropdown Menu</div>
+        <p class="subsection-desc">Contextual action menus using the Popover API. Supports keyboard navigation (arrow keys), grouping with labels, separators, and danger items.</p>
+        <div style="position:relative;display:inline-block">
+          <button class="btn btn-secondary btn-sm" id="dropdown-trigger" popovertarget="dropdown-demo">Actions <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button>
+          <div id="dropdown-demo" popover class="dropdown-menu" style="position:absolute;top:calc(100% + var(--space-2));left:0">
+            <div class="dropdown-label">Actions</div>
+            <button class="dropdown-item" onclick="document.getElementById('dropdown-demo').hidePopover()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Edit</button>
+            <button class="dropdown-item" onclick="document.getElementById('dropdown-demo').hidePopover()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Duplicate</button>
+            <button class="dropdown-item" onclick="document.getElementById('dropdown-demo').hidePopover()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg> Export</button>
+            <hr class="dropdown-separator">
+            <button class="dropdown-item" data-danger="true" onclick="document.getElementById('dropdown-demo').hidePopover()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg> Delete</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5j. Navigation -->
       <div class="subsection">
         <h3 class="subsection-title">Navigation</h3>
+        <p class="subsection-desc">Sidebar with icon items, horizontal tabs, breadcrumb trails, and numeric pagination. All patterns use active-state highlighting.</p>
         <div class="grid-2">
           <div>
             <div class="subsection-label">Sidebar</div>
@@ -5394,15 +5926,19 @@
           </div>
           <div>
             <div class="subsection-label">Tabs</div>
-            <div class="tabs" style="margin-bottom:var(--space-6)">
+            <div class="tabs">
               <button class="tab active">Overview</button><button class="tab">Components</button><button
                 class="tab">Tokens</button><button class="tab">Motion</button>
             </div>
+          </div>
+          <div>
             <div class="subsection-label">Breadcrumbs</div>
-            <div class="breadcrumbs" style="margin-bottom:var(--space-6)">
+            <div class="breadcrumbs">
               <a href="#">Home</a><span class="sep">/</span><a href="#">Design System</a><span class="sep">/</span><span
                 class="current">Components</span>
             </div>
+          </div>
+          <div>
             <div class="subsection-label">Pagination</div>
             <div class="pagination">
               <button class="page-btn">&laquo;</button>
@@ -5421,7 +5957,7 @@
         <div class="subsection-desc">Lightweight menus and contextual content using the native Popover API. No JS needed for basic show/hide — just <code>popovertarget</code>.</div>
         <div class="flex-wrap-gap" style="gap:var(--space-4)">
           <div style="position:relative">
-            <button class="btn btn-primary" popovertarget="popover-menu">Actions Menu</button>
+            <button class="btn btn-primary btn-md" popovertarget="popover-menu">Actions Menu</button>
             <div id="popover-menu" popover class="popover-panel" style="position:absolute;top:calc(100% + var(--space-2));left:0">
               <button class="popover-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Edit</button>
               <button class="popover-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Duplicate</button>
@@ -5430,7 +5966,7 @@
             </div>
           </div>
           <div style="position:relative">
-            <button class="btn btn-secondary" popovertarget="popover-info">More Info</button>
+            <button class="btn btn-secondary btn-md" popovertarget="popover-info">More Info</button>
             <div id="popover-info" popover class="popover-panel" style="position:absolute;top:calc(100% + var(--space-2));left:0;padding:var(--space-4);min-width:240px">
               <div style="font-weight:700;font-size:var(--ui-text-sm);margin-bottom:var(--space-2)">Design Tokens</div>
               <div style="font-size:var(--ui-text-xs);color:var(--text-secondary);line-height:var(--leading-normal)">Tokens are the atomic building blocks of the design system. They encode color, spacing, typography, and motion decisions as reusable variables.</div>
@@ -5959,6 +6495,7 @@
 
       <div class="subsection">
         <div class="subsection-label">Skeleton Loading</div>
+        <p class="subsection-desc">Shimmer and pulse placeholder patterns for content loading states. Toggle between animation modes or load real content.</p>
         <div style="margin-bottom:var(--space-4)">
           <button class="btn btn-secondary btn-sm" id="skel-toggle">Toggle Shimmer / Pulse</button>
           <button class="btn btn-primary btn-sm" id="skel-load" style="margin-left:var(--space-2)">Load
@@ -5968,23 +6505,17 @@
           <div class="card" id="skel-card-1">
             <div class="skel skel-shimmer skel-heading" style="margin-bottom:var(--space-3)"></div>
             <div class="skel skel-shimmer skel-text" style="margin-bottom:var(--space-2)"></div>
-            <div class="skel skel-shimmer skel-text" style="width:80%"></div>
+            <div class="skel skel-shimmer skel-text" style="width:75%"></div>
           </div>
           <div class="card" id="skel-card-2">
-            <div style="display:flex;align-items:center;gap:var(--space-3);margin-bottom:var(--space-3)">
-              <div class="skel skel-shimmer skel-circle"></div>
-              <div style="flex:1">
-                <div class="skel skel-shimmer skel-text" style="width:60%;margin-bottom:var(--space-2)"></div>
-                <div class="skel skel-shimmer skel-text" style="width:40%"></div>
-              </div>
-            </div>
+            <div class="skel skel-shimmer skel-heading" style="margin-bottom:var(--space-3)"></div>
             <div class="skel skel-shimmer skel-text" style="margin-bottom:var(--space-2)"></div>
-            <div class="skel skel-shimmer skel-text" style="width:70%"></div>
+            <div class="skel skel-shimmer skel-text" style="width:85%"></div>
           </div>
           <div class="card" id="skel-card-3">
-            <div class="skel skel-shimmer" style="height:80px;border-radius:var(--radius-md);margin-bottom:var(--space-3)"></div>
-            <div class="skel skel-shimmer skel-heading" style="margin-bottom:var(--space-2)"></div>
-            <div class="skel skel-shimmer skel-text"></div>
+            <div class="skel skel-shimmer skel-heading" style="margin-bottom:var(--space-3)"></div>
+            <div class="skel skel-shimmer skel-text" style="margin-bottom:var(--space-2)"></div>
+            <div class="skel skel-shimmer skel-text" style="width:65%"></div>
           </div>
         </div>
       </div>
@@ -6109,7 +6640,8 @@
 
       <div class="subsection">
         <div class="subsection-label">Toast Notifications</div>
-        <div class="btn-row" style="margin-bottom:var(--space-6)">
+        <p class="subsection-desc">Stackable notifications in four severity levels. Auto-dismiss with progress indicator, swipe to dismiss on touch.</p>
+        <div class="btn-row">
           <button class="btn btn-secondary btn-sm"
             onclick="showToast('success','Project saved','Your changes have been saved successfully.')">Success
             Toast</button>
@@ -6127,7 +6659,8 @@
 
       <div class="subsection">
         <div class="subsection-label">Modal & Drawer</div>
-        <div class="btn-row" style="margin-bottom:var(--space-6)">
+        <p class="subsection-desc">Spring-animated overlays using the native dialog element. Modal centers content with backdrop blur; drawer slides from the right edge.</p>
+        <div class="btn-row">
           <button class="btn btn-primary btn-sm" id="open-modal">Open Modal</button>
           <button class="btn btn-secondary btn-sm" id="open-drawer">Open Drawer</button>
         </div>
@@ -6260,7 +6793,7 @@
         <div class="subsection-desc">Centered placeholder for zero-data screens with icon, title, description, and optional CTA.</div>
         <div class="card" style="max-width:560px">
           <div class="empty-state">
-            <div class="empty-state-icon">&#128269;</div>
+            <div class="empty-state-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="1.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
             <div class="empty-state-title">No results found</div>
             <div class="empty-state-desc">Try adjusting your search or filter criteria to find what you're looking for.</div>
             <button class="btn btn-sm btn-primary">Clear filters</button>
@@ -6330,42 +6863,6 @@
             <div class="card-desc">Brand-forward landing pages with scroll-driven narratives and view transitions.</div>
             <span class="badge badge-gold badge-pop">Planning</span>
           </div>
-        </div>
-      </div>
-
-      <div class="subsection">
-        <div class="subsection-label">3D Perspective Tilt</div>
-        <div class="subsection-desc">Card tilts toward your cursor position. Inner elements at different translateZ
-          depths create parallax. Max 12 degrees.</div>
-        <div class="tilt-container" style="max-width:400px">
-          <div class="tilt-card" id="tilt-card">
-            <div class="tilt-title">Delightful</div>
-            <div class="tilt-desc">A design system built with warm boldness, confident color, and neo-brutalist motion.
-            </div>
-            <span class="tilt-badge">v3.0 · Stable</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="subsection">
-        <div class="subsection-label">@property Color Shift</div>
-        <div class="subsection-desc">CSS @property enables smooth hue interpolation on hover. Watch the colors shift.
-        </div>
-        <div class="color-pills">
-          <button class="color-pill color-pill-1">Pink → Gold</button>
-          <button class="color-pill color-pill-2">Pink → Red</button>
-          <button class="color-pill color-pill-3">Pink → Cyan</button>
-        </div>
-      </div>
-
-      <div class="subsection">
-        <div class="subsection-label">Cursor Spotlight</div>
-        <div class="subsection-desc">Move your cursor over the dark panel. A radial gradient follows your position.
-        </div>
-        <div class="spotlight-panel" id="spotlight-panel">
-          <div class="spotlight-dots"></div>
-          <div class="spotlight-gradient" id="spotlight-gradient"></div>
-          <div class="spotlight-text">Move your cursor here</div>
         </div>
       </div>
 
@@ -6593,16 +7090,16 @@
             <div class="card">
               <div class="card-title">Appearance</div>
               <div style="display:flex;justify-content:space-between;align-items:center;margin-top:var(--space-4)"><span
-                  style="font-size:0.875rem">Dark mode</span><button class="toggle toggle-bg-anim on"
-                  onclick="this.classList.toggle('on')"><span class="toggle-knob toggle-knob-anim"></span></button>
+                  style="font-size:0.875rem">Dark mode</span><button class="toggle toggle-bg-anim" role="switch" aria-checked="true" aria-label="Dark mode"
+                  onclick="this.setAttribute('aria-checked', this.getAttribute('aria-checked') === 'true' ? 'false' : 'true')"><span class="toggle-knob toggle-knob-anim" aria-hidden="true"></span></button>
               </div>
               <div style="display:flex;justify-content:space-between;align-items:center;margin-top:var(--space-3)"><span
-                  style="font-size:0.875rem">Reduce motion</span><button class="toggle toggle-bg-anim"
-                  onclick="this.classList.toggle('on')"><span class="toggle-knob toggle-knob-anim"></span></button>
+                  style="font-size:0.875rem">Reduce motion</span><button class="toggle toggle-bg-anim" role="switch" aria-checked="false" aria-label="Reduce motion"
+                  onclick="this.setAttribute('aria-checked', this.getAttribute('aria-checked') === 'true' ? 'false' : 'true')"><span class="toggle-knob toggle-knob-anim" aria-hidden="true"></span></button>
               </div>
               <div style="display:flex;justify-content:space-between;align-items:center;margin-top:var(--space-3)"><span
-                  style="font-size:0.875rem">High contrast</span><button class="toggle toggle-bg-anim"
-                  onclick="this.classList.toggle('on')"><span class="toggle-knob toggle-knob-anim"></span></button>
+                  style="font-size:0.875rem">High contrast</span><button class="toggle toggle-bg-anim" role="switch" aria-checked="false" aria-label="High contrast"
+                  onclick="this.setAttribute('aria-checked', this.getAttribute('aria-checked') === 'true' ? 'false' : 'true')"><span class="toggle-knob toggle-knob-anim" aria-hidden="true"></span></button>
               </div>
             </div>
             <div class="card">
@@ -6680,115 +7177,107 @@
         Token</button><button class="btn btn-md btn-ghost" onclick="closeDrawer()">Cancel</button></div>
   </dialog>
 
-  <!-- Command Palette -->
-  <div class="modal-panel" id="cmdpal-panel" popover="auto"
-    style="max-width:520px;padding:0;margin-top:min(20vh,160px)">
-    <div
-      style="padding:var(--space-3) var(--space-4);border-bottom:2px solid var(--border-subtle);display:flex;align-items:center;gap:var(--space-2)">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2"
-        stroke-linecap="round">
-        <circle cx="11" cy="11" r="8" />
-        <line x1="21" y1="21" x2="16.65" y2="16.65" />
-      </svg>
-      <input type="text" id="cmdpal-input" placeholder="Search components, tokens, sections..."
-        style="flex:1;border:none;background:none;font-family:var(--font-sans);font-size:0.9375rem;color:var(--text-primary);outline:none"
-        autocomplete="off">
-      <kbd
-        style="padding:2px 6px;background:var(--bg-subtle);border:2px solid var(--border-default);border-radius:3px;font-family:var(--font-mono);font-size:0.625rem;color:var(--text-muted)">ESC</kbd>
-    </div>
-    <div style="padding:var(--space-2);max-height:320px;overflow-y:auto" id="cmdpal-results">
-      <div
-        style="padding:var(--space-1) var(--space-3);font-size:0.625rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-muted)">
-        Sections</div>
-      <div class="cmdpal-item" data-href="#philosophy"
-        style="padding:var(--space-2) var(--space-3);border-radius:var(--radius-sm);cursor:pointer;display:flex;align-items:center;gap:var(--space-3);font-size:0.875rem">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-          stroke-linecap="round">
-          <polygon
-            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-        </svg>
-        <span>Philosophy</span><span
-          style="margin-left:auto;font-size:0.6875rem;color:var(--text-muted);font-family:var(--font-mono)">01</span>
-      </div>
-      <div class="cmdpal-item" data-href="#color"
-        style="padding:var(--space-2) var(--space-3);border-radius:var(--radius-sm);cursor:pointer;display:flex;align-items:center;gap:var(--space-3);font-size:0.875rem">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-          stroke-linecap="round">
-          <circle cx="13.5" cy="6.5" r="0.5" />
-          <circle cx="17.5" cy="10.5" r="0.5" />
-          <circle cx="8.5" cy="7.5" r="0.5" />
-          <circle cx="6.5" cy="12.5" r="0.5" />
-          <path
-            d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z" />
-        </svg>
-        <span>Color System</span><span
-          style="margin-left:auto;font-size:0.6875rem;color:var(--text-muted);font-family:var(--font-mono)">02</span>
-      </div>
-      <div class="cmdpal-item" data-href="#typography"
-        style="padding:var(--space-2) var(--space-3);border-radius:var(--radius-sm);cursor:pointer;display:flex;align-items:center;gap:var(--space-3);font-size:0.875rem">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-          stroke-linecap="round">
-          <polyline points="4 7 4 4 20 4 20 7" />
-          <line x1="9" y1="20" x2="15" y2="20" />
-          <line x1="12" y1="4" x2="12" y2="20" />
-        </svg>
-        <span>Typography</span><span
-          style="margin-left:auto;font-size:0.6875rem;color:var(--text-muted);font-family:var(--font-mono)">03</span>
-      </div>
-      <div class="cmdpal-item" data-href="#components"
-        style="padding:var(--space-2) var(--space-3);border-radius:var(--radius-sm);cursor:pointer;display:flex;align-items:center;gap:var(--space-3);font-size:0.875rem">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-          stroke-linecap="round">
-          <rect x="3" y="3" width="7" height="7" />
-          <rect x="14" y="3" width="7" height="7" />
-          <rect x="3" y="14" width="7" height="7" />
-          <rect x="14" y="14" width="7" height="7" />
-        </svg>
-        <span>Components</span><span
-          style="margin-left:auto;font-size:0.6875rem;color:var(--text-muted);font-family:var(--font-mono)">05</span>
-      </div>
-      <div class="cmdpal-item" data-href="#signature"
-        style="padding:var(--space-2) var(--space-3);border-radius:var(--radius-sm);cursor:pointer;display:flex;align-items:center;gap:var(--space-3);font-size:0.875rem">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-          stroke-linecap="round">
-          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-        </svg>
-        <span>Signature Effects</span><span
-          style="margin-left:auto;font-size:0.6875rem;color:var(--text-muted);font-family:var(--font-mono)">12</span>
-      </div>
-      <div
-        style="padding:var(--space-1) var(--space-3);font-size:0.625rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-muted);margin-top:var(--space-2)">
-        Actions</div>
-      <div class="cmdpal-item" data-action="toggle-theme"
-        style="padding:var(--space-2) var(--space-3);border-radius:var(--radius-sm);cursor:pointer;display:flex;align-items:center;gap:var(--space-3);font-size:0.875rem">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-          stroke-linecap="round">
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-        </svg>
-        <span>Toggle Dark Mode</span>
-      </div>
-      <div class="cmdpal-item" data-action="scroll-top"
-        style="padding:var(--space-2) var(--space-3);border-radius:var(--radius-sm);cursor:pointer;display:flex;align-items:center;gap:var(--space-3);font-size:0.875rem">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-          stroke-linecap="round">
-          <polyline points="18 15 12 9 6 15" />
-        </svg>
-        <span>Back to Top</span>
-      </div>
+  <!-- Command palette -->
+  <div class="cmd-palette-overlay" id="cmd-palette-overlay">
+    <div class="cmd-palette" role="dialog" aria-label="Quick navigation">
+      <input class="cmd-palette-input" id="cmd-palette-input" type="text" placeholder="Jump to section..." autocomplete="off" role="combobox" aria-controls="cmd-palette-list" aria-autocomplete="list" aria-expanded="false" />
+      <ul class="cmd-palette-list" id="cmd-palette-list" role="listbox"></ul>
     </div>
   </div>
 
+  <!-- Repo Icon Sidebar -->
+  <aside class="repo-sidebar" aria-label="Platform support">
+    <a class="repo-sidebar-btn" role="img" aria-label="GitHub" data-tooltip="GitHub">
+      <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+    </a>
+    <a class="repo-sidebar-btn" role="img" aria-label="Claude Code" data-tooltip="Claude Code">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="m4.7144 15.9555 4.7174-2.6471.079-.2307-.079-.1275h-.2307l-.7893-.0486-2.6956-.0729-2.3375-.0971-2.2646-.1214-.5707-.1215-.5343-.7042.0546-.3522.4797-.3218.686.0608 1.5179.1032 2.2767.1578 1.6514.0972 2.4468.255h.3886l.0546-.1579-.1336-.0971-.1032-.0972L6.973 9.8356l-2.55-1.6879-1.3356-.9714-.7225-.4918-.3643-.4614-.1578-1.0078.6557-.7225.8803.0607.2246.0607.8925.686 1.9064 1.4754 2.4893 1.8336.3643.3035.1457-.1032.0182-.0728-.164-.2733-1.3539-2.4467-1.445-2.4893-.6435-1.032-.17-.6194c-.0607-.255-.1032-.4674-.1032-.7285L6.287.1335 6.6997 0l.9957.1336.419.3642.6192 1.4147 1.0018 2.2282 1.5543 3.0296.4553.8985.2429.8318.091.255h.1579v-.1457l.1275-1.706.2368-2.0947.2307-2.6957.0789-.7589.3764-.9107.7468-.4918.5828.2793.4797.686-.0668.4433-.2853 1.8517-.5586 2.9021-.3643 1.9429h.2125l.2429-.2429.9835-1.3053 1.6514-2.0643.7286-.8196.85-.9046.5464-.4311h1.0321l.759 1.1293-.34 1.1657-1.0625 1.3478-.8804 1.1414-1.2628 1.7-.7893 1.36.0729.1093.1882-.0183 2.8535-.607 1.5421-.2794 1.8396-.3157.8318.3886.091.3946-.3278.8075-1.967.4857-2.3072.4614-3.4364.8136-.0425.0304.0486.0607 1.5482.1457.6618.0364h1.621l3.0175.2247.7892.522.4736.6376-.079.4857-1.2142.6193-1.6393-.3886-3.825-.9107-1.3113-.3279h-.1822v.1093l1.0929 1.0686 2.0035 1.8092 2.5075 2.3314.1275.5768-.3218.4554-.34-.0486-2.2039-1.6575-.85-.7468-1.9246-1.621h-.1275v.17l.4432.6496 2.3436 3.5214.1214 1.0807-.17.3521-.6071.2125-.6679-.1214-1.3721-1.9246L14.38 17.959l-1.1414-1.9428-.1397.079-.674 7.2552-.3156.3703-.7286.2793-.6071-.4614-.3218-.7468.3218-1.4753.3886-1.9246.3157-1.53.2853-1.9004.17-.6314-.0121-.0425-.1397.0182-1.4328 1.9672-2.1796 2.9446-1.7243 1.8456-.4128.164-.7164-.3704.0667-.6618.4008-.5889 2.386-3.0357 1.4389-1.882.929-1.0868-.0062-.1579h-.0546l-6.3385 4.1164-1.1293.1457-.4857-.4554.0608-.7467.2307-.2429 1.9064-1.3114Z"/></svg>
+    </a>
+    <a class="repo-sidebar-btn" role="img" aria-label="Obsidian" data-tooltip="Obsidian">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.355 18.538a68.967 68.959 0 0 0 1.858-2.954.81.81 0 0 0-.062-.9c-.516-.685-1.504-2.075-2.042-3.362-.553-1.321-.636-3.375-.64-4.377a1.707 1.707 0 0 0-.358-1.05l-3.198-4.064a3.744 3.744 0 0 1-.076.543c-.106.503-.307 1.004-.536 1.5-.134.29-.29.6-.446.914l-.31.626c-.516 1.068-.997 2.227-1.132 3.59-.124 1.26.046 2.73.815 4.481.128.011.257.025.386.044a6.363 6.363 0 0 1 3.326 1.505c.916.79 1.744 1.922 2.415 3.5zM8.199 22.569c.073.012.146.02.22.02.78.024 2.095.092 3.16.29.87.16 2.593.64 4.01 1.055 1.083.316 2.198-.548 2.355-1.664.114-.814.33-1.735.725-2.58l-.01.005c-.67-1.87-1.522-3.078-2.416-3.849a5.295 5.295 0 0 0-2.778-1.257c-1.54-.216-2.952.19-3.84.45.532 2.218.368 4.829-1.425 7.531zM5.533 9.938c-.023.1-.056.197-.098.29L2.82 16.059a1.602 1.602 0 0 0 .313 1.772l4.116 4.24c2.103-3.101 1.796-6.02.836-8.3-.728-1.73-1.832-3.081-2.55-3.831zM9.32 14.01c.615-.183 1.606-.465 2.745-.534-.683-1.725-.848-3.233-.716-4.577.154-1.552.7-2.847 1.235-3.95.113-.235.223-.454.328-.664.149-.297.288-.577.419-.86.217-.47.379-.885.46-1.27.08-.38.08-.72-.014-1.043-.095-.325-.297-.675-.68-1.06a1.6 1.6 0 0 0-1.475.36l-4.95 4.452a1.602 1.602 0 0 0-.513.952l-.427 2.83c.672.59 2.328 2.316 3.335 4.711.09.21.175.43.253.653z"/></svg>
+    </a>
+    <a class="repo-sidebar-btn" role="img" aria-label="VS Code" data-tooltip="VS Code">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.8 1.4L21.2 3.6C21.7 3.8 22 4.3 22 4.9V19.1C22 19.7 21.7 20.2 21.2 20.4L16.8 22.6C16.5 22.8 16.1 22.7 15.8 22.5L7.3 15L3.7 17.8C3.3 18.1 2.7 18.1 2.4 17.7L1 16.2C0.7 15.8 0.7 15.2 1.1 14.9L4.2 12L1.1 9.1C0.7 8.8 0.7 8.2 1 7.8L2.4 6.3C2.7 5.9 3.3 5.9 3.7 6.2L7.3 9L15.8 1.5C16.1 1.3 16.5 1.2 16.8 1.4ZM16.5 7.6L10.5 12L16.5 16.4V7.6Z"/></svg>
+    </a>
+    <a class="repo-sidebar-btn" role="img" aria-label="Sublime Text" data-tooltip="Sublime Text">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 5.359v13.282A5.36 5.36 0 0 1 18.641 24H5.359A5.36 5.36 0 0 1 0 18.641V5.359A5.36 5.36 0 0 1 5.359 0h13.282A5.36 5.36 0 0 1 24 5.359m-.932-.233A4.196 4.196 0 0 0 18.874.932H5.126A4.196 4.196 0 0 0 .932 5.126v13.748a4.196 4.196 0 0 0 4.194 4.194h13.748a4.196 4.196 0 0 0 4.194-4.194zm-.816.233v13.282a3.613 3.613 0 0 1-3.611 3.611H5.359a3.613 3.613 0 0 1-3.611-3.611V5.359a3.613 3.613 0 0 1 3.611-3.611h13.282a3.613 3.613 0 0 1 3.611 3.611M8.854 4.194v6.495h.962V4.194zM5.483 9.493v1.085h.597V9.48q.283-.037.508-.133.373-.165.575-.448.208-.284.208-.649a.9.9 0 0 0-.171-.568 1.4 1.4 0 0 0-.426-.388 3 3 0 0 0-.544-.261 32 32 0 0 0-.545-.209 1.8 1.8 0 0 1-.426-.216q-.164-.12-.164-.284 0-.223.179-.351.18-.126.485-.127.344 0 .575.105.239.105.5.298l.433-.5a2.3 2.3 0 0 0-.605-.433 1.6 1.6 0 0 0-.582-.159v-.968h-.597v.978a2 2 0 0 0-.477.127 1.2 1.2 0 0 0-.545.411q-.194.268-.194.634 0 .335.164.56.164.224.418.38a4 4 0 0 0 .552.262q.291.104.545.209.261.104.425.238a.39.39 0 0 1 .165.321q0 .225-.187.359-.18.134-.537.134-.381 0-.717-.134a4.4 4.4 0 0 1-.649-.351l-.388.589q.209.173.477.306.276.135.575.217.191.046.373.064"/></svg>
+    </a>
+    <a class="repo-sidebar-btn" role="img" aria-label="Ghostty" data-tooltip="Ghostty">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C6.7 0 2.4 4.3 2.4 9.6v11.146c0 1.772 1.45 3.267 3.222 3.254a3.18 3.18 0 0 0 1.955-.686 1.96 1.96 0 0 1 2.444 0 3.18 3.18 0 0 0 1.976.686c.75 0 1.436-.257 1.98-.686.715-.563 1.71-.587 2.419-.018.59.476 1.355.743 2.182.699 1.705-.094 3.022-1.537 3.022-3.244V9.601C21.6 4.3 17.302 0 12 0M6.069 6.562a1 1 0 0 1 .46.131l3.578 2.065v.002a.974.974 0 0 1 0 1.687L6.53 12.512a.975.975 0 0 1-.976-1.687L7.67 9.602 5.553 8.38a.975.975 0 0 1 .515-1.818m7.438 2.063h4.7a.975.975 0 1 1 0 1.95h-4.7a.975.975 0 0 1 0-1.95"/></svg>
+    </a>
+    <a class="repo-sidebar-btn" role="img" aria-label="Terminal" data-tooltip="Terminal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+    </a>
+  </aside>
+
   <style>
-    .cmdpal-item {
-      transition: transform var(--motion-instant) linear, background var(--motion-fast) var(--ease-out);
+    @layer component {
+    .repo-sidebar {
+      position: fixed;
+      right: var(--space-4);
+      top: 80px;
+      z-index: var(--z-sticky);
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      background: var(--bg-surface);
+      border: 2px solid var(--text-primary);
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-md);
+      padding: var(--space-1);
     }
-    .cmdpal-item:hover,
-    .cmdpal-item.focused {
+    .repo-sidebar-btn {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-sm);
+      color: var(--text-primary);
+      text-decoration: none;
+      opacity: 0.5;
+      transition: opacity var(--motion-fast) var(--ease-out),
+                  transform var(--motion-instant) linear,
+                  background var(--motion-fast) var(--ease-out);
+      position: relative;
+    }
+    .repo-sidebar-btn:hover {
+      opacity: 1;
+      transform: translateY(-1px);
       background: var(--bg-subtle);
     }
-    .cmdpal-item:active {
+    .repo-sidebar-btn:active {
       transform: translateY(1px);
     }
+    .repo-sidebar-btn svg {
+      width: 16px;
+      height: 16px;
+    }
+    .repo-sidebar-btn[data-tooltip]::before {
+      content: attr(data-tooltip);
+      position: absolute;
+      right: calc(100% + var(--space-2));
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 2px var(--space-2);
+      background: var(--bg-elevated);
+      border: 2px solid var(--text-primary);
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-sm);
+      font-size: var(--ui-text-xs);
+      font-weight: 600;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--motion-fast) var(--ease-out);
+    }
+    .repo-sidebar-btn:hover[data-tooltip]::before {
+      opacity: 1;
+    }
+    @media (max-width: 900px) {
+      .repo-sidebar { display: none; }
+    }
+    } /* end @layer component */
   </style>
 
   <!-- Back to Top -->
@@ -6806,56 +7295,141 @@
       'use strict';
       const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-      // === Theme Toggle (3-way: light → dark → system) ===
+      // === Theme Toggle (2-state: light ↔ dark) ===
       const html = document.documentElement;
       const themeBtn = document.getElementById('theme-toggle');
       const prefersDarkMq = window.matchMedia('(prefers-color-scheme: dark)');
-      const savedMode = localStorage.getItem('delightful-theme-mode') || localStorage.getItem('delightful-theme') || 'system';
 
-      function applyThemeMode(mode) {
-        if (mode === 'system') {
-          html.setAttribute('data-theme', prefersDarkMq.matches ? 'dark' : 'light');
-          html.setAttribute('data-theme-mode', 'system');
-          localStorage.setItem('delightful-theme-mode', 'system');
-          localStorage.removeItem('delightful-theme');
-        } else {
-          html.setAttribute('data-theme', mode);
-          html.removeAttribute('data-theme-mode');
-          localStorage.setItem('delightful-theme-mode', mode);
-          localStorage.setItem('delightful-theme', mode);
-        }
+      // Migrate from old 3-state keys
+      const savedTheme = localStorage.getItem('delightful-theme');
+      const legacyMode = localStorage.getItem('delightful-theme-mode');
+      if (legacyMode) localStorage.removeItem('delightful-theme-mode');
+
+      function applyTheme(theme, persist = false) {
+        html.setAttribute('data-theme', theme);
+        html.removeAttribute('data-theme-mode');
+        if (persist) localStorage.setItem('delightful-theme', theme);
       }
 
-      // Initialize
-      applyThemeMode(savedMode === 'light' || savedMode === 'dark' ? savedMode : 'system');
+      // Initialize: explicit preference → OS preference
+      const initialTheme = (savedTheme === 'light' || savedTheme === 'dark')
+        ? savedTheme
+        : (prefersDarkMq.matches ? 'dark' : 'light');
+      applyTheme(initialTheme);
 
-      // Listen for OS theme changes when in system mode
-      prefersDarkMq.addEventListener('change', () => {
-        if (html.getAttribute('data-theme-mode') === 'system') {
-          html.setAttribute('data-theme', prefersDarkMq.matches ? 'dark' : 'light');
+      // Listen for OS changes when no explicit preference
+      prefersDarkMq.addEventListener('change', (e) => {
+        const storedTheme = localStorage.getItem('delightful-theme');
+        if (storedTheme !== 'light' && storedTheme !== 'dark') {
+          applyTheme(e.matches ? 'dark' : 'light');
+          if (typeof renderArchitecture === 'function') renderArchitecture(activeFamily || 'pink');
         }
       });
 
       themeBtn.addEventListener('click', () => {
-        const current = localStorage.getItem('delightful-theme-mode') || 'system';
-        const next = current === 'light' ? 'dark' : current === 'dark' ? 'system' : 'light';
-        applyThemeMode(next);
+        const current = html.getAttribute('data-theme');
+        const next = current === 'light' ? 'dark' : 'light';
+        const apply = () => {
+          applyTheme(next, true);
+          if (typeof renderArchitecture === 'function') renderArchitecture(activeFamily || 'pink');
+        };
+        if (document.startViewTransition) document.startViewTransition(apply);
+        else apply();
       });
 
-      // === Motion Toggle ===
-      const motionBtn = document.getElementById('motion-toggle');
-      const savedMotion = localStorage.getItem('delightful-reduced-motion');
-      if (savedMotion === 'reduce') html.setAttribute('data-reduced-motion', 'reduce');
-      motionBtn.addEventListener('click', () => {
-        const isReduced = html.getAttribute('data-reduced-motion') === 'reduce';
-        if (isReduced) {
-          html.removeAttribute('data-reduced-motion');
-          localStorage.removeItem('delightful-reduced-motion');
-        } else {
-          html.setAttribute('data-reduced-motion', 'reduce');
-          localStorage.setItem('delightful-reduced-motion', 'reduce');
+      // === Brand Dropdown ===
+      const brandTrigger = document.getElementById('brand-trigger');
+      const brandDropdown = document.getElementById('brand-dropdown');
+
+      function openDropdown() {
+        brandTrigger.setAttribute('aria-expanded', 'true');
+        brandDropdown.classList.add('open');
+      }
+      function closeDropdown() {
+        brandTrigger.setAttribute('aria-expanded', 'false');
+        brandDropdown.classList.remove('open');
+      }
+
+      brandTrigger.addEventListener('click', () => {
+        const isOpen = brandTrigger.getAttribute('aria-expanded') === 'true';
+        isOpen ? closeDropdown() : openDropdown();
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!brandTrigger.contains(e.target) && !brandDropdown.contains(e.target)) {
+          closeDropdown();
         }
       });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && brandTrigger.getAttribute('aria-expanded') === 'true') {
+          closeDropdown();
+          brandTrigger.focus();
+        }
+      });
+
+      // === Nav Reveal Animation (first visit only) ===
+      (function navReveal() {
+        if (prefersReduced) return;
+        if (sessionStorage.getItem('delightful-nav-revealed')) return;
+        if (localStorage.getItem('delightful-nav-revealed')) {
+          sessionStorage.setItem('delightful-nav-revealed', '1');
+          return;
+        }
+
+        const pages = [
+          { name: 'Design', color: 'var(--accent-primary)' },
+          { name: 'Color', color: 'var(--accent-gold)' },
+          { name: 'Motion', color: 'var(--accent-cyan)' },
+          { name: 'Animation', color: 'var(--accent-green)' }
+        ];
+
+        const chevron = brandTrigger.querySelector('.brand-chevron');
+        if (chevron) chevron.style.opacity = '0';
+
+        const container = document.createElement('div');
+        container.style.cssText = 'position:absolute;top:100%;left:0;display:flex;flex-direction:column;gap:2px;padding:var(--space-2) 0;pointer-events:none;';
+        brandTrigger.parentElement.appendChild(container);
+
+        const items = pages.map((p, i) => {
+          const el = document.createElement('span');
+          el.textContent = p.name;
+          el.style.cssText = `font-size:var(--ui-text-sm);font-weight:600;color:${p.color};opacity:0;transform:translateY(-8px) scale(0.9);transition:opacity 180ms var(--ease-bounce),transform 180ms var(--ease-bounce);padding:0 var(--space-2);white-space:nowrap;`;
+          container.appendChild(el);
+          return el;
+        });
+
+        // Stagger in
+        items.forEach((el, i) => {
+          setTimeout(() => {
+            el.style.opacity = '1';
+            el.style.transform = 'translateY(0) scale(1)';
+          }, i * 60);
+        });
+
+        // Hold, then collapse up
+        setTimeout(() => {
+          items.forEach((el, i) => {
+            el.style.transition = 'opacity 200ms var(--ease-smooth), transform 300ms var(--ease-smooth)';
+            setTimeout(() => {
+              el.style.opacity = '0';
+              el.style.transform = 'translateY(-12px) scale(0.8)';
+            }, i * 40);
+          });
+
+          // Fade chevron in
+          setTimeout(() => {
+            if (chevron) {
+              chevron.style.transition = 'opacity 300ms var(--ease-out)';
+              chevron.style.opacity = '1';
+            }
+            container.remove();
+          }, 400);
+        }, 680);
+
+        localStorage.setItem('delightful-nav-revealed', '1');
+        sessionStorage.setItem('delightful-nav-revealed', '1');
+      })();
 
       // === Mobile Nav Toggle ===
       const navToggle = document.getElementById('nav-toggle');
@@ -6865,10 +7439,36 @@
       // === Hero Word Reveal ===
       function initHeroReveal() {
         const headline = document.getElementById('hero-headline');
-        const text = headline.textContent;
-        headline.innerHTML = text.split(' ').map(w => `<span class="word">${w}</span>`).join(' ');
+        if (!headline) return;
+        // Wrap each word in a span while preserving <a> tags
+        const frag = document.createDocumentFragment();
+        let wordIdx = 0;
+        headline.childNodes.forEach(node => {
+          if (node.nodeType === Node.TEXT_NODE) {
+            const parts = node.textContent.split(/(\s+)/);
+            parts.forEach(part => {
+              if (/^\s+$/.test(part) || part === '') {
+                if (part) frag.appendChild(document.createTextNode(part));
+              } else {
+                const span = document.createElement('span');
+                span.className = 'word';
+                span.textContent = part;
+                span.style.setProperty('--word-i', wordIdx++);
+                frag.appendChild(span);
+              }
+            });
+          } else if (node.nodeType === Node.ELEMENT_NODE) {
+            const clone = node.cloneNode(false);
+            clone.classList.add('word');
+            clone.style.setProperty('--word-i', wordIdx++);
+            clone.textContent = node.textContent;
+            frag.appendChild(clone);
+          }
+        });
+        headline.innerHTML = '';
+        headline.appendChild(frag);
+        const words = headline.querySelectorAll('.word');
         if (!prefersReduced) {
-          const words = headline.querySelectorAll('.word');
           words.forEach((w, i) => {
             setTimeout(() => {
               w.style.transition = 'opacity 0.5s cubic-bezier(0.22,1,0.36,1), transform 0.5s cubic-bezier(0.22,1,0.36,1), filter 0.5s cubic-bezier(0.22,1,0.36,1)';
@@ -6876,14 +7476,26 @@
             }, 200 + i * 80);
           });
         } else {
-          headline.querySelectorAll('.word').forEach(w => { w.style.opacity = '1'; w.style.filter = 'none'; w.style.transform = 'none'; });
+          words.forEach(w => { w.style.opacity = '1'; w.style.filter = 'none'; w.style.transform = 'none'; });
         }
       }
       initHeroReveal();
       window.replayHero = function () {
         const headline = document.getElementById('hero-headline');
-        headline.querySelectorAll('.word').forEach(w => { w.style.transition = 'none'; w.style.opacity = '0'; w.style.filter = 'blur(4px)'; w.style.transform = 'translateY(16px)'; });
-        requestAnimationFrame(() => requestAnimationFrame(() => initHeroReveal()));
+        headline.querySelectorAll('.word').forEach(w => {
+          w.style.transition = 'none';
+          w.style.opacity = '0'; w.style.filter = 'blur(4px)'; w.style.transform = 'translateY(16px)';
+        });
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            headline.querySelectorAll('.word').forEach((w, i) => {
+              setTimeout(() => {
+                w.style.transition = 'opacity 0.5s cubic-bezier(0.22,1,0.36,1), transform 0.5s cubic-bezier(0.22,1,0.36,1), filter 0.5s cubic-bezier(0.22,1,0.36,1)';
+                w.style.opacity = '1'; w.style.transform = 'translateY(0)'; w.style.filter = 'blur(0px)';
+              }, 200 + i * 80);
+            });
+          });
+        });
       };
 
       // === Scroll Spy ===
@@ -6902,8 +7514,16 @@
 
       // === Back to Top ===
       const btt = document.getElementById('back-to-top');
-      window.addEventListener('scroll', () => { btt.classList.toggle('visible', window.scrollY > window.innerHeight); }, { passive: true });
-      btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+      const heroSection = document.querySelector('.hero');
+      if (btt && heroSection) {
+        const bttObserver = new IntersectionObserver(([entry]) => {
+          btt.classList.toggle('visible', !entry.isIntersecting);
+        }, { threshold: 0 });
+        bttObserver.observe(heroSection);
+        btt.addEventListener('click', () => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
 
       // === Click to Copy ===
       document.querySelectorAll('[data-copy]').forEach(el => {
@@ -6983,6 +7603,204 @@
       ttSize.addEventListener('change', () => ttPreview.style.fontSize = ttSize.value);
       ttTracking.addEventListener('change', () => ttPreview.style.letterSpacing = ttTracking.value);
 
+      // === Type Tester Presets ===
+      window.setTypePreset = function (preset) {
+        const presets = {
+          headline: { weight: 800, size: 'var(--step-4)', tracking: '-0.04em', text: 'A design system that sparks joy' },
+          body: { weight: 400, size: 'var(--step-0)', tracking: 'normal', text: 'Delightful uses OKLCH color science to create perceptually uniform palettes across six accent families.' },
+          label: { weight: 600, size: 'var(--step--1)', tracking: '-0.02em', text: 'Save Changes' },
+          code: { weight: 400, size: 'var(--step--1)', tracking: 'normal', text: '// Token architecture: primitives \u2192 semantic \u2192 component' },
+        };
+        const p = presets[preset];
+        ttWeight.value = p.weight;
+        ttSize.value = p.size;
+        ttTracking.value = p.tracking;
+        ttPreview.style.fontWeight = p.weight;
+        ttPreview.style.fontSize = p.size;
+        ttPreview.style.letterSpacing = p.tracking;
+        ttPreview.textContent = p.text;
+      };
+
+      // === Token Architecture Visualization ===
+      const archFamilies = [
+        { key: 'pink', name: 'Pink', hue: 350 },
+        { key: 'red', name: 'Red', hue: 20 },
+        { key: 'gold', name: 'Gold', hue: 85 },
+        { key: 'cyan', name: 'Cyan', hue: 210 },
+        { key: 'green', name: 'Green', hue: 148 },
+        { key: 'purple', name: 'Purple', hue: 300 },
+      ];
+
+      const archData = {
+        pink: {
+          semantic: [
+            { token: '--accent-primary', light: 'oklch(0.640 0.270 350)', dark: 'oklch(0.700 0.230 350)', usage: 'Primary brand, CTAs' },
+            { token: '--accent-primary-hover', light: 'oklch(0.580 0.280 350)', dark: 'oklch(0.740 0.220 350)', usage: 'Hover state' },
+            { token: '--accent-primary-subtle', light: 'oklch(0.955 0.040 350)', dark: 'oklch(0.250 0.065 350)', usage: 'Light tint bg' },
+            { token: '--accent-primary-text', light: 'oklch(0.560 0.270 350)', dark: 'oklch(0.750 0.210 350)', usage: 'Colored text' },
+          ],
+          component: [
+            { token: '--btn-primary-bg', ref: 'var(--accent-primary)', usage: 'Button bg' },
+            { token: '--btn-primary-text', ref: 'var(--text-on-accent)', usage: 'Button text' },
+            { token: '--shadow-pink', ref: '4px 4px 0 var(--accent-primary)', usage: 'Colored shadow' },
+          ]
+        },
+        red: {
+          semantic: [
+            { token: '--accent-danger', light: 'oklch(0.620 0.220 20)', dark: 'oklch(0.660 0.200 20)', usage: 'Errors, destructive' },
+            { token: '--accent-danger-hover', light: 'oklch(0.570 0.230 20)', dark: 'oklch(0.700 0.190 20)', usage: 'Hover state' },
+            { token: '--accent-danger-subtle', light: 'oklch(0.950 0.040 20)', dark: 'oklch(0.250 0.055 20)', usage: 'Light tint bg' },
+            { token: '--accent-danger-text', light: 'oklch(0.570 0.220 20)', dark: 'oklch(0.720 0.180 20)', usage: 'Colored text' },
+          ],
+          component: [
+            { token: '--btn-danger-bg', ref: 'var(--accent-danger)', usage: 'Button bg' },
+            { token: '--btn-danger-text', ref: 'var(--text-on-accent)', usage: 'Button text' },
+            { token: '--shadow-danger', ref: '4px 4px 0 var(--accent-danger)', usage: 'Colored shadow' },
+          ]
+        },
+        gold: {
+          semantic: [
+            { token: '--accent-gold', light: 'oklch(0.840 0.175 85)', dark: 'oklch(0.840 0.170 85)', usage: 'Warnings, highlights' },
+            { token: '--accent-gold-hover', light: 'oklch(0.820 0.165 84)', dark: 'oklch(0.870 0.155 84)', usage: 'Hover state' },
+            { token: '--accent-gold-subtle', light: 'oklch(0.965 0.060 85)', dark: 'oklch(0.260 0.065 85)', usage: 'Light tint bg' },
+            { token: '--accent-gold-text', light: 'oklch(0.560 0.170 85)', dark: 'oklch(0.870 0.155 85)', usage: 'Colored text' },
+          ],
+          component: [
+            { token: '--btn-gold-bg', ref: 'var(--accent-gold)', usage: 'Button bg' },
+            { token: '--btn-gold-text', ref: 'var(--text-on-gold)', usage: 'Button text' },
+            { token: '--shadow-gold', ref: '4px 4px 0 var(--accent-gold)', usage: 'Colored shadow' },
+          ]
+        },
+        cyan: {
+          semantic: [
+            { token: '--accent-cyan', light: 'oklch(0.650 0.148 210)', dark: 'oklch(0.720 0.140 210)', usage: 'Info, tertiary' },
+            { token: '--accent-cyan-hover', light: 'oklch(0.600 0.150 210)', dark: 'oklch(0.760 0.130 210)', usage: 'Hover state' },
+            { token: '--accent-cyan-subtle', light: 'oklch(0.945 0.030 210)', dark: 'oklch(0.250 0.045 210)', usage: 'Light tint bg' },
+            { token: '--accent-cyan-text', light: 'oklch(0.560 0.148 210)', dark: 'oklch(0.780 0.130 210)', usage: 'Colored text' },
+          ],
+          component: [
+            { token: '--btn-cyan-bg', ref: 'var(--accent-cyan)', usage: 'Button bg' },
+            { token: '--btn-cyan-text', ref: 'var(--text-on-accent)', usage: 'Button text' },
+            { token: '--shadow-cyan', ref: '4px 4px 0 var(--accent-cyan)', usage: 'Colored shadow' },
+          ]
+        },
+        green: {
+          semantic: [
+            { token: '--accent-green', light: 'oklch(0.630 0.170 148)', dark: 'oklch(0.680 0.155 148)', usage: 'Success, safe' },
+            { token: '--accent-green-hover', light: 'oklch(0.580 0.165 148)', dark: 'oklch(0.720 0.145 148)', usage: 'Hover state' },
+            { token: '--accent-green-subtle', light: 'oklch(0.945 0.035 148)', dark: 'oklch(0.250 0.048 148)', usage: 'Light tint bg' },
+            { token: '--accent-green-text', light: 'oklch(0.520 0.170 148)', dark: 'oklch(0.740 0.145 148)', usage: 'Colored text' },
+          ],
+          component: [
+            { token: '--btn-green-bg', ref: 'var(--accent-green)', usage: 'Button bg' },
+            { token: '--btn-green-text', ref: 'var(--text-on-accent)', usage: 'Button text' },
+            { token: '--shadow-green', ref: '4px 4px 0 var(--accent-green)', usage: 'Colored shadow' },
+          ]
+        },
+        purple: {
+          semantic: [
+            { token: '--accent-purple', light: 'oklch(0.640 0.220 300)', dark: 'oklch(0.700 0.200 300)', usage: 'Creative, special' },
+            { token: '--accent-purple-hover', light: 'oklch(0.580 0.230 300)', dark: 'oklch(0.740 0.190 300)', usage: 'Hover state' },
+            { token: '--accent-purple-subtle', light: 'oklch(0.950 0.035 300)', dark: 'oklch(0.250 0.055 300)', usage: 'Light tint bg' },
+            { token: '--accent-purple-text', light: 'oklch(0.560 0.230 300)', dark: 'oklch(0.760 0.180 300)', usage: 'Colored text' },
+          ],
+          component: [
+            { token: '--btn-purple-bg', ref: 'var(--accent-purple)', usage: 'Button bg' },
+            { token: '--btn-purple-text', ref: 'var(--text-on-accent)', usage: 'Button text' },
+            { token: '--shadow-purple', ref: '4px 4px 0 var(--accent-purple)', usage: 'Colored shadow' },
+          ]
+        }
+      };
+
+      let activeFamily = 'pink';
+
+      function renderArchitecture(familyKey) {
+        activeFamily = familyKey;
+        const data = archData[familyKey];
+        const family = archFamilies.find(f => f.key === familyKey);
+
+        // Update button states
+        document.querySelectorAll('.arch-family-btn').forEach(btn => {
+          btn.setAttribute('aria-pressed', btn.dataset.family === familyKey ? 'true' : 'false');
+        });
+
+        // Tier 2: Semantic
+        const semanticList = document.getElementById('arch-semantic-list');
+        const isDark = html.getAttribute('data-theme') === 'dark';
+        semanticList.innerHTML = data.semantic.map(t => {
+          const val = isDark ? t.dark : t.light;
+          return '<div class="arch-token-row">' +
+            '<div class="arch-token-dot" style="background:' + val + '"></div>' +
+            '<span class="arch-token-name">' + t.token + '</span>' +
+            '<span class="arch-token-usage">' + t.usage + '</span>' +
+            '<span class="arch-token-value">' + val + '</span>' +
+          '</div>';
+        }).join('');
+
+        // Tier 3: Component
+        const componentList = document.getElementById('arch-component-list');
+        componentList.innerHTML = data.component.map(t =>
+          '<div class="arch-token-row">' +
+            '<span class="arch-token-name">' + t.token + '</span>' +
+            '<span class="arch-token-usage">' + t.usage + '</span>' +
+            '<span class="arch-token-value">' + t.ref + '</span>' +
+          '</div>'
+        ).join('');
+
+        // Preview
+        const preview = document.getElementById('arch-preview');
+        const btnBg = 'var(--btn-' + (familyKey === 'pink' ? 'primary' : familyKey === 'red' ? 'danger' : familyKey) + '-bg)';
+        const btnText = 'var(--btn-' + (familyKey === 'pink' ? 'primary' : familyKey === 'red' ? 'danger' : familyKey) + '-text)';
+        const shadowVar = 'var(--shadow-' + (familyKey === 'red' ? 'danger' : familyKey === 'pink' ? 'pink' : familyKey) + ')';
+        preview.innerHTML =
+          '<span class="arch-preview-btn" style="background:' + btnBg + ';color:' + btnText + ';box-shadow:' + shadowVar + '">' + family.name + ' Button</span>' +
+          '<span class="arch-preview-badge" style="background:var(--accent-' + (familyKey === 'pink' ? 'primary' : familyKey === 'red' ? 'danger' : familyKey) + '-subtle);color:var(--accent-' + (familyKey === 'pink' ? 'primary' : familyKey === 'red' ? 'danger' : familyKey) + '-text)">' + family.name + '</span>';
+      }
+
+      (function initArchitecture() {
+        const btns = document.getElementById('arch-family-btns');
+        if (!btns) return;
+        archFamilies.forEach(family => {
+          const btn = document.createElement('button');
+          btn.className = 'arch-family-btn';
+          btn.dataset.family = family.key;
+          btn.style.background = 'var(--primitive-' + family.key + '-400)';
+          btn.textContent = family.key.slice(0, 2).toUpperCase();
+          btn.setAttribute('aria-label', family.name);
+          btn.setAttribute('aria-pressed', family.key === 'pink' ? 'true' : 'false');
+          btn.addEventListener('click', () => renderArchitecture(family.key));
+          btns.appendChild(btn);
+        });
+        renderArchitecture('pink');
+      })();
+
+      // === Code Snippet Click-to-Copy ===
+      document.querySelectorAll('.code-snippet pre').forEach(function (pre) {
+        pre.addEventListener('click', function () {
+          navigator.clipboard.writeText(pre.textContent).then(function () {
+            showToast('success', 'Copied', 'CSS variables copied to clipboard');
+          }).catch(function () {});
+        });
+      });
+
+      // === Per-Component State Toggles ===
+      document.querySelectorAll('.state-toggle-bar').forEach(function (bar) {
+        bar.addEventListener('click', function (e) {
+          var btn = e.target.closest('[data-state]');
+          if (!btn) return;
+          var state = btn.dataset.state;
+          var targetId = bar.dataset.target;
+          var target = document.getElementById(targetId);
+          if (!target) return;
+          bar.querySelectorAll('[data-state]').forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
+          btn.setAttribute('aria-pressed', 'true');
+          target.className = target.className.replace(/force-\w+/g, '').trim();
+          if (state !== 'default') target.classList.add('force-' + state);
+          if (state === 'disabled') target.setAttribute('disabled', '');
+          else target.removeAttribute('disabled');
+        });
+      });
+
       // === Grid Layout Switcher ===
       window.setGrid = function (cols) {
         const grid = document.getElementById('grid-demo');
@@ -7044,38 +7862,93 @@
         });
       });
       const skelLoadBtn = document.getElementById('skel-load');
-      if (skelLoadBtn) skelLoadBtn.addEventListener('click', () => {
-        const btn = skelLoadBtn;
-        if (btn.hasAttribute('disabled')) return;
+      let skelLoaded = false;
+      const skelOriginalHTML = {};
+      if (skelLoadBtn) {
+        // Cache original skeleton HTML for reset
+        for (let i = 1; i <= 3; i++) {
+          const card = document.getElementById(`skel-card-${i}`);
+          if (card) skelOriginalHTML[i] = card.innerHTML;
+        }
 
-        btn.setAttribute('disabled', 'true');
-        const originalText = btn.textContent;
-        btn.textContent = 'Loading...';
+        skelLoadBtn.addEventListener('click', () => {
+          const btn = skelLoadBtn;
+          if (btn.hasAttribute('disabled')) return;
 
-        const cards = [
-          { title: 'Design Tokens', desc: 'Centralized design decisions as data' },
-          { title: 'Component Library', desc: 'Production-ready building blocks' },
-          { title: 'Animation System', desc: 'Spring-based motion patterns' }
-        ];
-
-        setTimeout(() => {
-          btn.removeAttribute('disabled');
-          btn.textContent = originalText;
-
-          cards.forEach((c, i) => {
-            const card = document.getElementById(`skel-card-${i + 1}`);
+          if (skelLoaded) {
+            // Reset to skeleton state with fade
+            btn.setAttribute('disabled', 'true');
+            for (let i = 1; i <= 3; i++) {
+              const card = document.getElementById(`skel-card-${i}`);
+              card.style.transition = 'opacity var(--motion-fast) ease-out';
+              card.style.opacity = '0';
+            }
             setTimeout(() => {
-              card.innerHTML = `<div class="card-title">${c.title}</div><div class="card-desc" style="color:var(--text-secondary);font-size:0.875rem;margin-top:var(--space-2)">${c.desc}</div>`;
-              card.style.opacity = '0'; card.style.transform = 'translateY(8px)';
-              requestAnimationFrame(() => {
-                card.style.transition = 'opacity 0.3s ease-out, transform 0.3s cubic-bezier(0.22,1,0.36,1)';
+              for (let i = 1; i <= 3; i++) {
+                const card = document.getElementById(`skel-card-${i}`);
+                card.innerHTML = skelOriginalHTML[i];
+                // Re-apply current skeleton mode
+                card.querySelectorAll('.skel').forEach(s => {
+                  s.className = skelMode === 'shimmer' ? 'skel skel-shimmer' : 'skel skel-pulse';
+                });
                 card.style.opacity = '1';
-                card.style.transform = 'translateY(0)';
+              }
+              btn.textContent = 'Load Content';
+              btn.removeAttribute('disabled');
+              skelLoaded = false;
+            }, 200);
+            return;
+          }
+
+          btn.setAttribute('disabled', 'true');
+          btn.textContent = 'Loading...';
+
+          const cards = [
+            { title: 'Design Tokens', desc: 'Centralized design decisions as data' },
+            { title: 'Component Library', desc: 'Production-ready building blocks' },
+            { title: 'Animation System', desc: 'Spring-based motion patterns' }
+          ];
+
+          // Phase 1: fade out skeletons
+          setTimeout(() => {
+            const cardEls = [1, 2, 3].map(i => document.getElementById(`skel-card-${i}`));
+            cardEls.forEach(card => {
+              card.style.transition = 'opacity var(--motion-fast) var(--ease-out)';
+              card.style.opacity = '0';
+            });
+
+            // Phase 2: swap content + animate in with stagger
+            setTimeout(() => {
+              cards.forEach((c, i) => {
+                const card = cardEls[i];
+                setTimeout(() => {
+                  card.innerHTML = `<div class="card-title">${c.title}</div><div class="card-desc" style="color:var(--text-secondary);font-size:0.875rem;margin-top:var(--space-2)">${c.desc}</div>`;
+                  card.style.transition = 'none';
+                  card.style.opacity = '0';
+                  card.style.transform = 'translateY(12px)';
+                  requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                      card.style.transition = `opacity var(--motion-base) var(--ease-out), transform var(--motion-base) var(--ease-smooth)`;
+                      card.style.opacity = '1';
+                      card.style.transform = 'translateY(0)';
+                    });
+                  });
+                }, i * 120);
               });
-            }, i * 120);
-          });
-        }, 800);
-      });
+
+              setTimeout(() => {
+                btn.removeAttribute('disabled');
+                btn.textContent = 'Reset';
+                skelLoaded = true;
+                cardEls.forEach(card => {
+                  card.style.transition = '';
+                  card.style.transform = '';
+                });
+              }, cards.length * 120 + 300);
+            }, 200);
+          }, 600);
+        });
+      }
 
       // === Staggered Reveal (3 spring configs) ===
       function staggerRevealGroup(selector, delay, easing, duration) {
@@ -7129,30 +8002,6 @@
           }, 50);
         });
       });
-
-      // === 3D Perspective Tilt ===
-      const tiltCard = document.getElementById('tilt-card');
-      if (tiltCard && !prefersReduced) {
-        tiltCard.addEventListener('mousemove', e => {
-          const rect = tiltCard.getBoundingClientRect();
-          const x = (e.clientX - rect.left) / rect.width - 0.5;
-          const y = (e.clientY - rect.top) / rect.height - 0.5;
-          tiltCard.style.transform = `rotateX(${y * -12}deg) rotateY(${x * 12}deg)`;
-        });
-        tiltCard.addEventListener('mouseleave', () => { tiltCard.style.transition = 'transform 500ms ease-out'; tiltCard.style.transform = 'rotateX(0) rotateY(0)'; });
-        tiltCard.addEventListener('mouseenter', () => { tiltCard.style.transition = 'none'; });
-      }
-
-      // === Cursor Spotlight ===
-      const spotlightPanel = document.getElementById('spotlight-panel');
-      const spotlightGrad = document.getElementById('spotlight-gradient');
-      if (spotlightPanel && spotlightGrad) {
-        spotlightPanel.addEventListener('mousemove', e => {
-          const rect = spotlightPanel.getBoundingClientRect();
-          const x = e.clientX - rect.left, y = e.clientY - rect.top;
-          spotlightGrad.style.background = `radial-gradient(600px circle at ${x}px ${y}px, oklch(0.35 0.06 350), oklch(0.135 0.010 60))`;
-        });
-      }
 
       // === Magnetic Button ===
       const magneticZone = document.getElementById('magnetic-zone');
@@ -7212,44 +8061,135 @@
         ptCurrentPage = ptCurrentPage === 'a' ? 'b' : 'a';
       };
 
-      // === Command Palette ===
-      const cmdpalPanel = document.getElementById('cmdpal-panel');
-      const cmdpalInput = document.getElementById('cmdpal-input');
-      const cmdpalItems = document.querySelectorAll('.cmdpal-item');
+      // =========================================================================
+      // COMMAND PALETTE
+      // =========================================================================
+      const cmdSections = [
+        { id: 'philosophy', label: 'Philosophy', color: 'var(--accent-primary)' },
+        { id: 'color', label: 'Color System', color: 'var(--accent-primary)' },
+        { id: 'typography', label: 'Typography', color: 'var(--accent-gold)' },
+        { id: 'spacing', label: 'Spacing & Layout', color: 'var(--accent-cyan)' },
+        { id: 'components', label: 'Components', color: 'var(--accent-green)' },
+        { id: 'icons', label: 'Iconography', color: 'var(--accent-purple)' },
+        { id: 'motion', label: 'Motion & Easing', color: 'var(--accent-danger)' },
+        { id: 'micro', label: 'Micro-Interactions', color: 'var(--accent-primary)' },
+        { id: 'loading', label: 'Loading & Transitions', color: 'var(--accent-gold)' },
+        { id: 'overlays', label: 'Overlays & Feedback', color: 'var(--accent-cyan)' },
+        { id: 'signature', label: 'Signature Effects', color: 'var(--accent-green)' },
+        { id: 'compositions', label: 'Compositions', color: 'var(--accent-purple)' },
+        { id: '_toggle-theme', label: 'Toggle Dark Mode', color: 'var(--accent-gold)', action: true },
+        { id: '_back-to-top', label: 'Back to Top', color: 'var(--text-muted)', action: true },
+      ];
+      const cmdOverlay = document.getElementById('cmd-palette-overlay');
+      const cmdInput = document.getElementById('cmd-palette-input');
+      const cmdList = document.getElementById('cmd-palette-list');
+      let cmdActiveIdx = 0;
 
-      function openCmdPal() {
-        cmdpalPanel.showPopover();
-        setTimeout(() => cmdpalInput.focus(), 50);
-      }
-      function closeCmdPal() {
-        cmdpalPanel.hidePopover();
-        cmdpalInput.value = '';
-        cmdpalItems.forEach(item => item.style.display = '');
-      }
-
-      document.getElementById('open-cmdpal').addEventListener('click', openCmdPal);
-      document.addEventListener('keydown', e => {
-        if ((e.metaKey || e.ctrlKey) && e.key === 'k') { e.preventDefault(); openCmdPal(); }
-        // Native popover="auto" handles light dismiss via Escape and backdrop click automatically.
-      });
-
-      cmdpalInput.addEventListener('input', () => {
-        const q = cmdpalInput.value.toLowerCase();
-        cmdpalItems.forEach(item => {
-          const text = item.textContent.toLowerCase();
-          item.style.display = text.includes(q) ? '' : 'none';
+      function renderCmdList(filter) {
+        const q = (filter || '').toLowerCase();
+        const filtered = cmdSections.filter(s => s.label.toLowerCase().includes(q) || s.id.toLowerCase().includes(q));
+        cmdList.innerHTML = '';
+        if (filtered.length === 0) {
+          const emptyLi = document.createElement('li');
+          emptyLi.className = 'cmd-palette-empty';
+          emptyLi.textContent = 'No sections found';
+          cmdList.appendChild(emptyLi);
+          cmdInput.setAttribute('aria-activedescendant', '');
+          return;
+        }
+        filtered.forEach((s, i) => {
+          const li = document.createElement('li');
+          li.className = 'cmd-palette-item' + (i === 0 ? ' active' : '');
+          li.id = 'cmd-option-' + s.id;
+          li.setAttribute('role', 'option');
+          li.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+          li.dataset.sectionId = s.id;
+          const dot = document.createElement('span');
+          dot.className = 'cmd-section-dot';
+          dot.style.background = s.color;
+          li.appendChild(dot);
+          li.appendChild(document.createTextNode(s.label));
+          li.addEventListener('click', () => navigateToSection(s.id));
+          li.addEventListener('mouseenter', () => {
+            cmdList.querySelectorAll('.cmd-palette-item').forEach(el => el.classList.remove('active'));
+            li.classList.add('active');
+            cmdActiveIdx = i;
+          });
+          cmdList.appendChild(li);
         });
+        cmdActiveIdx = 0;
+        cmdInput.setAttribute('aria-activedescendant', filtered.length > 0 ? 'cmd-option-' + filtered[0].id : '');
+      }
+
+      function openCmdPalette() {
+        cmdOverlay.classList.add('active');
+        cmdInput.value = '';
+        cmdInput.setAttribute('aria-expanded', 'true');
+        renderCmdList('');
+        requestAnimationFrame(() => requestAnimationFrame(() => cmdInput.focus()));
+      }
+
+      function closeCmdPalette() {
+        cmdOverlay.classList.remove('active');
+        cmdInput.value = '';
+        cmdInput.setAttribute('aria-expanded', 'false');
+      }
+
+      function navigateToSection(id) {
+        closeCmdPalette();
+        if (id === '_toggle-theme') {
+          document.getElementById('theme-toggle').click();
+          return;
+        }
+        if (id === '_back-to-top') {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          return;
+        }
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }
+
+      cmdInput.addEventListener('input', () => renderCmdList(cmdInput.value));
+      cmdInput.addEventListener('keydown', (e) => {
+        const items = cmdList.querySelectorAll('.cmd-palette-item');
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          cmdActiveIdx = Math.min(cmdActiveIdx + 1, items.length - 1);
+          items.forEach((el, i) => { el.classList.toggle('active', i === cmdActiveIdx); el.setAttribute('aria-selected', i === cmdActiveIdx ? 'true' : 'false'); });
+          items[cmdActiveIdx]?.scrollIntoView({ block: 'nearest' });
+          cmdInput.setAttribute('aria-activedescendant', items[cmdActiveIdx]?.id || '');
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          cmdActiveIdx = Math.max(cmdActiveIdx - 1, 0);
+          items.forEach((el, i) => { el.classList.toggle('active', i === cmdActiveIdx); el.setAttribute('aria-selected', i === cmdActiveIdx ? 'true' : 'false'); });
+          items[cmdActiveIdx]?.scrollIntoView({ block: 'nearest' });
+          cmdInput.setAttribute('aria-activedescendant', items[cmdActiveIdx]?.id || '');
+        } else if (e.key === 'Enter') {
+          e.preventDefault();
+          const active = items[cmdActiveIdx];
+          if (active) navigateToSection(active.dataset.sectionId);
+        } else if (e.key === 'Escape') {
+          closeCmdPalette();
+        }
       });
 
-      cmdpalItems.forEach(item => {
-        item.addEventListener('click', () => {
-          const href = item.getAttribute('data-href');
-          if (href) { window.location.href = href; closeCmdPal(); }
-          const action = item.getAttribute('data-action');
-          if (action === 'toggle-theme') { themeBtn.click(); closeCmdPal(); }
-          if (action === 'scroll-top') { btt.click(); closeCmdPal(); }
-        });
+      cmdOverlay.addEventListener('click', (e) => {
+        if (e.target === cmdOverlay) closeCmdPalette();
       });
+
+      document.addEventListener('keydown', (e) => {
+        if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+          e.preventDefault();
+          if (cmdOverlay.classList.contains('active')) {
+            closeCmdPalette();
+          } else {
+            openCmdPalette();
+          }
+        }
+      });
+
+      document.getElementById('cmd-k-trigger').addEventListener('click', openCmdPalette);
+      document.getElementById('open-cmdpal').addEventListener('click', openCmdPalette);
 
       // === Interactive Data Table ===
       window.sortTable = function (tableId, colIndex) {

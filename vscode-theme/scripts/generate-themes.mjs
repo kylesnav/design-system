@@ -169,7 +169,7 @@ const dark = {
   textSecondary: 'oklch(0.690 0.012 70)',
   textMuted:     'oklch(0.540 0.010 70)',
   textOnAccent:  'oklch(1.00 0.000 0)',
-  textOnGold:    'oklch(0.140 0.014 65)',
+  textOnGold:    'oklch(0.160 0.014 65)',
 
   borderSubtle: 'oklch(0.330 0.015 65)',
 
@@ -206,7 +206,7 @@ const dark = {
   // Syntax highlighting (dark mode — tuned for dark backgrounds,
   // from delightful-design-system.html:2792-2798)
   syntaxKeyword:  'oklch(0.750 0.200 350)',
-  syntaxString:   'oklch(0.870 0.160 85)',
+  syntaxString:   'oklch(0.870 0.165 85)',
   syntaxFunction: 'oklch(0.750 0.130 210)',
   syntaxComment:  'oklch(0.550 0.010 60)',
   syntaxNumber:   'oklch(0.800 0.140 148)',

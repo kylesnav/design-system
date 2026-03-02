@@ -22,7 +22,7 @@
   --text-secondary: oklch(0.690 0.012 70);
   --text-muted: oklch(0.540 0.010 70);
   --text-on-accent: oklch(1.00 0.000 0);
-  --text-on-gold: oklch(0.140 0.014 65);
+  --text-on-gold: oklch(0.160 0.014 65);
   --border-default: oklch(0.550 0.010 65);
   --border-subtle: oklch(0.330 0.015 65);
 
@@ -175,7 +175,7 @@ body {
   box-shadow: var(--shadow-md);
 }
 
-.card-accent { border-top: 3px solid; }
+.card-accent { border-top-color: currentColor; }
 .card-label {
   font-family: var(--font-mono);
   font-size: 7.5px;
@@ -363,9 +363,10 @@ body {
 .stepper {
   display: flex;
   align-items: flex-start;
+  gap: 0;
 }
 
-.step {
+.stepper-step {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -373,55 +374,57 @@ body {
   position: relative;
 }
 
-.step:not(:last-child)::after {
+.stepper-step:not(:last-child)::after {
   content: '';
   position: absolute;
-  top: 11px;
-  left: calc(50% + 14px);
-  right: calc(-50% + 14px);
+  top: 16px;
+  left: calc(50% + 20px);
+  right: calc(-50% + 20px);
   height: 2px;
   background: var(--border-subtle);
+  z-index: 0;
 }
 
-.step-done:not(:last-child)::after { background: var(--accent-primary); }
-.step-active:not(:last-child)::after { background: linear-gradient(to right, var(--accent-primary) 50%, var(--border-subtle) 50%); }
+.stepper-step.completed:not(:last-child)::after { background: var(--accent-primary); }
+.stepper-step.active:not(:last-child)::after { background: linear-gradient(to right, var(--accent-primary) 50%, var(--border-subtle) 50%); }
 
-.step-dot {
-  width: 22px; height: 22px;
+.stepper-indicator {
+  width: 32px; height: 32px;
   border-radius: 50%;
   border: 2px solid var(--border-subtle);
   background: var(--bg-surface);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 8px;
+  font-size: 0.75rem;
   font-weight: 700;
-  font-feature-settings: normal;
   color: var(--text-muted);
   z-index: 1;
 }
 
-.step-done .step-dot {
-  background: var(--accent-primary);
-  border-color: var(--accent-primary);
-  color: var(--text-on-accent);
-}
-
-.step-active .step-dot {
-  border-color: var(--accent-primary);
-  background: var(--accent-primary);
-  color: var(--text-on-accent);
-  box-shadow: 0 0 0 4px var(--accent-primary-subtle);
-}
-
-.step-label {
-  font-size: 7.5px;
+.stepper-label {
+  margin-top: 6px;
+  font-size: 0.6875rem;
   font-weight: 600;
-  margin-top: 4px;
   color: var(--text-muted);
+  text-align: center;
 }
-.step-active .step-label { color: var(--accent-primary-text); }
-.step-done .step-label { color: var(--text-secondary); }
+
+.stepper-step.completed .stepper-indicator {
+  background: var(--accent-primary);
+  border-color: var(--accent-primary);
+  color: var(--text-on-accent);
+}
+
+.stepper-step.active .stepper-indicator {
+  border-color: var(--accent-primary);
+  background: var(--accent-primary);
+  color: var(--text-on-accent);
+  box-shadow: 4px 4px 0 var(--accent-primary);
+}
+
+.stepper-step.active .stepper-label { color: var(--accent-primary-text); }
+.stepper-step.completed .stepper-label { color: var(--text-secondary); }
 
 /* ======================== TOAST ======================== */
 .toast {
@@ -606,7 +609,7 @@ body {
   <!-- ROW 1 ================================================ -->
 
   <!-- Buttons -->
-  <div class="card card-accent" style="border-top-color: var(--accent-primary);">
+  <div class="card card-accent" style="color: var(--accent-primary);">
     <div class="card-label">Buttons</div>
     <div style="display: flex; flex-wrap: wrap; gap: 6px;">
       <span class="btn btn-sm btn-primary">Primary</span>
@@ -622,7 +625,7 @@ body {
   </div>
 
   <!-- Controls -->
-  <div class="card card-accent" style="border-top-color: var(--accent-cyan);">
+  <div class="card card-accent" style="color: var(--accent-cyan);">
     <div class="card-label">Controls</div>
     <input class="input input-focus" type="text" value="Search tokens…" readonly>
     <div style="display: flex; align-items: center; gap: 8px;">
@@ -639,7 +642,7 @@ body {
   </div>
 
   <!-- Alerts -->
-  <div class="card card-accent" style="border-top-color: var(--accent-green);">
+  <div class="card card-accent" style="color: var(--accent-green);">
     <div class="card-label">Alerts</div>
     <div class="alert alert-green"><span>✓</span> Changes saved successfully.</div>
     <div class="alert alert-danger"><span>✕</span> Connection failed.</div>
@@ -650,13 +653,13 @@ body {
   <!-- ROW 2 ================================================ -->
 
   <!-- Stepper + Pagination -->
-  <div class="card card-accent" style="border-top-color: var(--accent-gold);">
+  <div class="card card-accent" style="color: var(--accent-gold);">
     <div class="card-label">Stepper</div>
     <div class="stepper">
-      <div class="step step-done"><div class="step-dot">✓</div><div class="step-label">Tokens</div></div>
-      <div class="step step-done"><div class="step-dot">✓</div><div class="step-label">Semantic</div></div>
-      <div class="step step-active"><div class="step-dot">●</div><div class="step-label">Components</div></div>
-      <div class="step"><div class="step-dot">4</div><div class="step-label">Ship</div></div>
+      <div class="stepper-step completed"><div class="stepper-indicator"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div><div class="stepper-label">Tokens</div></div>
+      <div class="stepper-step completed"><div class="stepper-indicator"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div><div class="stepper-label">Semantic</div></div>
+      <div class="stepper-step active"><div class="stepper-indicator">3</div><div class="stepper-label">Components</div></div>
+      <div class="stepper-step"><div class="stepper-indicator">4</div><div class="stepper-label">Ship</div></div>
     </div>
     <div style="margin-top: auto;">
       <div class="card-label" style="margin-bottom: 6px;">Pagination</div>
@@ -672,7 +675,7 @@ body {
   </div>
 
   <!-- Toasts + Avatars -->
-  <div class="card card-accent" style="border-top-color: var(--accent-purple);">
+  <div class="card card-accent" style="color: var(--accent-purple);">
     <div class="card-label">Toasts</div>
     <div class="toast">
       <div class="toast-stripe toast-stripe-green"></div>
@@ -696,7 +699,7 @@ body {
   </div>
 
   <!-- Modal -->
-  <div class="card card-accent" style="border-top-color: var(--accent-danger);">
+  <div class="card card-accent" style="color: var(--accent-danger);">
     <div class="card-label">Modal</div>
     <div class="modal-shell">
       <div class="modal-title">Delete project?</div>
@@ -724,7 +727,7 @@ body {
       <thead><tr><th>Token</th><th>Family</th><th>Lightness</th><th>Chroma</th><th>Hue</th><th style="width:60px;">Preview</th></tr></thead>
       <tbody>
         <tr><td class="mono">pink-400</td><td>Primary</td><td>0.700</td><td>0.230</td><td>350°</td><td><div style="width:100%;height:12px;border-radius:4px;background:oklch(0.700 0.230 350);border:1px solid var(--border-default);"></div></td></tr>
-        <tr><td class="mono">gold-400</td><td>Warning</td><td>0.840</td><td>0.170</td><td>85°</td><td><div style="width:100%;height:12px;border-radius:4px;background:oklch(0.840 0.170 85);border:1px solid var(--border-default);"></div></td></tr>
+        <tr><td class="mono">gold-400</td><td>Warning</td><td>0.840</td><td>0.175</td><td>85°</td><td><div style="width:100%;height:12px;border-radius:4px;background:oklch(0.840 0.175 85);border:1px solid var(--border-default);"></div></td></tr>
         <tr><td class="mono">cyan-400</td><td>Tertiary</td><td>0.720</td><td>0.140</td><td>210°</td><td><div style="width:100%;height:12px;border-radius:4px;background:oklch(0.720 0.140 210);border:1px solid var(--border-default);"></div></td></tr>
         <tr><td class="mono">purple-400</td><td>Creative</td><td>0.700</td><td>0.200</td><td>300°</td><td><div style="width:100%;height:12px;border-radius:4px;background:oklch(0.700 0.200 300);border:1px solid var(--border-default);"></div></td></tr>
       </tbody>
