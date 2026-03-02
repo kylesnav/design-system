@@ -517,7 +517,7 @@
        HERO
        ========================================================================== */
     .hero {
-      text-align: center; padding: var(--space-8) 0 var(--space-12);
+      text-align: center; padding: var(--space-16) 0 var(--space-12);
       position: relative;
     }
     .hero-canvas-wrap {
@@ -567,6 +567,19 @@
     .hero-dot {
       width: 12px; height: 12px; border-radius: var(--radius-full);
     }
+    .hero-cta {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      margin-top: var(--space-6);
+      padding: var(--space-3) var(--space-6);
+      font-family: var(--font-sans); font-size: var(--ui-text-md); font-weight: 700;
+      color: var(--text-on-accent); background: var(--accent-primary);
+      border: 2px solid var(--border-default); border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-md); text-decoration: none;
+      transition: transform var(--motion-fast) var(--ease-bounce), box-shadow var(--motion-fast) var(--ease-bounce);
+    }
+    .hero-cta:hover { transform: translate(-2px, -2px); box-shadow: var(--shadow-lg); }
+    .hero-cta:active { transform: translate(2px, 2px); box-shadow: 0 0 0 var(--text-primary); }
+    .hero-cta svg { width: 16px; height: 16px; }
 
     /* ==========================================================================
        SECTION LAYOUT
@@ -1069,12 +1082,13 @@
 
     <!-- HERO -->
     <section class="hero">
-      <div class="hero-canvas-wrap" role="img" aria-label="Interactive particle constellation with 60 colorful particles connected by spring-physics lines. Particles respond to mouse movement and clicks.">
+      <h1 class="hero-title">An <a href="https://github.com/kylesnav/delightful-design-system" class="hero-keyword" style="--keyword-color:var(--accent-green)" target="_blank" rel="noopener noreferrer">animation</a> <a href="https://github.com/kylesnav/delightful-design-system" class="hero-keyword" style="--keyword-color:var(--accent-green)" target="_blank" rel="noopener noreferrer">system</a> that sparks joy</h1>
+      <p class="hero-subtitle">Spring physics, particle systems, generative art, and interactive playgrounds — all vanilla JS, all token-driven.</p>
+      <a href="#springs" class="hero-cta">Explore 10 categories <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      <div class="hero-canvas-wrap" role="img" aria-label="Interactive particle constellation with 60 colorful particles connected by spring-physics lines. Particles respond to mouse movement and clicks." style="margin-top:var(--space-8)">
         <canvas class="hero-canvas" id="hero-canvas" aria-hidden="true"></canvas>
         <span class="hero-canvas-hint">Move mouse or touch to interact</span>
       </div>
-      <h1 class="hero-title">An <a href="https://github.com/kylesnav/delightful-design-system" class="hero-keyword" style="--keyword-color:var(--accent-green)" target="_blank" rel="noopener noreferrer">animation</a> <a href="https://github.com/kylesnav/delightful-design-system" class="hero-keyword" style="--keyword-color:var(--accent-green)" target="_blank" rel="noopener noreferrer">system</a> that sparks joy</h1>
-      <p class="hero-subtitle">Spring physics, particle systems, generative art, and interactive playgrounds — all vanilla JS, all token-driven.</p>
     </section>
 
     <!-- ================================================================
