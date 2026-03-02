@@ -169,7 +169,7 @@ const dark = {
   textSecondary: 'oklch(0.690 0.012 70)',
   textMuted:     'oklch(0.540 0.010 70)',
   textOnAccent:  'oklch(1.00 0.000 0)',
-  textOnGold:    'oklch(0.160 0.014 65)',
+  textOnGold:    'oklch(0.140 0.014 65)',
 
   borderSubtle: 'oklch(0.330 0.015 65)',
 

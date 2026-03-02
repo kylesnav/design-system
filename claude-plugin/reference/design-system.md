@@ -170,7 +170,7 @@ Note: In dark mode, `--border-default` is muted (`oklch(0.550 0.010 65)`) to red
 | `--text-secondary` | `oklch(0.690 0.012 70)` |
 | `--text-muted` | `oklch(0.540 0.010 70)` |
 | `--text-on-accent` | `oklch(1.00 0.000 0)` |
-| `--text-on-gold` | `oklch(0.160 0.014 65)` |
+| `--text-on-gold` | `oklch(0.140 0.014 65)` |
 
 **Borders:**
 | Token | Value |
