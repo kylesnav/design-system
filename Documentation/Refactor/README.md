@@ -60,6 +60,10 @@ The sequencing guide establishes a strict dependency chain: `spring.js` first (t
 - Do not begin Roadmap work until all MVP tests pass and the system is confirmed stable
 - Each planning prompt (`Prompts/animation-system-planning-prompt.md`, `Prompts/batch-h-planning-prompt.md`) guides an agent through the re-speccing process
 
+## How to Execute the Build
+
+See [`how-to-execute.md`](how-to-execute.md) for the operator's guide — prerequisites, phase-by-phase instructions, the between-phase checklist, rules to enforce, and what "MVP done" looks like.
+
 ## Execution Order
 
 **MVP → Launch → Roadmap.** This order is strict.
