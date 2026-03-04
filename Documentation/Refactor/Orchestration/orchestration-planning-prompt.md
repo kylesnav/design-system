@@ -1,7 +1,7 @@
 # Orchestration Planning Prompt
 
 Copy everything below the line into a Claude Code session in plan mode at
-`~/Desktop/Workflow/Github/delightful-design-system`.
+`~/Desktop/Working/Github/delightful-design-system`.
 
 ---
 
