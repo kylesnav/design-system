@@ -14,6 +14,15 @@
 
 ---
 
+## The Delightful Terminal Stack
+
+| Package | Role |
+|---------|------|
+| **`ghostty/`** (this package) | Terminal emulator — colors, fonts, keybinds |
+| [`starship/`](../starship/) | Prompt — rainbow powerline segments |
+| [`shell/`](../shell/) | Session — tmux status bar, persistence, zsh config |
+| [`iterm2/`](../iterm2/) | iTerm2 color profiles (standalone alternative) |
+
 ## Theme
 
 The color theme is portable — install it on any Ghostty setup.
@@ -63,22 +72,24 @@ All colors map to Delightful Design System tokens. Blue slots use the cyan hue a
 
 ## Full Experience
 
-The included config file goes beyond colors — fonts, keybinds, window chrome, shaders, and a quick terminal for AI coding. This is opinionated and personal.
+The included config file goes beyond colors — fonts, keybinds, window chrome, and tmux integration. This is opinionated and personal.
 
-### Config
+### Install
 
 ```bash
-# macOS
-cp config ~/Library/Application\ Support/com.mitchellh.ghostty/config
-
-# Linux
 cp config ~/.config/ghostty/config
 ```
 
-Includes:
-- **JetBrains Mono** font at 13px
-- **Quick Terminal** — `Option+Space` opens a centered floating terminal from anywhere on macOS. The session persists between toggles — open it, type `cc` to start Claude Code, then toggle it away.
-- Minimal window chrome, no tabs, no title bar
+### What's Included
+
+| Feature | Details |
+|---------|---------|
+| JetBrains Mono | 14px, thickened, with OpenType features (cv02–cv04, cv11) |
+| macOS tab bar | `macos-titlebar-style = tabs` with server-side window decoration |
+| tmux splits | `Cmd+D` / `Cmd+Shift+D` create tmux panes (auto-equalized), `Cmd+Shift+W` closes a pane |
+| tmux auto-attach | Each window gets a persistent tmux session via `tmux-auto-attach` |
+| Copy on select | Selected text copies to clipboard automatically |
+| 10M scrollback | Generous scrollback buffer |
 
 ### Shaders
 
@@ -100,7 +111,8 @@ After applying the theme, run `/config` in Claude Code and set the theme to **li
 
 ## Related
 
-- [`shell/`](../shell/) — Starship prompt and zsh config (works with any terminal)
+- [`shell/`](../shell/) — tmux, zsh config, and terminal utilities
+- [`starship/`](../starship/) — Starship prompt theme
 - [`iterm2/`](../iterm2/) — iTerm2 color profiles using the same palette
 
 ## License

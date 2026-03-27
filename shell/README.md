@@ -107,20 +107,26 @@ In iTerm2: **Settings > Profiles > Advanced > Semantic History > Run command...*
 
 | Feature | Details |
 |---------|---------|
-| Rainbow status bar | Powerline segments matching the Delightful Starship aesthetic |
-| Session restore | tmux-resurrect saves/restores sessions across tmux server restarts |
-| Mouse mode | Click panes, scroll, resize — all enabled |
+| Rainbow status bar | Powerline segments at the top of the terminal, matching the Delightful Starship aesthetic |
+| Equalized tmux splits | `Cmd+D` / `Cmd+Shift+D` create tmux panes that auto-equalize. `Cmd+Shift+W` closes a pane. |
+| Dynamic window names | Windows auto-rename: directory name when idle, Claude session name when Claude Code is running, command name otherwise |
+| Dynamic tab titles | Ghostty tab bar shows session and context (e.g. `1 — myapp`, `1 — claude`) |
+| Session restore | tmux-resurrect saves/restores sessions (`prefix+Ctrl+s` / `prefix+Ctrl+r`) |
+| Vim-style navigation | `prefix+h/j/k/l` pane navigation, `prefix+\|` and `prefix+-` for splits |
+| Mouse mode | Click panes to focus, drag dividers to resize, scroll — all enabled |
 | Vi copy mode | `v` to select, `y` to yank to system clipboard |
 | Sensible defaults | 256color, no escape delay, windows start at 1, 50k scrollback |
 
-Status bar layout:
+Status bar layout (top of terminal):
 
 ```
 ┌──────────────────────────────────────────────────────────────────────┐
-│  main  1 zsh  2 vim  3 node          hostname   Mar 26   14:30 │
-│ (pink)  (gold)   (gray)(gray)            (cyan)    (gray)   (dark) │
+│  main  myapp  ⠂ session  vim        hostname   Mar 26   14:30 │
+│ (pink)  (gold)    (gray)   (gray)        (cyan)    (gray)   (dark) │
 └──────────────────────────────────────────────────────────────────────┘
 ```
+
+Windows auto-rename to the current context: directory name when idle in a shell, `claude` when Claude Code is running, or the command name for everything else.
 
 ### Zsh Config
 

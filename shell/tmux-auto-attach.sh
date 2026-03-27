@@ -24,6 +24,11 @@ if ! command -v tmux &>/dev/null; then
   exec "${SHELL:-/bin/zsh}" -l
 fi
 
+# Let tmux clean up stale clients from a Ghostty restart.
+if tmux list-sessions &>/dev/null; then
+  sleep 0.3
+fi
+
 # Explicit session name — attach or create that specific session.
 if [[ -n "${1:-}" ]]; then
   SESSION="$1"
@@ -34,13 +39,16 @@ if [[ -n "${1:-}" ]]; then
   fi
 fi
 
-# Auto-name: find the lowest available numbered session.
+# Reattach to any detached session (regardless of name/number).
+DETACHED=$(tmux list-sessions -F '#{session_name} #{session_attached}' 2>/dev/null \
+  | awk '$2=="0"{print $1; exit}')
+if [[ -n "$DETACHED" ]]; then
+  exec tmux attach-session -t "=$DETACHED"
+fi
+
+# No detached sessions — create a new one with the lowest available number.
 N=1
 while tmux has-session -t "=$N" 2>/dev/null; do
-  # Session exists — but is it attached? Reuse detached sessions.
-  if [[ "$(tmux display-message -t "=$N" -p '#{session_attached}')" == "0" ]]; then
-    exec tmux attach-session -t "=$N"
-  fi
   ((N++))
 done
 

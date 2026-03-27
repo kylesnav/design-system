@@ -21,12 +21,11 @@ cursor-style-blink = false
 
 # --- Window ---
 window-padding-x = 16
-window-padding-y = 12,8
+window-padding-y = 8,8
 window-padding-balance = true
 window-theme = auto
 macos-titlebar-style = tabs
 window-save-state = always
-unfocused-split-opacity = 0.9
 window-decoration = server
 
 
@@ -42,8 +41,7 @@ command = /Users/kylesnav/.local/bin/tmux-auto-attach
 macos-option-as-alt = true
 
 # --- Keybinds ---
-# Splits (equalized, vim-style navigation)
-keybind = cmd+d=new_split:right
-keybind = chain=equalize_splits
-keybind = cmd+shift+d=new_split:down
-keybind = chain=equalize_splits
+# Splits — sent to tmux (prefix=Ctrl+B, then split/close key)
+keybind = cmd+d=text:\x02\x7c
+keybind = cmd+shift+d=text:\x02\x2d
+keybind = cmd+shift+w=text:\x02x
