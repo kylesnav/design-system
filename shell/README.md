@@ -1,22 +1,81 @@
 <h1 align="center">Delightful for Shell</h1>
 
 <p align="center">
-  Zsh config and terminal utilities using <a href="https://github.com/kylesnav/delightful-design-system">Delightful Design System</a> colors.
+  Tmux, zsh config, and terminal utilities using <a href="https://github.com/kylesnav/delightful-design-system">Delightful Design System</a> colors.
   <br>
-  Works with any terminal.
+  Designed for Ghostty. iTerm2 supported as a standalone alternative.
 </p>
 
 ---
 
+## The Delightful Terminal Stack
+
+This package is the session and config layer of a cohesive terminal experience:
+
+| Package | Role |
+|---------|------|
+| [`ghostty/`](../ghostty/) | Terminal emulator — colors, fonts, keybinds |
+| [`starship/`](../starship/) | Prompt — rainbow powerline segments |
+| **`shell/`** (this package) | Session — tmux status bar, persistence, zsh config |
+| [`claude-status-line/`](../claude-status-line/) | Claude Code status line *(coming soon)* |
+| [`iterm2/`](../iterm2/) | iTerm2 color profiles (standalone alternative) |
+
+## Prerequisites
+
+**Nerd Font** — the tmux status bar and Starship prompt use powerline glyphs.
+
+```sh
+brew install --cask font-jetbrains-mono-nerd-font
+```
+
 ## Install
 
-The setup script installs everything at once (zsh config, terminal theme):
+The setup script installs everything at once:
 
 ```bash
 bash ../scripts/setup-terminal.sh
 ```
 
 Or install each piece manually:
+
+### tmux
+
+Copy the config:
+
+```bash
+cp tmux.conf ~/.tmux.conf
+```
+
+Install [TPM](https://github.com/tmux-plugins/tpm) (Tmux Plugin Manager):
+
+```bash
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+```
+
+Then press `prefix + I` (Ctrl+b, then Shift+i) inside tmux to install plugins.
+
+> **iTerm2 users:** iTerm2 has native tmux integration (`tmux -CC`).
+> You may prefer that over this config — see the [iTerm2 README](../iterm2/README.md).
+
+#### Ghostty auto-attach
+
+Each Ghostty window gets its own persistent tmux session (`1`, `2`, `3`, etc.).
+Close a window → reopen → it reattaches to a detached session. For agent team
+views, use tmux splits to watch multiple sessions.
+
+```bash
+mkdir -p ~/.local/bin
+cp tmux-auto-attach.sh ~/.local/bin/tmux-auto-attach
+chmod +x ~/.local/bin/tmux-auto-attach
+```
+
+In your Ghostty config:
+
+```
+command = /Users/YOU/.local/bin/tmux-auto-attach
+```
+
+Pass a name to pin a window to a specific session: `command = /path/to/tmux-auto-attach work`.
 
 ### Zsh Config
 
@@ -43,6 +102,25 @@ In iTerm2: **Settings > Profiles > Advanced > Semantic History > Run command...*
 ```
 
 ## What's Included
+
+### tmux
+
+| Feature | Details |
+|---------|---------|
+| Rainbow status bar | Powerline segments matching the Delightful Starship aesthetic |
+| Session restore | tmux-resurrect saves/restores sessions across tmux server restarts |
+| Mouse mode | Click panes, scroll, resize — all enabled |
+| Vi copy mode | `v` to select, `y` to yank to system clipboard |
+| Sensible defaults | 256color, no escape delay, windows start at 1, 50k scrollback |
+
+Status bar layout:
+
+```
+┌──────────────────────────────────────────────────────────────────────┐
+│  main  1 zsh  2 vim  3 node          hostname   Mar 26   14:30 │
+│ (pink)  (gold)   (gray)(gray)            (cyan)    (gray)   (dark) │
+└──────────────────────────────────────────────────────────────────────┘
+```
 
 ### Zsh Config
 
@@ -97,20 +175,18 @@ iTerm2 Semantic History handler for Cmd+click file paths:
 
 | Feature | Ghostty | iTerm2 | Other |
 |---------|---------|--------|-------|
+| tmux config | Yes | Optional* | Any tmux-capable terminal |
+| tmux auto-attach | Yes | No | No |
 | Zsh config | Yes | Yes | Any zsh shell |
 | Quick terminal | Yes (1.3+) | No | No |
 | AI CLI aliases | Yes | Yes | Any terminal |
 | smart-open | No | Yes | No |
 
+\* iTerm2 users may prefer native tmux integration (`tmux -CC`).
+
 ## With Claude Code
 
 After applying the terminal theme, run `/config` in Claude Code and set the theme to **light-ansi** or **dark-ansi** (matching your terminal theme). Claude Code inherits the Delightful palette from your terminal.
-
-## Related
-
-- [`starship/`](../starship/) — Starship prompt theme
-- [`ghostty/`](../ghostty/) — Ghostty terminal theme
-- [`iterm2/`](../iterm2/) — iTerm2 color profiles
 
 ## License
 
