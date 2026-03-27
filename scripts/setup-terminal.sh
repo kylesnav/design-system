@@ -202,7 +202,7 @@ install_shell() {
 
   # Starship config
   local starship_dest="$HOME/.config/starship.toml"
-  local starship_src="$REPO_DIR/shell/starship.toml"
+  local starship_src="$REPO_DIR/starship/starship.toml"
 
   if [[ -f "$starship_dest" ]]; then
     if diff -q "$starship_src" "$starship_dest" &>/dev/null; then

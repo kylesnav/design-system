@@ -1,15 +1,7 @@
-<p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="screenshots/Starship-Dark.png" />
-    <source media="(prefers-color-scheme: light)" srcset="screenshots/Starship-Light.png" />
-    <img src="screenshots/Starship-Light.png" width="600" alt="Starship prompt — Delightful" />
-  </picture>
-</p>
-
 <h1 align="center">Delightful for Shell</h1>
 
 <p align="center">
-  Starship prompt, zsh config, and terminal utilities using <a href="https://github.com/kylesnav/delightful-design-system">Delightful Design System</a> colors.
+  Zsh config and terminal utilities using <a href="https://github.com/kylesnav/delightful-design-system">Delightful Design System</a> colors.
   <br>
   Works with any terminal.
 </p>
@@ -18,22 +10,13 @@
 
 ## Install
 
-The setup script installs everything at once (Starship prompt, zsh config, terminal theme):
+The setup script installs everything at once (zsh config, terminal theme):
 
 ```bash
 bash ../scripts/setup-terminal.sh
 ```
 
 Or install each piece manually:
-
-### Starship Prompt
-
-```bash
-brew install starship
-cp starship.toml ~/.config/starship.toml
-```
-
-Add `eval "$(starship init zsh)"` to your `~/.zshrc`, or use the full zshrc-snippet below.
 
 ### Zsh Config
 
@@ -60,20 +43,6 @@ In iTerm2: **Settings > Profiles > Advanced > Semantic History > Run command...*
 ```
 
 ## What's Included
-
-### Starship Prompt
-
-Two-line prompt using Delightful accent colors:
-
-| Element | Color | Details |
-|---------|-------|---------|
-| `>` prompt character | Pink | Red on error, cyan in vim mode |
-| Directory | Bold | Truncated to 3 levels |
-| Git branch | Pink | |
-| Git status | Gold | Modified, staged, untracked |
-| Language versions | Green / Gold / Red | Node, Python, Rust |
-| Command duration | Muted | Commands over 2 seconds |
-| Clock | Muted | Right-aligned, HH:MM |
 
 ### Zsh Config
 
@@ -128,7 +97,6 @@ iTerm2 Semantic History handler for Cmd+click file paths:
 
 | Feature | Ghostty | iTerm2 | Other |
 |---------|---------|--------|-------|
-| Starship prompt | Yes | Yes | Any terminal |
 | Zsh config | Yes | Yes | Any zsh shell |
 | Quick terminal | Yes (1.3+) | No | No |
 | AI CLI aliases | Yes | Yes | Any terminal |
@@ -136,10 +104,11 @@ iTerm2 Semantic History handler for Cmd+click file paths:
 
 ## With Claude Code
 
-After applying the terminal theme and Starship prompt, run `/config` in Claude Code and set the theme to **light-ansi** or **dark-ansi** (matching your terminal theme). Claude Code inherits the Delightful palette from your terminal.
+After applying the terminal theme, run `/config` in Claude Code and set the theme to **light-ansi** or **dark-ansi** (matching your terminal theme). Claude Code inherits the Delightful palette from your terminal.
 
 ## Related
 
+- [`starship/`](../starship/) — Starship prompt theme
 - [`ghostty/`](../ghostty/) — Ghostty terminal theme
 - [`iterm2/`](../iterm2/) — iTerm2 color profiles
 
