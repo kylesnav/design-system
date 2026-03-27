@@ -37,11 +37,13 @@ link-url = true
 scrollback-limit = 10000000
 shell-integration = zsh
 shell-integration-features = sudo,title
-command = /Users/kylesnav/.local/bin/tmux-auto-attach
 macos-option-as-alt = true
 
 # --- Keybinds ---
-# Splits — sent to tmux (prefix=Ctrl+B, then split/close key)
-keybind = cmd+d=text:\x02\x7c
-keybind = cmd+shift+d=text:\x02\x2d
-keybind = cmd+shift+w=text:\x02x
+# Equalized splits
+keybind = cmd+d=new_split:right
+keybind = chain=equalize_splits
+keybind = cmd+shift+d=new_split:down
+keybind = chain=equalize_splits
+keybind = cmd+w=close_surface
+keybind = chain=equalize_splits

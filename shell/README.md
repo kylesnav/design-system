@@ -57,7 +57,10 @@ Then press `prefix + I` (Ctrl+b, then Shift+i) inside tmux to install plugins.
 > **iTerm2 users:** iTerm2 has native tmux integration (`tmux -CC`).
 > You may prefer that over this config — see the [iTerm2 README](../iterm2/README.md).
 
-#### Ghostty auto-attach
+#### Ghostty auto-attach (optional)
+
+> **Note:** The Ghostty config works great without tmux. This is an opt-in
+> addition for users who want persistent sessions across terminal restarts.
 
 Each Ghostty window gets its own persistent tmux session (`1`, `2`, `3`, etc.).
 Close a window → reopen → it reattaches to a detached session. For agent team
@@ -108,7 +111,7 @@ In iTerm2: **Settings > Profiles > Advanced > Semantic History > Run command...*
 | Feature | Details |
 |---------|---------|
 | Rainbow status bar | Powerline segments at the top of the terminal, matching the Delightful Starship aesthetic |
-| Equalized tmux splits | `Cmd+D` / `Cmd+Shift+D` create tmux panes that auto-equalize. `Cmd+Shift+W` closes a pane. |
+| Equalized splits | `prefix+\|` and `prefix+-` create panes that auto-equalize. `prefix+x` closes a pane. |
 | Dynamic window names | Windows auto-rename: directory name when idle, Claude session name when Claude Code is running, command name otherwise |
 | Dynamic tab titles | Ghostty tab bar shows session and context (e.g. `1 — myapp`, `1 — claude`) |
 | Session restore | tmux-resurrect saves/restores sessions (`prefix+Ctrl+s` / `prefix+Ctrl+r`) |

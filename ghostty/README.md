@@ -86,8 +86,7 @@ cp config ~/.config/ghostty/config
 |---------|---------|
 | JetBrains Mono | 14px, thickened, with OpenType features (cv02–cv04, cv11) |
 | macOS tab bar | `macos-titlebar-style = tabs` with server-side window decoration |
-| tmux splits | `Cmd+D` / `Cmd+Shift+D` create tmux panes (auto-equalized), `Cmd+Shift+W` closes a pane |
-| tmux auto-attach | Each window gets a persistent tmux session via `tmux-auto-attach` |
+| Equalized splits | `Cmd+D` / `Cmd+Shift+D` split right/down and auto-equalize all panes |
 | Copy on select | Selected text copies to clipboard automatically |
 | 10M scrollback | Generous scrollback buffer |
 
@@ -108,6 +107,10 @@ Uncomment the `custom-shader` lines in your config to enable.
 ### Claude Code
 
 After applying the theme, run `/config` in Claude Code and set the theme to **light-ansi** or **dark-ansi** (matching your terminal theme). Claude Code inherits the Delightful palette from your terminal.
+
+### tmux (optional)
+
+For persistent tmux sessions with a matching rainbow status bar, see the [`shell/`](../shell/) package. Add `command = /path/to/tmux-auto-attach` to your Ghostty config to enable.
 
 ## Related
 
