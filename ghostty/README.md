@@ -98,7 +98,7 @@ cp config ~/.config/ghostty/config
 
 | Feature | Details |
 |---------|---------|
-| JetBrains Mono | 14px, thickened, with OpenType features (cv02–cv04, cv11) |
+| JetBrains Mono | 14px with OpenType features (cv02–cv04, cv11) |
 | macOS tab bar | `macos-titlebar-style = tabs` with server-side window decoration |
 | Equalized splits | `Cmd+D` / `Cmd+Shift+D` split right/down and auto-equalize all panes |
 | Copy on select | Selected text copies to clipboard automatically |
