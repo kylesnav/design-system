@@ -400,7 +400,13 @@
   :root,
   .theme-light {
 
-    /* --- Obsidian legacy shims (required for internal Obsidian rendering) --- */
+    /* ==========================================================================
+       OBSIDIAN PLATFORM SHIMS — Required by Obsidian's CSS variable API.
+       These RGB/HSL decompositions are NOT part of the Delightful token system.
+       Obsidian reads these variables for its internal color mixing and UI chrome.
+       The Delightful design system is OKLCH-only; these exist solely for host
+       platform compatibility.
+       ========================================================================== */
     --highlight-mix-blend-mode: darken;
     --mono-rgb-0:   255, 255, 255;
     --mono-rgb-100: 0, 0, 0;
@@ -566,7 +572,13 @@
 
   .theme-dark {
 
-    /* --- Obsidian legacy shims --- */
+    /* ==========================================================================
+       OBSIDIAN PLATFORM SHIMS — Required by Obsidian's CSS variable API.
+       These RGB/HSL decompositions are NOT part of the Delightful token system.
+       Obsidian reads these variables for its internal color mixing and UI chrome.
+       The Delightful design system is OKLCH-only; these exist solely for host
+       platform compatibility.
+       ========================================================================== */
     --highlight-mix-blend-mode: lighten;
     --mono-rgb-0:   0, 0, 0;
     --mono-rgb-100: 255, 255, 255;
@@ -5208,6 +5220,13 @@ settings:
     --accent-primary-text:   var(--accent-purple-text);
   }
 
+  /* ==========================================================================
+     USER ACCESSIBILITY SETTINGS — Obsidian Style Settings plugin options.
+     These override the design system's 2px/solid conventions to provide
+     softer alternatives for users who prefer reduced visual weight.
+     Not a DS violation — documented user-facing accommodation.
+     ========================================================================== */
+
   /* ========================================================================
      2. SHADOW STYLES
      Three tiers: neo-brutalist (default), subtle, none.
@@ -6904,8 +6923,8 @@ settings:
 
     /* Keep code block styling */
     pre, code {
-      border: 1px solid #ddd !important;
-      background: #f8f8f8 !important;
+      border: 2px solid oklch(0.880 0 0) !important;
+      background: oklch(0.975 0 0) !important;
     }
 
     /* Page break control */
