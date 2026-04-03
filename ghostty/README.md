@@ -14,6 +14,29 @@
 
 ---
 
+## The Delightful Terminal Stack
+
+| Package | Role |
+|---------|------|
+| **`ghostty/`** (this package) | Terminal emulator — colors, fonts, keybinds |
+| [`starship/`](../starship/) | Prompt — rainbow powerline segments |
+| [`shell/`](../shell/) | Session — tmux status bar, persistence, zsh config |
+| [`iterm2/`](../iterm2/) | iTerm2 color profiles (standalone alternative) |
+
+## Prerequisites
+
+**Nerd Font** — the Starship prompt and tmux status bar use powerline glyphs and language icons. Ghostty's embedded JetBrains Mono handles normal text; the Nerd Font variant provides icon fallback.
+
+```sh
+brew install --cask font-jetbrains-mono-nerd-font
+```
+
+**Suppress "Last login"** — stop macOS from printing `Last login: ...` on every new terminal:
+
+```sh
+touch ~/.hushlogin
+```
+
 ## Theme
 
 The color theme is portable — install it on any Ghostty setup.
@@ -63,22 +86,23 @@ All colors map to Delightful Design System tokens. Blue slots use the cyan hue a
 
 ## Full Experience
 
-The included config file goes beyond colors — fonts, keybinds, window chrome, shaders, and a quick terminal for AI coding. This is opinionated and personal.
+The included config file goes beyond colors — fonts, keybinds, window chrome, and tmux integration. This is opinionated and personal.
 
-### Config
+### Install
 
 ```bash
-# macOS
-cp config ~/Library/Application\ Support/com.mitchellh.ghostty/config
-
-# Linux
 cp config ~/.config/ghostty/config
 ```
 
-Includes:
-- **JetBrains Mono** font at 13px
-- **Quick Terminal** — `Option+Space` opens a centered floating terminal from anywhere on macOS. The session persists between toggles — open it, type `cc` to start Claude Code, then toggle it away.
-- Minimal window chrome, no tabs, no title bar
+### What's Included
+
+| Feature | Details |
+|---------|---------|
+| JetBrains Mono | 14px with OpenType features (cv02–cv04, cv11) |
+| macOS tab bar | `macos-titlebar-style = tabs` with server-side window decoration |
+| Equalized splits | `Cmd+D` / `Cmd+Shift+D` split right/down and auto-equalize all panes |
+| Copy on select | Selected text copies to clipboard automatically |
+| 10M scrollback | Generous scrollback buffer |
 
 ### Shaders
 
@@ -98,9 +122,14 @@ Uncomment the `custom-shader` lines in your config to enable.
 
 After applying the theme, run `/config` in Claude Code and set the theme to **light-ansi** or **dark-ansi** (matching your terminal theme). Claude Code inherits the Delightful palette from your terminal.
 
+### tmux (optional)
+
+For persistent tmux sessions with a matching rainbow status bar, see the [`shell/`](../shell/) package. Add `command = /path/to/tmux-auto-attach` to your Ghostty config to enable.
+
 ## Related
 
-- [`shell/`](../shell/) — Starship prompt and zsh config (works with any terminal)
+- [`shell/`](../shell/) — tmux, zsh config, and terminal utilities
+- [`starship/`](../starship/) — Starship prompt theme
 - [`iterm2/`](../iterm2/) — iTerm2 color profiles using the same palette
 
 ## License

@@ -1,27 +1,15 @@
-# Delightful — Personal Ghostty Config
-# =====================================
-#
-# Uses the Delightful Light theme for colors. Switch to delightful-dark
-# by changing the theme line below.
-#
-# Install themes first:
-#   cp themes/delightful-light themes/delightful-dark ~/.config/ghostty/themes/
-
 theme = delightful-light
 
 # --- Typography ---
 # Ghostty embeds JetBrains Mono, matching --font-mono.
 # cv02–cv04, cv11 match the design system's font-feature-settings.
 font-size = 14
-font-thicken = true
 font-feature = cv02
 font-feature = cv03
 font-feature = cv04
 font-feature = cv11
-font-style = italic
-font-style-bold = bold
-font-style-bold-italic = bold italic
-adjust-cell-height = 20%
+# adjust-cell-height = 20%
+
 
 # --- Cursor ---
 cursor-style = block
@@ -30,12 +18,14 @@ minimum-contrast = 1.3
 
 # --- Window ---
 window-padding-x = 16
-window-padding-y = 12,8
+window-padding-y = 8,8
 window-padding-balance = true
 window-theme = auto
 macos-titlebar-style = tabs
 window-save-state = always
-unfocused-split-opacity = 0.9
+window-decoration = server
+unfocused-split-opacity = 1
+
 
 # --- Behavior ---
 clipboard-paste-protection = false
@@ -44,50 +34,14 @@ mouse-hide-while-typing = true
 link-url = true
 scrollback-limit = 10000000
 shell-integration = zsh
-shell-integration-features = cursor,sudo,title
+shell-integration-features = sudo,title
 macos-option-as-alt = true
 
 # --- Keybinds ---
-# Splits (vim-style navigation)
+# Equalized splits
 keybind = cmd+d=new_split:right
+keybind = chain=equalize_splits
 keybind = cmd+shift+d=new_split:down
-keybind = ctrl+h=goto_split:left
-keybind = ctrl+j=goto_split:bottom
-keybind = ctrl+k=goto_split:top
-keybind = ctrl+l=goto_split:right
-keybind = shift+enter=text:\n
-
-# Tabs
-keybind = cmd+t=new_tab
+keybind = chain=equalize_splits
 keybind = cmd+w=close_surface
-keybind = cmd+1=goto_tab:1
-keybind = cmd+2=goto_tab:2
-keybind = cmd+3=goto_tab:3
-keybind = cmd+4=goto_tab:4
-keybind = cmd+5=goto_tab:5
-
-# Quick terminal — Option+Space from anywhere on macOS.
-keybind = global:opt+space=toggle_quick_terminal
-quick-terminal-position = center
-quick-terminal-screen = main
-quick-terminal-animation-duration = 0.12
-
-# Config
-keybind = cmd+shift+p=open_config
-keybind = cmd+shift+comma=reload_config
-
-
-# ==========================================================================
-# OPTIONAL — Uncomment to enable. Each line is independent.
-# ==========================================================================
-
-# Translucent background with macOS backdrop blur.
-# background-opacity = 0.88
-# background-blur-radius = 20
-
-# Custom shaders (copy shaders/ directory to your Ghostty config directory).
-# macOS: ~/Library/Application Support/com.mitchellh.ghostty/shaders/
-# Linux: ~/.config/ghostty/shaders/
-# custom-shader = <config-dir>/shaders/delightful-vignette.glsl
-# custom-shader = <config-dir>/shaders/delightful-bloom.glsl
-# custom-shader-animation = always
+keybind = chain=equalize_splits

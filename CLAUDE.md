@@ -31,6 +31,7 @@ When asked to verify or update distribution repos, diff these paths:
 - `ghostty/` ↔ `../delightful-ghostty/`
 - `iterm2/` ↔ `../delightful-iterm2/`
 - `shell/` ↔ `../delightful-shell/`
+- `starship/` ↔ `../delightful-starship/`
 - `vscode-theme/` ↔ `../delightful-vscode/` (excluding marketplace-specific files)
 
 Copy from this repo to distribution. Commit both.

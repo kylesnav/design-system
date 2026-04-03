@@ -4,6 +4,28 @@ All notable changes to the Delightful Design System are documented in this file.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/). Versions follow [Semantic Versioning](https://semver.org/).
 
+## [0.7.0] — 2026-03-30
+
+### Added
+
+- **Delightful Starship** — new package with rainbow powerline prompt using Delightful palette; 10 language segments, custom folder icons, light/dark palettes (KS-36)
+- **Delightful tmux** — rainbow status bar matching Starship aesthetic; equalized splits, dynamic window names (directory/claude/command), session persistence via tmux-resurrect (KS-39)
+- **tmux auto-attach** — shell script for Ghostty that gives each window a persistent numbered tmux session; close and reopen to reattach
+- **Terminal stack documentation** — cross-referenced "Delightful Terminal Stack" tables in Ghostty, Starship, and Shell READMEs
+
+### Changed
+
+- **Ghostty config refactored** — extracted tmux to optional shell add-on, restored native Ghostty splits with auto-equalize (`Cmd+D`/`Cmd+Shift+D`), removed font-thicken and forced bold styles, added minimum-contrast and unfocused-split-opacity
+- **Obsidian theme rebuilt** — modular source files removed in favor of auto-synced compiled `theme.css`; cleaner README with recommended plugins (KS-32)
+- **Shell README overhauled** — comprehensive documentation of the full terminal stack, tmux features, zsh config, AI CLI aliases, and terminal compatibility matrix
+- **HTML sidebar** wired to dedicated distribution repos for all packages including Starship
+- **Starship config** moved from `shell/starship.toml` to dedicated `starship/` package
+
+### Fixed
+
+- **Ghostty typography** — removed `font-thicken = true` and forced bold/italic font styles that interfered with Ghostty's native font rendering
+- **Obsidian readable-line-width** — respects Obsidian's native setting and font size
+
 ## [0.6.5] — 2026-03-01
 
 ### Added
