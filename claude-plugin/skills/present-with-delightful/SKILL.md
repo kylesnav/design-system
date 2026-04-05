@@ -9,7 +9,7 @@ description: >-
 allowed-tools: "Bash WebFetch"
 metadata:
   author: Delightful Design System
-  version: 0.8.0
+  version: 0.7.0
   tags: [design-system, css, neo-brutalist, oklch, scrolling-page, html-document]
 ---
 
