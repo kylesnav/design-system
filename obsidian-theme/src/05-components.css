@@ -675,10 +675,10 @@
     vertical-align: middle;
   }
 
-  /* ON state — green, not pink */
+  /* ON state — uses toggle token so accent swaps propagate */
   body .checkbox-container.is-enabled {
-    background: var(--accent-green);
-    border-color: var(--accent-green);
+    background: var(--toggle-on-bg);
+    border-color: var(--toggle-on-bg);
   }
 
   /* Knob */
@@ -691,7 +691,7 @@
     background: var(--toggle-knob);
     top: 2px;
     left: 2px;
-    box-shadow: 0 1px 3px oklch(0 0 0 / 0.15);
+    box-shadow: 0 1px 3px var(--background-modifier-box-shadow);
     transition: transform var(--motion-fast) var(--ease-spring-gentle);
   }
 
@@ -1062,4 +1062,41 @@
     color: inherit;
     border-radius: 3px;
     padding: 0 2px;
+  }
+
+  /* ========================================================================
+     12. SCROLLBARS — DS themed
+     ======================================================================== */
+
+  /* Firefox — inherits from body, no need for universal selector */
+  body {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-thumb-bg) transparent;
+  }
+
+  /* Webkit/Chromium */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb-bg);
+    border-radius: var(--radius-full);
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-active-thumb-bg);
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+
+  ::-webkit-scrollbar-corner {
+    background: transparent;
   }

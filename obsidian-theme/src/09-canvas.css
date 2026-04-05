@@ -86,6 +86,7 @@
   .canvas-node[data-color="1"] .canvas-node-content {
     border-color: var(--accent-danger);
     box-shadow: 2px 2px 0 var(--accent-danger);
+    background: var(--accent-danger-subtle);
   }
 
   .canvas-node[data-color="1"] .canvas-node-content:hover,
@@ -97,6 +98,7 @@
   .canvas-node[data-color="2"] .canvas-node-content {
     border-color: var(--accent-gold);
     box-shadow: 2px 2px 0 var(--accent-gold);
+    background: var(--accent-gold-subtle);
   }
 
   .canvas-node[data-color="2"] .canvas-node-content:hover,
@@ -108,6 +110,7 @@
   .canvas-node[data-color="3"] .canvas-node-content {
     border-color: var(--accent-green);
     box-shadow: 2px 2px 0 var(--accent-green);
+    background: var(--accent-green-subtle);
   }
 
   .canvas-node[data-color="3"] .canvas-node-content:hover,
@@ -119,6 +122,7 @@
   .canvas-node[data-color="4"] .canvas-node-content {
     border-color: var(--accent-cyan);
     box-shadow: 2px 2px 0 var(--accent-cyan);
+    background: var(--accent-cyan-subtle);
   }
 
   .canvas-node[data-color="4"] .canvas-node-content:hover,
@@ -130,6 +134,7 @@
   .canvas-node[data-color="5"] .canvas-node-content {
     border-color: var(--accent-purple);
     box-shadow: 2px 2px 0 var(--accent-purple);
+    background: var(--accent-purple-subtle);
   }
 
   .canvas-node[data-color="5"] .canvas-node-content:hover,
@@ -141,6 +146,7 @@
   .canvas-node[data-color="6"] .canvas-node-content {
     border-color: var(--accent-primary);
     box-shadow: 2px 2px 0 var(--accent-primary);
+    background: var(--accent-primary-subtle);
   }
 
   .canvas-node[data-color="6"] .canvas-node-content:hover,

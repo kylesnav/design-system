@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Delightful Obsidian Theme - Visual Test Harness</title>
+  <link rel="stylesheet" href="../theme.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;550;600;620;650;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* === Harness Layout === */
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 14px;
+    }
+
+    /* Control Panel */
+    .harness-controls {
+      position: sticky;
+      top: 0;
+      z-index: 9999;
+      background: oklch(0.165 0.015 65);
+      border-bottom: 2px solid oklch(0.550 0.010 65);
+      padding: 12px 24px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 20px;
+      color: oklch(0.935 0.008 70);
+      font-size: 13px;
+      box-shadow: 0 4px 12px oklch(0 0 0 / 0.3);
+    }
+
+    .harness-controls .control-title {
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: -0.02em;
+      color: oklch(0.700 0.230 350);
+      white-space: nowrap;
+      margin-right: 4px;
+    }
+
+    .control-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .control-group label {
+      font-weight: 600;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: oklch(0.690 0.012 70);
+      white-space: nowrap;
+    }
+
+    .control-group .btn-set {
+      display: flex;
+      gap: 2px;
+    }
+
+    .control-group .ctrl-btn {
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      border: 1px solid oklch(0.400 0.010 65);
+      border-radius: 6px;
+      background: oklch(0.210 0.015 65);
+      color: oklch(0.800 0.008 70);
+      cursor: pointer;
+      transition: background 0.1s, color 0.1s, border-color 0.1s;
+      white-space: nowrap;
+    }
+
+    .control-group .ctrl-btn:hover {
+      background: oklch(0.260 0.020 65);
+      color: oklch(0.935 0.008 70);
+    }
+
+    .control-group .ctrl-btn.active {
+      background: oklch(0.700 0.230 350);
+      color: oklch(1.000 0.000 0);
+      border-color: oklch(0.700 0.230 350);
+    }
+
+    .control-group .ctrl-btn.toggle-on {
+      background: oklch(0.680 0.155 148);
+      color: oklch(1.000 0.000 0);
+      border-color: oklch(0.680 0.155 148);
+    }
+
+    .control-group .ctrl-btn.toggle-off {
+      background: oklch(0.250 0.015 65);
+      color: oklch(0.540 0.010 70);
+      border-color: oklch(0.400 0.010 65);
+    }
+
+    /* Two-panel grid */
+    .harness-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: calc(100vh - 56px);
+    }
+
+    .harness-panel {
+      overflow-y: auto;
+      padding: 32px;
+    }
+
+    .harness-panel.panel-light {
+      background: var(--bg-page);
+      color: var(--text-primary);
+    }
+
+    .harness-panel.panel-dark {
+      background: var(--bg-page);
+      color: var(--text-primary);
+    }
+
+    .panel-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--border-subtle);
+    }
+
+    /* Test Sections */
+    .test-section {
+      margin-bottom: 32px;
+      padding: 16px;
+      border: 2px solid transparent;
+      border-radius: 16px;
+      transition: border-color 0.15s;
+    }
+
+    .test-section.verified {
+      border-color: oklch(0.630 0.170 148);
+    }
+
+    .test-section.needs-fix {
+      border-color: oklch(0.620 0.220 20);
+    }
+
+    .test-section-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .test-section-header h2 {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      margin: 0;
+    }
+
+    .status-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: 2px solid var(--border-default);
+      background: var(--bg-surface);
+      flex-shrink: 0;
+      transition: background 0.15s, border-color 0.15s;
+    }
+
+    .test-section.verified .status-dot {
+      background: oklch(0.630 0.170 148);
+      border-color: oklch(0.630 0.170 148);
+    }
+
+    .test-section.needs-fix .status-dot {
+      background: oklch(0.620 0.220 20);
+      border-color: oklch(0.620 0.220 20);
+    }
+
+    /* Helper for spacing inside mocks */
+    .mock-spacer { height: 8px; }
+    .mock-gap { display: flex; flex-direction: column; gap: 8px; }
+    .mock-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  </style>
+</head>
+<body class="delightful-animations accent-pink shadow-normal border-normal heading-scale-normal">
+
+<!-- ===== CONTROL PANEL ===== -->
+<div class="harness-controls">
+  <span class="control-title">Delightful Theme Test</span>
+
+  <div class="control-group">
+    <label>Accent</label>
+    <div class="btn-set" data-control="accent">
+      <button class="ctrl-btn active" data-value="accent-pink">Pink</button>
+      <button class="ctrl-btn" data-value="accent-danger">Danger</button>
+      <button class="ctrl-btn" data-value="accent-gold">Gold</button>
+      <button class="ctrl-btn" data-value="accent-cyan">Cyan</button>
+      <button class="ctrl-btn" data-value="accent-green">Green</button>
+      <button class="ctrl-btn" data-value="accent-purple">Purple</button>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <label>Shadow</label>
+    <div class="btn-set" data-control="shadow">
+      <button class="ctrl-btn active" data-value="shadow-normal">Normal</button>
+      <button class="ctrl-btn" data-value="shadow-subtle">Subtle</button>
+      <button class="ctrl-btn" data-value="shadow-none">None</button>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <label>Border</label>
+    <div class="btn-set" data-control="border">
+      <button class="ctrl-btn active" data-value="border-normal">Normal</button>
+      <button class="ctrl-btn" data-value="border-subtle">Subtle</button>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <label>Heading</label>
+    <div class="btn-set" data-control="heading">
+      <button class="ctrl-btn active" data-value="heading-scale-normal">Normal</button>
+      <button class="ctrl-btn" data-value="heading-scale-compact">Compact</button>
+      <button class="ctrl-btn" data-value="heading-scale-large">Large</button>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <label>Animations</label>
+    <div class="btn-set">
+      <button class="ctrl-btn toggle-on" id="anim-toggle">On</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TWO-PANEL GRID ===== -->
+<div class="harness-grid">
+
+<!-- ===== LIGHT PANEL ===== -->
+<div class="harness-panel panel-light theme-light">
+<div class="panel-label">Light Mode</div>
+
+<!-- Workspace Chrome -->
+<div class="test-section" data-section="workspace-chrome-light">
+  <div class="test-section-header"><div class="status-dot"></div><h2>Workspace Chrome</h2></div>
+
+  <div class="workspace-ribbon mod-left" style="width:44px; height:auto; display:flex; flex-direction:column; align-items:center; padding:8px 0; gap:4px; border-right:2px solid var(--border-subtle); background:var(--bg-page); border-radius:10px;">
+    <div class="side-dock-ribbon-action" style="width:32px; height:32px; display:flex; align-items:center; justify-content:center; font-size:16px;" title="Files">&#128193;</div>
+    <div class="side-dock-ribbon-action" style="width:32px; height:32px; display:flex; align-items:center; justify-content:center; font-size:16px;" title="Search">&#128269;</div>
+    <div class="side-dock-ribbon-action" style="width:32px; height:32px; display:flex; align-items:center; justify-content:center; font-size:16px;" title="Bookmarks">&#11088;</div>
+    <div class="side-dock-ribbon-action mod-settings" style="width:32px; height:32px; display:flex; align-items:center; justify-content:center; font-size:16px; margin-top:16px;" title="Settings">&#9881;</div>
+  </div>
+
+  <div class="mock-spacer"></div>
+
+  <div class="workspace-tab-header-container" style="display:flex; gap:2px; padding:6px 8px; border-bottom:2px solid var(--border-subtle); background:var(--bg-page); border-radius:10px 10px 0 0;">
+    <div class="workspace-tab-header is-active" style="padding:6px 14px; font-size:13px;">My Note</div>
+    <div class="workspace-tab-header" style="padding:6px 14px; font-size:13px;">Another Note</div>
+    <div class="workspace-tab-header" style="padding:6px 14px; font-size:13px;">Scratch</div>
+  </div>
+
+  <div class="mock-spacer"></div>
+
+  <div style="background:var(--bg-page); padding:8px; border-radius:10px;">
+    <div class="nav-file-title is-active" style="padding:4px 12px; margin-bottom:2px;">Active File.md</div>
+    <div class="nav-file-title" style="padding:4px 12px; margin-bottom:2px;">Another File.md</div>
+    <div class="nav-file-title" style="padding:4px 12px; margin-bottom:2px;">Notes.md</div>
+    <div class="nav-folder-title" style="padding:4px 12px; margin-bottom:2px;">Projects/</div>
+  </div>
+
+  <div class="mock-spacer"></div>
+
+  <div class="view-header" style="padding:8px 16px; display:flex; align-items:center; justify-content:space-between;">
+    <div class="view-header-title" style="font-weight:600; font-size:13px;">Active File</div>
+    <div style="display:flex; gap:4px;">
+      <div class="view-action" style="width:24px; height:24px; display:flex; align-items:center; justify-content:center; font-size:12px;">&#9998;</div>
+      <div class="view-action is-active" style="width:24px; height:24px; display:flex; align-items:center; justify-content:center; font-size:12px;">&#128065;</div>
+    </div>
+  </div>
+
+  <div class="mock-spacer"></div>
+
+  <div class="status-bar" style="padding:4px 12px; display:flex; gap:16px;">
+    <div class="status-bar-item">1,247 words</div>
+    <div class="status-bar-item">Ln 42, Col 8</div>
+    <div class="status-bar-item">Reading view</div>
+  </div>
+</div>
+
+<!-- Typography -->
+<div class="test-section" data-section="typography-light">
+  <div class="test-section-header"><div class="status-dot"></div><h2>Typography</h2></div>
+  <div class="markdown-rendered">
+    <h1>Heading One</h1>
+    <h2>Heading Two</h2>
+    <h3>Heading Three</h3>
+    <h4>Heading Four</h4>
+    <h5>Heading Five</h5>
+    <h6>Heading Six</h6>
+    <p>This is a paragraph with <strong>bold text</strong>, <em>italic text</em>, <mark>highlighted text</mark>, and <del>deleted text</del>. Regular body copy follows the Delightful reading rhythm.</p>
+    <p>A second paragraph to test spacing between consecutive paragraphs. The gap should be visible and comfortable.</p>
+    <blockquote>
+      This is a blockquote. It should have a pink left border and subtle background.
+      <blockquote>This is a nested blockquote. It should have a cyan left border.</blockquote>
+    </blockquote>
+    <ul>
+      <li>Unordered list item one</li>
+      <li>Unordered list item two
+        <ul><li>Nested item</li></ul>
+      </li>
+      <li>Unordered list item three</li>
+    </ul>
+    <ol>
+      <li>Ordered list item one</li>
+      <li>Ordered list item two</li>
+      <li>Ordered list item three</li>
+    </ol>
+    <ul>
+      <li class="task-list-item" data-task=" "><input type="checkbox" class="task-list-item-checkbox"><span>Unchecked task</span></li>
+      <li class="task-list-item" data-task="x"><input type="checkbox" class="task-list-item-checkbox" checked><span>Completed task</span></li>
+      <li class="task-list-item" data-task=" "><input type="checkbox" class="task-list-item-checkbox"><span>Another task</span></li>
+    </ul>
+    <hr>
+  </div>
+</div>
+
+<!-- Editor -->
+<div class="test-section" data-section="editor-light">
+  <div class="test-section-header"><div class="status-dot"></div><h2>Editor</h2></div>
+  <div class="cm-editor" style="border:2px solid var(--border-subtle); border-radius:10px; overflow:hidden; min-height:200px;">
+    <div style="display:flex;">
+      <div class="cm-gutters" style="width:48px; min-height:200px; display:flex; flex-direction:column; align-items:flex-end; padding-top:8px;">
+        <div class="cm-gutterElement" style="padding:0 8px;">1</div>
+        <div class="cm-gutterElement cm-activeLineGutter" style="padding:0 8px;">2</div>
+        <div class="cm-gutterElement" style="padding:0 8px;">3</div>
+        <div class="cm-gutterElement" style="padding:0 8px;">4</div>
+        <div class="cm-gutterElement" style="padding:0 8px;">5</div>
+        <div class="cm-gutterElement" style="padding:0 8px;">6</div>
+        <div class="cm-gutterElement" style="padding:0 8px;">7</div>
+      </div>
+      <div style="flex:1; padding:8px 16px;" class="cm-s-obsidian">
+        <div class="cm-line"><span class="cm-header-1">Heading One</span></div>
+        <div class="cm-line cm-activeLine"><span class="cm-header-2">Heading Two</span><span class="cm-cursor" style="display:inline-block; width:2px; height:1.2em; border-left:2px solid var(--accent-primary); vertical-align:text-bottom;"></span></div>
+        <div class="cm-line"><span class="cm-header-3">Heading Three</span></div>
+        <div class="cm-line">Regular text with <span class="cm-strong">bold</span> and <span class="cm-em">italic</span></div>
+        <div class="cm-line"><span class="cm-inline-code">inline code</span> in a line</div>
+        <div class="cm-line"><span class="cm-hashtag">#design-system</span> <span class="cm-hashtag">#obsidian</span></div>
+        <div class="cm-line"><span class="cm-hmd-internal-link">[[Internal Link]]</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Callouts -->
+<div class="test-section" data-section="callouts-light">
+  <div class="test-section-header"><div class="status-dot"></div><h2>Callouts</h2></div>
+  <div class="markdown-rendered">
+    <div class="callout" data-callout="note"><div class="callout-title"><div class="callout-icon">&#128221;</div><div class="callout-title-inner">Note</div><div class="callout-fold">&#9660;</div></div><div class="callout-content">This is a note callout.</div></div>
+    <div class="callout" data-callout="info"><div class="callout-title"><div class="callout-icon">&#8505;</div><div class="callout-title-inner">Info</div><div class="callout-fold">&#9660;</div></div><div class="callout-content">This is an info callout.</div></div>
+    <div class="callout" data-callout="todo"><div class="callout-title"><div class="callout-icon">&#9745;</div><div class="callout-title-inner">Todo</div><div class="callout-fold">&#9660;</div></div><div class="callout-content">This is a todo callout.</div></div>
+    <div class="callout" data-callout="tip"><div class="callout-title"><div class="callout-icon">&#128161;</div><div class="callout-title-inner">Tip</div><div class="callout-fold">&#9660;</div></div><div class="callout-content">This is a tip callout.</div></div>
+    <div class="callout" data-callout="success"><div class="callout-title"><div class="callout-icon">&#9989;</div><div class="callout-title-inner">Success</div><div class="callout-fold">&#9660;</div></div><div class="callout-content">This is a success callout.</div></div>
+    <div class="callout" data-callout="warning"><div class="callout-title"><div class="callout-icon">&#9888;</div><div class="callout-title-inner">Warning</div><div class="callout-fold">&#9660;</div></div><div class="callout-content">This is a warning callout.</div></div>
+    <div class="callout" data-callout="caution"><div class="callout-title"><div class="callout-icon">&#9888;</div><div class="callout-title-inner">Caution</div><div class="callout-fold">&#9660;</div></div><div class="callout-content">This is a caution callout.</div></div>
+    <div class="callout" data-callout="abstract"><div class="callout-title"><div class="callout-icon">&#128196;</div><div class="callout-title-inner">Abstract</div><div class="callout-fold">&#9660;</div></div><div class="callout-content">This is an abstract callout.</div></div>
+    <div class="callout" data-callout="summary"><div class="callout-title"><div class="callout-icon">&#128203;</div><div class="callout-title-inner">Summary</div><div class="callout-fold">&#9660;</div></div><div class="callout-content">This is a summary callout.</div></div>
+    <div class="callout" data-callout="danger"><div class="callout-title"><div class="callout-icon">&#9762;</div><div class="callout-title-inner">Danger</div><div class="callout-fold">&#9660;</div></div><div class="callout-content">This is a danger callout.</div></div>
+    <div class="callout" data-callout="bug"><div class="callout-title"><div class="callout-icon">&#128027;</div><div class="callout-title-inner">Bug</div><div class="callout-fold">&#9660;</div></div><div class="callout-content">This is a bug callout.</div></div>
+    <div class="callout" data-callout="question"><div class="callout-title"><div class="callout-icon">&#10067;</div><div class="callout-title-inner">Question</div><div class="callout-fold">&#9660;</div></div><div class="callout-content">This is a question callout.</div></div>
+    <div class="callout" data-callout="example"><div class="callout-title"><div class="callout-icon">&#128218;</div><div class="callout-title-inner">Example</div><div class="callout-fold">&#9660;</div></div><div class="callout-content">This is an example callout.</div></div>
+    <div class="callout" data-callout="quote"><div class="callout-title"><div class="callout-icon">&#10078;</div><div class="callout-title-inner">Quote</div><div class="callout-fold">&#9660;</div></div><div class="callout-content">This is a quote callout.</div></div>
+  </div>
+</div>
+
+<!-- Code Blocks -->
+<div class="test-section" data-section="code-blocks-light">
+  <div class="test-section-header"><div class="status-dot"></div><h2>Code Blocks</h2></div>
+  <div class="markdown-rendered">
+    <pre><code><span class="cm-keyword">function</span> <span class="cm-def">greet</span>(<span class="cm-def">name</span>: <span class="cm-type">string</span>): <span class="cm-type">string</span> {
+  <span class="cm-comment">// Return a greeting message</span>
+  <span class="cm-keyword">const</span> count = <span class="cm-number">42</span>;
+  <span class="cm-keyword">return</span> <span class="cm-string">`Hello, ${name}! Count: ${count}`</span>;
+}</code></pre>
+    <p>Inline code: <code>const x = 42</code></p>
+  </div>
+</div>
+
+<!-- Tables -->
+<div class="test-section" data-section="tables-light">
+  <div class="test-section-header"><div class="status-dot"></div><h2>Tables</h2></div>
+  <div class="markdown-rendered">
+    <div class="table-wrapper">
+      <table>
+        <thead><tr><th>Token</th><th>Value</th><th>Usage</th></tr></thead>
+        <tbody>
+          <tr><td>--bg-page</td><td>oklch(0.982...)</td><td>Page background</td></tr>
+          <tr><td>--bg-surface</td><td>oklch(0.995...)</td><td>Card surfaces</td></tr>
+          <tr><td>--accent-primary</td><td>oklch(0.640...)</td><td>Interactive accent</td></tr>
+          <tr><td>--text-primary</td><td>oklch(0.200...)</td><td>Body text</td></tr>
+          <tr><td>--shadow-md</td><td>4px 4px 0...</td><td>Card elevation</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Embeds -->
+<div class="test-section" data-section="embeds-light">
+  <div class="test-section-header"><div class="status-dot"></div><h2>Embeds</h2></div>
+  <div class="internal-embed">
+    <div class="markdown-embed-title">Embedded Note Title</div>
+    <div class="markdown-embed" style="border:none; box-shadow:none; margin:0; padding:0;">
+      <div style="font-size:13px; color:var(--text-secondary);">This is embedded content from another note. It shows how transclusions render inside the reading view.</div>
+    </div>
+  </div>
+  <div class="mock-spacer"></div>
+  <div class="file-embed">
+    <div class="file-embed-title">&#128196; Attachment.pdf</div>
+    <div style="font-size:13px; color:var(--text-muted); padding-top:8px;">File embed preview area</div>
+  </div>
+</div>
+
+<!-- Tags -->
+<div class="test-section" data-section="tags-light">
+  <div class="test-section-header"><div class="status-dot"></div><h2>Tags</h2></div>
+  <div class="mock-row">
+    <a class="tag" href="#design">#design</a>
+    <a class="tag" href="#obsidian">#obsidian</a>
+    <a class="tag" href="#theme">#theme</a>
+    <a class="tag" href="#active">#active</a>
+    <a class="tag" href="#draft">#draft</a>
+    <a class="tag" href="#urgent">#urgent</a>
+    <a class="tag" href="#api">#api</a>
+    <a class="tag" href="#idea">#idea</a>
+  </div>
+</div>
+
+<!-- Properties -->
+<div class="test-section" data-section="properties-light">
+  <div class="test-section-header"><div class="status-dot"></div><h2>Properties</h2></div>
+  <div class="metadata-container">
+    <div class="metadata-content">
+      <div class="metadata-property">
+        <div class="metadata-property-key"><span class="metadata-label">title</span></div>
+        <div class="metadata-property-value">Delightful Design System</div>
+      </div>
+      <div class="metadata-property">
+        <div class="metadata-property-key"><span class="metadata-label">tags</span></div>
+        <div class="metadata-property-value">
+          <span class="multi-select-pill">design</span>
+          <span class="multi-select-pill">system</span>
+          <span class="multi-select-pill">obsidian</span>
+        </div>
+      </div>
+      <div class="metadata-property">
+        <div class="metadata-property-key"><span class="metadata-label">date</span></div>
+        <div class="metadata-property-value">2026-04-04</div>
+      </div>
+      <div class="metadata-property">
+        <div class="metadata-property-key"><span class="metadata-label">status</span></div>
+        <div class="metadata-property-value">
+          <span class="multi-select-pill">active</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modals -->
+<div class="test-section" data-section="modals-light">
+  <div class="test-section-header"><div class="status-dot"></div><h2>Modals</h2></div>
+  <div class="modal" style="position:relative; max-width:100%; margin-bottom:16px;">
+    <div class="modal-title">Confirm Action</div>
+    <div style="padding:0 24px 20px; color:var(--text-secondary); font-size:14px;">Are you sure you want to proceed? This action cannot be undone.</div>
+    <div style="padding:0 24px 20px; display:flex; gap:8px; justify-content:flex-end;">
+      <button>Cancel</button>
+      <button class="mod-cta">Confirm</button>
+    </div>
+  </div>
+
+  <div class="modal mod-settings" style="position:relative; max-width:100%; height:280px; flex-direction:row;">
+    <div class="vertical-tab-header">
+      <div class="vertical-tab-header-group-title">Options</div>
+      <div class="vertical-tab-nav-item is-active">Appearance</div>
+      <div class="vertical-tab-nav-item">Editor</div>
+      <div class="vertical-tab-nav-item">Files & Links</div>
+      <div class="vertical-tab-nav-item">Hotkeys</div>
+      <div class="vertical-tab-header-group-title">Plugins</div>
+      <div class="vertical-tab-nav-item">Core plugins</div>
+      <div class="vertical-tab-nav-item">Community</div>
+    </div>
+    <div class="vertical-tab-content" style="padding:20px;">
+      <div class="setting-item setting-item-heading"><div class="setting-item-info"><div class="setting-item-name">Appearance</div></div></div>
+      <div class="setting-item">
+        <div class="setting-item-info"><div class="setting-item-name">Base theme</div><div class="setting-item-description">Choose between light and dark mode</div></div>
+        <div class="setting-item-control"><select><option>Light</option><option>Dark</option></select></div>
+      </div>
+      <div class="setting-item">
+        <div class="setting-item-info"><div class="setting-item-name">Accent color</div><div class="setting-item-description">Used for interactive elements</div></div>
+        <div class="setting-item-control"><div style="width:24px; height:24px; border-radius:50%; background:var(--accent-primary); border:2px solid var(--border-default);"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mock-spacer"></div>
+
+  <div class="prompt" style="position:relative; max-width:100%; animation:none;">
+    <div class="prompt-input-container">
+      <input type="text" class="prompt-input" placeholder="Type a command..." style="border:none; box-shadow:none;">
+    </div>
+    <div style="padding:4px 0;">
+      <div class="suggestion-item is-selected"><span class="suggestion-title">Open daily note</span><span class="suggestion-hotkey">Ctrl+D</span></div>
+      <div class="suggestion-item"><span class="suggestion-title">Quick switcher</span><span class="suggestion-hotkey">Ctrl+O</span></div>
+      <div class="suggestion-item"><span class="suggestion-title">Toggle dark mode</span><span class="suggestion-hotkey">Ctrl+Shift+T</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- Buttons & Forms -->
+<div class="test-section" data-section="buttons-forms-light">
+  <div class="test-section-header"><div class="status-dot"></div><h2>Buttons & Forms</h2></div>
+  <div class="mock-row" style="margin-bottom:12px;">
+    <button>Default</button>
+    <button class="mod-cta">Primary</button>
+    <button class="mod-warning">Warning</button>
+    <button disabled>Disabled</button>
+  </div>
+  <div class="mock-gap" style="max-width:320px;">
+    <input type="text" placeholder="Text input...">
+    <select>
+      <option>Select an option</option>
+      <option>Option A</option>
+      <option>Option B</option>
+    </select>
+    <div class="mock-row">
+      <div class="checkbox-container is-enabled"></div>
+      <span style="font-size:13px; color:var(--text-primary);">Enabled toggle</span>
+    </div>
+    <div class="mock-row">
+      <div class="checkbox-container"></div>
+      <span style="font-size:13px; color:var(--text-primary);">Disabled toggle</span>
+    </div>
+    <div class="mock-row">
+      <input type="checkbox">
+      <span style="font-size:13px; color:var(--text-primary);">Checkbox unchecked</span>
+    </div>
+    <div class="mock-row">
+      <input type="checkbox" checked>
+      <span style="font-size:13px; color:var(--text-primary);">Checkbox checked</span>
+    </div>
+    <input type="range" min="0" max="100" value="60">
+  </div>
+</div>
+
+<!-- Context Menu -->
+<div class="test-section" data-section="context-menu-light">
+  <div class="test-section-header"><div class="status-dot"></div><h2>Context Menu</h2></div>
+  <div class="menu" style="position:relative; display:inline-block;">
+    <div class="menu-item"><span class="menu-item-title">Cut</span></div>
+    <div class="menu-item"><span class="menu-item-title">Copy</span></div>
+    <div class="menu-item"><span class="menu-item-title">Paste</span></div>
+    <div class="menu-separator"></div>
+    <div class="menu-item"><span class="menu-item-title">Rename</span></div>
+    <div class="menu-item is-warning"><span class="menu-item-title">Delete</span></div>
+  </div>
+</div>
+
+<!-- Notices & Tooltips -->
+<div class="test-section" data-section="notices-light">
+  <div class="test-section-header"><div class="status-dot"></div><h2>Notices & Tooltips</h2></div>
+  <div class="notice" style="position:relative; animation:none;">
+    <div class="notice-content">File saved successfully.</div>
+    <button class="mod-close" style="height:auto; min-height:0; padding:2px;">&#10005;</button>
+  </div>
+  <div class="mock-spacer"></div>
+  <div class="tooltip" style="position:relative; display:inline-block;">Open in new pane</div>
+</div>
+
+<!-- Canvas -->
+<div class="test-section" data-section="canvas-light">
+  <div class="test-section-header"><div class="status-dot"></div><h2>Canvas</h2></div>
+  <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-bottom:12px;">
+    <div class="canvas-node-content" style="padding:12px; min-height:60px; font-size:13px;">Default node</div>
+    <div class="canvas-node" data-color="1"><div class="canvas-node-content" style="padding:12px; min-height:60px; font-size:13px;">Color 1 (Red)</div></div>
+    <div class="canvas-node" data-color="2"><div class="canvas-node-content" style="padding:12px; min-height:60px; font-size:13px;">Color 2 (Gold)</div></div>
+    <div class="canvas-node" data-color="3"><div class="canvas-node-content" style="padding:12px; min-height:60px; font-size:13px;">Color 3 (Green)</div></div>
+    <div class="canvas-node" data-color="4"><div class="canvas-node-content" style="padding:12px; min-height:60px; font-size:13px;">Color 4 (Cyan)</div></div>
+    <div class="canvas-node" data-color="5"><div class="canvas-node-content" style="padding:12px; min-height:60px; font-size:13px;">Color 5 (Purple)</div></div>
+    <div class="canvas-node" data-color="6"><div class="canvas-node-content" style="padding:12px; min-height:60px; font-size:13px;">Color 6 (Pink)</div></div>
+  </div>
+  <div class="mock-row">
+    <div class="canvas-edge-label">Edge Label</div>
+    <div class="canvas-controls" style="flex-direction:row;">
+      <button style="width:32px; height:32px; font-size:16px; border:none; background:transparent;">+</button>
+      <button style="width:32px; height:32px; font-size:16px; border:none; background:transparent;">-</button>
+      <button style="width:32px; height:32px; font-size:12px; border:none; background:transparent;">Fit</button>
+    </div>
+  </div>
+</div>
+
+<!-- Graph -->
+<div class="test-section" data-section="graph-light">
+  <div class="test-section-header"><div class="status-dot"></div><h2>Graph</h2></div>
+  <div class="graph-controls" style="max-width:260px;">
+    <div class="graph-control-section">
+      <div class="graph-control-section-header">Filters</div>
+      <div class="graph-control-section-body">
+        <input type="text" placeholder="Search to filter..." style="width:100%; height:32px;">
+        <div class="setting-item" style="border:none; padding:4px 0;">
+          <div class="setting-item-name" style="font-size:13px;">Show tags</div>
+          <div class="setting-item-control"><div class="checkbox-container is-enabled"></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="graph-control-section">
+      <div class="graph-control-section-header">Display</div>
+      <div class="graph-control-section-body">
+        <div class="setting-item" style="border:none; padding:4px 0;">
+          <div class="setting-item-name" style="font-size:13px;">Arrows</div>
+          <div class="setting-item-control"><div class="checkbox-container"></div></div>
+        </div>
+        <input type="range" min="0" max="100" value="50">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Search -->
+<div class="test-section" data-section="search-light">
+  <div class="test-section-header"><div class="status-dot"></div><h2>Search</h2></div>
+  <div style="background:var(--bg-page); padding:12px; border-radius:10px;">
+    <div class="search-result-file-title" style="padding:4px 8px; margin-bottom:4px;">Meeting Notes.md</div>
+    <div class="search-result-file-match" style="margin-bottom:2px;">...discussed the <span class="search-result-file-matched-text">design system</span> rollout timeline...</div>
+    <div class="search-result-file-match">...need to update the <span class="search-result-file-matched-text">design system</span> tokens before...</div>
+    <div class="mock-spacer"></div>
+    <div class="search-result-file-title" style="padding:4px 8px; margin-bottom:4px;">Architecture.md</div>
+    <div class="search-result-file-match">...the <span class="search-result-file-matched-text">design system</span> follows a 3-tier token model...</div>
+  </div>
+</div>
+
+<!-- Scrollbars -->
+<div class="test-section" data-section="scrollbars-light">
+  <div class="test-section-header"><div class="status-dot"></div><h2>Scrollbars</h2></div>
+  <div style="height:120px; overflow-y:auto; background:var(--bg-surface); border:2px solid var(--border-subtle); border-radius:10px; padding:12px; font-size:13px; color:var(--text-secondary);">
+    <p>Scroll this container to see themed scrollbars.</p>
+    <p>The scrollbar thumb should use the theme's subtle color.</p>
+    <p>On hover, it should shift to the accent color.</p>
+    <p>This is filler content to enable scrolling.</p>
+    <p>More content below...</p>
+    <p>Keep scrolling to test the full scrollbar behavior.</p>
+    <p>Almost there...</p>
+    <p>End of scrollable content.</p>
+    <p>Final line.</p>
+  </div>
+</div>
+
+<!-- Plugins -->
+<div class="test-section" data-section="plugins-light">
+  <div class="test-section-header"><div class="status-dot"></div><h2>Plugins</h2></div>
+
+  <div style="margin-bottom:16px;">
+    <div style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-muted); margin-bottom:8px;">Calendar</div>
+    <div class="calendar" style="display:grid; grid-template-columns:repeat(7,1fr); gap:2px; background:var(--bg-surface); border:2px solid var(--border-subtle); border-radius:16px; padding:12px; max-width:280px;">
+      <div style="font-size:10px; font-weight:600; color:var(--text-muted); text-align:center; padding:4px;">Sun</div>
+      <div style="font-size:10px; font-weight:600; color:var(--text-muted); text-align:center; padding:4px;">Mon</div>
+      <div style="font-size:10px; font-weight:600; color:var(--text-muted); text-align:center; padding:4px;">Tue</div>
+      <div style="font-size:10px; font-weight:600; color:var(--text-muted); text-align:center; padding:4px;">Wed</div>
+      <div style="font-size:10px; font-weight:600; color:var(--text-muted); text-align:center; padding:4px;">Thu</div>
+      <div style="font-size:10px; font-weight:600; color:var(--text-muted); text-align:center; padding:4px;">Fri</div>
+      <div style="font-size:10px; font-weight:600; color:var(--text-muted); text-align:center; padding:4px;">Sat</div>
+      <div style="text-align:center; padding:4px; font-size:12px; color:var(--text-muted);">1</div>
+      <div style="text-align:center; padding:4px; font-size:12px; color:var(--text-secondary);">2</div>
+      <div style="text-align:center; padding:4px; font-size:12px; color:var(--text-secondary);">3</div>
+      <div style="text-align:center; padding:4px; font-size:12px; border-radius:8px; background:var(--accent-primary); color:var(--text-on-accent); font-weight:600;">4</div>
+      <div style="text-align:center; padding:4px; font-size:12px; color:var(--text-secondary);">5</div>
+      <div style="text-align:center; padding:4px; font-size:12px; color:var(--text-secondary);">6</div>
+      <div style="text-align:center; padding:4px; font-size:12px; color:var(--text-muted);">7</div>
+    </div>
+  </div>
+
+  <div style="margin-bottom:16px;">
+    <div style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-muted); margin-bottom:8px;">Dataview</div>
+    <div class="dataview" style="overflow:hidden;">
+      <table class="markdown-rendered" style="width:100%; font-size:13px; border:2px solid var(--border-subtle); border-radius:16px; border-collapse:separate; border-spacing:0; overflow:hidden;">
+        <thead><tr><th style="background:var(--bg-subtle); padding:8px 12px; font-size:11px; text-transform:uppercase; letter-spacing:0.04em; color:var(--text-muted); font-weight:600; border-bottom:2px solid var(--border-default);">File</th><th style="background:var(--bg-subtle); padding:8px 12px; font-size:11px; text-transform:uppercase; letter-spacing:0.04em; color:var(--text-muted); font-weight:600; border-bottom:2px solid var(--border-default);">Status</th><th style="background:var(--bg-subtle); padding:8px 12px; font-size:11px; text-transform:uppercase; letter-spacing:0.04em; color:var(--text-muted); font-weight:600; border-bottom:2px solid var(--border-default);">Modified</th></tr></thead>
+        <tbody>
+          <tr><td style="padding:8px 12px; color:var(--accent-primary);">Design Tokens</td><td style="padding:8px 12px;"><span class="multi-select-pill">active</span></td><td style="padding:8px 12px; color:var(--text-muted);">2026-04-04</td></tr>
+          <tr style="background:var(--bg-surface);"><td style="padding:8px 12px; color:var(--accent-primary);">Components</td><td style="padding:8px 12px;"><span class="multi-select-pill">draft</span></td><td style="padding:8px 12px; color:var(--text-muted);">2026-04-03</td></tr>
+          <tr><td style="padding:8px 12px; color:var(--accent-primary);">Motion System</td><td style="padding:8px 12px;"><span class="multi-select-pill">active</span></td><td style="padding:8px 12px; color:var(--text-muted);">2026-04-02</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div>
+    <div style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-muted); margin-bottom:8px;">Kanban</div>
+    <div class="kanban-plugin" style="display:flex; gap:12px; overflow-x:auto;">
+      <div class="kanban-plugin__lane" style="min-width:180px; background:var(--bg-surface); border:2px solid var(--border-subtle); border-radius:16px; padding:12px;">
+        <div style="font-size:12px; font-weight:700; color:var(--text-primary); margin-bottom:8px; text-transform:uppercase; letter-spacing:0.04em;">To Do</div>
+        <div class="kanban-plugin__item" style="background:var(--bg-elevated); border:2px solid var(--border-subtle); border-radius:10px; padding:8px 12px; margin-bottom:6px; font-size:13px; color:var(--text-primary); box-shadow:var(--shadow-sm);">Token audit</div>
+        <div class="kanban-plugin__item" style="background:var(--bg-elevated); border:2px solid var(--border-subtle); border-radius:10px; padding:8px 12px; margin-bottom:6px; font-size:13px; color:var(--text-primary); box-shadow:var(--shadow-sm);">Dark mode fix</div>
+      </div>
+      <div class="kanban-plugin__lane" style="min-width:180px; background:var(--bg-surface); border:2px solid var(--border-subtle); border-radius:16px; padding:12px;">
+        <div style="font-size:12px; font-weight:700; color:var(--text-primary); margin-bottom:8px; text-transform:uppercase; letter-spacing:0.04em;">In Progress</div>
+        <div class="kanban-plugin__item" style="background:var(--bg-elevated); border:2px solid var(--border-subtle); border-radius:10px; padding:8px 12px; margin-bottom:6px; font-size:13px; color:var(--text-primary); box-shadow:var(--shadow-sm);">Canvas nodes</div>
+      </div>
+      <div class="kanban-plugin__lane" style="min-width:180px; background:var(--bg-surface); border:2px solid var(--border-subtle); border-radius:16px; padding:12px;">
+        <div style="font-size:12px; font-weight:700; color:var(--text-primary); margin-bottom:8px; text-transform:uppercase; letter-spacing:0.04em;">Done</div>
+        <div class="kanban-plugin__item" style="background:var(--bg-elevated); border:2px solid var(--border-subtle); border-radius:10px; padding:8px 12px; margin-bottom:6px; font-size:13px; color:var(--text-primary); box-shadow:var(--shadow-sm);">Typography</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- end light panel -->
+
+<!-- ===== DARK PANEL ===== -->
+<div class="harness-panel panel-dark theme-dark">
+<div class="panel-label">Dark Mode</div>
+
+<!-- Workspace Chrome -->
+<div class="test-section" data-section="workspace-chrome-dark">
+  <div class="test-section-header"><div class="status-dot"></div><h2>Workspace Chrome</h2></div>
+
+  <div class="workspace-ribbon mod-left" style="width:44px; height:auto; display:flex; flex-direction:column; align-items:center; padding:8px 0; gap:4px; border-right:2px solid var(--border-subtle); background:var(--bg-page); border-radius:10px;">
+    <div class="side-dock-ribbon-action" style="width:32px; height:32px; display:flex; align-items:center; justify-content:center; font-size:16px;">&#128193;</div>
+    <div class="side-dock-ribbon-action" style="width:32px; height:32px; display:flex; align-items:center; justify-content:center; font-size:16px;">&#128269;</div>
+    <div class="side-dock-ribbon-action" style="width:32px; height:32px; display:flex; align-items:center; justify-content:center; font-size:16px;">&#11088;</div>
+    <div class="side-dock-ribbon-action mod-settings" style="width:32px; height:32px; display:flex; align-items:center; justify-content:center; font-size:16px; margin-top:16px;">&#9881;</div>
+  </div>
+
+  <div class="mock-spacer"></div>
+
+  <div class="workspace-tab-header-container" style="display:flex; gap:2px; padding:6px 8px; border-bottom:2px solid var(--border-subtle); background:var(--bg-page); border-radius:10px 10px 0 0;">
+    <div class="workspace-tab-header is-active" style="padding:6px 14px; font-size:13px;">My Note</div>
+    <div class="workspace-tab-header" style="padding:6px 14px; font-size:13px;">Another Note</div>
+    <div class="workspace-tab-header" style="padding:6px 14px; font-size:13px;">Scratch</div>
+  </div>
+
+  <div class="mock-spacer"></div>
+
+  <div style="background:var(--bg-page); padding:8px; border-radius:10px;">
+    <div class="nav-file-title is-active" style="padding:4px 12px; margin-bottom:2px;">Active File.md</div>
+    <div class="nav-file-title" style="padding:4px 12px; margin-bottom:2px;">Another File.md</div>
+    <div class="nav-file-title" style="padding:4px 12px; margin-bottom:2px;">Notes.md</div>
+    <div class="nav-folder-title" style="padding:4px 12px; margin-bottom:2px;">Projects/</div>
+  </div>
+
+  <div class="mock-spacer"></div>
+
+  <div class="view-header" style="padding:8px 16px; display:flex; align-items:center; justify-content:space-between;">
+    <div class="view-header-title" style="font-weight:600; font-size:13px;">Active File</div>
+    <div style="display:flex; gap:4px;">
+      <div class="view-action" style="width:24px; height:24px; display:flex; align-items:center; justify-content:center; font-size:12px;">&#9998;</div>
+      <div class="view-action is-active" style="width:24px; height:24px; display:flex; align-items:center; justify-content:center; font-size:12px;">&#128065;</div>
+    </div>
+  </div>
+
+  <div class="mock-spacer"></div>
+
+  <div class="status-bar" style="padding:4px 12px; display:flex; gap:16px;">
+    <div class="status-bar-item">1,247 words</div>
+    <div class="status-bar-item">Ln 42, Col 8</div>
+    <div class="status-bar-item">Reading view</div>
+  </div>
+</div>
+
+<!-- Typography -->
+<div class="test-section" data-section="typography-dark">
+  <div class="test-section-header"><div class="status-dot"></div><h2>Typography</h2></div>
+  <div class="markdown-rendered">
+    <h1>Heading One</h1>
+    <h2>Heading Two</h2>
+    <h3>Heading Three</h3>
+    <h4>Heading Four</h4>
+    <h5>Heading Five</h5>
+    <h6>Heading Six</h6>
+    <p>This is a paragraph with <strong>bold text</strong>, <em>italic text</em>, <mark>highlighted text</mark>, and <del>deleted text</del>. Regular body copy follows the Delightful reading rhythm.</p>
+    <p>A second paragraph to test spacing between consecutive paragraphs.</p>
+    <blockquote>
+      This is a blockquote with a pink left border and subtle background.
+      <blockquote>This is a nested blockquote with a cyan left border.</blockquote>
+    </blockquote>
+    <ul>
+      <li>Unordered list item one</li>
+      <li>Unordered list item two<ul><li>Nested item</li></ul></li>
+      <li>Unordered list item three</li>
+    </ul>
+    <ol>
+      <li>Ordered list item one</li>
+      <li>Ordered list item two</li>
+      <li>Ordered list item three</li>
+    </ol>
+    <ul>
+      <li class="task-list-item" data-task=" "><input type="checkbox" class="task-list-item-checkbox"><span>Unchecked task</span></li>
+      <li class="task-list-item" data-task="x"><input type="checkbox" class="task-list-item-checkbox" checked><span>Completed task</span></li>
+      <li class="task-list-item" data-task=" "><input type="checkbox" class="task-list-item-checkbox"><span>Another task</span></li>
+    </ul>
+    <hr>
+  </div>
+</div>
+
+<!-- Editor -->
+<div class="test-section" data-section="editor-dark">
+  <div class="test-section-header"><div class="status-dot"></div><h2>Editor</h2></div>
+  <div class="cm-editor" style="border:2px solid var(--border-subtle); border-radius:10px; overflow:hidden; min-height:200px;">
+    <div style="display:flex;">
+      <div class="cm-gutters" style="width:48px; min-height:200px; display:flex; flex-direction:column; align-items:flex-end; padding-top:8px;">
+        <div class="cm-gutterElement" style="padding:0 8px;">1</div>
+        <div class="cm-gutterElement cm-activeLineGutter" style="padding:0 8px;">2</div>
+        <div class="cm-gutterElement" style="padding:0 8px;">3</div>
+        <div class="cm-gutterElement" style="padding:0 8px;">4</div>
+        <div class="cm-gutterElement" style="padding:0 8px;">5</div>
+        <div class="cm-gutterElement" style="padding:0 8px;">6</div>
+        <div class="cm-gutterElement" style="padding:0 8px;">7</div>
+      </div>
+      <div style="flex:1; padding:8px 16px;" class="cm-s-obsidian">
+        <div class="cm-line"><span class="cm-header-1">Heading One</span></div>
+        <div class="cm-line cm-activeLine"><span class="cm-header-2">Heading Two</span><span class="cm-cursor" style="display:inline-block; width:2px; height:1.2em; border-left:2px solid var(--accent-primary); vertical-align:text-bottom;"></span></div>
+        <div class="cm-line"><span class="cm-header-3">Heading Three</span></div>
+        <div class="cm-line">Regular text with <span class="cm-strong">bold</span> and <span class="cm-em">italic</span></div>
+        <div class="cm-line"><span class="cm-inline-code">inline code</span> in a line</div>
+        <div class="cm-line"><span class="cm-hashtag">#design-system</span> <span class="cm-hashtag">#obsidian</span></div>
+        <div class="cm-line"><span class="cm-hmd-internal-link">[[Internal Link]]</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Callouts -->
+<div class="test-section" data-section="callouts-dark">
+  <div class="test-section-header"><div class="status-dot"></div><h2>Callouts</h2></div>
+  <div class="markdown-rendered">
+    <div class="callout" data-callout="note"><div class="callout-title"><div class="callout-icon">&#128221;</div><div class="callout-title-inner">Note</div><div class="callout-fold">&#9660;</div></div><div class="callout-content">This is a note callout.</div></div>
+    <div class="callout" data-callout="info"><div class="callout-title"><div class="callout-icon">&#8505;</div><div class="callout-title-inner">Info</div><div class="callout-fold">&#9660;</div></div><div class="callout-content">This is an info callout.</div></div>
+    <div class="callout" data-callout="todo"><div class="callout-title"><div class="callout-icon">&#9745;</div><div class="callout-title-inner">Todo</div><div class="callout-fold">&#9660;</div></div><div class="callout-content">This is a todo callout.</div></div>
+    <div class="callout" data-callout="tip"><div class="callout-title"><div class="callout-icon">&#128161;</div><div class="callout-title-inner">Tip</div><div class="callout-fold">&#9660;</div></div><div class="callout-content">This is a tip callout.</div></div>
+    <div class="callout" data-callout="success"><div class="callout-title"><div class="callout-icon">&#9989;</div><div class="callout-title-inner">Success</div><div class="callout-fold">&#9660;</div></div><div class="callout-content">This is a success callout.</div></div>
+    <div class="callout" data-callout="warning"><div class="callout-title"><div class="callout-icon">&#9888;</div><div class="callout-title-inner">Warning</div><div class="callout-fold">&#9660;</div></div><div class="callout-content">This is a warning callout.</div></div>
+    <div class="callout" data-callout="caution"><div class="callout-title"><div class="callout-icon">&#9888;</div><div class="callout-title-inner">Caution</div><div class="callout-fold">&#9660;</div></div><div class="callout-content">This is a caution callout.</div></div>
+    <div class="callout" data-callout="abstract"><div class="callout-title"><div class="callout-icon">&#128196;</div><div class="callout-title-inner">Abstract</div><div class="callout-fold">&#9660;</div></div><div class="callout-content">This is an abstract callout.</div></div>
+    <div class="callout" data-callout="summary"><div class="callout-title"><div class="callout-icon">&#128203;</div><div class="callout-title-inner">Summary</div><div class="callout-fold">&#9660;</div></div><div class="callout-content">This is a summary callout.</div></div>
+    <div class="callout" data-callout="danger"><div class="callout-title"><div class="callout-icon">&#9762;</div><div class="callout-title-inner">Danger</div><div class="callout-fold">&#9660;</div></div><div class="callout-content">This is a danger callout.</div></div>
+    <div class="callout" data-callout="bug"><div class="callout-title"><div class="callout-icon">&#128027;</div><div class="callout-title-inner">Bug</div><div class="callout-fold">&#9660;</div></div><div class="callout-content">This is a bug callout.</div></div>
+    <div class="callout" data-callout="question"><div class="callout-title"><div class="callout-icon">&#10067;</div><div class="callout-title-inner">Question</div><div class="callout-fold">&#9660;</div></div><div class="callout-content">This is a question callout.</div></div>
+    <div class="callout" data-callout="example"><div class="callout-title"><div class="callout-icon">&#128218;</div><div class="callout-title-inner">Example</div><div class="callout-fold">&#9660;</div></div><div class="callout-content">This is an example callout.</div></div>
+    <div class="callout" data-callout="quote"><div class="callout-title"><div class="callout-icon">&#10078;</div><div class="callout-title-inner">Quote</div><div class="callout-fold">&#9660;</div></div><div class="callout-content">This is a quote callout.</div></div>
+  </div>
+</div>
+
+<!-- Code Blocks -->
+<div class="test-section" data-section="code-blocks-dark">
+  <div class="test-section-header"><div class="status-dot"></div><h2>Code Blocks</h2></div>
+  <div class="markdown-rendered">
+    <pre><code><span class="cm-keyword">function</span> <span class="cm-def">greet</span>(<span class="cm-def">name</span>: <span class="cm-type">string</span>): <span class="cm-type">string</span> {
+  <span class="cm-comment">// Return a greeting message</span>
+  <span class="cm-keyword">const</span> count = <span class="cm-number">42</span>;
+  <span class="cm-keyword">return</span> <span class="cm-string">`Hello, ${name}! Count: ${count}`</span>;
+}</code></pre>
+    <p>Inline code: <code>const x = 42</code></p>
+  </div>
+</div>
+
+<!-- Tables -->
+<div class="test-section" data-section="tables-dark">
+  <div class="test-section-header"><div class="status-dot"></div><h2>Tables</h2></div>
+  <div class="markdown-rendered">
+    <div class="table-wrapper">
+      <table>
+        <thead><tr><th>Token</th><th>Value</th><th>Usage</th></tr></thead>
+        <tbody>
+          <tr><td>--bg-page</td><td>oklch(0.140...)</td><td>Page background</td></tr>
+          <tr><td>--bg-surface</td><td>oklch(0.165...)</td><td>Card surfaces</td></tr>
+          <tr><td>--accent-primary</td><td>oklch(0.700...)</td><td>Interactive accent</td></tr>
+          <tr><td>--text-primary</td><td>oklch(0.935...)</td><td>Body text</td></tr>
+          <tr><td>--shadow-md</td><td>4px 4px 0...</td><td>Card elevation</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Embeds -->
+<div class="test-section" data-section="embeds-dark">
+  <div class="test-section-header"><div class="status-dot"></div><h2>Embeds</h2></div>
+  <div class="internal-embed">
+    <div class="markdown-embed-title">Embedded Note Title</div>
+    <div class="markdown-embed" style="border:none; box-shadow:none; margin:0; padding:0;">
+      <div style="font-size:13px; color:var(--text-secondary);">This is embedded content from another note. It shows how transclusions render inside the reading view.</div>
+    </div>
+  </div>
+  <div class="mock-spacer"></div>
+  <div class="file-embed">
+    <div class="file-embed-title">&#128196; Attachment.pdf</div>
+    <div style="font-size:13px; color:var(--text-muted); padding-top:8px;">File embed preview area</div>
+  </div>
+</div>
+
+<!-- Tags -->
+<div class="test-section" data-section="tags-dark">
+  <div class="test-section-header"><div class="status-dot"></div><h2>Tags</h2></div>
+  <div class="mock-row">
+    <a class="tag" href="#design">#design</a>
+    <a class="tag" href="#obsidian">#obsidian</a>
+    <a class="tag" href="#theme">#theme</a>
+    <a class="tag" href="#active">#active</a>
+    <a class="tag" href="#draft">#draft</a>
+    <a class="tag" href="#urgent">#urgent</a>
+    <a class="tag" href="#api">#api</a>
+    <a class="tag" href="#idea">#idea</a>
+  </div>
+</div>
+
+<!-- Properties -->
+<div class="test-section" data-section="properties-dark">
+  <div class="test-section-header"><div class="status-dot"></div><h2>Properties</h2></div>
+  <div class="metadata-container">
+    <div class="metadata-content">
+      <div class="metadata-property">
+        <div class="metadata-property-key"><span class="metadata-label">title</span></div>
+        <div class="metadata-property-value">Delightful Design System</div>
+      </div>
+      <div class="metadata-property">
+        <div class="metadata-property-key"><span class="metadata-label">tags</span></div>
+        <div class="metadata-property-value">
+          <span class="multi-select-pill">design</span>
+          <span class="multi-select-pill">system</span>
+          <span class="multi-select-pill">obsidian</span>
+        </div>
+      </div>
+      <div class="metadata-property">
+        <div class="metadata-property-key"><span class="metadata-label">date</span></div>
+        <div class="metadata-property-value">2026-04-04</div>
+      </div>
+      <div class="metadata-property">
+        <div class="metadata-property-key"><span class="metadata-label">status</span></div>
+        <div class="metadata-property-value">
+          <span class="multi-select-pill">active</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modals -->
+<div class="test-section" data-section="modals-dark">
+  <div class="test-section-header"><div class="status-dot"></div><h2>Modals</h2></div>
+  <div class="modal" style="position:relative; max-width:100%; margin-bottom:16px;">
+    <div class="modal-title">Confirm Action</div>
+    <div style="padding:0 24px 20px; color:var(--text-secondary); font-size:14px;">Are you sure you want to proceed? This action cannot be undone.</div>
+    <div style="padding:0 24px 20px; display:flex; gap:8px; justify-content:flex-end;">
+      <button>Cancel</button>
+      <button class="mod-cta">Confirm</button>
+    </div>
+  </div>
+
+  <div class="modal mod-settings" style="position:relative; max-width:100%; height:280px; flex-direction:row;">
+    <div class="vertical-tab-header">
+      <div class="vertical-tab-header-group-title">Options</div>
+      <div class="vertical-tab-nav-item is-active">Appearance</div>
+      <div class="vertical-tab-nav-item">Editor</div>
+      <div class="vertical-tab-nav-item">Files & Links</div>
+      <div class="vertical-tab-nav-item">Hotkeys</div>
+      <div class="vertical-tab-header-group-title">Plugins</div>
+      <div class="vertical-tab-nav-item">Core plugins</div>
+      <div class="vertical-tab-nav-item">Community</div>
+    </div>
+    <div class="vertical-tab-content" style="padding:20px;">
+      <div class="setting-item setting-item-heading"><div class="setting-item-info"><div class="setting-item-name">Appearance</div></div></div>
+      <div class="setting-item">
+        <div class="setting-item-info"><div class="setting-item-name">Base theme</div><div class="setting-item-description">Choose between light and dark mode</div></div>
+        <div class="setting-item-control"><select><option>Light</option><option>Dark</option></select></div>
+      </div>
+      <div class="setting-item">
+        <div class="setting-item-info"><div class="setting-item-name">Accent color</div><div class="setting-item-description">Used for interactive elements</div></div>
+        <div class="setting-item-control"><div style="width:24px; height:24px; border-radius:50%; background:var(--accent-primary); border:2px solid var(--border-default);"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mock-spacer"></div>
+
+  <div class="prompt" style="position:relative; max-width:100%; animation:none;">
+    <div class="prompt-input-container">
+      <input type="text" class="prompt-input" placeholder="Type a command..." style="border:none; box-shadow:none;">
+    </div>
+    <div style="padding:4px 0;">
+      <div class="suggestion-item is-selected"><span class="suggestion-title">Open daily note</span><span class="suggestion-hotkey">Ctrl+D</span></div>
+      <div class="suggestion-item"><span class="suggestion-title">Quick switcher</span><span class="suggestion-hotkey">Ctrl+O</span></div>
+      <div class="suggestion-item"><span class="suggestion-title">Toggle dark mode</span><span class="suggestion-hotkey">Ctrl+Shift+T</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- Buttons & Forms -->
+<div class="test-section" data-section="buttons-forms-dark">
+  <div class="test-section-header"><div class="status-dot"></div><h2>Buttons & Forms</h2></div>
+  <div class="mock-row" style="margin-bottom:12px;">
+    <button>Default</button>
+    <button class="mod-cta">Primary</button>
+    <button class="mod-warning">Warning</button>
+    <button disabled>Disabled</button>
+  </div>
+  <div class="mock-gap" style="max-width:320px;">
+    <input type="text" placeholder="Text input...">
+    <select>
+      <option>Select an option</option>
+      <option>Option A</option>
+      <option>Option B</option>
+    </select>
+    <div class="mock-row">
+      <div class="checkbox-container is-enabled"></div>
+      <span style="font-size:13px; color:var(--text-primary);">Enabled toggle</span>
+    </div>
+    <div class="mock-row">
+      <div class="checkbox-container"></div>
+      <span style="font-size:13px; color:var(--text-primary);">Disabled toggle</span>
+    </div>
+    <div class="mock-row">
+      <input type="checkbox">
+      <span style="font-size:13px; color:var(--text-primary);">Checkbox unchecked</span>
+    </div>
+    <div class="mock-row">
+      <input type="checkbox" checked>
+      <span style="font-size:13px; color:var(--text-primary);">Checkbox checked</span>
+    </div>
+    <input type="range" min="0" max="100" value="60">
+  </div>
+</div>
+
+<!-- Context Menu -->
+<div class="test-section" data-section="context-menu-dark">
+  <div class="test-section-header"><div class="status-dot"></div><h2>Context Menu</h2></div>
+  <div class="menu" style="position:relative; display:inline-block;">
+    <div class="menu-item"><span class="menu-item-title">Cut</span></div>
+    <div class="menu-item"><span class="menu-item-title">Copy</span></div>
+    <div class="menu-item"><span class="menu-item-title">Paste</span></div>
+    <div class="menu-separator"></div>
+    <div class="menu-item"><span class="menu-item-title">Rename</span></div>
+    <div class="menu-item is-warning"><span class="menu-item-title">Delete</span></div>
+  </div>
+</div>
+
+<!-- Notices & Tooltips -->
+<div class="test-section" data-section="notices-dark">
+  <div class="test-section-header"><div class="status-dot"></div><h2>Notices & Tooltips</h2></div>
+  <div class="notice" style="position:relative; animation:none;">
+    <div class="notice-content">File saved successfully.</div>
+    <button class="mod-close" style="height:auto; min-height:0; padding:2px;">&#10005;</button>
+  </div>
+  <div class="mock-spacer"></div>
+  <div class="tooltip" style="position:relative; display:inline-block;">Open in new pane</div>
+</div>
+
+<!-- Canvas -->
+<div class="test-section" data-section="canvas-dark">
+  <div class="test-section-header"><div class="status-dot"></div><h2>Canvas</h2></div>
+  <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-bottom:12px;">
+    <div class="canvas-node-content" style="padding:12px; min-height:60px; font-size:13px;">Default node</div>
+    <div class="canvas-node" data-color="1"><div class="canvas-node-content" style="padding:12px; min-height:60px; font-size:13px;">Color 1 (Red)</div></div>
+    <div class="canvas-node" data-color="2"><div class="canvas-node-content" style="padding:12px; min-height:60px; font-size:13px;">Color 2 (Gold)</div></div>
+    <div class="canvas-node" data-color="3"><div class="canvas-node-content" style="padding:12px; min-height:60px; font-size:13px;">Color 3 (Green)</div></div>
+    <div class="canvas-node" data-color="4"><div class="canvas-node-content" style="padding:12px; min-height:60px; font-size:13px;">Color 4 (Cyan)</div></div>
+    <div class="canvas-node" data-color="5"><div class="canvas-node-content" style="padding:12px; min-height:60px; font-size:13px;">Color 5 (Purple)</div></div>
+    <div class="canvas-node" data-color="6"><div class="canvas-node-content" style="padding:12px; min-height:60px; font-size:13px;">Color 6 (Pink)</div></div>
+  </div>
+  <div class="mock-row">
+    <div class="canvas-edge-label">Edge Label</div>
+    <div class="canvas-controls" style="flex-direction:row;">
+      <button style="width:32px; height:32px; font-size:16px; border:none; background:transparent;">+</button>
+      <button style="width:32px; height:32px; font-size:16px; border:none; background:transparent;">-</button>
+      <button style="width:32px; height:32px; font-size:12px; border:none; background:transparent;">Fit</button>
+    </div>
+  </div>
+</div>
+
+<!-- Graph -->
+<div class="test-section" data-section="graph-dark">
+  <div class="test-section-header"><div class="status-dot"></div><h2>Graph</h2></div>
+  <div class="graph-controls" style="max-width:260px;">
+    <div class="graph-control-section">
+      <div class="graph-control-section-header">Filters</div>
+      <div class="graph-control-section-body">
+        <input type="text" placeholder="Search to filter..." style="width:100%; height:32px;">
+        <div class="setting-item" style="border:none; padding:4px 0;">
+          <div class="setting-item-name" style="font-size:13px;">Show tags</div>
+          <div class="setting-item-control"><div class="checkbox-container is-enabled"></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="graph-control-section">
+      <div class="graph-control-section-header">Display</div>
+      <div class="graph-control-section-body">
+        <div class="setting-item" style="border:none; padding:4px 0;">
+          <div class="setting-item-name" style="font-size:13px;">Arrows</div>
+          <div class="setting-item-control"><div class="checkbox-container"></div></div>
+        </div>
+        <input type="range" min="0" max="100" value="50">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Search -->
+<div class="test-section" data-section="search-dark">
+  <div class="test-section-header"><div class="status-dot"></div><h2>Search</h2></div>
+  <div style="background:var(--bg-page); padding:12px; border-radius:10px;">
+    <div class="search-result-file-title" style="padding:4px 8px; margin-bottom:4px;">Meeting Notes.md</div>
+    <div class="search-result-file-match" style="margin-bottom:2px;">...discussed the <span class="search-result-file-matched-text">design system</span> rollout timeline...</div>
+    <div class="search-result-file-match">...need to update the <span class="search-result-file-matched-text">design system</span> tokens before...</div>
+    <div class="mock-spacer"></div>
+    <div class="search-result-file-title" style="padding:4px 8px; margin-bottom:4px;">Architecture.md</div>
+    <div class="search-result-file-match">...the <span class="search-result-file-matched-text">design system</span> follows a 3-tier token model...</div>
+  </div>
+</div>
+
+<!-- Scrollbars -->
+<div class="test-section" data-section="scrollbars-dark">
+  <div class="test-section-header"><div class="status-dot"></div><h2>Scrollbars</h2></div>
+  <div style="height:120px; overflow-y:auto; background:var(--bg-surface); border:2px solid var(--border-subtle); border-radius:10px; padding:12px; font-size:13px; color:var(--text-secondary);">
+    <p>Scroll this container to see themed scrollbars.</p>
+    <p>The scrollbar thumb should use the theme's subtle color.</p>
+    <p>On hover, it should shift to the accent color.</p>
+    <p>This is filler content to enable scrolling.</p>
+    <p>More content below...</p>
+    <p>Keep scrolling to test the full scrollbar behavior.</p>
+    <p>Almost there...</p>
+    <p>End of scrollable content.</p>
+    <p>Final line.</p>
+  </div>
+</div>
+
+<!-- Plugins -->
+<div class="test-section" data-section="plugins-dark">
+  <div class="test-section-header"><div class="status-dot"></div><h2>Plugins</h2></div>
+
+  <div style="margin-bottom:16px;">
+    <div style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-muted); margin-bottom:8px;">Calendar</div>
+    <div class="calendar" style="display:grid; grid-template-columns:repeat(7,1fr); gap:2px; background:var(--bg-surface); border:2px solid var(--border-subtle); border-radius:16px; padding:12px; max-width:280px;">
+      <div style="font-size:10px; font-weight:600; color:var(--text-muted); text-align:center; padding:4px;">Sun</div>
+      <div style="font-size:10px; font-weight:600; color:var(--text-muted); text-align:center; padding:4px;">Mon</div>
+      <div style="font-size:10px; font-weight:600; color:var(--text-muted); text-align:center; padding:4px;">Tue</div>
+      <div style="font-size:10px; font-weight:600; color:var(--text-muted); text-align:center; padding:4px;">Wed</div>
+      <div style="font-size:10px; font-weight:600; color:var(--text-muted); text-align:center; padding:4px;">Thu</div>
+      <div style="font-size:10px; font-weight:600; color:var(--text-muted); text-align:center; padding:4px;">Fri</div>
+      <div style="font-size:10px; font-weight:600; color:var(--text-muted); text-align:center; padding:4px;">Sat</div>
+      <div style="text-align:center; padding:4px; font-size:12px; color:var(--text-muted);">1</div>
+      <div style="text-align:center; padding:4px; font-size:12px; color:var(--text-secondary);">2</div>
+      <div style="text-align:center; padding:4px; font-size:12px; color:var(--text-secondary);">3</div>
+      <div style="text-align:center; padding:4px; font-size:12px; border-radius:8px; background:var(--accent-primary); color:var(--text-on-accent); font-weight:600;">4</div>
+      <div style="text-align:center; padding:4px; font-size:12px; color:var(--text-secondary);">5</div>
+      <div style="text-align:center; padding:4px; font-size:12px; color:var(--text-secondary);">6</div>
+      <div style="text-align:center; padding:4px; font-size:12px; color:var(--text-muted);">7</div>
+    </div>
+  </div>
+
+  <div style="margin-bottom:16px;">
+    <div style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-muted); margin-bottom:8px;">Dataview</div>
+    <div class="dataview" style="overflow:hidden;">
+      <table class="markdown-rendered" style="width:100%; font-size:13px; border:2px solid var(--border-subtle); border-radius:16px; border-collapse:separate; border-spacing:0; overflow:hidden;">
+        <thead><tr><th style="background:var(--bg-subtle); padding:8px 12px; font-size:11px; text-transform:uppercase; letter-spacing:0.04em; color:var(--text-muted); font-weight:600; border-bottom:2px solid var(--border-default);">File</th><th style="background:var(--bg-subtle); padding:8px 12px; font-size:11px; text-transform:uppercase; letter-spacing:0.04em; color:var(--text-muted); font-weight:600; border-bottom:2px solid var(--border-default);">Status</th><th style="background:var(--bg-subtle); padding:8px 12px; font-size:11px; text-transform:uppercase; letter-spacing:0.04em; color:var(--text-muted); font-weight:600; border-bottom:2px solid var(--border-default);">Modified</th></tr></thead>
+        <tbody>
+          <tr><td style="padding:8px 12px; color:var(--accent-primary);">Design Tokens</td><td style="padding:8px 12px;"><span class="multi-select-pill">active</span></td><td style="padding:8px 12px; color:var(--text-muted);">2026-04-04</td></tr>
+          <tr style="background:var(--bg-surface);"><td style="padding:8px 12px; color:var(--accent-primary);">Components</td><td style="padding:8px 12px;"><span class="multi-select-pill">draft</span></td><td style="padding:8px 12px; color:var(--text-muted);">2026-04-03</td></tr>
+          <tr><td style="padding:8px 12px; color:var(--accent-primary);">Motion System</td><td style="padding:8px 12px;"><span class="multi-select-pill">active</span></td><td style="padding:8px 12px; color:var(--text-muted);">2026-04-02</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div>
+    <div style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-muted); margin-bottom:8px;">Kanban</div>
+    <div class="kanban-plugin" style="display:flex; gap:12px; overflow-x:auto;">
+      <div class="kanban-plugin__lane" style="min-width:180px; background:var(--bg-surface); border:2px solid var(--border-subtle); border-radius:16px; padding:12px;">
+        <div style="font-size:12px; font-weight:700; color:var(--text-primary); margin-bottom:8px; text-transform:uppercase; letter-spacing:0.04em;">To Do</div>
+        <div class="kanban-plugin__item" style="background:var(--bg-elevated); border:2px solid var(--border-subtle); border-radius:10px; padding:8px 12px; margin-bottom:6px; font-size:13px; color:var(--text-primary); box-shadow:var(--shadow-sm);">Token audit</div>
+        <div class="kanban-plugin__item" style="background:var(--bg-elevated); border:2px solid var(--border-subtle); border-radius:10px; padding:8px 12px; margin-bottom:6px; font-size:13px; color:var(--text-primary); box-shadow:var(--shadow-sm);">Dark mode fix</div>
+      </div>
+      <div class="kanban-plugin__lane" style="min-width:180px; background:var(--bg-surface); border:2px solid var(--border-subtle); border-radius:16px; padding:12px;">
+        <div style="font-size:12px; font-weight:700; color:var(--text-primary); margin-bottom:8px; text-transform:uppercase; letter-spacing:0.04em;">In Progress</div>
+        <div class="kanban-plugin__item" style="background:var(--bg-elevated); border:2px solid var(--border-subtle); border-radius:10px; padding:8px 12px; margin-bottom:6px; font-size:13px; color:var(--text-primary); box-shadow:var(--shadow-sm);">Canvas nodes</div>
+      </div>
+      <div class="kanban-plugin__lane" style="min-width:180px; background:var(--bg-surface); border:2px solid var(--border-subtle); border-radius:16px; padding:12px;">
+        <div style="font-size:12px; font-weight:700; color:var(--text-primary); margin-bottom:8px; text-transform:uppercase; letter-spacing:0.04em;">Done</div>
+        <div class="kanban-plugin__item" style="background:var(--bg-elevated); border:2px solid var(--border-subtle); border-radius:10px; padding:8px 12px; margin-bottom:6px; font-size:13px; color:var(--text-primary); box-shadow:var(--shadow-sm);">Typography</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- end dark panel -->
+
+</div><!-- end harness grid -->
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+(function() {
+  'use strict';
+
+  const body = document.body;
+
+  // --- Control groups: accent, shadow, border, heading ---
+  const controlGroups = {
+    accent:  { prefix: 'accent-',        values: ['accent-pink','accent-danger','accent-gold','accent-cyan','accent-green','accent-purple'] },
+    shadow:  { prefix: 'shadow-',         values: ['shadow-normal','shadow-subtle','shadow-none'] },
+    border:  { prefix: 'border-',         values: ['border-normal','border-subtle'] },
+    heading: { prefix: 'heading-scale-',  values: ['heading-scale-normal','heading-scale-compact','heading-scale-large'] }
+  };
+
+  // Set a class group: remove all values for that group, add the new one
+  function setClassGroup(groupName, newValue) {
+    const group = controlGroups[groupName];
+    if (!group) return;
+    group.values.forEach(function(v) { body.classList.remove(v); });
+    body.classList.add(newValue);
+  }
+
+  // Wire up radio-style button sets
+  document.querySelectorAll('.btn-set[data-control]').forEach(function(set) {
+    var controlName = set.getAttribute('data-control');
+    set.querySelectorAll('.ctrl-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        // Update active state in button set
+        set.querySelectorAll('.ctrl-btn').forEach(function(b) { b.classList.remove('active'); });
+        btn.classList.add('active');
+        // Apply class to body
+        setClassGroup(controlName, btn.getAttribute('data-value'));
+      });
+    });
+  });
+
+  // Animation toggle
+  var animToggle = document.getElementById('anim-toggle');
+  animToggle.addEventListener('click', function() {
+    if (body.classList.contains('delightful-animations')) {
+      body.classList.remove('delightful-animations');
+      animToggle.textContent = 'Off';
+      animToggle.classList.remove('toggle-on');
+      animToggle.classList.add('toggle-off');
+    } else {
+      body.classList.add('delightful-animations');
+      animToggle.textContent = 'On';
+      animToggle.classList.remove('toggle-off');
+      animToggle.classList.add('toggle-on');
+    }
+  });
+
+  // Section verification toggle (click header to cycle: none -> verified -> needs-fix -> none)
+  document.querySelectorAll('.test-section-header').forEach(function(header) {
+    header.addEventListener('click', function() {
+      var section = header.parentElement;
+      if (section.classList.contains('verified')) {
+        section.classList.remove('verified');
+        section.classList.add('needs-fix');
+      } else if (section.classList.contains('needs-fix')) {
+        section.classList.remove('needs-fix');
+      } else {
+        section.classList.add('verified');
+      }
+    });
+  });
+
+  // Toggle mock checkbox-containers on click
+  document.querySelectorAll('.checkbox-container').forEach(function(toggle) {
+    toggle.addEventListener('click', function() {
+      toggle.classList.toggle('is-enabled');
+    });
+  });
+})();
+</script>
+</body>
+</html>

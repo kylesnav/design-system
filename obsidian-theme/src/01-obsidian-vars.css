@@ -344,6 +344,48 @@
    ========================================================================== */
 
 body {
+  /* --- Mode-agnostic Obsidian vars (resolve through semantic tokens) --- */
+
+  /* Scrollbar */
+  --scrollbar-bg: var(--bg-page);
+  --scrollbar-thumb-bg: var(--border-subtle);
+  --scrollbar-active-thumb-bg: var(--accent-primary);
+
+  /* Checkbox */
+  --checkbox-color: var(--accent-primary);
+  --checkbox-color-hover: var(--accent-primary-hover);
+  --checkbox-border-color: var(--border-strong);
+  --checkbox-border-color-hover: var(--accent-primary);
+
+  /* Icon */
+  --icon-size: 18px;
+  --icon-color: var(--text-muted);
+  --icon-color-hover: var(--text-primary);
+  --icon-color-active: var(--accent-primary);
+  --icon-color-focused: var(--accent-primary);
+
+  /* Embed */
+  --embed-border-left: 4px solid var(--accent-primary);
+
+  /* Indentation guides */
+  --indentation-guide-color: var(--border-subtle);
+  --indentation-guide-color-active: var(--accent-primary);
+
+  /* Tab */
+  --tab-outline-color: transparent;
+  --tab-text-color: var(--text-muted);
+  --tab-text-color-active: var(--text-primary);
+  --tab-text-color-focused: var(--text-primary);
+  --tab-text-color-focused-active: var(--accent-primary);
+
+  /* Pill / multi-select */
+  --pill-color: var(--accent-primary-text);
+  --pill-color-hover: var(--accent-primary-hover);
+  --pill-background: var(--accent-primary-subtle);
+  --pill-background-hover: var(--accent-primary);
+  --pill-color-remove: var(--text-muted);
+  --pill-color-remove-hover: var(--accent-danger);
+  --pill-border-color: transparent;
   /* --- Typography — families + base size --- */
   --font-text-size:        14px;
   --font-interface-theme:  var(--font-sans);
@@ -353,10 +395,10 @@ body {
   /* --- Heading size scale (maps to DS fluid type steps) --- */
   /* Fixed em sizes — Obsidian is not a fluid viewport, don't use clamp() */
   --h1-size: 2.074em;
-  --h2-size: 2.074em;
-  --h3-size: 1.728em;
-  --h4-size: 1.44em;
-  --h5-size: 1.2em;
+  --h2-size: 1.728em;
+  --h3-size: 1.44em;
+  --h4-size: 1.2em;
+  --h5-size: 1.1em;
   --h6-size: 1em;
 
   /* --- Heading weights --- */
@@ -401,7 +443,7 @@ body {
   --modal-border-width: 2px;
 
   /* --- Blockquote --- */
-  --blockquote-border-thickness: 3px;
+  --blockquote-border-thickness: 4px;
 
   /* --- HR --- */
   --hr-thickness: 2px;

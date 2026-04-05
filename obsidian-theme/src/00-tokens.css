@@ -145,10 +145,10 @@
     --focus-ring:   var(--accent-primary);
     --overlay-bg:   oklch(0.200 0.015 60 / 0.30);
 
-    /* Shadows — solid, zero blur per DS convention */
+    /* Shadows — hard offset + ambient depth per DS convention */
     --shadow-sm:     2px 2px 0 var(--border-default);
-    --shadow-md:     4px 4px 0 var(--border-default);
-    --shadow-lg:     8px 8px 0 var(--border-default);
+    --shadow-md:     4px 4px 0 var(--border-default), 0 4px 8px oklch(0 0 0 / 0.08);
+    --shadow-lg:     8px 8px 0 var(--border-default), 0 12px 24px oklch(0 0 0 / 0.12);
     --shadow-pink:   4px 4px 0 var(--accent-primary);
     --shadow-danger: 4px 4px 0 var(--accent-danger);
     --shadow-gold:   4px 4px 0 var(--accent-gold);
@@ -222,13 +222,13 @@
     --status-success: var(--accent-green);
 
     /* Misc */
-    --focus-ring: oklch(0.700 0.230 350);
+    --focus-ring: var(--accent-primary);
     --overlay-bg: oklch(0 0 0 / 0.60);
 
-    /* Shadows — solid, zero blur, light stroke color in dark mode */
-    --shadow-sm:     2px 2px 0 oklch(0.920 0.010 65);
-    --shadow-md:     4px 4px 0 oklch(0.920 0.010 65);
-    --shadow-lg:     8px 8px 0 oklch(0.920 0.010 65);
+    /* Shadows — hard offset + ambient depth, alpha-transparent in dark mode */
+    --shadow-sm:     2px 2px 0 oklch(0.920 0.010 65 / 0.20);
+    --shadow-md:     4px 4px 0 oklch(0.920 0.010 65 / 0.20), 0 4px 12px oklch(0 0 0 / 0.30);
+    --shadow-lg:     8px 8px 0 oklch(0.920 0.010 65 / 0.20), 0 12px 32px oklch(0 0 0 / 0.40);
     --shadow-pink:   4px 4px 0 var(--accent-primary);
     --shadow-danger: 4px 4px 0 var(--accent-danger);
     --shadow-gold:   4px 4px 0 var(--accent-gold);

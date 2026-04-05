@@ -538,22 +538,9 @@
   }
 
   /* ========================================================================
-     15. REDUCED MOTION (prefers-reduced-motion) — system-level override
-     Applied globally, not just mobile. Ensures motion-sensitive users
-     are protected regardless of device class.
+     15. REDUCED MOTION
+     Canonical definition lives in 07-animations.css — not duplicated here.
      ======================================================================== */
-
-  @media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-      animation-duration:        0.01ms !important;
-      animation-iteration-count: 1      !important;
-      transition-duration:       0.01ms !important;
-      scroll-behavior:           auto   !important;
-    }
-  }
-
 
   /* ========================================================================
      PRINT / PDF EXPORT
@@ -599,8 +586,8 @@
 
     /* Keep code block styling */
     pre, code {
-      border: 1px solid #ddd !important;
-      background: #f8f8f8 !important;
+      border: 1px solid oklch(0.870 0 0) !important;
+      background: oklch(0.970 0 0) !important;
     }
 
     /* Page break control */
