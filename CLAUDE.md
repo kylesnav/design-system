@@ -45,6 +45,10 @@ Copy from this repo to distribution. Commit both.
 
 Run `npm run bump <version>` to update all 7 version files (including marketplace.json) and create a git tag. Never update versions manually.
 
+## Visual Testing via CDP
+
+Several ports target Electron apps (Obsidian, VS Code) — launch them with `--remote-debugging-port=9222` and use Chrome DevTools MCP to screenshot, inspect DOM, and inject CSS live without taking over the user's computer. Workflow: build the theme, deploy to the app, reload CSS via CDP, screenshot diverse real content in both light and dark mode, compare against design tokens, and fix.
+
 ## Conventions
 
 - All colors use OKLCH. No hex, rgb, or hsl.
