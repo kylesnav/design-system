@@ -45,6 +45,7 @@ Before composing a page, read these reference files from the plugin directory:
 - `${CLAUDE_PLUGIN_ROOT}/reference/components.md` — Component patterns and structure
 - `${CLAUDE_PLUGIN_ROOT}/reference/tokens.md` — Token values for spacing, typography, colors
 - `${CLAUDE_PLUGIN_ROOT}/reference/interactions.md` — POUNCE/SINK patterns, animation timing
+- `${CLAUDE_PLUGIN_ROOT}/reference/animations.md` — Animation library for scroll-reveal, entrance, and attention effects
 
 ### Composition Process
 

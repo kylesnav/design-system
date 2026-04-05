@@ -1,35 +1,34 @@
 ---
 name: present-with-delightful
 description: >-
-  This skill should be used when the user wants to build a scrolling HTML page
-  styled with the Delightful design system. Common triggers include "build a page",
-  "create an HTML document", "make a report", "showcase", "scrolling page",
-  or any request to generate a single-page scrolling document with neo-brutalist
-  styling, theme toggle, and scroll-reveal animations.
+  This skill should be used when the user wants to create a presentation styled with
+  the Delightful design system. Common triggers include "make a presentation",
+  "create a slide deck", "build slides", "present with delightful", "deck with delightful",
+  "slide deck", "showcase", "keynote-style presentation", or any request to generate
+  a navigable slide-based presentation with sidebar navigation, search, keyboard
+  controls, theme toggle, and neo-brutalist styling.
 allowed-tools: "Bash WebFetch"
 metadata:
   author: Delightful Design System
   version: 0.7.0
-  tags: [design-system, css, neo-brutalist, oklch, scrolling-page, html-document]
+  tags: [design-system, css, neo-brutalist, oklch, slides, presentation, deck, showcase]
 ---
 
 # Present with Delightful
 
-Generate self-contained scrolling HTML pages using the Delightful design system.
+Generate self-contained slide deck presentations using the Delightful design system engine.
 
 ## Instructions
 
-### Step 1 — Read the Presentation Template
+### Step 1 — Read the Deck Template
 
-Search for the dedicated presentation template using Glob: `**/delightful-present-template*.html` (search parent directories above the plugin root, including `${CLAUDE_PLUGIN_ROOT}/templates/`).
+Read the deck template at `${CLAUDE_PLUGIN_ROOT}/templates/delightful-deck-template.html`.
 
-- **If found:** Read the entire file. Treat its `<style>` block as the canonical CSS — all 5 `@layer` declarations (~1375 lines). **Copy verbatim — never abbreviate, summarize, or rewrite.**
-- **If not found:** Fall back to `**/delightful-showcase*.html` and extract only the CSS `<style>` block (ignore any site-specific navigation chrome like topnav bars or repo-sidebars).
-- **If neither found:** Use `${CLAUDE_PLUGIN_ROOT}/themes/css/delightful-tokens.css` combined with the reference files to build CSS from the component patterns documented in this skill.
+- Read the entire file. This is the engine — CSS, HTML chrome, and JS navigation. **Copy verbatim — never abbreviate, summarize, or rewrite.**
 
-**Important:** Do NOT modify `delightful-showcase.html` — that is the live website showcase page at delightful.build. Always generate a new file.
+**Important:** Do NOT modify the bundled template files in `${CLAUDE_PLUGIN_ROOT}/templates/`. Always generate a new file.
 
-The template is a **three-zone template**: CSS | HTML | JS.
+The template has four zones: CSS | HTML Chrome | Slide Data (empty) | JS Engine.
 
 ### Step 2 — Read the Plugin References
 
@@ -41,456 +40,610 @@ Read these files from the plugin directory:
 - `${CLAUDE_PLUGIN_ROOT}/reference/philosophy.md` — Design principles for content tone
 - `${CLAUDE_PLUGIN_ROOT}/reference/composition.md` — Layout composition and section assembly
 
-### Step 3 — Plan the Page Structure
+### Step 3 — Plan the Deck Structure
 
 Based on the user's topic, plan the structure and **present it for approval before generating**:
 
-1. **Page title**
-2. **Hero content:** eyebrow text, gradient title word, description paragraph, 3-6 stat cards
-3. **3-8 scrolling sections**, each with: anchor ID, section-label, section-title, section-subtitle, content block types
-4. **Nav links** (must match section anchor IDs)
-5. **Footer tagline and stats line**
+1. **Deck title and subtitle** (shown in sidebar and title slide)
+2. **Section groups** (chapters) — each with id (roman numeral), title, accent color
+3. **Sections within each group** — each with id, title, and group mapping
+4. **Slides per section** — for each:
+   - Section intro slide (auto-generated via `sectionIntro()`)
+   - Content slides with: headline, subtitle, content type, optional footnote
+5. **Closing slide** content
+6. **Total slide count** (target 10–50 slides)
 
 ### Step 4 — Generate the HTML File
 
-Build a single self-contained `.html` file with three zones:
+Build a single self-contained `.html` file by populating the template:
 
-- **CSS zone:** Full `<style>` from the showcase, copied verbatim. All 5 `@layer`s. Non-negotiable.
-- **HTML zone:** Nav (brand + anchor links + theme toggle) -> Hero (orb field + eyebrow + gradient title + description + stat cards) -> Sections (composed from component vocabulary) -> Footer (tagline + gradient brand + stats).
-- **JS zone:** Theme toggle (T key + button click, toggles `.theme-dark` on `<html>`) + IntersectionObserver for `.reveal` class scroll animation. Copy from showcase, extend only for interactive components.
+- **CSS zone:** Copy verbatim from the deck template. All 4 `@layer`s. Non-negotiable.
+- **HTML chrome:** Copy from the template. Update the sidebar `<h1>` brand and `.sidebar-subtitle` to match the deck title. Update `<title>`.
+- **Slide Data zone:** Populate the four data structures:
+  - `SECTION_GROUPS` — array of chapter definitions
+  - `SECTIONS` — array of section definitions within chapters
+  - `S` — title slide using `makeSlide()` with custom `render()` and `animate()`
+  - `R` — section intros + content slides + closing slide
+  - `INTERACTIVE_RENDERS` — custom render/animate functions for complex slides
+- **JS Engine zone:** Copy verbatim from the template. Do not modify.
 
 ### Step 5 — Verify
 
 Launch the `delightful-auditor` agent to check the generated file:
 
-- Zero hardcoded colors outside token definitions
-- All spacing uses tokens
+- Zero hardcoded colors in render functions (only `var(--*)` references)
+- All spacing in render functions uses tokens
 - Dark mode works (semantic tokens used correctly)
 - `prefers-reduced-motion` is respected
+- All ID linkages are consistent (R.sectionId → SECTIONS.id, R.g → SECTION_GROUPS.id)
 
-## Page Structure
+## Slide Data Format
 
-Every page follows this skeleton. Use these exact class names.
+Every deck is driven by four data structures. The JS engine reads these and handles all rendering, navigation, and state.
 
-```html
-<!-- Nav -->
-<nav class="site-nav">
-  <div class="nav-brand">Brand</div>
-  <div class="nav-links">
-    <a href="#section-id" class="nav-link">Section</a>
-    <!-- repeat for each section -->
-  </div>
-  <button class="theme-toggle" aria-label="Toggle theme">
-    <svg class="theme-icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
-    <svg class="theme-icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-  </button>
-</nav>
+### SECTION_GROUPS
 
-<!-- Hero -->
-<section class="hero">
-  <div class="orb-field">
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
-  </div>
-  <p class="hero-eyebrow">EYEBROW TEXT</p>
-  <h1 class="hero-title">Title <span class="gradient-word">Word</span></h1>
-  <p class="hero-description">Description paragraph.</p>
-  <div class="hero-stats">
-    <div class="stat-card">
-      <div class="stat-value" style="color: var(--primary)">42</div>
-      <div class="stat-label">Label</div>
+Chapters of the presentation. Each gets a sidebar group and accent color.
+
+```javascript
+const SECTION_GROUPS=[
+  {id:'I', title:'Introduction', color:'gold'},
+  {id:'II', title:'Architecture', color:'primary'},
+  {id:'III', title:'Results', color:'cyan'},
+];
+```
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | string | Roman numeral or `'0'` for welcome. Must be unique. |
+| `title` | string | Chapter name shown in sidebar |
+| `color` | string | Accent: `'primary'`\|`'gold'`\|`'cyan'`\|`'green'`\|`'purple'`\|`'danger'` |
+
+### SECTIONS
+
+Individual sections within each chapter. Each gets a sidebar nav item.
+
+```javascript
+const SECTIONS=[
+  {id:'01', title:'Problem Statement', groupId:'I', color:'gold'},
+  {id:'02', title:'System Design', groupId:'II', color:'primary'},
+  {id:'03', title:'Performance', groupId:'III', color:'cyan'},
+];
+```
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | string | Two-digit string (00–99). Must be unique. |
+| `title` | string | Section name shown in sidebar |
+| `groupId` | string | Must match a `SECTION_GROUPS.id` |
+| `color` | string | Accent color for this section |
+
+### S Array (Title Slide)
+
+The first slide in the deck. Uses `makeSlide()` with full property names.
+
+```javascript
+const S=[
+makeSlide({
+  id:'title',
+  sectionId:null,
+  sectionIndex:0,
+  sectionSlideCount:1,
+  groupId:null,
+  accentColor:'gold',
+  title:'My Presentation',
+  slideTitle:'A Subtitle',
+  searchText:'presentation keywords',
+  headline:'', sub:'',
+  render(c){
+    c.innerHTML=`<div class="title-hero">
+      <div class="title-decoration"></div>
+      <div class="title-decoration"></div>
+      <div class="title-decoration"></div>
+      <div class="title-name">My Presentation</div>
+      <div class="title-tagline">A compelling subtitle</div>
+      <div class="title-mono">Key Point \u00B7 Key Point \u00B7 Key Point</div>
+      <div class="title-date">Stat \u00B7 Stat \u00B7 Stat</div>
+      <div class="title-hint">\u2192 or <kbd>j</kbd> to begin \u2022 <kbd>n</kbd> table of contents \u2022 <kbd>?</kbd> shortcuts</div>
+    </div>`;
+  },
+  animate(el){
+    el.querySelectorAll('.title-name,.title-tagline,.title-mono,.title-date,.title-hint')
+      .forEach((e,i)=>{
+        e.style.opacity='0';
+        e.style.transform='translateY(30px)';
+        setTimeout(()=>{
+          e.style.transition='opacity 0.6s var(--ease-spring-gentle), transform 0.6s var(--ease-spring-gentle)';
+          e.style.opacity='1';
+          e.style.transform='none';
+        },300+i*180);
+      });
+  }
+}),
+];
+```
+
+**Important:** The S array uses **full property names** (`sectionIndex`, `accentColor`, `groupId`, etc.) because `makeSlide()` processes these directly. The R array uses **abbreviated names** (`si`, `a`, `g`, etc.) because the engine maps them.
+
+### R Array (Content Slides)
+
+All slides after the title. Uses abbreviated property names.
+
+#### R entry format
+
+```javascript
+{
+  id: 's{sectionId}-{index}',  // e.g. 's01-0', 's01-1'
+  sectionId: '01',              // matches SECTIONS.id (null for intros/closing)
+  si: 0,                        // index within section (0-based)
+  sc: 2,                        // total slides in this section
+  g: 'I',                       // matches SECTION_GROUPS.id
+  a: 'primary',                 // accent color
+  t: 'Section Title',           // for nav and search
+  st: 'Slide Title',            // for search
+  s: 'search keywords',         // space-separated
+  h: 'Headline <span class="accent">emphasis</span>',
+  sub: 'Subtitle text.',
+  foot: 'Optional footnote with <span class="accent">accent</span>.'
+}
+```
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `id` | string | Yes | Unique slide ID |
+| `sectionId` | string\|null | Yes | Links to SECTIONS.id, or null for intros/closing |
+| `si` | number | Yes | Index within section (0-based) |
+| `sc` | number | Yes | Total slides in this section |
+| `g` | string | Yes | Group ID from SECTION_GROUPS |
+| `a` | string | Yes | Accent color name |
+| `t` | string | Yes | Title for nav/search |
+| `st` | string | Yes | Subtitle for search |
+| `s` | string | Yes | Space-separated search keywords |
+| `h` | string | Yes | Headline HTML (use `<span class="accent">` for emphasis) |
+| `sub` | string | Yes | Subtitle text |
+| `foot` | string | No | Footnote text (optional) |
+| `render` | function | No | Custom render function (see below) |
+| `animate` | function | No | Custom animation function (see below) |
+
+#### Section intro slide
+
+Every group must have one. Uses `sectionIntro()` helper.
+
+```javascript
+{id:'intro-I', sectionId:null, si:0, sc:1, g:'I', a:'primary',
+ t:'Introduction', st:'Chapter', s:'introduction overview',
+ h:'', sub:'',
+ render(c){ c.innerHTML=sectionIntro('I','Introduction','3 sections \u2022 Overview, Context, Goals'); }},
+```
+
+#### Simple text slide (no render function)
+
+If you omit `render`, the engine auto-generates a slide with headline, subtitle, and footnote. Best for straightforward informational slides.
+
+```javascript
+{id:'s01-0', sectionId:'01', si:0, sc:1, g:'I', a:'gold',
+ t:'Problem Statement', st:'The Challenge',
+ s:'problem challenge context',
+ h:'Every year, <span class="accent">30% of developer time</span> is lost.',
+ sub:'Manual processes account for the majority of wasted cycles.',
+ foot:'Source: <span class="accent">2025 Developer Survey</span>'},
+```
+
+#### Closing slide
+
+Always the last entry in R. Uses the `title-hero` structure.
+
+```javascript
+{id:'closing', sectionId:null, si:0, sc:1, g:null, a:'gold',
+ t:'End', st:'Thank You', s:'end closing thank you finish'},
+```
+
+The engine generates a default closing render for any slide with `id:'closing'`. Customize by adding your own `render()`.
+
+### INTERACTIVE_RENDERS
+
+Custom render/animate functions for slides needing interactive or complex content.
+
+```javascript
+const INTERACTIVE_RENDERS={
+  's02-0': {
+    render(c, r, gl){
+      c.innerHTML=`${gl?`<div class="slide-section-badge">${gl}</div>`:''}
+        ${r.h?`<h2 class="slide-headline">${r.h}</h2>`:''}
+        <p class="slide-subtitle">${r.sub||''}</p>
+        <div class="slide-body" id="sb-${r.id}"></div>
+        ${r.foot?`<div class="slide-footnote">${r.foot}</div>`:''}`;
+      const b=c.querySelector('#sb-'+r.id);
+      b.innerHTML=`<div class="counter-grid cols-3">...</div>`;
+    },
+    animate(el){
+      animC(el); // Animate counter values
+    }
+  },
+};
+```
+
+**Render parameters:**
+- `c` (Element): The `.slide-inner` container. Set `c.innerHTML` or manipulate DOM.
+- `r` (Object): The raw R array entry (abbreviated fields: `r.id`, `r.h`, `r.sub`, `r.g`, etc.)
+- `gl` (string): Pre-formatted group label like `"I — Introduction"` or empty string.
+
+**Animate parameters:**
+- `el` (Element): The `.slide` container (parent of `.slide-inner`). Called once when slide becomes active, after a 100ms delay.
+
+## Slide Content Vocabulary
+
+These CSS classes are available in the presentation layer for use in custom `render()` functions.
+
+### Flip Cards
+
+3D card flip with front/back reveal. Click to flip.
+
+```javascript
+render(c, r, gl){
+  c.innerHTML=`...
+    <div class="slide-body">
+      <div class="flip-grid grid-3">
+        <div class="flip-card" onclick="this.classList.toggle('flipped')">
+          <div class="flip-inner">
+            <div class="flip-front">
+              <div class="flip-icon">🎨</div>
+              <h3>Card Title</h3>
+              <p class="caption">Short description.</p>
+            </div>
+            <div class="flip-back">
+              <p>Detailed explanation on the back.</p>
+              <div class="data-point">Key metric or data</div>
+            </div>
+          </div>
+        </div>
+        <!-- repeat -->
+      </div>
+      <div class="flip-hint">Click cards to flip</div>
+    </div>`;
+}
+```
+
+### Accordion / Expand Cards
+
+Expandable/collapsible cards. Click header to toggle.
+
+```javascript
+b.innerHTML=`<div class="expand-stack">
+  <div class="expand-card" onclick="this.classList.toggle('open')">
+    <div class="expand-header">
+      <span class="expand-badge tier1">Tier 1</span>
+      <span class="expand-title">Section Title</span>
+      <span class="expand-chevron">▼</span>
     </div>
-    <!-- 3-6 stat cards -->
-  </div>
-</section>
-
-<!-- Sections (repeat 3-8) -->
-<section id="section-id" class="content-section">
-  <div class="section-header reveal">
-    <span class="section-label">01</span>
-    <h2 class="section-title">Title</h2>
-    <p class="section-subtitle">Subtitle</p>
-  </div>
-  <div class="section-content">
-    <!-- composed from component vocabulary -->
-  </div>
-  <div class="divider"></div>
-</section>
-
-<!-- Footer -->
-<footer class="site-footer">
-  <p class="footer-tagline">Tagline</p>
-  <p class="footer-brand gradient-word">Brand</p>
-  <p class="footer-stats">Stats line</p>
-</footer>
-```
-
-## Component Vocabulary
-
-Use these exact HTML patterns when composing section content. Every content block must include the `reveal` class.
-
-### stat-card
-
-Used in `hero-stats` flex row. Color the value with a semantic token.
-
-```html
-<div class="stat-card">
-  <div class="stat-value" style="color: var(--primary)">204</div>
-  <div class="stat-label">Design Tokens</div>
-</div>
-```
-
-### gallery-card
-
-Universal content container. Place in an auto-fit grid.
-
-```html
-<div class="gallery-grid reveal">
-  <div class="gallery-card">
-    <h3 class="gallery-card-title">Card Title</h3>
-    <p class="gallery-card-description">Description text for this card.</p>
+    <div class="expand-body"><div class="expand-body-inner">
+      Details revealed when expanded.
+    </div></div>
   </div>
   <!-- repeat -->
-</div>
+</div>`;
 ```
 
-### color-panel / color-viz
+Badge variants: `tier1` (gold), `tier2` (cyan), `tier3` (primary), `critical` (danger), `high` (gold), `medium` (cyan), `low` (green).
 
-Side-by-side comparison with before/after badges.
+### Animated Counters
 
-```html
-<div class="color-viz reveal">
-  <div class="color-panel">
-    <span class="badge badge-old">Before</span>
-    <div class="color-sample" style="background: var(--surface-2)"></div>
-    <p>Description of the old approach.</p>
+Numbers that count up on slide entry. Engine calls `animC()` automatically if you call it in `animate`.
+
+```javascript
+render(c, r, gl){
+  // ... standard slide wrapper ...
+  b.innerHTML=`<div class="counter-grid cols-3">
+    <div class="counter-item">
+      <div class="counter-value" data-target="204" data-suffix="" data-duration="2000">0</div>
+      <div class="counter-label">Design Tokens</div>
+    </div>
+    <!-- repeat -->
+  </div>`;
+},
+animate(el){ animC(el); }
+```
+
+Grid column helpers: `cols-2`, `cols-3`, `cols-4`.
+
+Counter attributes: `data-target` (number), `data-suffix` (e.g. "%"), `data-prefix` (e.g. "$"), `data-duration` (ms).
+
+### Comparison Columns
+
+Side-by-side pro/con or before/after.
+
+```javascript
+b.innerHTML=`<div class="comparison">
+  <div class="comp-col">
+    <div class="comp-header positive">Strengths</div>
+    <div class="comp-body">
+      <div class="comp-item">Fast iteration cycles</div>
+      <div class="comp-item">Consistent token system</div>
+    </div>
   </div>
-  <div class="color-panel">
-    <span class="badge badge-new">After</span>
-    <div class="color-sample" style="background: var(--primary)"></div>
-    <p>Description of the new approach.</p>
+  <div class="comp-col">
+    <div class="comp-header negative">Challenges</div>
+    <div class="comp-body">
+      <div class="comp-item">Migration effort required</div>
+      <div class="comp-item">Learning curve for OKLCH</div>
+    </div>
   </div>
-</div>
+</div>`;
 ```
 
-### token-tier / token-flow
+Header variants: `positive` (green), `negative` (red).
 
-Three-stage pipeline with flow arrows showing token architecture.
+### Callout
 
-```html
-<div class="token-flow reveal">
-  <div class="token-tier">
-    <h4>Primitives</h4>
-    <p>Raw OKLCH values</p>
-  </div>
-  <span class="flow-arrow">&rarr;</span>
-  <div class="token-tier">
-    <h4>Semantic</h4>
-    <p>Purpose-mapped aliases</p>
-  </div>
-  <span class="flow-arrow">&rarr;</span>
-  <div class="token-tier">
-    <h4>Component</h4>
-    <p>Scoped to UI elements</p>
-  </div>
-</div>
+Highlighted information box with accent border.
+
+```javascript
+b.innerHTML=`<div class="callout">
+  <div class="callout-label">Key Insight</div>
+  <div class="callout-text">Important information that deserves visual prominence.</div>
+</div>`;
 ```
 
-### badge
+### Quote Card
 
-Pill badges in a `badge-row`. Five color variants: primary, gold, cyan, green, purple.
+Testimonial or blockquote.
 
-```html
-<div class="badge-row reveal">
-  <span class="badge badge-primary">Core</span>
-  <span class="badge badge-gold">Highlight</span>
-  <span class="badge badge-cyan">Technical</span>
-  <span class="badge badge-green">Success</span>
-  <span class="badge badge-purple">Creative</span>
-</div>
+```javascript
+b.innerHTML=`<div class="quote-card">
+  <div class="quote-mark">\u201C</div>
+  <div class="quote-text">A compelling quote that supports the slide's point.</div>
+</div>`;
 ```
 
-### btn
+### Pipeline / Silo Row
 
-Six color variants plus secondary and ghost. Place in a `btn-row`.
+Flow visualization with arrows between stages.
 
-```html
-<div class="btn-row reveal">
-  <button class="btn btn-primary">Primary</button>
-  <button class="btn btn-gold">Gold</button>
-  <button class="btn btn-cyan">Cyan</button>
-  <button class="btn btn-green">Green</button>
-  <button class="btn btn-purple">Purple</button>
-  <button class="btn btn-danger">Danger</button>
-  <button class="btn btn-secondary">Secondary</button>
-  <button class="btn btn-ghost">Ghost</button>
-</div>
+```javascript
+b.innerHTML=`<div class="silo-row">
+  <div class="silo-box"><h4>Input</h4></div>
+  <div class="silo-gap">\u2192</div>
+  <div class="silo-box"><h4>Process</h4></div>
+  <div class="silo-gap">\u2192</div>
+  <div class="silo-box"><h4>Output</h4></div>
+</div>`;
 ```
 
-### input
+### Data Table
 
-Form control with label.
+Structured data display.
 
-```html
-<div class="input-group reveal">
-  <label class="input-label">Label</label>
-  <input class="input" type="text" placeholder="Placeholder text">
-</div>
+```javascript
+b.innerHTML=`<table class="matrix">
+  <thead><tr><th>Metric</th><th>Value</th><th>Target</th></tr></thead>
+  <tbody>
+    <tr><td>Latency</td><td>42ms</td><td>&lt;50ms</td></tr>
+    <tr><td>Uptime</td><td>99.97%</td><td>99.9%</td></tr>
+  </tbody>
+</table>`;
 ```
 
-### toggle
+### Data Bars
 
-Switch control.
+Animated horizontal bar chart. Engine adds `.in` class on slide activation.
 
-```html
-<div class="toggle-group reveal">
-  <label class="toggle-label">Feature Toggle</label>
-  <button class="toggle" role="switch" aria-checked="false" onclick="this.setAttribute('aria-checked', this.getAttribute('aria-checked')==='false')">
-    <span class="toggle-thumb"></span>
-  </button>
-</div>
+```javascript
+b.innerHTML=`<div style="display:flex;flex-direction:column;gap:var(--space-3)">
+  <div style="font-size:var(--step--1);color:var(--text-secondary)">Revenue by Region</div>
+  <div class="data-bar" style="--value:85%;--i:0">North America 85%</div>
+  <div class="data-bar" style="--value:62%;--i:1">Europe 62%</div>
+  <div class="data-bar" style="--value:45%;--i:2">Asia Pacific 45%</div>
+</div>`;
 ```
 
-### toast
+### Badge
 
-Status messages. Variants: success, warning, error.
+Inline label/tag. Inherits accent from `[data-accent]`.
 
-```html
-<div class="toast toast-success reveal">Migration completed successfully.</div>
-<div class="toast toast-warning reveal">Token override detected.</div>
-<div class="toast toast-error reveal">Build failed: missing dependency.</div>
+```javascript
+b.innerHTML=`<span class="badge">Label</span>`;
 ```
 
-### platform-card
+### Layout Grids
 
-Icon grid with colored hover. Place in a `platform-grid`.
+Column helpers for arranging content.
 
-```html
-<div class="platform-grid reveal">
-  <div class="platform-card" style="--card-accent: var(--primary)">
-    <div class="platform-icon">VS</div>
-    <div class="platform-name">VS Code</div>
-  </div>
-  <div class="platform-card" style="--card-accent: var(--cyan)">
-    <div class="platform-icon">GH</div>
-    <div class="platform-name">Ghostty</div>
-  </div>
-  <!-- repeat -->
-</div>
+```javascript
+b.innerHTML=`<div class="grid-3">
+  <div>Column 1</div>
+  <div>Column 2</div>
+  <div>Column 3</div>
+</div>`;
 ```
 
-### motion-card
+Variants: `grid-2` (2 equal columns), `grid-3` (3 equal columns), `grid-2-1` (2:1 ratio).
 
-Demonstrates animation patterns.
+### Stagger Animation
 
-```html
-<div class="motion-card reveal">
-  <div class="motion-preview">
-    <div class="motion-dot"></div>
-  </div>
-  <h4>POUNCE / SINK</h4>
-  <p>Hover lifts -2px, press sinks +2px with shadow shift.</p>
-</div>
+Container class that staggers children on slide entry. Engine adds `.in` class.
+
+```javascript
+b.innerHTML=`<div class="stagger">
+  <div style="--i:0">First item</div>
+  <div style="--i:1">Second item (100ms delay)</div>
+  <div style="--i:2">Third item (200ms delay)</div>
+</div>`;
 ```
 
-### code-block
+### Draw Line
 
-With syntax token classes for key, value, and comment highlighting.
+Animated horizontal divider. Engine adds `.in` class.
 
-```html
-<div class="code-block reveal">
-  <span class="token-key">--primary</span>: <span class="token-val">oklch(72% 0.25 350)</span>; <span class="token-comment">/* Vibrant pink */</span>
-  <span class="token-key">--gold</span>: <span class="token-val">oklch(82% 0.18 85)</span>; <span class="token-comment">/* Warm gold */</span>
-  <span class="token-key">--cyan</span>: <span class="token-val">oklch(78% 0.15 210)</span>; <span class="token-comment">/* Cool cyan */</span>
-</div>
+```javascript
+b.innerHTML=`<div class="draw-line"></div>`;
 ```
 
-### shadow-demo-card
+### Accent Text
 
-Demonstrates the layered shadow system. Place in a `shadow-grid`.
-
-```html
-<div class="shadow-grid reveal">
-  <div class="shadow-demo-card shadow-sm">
-    <h4>Small</h4>
-    <p>Resting state</p>
-  </div>
-  <div class="shadow-demo-card shadow-md">
-    <h4>Medium</h4>
-    <p>Hover / lifted</p>
-  </div>
-  <div class="shadow-demo-card shadow-lg">
-    <h4>Large</h4>
-    <p>Elevated / modal</p>
-  </div>
-</div>
-```
-
-### swatch-picker
-
-Color swatch display.
+Use `<span class="accent">` in headlines, subtitles, and footnotes for accent-colored emphasis.
 
 ```html
-<div class="swatch-picker reveal">
-  <div class="swatch" style="background: var(--primary)"></div>
-  <div class="swatch" style="background: var(--gold)"></div>
-  <div class="swatch" style="background: var(--cyan)"></div>
-  <div class="swatch" style="background: var(--green)"></div>
-  <div class="swatch" style="background: var(--purple)"></div>
-  <div class="swatch" style="background: var(--danger)"></div>
-</div>
-```
-
-### kbd
-
-Keyboard hint displayed inline.
-
-```html
-<p>Press <kbd>T</kbd> to toggle theme or <kbd>Esc</kbd> to close.</p>
-```
-
-### divider
-
-Placed between every section.
-
-```html
-<div class="divider"></div>
-```
-
-### Subsection heading
-
-Use h3 with inline token-derived styles to break up density within sections.
-
-```html
-<h3 class="subsection-title reveal">Subsection Title</h3>
+<h2 class="slide-headline">Total revenue: <span class="accent">$4.2M</span></h2>
 ```
 
 ## Behavioral Rules
 
+### Navigation
+
+The engine provides these controls automatically — no additional code needed:
+- **Arrow keys / j/k / Space** — next/prev slide
+- **N key** — toggle sidebar table of contents
+- **T key** — toggle light/dark theme
+- **Cmd+K** — open search
+- **? key** — show keyboard shortcuts
+- **Click zones** — left 12% / right 12% of viewport
+- **Touch swipe** — left/right (50px threshold)
+- **Nav dots** — bottom center, click to jump
+
 ### POUNCE / SINK
 
-Interactive elements follow this press pattern:
-- **Hover:** `translateY(-2px)` + `shadow-md` (fast, 125ms)
-- **Active:** `translate(2px, 2px)` + shadow removed (instant, 80ms)
-- **Rest:** `shadow-sm` (slow 450ms return with spring easing)
+Interactive slide components follow the press pattern automatically via CSS:
+- **Hover:** `translateY(-2px)` or `translate(-4px,-4px)` + shadow escalation
+- **Active:** `translate(2px, 2px)` + shadow collapse
+- **Rest:** slow return (450ms) with spring easing
 
-### Scroll Reveal
+Applies to: flip cards, expand cards, counter items, callouts, quote cards, silo boxes.
 
-Every content block gets the `reveal` class. An IntersectionObserver adds the `revealed` class when the element enters the viewport, triggering:
-```css
-.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s var(--ease-spring-gentle), transform 0.6s var(--ease-spring-gentle); }
-.revealed { opacity: 1; transform: translateY(0); }
-```
+### Stagger System
 
-### Theme Toggle
+1. Add `class="stagger"` to a container in your render function
+2. Set `style="--i:N"` on each child (N = 0, 1, 2, ...)
+3. Engine adds `.in` class 100ms after slide becomes active
+4. Each child fades in with N * 100ms delay
 
-- **T** key and button click both toggle `.theme-dark` class on `<html>`
-- All colors use semantic tokens, so theming is automatic
-- Sun/moon icons swap visibility based on theme state
+### Counter Animation
+
+1. Add `data-target="N"` to `.counter-value` elements
+2. Call `animC(el)` in your `animate()` function
+3. Engine counts from 0 to N with cubic ease-out over `data-duration` ms
+4. Completion triggers celebration sparkle effect
+
+### Slide Lifecycle
+
+1. Engine calls `render(containerElement)` — build DOM content
+2. Slide gets `.active` class — CSS transition fades it in
+3. After 100ms: `.stagger` gets `.in`, `.draw-line` gets `.in`, `.data-bar` gets `.in`
+4. `animate(slideElement)` fires once (tracked, never re-fires)
+5. When navigating away: `.active` removed, exit transition plays
+6. Engine evicts slides >1 position away from DOM for performance
 
 ### Color Semantics
 
 | Color | Token | Use for |
 |-------|-------|---------|
-| Pink | `--primary` | Core action, brand identity |
-| Gold | `--gold` | Highlight, attention, welcome |
-| Cyan | `--cyan` | Technical, data, information |
-| Green | `--green` | Success, positive outcomes |
-| Purple | `--purple` | Creative, vision, future |
-| Red | `--danger` | Warning, error, problems |
+| Pink | `primary` | Core action, brand identity |
+| Gold | `gold` | Highlight, attention, welcome |
+| Cyan | `cyan` | Technical, data, information |
+| Green | `green` | Success, positive outcomes |
+| Purple | `purple` | Creative, vision, future |
+| Red | `danger` | Warning, error, problems |
 
 ## Composition Guidelines
 
-- Sections expand naturally with content — no fixed heights
-- Mix component types within a section for visual variety
-- Every content block gets the `reveal` class
-- Use subsection `h3` headings to break up density within sections
-- Place a `divider` element between every section
-- Nav links must match section `id` attributes exactly
-- Stat cards summarize key data at a glance (3-6 in hero)
-- Gradient text (`gradient-word` class) only for **one brand word** in the hero title
-- Use `data-accent` attribute on sections to color-shift components within that section
+- Target 10–50 slides — nav dots overflow past ~60
+- Every group needs a section intro slide using `sectionIntro()`
+- Simple slides (just h/sub/foot) don't need a render function — the engine auto-renders
+- Use custom `render()` only for interactive content (flip cards, counters, data bars, etc.)
+- Put custom renders in `INTERACTIVE_RENDERS` map, not inline in R entries
+- Mix content types across slides for visual variety
+- Use `<span class="accent">` for one key phrase per headline
+- Footnotes ground data with sources or key rules
+- All inline styles in render functions must use `var(--token)` references
+- Set `--i` CSS custom property on stagger children for sequential delays
 
 ## Anti-Patterns
 
 | Anti-Pattern | Why it breaks | Do instead |
 |---|---|---|
-| Slide/deck layout with JS engine | Wrong format entirely | Scrolling sections with natural page flow |
-| Inventing CSS class names | Unstyled, broken output | Compose from existing classes + inline styles for one-offs |
-| Abbreviating or truncating the CSS | Missing styles, broken components | Copy full `<style>` verbatim — all 5 `@layer`s |
-| Hardcoded OKLCH values in HTML | Dark mode breaks | Use `var(--token)` references only |
-| Skipping orb field in hero | Loses ambient depth | Always include 3 orbs |
-| Sections without label/title/subtitle header | Inconsistent structure | Every section gets the full header pattern |
-| Using `[data-theme]` for dark mode | Doesn't match showcase implementation | Use `.theme-dark` class on `<html>` |
-| Skipping `reveal` on content blocks | No scroll animations | Add `reveal` to every content block |
+| Scrolling page layout | Wrong format — this skill generates slides | Slide-based layout with R array entries |
+| Inventing CSS class names | Unstyled, broken output | Use only classes from the presentation CSS layer |
+| Abbreviating or truncating the CSS | Missing styles, broken components | Copy full CSS from template verbatim |
+| Hardcoded OKLCH values in render functions | Dark mode breaks | Use `var(--token)` references only |
+| Missing section intro slides | Navigation confusion, lost visual rhythm | Every group must have one using `sectionIntro()` |
+| Mismatched IDs | Sidebar nav broken, search broken | R.sectionId must match SECTIONS.id, R.g must match SECTION_GROUPS.id |
+| Using `[data-theme]` for dark mode | Doesn't match implementation | Engine uses `.theme-dark` class on `<html>` |
+| >60 slides | Nav dots overflow, performance degrades | Keep decks to 10–50 slides |
+| Modifying the engine code | Breaks navigation, search, state management | Engine is read-only — customize through data arrays only |
+| Inline render functions in R entries | Hard to read, difficult to maintain | Use INTERACTIVE_RENDERS map for complex slides |
+| Skipping `si`/`sc` fields | Slide pip counter breaks in sidebar | Always set section index and section slide count |
 
 ## Examples
 
-### Example 1: Product Report
+### Example 1: Technical Architecture Deck
 
-User says: "Build a page summarizing our Q1 launch"
-
-Plan:
-- **Hero:** eyebrow "Q1 2026", gradient word "Launch", stat cards for revenue / users / NPS / markets
-- **Sections:**
-  - Market Context — gallery-cards for competitive landscape
-  - Key Features — code-blocks with badge labels
-  - Metrics Dashboard — stat-cards in grid with colored values
-  - Roadmap — token-flow pipeline showing phases
-
-Result: Scrolling page with hero stats, content sections, scroll-reveal animations, and theme toggle.
-
-### Example 2: Portfolio Audit
-
-User says: "Create an HTML document auditing our design system"
+User says: "Create a slide deck presenting our microservices architecture"
 
 Plan:
-- **Hero:** eyebrow "DESIGN AUDIT", gradient word "Delightful", stat cards for token count / components / coverage / platforms
-- **Sections:**
-  - Color System — color-panels with before/after comparisons
-  - Typography — code-blocks showing type scale tokens
-  - Components — gallery-cards with component examples
-  - Recommendations — badges categorizing priorities + toast warnings for critical issues
+- **Title:** "Platform Architecture" / "Microservices Overview"
+- **Groups:** I. Service Layer (cyan), II. Data Layer (gold), III. Deployment (green)
+- **Sections:** 01. Service Catalog (I), 02. Request Flow (I), 03. Database Topology (II), 04. Caching (II), 05. CI/CD Pipeline (III), 06. Monitoring (III)
+- **Slides:**
+  - Title slide (counter-grid: service count, uptime, latency)
+  - intro-I → s01-0: flip cards per service → s02-0: silo-row request flow
+  - intro-II → s03-0: matrix table → s04-0: comparison (with/without cache)
+  - intro-III → s05-0: silo-row CI/CD → s06-0: data-bars for metrics
+  - Closing slide
+- **Total:** 13 slides
 
-Result: Comprehensive audit document with visual token and component analysis.
+### Example 2: Quarterly Business Review
 
-### Example 3: Technical Architecture
-
-User says: "Make a report on our microservices"
+User says: "Build a QBR slide deck"
 
 Plan:
-- **Hero:** eyebrow "ARCHITECTURE", gradient word "Platform", stat cards for services / uptime / latency / deployments
-- **Sections:**
-  - Overview — token-flow pipeline showing request lifecycle
-  - Services — platform-cards grid with service icons
-  - Performance — stat-cards with color-coded metrics
-  - Infrastructure — code-blocks showing configuration examples
+- **Title:** "Q1 2026 Review" / "Business Performance"
+- **Groups:** 0. Executive Summary (gold), I. Revenue (green), II. Product (primary), III. Roadmap (purple)
+- **Sections:** 00. KPIs (0), 01. Revenue by Segment (I), 02. Growth (I), 03. Features Shipped (II), 04. User Metrics (II), 05. Next Quarter (III)
+- **Slides:**
+  - Title slide → s00-0: counter-grid KPIs
+  - intro-I → s01-0: data-bars revenue → s02-0: comparison YoY
+  - intro-II → s03-0: expand-stack features → s04-0: counter-grid users
+  - intro-III → s05-0: silo-row timeline
+  - Closing slide
+- **Total:** 14 slides
 
-Result: Technical document with pipeline visualizations and structured service data.
+### Example 3: Design System Walkthrough
+
+User says: "Create slides walking through our component library"
+
+Plan:
+- **Title:** "Delightful" / "Component Library Tour"
+- **Groups:** I. Foundations (gold), II. Inputs (green), III. Display (cyan), IV. Navigation (purple)
+- **Slides:** Title → intro per group → flip cards for components within each → counter-grid totals → Closing
+- **Total:** 18 slides
 
 ## Troubleshooting
 
 | Problem | Cause | Solution |
 |---------|-------|----------|
-| Unstyled output | CSS truncated or missing layers | Copy full `<style>` — all 5 `@layer`s, no abbreviation |
-| No scroll animations | Missing `reveal` class | Add `reveal` to every content block and section header |
-| Dark mode broken | Hardcoded OKLCH values in HTML | Use only `var(--*)` token references |
-| Theme toggle no-op | JS missing or wrong selector | Toggle `.theme-dark` on `document.documentElement` |
-| Nav links don't scroll | ID mismatch between nav and sections | Ensure `<a href="#x">` matches `<section id="x">` |
-| Components unstyled | Invented class names not in CSS | Use only classes from the component vocabulary above |
-| Orbs invisible | Missing CSS for `.orb` in presentation layer | Ensure orb styles present in the copied CSS |
-| Layout not responsive | Missing media queries | CSS from showcase includes responsive breakpoints |
+| Empty deck, no slides | Data arrays are empty | Populate SECTION_GROUPS, SECTIONS, S, and R arrays |
+| Sidebar nav missing entries | SECTIONS array incomplete or groupId mismatch | Ensure every section links to a valid SECTION_GROUPS entry |
+| Slide shows raw text instead of styled content | Custom render not registered | Add entry to INTERACTIVE_RENDERS with matching slide ID |
+| Counters don't animate | Missing `animC(el)` call | Add `animate(el){ animC(el); }` to the INTERACTIVE_RENDERS entry |
+| Accent color wrong on slide | `a` field mismatch | Ensure R entry `a` matches the group's color |
+| Search returns no results | Missing `s` (searchText) field | Add space-separated keywords to every R entry |
+| Navigation dots overflow | Too many slides (>60) | Reduce slide count or combine sections |
+| Dark mode colors wrong | Hardcoded OKLCH in render | Replace with `var(--token)` references |
+| Slide content overflows viewport | Too much content on one slide | Split into multiple slides or use expand-stack |
+| Theme toggle doesn't work | Engine JS modified or missing | Copy engine code verbatim — don't modify |
 
 ## Verification Checklist
 
-- [ ] `<style>` contains all 5 `@layer` declarations
-- [ ] Hero has orb field, eyebrow, gradient title, description, stat cards
-- [ ] Every section has section-label, section-title, section-subtitle header
-- [ ] Nav links match section IDs
-- [ ] Theme toggle switches light / dark
-- [ ] All content blocks have `reveal` class
-- [ ] No hardcoded color values in HTML (only in CSS token definitions)
-- [ ] `prefers-reduced-motion` media query present
-- [ ] Footer has tagline, gradient brand, stats line
-- [ ] Divider between every section
+- [ ] CSS contains all 4 `@layer` declarations (reset + semantic, component, presentation, utilities)
+- [ ] HTML chrome includes: particles, journey bar, TOC button, theme toggle, nav dots, sidebar, deck viewport, search overlay, shortcuts overlay
+- [ ] `SECTION_GROUPS` array has entries for every group referenced in R
+- [ ] `SECTIONS` array has entries for every section referenced in R
+- [ ] Every R entry has all required fields: `id`, `sectionId`, `si`, `sc`, `g`, `a`, `t`, `st`, `s`, `h`, `sub`
+- [ ] Every group has a section intro slide using `sectionIntro()`
+- [ ] Title slide exists as first entry in S array via `makeSlide()`
+- [ ] Closing slide exists as last entry in R array with `id:'closing'`
+- [ ] No hardcoded color values in render functions (only `var(--*)` token references)
+- [ ] `prefers-reduced-motion` media query present in CSS
+- [ ] Sidebar brand `<h1>` and `.sidebar-subtitle` match deck title
+- [ ] All `sectionId` values in R map to valid `SECTIONS.id` entries
+- [ ] All `g` (groupId) values in R map to valid `SECTION_GROUPS.id` entries
+- [ ] Counter elements use `data-target` attribute (not hardcoded textContent)

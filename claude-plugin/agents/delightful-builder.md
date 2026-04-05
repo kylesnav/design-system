@@ -45,6 +45,8 @@ Before building anything, read these reference files from the plugin directory:
 - `${CLAUDE_PLUGIN_ROOT}/reference/components.md` — Component patterns and structure
 - `${CLAUDE_PLUGIN_ROOT}/reference/interactions.md` — POUNCE/SINK press patterns, animation timing
 - `${CLAUDE_PLUGIN_ROOT}/reference/composition.md` — Page layouts, responsive patterns
+- `${CLAUDE_PLUGIN_ROOT}/reference/animations.md` — 56 CSS @keyframes with timing and use-case guidance
+- `${CLAUDE_PLUGIN_ROOT}/reference/color-system.md` — OKLCH color architecture and dark mode shift rules
 
 For design rationale, see `${CLAUDE_PLUGIN_ROOT}/reference/philosophy.md`. For accessibility requirements, see `${CLAUDE_PLUGIN_ROOT}/reference/accessibility.md`.
 

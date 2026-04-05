@@ -6,26 +6,12 @@ How to bring Delightful tokens to a new platform. Covers the token pipeline, ANS
 
 ## Overview
 
-The token pipeline flows in one direction:
+The canonical token source is `${CLAUDE_PLUGIN_ROOT}/themes/css/delightful-tokens.css` — a CSS custom property stylesheet containing every primitive, semantic, and component token. All ports start by reading this file and transforming its values into the target platform's format.
 
-```
-HTML source of truth
-       |
-   npm run sync
-       |
-  +-----------+------------------+
-  |           |                  |
-CSS tokens  Obsidian theme   (automated)
-  |
-  +-- Manual updates:
-      Tailwind preset
-      Figma tokens
-      VS Code themes (generate-themes.mjs)
-      Reference docs
-      Agent/skill files
-```
-
-The HTML file (`delightful-design-system.html`) contains every primitive, semantic, and component token as CSS custom properties. The sync script extracts these. Platform-specific generators then transform them into the target format.
+Additional formats are available in the plugin:
+- **CSS:** `${CLAUDE_PLUGIN_ROOT}/themes/css/delightful-tokens.css`
+- **Tailwind:** `${CLAUDE_PLUGIN_ROOT}/themes/tailwind/delightful-preset.js`
+- **Figma:** `${CLAUDE_PLUGIN_ROOT}/themes/figma/tokens.json`
 
 ---
 
@@ -90,11 +76,7 @@ For VS Code and similar editors, semantic tokens map to the theme JSON schema:
 | `terminal.background` | `--bg-page` |
 | `terminal.foreground` | `--text-primary` |
 
-Generate VS Code themes by running:
-
-```bash
-cd vscode-theme/scripts && node generate-themes.mjs
-```
+Use these mappings as a starting point when porting to any editor that supports JSON theme schemas.
 
 ---
 
@@ -125,8 +107,7 @@ function toHex(oklchString) {
 3. **Handle light and dark variants.** Most platforms expect separate theme files or a single file with both modes.
 4. **Convert to hex.** Use `clampChroma` + `formatHex` as described above.
 5. **Test contrast on representative content.** Code, prose, UI chrome. Check in both light and dark modes.
-6. **Add to the sync pipeline.** If the port can be automated, add it to `npm run sync`. If not, document the manual generation step in the project's CLAUDE.md.
-7. **Add to sync verification.** Add a diff path pair to the CLAUDE.md sync verification table (monorepo path vs. distribution repo path).
+6. **Document the generation step.** Record how to regenerate the theme from tokens so future maintainers can reproduce it.
 
 ---
 

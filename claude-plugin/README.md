@@ -25,8 +25,7 @@ claude plugin install kylesnav/delightful-claude-plugin
 After installing, try one of these to see the system in action:
 
 ```
-/present-with-delightful — build a scrolling page about any topic
-/deck-with-delightful    — create a slide deck about any topic
+/present-with-delightful — create a presentation about any topic
 /audit-with-delightful   — scan your current project for design system violations
 ```
 
@@ -47,8 +46,7 @@ For quick lookups without running a full skill, use the MCP tools directly:
 | Build new UI from scratch | `/build-with-delightful` | Scaffolds tokens, builds components, audits for compliance |
 | Migrate existing UI to Delightful | `/refactor-with-delightful` | Audits first, plans migration, replaces systematically |
 | Check if my code follows the system | `/audit-with-delightful` | Scans for hardcoded values, missing states, a11y gaps |
-| Make a scrolling HTML document | `/present-with-delightful` | Single-page with sticky nav, scroll-reveal, theme toggle |
-| Make a navigable slide deck | `/deck-with-delightful` | Keyboard nav, sidebar TOC, search, transitions |
+| Make a presentation | `/present-with-delightful` | Slide deck with sidebar TOC, keyboard nav, search, theme toggle |
 | Look up a specific token value | MCP: `lookup_token` | Instant answer without running a full skill |
 | Get a component's CSS + HTML | MCP: `lookup_component` | Copy-ready pattern for any of 20+ components |
 | Find the closest token for a color | MCP: `map_color` | Maps hex/rgb/oklch to the nearest Delightful token |
@@ -76,20 +74,10 @@ Claude reads the reference docs, establishes the token foundation, builds the pa
 
 Claude audits your current code, presents a migration plan (colors → spacing → typography → interactions), executes each phase, and re-audits until there are zero violations.
 
-### Create a scrolling page
+### Create a presentation
 
 ```
 /present-with-delightful
-
-"Build a page summarizing our Q1 product launch"
-```
-
-Claude plans the hero, sections, and components, then generates a single self-contained HTML file with scroll-reveal animations, theme toggle (press T), and full responsive layout.
-
-### Create a slide deck
-
-```
-/deck-with-delightful
 
 "Create a presentation about our microservices architecture"
 ```
@@ -120,10 +108,6 @@ Run a compliance audit on your project. Scans for hardcoded values, missing inte
 
 ### `/present-with-delightful`
 
-Generate self-contained scrolling HTML pages styled with the design system. Turn any topic into a single-page document with sticky navigation, scroll-reveal animations, theme toggle, and the full neo-brutalist aesthetic.
-
-### `/deck-with-delightful`
-
 Generate slide deck presentations with keyboard navigation, sidebar table of contents, search, theme toggle, and the full neo-brutalist aesthetic. Turn any topic into an interactive navigable slide-based presentation.
 
 ## Agents
@@ -150,6 +134,9 @@ Page-level composition agent. Assembles components into complete layouts with re
 | `composition.md` | Page layouts, responsive, utilities, checklist |
 | `philosophy.md` | Design rationale and principles |
 | `accessibility.md` | WCAG contract, contrast, focus model |
+| `animations.md` | 56 CSS @keyframes across 10 categories |
+| `color-system.md` | OKLCH color architecture and dark mode shifts |
+| `motion-js.md` | Spring physics, FLIP, particles, gestures |
 | `porting-guide.md` | How to create new platform themes |
 | `governance.md` | How to safely extend the token system |
 
@@ -200,7 +187,7 @@ The plugin includes a bundled MCP server that provides programmatic access to th
 
 ### Resources
 
-11 browsable resources at `delightful://reference/*` (8 reference docs) and `delightful://themes/*` (CSS, Tailwind, Figma) URIs.
+14 browsable resources at `delightful://reference/*` (11 reference docs) and `delightful://themes/*` (CSS, Tailwind, Figma) URIs.
 
 ### Claude Desktop
 

@@ -1,6 +1,20 @@
 # Delightful Design System — Token Governance
 
-How to safely extend the token system, add new colors, and manage versions.
+How to safely extend the token system, add new colors, and maintain the 3-tier architecture.
+
+---
+
+## The 3-Tier Rule
+
+Every value in the system flows through three tiers. Never skip a tier.
+
+```
+Primitives → Semantic → Component
+```
+
+- **Primitives** are raw OKLCH values named by family and lightness stop (e.g., `--primitive-pink-400`). They carry no semantic meaning and are never used directly in UI code.
+- **Semantic tokens** map intent to primitives (e.g., `--accent-primary` → `--primitive-pink-400` in light mode). They define both light and dark mode values.
+- **Component tokens** are scoped to specific UI elements (e.g., `--btn-primary-bg`) and always reference semantic tokens via `var()`.
 
 ---
 
@@ -13,55 +27,28 @@ How to safely extend the token system, add new colors, and manage versions.
    - 300: L ~0.72, C ~0.12-0.22 (medium)
    - 400: L ~0.64, C ~0.17-0.27 (strong — typically the base accent)
    - 500: L ~0.56, C ~0.16-0.28 (deep)
-3. Add to the `@layer primitives` block in `delightful-design-system.html`
-4. Run `npm run sync` to propagate to CSS tokens
-5. Manually update: Tailwind preset, Figma tokens, reference docs
+3. Add the new custom properties to `${CLAUDE_PLUGIN_ROOT}/themes/css/delightful-tokens.css` in the `@layer primitives` block
+4. Create corresponding semantic and component tokens
 
 ## Adding a New Semantic Token
 
-1. Define both light and dark values in `delightful-design-system.html`
-2. Light mode goes in `:root` / `[data-theme="light"]` block
-3. Dark mode goes in `[data-theme="dark"]` block
+1. Define both light and dark values
+2. Light mode goes in the `:root` / `[data-theme="light"]` block
+3. Dark mode goes in the `[data-theme="dark"]` block
 4. Reference only primitives via `var(--primitive-*)` or other semantic tokens — never hardcode oklch values
-5. Run `npm run sync`
 
 ## Adding a New Component Token
 
-1. Add to the `@layer component :root` block in `delightful-design-system.html`
+1. Add to the `@layer component :root` block
 2. Use `var()` references to semantic tokens where possible (e.g., `--btn-new-bg: var(--accent-cyan)`)
-3. Run `npm run sync`
 
-## The Propagation Chain
-
-**Source of truth:** `delightful-design-system.html`
-
-**Automated** (`npm run sync`):
-- `claude-plugin/themes/css/delightful-tokens.css`
-- `obsidian-theme/theme.css`
-- `delightful-motion.html`, `delightful-animation.html`, `delightful-color.html`
-
-**Manual** (update yourself when tokens change):
-- `claude-plugin/themes/tailwind/delightful-preset.js`
-- `claude-plugin/themes/figma/tokens.json`
-- `claude-plugin/reference/tokens.md`
-- `vscode-theme/themes/*.json` — regenerate via `cd vscode-theme/scripts && node generate-themes.mjs`
-- Agent and skill markdown files (if rules changed)
-
-## Version Bumping
-
-Run `npm run bump <version>` (e.g., `npm run bump 0.8.0`). This updates:
-- `package.json`
-- `vscode-theme/package.json`
-- `claude-plugin/plugin.json`
-- `claude-plugin/marketplace.json`
-- `obsidian-theme/manifest.json`
-- Skill frontmatter (build-with-delightful, refactor-with-delightful)
-
-It also creates a git tag (`v0.8.0`). Commit changes and push with `--tags`.
+---
 
 ## Known Limitations
 
 **Figma component tokens are pinned to light mode.** The DTCG token format has no "current mode" reference — `component.button.primary-bg` wires to `{semantic.light.accent.primary}`, not a mode-agnostic path. Figma consumers must override component tokens per-mode or build their own from the semantic layer. This is a format limitation, not a bug.
+
+---
 
 ## What NOT to Do
 
@@ -71,16 +58,3 @@ It also creates a git tag (`v0.8.0`). Commit changes and push with `--tags`.
 - Hardcode spacing or font-size values — use `var(--space-*)` and `var(--step-*)`/`var(--ui-text-*)`
 - Add animations without `prefers-reduced-motion` guards
 - Resolve `var()` references to literal values in exports — preserve the semantic chain
-
-## Sync Verification
-
-When publishing, diff these paths to verify distribution repos match:
-- `claude-plugin/` <-> `../delightful-claude-plugin/`
-- `obsidian-theme/` <-> `../obsidian-delightful/`
-- `ghostty/` <-> `../delightful-ghostty/`
-- `iterm2/` <-> `../delightful-iterm2/`
-- `shell/` <-> `../delightful-shell/`
-- `starship/` <-> `../delightful-starship/`
-- `vscode-theme/` <-> `../delightful-vscode/` (excluding marketplace-specific files)
-
-Copy from this repo to distribution. Commit both.

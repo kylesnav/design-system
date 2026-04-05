@@ -33,6 +33,19 @@
 - `.btn-secondary` — `background: var(--bg-surface); color: var(--text-primary);`
 - `.btn-ghost` — `background: transparent; border-color: transparent; box-shadow: none;` (hover adds `shadow-sm`)
 
+**When to use each variant:**
+
+| Variant | Use for |
+|---------|---------|
+| `.btn-primary` | Primary page action, CTAs, form submission |
+| `.btn-danger` | Destructive actions: delete, remove, revoke |
+| `.btn-gold` | Highlights, upgrades, featured/premium actions |
+| `.btn-cyan` | Data operations, technical actions, info-dense contexts |
+| `.btn-green` | Confirmations, save, success-path actions |
+| `.btn-purple` | Creative actions, AI features, experimental/beta |
+| `.btn-secondary` | Secondary actions alongside a primary, cancel in dialogs |
+| `.btn-ghost` | Tertiary actions, inline actions, toolbar buttons |
+
 ```html
 <button class="btn btn-primary btn-md">Primary</button>
 <button class="btn btn-danger btn-md">Danger</button>
@@ -147,6 +160,19 @@
 
 **Variants:** `.card-featured` (pink top border), `.card-featured-red`, `.card-featured-gold`, `.card-featured-cyan`, `.card-featured-green`, `.card-featured-purple`, `.card-compact` (smaller padding)
 
+**When to use each variant:**
+
+| Variant | Use for |
+|---------|---------|
+| `.card` (no variant) | Static content display, informational cards |
+| `.card-featured` (pink) | Primary/highlighted content, main call-to-action card |
+| `.card-featured-red` | Warning-related content, error summaries |
+| `.card-featured-gold` | Premium features, upgrade prompts, important announcements |
+| `.card-featured-cyan` | Technical content, data summaries, API documentation |
+| `.card-featured-green` | Success states, completed items, positive metrics |
+| `.card-featured-purple` | Creative/AI features, experimental content |
+| `.card-compact` | Dense information, list items within cards, sidebar content |
+
 ```html
 <div class="card card-featured">
   <div class="card-title">Card Title</div>
@@ -168,6 +194,17 @@
 ```
 
 **Variants:** `.badge-pink`, `.badge-danger`, `.badge-gold`, `.badge-cyan`, `.badge-green`, `.badge-purple` — each uses `accent-*-subtle` background with `accent-*-text` foreground.
+
+**When to use each variant:**
+
+| Variant | Use for |
+|---------|---------|
+| `.badge-pink` | Default status, informational labels |
+| `.badge-danger` | Error state, critical, breaking |
+| `.badge-gold` | Warning, attention needed, featured |
+| `.badge-cyan` | Technical, data-related, version tags |
+| `.badge-green` | Success, active, approved, stable |
+| `.badge-purple` | New, experimental, beta, AI-powered |
 
 ```html
 <span class="badge badge-pink">Info</span>
@@ -192,6 +229,17 @@
 .alert-green { background: var(--accent-green-subtle); color: var(--accent-green-text); border-color: var(--accent-green); box-shadow: var(--shadow-green); }
 .alert-purple { background: var(--accent-purple-subtle); color: var(--accent-purple-text); border-color: var(--accent-purple); box-shadow: var(--shadow-purple); }
 ```
+
+**When to use each variant:**
+
+| Variant | Use for |
+|---------|---------|
+| `.alert-pink` | General informational messages, system announcements |
+| `.alert-danger` | Error messages, failed operations, breaking changes |
+| `.alert-gold` | Warnings, deprecation notices, caution messages |
+| `.alert-cyan` | Technical information, API changes, developer notes |
+| `.alert-green` | Success confirmations, completed operations |
+| `.alert-purple` | New feature announcements, experimental/beta notices |
 
 ---
 
@@ -313,10 +361,10 @@ Use `<dialog>` element with `.showModal()` / `.close()`.
 .skel-shimmer {
   background: linear-gradient(110deg, var(--bg-muted) 30%, var(--bg-subtle) 50%, var(--bg-muted) 70%);
   background-size: 200% 100%;
-  animation: playful-shimmer 2s linear infinite; /* wrap in reduced-motion check */
+  animation: shimmer 1.5s ease-in-out infinite; /* wrap in reduced-motion check */
 }
 .skel-pulse {
-  animation: playful-pulse 1.6s var(--ease-bounce) infinite;
+  animation: skel-pulse 1.5s ease-in-out infinite;
   transform-origin: center left; /* wrap in reduced-motion check */
 }
 ```
