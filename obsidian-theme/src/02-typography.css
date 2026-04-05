@@ -137,9 +137,12 @@
      3. BODY TEXT
      ======================================================================== */
 
-  /* Base reading/source container body text */
+  /* Base reading/source container body text
+     --delightful-text-size decouples reading text from Obsidian's
+     baseFontSize (which also controls sidebar/interface size) */
   .markdown-rendered,
   .markdown-source-view .cm-content {
+    font-size: var(--delightful-text-size, 14px);
     line-height: var(--leading-normal);
     color: var(--text-primary);
     font-family: var(--font-sans);
@@ -228,22 +231,22 @@
      6. LISTS — Ordered, Unordered, Task
      ======================================================================== */
 
-  /* Unordered list */
+  /* Unordered list — tight above (connect to heading), spacious below */
   .markdown-rendered ul {
     padding-left: var(--space-6);
-    margin: var(--space-2) 0;
+    margin: var(--space-1) 0 var(--space-4);
   }
 
   /* Ordered list */
   .markdown-rendered ol {
     padding-left: var(--space-6);
-    margin: var(--space-2) 0;
+    margin: var(--space-1) 0 var(--space-4);
   }
 
-  /* List items */
+  /* List items — snug line-height for scannable lists */
   .markdown-rendered li {
-    margin-bottom: var(--space-1);
-    line-height: var(--leading-normal);
+    margin-bottom: 2px;
+    line-height: var(--leading-snug);   /* 1.3 — tighter than prose (1.55) */
     color: var(--text-primary);
   }
 
@@ -271,7 +274,9 @@
   .markdown-rendered .task-list-item {
     list-style: none;
     position: relative;
-    padding-left: 24px; /* tighter gap: checkbox (18px) + 6px breathing room */
+    padding-left: 24px;
+    margin-bottom: 1px;   /* tighter than regular li for checklist density */
+    line-height: var(--leading-snug);
   }
 
   /* Remove default ::marker on task items */

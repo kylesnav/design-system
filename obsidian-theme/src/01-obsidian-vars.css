@@ -388,6 +388,7 @@ body {
   --pill-border-color: transparent;
   /* --- Typography — families + base size --- */
   --font-text-size:        14px;
+  --delightful-text-size:  14px;  /* reading/editing text, independent of baseFontSize */
   --font-interface-theme:  var(--font-sans);
   --font-text-theme:       var(--font-sans);
   --font-monospace-theme:  var(--font-mono);
