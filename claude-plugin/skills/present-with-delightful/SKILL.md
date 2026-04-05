@@ -1,12 +1,14 @@
 ---
 name: present-with-delightful
 description: >-
-  This skill should be used when the user wants to create a presentation styled with
-  the Delightful design system. Common triggers include "make a presentation",
+  This skill should be used when the user wants to create a presentation, slide deck,
+  or showcase styled with the Delightful design system. Common triggers include
+  "make a presentation", "presentation (delightful)", "delightful presentation",
   "create a slide deck", "build slides", "present with delightful", "deck with delightful",
-  "slide deck", "showcase", "keynote-style presentation", or any request to generate
-  a navigable slide-based presentation with sidebar navigation, search, keyboard
-  controls, theme toggle, and neo-brutalist styling.
+  "slide deck", "showcase", "make a deck", "keynote-style presentation", or any
+  request that mentions both "presentation" and "delightful" in any form. Also triggers
+  on any request to generate a navigable slide-based presentation with sidebar
+  navigation, search, keyboard controls, theme toggle, and neo-brutalist styling.
 allowed-tools: "Bash WebFetch"
 metadata:
   author: Delightful Design System
