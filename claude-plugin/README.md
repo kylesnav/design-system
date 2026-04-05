@@ -96,6 +96,45 @@ themes/figma/tokens.json
 
 Design Tokens Community Group format. Import into Figma with Tokens Studio or process with Style Dictionary.
 
+## MCP Server
+
+The plugin includes a bundled MCP server that provides programmatic access to the design system. It auto-connects when the plugin is installed in Claude Code.
+
+### Tools
+
+| Tool | Description |
+|------|-------------|
+| `lookup_token` | Look up tokens by name or category — returns value, tier, and usage guidance |
+| `lookup_component` | Get the full CSS + HTML pattern for any of 20+ components |
+| `map_color` | Find the closest Delightful token for any hex/rgb/oklch color |
+| `audit_css` | Check a CSS snippet for design system violations with fix suggestions |
+| `get_token_css` | Return the complete token stylesheet for copy/paste |
+
+### Resources
+
+11 browsable resources at `delightful://reference/*` (8 reference docs) and `delightful://themes/*` (CSS, Tailwind, Figma) URIs.
+
+### Claude Desktop
+
+The MCP server also works standalone in Claude Desktop. Add to your `claude_desktop_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "delightful": {
+      "command": "node",
+      "args": ["/path/to/delightful-claude-plugin/mcp-server/index.js"]
+    }
+  }
+}
+```
+
+Then install dependencies: `cd /path/to/delightful-claude-plugin/mcp-server && npm install`
+
+### Skills vs MCP
+
+Skills provide **structured workflows** (build, refactor, audit, present) with step-by-step orchestration. The MCP server provides **instant lookups** — token values, component patterns, color mapping, and CSS auditing. They complement each other: skills orchestrate, the MCP answers questions.
+
 ## Design Principles
 
 | Principle | Description |
