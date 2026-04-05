@@ -3,7 +3,7 @@
  * @description A joyous, neo-brutalist theme built on the Delightful Design System.
  * @author Kyle Snavely
  * @version 0.7.0
- * @built 2026-04-05 06:55:58
+ * @built 2026-04-05 06:57:41
  */
 
 /* ==========================================================================
@@ -1125,14 +1125,14 @@ body {
     color: var(--accent-primary) !important;
   }
 
-  /* Nested list indentation */
+  /* Nested list indentation — generous for clear hierarchy */
   .markdown-rendered ul ul,
   .markdown-rendered ol ol,
   .markdown-rendered ul ol,
   .markdown-rendered ol ul {
     margin-top: var(--space-1);
     margin-bottom: 0;
-    padding-left: var(--space-5);
+    padding-left: var(--space-6);
   }
 
   /* ---- Task list items ---- */
@@ -1881,10 +1881,10 @@ body {
      6. BACKLINKS + SEARCH RESULTS
      ======================================================================== */
 
-  /* Backlinks footer — breathing room between note content and backlinks */
+  /* Backlinks footer — clean break between note content and backlinks */
   .mod-footer {
-    margin-top: var(--space-8);
-    padding-top: var(--space-6);
+    margin-top: var(--space-6);
+    padding-top: var(--space-4);
     border-top: 2px solid var(--border-subtle);
   }
 

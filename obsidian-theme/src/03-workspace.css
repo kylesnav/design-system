@@ -383,10 +383,10 @@
      6. BACKLINKS + SEARCH RESULTS
      ======================================================================== */
 
-  /* Backlinks footer — breathing room between note content and backlinks */
+  /* Backlinks footer — clean break between note content and backlinks */
   .mod-footer {
-    margin-top: var(--space-8);
-    padding-top: var(--space-6);
+    margin-top: var(--space-6);
+    padding-top: var(--space-4);
     border-top: 2px solid var(--border-subtle);
   }
 

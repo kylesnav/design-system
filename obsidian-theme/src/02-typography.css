@@ -265,14 +265,14 @@
     color: var(--accent-primary) !important;
   }
 
-  /* Nested list indentation */
+  /* Nested list indentation — generous for clear hierarchy */
   .markdown-rendered ul ul,
   .markdown-rendered ol ol,
   .markdown-rendered ul ol,
   .markdown-rendered ol ul {
     margin-top: var(--space-1);
     margin-bottom: 0;
-    padding-left: var(--space-5);
+    padding-left: var(--space-6);
   }
 
   /* ---- Task list items ---- */
