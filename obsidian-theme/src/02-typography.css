@@ -137,12 +137,20 @@
      3. BODY TEXT
      ======================================================================== */
 
-  /* Base reading/source container body text
-     --delightful-text-size decouples reading text from Obsidian's
-     baseFontSize (which also controls sidebar/interface size) */
+  /* Reading text size — override Obsidian's scaled --font-text-size
+     to decouple reading text from baseFontSize (which also controls
+     sidebar/interface). Target the view containers directly. */
+  body .markdown-preview-view {
+    font-size: var(--delightful-text-size, 14px);
+  }
+
+  body .markdown-source-view .cm-content {
+    font-size: var(--delightful-text-size, 14px);
+  }
+
+  /* Base reading/source container body text */
   .markdown-rendered,
   .markdown-source-view .cm-content {
-    font-size: var(--delightful-text-size, 14px);
     line-height: var(--leading-normal);
     color: var(--text-primary);
     font-family: var(--font-sans);
@@ -275,7 +283,7 @@
     list-style: none;
     position: relative;
     padding-left: 24px;
-    margin-bottom: 1px;   /* tighter than regular li for checklist density */
+    margin-bottom: var(--space-1);  /* 4px — scannable but not cramped */
     line-height: var(--leading-snug);
   }
 
