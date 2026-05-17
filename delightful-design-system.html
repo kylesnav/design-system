@@ -146,9 +146,9 @@
       --overlay-bg: oklch(0.200 0.015 60 / 0.30);
 
       /* Premium Brutalist Layered Shadows — Hard offset + Ambient Depth */
-      --shadow-sm: 2px 2px 0 var(--border-default);
-      --shadow-md: 4px 4px 0 var(--border-default), 0 4px 8px oklch(0 0 0 / 0.08);
-      --shadow-lg: 8px 8px 0 var(--border-default), 0 12px 24px oklch(0 0 0 / 0.12);
+      --shadow-sm: 2px 2px 0 var(--text-primary);
+      --shadow-md: 4px 4px 0 var(--text-primary), 0 4px 8px oklch(0 0 0 / 0.08);
+      --shadow-lg: 8px 8px 0 var(--text-primary), 0 12px 24px oklch(0 0 0 / 0.12);
       
       /* Accent Glows */
       --shadow-pink: 4px 4px 0 var(--accent-primary), 0 0 12px oklch(from var(--accent-primary) l c h / 0.2);
@@ -3085,6 +3085,7 @@
       & .avatar {
         margin-left: -8px;
         border-width: 3px;
+        box-shadow: 0 0 0 2px var(--bg-surface);
 
         &:first-child {
           margin-left: 0;
@@ -3990,7 +3991,9 @@
     .arch-family-btn[aria-pressed="true"] {
       box-shadow: var(--shadow-md);
       transform: translateY(-2px);
-      border: 3px solid var(--border-default);
+      border-color: var(--text-primary);
+      color: var(--bg-page);
+      filter: saturate(1.08) contrast(1.08);
     }
 
     /* Connector between tiers */
@@ -6533,11 +6536,18 @@
             <div class="skel skel-shimmer skel-text" style="width:75%"></div>
           </div>
           <div class="card" id="skel-card-2">
-            <div class="skel skel-shimmer skel-heading" style="margin-bottom:var(--space-3)"></div>
+            <div style="display:flex;align-items:center;gap:var(--space-3);margin-bottom:var(--space-4)">
+              <div class="skel skel-shimmer skel-avatar-sm"></div>
+              <div style="flex:1">
+                <div class="skel skel-shimmer skel-text" style="width:70%;margin-bottom:var(--space-2)"></div>
+                <div class="skel skel-shimmer skel-text" style="width:45%"></div>
+              </div>
+            </div>
             <div class="skel skel-shimmer skel-text" style="margin-bottom:var(--space-2)"></div>
             <div class="skel skel-shimmer skel-text" style="width:85%"></div>
           </div>
           <div class="card" id="skel-card-3">
+            <div class="skel skel-shimmer" style="height:72px;width:100%;margin-bottom:var(--space-4)"></div>
             <div class="skel skel-shimmer skel-heading" style="margin-bottom:var(--space-3)"></div>
             <div class="skel skel-shimmer skel-text" style="margin-bottom:var(--space-2)"></div>
             <div class="skel skel-shimmer skel-text" style="width:65%"></div>
@@ -6899,6 +6909,12 @@
             <button class="magnetic-btn" id="magnetic-btn">Pull me closer</button>
           </div>
         </div>
+      </div>
+
+      <div class="subsection">
+        <div class="subsection-label">Animation Lab</div>
+        <div class="subsection-desc">The older tilt, color-shift, and spotlight prototypes were removed from this reference because they belong in the dedicated animation system. Rebuild them there only when they can meet the same token, motion, and visual-quality bar as the rest of Delightful.</div>
+        <a class="btn btn-secondary btn-sm" href="delightful-animation.html">Open animation system</a>
       </div>
     </section>
 

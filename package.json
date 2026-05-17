@@ -4,7 +4,7 @@
   "private": true,
   "description": "A warm, neo-brutalist design system built on OKLCH color science. 3-tier token architecture, 50+ components, full light/dark mode, CSS motion system, and JS animation system.",
   "scripts": {
-    "sync": "node scripts/sync-tokens.mjs",
+    "test": "npx playwright test",
     "bump": "node scripts/bump-version.mjs"
   },
   "repository": {
@@ -16,7 +16,7 @@
   "bugs": {
     "url": "https://github.com/kylesnav/delightful-design-system/issues"
   },
-  "homepage": "https://github.com/kylesnav/delightful-design-system#readme",
+  "homepage": "https://delightful.build/",
   "devDependencies": {
     "@playwright/test": "^1.58.2",
     "culori": "^4.0.2"

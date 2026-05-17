@@ -2,9 +2,12 @@ import { test } from '@playwright/test';
 import path from 'path';
 
 test('screenshot color audit - light mode', async ({ page }) => {
-  const filePath = path.resolve(__dirname, '..', 'color-audit.html');
+  const filePath = path.resolve(__dirname, '..', 'delightful-color.html');
   await page.goto(`file://${filePath}`);
   await page.waitForLoadState('networkidle');
+  await page.evaluate(() => {
+    document.documentElement.setAttribute('data-theme', 'light');
+  });
 
   await page.screenshot({
     path: path.resolve(__dirname, '..', 'test-results', 'screenshots', 'color-audit-light.png'),
@@ -13,15 +16,13 @@ test('screenshot color audit - light mode', async ({ page }) => {
 });
 
 test('screenshot color audit - dark mode', async ({ page }) => {
-  const filePath = path.resolve(__dirname, '..', 'color-audit.html');
+  const filePath = path.resolve(__dirname, '..', 'delightful-color.html');
   await page.goto(`file://${filePath}`);
   await page.waitForLoadState('networkidle');
-
-  // Click the dark mode toggle
-  await page.click('#theme-toggle');
-
-  // Small wait for any transition
-  await page.waitForTimeout(300);
+  await page.evaluate(() => {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  });
+  await page.waitForTimeout(200);
 
   await page.screenshot({
     path: path.resolve(__dirname, '..', 'test-results', 'screenshots', 'color-audit-dark.png'),

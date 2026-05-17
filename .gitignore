@@ -1,7 +1,6 @@
 .DS_Store
 archive/
 .playwright-mcp/
-vscode-theme/scripts/node_modules/
 .worktrees/
 node_modules/
 test-results/

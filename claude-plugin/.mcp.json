@@ -1,6 +1,0 @@
-{
-  "delightful": {
-    "command": "npm",
-    "args": ["start", "--prefix", "${CLAUDE_PLUGIN_ROOT}/mcp-server"]
-  }
-}
