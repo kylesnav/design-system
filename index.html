@@ -338,6 +338,7 @@
       .tile {
         display: grid;
         gap: var(--space-3);
+        align-content: start;
         min-height: 180px;
         padding: var(--space-5);
         background: var(--bg-surface);
@@ -356,6 +357,37 @@
       .tile.cyan { border-top: 8px solid var(--accent-cyan); }
       .tile.green { border-top: 8px solid var(--accent-green); }
       .tile.purple { border-top: 8px solid var(--accent-purple); }
+
+      .tile-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--space-4);
+      }
+
+      .tile-icon {
+        display: grid;
+        place-items: center;
+        width: 44px;
+        aspect-ratio: 1;
+        flex: 0 0 auto;
+        background: var(--bg-elevated);
+        color: var(--text-primary);
+        border: 2px solid var(--text-primary);
+        border-radius: var(--radius-sm);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .tile-icon svg {
+        width: 22px;
+        height: 22px;
+      }
+
+      .tile.pink .tile-icon { background: var(--accent-primary); color: var(--text-on-accent); }
+      .tile.gold .tile-icon { background: var(--accent-gold); }
+      .tile.cyan .tile-icon { background: var(--accent-cyan); }
+      .tile.green .tile-icon { background: var(--accent-green); }
+      .tile.purple .tile-icon { background: var(--accent-purple); color: var(--text-on-accent); }
 
       .showcase {
         display: grid;
@@ -530,14 +562,62 @@
         <p class="section-note">Each port is standalone so it can follow the platform it belongs to. This site stays the reference hub.</p>
       </div>
       <div class="repo-grid">
-        <a class="tile pink" href="https://github.com/kylesnav/delightful-claude-plugin"><strong>Claude Code</strong><span>Skills, agents, MCP tools, and token context.</span></a>
-        <a class="tile cyan" href="https://github.com/kylesnav/delightful-vscode"><strong>VS Code</strong><span>Marketplace-ready light and dark color themes.</span></a>
-        <a class="tile gold" href="https://github.com/kylesnav/obsidian-delightful"><strong>Obsidian</strong><span>Community theme with modular source CSS.</span></a>
-        <a class="tile green" href="https://github.com/kylesnav/delightful-ghostty"><strong>Ghostty</strong><span>Terminal themes, config, and optional shaders.</span></a>
-        <a class="tile purple" href="https://github.com/kylesnav/delightful-iterm2"><strong>iTerm2</strong><span>Generated `.itermcolors` profiles.</span></a>
-        <a class="tile pink" href="https://github.com/kylesnav/delightful-starship"><strong>Starship</strong><span>Rainbow powerline prompt with Delightful colors.</span></a>
-        <a class="tile cyan" href="https://github.com/kylesnav/delightful-shell"><strong>Shell</strong><span>tmux, zsh, auto-attach, and smart-open utilities.</span></a>
-        <a class="tile gold" href="https://github.com/kylesnav/claude-setup"><strong>Setup</strong><span>Machine setup orchestration for the full environment.</span></a>
+        <a class="tile pink" href="https://github.com/kylesnav/delightful-claude-plugin">
+          <div class="tile-head">
+            <strong>Claude Code</strong>
+            <span class="tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="m4.7144 15.9555 4.7174-2.6471.079-.2307-.079-.1275h-.2307l-.7893-.0486-2.6956-.0729-2.3375-.0971-2.2646-.1214-.5707-.1215-.5343-.7042.0546-.3522.4797-.3218.686.0608 1.5179.1032 2.2767.1578 1.6514.0972 2.4468.255h.3886l.0546-.1579-.1336-.0971-.1032-.0972L6.973 9.8356l-2.55-1.6879-1.3356-.9714-.7225-.4918-.3643-.4614-.1578-1.0078.6557-.7225.8803.0607.2246.0607.8925.686 1.9064 1.4754 2.4893 1.8336.3643.3035.1457-.1032.0182-.0728-.164-.2733-1.3539-2.4467-1.445-2.4893-.6435-1.032-.17-.6194c-.0607-.255-.1032-.4674-.1032-.7285L6.287.1335 6.6997 0l.9957.1336.419.3642.6192 1.4147 1.0018 2.2282 1.5543 3.0296.4553.8985.2429.8318.091.255h.1579v-.1457l.1275-1.706.2368-2.0947.2307-2.6957.0789-.7589.3764-.9107.7468-.4918.5828.2793.4797.686-.0668.4433-.2853 1.8517-.5586 2.9021-.3643 1.9429h.2125l.2429-.2429.9835-1.3053 1.6514-2.0643.7286-.8196.85-.9046.5464-.4311h1.0321l.759 1.1293-.34 1.1657-1.0625 1.3478-.8804 1.1414-1.2628 1.7-.7893 1.36.0729.1093.1882-.0183 2.8535-.607 1.5421-.2794 1.8396-.3157.8318.3886.091.3946-.3278.8075-1.967.4857-2.3072.4614-3.4364.8136-.0425.0304.0486.0607 1.5482.1457.6618.0364h1.621l3.0175.2247.7892.522.4736.6376-.079.4857-1.2142.6193-1.6393-.3886-3.825-.9107-1.3113-.3279h-.1822v.1093l1.0929 1.0686 2.0035 1.8092 2.5075 2.3314.1275.5768-.3218.4554-.34-.0486-2.2039-1.6575-.85-.7468-1.9246-1.621h-.1275v.17l.4432.6496 2.3436 3.5214.1214 1.0807-.17.3521-.6071.2125-.6679-.1214-1.3721-1.9246L14.38 17.959l-1.1414-1.9428-.1397.079-.674 7.2552-.3156.3703-.7286.2793-.6071-.4614-.3218-.7468.3218-1.4753.3886-1.9246.3157-1.53.2853-1.9004.17-.6314-.0121-.0425-.1397.0182-1.4328 1.9672-2.1796 2.9446-1.7243 1.8456-.4128.164-.7164-.3704.0667-.6618.4008-.5889 2.386-3.0357 1.4389-1.882.929-1.0868-.0062-.1579h-.0546l-6.3385 4.1164-1.1293.1457-.4857-.4554.0608-.7467.2307-.2429 1.9064-1.3114Z"/></svg></span>
+          </div>
+          <span>Skills, agents, MCP tools, and token context.</span>
+        </a>
+        <a class="tile cyan" href="https://github.com/kylesnav/delightful-vscode">
+          <div class="tile-head">
+            <strong>VS Code</strong>
+            <span class="tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.8 1.4L21.2 3.6C21.7 3.8 22 4.3 22 4.9V19.1C22 19.7 21.7 20.2 21.2 20.4L16.8 22.6C16.5 22.8 16.1 22.7 15.8 22.5L7.3 15L3.7 17.8C3.3 18.1 2.7 18.1 2.4 17.7L1 16.2C0.7 15.8 0.7 15.2 1.1 14.9L4.2 12L1.1 9.1C0.7 8.8 0.7 8.2 1 7.8L2.4 6.3C2.7 5.9 3.3 5.9 3.7 6.2L7.3 9L15.8 1.5C16.1 1.3 16.5 1.2 16.8 1.4ZM16.5 7.6L10.5 12L16.5 16.4V7.6Z"/></svg></span>
+          </div>
+          <span>Marketplace-ready light and dark color themes.</span>
+        </a>
+        <a class="tile gold" href="https://github.com/kylesnav/obsidian-delightful">
+          <div class="tile-head">
+            <strong>Obsidian</strong>
+            <span class="tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.355 18.538a68.967 68.959 0 0 0 1.858-2.954.81.81 0 0 0-.062-.9c-.516-.685-1.504-2.075-2.042-3.362-.553-1.321-.636-3.375-.64-4.377a1.707 1.707 0 0 0-.358-1.05l-3.198-4.064a3.744 3.744 0 0 1-.076.543c-.106.503-.307 1.004-.536 1.5-.134.29-.29.6-.446.914l-.31.626c-.516 1.068-.997 2.227-1.132 3.59-.124 1.26.046 2.73.815 4.481.128.011.257.025.386.044a6.363 6.363 0 0 1 3.326 1.505c.916.79 1.744 1.922 2.415 3.5zM8.199 22.569c.073.012.146.02.22.02.78.024 2.095.092 3.16.29.87.16 2.593.64 4.01 1.055 1.083.316 2.198-.548 2.355-1.664.114-.814.33-1.735.725-2.58l-.01.005c-.67-1.87-1.522-3.078-2.416-3.849a5.295 5.295 0 0 0-2.778-1.257c-1.54-.216-2.952.19-3.84.45.532 2.218.368 4.829-1.425 7.531zM5.533 9.938c-.023.1-.056.197-.098.29L2.82 16.059a1.602 1.602 0 0 0 .313 1.772l4.116 4.24c2.103-3.101 1.796-6.02.836-8.3-.728-1.73-1.832-3.081-2.55-3.831zM9.32 14.01c.615-.183 1.606-.465 2.745-.534-.683-1.725-.848-3.233-.716-4.577.154-1.552.7-2.847 1.235-3.95.113-.235.223-.454.328-.664.149-.297.288-.577.419-.86.217-.47.379-.885.46-1.27.08-.38.08-.72-.014-1.043-.095-.325-.297-.675-.68-1.06a1.6 1.6 0 0 0-1.475.36l-4.95 4.452a1.602 1.602 0 0 0-.513.952l-.427 2.83c.672.59 2.328 2.316 3.335 4.711.09.21.175.43.253.653z"/></svg></span>
+          </div>
+          <span>Community theme with modular source CSS.</span>
+        </a>
+        <a class="tile green" href="https://github.com/kylesnav/delightful-ghostty">
+          <div class="tile-head">
+            <strong>Ghostty</strong>
+            <span class="tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C6.7 0 2.4 4.3 2.4 9.6v11.146c0 1.772 1.45 3.267 3.222 3.254a3.18 3.18 0 0 0 1.955-.686 1.96 1.96 0 0 1 2.444 0 3.18 3.18 0 0 0 1.976.686c.75 0 1.436-.257 1.98-.686.715-.563 1.71-.587 2.419-.018.59.476 1.355.743 2.182.699 1.705-.094 3.022-1.537 3.022-3.244V9.601C21.6 4.3 17.302 0 12 0M6.069 6.562a1 1 0 0 1 .46.131l3.578 2.065v.002a.974.974 0 0 1 0 1.687L6.53 12.512a.975.975 0 0 1-.976-1.687L7.67 9.602 5.553 8.38a.975.975 0 0 1 .515-1.818m7.438 2.063h4.7a.975.975 0 1 1 0 1.95h-4.7a.975.975 0 0 1 0-1.95"/></svg></span>
+          </div>
+          <span>Terminal themes, config, and optional shaders.</span>
+        </a>
+        <a class="tile purple" href="https://github.com/kylesnav/delightful-iterm2">
+          <div class="tile-head">
+            <strong>iTerm2</strong>
+            <span class="tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.693 0A3.721 3.721 0 0 0 0 3.693v16.614A3.721 3.721 0 0 0 3.693 24h16.614A3.721 3.721 0 0 0 24 20.307V3.693A3.721 3.721 0 0 0 20.307 0zm0 1.26h16.614a2.44 2.44 0 0 1 2.433 2.433v16.614a2.44 2.44 0 0 1-2.433 2.433H3.693a2.44 2.44 0 0 1-2.433-2.433V3.693A2.44 2.44 0 0 1 3.693 1.26zM6.937 4.29l6.08 7.537-6.08 7.883h2.676l6.08-7.883-6.08-7.537z"/></svg></span>
+          </div>
+          <span>Generated `.itermcolors` profiles.</span>
+        </a>
+        <a class="tile pink" href="https://github.com/kylesnav/delightful-starship">
+          <div class="tile-head">
+            <strong>Starship</strong>
+            <span class="tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.13 22.19l-1.63-3.83c1.57-1.29 2.95-2.82 4.08-4.53l2.74.85-5.19 7.51M5.64 12.5l-3.83-1.63 7.51-5.19.85 2.74c-1.71 1.13-3.24 2.51-4.53 4.08m15.97-10.11s-4.95-2.12-10.61 3.54c-2.19 2.19-3.5 4.6-4.35 6.71-.28.75-.09 1.57.46 2.13l2.13 2.12c.56.57 1.38.75 2.13.47 2.14-.88 4.51-2.16 6.7-4.35 5.66-5.66 3.54-10.62 3.54-10.62m-7.06 7.07c-.78-.78-.78-2.05 0-2.83s2.05-.78 2.83 0c.77.78.78 2.05 0 2.83-.78.78-2.05.78-2.83 0M6.24 22h1.41l3.64-3.64c-.34-.09-.67-.24-.97-.45L6.24 22M2 22h1.41l4.77-4.76-1.42-1.41L2 20.59V22m0-2.83l4.09-4.08c-.21-.3-.36-.63-.45-.97L2 17.76v1.41"/></svg></span>
+          </div>
+          <span>Rainbow powerline prompt with Delightful colors.</span>
+        </a>
+        <a class="tile cyan" href="https://github.com/kylesnav/delightful-shell">
+          <div class="tile-head">
+            <strong>Shell</strong>
+            <span class="tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg></span>
+          </div>
+          <span>tmux, zsh, auto-attach, and smart-open utilities.</span>
+        </a>
+        <a class="tile gold" href="https://github.com/kylesnav/claude-setup">
+          <div class="tile-head">
+            <strong>Setup</strong>
+            <span class="tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5 5L3 18v3h3l6.7-6.7a4 4 0 0 0 5-5l-2.4 2.4-3-3 2.4-2.4Z"/><path d="M6 18l-1 1"/></svg></span>
+          </div>
+          <span>Machine setup orchestration for the full environment.</span>
+        </a>
       </div>
     </section>
   </main>
