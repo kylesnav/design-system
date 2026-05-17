@@ -1,12 +1,572 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="refresh" content="0;url=delightful-design-system.html">
-  <title>Delightful — Design System</title>
-  <link rel="canonical" href="delightful-design-system.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Delightful is a warm, neo-brutalist design system built on OKLCH colors, three-tier tokens, and springy motion.">
+  <title>Delightful</title>
+  <link rel="canonical" href="https://delightful.build/">
+  <style>
+    @layer reset, primitives, semantic, component, utilities;
+
+    @layer reset {
+      *, *::before, *::after { box-sizing: border-box; }
+      html { color-scheme: light; scroll-behavior: smooth; }
+      html[data-theme="dark"] { color-scheme: dark; }
+      body { margin: 0; font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+      img { display: block; max-width: 100%; }
+      a { color: inherit; }
+    }
+
+    @layer primitives {
+      :root {
+        --neutral-0: oklch(1 0 0);
+        --neutral-25: oklch(0.988 0.006 70);
+        --neutral-50: oklch(0.980 0.008 70);
+        --neutral-100: oklch(0.960 0.010 70);
+        --neutral-200: oklch(0.920 0.012 70);
+        --neutral-700: oklch(0.350 0.010 70);
+        --neutral-900: oklch(0.180 0.012 60);
+        --neutral-950: oklch(0.140 0.012 60);
+        --pink-400: oklch(0.640 0.270 350);
+        --pink-500: oklch(0.560 0.280 350);
+        --gold-400: oklch(0.840 0.175 85);
+        --cyan-400: oklch(0.650 0.148 210);
+        --green-400: oklch(0.630 0.170 148);
+        --purple-400: oklch(0.640 0.220 300);
+      }
+    }
+
+    @layer semantic {
+      :root {
+        --bg-page: oklch(0.982 0.008 70);
+        --bg-surface: oklch(0.995 0.004 70);
+        --bg-elevated: var(--neutral-0);
+        --bg-muted: oklch(0.940 0.012 70);
+        --text-primary: oklch(0.200 0.015 60);
+        --text-secondary: oklch(0.420 0.012 65);
+        --text-muted: oklch(0.540 0.010 65);
+        --text-on-accent: oklch(1 0 0);
+        --border-default: oklch(0.340 0.025 60);
+        --border-subtle: oklch(0.820 0.015 70);
+        --accent-primary: var(--pink-400);
+        --accent-primary-hover: var(--pink-500);
+        --accent-gold: var(--gold-400);
+        --accent-cyan: var(--cyan-400);
+        --accent-green: var(--green-400);
+        --accent-purple: var(--purple-400);
+        --shadow-sm: 2px 2px 0 var(--text-primary);
+        --shadow-md: 4px 4px 0 var(--text-primary), 0 4px 8px oklch(0 0 0 / 0.08);
+        --shadow-lg: 8px 8px 0 var(--text-primary), 0 12px 24px oklch(0 0 0 / 0.12);
+        --radius-sm: 8px;
+        --radius-md: 12px;
+        --space-2: 0.5rem;
+        --space-3: 0.75rem;
+        --space-4: 1rem;
+        --space-5: 1.25rem;
+        --space-6: 1.5rem;
+        --space-8: 2rem;
+        --space-10: 2.5rem;
+        --space-12: 3rem;
+        --space-16: 4rem;
+        --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      [data-theme="dark"] {
+        --bg-page: oklch(0.140 0.014 65);
+        --bg-surface: oklch(0.165 0.015 65);
+        --bg-elevated: oklch(0.190 0.015 65);
+        --bg-muted: oklch(0.230 0.012 65);
+        --text-primary: oklch(0.935 0.008 70);
+        --text-secondary: oklch(0.780 0.010 70);
+        --text-muted: oklch(0.650 0.010 70);
+        --text-on-accent: oklch(0.140 0.014 65);
+        --border-default: oklch(0.550 0.010 65);
+        --border-subtle: oklch(0.330 0.015 65);
+        --accent-primary: oklch(0.700 0.230 350);
+        --accent-gold: oklch(0.840 0.170 85);
+        --accent-cyan: oklch(0.720 0.140 210);
+        --accent-green: oklch(0.680 0.155 148);
+        --accent-purple: oklch(0.700 0.200 300);
+        --shadow-sm: 2px 2px 0 oklch(0.92 0.010 65 / 0.22);
+        --shadow-md: 4px 4px 0 oklch(0.92 0.010 65 / 0.22), 0 4px 12px oklch(0 0 0 / 0.3);
+        --shadow-lg: 8px 8px 0 oklch(0.92 0.010 65 / 0.22), 0 12px 32px oklch(0 0 0 / 0.4);
+      }
+    }
+
+    @layer component {
+      body {
+        background: var(--bg-page);
+        color: var(--text-primary);
+        line-height: 1.5;
+      }
+
+      .skip-link {
+        position: absolute;
+        left: var(--space-4);
+        top: var(--space-4);
+        z-index: 10;
+        padding: var(--space-2) var(--space-3);
+        background: var(--bg-elevated);
+        border: 2px solid var(--text-primary);
+        border-radius: var(--radius-sm);
+        transform: translateY(-140%);
+      }
+
+      .skip-link:focus { transform: translateY(0); }
+
+      .topbar {
+        position: fixed;
+        inset: 0 0 auto 0;
+        z-index: 5;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--space-4);
+        padding: var(--space-3) clamp(var(--space-4), 4vw, var(--space-10));
+        background: oklch(0.982 0.008 70 / 0.92);
+        border-bottom: 2px solid var(--border-default);
+        backdrop-filter: blur(10px);
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: var(--space-3);
+        font-weight: 900;
+        text-decoration: none;
+      }
+
+      .mark {
+        width: 32px;
+        aspect-ratio: 1;
+        background: var(--accent-primary);
+        border: 2px solid var(--text-primary);
+        border-radius: var(--radius-sm);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        gap: var(--space-2);
+        font-size: 0.875rem;
+        font-weight: 750;
+      }
+
+      .nav a {
+        padding: 0.35rem 0.55rem;
+        border-radius: var(--radius-sm);
+        text-decoration: none;
+      }
+
+      .nav a:hover {
+        background: var(--bg-muted);
+      }
+
+      .topbar-actions {
+        display: flex;
+        align-items: center;
+        gap: var(--space-3);
+      }
+
+      .theme-toggle {
+        display: inline-grid;
+        place-items: center;
+        width: 40px;
+        aspect-ratio: 1;
+        background: var(--bg-elevated);
+        color: var(--text-primary);
+        border: 2px solid var(--text-primary);
+        border-radius: var(--radius-sm);
+        box-shadow: var(--shadow-sm);
+        cursor: pointer;
+      }
+
+      .theme-toggle svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      .theme-toggle:hover {
+        transform: translateY(-1px);
+      }
+
+      .theme-toggle .moon,
+      [data-theme="dark"] .theme-toggle .sun {
+        display: none;
+      }
+
+      [data-theme="dark"] .theme-toggle .moon {
+        display: block;
+      }
+
+      .hero {
+        position: relative;
+        min-height: 86svh;
+        display: grid;
+        align-items: end;
+        padding: clamp(6rem, 12vh, 9rem) clamp(var(--space-4), 5vw, var(--space-16)) var(--space-12);
+        overflow: clip;
+        border-bottom: 2px solid var(--text-primary);
+        background-image: url("screenshots/Delightful-Light.png");
+        background-size: cover;
+        background-position: center top;
+      }
+
+      [data-theme="dark"] .hero { background-image: url("screenshots/Delightful-Dark.png"); }
+      [data-theme="dark"] .topbar { background: oklch(0.140 0.014 65 / 0.92); }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: oklch(0.982 0.008 70 / 0.84);
+      }
+
+      [data-theme="dark"] .hero::before { background: oklch(0.140 0.014 65 / 0.84); }
+
+      .hero-content {
+        position: relative;
+        max-width: 920px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--space-2);
+        margin: 0 0 var(--space-4);
+        padding: var(--space-2) var(--space-3);
+        background: var(--accent-gold);
+        color: var(--text-primary);
+        border: 2px solid var(--text-primary);
+        border-radius: var(--radius-sm);
+        box-shadow: var(--shadow-sm);
+        font-size: 0.8125rem;
+        font-weight: 850;
+        text-transform: uppercase;
+        letter-spacing: 0;
+      }
+
+      h1 {
+        margin: 0;
+        max-width: 11ch;
+        font-size: clamp(4rem, 14vw, 11rem);
+        line-height: 0.82;
+        letter-spacing: 0;
+      }
+
+      .lede {
+        max-width: 720px;
+        margin: var(--space-6) 0 0;
+        font-size: clamp(1.125rem, 2vw, 1.45rem);
+        color: var(--text-secondary);
+        font-weight: 620;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-3);
+        margin-top: var(--space-8);
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 44px;
+        padding: 0.75rem 1rem;
+        border: 2px solid var(--text-primary);
+        border-radius: var(--radius-sm);
+        box-shadow: var(--shadow-sm);
+        background: var(--bg-elevated);
+        color: var(--text-primary);
+        font-weight: 850;
+        text-decoration: none;
+        transition: transform 160ms var(--ease-out), box-shadow 160ms var(--ease-out);
+      }
+
+      .button:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+      .button:active { transform: translate(2px, 2px); box-shadow: 0 0 0 var(--text-primary); }
+      .button.primary { background: var(--accent-primary); color: var(--text-on-accent); }
+
+      main {
+        display: grid;
+        gap: var(--space-16);
+        padding: var(--space-12) clamp(var(--space-4), 5vw, var(--space-16)) var(--space-16);
+      }
+
+      section {
+        max-width: 1180px;
+        width: 100%;
+        margin: 0 auto;
+      }
+
+      .section-head {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: var(--space-6);
+        margin-bottom: var(--space-6);
+      }
+
+      h2 {
+        margin: 0;
+        font-size: clamp(2rem, 4vw, 4rem);
+        line-height: 0.95;
+        letter-spacing: 0;
+      }
+
+      .section-note {
+        max-width: 520px;
+        margin: 0;
+        color: var(--text-secondary);
+        font-weight: 600;
+      }
+
+      .reference-grid,
+      .repo-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: var(--space-4);
+      }
+
+      .repo-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+      .tile {
+        display: grid;
+        gap: var(--space-3);
+        min-height: 180px;
+        padding: var(--space-5);
+        background: var(--bg-surface);
+        border: 2px solid var(--text-primary);
+        border-radius: var(--radius-sm);
+        box-shadow: var(--shadow-md);
+        text-decoration: none;
+        transition: transform 160ms var(--ease-out), box-shadow 160ms var(--ease-out);
+      }
+
+      .tile:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+      .tile strong { display: block; font-size: 1.125rem; }
+      .tile span { color: var(--text-secondary); font-weight: 600; }
+      .tile.pink { border-top: 8px solid var(--accent-primary); }
+      .tile.gold { border-top: 8px solid var(--accent-gold); }
+      .tile.cyan { border-top: 8px solid var(--accent-cyan); }
+      .tile.green { border-top: 8px solid var(--accent-green); }
+      .tile.purple { border-top: 8px solid var(--accent-purple); }
+
+      .showcase {
+        display: grid;
+        grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+        gap: var(--space-6);
+        align-items: center;
+      }
+
+      .showcase-copy {
+        display: grid;
+        gap: var(--space-4);
+      }
+
+      .showcase-copy p {
+        margin: 0;
+        color: var(--text-secondary);
+        font-size: 1.0625rem;
+        font-weight: 600;
+      }
+
+      .media-stack {
+        display: grid;
+        gap: var(--space-4);
+      }
+
+      .media-frame {
+        overflow: hidden;
+        border: 2px solid var(--text-primary);
+        border-radius: var(--radius-sm);
+        box-shadow: var(--shadow-lg);
+        background: var(--bg-surface);
+      }
+
+      .platforms {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-2);
+      }
+
+      .pill {
+        padding: 0.45rem 0.65rem;
+        background: var(--bg-muted);
+        border: 2px solid var(--border-default);
+        border-radius: var(--radius-sm);
+        font-size: 0.8125rem;
+        font-weight: 800;
+      }
+
+      footer {
+        padding: var(--space-8) clamp(var(--space-4), 5vw, var(--space-16));
+        border-top: 2px solid var(--text-primary);
+        color: var(--text-secondary);
+        font-weight: 650;
+      }
+    }
+
+    @layer utilities {
+      @media (max-width: 920px) {
+        .topbar { position: static; align-items: flex-start; flex-direction: column; }
+        .topbar-actions { width: 100%; align-items: flex-start; justify-content: space-between; }
+        .nav { justify-content: flex-start; }
+        .hero { min-height: 76svh; padding-top: var(--space-8); }
+        .section-head, .showcase { display: grid; }
+        .reference-grid, .repo-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      }
+
+      @media (max-width: 620px) {
+        .reference-grid, .repo-grid { grid-template-columns: 1fr; }
+        .tile { min-height: auto; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+          animation-duration: 0.01ms !important;
+          transition-duration: 0.01ms !important;
+          scroll-behavior: auto !important;
+        }
+      }
+    }
+  </style>
 </head>
 <body>
-  <p>Redirecting to <a href="delightful-design-system.html">Delightful Design System</a>...</p>
+  <a class="skip-link" href="#content">Skip to content</a>
+  <header class="topbar" aria-label="Site header">
+    <a class="brand" href="/">
+      <span class="mark" aria-hidden="true"></span>
+      <span>Delightful</span>
+    </a>
+    <div class="topbar-actions">
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="delightful-design-system.html">Design</a>
+        <a href="delightful-color.html">Color</a>
+        <a href="delightful-motion.html">Motion</a>
+        <a href="delightful-animation.html">Animation</a>
+        <a href="#ecosystem">Repos</a>
+      </nav>
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle theme">
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4"></circle>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path>
+        </svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12.3 3.1a7.7 7.7 0 1 0 8.6 8.6 6 6 0 1 1-8.6-8.6Z"></path>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-content">
+      <p class="eyebrow">OKLCH tokens · neo-brutalist UI · motion with snap</p>
+      <h1 id="hero-title">Delightful</h1>
+      <p class="lede">A warm design system for editors, terminals, notes, agents, and the messy human work between them. Built from a three-tier token architecture and shipped across the tools I actually live in.</p>
+      <div class="actions">
+        <a class="button primary" href="delightful-design-system.html">Open the system</a>
+        <a class="button" href="#ecosystem">Browse the ports</a>
+      </div>
+    </div>
+  </section>
+
+  <main id="content">
+    <section aria-labelledby="references-title">
+      <div class="section-head">
+        <h2 id="references-title">Reference Pages</h2>
+        <p class="section-note">The public docs are plain HTML: inspectable, portable, and close to the tokens they describe.</p>
+      </div>
+      <div class="reference-grid">
+        <a class="tile pink" href="delightful-design-system.html">
+          <strong>Design System</strong>
+          <span>Components, tokens, interactions, composition, and implementation notes.</span>
+        </a>
+        <a class="tile gold" href="delightful-color.html">
+          <strong>Color</strong>
+          <span>OKLCH primitive families, semantic roles, and component bindings.</span>
+        </a>
+        <a class="tile cyan" href="delightful-motion.html">
+          <strong>Motion</strong>
+          <span>CSS animation catalog with reduced-motion behavior.</span>
+        </a>
+        <a class="tile green" href="delightful-animation.html">
+          <strong>Animation</strong>
+          <span>Spring physics, FLIP, particles, gestures, and motion experiments.</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="showcase" aria-labelledby="system-title">
+      <div class="showcase-copy">
+        <h2 id="system-title">A system with fingerprints</h2>
+        <p>Delightful uses warm neutrals, unapologetic borders, solid offset shadows, and bright-but-controlled accents. The goal is not generic polish. It is software that feels sturdy, expressive, and a little more alive.</p>
+        <div class="platforms" aria-label="Design foundations">
+          <span class="pill">Primitives</span>
+          <span class="pill">Semantic tokens</span>
+          <span class="pill">Component tokens</span>
+          <span class="pill">Light and dark</span>
+          <span class="pill">Reduced motion</span>
+        </div>
+      </div>
+      <div class="media-stack">
+        <figure class="media-frame">
+          <img src="screenshots/VSCode-Light.png" alt="Delightful VS Code light theme">
+        </figure>
+        <figure class="media-frame">
+          <img src="screenshots/Obsidian-Dark.png" alt="Delightful Obsidian dark theme">
+        </figure>
+      </div>
+    </section>
+
+    <section id="ecosystem" aria-labelledby="ecosystem-title">
+      <div class="section-head">
+        <h2 id="ecosystem-title">Ecosystem</h2>
+        <p class="section-note">Each port is standalone so it can follow the platform it belongs to. This site stays the reference hub.</p>
+      </div>
+      <div class="repo-grid">
+        <a class="tile pink" href="https://github.com/kylesnav/delightful-claude-plugin"><strong>Claude Code</strong><span>Skills, agents, MCP tools, and token context.</span></a>
+        <a class="tile cyan" href="https://github.com/kylesnav/delightful-vscode"><strong>VS Code</strong><span>Marketplace-ready light and dark color themes.</span></a>
+        <a class="tile gold" href="https://github.com/kylesnav/obsidian-delightful"><strong>Obsidian</strong><span>Community theme with modular source CSS.</span></a>
+        <a class="tile green" href="https://github.com/kylesnav/delightful-ghostty"><strong>Ghostty</strong><span>Terminal themes, config, and optional shaders.</span></a>
+        <a class="tile purple" href="https://github.com/kylesnav/delightful-iterm2"><strong>iTerm2</strong><span>Generated `.itermcolors` profiles.</span></a>
+        <a class="tile pink" href="https://github.com/kylesnav/delightful-starship"><strong>Starship</strong><span>Rainbow powerline prompt with Delightful colors.</span></a>
+        <a class="tile cyan" href="https://github.com/kylesnav/delightful-shell"><strong>Shell</strong><span>tmux, zsh, auto-attach, and smart-open utilities.</span></a>
+        <a class="tile gold" href="https://github.com/kylesnav/claude-setup"><strong>Setup</strong><span>Machine setup orchestration for the full environment.</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>Delightful lives at delightful.build. Source on GitHub: github.com/kylesnav/delightful-design-system.</span>
+  </footer>
+  <script>
+    const html = document.documentElement;
+    const themeToggle = document.getElementById('theme-toggle');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+
+    function applyTheme(theme, persist = false) {
+      html.setAttribute('data-theme', theme);
+      if (persist) localStorage.setItem('delightful-theme', theme);
+    }
+
+    const savedTheme = localStorage.getItem('delightful-theme');
+    applyTheme(savedTheme || (prefersDark.matches ? 'dark' : 'light'));
+
+    themeToggle.addEventListener('click', () => {
+      applyTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark', true);
+    });
+
+    prefersDark.addEventListener('change', (event) => {
+      if (!localStorage.getItem('delightful-theme')) {
+        applyTheme(event.matches ? 'dark' : 'light');
+      }
+    });
+  </script>
 </body>
 </html>
